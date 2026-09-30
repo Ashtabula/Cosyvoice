@@ -23,3 +23,11 @@ Prompt 摘要：把目前更新的部分 push 回 Ashtabula/Cosyvoice，建立�
 测试或验证结果：.venv-upstream 与 .venv-coreml 均成功编译 ios/tools/*.py；git diff --check 通过；待提交内容未发现 GitHub/Hugging Face token、private key 或超过 5 MB 的文件。未重新运行耗时模型推理；此前数值结果保持原状态。
 平台/路径/阶段：本地 macOS /Volumes/WD/Codes/CosyVoice3；GitHub 目标 https://github.com/Ashtabula/Cosyvoice；本地 6.5 GB Core ML 转换模型和 98 MB validation 工作数据继续保留在 ios 下但由 Git 忽略。无 Colab/Google Drive 操作。
 GitHub Timeline：目标 fork 已创建；本条记录写入时尚未 commit/push，后续在同一工作流中提交并 push main。
+
+时间：2026-09-29 21:52 America/New_York
+Prompt 摘要：完成本次 Ashtabula/Cosyvoice 提交与 push 的最终状态记录。
+具体动作：将已审核的 ios 目录、项目 agent 协议和忽略规则提交为 9ffb9d9，并成功 push 到 Ashtabula/Cosyvoice main；本地 main 已设置跟踪 ashtabula/main。
+修改文件：仅 append 更新 历史工作记录.txt，记录已完成的 GitHub Timeline。
+测试或验证结果：远端返回 074ca6d..9ffb9d9 main -> main；首次 push 成功。
+平台/路径/阶段：本地 Git repository 到 GitHub remote https://github.com/Ashtabula/Cosyvoice.git；无 Colab/Google Drive 操作。
+GitHub Timeline：已 commit 9ffb9d9，已 push 到 ashtabula/main；本条最终记录将在后续小型日志 commit 中同步到同一分支。
