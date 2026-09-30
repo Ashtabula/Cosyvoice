@@ -50,3 +50,14 @@ pretrained_models/*
 *_pb2_grpc.py
 *_pb2.py
 *.tar
+# Local migration environments, captures, converted models and caches
+.venv-upstream/
+.venv-coreml/
+ios/validation/phase0/**/tensors/
+ios/validation/phase0/**/baseline.wav
+ios/validation/**/*.log
+ios/validation/**/*.npy
+ios/converted/
+asset/leijun-1.txt
+*.mlpackage/
+*.mlmodelc/

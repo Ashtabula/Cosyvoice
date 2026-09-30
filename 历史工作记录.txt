@@ -1,0 +1,25 @@
+
+时间：2026-09-29 18:05 America/New_York
+Prompt 摘要：执行 COSYVOICE3_IOS_ANE_MIGRATION_BRIEF.md，使用 leijun-1 音频及已验证 upstream 环境，下载精确 checkpoint，建立 Phase 0 后依次迁移。
+具体动作：读取 upstream frontend/LLM/model/config；建立项目个人操作协议、独立下载工具；使用用户提供的 .venv-upstream。网络沙盒 DNS 失败后申请已授权下载的联网执行，现下载中。
+修改文件：AGENT_PERSONAL_CUSTOMIZATION.md、.gitignore、iOS/tools/download_checkpoint.py、iOS/validation/provenance/*。
+测试或验证结果：torch 2.3.1 / torchaudio 2.3.1 / ONNX Runtime 1.18.0 可导入；参考 WAV 单声道 24 kHz、145361 samples、6.056708 秒；REQUIREMENTS.md 与既有历史工作记录未找到。未修改 upstream 模型实现。
+平台/路径/阶段：本地 macOS；HF cache 位于本工作区 .cache/huggingface；下载阶段；无 Colab/Drive 操作。
+GitHub Timeline：未 commit，未 push；用户尚未要求 push。
+
+时间：2026-09-29 18:15 America/New_York
+Prompt 摘要：下载固定 CosyVoice3 base checkpoint，以 leijun-1 参考执行 Phase 0、资产审计，建立隔离 Core ML 环境并按门槛迁移。
+具体动作：下载并校验 20 个官方文件；锁定 revision 29e01c4e8d000f4bcd70751be16fa94bf3d85a18；在 .venv-upstream 修复 SciPy 1.15.3 Mach-O import 错误，安装 1.13.1；实际执行两次官方非流式零样本合成；保存 23 组 conditioning/LLM/KV/DiT/HiFT/PCM 数据及 token JSON；测量唯一权重存储与重复 initializer；创建 .venv-coreml，安装 Core ML Tools 9.0 并通过本机 CPU conversion/load/predict smoke；未修改 Dub 环境或 upstream Python 源码。
+修改文件：AGENT_PERSONAL_CUSTOMIZATION.md、.gitignore、iOS/tools/{download_checkpoint.py,capture_baseline.py,audit_assets.py,verify_baseline.py,validate_coreml_toolchain.py,requirements-coreml.txt}、iOS/{README.md,API.md,ASSETS.md,LICENSE_AUDIT.md,manifest.json}、iOS/validation/ 下日志、配置、receipt、资产与环境记录。
+测试或验证结果：checkpoint 总大小 9747516745 bytes；所选 clone runtime 权重文件 4434743215 bytes；唯一 payload 4432411100 bytes；FP16 heavy graphs + 原始 enrollment payload 估算 2714040126 bytes，未验证转换质量或最终包大小。baseline 输出 24 kHz、mono Float32、9 秒、216000 finite samples；两次捕获 tensor 逐位一致，PCM SHA256 953037c06c8cfe5c3381e005b007768d150663d543bafb6ce3beff3d6ffc72f4；WAV 文件 hash 仅 PEAK timestamp 不同，保留初始失败判断和修正后的验证证据。Core ML 环境 pip check 通过；upstream 环境原有 grpcio/grpcio-tools 1.57.0 报平台支持警告，不影响本次实际离线路径。没有 iPhone、ANE residency、最终音质或峰值内存证据。
+平台/路径/阶段：全部本地 macOS /Volumes/WD/Codes/CosyVoice3；HF、pip 和绘图 cache 指向工作区 .cache；初次绘图/HF cache 写权限警告在第二次运行以本地 cache 变量处理。Core ML sandbox 编译临时目录失败，授权后本地 CPU smoke 通过。无 Colab/Google Drive 同步。
+阶段边界：Phase 0 自动验证完成，已向用户提供 baseline WAV 并请求可懂度及说话人音色试听；迁移 brief 第 8 节明确要求先试听。大型模型转换、Swift runtime、物理设备和 Milestone 2 尚未开始；manifest 明确标记待验证，未创建假实现。
+GitHub Timeline：未 commit、未 push；用户未要求 push。模型、venv、音频和大型 tensor artifacts 均保留本地，不加入 Git。
+
+时间：2026-09-29 21:51 America/New_York
+Prompt 摘要：把目前更新的部分 push 回 Ashtabula/Cosyvoice，建立小写 ios 目录并将 Apple 迁移内容放入该目录。
+具体动作：确认原 origin 仍为 FunAudioLLM/CosyVoice；确认 Ashtabula/Cosyvoice 原先不存在；使用已登录的 Ashtabula 账号创建上游 fork；将本地 iOS 目录迁移为 ios，并把 COSYVOICE3_IOS_ANE_MIGRATION_BRIEF.md 移入 ios；批量更新脚本、文档和 machine-readable receipts 中的目录引用；更新 .gitignore，排除 .venv、checkpoint、Core ML packages、参考音频/transcript、baseline WAV、tensor、日志和 NumPy 大型中间结果。
+修改文件：.gitignore、AGENT_PERSONAL_CUSTOMIZATION.md、历史工作记录.txt，以及 ios/ 下文档、工具脚本和小型 JSON 验证 receipts。
+测试或验证结果：.venv-upstream 与 .venv-coreml 均成功编译 ios/tools/*.py；git diff --check 通过；待提交内容未发现 GitHub/Hugging Face token、private key 或超过 5 MB 的文件。未重新运行耗时模型推理；此前数值结果保持原状态。
+平台/路径/阶段：本地 macOS /Volumes/WD/Codes/CosyVoice3；GitHub 目标 https://github.com/Ashtabula/Cosyvoice；本地 6.5 GB Core ML 转换模型和 98 MB validation 工作数据继续保留在 ios 下但由 Git 忽略。无 Colab/Google Drive 操作。
+GitHub Timeline：目标 fork 已创建；本条记录写入时尚未 commit/push，后续在同一工作流中提交并 push main。

@@ -1,0 +1,8 @@
+{
+  "timestamp": "2026-09-29T18:18:38.132080-04:00",
+  "user_response": "good",
+  "interpretation": "User accepted presented upstream baseline intelligibility and speaker identity",
+  "baseline": "validation/phase0/run-002/baseline.wav",
+  "wav_sha256": "039f660d029d8f1b46c6774567efc07babb4dd2b26a003b54657f60064b2e671",
+  "scope": "upstream fixture only; not ios A/B acceptance"
+}

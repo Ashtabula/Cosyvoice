@@ -1,0 +1,281 @@
+{
+  "model_revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+  "pytorch": {
+    "llm.pt": {
+      "unique_storage_bytes": 2024593920,
+      "fp16_payload_estimate_bytes": 1012296960,
+      "tensor_count": 293,
+      "storage_aliases": [
+        "llm.model.lm_head.weight"
+      ],
+      "dtype_counts": {
+        "torch.float32": 642283136
+      },
+      "blank_init_missing_or_shape_mismatch": [],
+      "blank_init_fully_overwritten_by_strict_load": true,
+      "qwen_lm_head_equals_text_embedding": true,
+      "qwen_lm_head_unused_in_speech_logit_path": true,
+      "qwen_lm_head_bytes": 544538624
+    },
+    "flow.pt": {
+      "unique_storage_bytes": 1329028480,
+      "fp16_payload_estimate_bytes": 664514240,
+      "tensor_count": 330,
+      "storage_aliases": [],
+      "dtype_counts": {
+        "torch.float32": 332257120
+      }
+    },
+    "hift.pt": {
+      "unique_storage_bytes": 83119548,
+      "fp16_payload_estimate_bytes": 41559774,
+      "tensor_count": 328,
+      "storage_aliases": [],
+      "dtype_counts": {
+        "torch.float32": 20779887
+      }
+    }
+  },
+  "onnx": {
+    "campplus.onnx": {
+      "initializer_bytes": 27630720,
+      "initializer_count": 617,
+      "weight_fingerprint": "33c5a1d925074efc62a2caae08eb4a8fe129371cc7c50532e83e5a9f0c1a9a54",
+      "inputs": [
+        "input"
+      ],
+      "outputs": [
+        "output"
+      ]
+    },
+    "speech_tokenizer_v3.onnx": {
+      "initializer_bytes": 968038432,
+      "initializer_count": 198,
+      "weight_fingerprint": "f528ef0d2e0c005ca7c69715a2c9a7910147e220bf7e8f79dbd3fbd409e81f34",
+      "inputs": [
+        "feats",
+        "feats_length"
+      ],
+      "outputs": [
+        "indices"
+      ]
+    },
+    "speech_tokenizer_v3.batch.onnx": {
+      "initializer_bytes": 968038432,
+      "initializer_count": 198,
+      "weight_fingerprint": "f528ef0d2e0c005ca7c69715a2c9a7910147e220bf7e8f79dbd3fbd409e81f34",
+      "inputs": [
+        "feats",
+        "feats_length"
+      ],
+      "outputs": [
+        "indices"
+      ]
+    },
+    "flow.decoder.estimator.fp32.onnx": {
+      "initializer_bytes": 1324569024,
+      "initializer_count": 323,
+      "weight_fingerprint": "8c20dad71e2067889f878d97b7762c8d89b30b2aeaa45098b141ea639bd3d013",
+      "inputs": [
+        "x",
+        "mask",
+        "mu",
+        "t",
+        "spks",
+        "cond"
+      ],
+      "outputs": [
+        "estimator_out"
+      ]
+    }
+  },
+  "files": [
+    {
+      "path": ".gitattributes",
+      "bytes": 1574,
+      "lfs_sha256": null,
+      "local_sha256": "42828f8bf9e62763376589790ddf6eccc6bde9b761acd2700dc4a383ade92c33",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "CosyVoice-BlankEN/config.json",
+      "bytes": 659,
+      "lfs_sha256": null,
+      "local_sha256": "168aa1bd401abc3bc262ba15ba4e499627a8b4e006e9d050b47c22de20660185",
+      "purpose": "architecture/text-tokenizer metadata",
+      "clone_runtime_required": true,
+      "ios_representation": "versioned engine metadata/tokenizer assets"
+    },
+    {
+      "path": "CosyVoice-BlankEN/generation_config.json",
+      "bytes": 242,
+      "lfs_sha256": null,
+      "local_sha256": "e558847a8b4402616f1273797b015104dc266fe4b520056fca88823ba8f8ebe6",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "CosyVoice-BlankEN/merges.txt",
+      "bytes": 1402109,
+      "lfs_sha256": null,
+      "local_sha256": "ac8ff86a72bee70828fbc1119bc4398c6f3a9a6e490d7b0dbe917be025478bd0",
+      "purpose": "architecture/text-tokenizer metadata",
+      "clone_runtime_required": true,
+      "ios_representation": "versioned engine metadata/tokenizer assets"
+    },
+    {
+      "path": "CosyVoice-BlankEN/model.safetensors",
+      "bytes": 988097824,
+      "lfs_sha256": "130282af0dfa9fe5840737cc49a0d339d06075f83c5a315c3372c9a0740d0b96",
+      "local_sha256": "130282af0dfa9fe5840737cc49a0d339d06075f83c5a315c3372c9a0740d0b96",
+      "purpose": "required by unchanged upstream constructor, overwritten by strict llm.pt load",
+      "clone_runtime_required": false,
+      "ios_representation": "omit from shipping; retain upstream oracle"
+    },
+    {
+      "path": "CosyVoice-BlankEN/tokenizer_config.json",
+      "bytes": 1287,
+      "lfs_sha256": null,
+      "local_sha256": "482bd979881423375ca5414e4e0d94cd7c5349dbb17fffd46b4d36d71e62a1bc",
+      "purpose": "architecture/text-tokenizer metadata",
+      "clone_runtime_required": true,
+      "ios_representation": "versioned engine metadata/tokenizer assets"
+    },
+    {
+      "path": "CosyVoice-BlankEN/vocab.json",
+      "bytes": 2776833,
+      "lfs_sha256": null,
+      "local_sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910",
+      "purpose": "architecture/text-tokenizer metadata",
+      "clone_runtime_required": true,
+      "ios_representation": "versioned engine metadata/tokenizer assets"
+    },
+    {
+      "path": "README.md",
+      "bytes": 11982,
+      "lfs_sha256": null,
+      "local_sha256": "d4ec0fe1342b60a424ce1cd8971c670d26be38068a96148bcb6a1b8a334c3088",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "asset/dingding.png",
+      "bytes": 122824,
+      "lfs_sha256": "7f04815e2e676d31b089af6fa270135f3214f2193d5e0ad98b491d007d48f1c6",
+      "local_sha256": "7f04815e2e676d31b089af6fa270135f3214f2193d5e0ad98b491d007d48f1c6",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "campplus.onnx",
+      "bytes": 28303423,
+      "lfs_sha256": "a6ac6a63997761ae2997373e2ee1c47040854b4b759ea41ec48e4e42df0f4d73",
+      "local_sha256": "a6ac6a63997761ae2997373e2ee1c47040854b4b759ea41ec48e4e42df0f4d73",
+      "purpose": "clone-only learned weights",
+      "clone_runtime_required": true,
+      "ios_representation": "ONNX Runtime CPU enrollment initially"
+    },
+    {
+      "path": "config.json",
+      "bytes": 2,
+      "lfs_sha256": null,
+      "local_sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "configuration.json",
+      "bytes": 47,
+      "lfs_sha256": null,
+      "local_sha256": "c502b6328c67638b401df8dd05de89e9e8d1cff9cd0ada10dfbdbe13556c20de",
+      "purpose": "repository metadata/documentation/image or optional generation config",
+      "clone_runtime_required": false,
+      "ios_representation": "not inference weights; retain required attribution"
+    },
+    {
+      "path": "cosyvoice3.yaml",
+      "bytes": 6934,
+      "lfs_sha256": null,
+      "local_sha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965",
+      "purpose": "architecture/text-tokenizer metadata",
+      "clone_runtime_required": true,
+      "ios_representation": "versioned engine metadata/tokenizer assets"
+    },
+    {
+      "path": "flow.decoder.estimator.fp32.onnx",
+      "bytes": 1326216933,
+      "lfs_sha256": "9b51b9533a55937762b262bf2cf9c6220ce40760f76d6532cb16a6a6d84059a8",
+      "local_sha256": "9b51b9533a55937762b262bf2cf9c6220ce40760f76d6532cb16a6a6d84059a8",
+      "purpose": "alternative estimator deployment and independent oracle; flow.pt also has non-estimator weights",
+      "clone_runtime_required": false,
+      "ios_representation": "retain validation only"
+    },
+    {
+      "path": "flow.pt",
+      "bytes": 1329116148,
+      "lfs_sha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+      "local_sha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+      "purpose": "clone-only learned weights",
+      "clone_runtime_required": true,
+      "ios_representation": "Core ML neural weights"
+    },
+    {
+      "path": "hift.pt",
+      "bytes": 83202622,
+      "lfs_sha256": "b279d7641eb97ae55b3b540cfba4f953c26492a2df758328a89a4d007ab87a65",
+      "local_sha256": "b279d7641eb97ae55b3b540cfba4f953c26492a2df758328a89a4d007ab87a65",
+      "purpose": "clone-only learned weights",
+      "clone_runtime_required": true,
+      "ios_representation": "Core ML neural weights"
+    },
+    {
+      "path": "llm.pt",
+      "bytes": 2024669519,
+      "lfs_sha256": "69f43bd545131c30e98947fb360ea8b4dc9916d8e83dded7757c7ea4f5a24970",
+      "local_sha256": "69f43bd545131c30e98947fb360ea8b4dc9916d8e83dded7757c7ea4f5a24970",
+      "purpose": "clone-only learned weights",
+      "clone_runtime_required": true,
+      "ios_representation": "Core ML neural weights"
+    },
+    {
+      "path": "llm.rl.pt",
+      "bytes": 2024682701,
+      "lfs_sha256": "74d34b01a80c7154670ae75ac372d1b1712c78bceae9f467eb9f1f6f61ec764f",
+      "local_sha256": "74d34b01a80c7154670ae75ac372d1b1712c78bceae9f467eb9f1f6f61ec764f",
+      "purpose": "alternative RL checkpoint, excluded by milestone",
+      "clone_runtime_required": false,
+      "ios_representation": "omit"
+    },
+    {
+      "path": "speech_tokenizer_v3.batch.onnx",
+      "bytes": 969451579,
+      "lfs_sha256": "b156b8a7bbff436585e153f4637b9a368009005ac66efa108a6c8bfb34e5ee43",
+      "local_sha256": "b156b8a7bbff436585e153f4637b9a368009005ac66efa108a6c8bfb34e5ee43",
+      "purpose": "alternative batch enrollment graph",
+      "clone_runtime_required": false,
+      "ios_representation": "omit; single-reference graph selected"
+    },
+    {
+      "path": "speech_tokenizer_v3.onnx",
+      "bytes": 969451503,
+      "lfs_sha256": "23236a74175dbdda47afc66dbadd5bcb41303c467a57c261cb8539ad9db9208d",
+      "local_sha256": "23236a74175dbdda47afc66dbadd5bcb41303c467a57c261cb8539ad9db9208d",
+      "purpose": "clone-only learned weights",
+      "clone_runtime_required": true,
+      "ios_representation": "ONNX Runtime CPU enrollment initially"
+    }
+  ],
+  "repository_file_bytes": 9747516745,
+  "selected_runtime_weight_file_bytes": 4434743215,
+  "selected_runtime_metadata_bytes": 4187822,
+  "unique_clone_weight_payload_bytes": 4432411100,
+  "fp16_neural_plus_original_enrollment_payload_estimate_bytes": 2714040126,
+  "batch_tokenizer_initializer_equivalent": true,
+  "size_caveat": "Unique tensor storage/ONNX initializer payload, not final Core ML package size. Graph overhead, compiler packing and later split-graph duplication unmeasured. FP16 estimate is not validated conversion or quality. Quantization not tested."
+}

@@ -1,0 +1,26 @@
+{
+  "status": "MACOS_CPU_SMOKE_PASS",
+  "python": "3.10.21 (main, Aug 12 2026, 23:03:10) [Clang 21.0.0 (clang-2100.3.34.2)]",
+  "executable": "/Volumes/WD/Codes/CosyVoice3/.venv-coreml/bin/python",
+  "torch": "2.3.1",
+  "coremltools": "9.0",
+  "numpy": "1.26.4",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "input": [
+    [
+      1.0,
+      2.0,
+      3.0,
+      4.0
+    ]
+  ],
+  "output": [
+    [
+      3.0,
+      5.0,
+      7.0,
+      9.0
+    ]
+  ],
+  "scope": "Toolchain smoke only, no CosyVoice conversion, iPhone execution, or ANE residency claim"
+}

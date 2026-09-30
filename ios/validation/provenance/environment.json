@@ -1,0 +1,12 @@
+{
+  "execution": "local macOS",
+  "platform": "macOS-27.0-arm64-arm-64bit",
+  "xcode": "Xcode 27.2\nBuild version 27B5019j\n",
+  "macos": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A5353q\n",
+  "source_revision": "074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc",
+  "submodules": " dd9105b34bf2be2230f4aa1e4769fb586a3c824e third_party/Matcha-TTS (v0.0.5-2-gdd9105b)\n",
+  "target_ios": "not selected; toolchain smoke minimum iOS17 only",
+  "target_device": "not yet selected or tested",
+  "coreml_environment": "/Volumes/WD/Codes/CosyVoice3/.venv-coreml",
+  "upstream_environment": "/Volumes/WD/Codes/CosyVoice3/.venv-upstream"
+}

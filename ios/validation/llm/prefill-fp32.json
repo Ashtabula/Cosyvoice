@@ -1,0 +1,65 @@
+{
+  "mode": "prefill",
+  "capacity": 512,
+  "dtype": "float32",
+  "torch_vs_upstream": {
+    "logits": {
+      "max_abs": 1.52587890625e-05,
+      "rmse": 4.0549407510289804e-06,
+      "relative_l2": 1.114429721073964e-06
+    },
+    "keys": {
+      "max_abs": 3.814697265625e-05,
+      "rmse": 1.3087396517055605e-06,
+      "relative_l2": 1.722823413008185e-07
+    },
+    "values": {
+      "max_abs": 5.7220458984375e-05,
+      "rmse": 1.7127896176256364e-06,
+      "relative_l2": 1.5723991867960773e-06
+    },
+    "hidden": {
+      "max_abs": 8.821487426757812e-06,
+      "rmse": 2.6633185141677274e-06,
+      "relative_l2": 2.130277002119787e-06
+    },
+    "argmax_match": true,
+    "pass": true
+  },
+  "coreml": {
+    "logits": {
+      "max_abs": 2.6702880859375e-05,
+      "rmse": 6.432300896880902e-06,
+      "relative_l2": 1.7678056806516238e-06
+    },
+    "keys": {
+      "max_abs": 0.0003814697265625,
+      "rmse": 6.144232369876915e-06,
+      "relative_l2": 8.088260616228521e-07
+    },
+    "values": {
+      "max_abs": 7.390975952148438e-05,
+      "rmse": 2.7864346658583412e-06,
+      "relative_l2": 2.558041897013468e-06
+    },
+    "hidden": {
+      "max_abs": 1.6927719116210938e-05,
+      "rmse": 4.445773273406986e-06,
+      "relative_l2": 3.5559879566028023e-06
+    },
+    "argmax_match": true,
+    "pass": true
+  },
+  "criteria": {
+    "max_abs": 0.005,
+    "relative_l2": 0.001,
+    "argmax_match": true
+  },
+  "coremltools": "9.0",
+  "torch": "2.3.1",
+  "convert_load_seconds": 10.810826875036582,
+  "predict_seconds": 0.23677758395206183,
+  "package_bytes": 1456302475,
+  "compute_units": "CPU_ONLY",
+  "scope": "macOS fixture parity; not iPhone or ANE proof"
+}

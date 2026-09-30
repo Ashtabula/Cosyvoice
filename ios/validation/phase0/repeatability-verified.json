@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "scope": "local CPU repeated official zero-shot inference; all captured tensors bitwise equal",
+  "runs": [
+    "ios/validation/phase0/run-002",
+    "ios/validation/phase0/run-003"
+  ],
+  "fixture_hashes_verified": true,
+  "capture_count": 23,
+  "sample_rate": 24000,
+  "samples": 216000,
+  "pcm_sha256": "953037c06c8cfe5c3381e005b007768d150663d543bafb6ce3beff3d6ffc72f4",
+  "wav_file_hashes": [
+    "039f660d029d8f1b46c6774567efc07babb4dd2b26a003b54657f60064b2e671",
+    "a7dd7b2047f2222b45f42bfc08b15ee7704fc60fd3f5e32dea8cc9614f3f0bde"
+  ],
+  "wav_container_difference": "PEAK timestamp only",
+  "human_listening": "PENDING",
+  "ane_residency": "NOT_TESTED",
+  "iphone": "NOT_TESTED"
+}

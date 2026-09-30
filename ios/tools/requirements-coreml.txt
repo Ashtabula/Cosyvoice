@@ -1,0 +1,9 @@
+# requirements-coreml.txt
+# Requirement: isolated conversion environment; preserve upstream PyTorch version for parity.
+coremltools==9.0
+torch==2.3.1
+numpy==1.26.4
+transformers==4.51.3
+safetensors==0.8.0
+# Purpose: reproducible initial LLM conversion; upstream: Phase 0 checkpoint/PyTorch oracle.
+# Environment: .venv-coreml only; generated 2026-09-29 America/New_York; new file, all lines added.
