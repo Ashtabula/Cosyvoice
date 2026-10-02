@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Requirement: generate one deterministic 6.056-second mono reference and upstream DSP oracle tensors for Swift parity.
+# Requirement: generate one deterministic 6.056-second mono reference and exact upstream audio/DSP oracle tensors for Swift parity.
 from __future__ import annotations
 
 import argparse
@@ -11,6 +11,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+import torchaudio
 import torchaudio.compliance.kaldi as kaldi
 import whisper
 
@@ -37,20 +38,11 @@ def write_pcm16(path: Path, samples: np.ndarray, sample_rate: int) -> None:
         output.writeframes(pcm.tobytes())
 
 
-def resample_linear(samples: np.ndarray, source_rate: int, target_rate: int) -> np.ndarray:
-    if source_rate == target_rate:
-        return samples.astype(np.float32, copy=True)
-    count = int(round(len(samples) * target_rate / source_rate))
-    source_x = np.arange(len(samples), dtype=np.float64)
-    target_x = np.arange(count, dtype=np.float64) * source_rate / target_rate
-    return np.interp(target_x, source_x, samples).astype(np.float32)
-
-
 def matcha_mel(samples_24k: np.ndarray) -> torch.Tensor:
-    sys_path = str(ROOT / "third_party/Matcha-TTS")
     import sys
-    if sys_path not in sys.path:
-        sys.path.insert(0, sys_path)
+    matcha_root = str(ROOT / "third_party/Matcha-TTS")
+    if matcha_root not in sys.path:
+        sys.path.insert(0, matcha_root)
     from matcha.utils.audio import mel_spectrogram
     waveform = torch.from_numpy(samples_24k).unsqueeze(0)
     return mel_spectrogram(
@@ -70,7 +62,6 @@ def main() -> None:
     rate24 = 24000
     count24 = 145344
     t = np.arange(count24, dtype=np.float64) / rate24
-    # Deterministic wide-band, non-clipping reference exercises low/high mel bins.
     signal = (
         0.31 * np.sin(2 * math.pi * 173.0 * t)
         + 0.17 * np.sin(2 * math.pi * 511.0 * t + 0.3)
@@ -80,36 +71,44 @@ def main() -> None:
     wav = out / "reference-parity.wav"
     write_pcm16(wav, signal, rate24)
 
-    samples16 = resample_linear(signal, rate24, 16000)
-    if len(samples16) != 96896:
-        raise RuntimeError(f"16k sample count mismatch: {len(samples16)}")
-    whisper_feat = whisper.log_mel_spectrogram(
-        torch.from_numpy(samples16).unsqueeze(0), n_mels=128
-    ).cpu().numpy()
+    loaded, loaded_rate = torchaudio.load(str(wav), backend="soundfile")
+    if loaded_rate != rate24:
+        raise RuntimeError(f"fixture decode sample rate mismatch: {loaded_rate}")
+    samples24 = loaded.mean(dim=0)
+    samples16 = torchaudio.transforms.Resample(rate24, 16000)(samples24)
+    if samples24.numel() != 145344 or samples16.numel() != 96896:
+        raise RuntimeError(f"sample count mismatch 24k={samples24.numel()} 16k={samples16.numel()}")
+
+    whisper_feat = whisper.log_mel_spectrogram(samples16.unsqueeze(0), n_mels=128).cpu().numpy()
     camp = kaldi.fbank(
-        torch.from_numpy(samples16).unsqueeze(0),
-        num_mel_bins=80, dither=0, sample_frequency=16000
+        samples16.unsqueeze(0),
+        num_mel_bins=80,
+        dither=0,
+        sample_frequency=16000
     )
     camp = (camp - camp.mean(dim=0, keepdim=True)).unsqueeze(0).cpu().numpy()
-    prompt = matcha_mel(signal).squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
+    prompt = matcha_mel(samples24.cpu().numpy()).squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
 
     receipt = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "status": "PASS_FIXTURE_GENERATED",
         "durationSeconds": seconds,
         "audio": {"file": wav.name, "sampleRate": rate24, "samples": count24, "sha256": sha256(wav)},
-        "samples16k": {"count": len(samples16)},
         "upstream": {
+            "samples24k": save_f32(out / "samples24k.f32", samples24.cpu().numpy()),
+            "samples16k": save_f32(out / "samples16k.f32", samples16.cpu().numpy()),
             "whisper128": save_f32(out / "whisper128.f32", whisper_feat),
             "campplusFbank": save_f32(out / "campplus_fbank.f32", camp),
             "promptMel": save_f32(out / "prompt_mel.f32", prompt),
         },
         "expectedShapes": {
+            "samples24k": [145344],
+            "samples16k": [96896],
             "whisper128": [1, 128, 605],
             "campplusFbank": [1, 604, 80],
             "promptMel": [1, 302, 80],
         },
-        "note": "This fixture validates preprocessing only. Learned-model parity is a separate gate."
+        "resampler": "torchaudio==2.3.1 transforms.Resample default sinc_interp_hann width6 rolloff0.99",
     }
     for key, expected in receipt["expectedShapes"].items():
         actual = receipt["upstream"][key]["shape"]
@@ -122,7 +121,7 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: deterministic upstream DSP oracle for Swift reference preprocessing.
-# Upstream: CosyVoice3_NPU@8789402; Matcha submodule dd9105b.
+# Code purpose: deterministic upstream decode/resample/DSP oracle for Swift reference preprocessing.
+# Upstream: CosyVoice3_NPU@8789402; torchaudio==2.3.1; Matcha submodule dd9105b.
 # Runtime: conversion/validation host only.
 # Generated: 2026-10-02 America/New_York.
