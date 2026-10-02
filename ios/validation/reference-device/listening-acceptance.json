@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "timestamp": "2026-10-02T13:03:00-04:00",
+  "status": "PASS_USER_LISTENING_ACCEPTANCE",
+  "userResponse": "GOOD SOUND",
+  "scope": "physical iPhone custom-reference public-API playback from CosyVoice3DeviceSmoke",
+  "interpretation": "User accepted the audible output quality of the physical-device custom-reference synthesis.",
+  "machineReceiptRequiredSeparately": true,
+  "releaseEffect": "Human listening evidence only; does not by itself promote device parity or overall SDK release status."
+}
