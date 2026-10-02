@@ -23,7 +23,7 @@ def main():
     from prepare_acoustic_rebuild_config import derive as derive_acoustic_config
     out.mkdir(parents=True,exist_ok=False); g=torch.Generator(device="cpu").manual_seed(20261002); model_dir=source/"pretrained_models/Fun-CosyVoice3-0.5B-2512"
     acoustic_config=model_dir/"cosyvoice3.acoustic.yaml"
-    if not acoustic_config.is_file(): derive_acoustic_config(model_dir,acoustic_config)
+    derive_acoustic_config(model_dir,acoustic_config)
     llm=SpeechLLM("prefill",512,compact_cache=True,grouped_gqa=True).eval()
     x0=torch.randn((1,224,896),generator=g,dtype=torch.float32)*0.05; c0,s0=rope(llm.config,list(range(224))); mask0=torch.full((1,1,224,224),torch.finfo(torch.float32).min).triu(1); dummy=torch.zeros(1)
     with torch.inference_mode(): prefill=llm(x0,c0,s0,mask0,dummy,dummy,dummy)
@@ -52,4 +52,4 @@ if __name__=="__main__": main()
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; synthesizes fixed224 LLM prefill/cache, 225 teacher-forced speech tokens, internally consistent 752-frame Flow conditioning/estimator oracle, and 450-frame HiFT input without old converted assets or user-private reference audio.\n# Changes 2026-10-02: construct export_pipeline_acoustics.Conditions with the actual weighted Flow object plus prompt inputs, exactly matching the upstream converter contract, instead of incorrectly passing model_dir.
 # Changes 2026-10-02: load only the SHA-derived cosyvoice3.acoustic.yaml Flow/HiFT graph so fixture construction never instantiates unrelated GAN/dataset/training objects.
-# Changes 2026-10-02: self-derive the exact acoustic-only config when it is absent, making the Python fixture gate robust even if invoked independently of rebuild_assets.sh ordering.
+# Changes 2026-10-02: always re-derive the exact acoustic-only config before loading it, so an interrupted/older rebuild cannot reuse a stale malformed derived YAML.
