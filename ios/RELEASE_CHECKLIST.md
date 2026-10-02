@@ -1,6 +1,6 @@
 # CosyVoice3 iOS release checklist
 
-Current status: SDK integration-ready on private RC; release level remains Development.
+Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
 
 PASS: publication target is `Ashtabula/Cosyvoice/ios/`.
 PASS: source is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
@@ -24,13 +24,13 @@ PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.
 PASS: complete fixed225-reference runtime is uploaded as an immutable private Hugging Face RC and the exact hosted revision passes ordinary-developer fetch plus physical public-API replay.
 PASS: private-RC SDK integration boundary is frozen as `sdkIntegrationReady=true`.
 
-CANDIDATE BLOCKER: one-command pinned full-runtime local rebuild is incomplete. Existing one-command reference-enrollment rebuild/parity tooling does not reconstruct the complete LLM/Flow/HiFT/F0 runtime.
-CANDIDATE BLOCKER: controlled cold/warm public-API benchmark evidence is incomplete.
-CANDIDATE BLOCKER: no Candidate `validation/release_receipt.json` ties source, assets, parity, device, PCM and benchmark evidence together.
+PASS: one-command pinned full-runtime supported rebuild regenerates LLM/Flow/HiFT/F0/reference assets from exact source/model/toolchain inputs and emits committed evidence.
+PASS: controlled physical-device cold/warm benchmark through CosyVoice3Engine public API is committed.
+PASS: Candidate `validation/release_receipt.json` ties source, rebuild, immutable assets, parity, device PCM and benchmark evidence together.
 
 PRODUCTION BLOCKER: clean-room consumer integration has not run.
 PRODUCTION BLOCKER: release-tree reproducibility has not been frozen.
 PRODUCTION BLOCKER: asset redistribution license review remains incomplete.
 PASS FOR PRODUCTION EVIDENCE: human audio review is already recorded and need not be repeated unless runtime/audio behavior changes.
 
-Do not label Candidate or set `technicalDistributionReady=true` until all Candidate blockers have committed evidence. After Candidate, do not label Production or authorize public runtime assets until the remaining Production blockers pass.
+Candidate engineering gates are complete. Do not label Production or authorize public runtime assets until the remaining Production blockers pass.

@@ -1,9 +1,16 @@
 # CosyVoice3 iOS benchmark status
 
-Current benchmark evidence belongs to the development harness, not yet to the standalone public SDK.
+Current Candidate benchmark: **PASS — physical-device public-API cold/warm evidence recorded.**
 
-The development repository contains physical-device Core ML experiments for stateful LLM, sharded Flow, full frozen pipeline and Instruct2 native generation. The full-pipeline benchmark explicitly replays prepared inputs and is not raw text/reference frontend -> public API -> PCM validation.
+The benchmark uses the exact immutable `ios-fixed225-reference/0.1.0-rc1` private RC through `CosyVoice3Engine.synthesize()`. The first synthesis starts from a fresh process and fresh engine and does not call `validateReference()` beforehand; the repeat synthesis uses the same engine instance and identical text/reference/instruction workload. Performance numbers are measurements, not release thresholds.
 
-The 8789402 audit rechecked existing Instruct2 receipts for happy, angry, fast, soft and Sichuan controls. Accepted native host/device sequences terminate with actual EOS 6562; the audit changed terminology only and ran no new performance or audio experiment.
+Device: `iPhone18,4`, iOS `27.2`.
+Engine init: `0.473 ms`.
+First synthesis: `58572.106 ms`, audio `9.000000 s`, RTF `6.508012`.
+Warm repeat: `61780.642 ms`, audio `9.000000 s`, RTF `6.864516`.
+Output: `216000` / `216000` samples, mono Float32 PCM at 24 kHz, finite.
+Asset payload tree: `a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f`.
+Asset revision: `2fb4251057a5c627e76e392c04b0e778f530d0e0`.
+Evidence: `validation/evidence/candidate_benchmark.json`.
 
-Candidate benchmark evidence must be produced after the public engine exists. Record publication/source commit, immutable asset identity, physical iPhone/OS, workload, cold startup, warm repeated synthesis, output sample rate/channels/duration, and preserved receipt. Do not describe Core ML execution as proven ANE residency without independent placement evidence.
+Earlier StatefulLLMBench/full-pipeline measurements remain development provenance and are not substituted for this SDK Candidate benchmark. Core ML execution is not relabeled as proven ANE residency without independent placement evidence.

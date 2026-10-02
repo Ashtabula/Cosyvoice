@@ -1,0 +1,49 @@
+{
+  "asset": {
+    "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+    "profile": "ios-fixed225-reference",
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
+    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
+    "version": "0.1.0-rc1"
+  },
+  "benchmark": "public-api-candidate-v1",
+  "device": {
+    "model": "iPhone",
+    "modelIdentifier": "iPhone18,4",
+    "systemName": "iOS",
+    "systemVersion": "27.2"
+  },
+  "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+  "measurement": {
+    "channels": 1,
+    "coldDefinition": "fresh process + fresh CosyVoice3Engine; no validateReference prewarm",
+    "engineInitMilliseconds": 0.473125,
+    "finite": true,
+    "firstAudioSeconds": 9,
+    "firstRTF": 6.508011763888889,
+    "firstSamples": 216000,
+    "firstSynthesisMilliseconds": 58572.105875,
+    "referenceValidationPrewarm": false,
+    "repeatAudioSeconds": 9,
+    "repeatRTF": 6.864515726888889,
+    "repeatSamples": 216000,
+    "repeatSynthesisMilliseconds": 61780.641542,
+    "sameSampleCount": true,
+    "sampleRate": 24000,
+    "warmDefinition": "second identical public synthesize call on the same engine instance"
+  },
+  "performanceThresholdApplied": false,
+  "recordedAtUnix": 1790983917,
+  "schemaVersion": 1,
+  "sourceCommit": "e1b76b5e03eeb22b189762370af5ebbe309252a7",
+  "status": "PASS",
+  "workload": {
+    "instructionPrefix": "You are a helpful assistant.<|endofprompt|>",
+    "referenceTranscriptCharacters": 32,
+    "referenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
+    "referenceWavBytes": 291028,
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "text": "This is a CosyVoice3 public API reference voice validation."
+  }
+}

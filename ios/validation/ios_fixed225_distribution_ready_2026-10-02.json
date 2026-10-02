@@ -1,0 +1,58 @@
+{
+  "assets": {
+    "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+    "profile": "ios-fixed225-reference",
+    "publicRedistributionApproved": false,
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
+    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
+    "version": "0.1.0-rc1",
+    "visibility": "private"
+  },
+  "controlledBenchmark": {
+    "channels": 1,
+    "coldDefinition": "fresh process + fresh CosyVoice3Engine; no validateReference prewarm",
+    "engineInitMilliseconds": 0.473125,
+    "finite": true,
+    "firstAudioSeconds": 9,
+    "firstRTF": 6.508011763888889,
+    "firstSamples": 216000,
+    "firstSynthesisMilliseconds": 58572.105875,
+    "referenceValidationPrewarm": false,
+    "repeatAudioSeconds": 9,
+    "repeatRTF": 6.864515726888889,
+    "repeatSamples": 216000,
+    "repeatSynthesisMilliseconds": 61780.641542,
+    "sameSampleCount": true,
+    "sampleRate": 24000,
+    "status": "PASS",
+    "warmDefinition": "second identical public synthesize call on the same engine instance"
+  },
+  "device": {
+    "modelIdentifier": "iPhone18,4",
+    "systemVersion": "27.2"
+  },
+  "milestone": "ios-fixed225-distribution-ready-technical-2026-10-02",
+  "publicRedistributionApproved": false,
+  "publisher": {
+    "email": "developer@actacomes.com",
+    "name": "actacomes"
+  },
+  "releaseReceipt": "validation/release_receipt.json",
+  "releaseStatus": "candidate",
+  "remainingProductionBlockers": [
+    "clean-room consumer integration",
+    "release-tree reproducibility",
+    "asset redistribution license review"
+  ],
+  "schemaVersion": 1,
+  "status": "PASS",
+  "supportedFullRuntimeRebuild": {
+    "canonicalByteIdentityClaim": false,
+    "runtimeBytes": 3526615077,
+    "runtimeTreeSha256": "3ad9fb4cec0076c7b45fe2351bbb171ff82e04a2eefadd116543dbe241a993c3",
+    "status": "PASS"
+  },
+  "technicalDistributionReady": true,
+  "validatedSourceCommit": "e1b76b5e03eeb22b189762370af5ebbe309252a7"
+}

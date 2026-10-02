@@ -1,33 +1,34 @@
 {
-  "schemaVersion": 1,
-  "engine": "CosyVoice3",
-  "platform": "iOS",
   "default": {
     "profile": "ios-fixed225-reference",
     "version": "0.1.0-rc1"
   },
+  "engine": "CosyVoice3",
+  "platform": "iOS",
   "releases": [
     {
-      "profile": "ios-fixed225-reference",
-      "version": "0.1.0-rc1",
+      "assetTechnicalStatus": "READY_PRIVATE_RC",
+      "candidateTechnicalDistributionReady": true,
       "distributionStatus": "PRIVATE_RC",
-      "repoId": "actacomes/CosyVoice-assets",
-      "repoType": "model",
-      "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
-      "tag": "ios-fixed225-reference-v0.1.0-rc1",
+      "licenseGate": "PENDING",
+      "minimumIOS": "18.0",
       "pathInRepo": "ios-fixed225-reference/0.1.0-rc1",
       "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
-      "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
-      "minimumIOS": "18.0",
-      "runtimeProfile": "ios18-fixed225",
-      "referenceStatus": "PASS_DEVICE_PARITY",
-      "licenseGate": "PENDING",
-      "requiresAuthentication": true,
-      "assetTechnicalStatus": "READY_PRIVATE_RC",
-      "sdkIntegrationReady": true,
-      "candidateTechnicalDistributionReady": false,
+      "profile": "ios-fixed225-reference",
+      "publicRedistributionApproved": false,
       "publicReleaseStatus": "PENDING",
-      "publicRedistributionApproved": false
+      "referenceStatus": "PASS_DEVICE_PARITY",
+      "repoId": "actacomes/CosyVoice-assets",
+      "repoType": "model",
+      "requiresAuthentication": true,
+      "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
+      "runtimeProfile": "ios18-fixed225",
+      "sdkIntegrationReady": true,
+      "sdkReleaseStatus": "CANDIDATE_PRIVATE_ASSETS",
+      "tag": "ios-fixed225-reference-v0.1.0-rc1",
+      "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
+      "version": "0.1.0-rc1"
     }
-  ]
+  ],
+  "schemaVersion": 1
 }

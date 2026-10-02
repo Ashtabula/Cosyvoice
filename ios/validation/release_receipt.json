@@ -1,0 +1,91 @@
+{
+  "accelerator": {
+    "claim": "not-claimed",
+    "evidence": []
+  },
+  "asset": {
+    "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+    "profile": "ios-fixed225-reference",
+    "publicRedistributionApproved": false,
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
+    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
+    "version": "0.1.0-rc1",
+    "visibility": "private"
+  },
+  "checks": {
+    "assetValidation": {
+      "evidence": [
+        "assets/releases.json",
+        "validation/ios_fixed225_sdk_ready_2026-10-02.json"
+      ],
+      "status": "PASS"
+    },
+    "benchmarkRecorded": {
+      "evidence": [
+        "validation/evidence/candidate_benchmark.json"
+      ],
+      "status": "PASS"
+    },
+    "customReferenceDeviceParity": {
+      "evidence": [
+        "validation/reference-device/promotion-receipt.json"
+      ],
+      "status": "PASS"
+    },
+    "fullRuntimeRebuild": {
+      "evidence": [
+        "validation/evidence/full_runtime_rebuild.json"
+      ],
+      "status": "PASS"
+    },
+    "hostParity": {
+      "evidence": [
+        "validation/reference-device/promotion-receipt.json"
+      ],
+      "status": "PASS"
+    },
+    "immutableFetchReplay": {
+      "evidence": [
+        "validation/ios_fixed225_sdk_ready_2026-10-02.json"
+      ],
+      "status": "PASS"
+    },
+    "physicalDeviceExecution": {
+      "evidence": [
+        "validation/reference-device/reference-smoke-receipt.json",
+        "validation/ios_fixed225_sdk_ready_2026-10-02.json"
+      ],
+      "status": "PASS"
+    },
+    "standaloneBuild": {
+      "evidence": [
+        "validation/evidence/standalone_build.json"
+      ],
+      "status": "PASS"
+    },
+    "textToPcm": {
+      "evidence": [
+        "validation/reference-device/reference-smoke-receipt.json"
+      ],
+      "status": "PASS"
+    }
+  },
+  "device": {
+    "modelIdentifier": "iPhone18,4",
+    "systemVersion": "27.2"
+  },
+  "engine": "CosyVoice3",
+  "platform": "iOS",
+  "productionPending": [
+    "cleanRoomIntegration",
+    "releaseTreeReproducible",
+    "licenseReview"
+  ],
+  "publicRedistributionApproved": false,
+  "recordedAtUnix": 1790983917,
+  "releaseStatus": "candidate",
+  "schemaVersion": 1,
+  "technicalDistributionReady": true,
+  "validatedSourceCommit": "e1b76b5e03eeb22b189762370af5ebbe309252a7"
+}

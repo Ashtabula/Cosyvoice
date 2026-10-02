@@ -16,7 +16,7 @@ Production additionally requires human audio review, clean-room consumer integra
 
 The `ios-fixed225-reference/0.1.0-rc1` private asset profile has immutable fetch/validation and physical-device public-API replay PASS. The custom-reference lane has host parity, device parity and human listening acceptance. Therefore this release branch records `sdkIntegrationReady=true`.
 
-This state is intentionally below the ZipVoice iOS **Technical Distribution-Ready Candidate** milestone. `technicalDistributionReady` remains false until the complete-runtime rebuild, controlled cold/warm benchmark and Candidate release receipt gates are closed. Public redistribution remains unauthorized until the later Production license/redistribution gate is closed.
+This branch now satisfies the ZipVoice iOS **Technical Distribution-Ready Candidate** engineering gates: the complete-runtime supported rebuild, controlled cold/warm physical-device public-API benchmark and Candidate release receipt are committed. `technicalDistributionReady=true`; public redistribution remains unauthorized until the Production clean-room/reproducibility/license gates are closed.
 
 ## Runtime isolation and API rules
 

@@ -1,6 +1,6 @@
 # CosyVoice3 iOS API
 
-Status: SDK integration-ready on immutable private RC; public API implementation and physical-device custom-reference text-to-PCM evidence are present.
+Status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
 
 ```swift
 let engine = try CosyVoice3Engine(assetRoot: assetRoot)
@@ -21,7 +21,7 @@ let audio = try await engine.synthesize(
 
 Deliberately private: physical/logical prefill length, 512-position state capacity, speech-token IDs, SOS/EOS/stop IDs, top-k/top-p/RAS internals, KV tensor names/shapes, Flow shard layout, CFG value, scheduler steps, Core ML function names, compute units, placement assumptions, cache keys, diagnostic state snapshots and benchmark controls.
 
-The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Candidate promotion additionally requires committed supported full-runtime rebuild evidence, controlled cold/warm public-API benchmark evidence and `validation/release_receipt.json`; the release finalizer performs that transition only after those gates pass.
+The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Candidate evidence now additionally includes the supported full-runtime rebuild, controlled cold/warm public-API benchmark and `validation/release_receipt.json`; Production/public release remains separately gated.
 
 Token semantics: speech IDs 0...6560; SOS 6561; actual EOS 6562; task 6563; fill 6564; stop/special region 6561...6760. Upstream `ignore_eos=True` masks only 6561/SOS before minimum length; it does not mask actual EOS 6562.
 
