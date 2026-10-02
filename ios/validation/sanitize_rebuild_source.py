@@ -18,7 +18,6 @@ FORBIDDEN="sys.path.append('/Volumes/WD/Codes/CosyVoice3/.venv-upstream/lib/pyth
 FULL_CONFIG="MODEL/'cosyvoice3.yaml'"
 ACOUSTIC_CONFIG="MODEL/'cosyvoice3.acoustic.yaml'"
 ACOUSTIC_LOAD_WITH_QWEN_OVERRIDE="load_hyperpyyaml(f,overrides={'qwen_pretrain_path':str(MODEL/'CosyVoice-BlankEN')})"
-ACOUSTIC_LOAD="load_hyperpyyaml(f)"
 UTILS_REPLACEMENT="from matcha.utils.pylogger import get_pylogger\n"
 PYLOGGER_REPLACEMENT="""import logging
 
@@ -66,10 +65,10 @@ def main():
     before=sha256(acoustics)
     text=text.replace(FORBIDDEN,"# release rebuild: developer-local Python site-packages path intentionally disabled")
     text=text.replace(FULL_CONFIG,ACOUSTIC_CONFIG)
-    text=text.replace(ACOUSTIC_LOAD_WITH_QWEN_OVERRIDE,ACOUSTIC_LOAD)
     acoustics.write_text(text)
     after=sha256(acoustics)
-    if "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in text or FULL_CONFIG in text or "qwen_pretrain_path" in text: raise RuntimeError("acoustic exporter sanitation incomplete")
+    if "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in text or FULL_CONFIG in text: raise RuntimeError("acoustic exporter sanitation incomplete")
+    if text.count(ACOUSTIC_LOAD_WITH_QWEN_OVERRIDE)!=1: raise RuntimeError("canonical Qwen override was not preserved for runtime-prefix construction")
 
     utils_patch=patch_exact(matcha/MATCHA_UTILS,MATCHA_UTILS_BLOB,UTILS_REPLACEMENT,matcha,"matcha-utils-init-training-imports")
     pylogger_patch=patch_exact(matcha/MATCHA_PYLOGGER,MATCHA_PYLOGGER_BLOB,PYLOGGER_REPLACEMENT,matcha,"matcha-pylogger-lightning-import")
@@ -88,7 +87,7 @@ def main():
     mask_patch={"name":"maskwrite512-protobuf-repeated-field-compat","target":MASKWRITE512.as_posix(),"originalGitBlob":MASKWRITE512_BLOB,"originalSha256":mask_before,"sanitizedSha256":mask_after}
 
     acoustic_patch={"name":"acoustic-exporter-hermetic-config","target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after}
-    receipt={"schemaVersion":5,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after,"acousticConfigRedirected":True,"acousticConfig":"cosyvoice3.acoustic.yaml","acousticQwenOverrideRemoved":True,"matchaUtilsTarget":MATCHA_UTILS.as_posix(),"matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":MATCHA_PYLOGGER.as_posix(),"matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"maskwrite512Target":MASKWRITE512.as_posix(),"maskwrite512OriginalGitBlob":MASKWRITE512_BLOB,"maskwrite512SanitizedSha256":mask_after,"patches":[acoustic_patch,utils_patch,pylogger_patch,mask_patch],"changes":["disable one developer-local Python 3.10 site-packages append","redirect acoustic exporter from full checkpoint YAML to derived Flow+HiFT-only YAML","remove obsolete qwen_pretrain_path HyperPyYAML override because the acoustic-only graph contains no Qwen/LLM object","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild","replace protobuf-version-specific FieldDescriptor.is_repeated access with a compatibility helper that falls back to LABEL_REPEATED"],"runtimeMathChanged":False}
+    receipt={"schemaVersion":6,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after,"acousticConfigRedirected":True,"acousticConfig":"cosyvoice3.acoustic.yaml","acousticQwenOverridePreserved":True,"runtimePrefixRngConstructionExpected":True,"matchaUtilsTarget":MATCHA_UTILS.as_posix(),"matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":MATCHA_PYLOGGER.as_posix(),"matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"maskwrite512Target":MASKWRITE512.as_posix(),"maskwrite512OriginalGitBlob":MASKWRITE512_BLOB,"maskwrite512SanitizedSha256":mask_after,"patches":[acoustic_patch,utils_patch,pylogger_patch,mask_patch],"changes":["disable one developer-local Python 3.10 site-packages append","redirect acoustic exporter from the full checkpoint YAML to a byte-exact seed->LLM->Flow->HiFT runtime prefix","preserve qwen_pretrain_path override so LLM construction advances RNG exactly as in the accepted upstream YAML before HiFT creates non-checkpointed excitation buffers","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild","replace protobuf-version-specific FieldDescriptor.is_repeated access with a compatibility helper that falls back to LABEL_REPEATED"],"runtimeMathChanged":False}
     output.parent.mkdir(parents=True,exist_ok=True); output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-REBUILD-HYGIENE] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 
 if __name__=="__main__": main()
@@ -97,4 +96,4 @@ if __name__=="__main__": main()
 # Upstream source: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and Matcha-TTS@dd9105b34bf2be2230f4aa1e4769fb586a3c824e with exact Git blob guards.
 # Runtime environment: Python 3 standard library inside the publication checkout.
 # Generated: 2026-10-02 America/New_York.
-# Changes: developer-local Python path removal, exact redirect to derived acoustic-only YAML with obsolete Qwen override removal, Matcha training-only eager-import cleanup, and exact-blob-gated protobuf descriptor compatibility for maskwrite512; no model equations, weights, State semantics, or tensor dimensions are changed.
+# Changes: developer-local Python path removal, exact redirect to the derived seed->LLM->Flow->HiFT runtime prefix with canonical Qwen override preserved, Matcha training-only eager-import cleanup, and exact-blob-gated protobuf descriptor compatibility for maskwrite512; no model equations, weights, State semantics, or tensor dimensions are changed.
