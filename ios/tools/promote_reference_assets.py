@@ -41,6 +41,8 @@ def main() -> None:
     require(device.get("channels") == 1, "device output channel count mismatch")
     require(int(device.get("samples", 0)) > 0, "device output is empty")
     require(device.get("finite") is True, "device output contains NaN/Inf")
+    host_sha256 = sha256(args.host_receipt)
+    require(device.get("hostReceiptSha256") == host_sha256, "device receipt is not bound to this host parity receipt")
 
     reference = manifest.get("referenceEnrollment")
     require(isinstance(reference, dict), "manifest has no referenceEnrollment contract")
@@ -49,7 +51,7 @@ def main() -> None:
 
     reference["status"] = "PASS_DEVICE_PARITY"
     reference["promotionEvidence"] = {
-        "hostReceiptSha256": sha256(args.host_receipt),
+        "hostReceiptSha256": host_sha256,
         "deviceReceiptSha256": sha256(args.device_receipt),
         "hostReceipt": args.host_receipt.name,
         "deviceReceipt": args.device_receipt.name,

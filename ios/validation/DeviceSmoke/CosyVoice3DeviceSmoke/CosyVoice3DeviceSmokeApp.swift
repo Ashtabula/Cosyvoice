@@ -3,6 +3,7 @@
 
 import AVFoundation
 import Combine
+import CryptoKit
 import SwiftUI
 import UIKit
 import CosyVoice3Core
@@ -66,6 +67,11 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let transcript = try String(contentsOf: transcriptURL, encoding: .utf8)
                 .trimmingCharacters(in: .whitespacesAndNewlines)
             let reference = CosyVoice3VoiceReference(audioURL: wav, transcript: transcript)
+            let hostReceiptURL = resources.appendingPathComponent("reference_host_parity_receipt.json")
+            let hostReceiptData = try Data(contentsOf: hostReceiptURL)
+            let hostReceiptSHA256 = SHA256.hash(data: hostReceiptData)
+                .map { String(format: "%02x", $0) }
+                .joined()
             let text = "This is a CosyVoice3 public API reference voice validation."
 
             let engine = try CosyVoice3Engine(assetRoot: runtime)
@@ -107,6 +113,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "peakAbs": peak,
                 "rms": rms,
                 "referenceTranscriptCharacters": transcript.count,
+                "hostReceiptSha256": hostReceiptSHA256,
                 "device": UIDevice.current.model,
                 "systemName": UIDevice.current.systemName,
                 "systemVersion": UIDevice.current.systemVersion
