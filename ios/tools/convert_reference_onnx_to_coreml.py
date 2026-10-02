@@ -13,6 +13,12 @@ import onnx
 import torch
 from onnx2torch import convert
 from onnx2torch.node_converters import registry as onnx2torch_registry
+from coremltools.converters.mil.frontend.torch.ops import _get_inputs
+from coremltools.converters.mil.frontend.torch.torch_op_registry import (
+    _TORCH_OPS_REGISTRY as coreml_torch_registry,
+    register_torch_op,
+)
+from coremltools.converters.mil.mil import Builder as mb
 
 
 def install_onnx2torch_schema_aliases():
@@ -45,6 +51,29 @@ def install_onnx2torch_schema_aliases():
                 "sourceVersion": source_version,
                 "targetVersion": target_version,
             })
+    return installed
+
+
+def install_coreml_torch_comparison_ops():
+    """Bridge TorchScript comparison ops to MIL ops already supported by Core ML."""
+    installed = []
+
+    if coreml_torch_registry.get_func("greater_equal") is None:
+        @register_torch_op
+        def greater_equal(context, node):
+            x, y = _get_inputs(context, node, expected=2)
+            context.add(mb.greater_equal(x=x, y=y, name=node.name))
+
+        installed.append("greater_equal")
+
+    if coreml_torch_registry.get_func("less_equal") is None:
+        @register_torch_op
+        def less_equal(context, node):
+            x, y = _get_inputs(context, node, expected=2)
+            context.add(mb.less_equal(x=x, y=y, name=node.name))
+
+        installed.append("less_equal")
+
     return installed
 
 
@@ -138,6 +167,14 @@ def main():
     speech_onnx = onnx.load(str(args.speech_tokenizer))
     camp_onnx = onnx.load(str(args.campplus))
 
+    coreml_ops = install_coreml_torch_comparison_ops()
+    print(json.dumps({
+        "status": "COREML_TORCH_FRONTEND_COMPARISON_OPS_READY",
+        "installed": coreml_ops,
+        "greaterEqualAvailable": coreml_torch_registry.get_func("greater_equal") is not None,
+        "lessEqualAvailable": coreml_torch_registry.get_func("less_equal") is not None,
+    }, indent=2))
+
     aliases = install_onnx2torch_schema_aliases()
     if aliases:
         print(json.dumps({
@@ -217,7 +254,8 @@ if __name__ == "__main__":
     main()
 
 # Code purpose: produce fixed-profile Core ML candidates for the two learned reference-enrollment graphs.
-# Compatibility note: onnx2torch registers GreaterOrEqual/LessOrEqual only through schema v12 even though opset16 preserves their value semantics; v16 aliases are installed before conversion and all remaining unsupported operator/version groups are reported in one preflight pass.
+# Compatibility note: onnx2torch registers GreaterOrEqual/LessOrEqual only through schema v12 even though opset16 preserves their value semantics; v16 aliases are installed before conversion.
+# Core ML 8.3 MIL supports greater_equal/less_equal, but its Torch frontend lacks these mappings; this tool registers direct TorchScript-to-MIL bridges without changing the model graph mathematics.
 # Upstream source assets: speech_tokenizer_v3.onnx and campplus.onnx from Fun-CosyVoice3-0.5B-2512 revision29e01c4e.
 # Runtime: conversion host; requires coremltools, onnx, onnx2torch, torch.
 # Generated: 2026-10-02 America/New_York.
