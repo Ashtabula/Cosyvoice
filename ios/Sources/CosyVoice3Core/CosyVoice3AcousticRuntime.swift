@@ -19,7 +19,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         guard speechTokens.count==Self.speechTokenCount else { throw CosyVoice3AcousticError.invalidTokenCount(speechTokens.count) }
         let tokens=try MLMultiArray(shape:[1,225],dataType:.int32), tp=tokens.dataPointer.bindMemory(to:Int32.self,capacity:225)
         for i in 0..<225 { tp[i]=Int32(speechTokens[i]) }
-        let conditionResult=try conditions.prediction(from:try MLDictionaryFeatureProvider(dictionary:["tokens":tokens]))
+        let conditionResult=try await conditions.prediction(from:try MLDictionaryFeatureProvider(dictionary:["tokens":tokens]))
         let mu=try output(conditionResult,"mu"), spks=try output(conditionResult,"spks"), cond=try output(conditionResult,"cond")
         var x=(0..<initialNoise.count).map { initialNoise[$0].floatValue }
         let batchX=try MLMultiArray(shape:[2,80,752],dataType:.float32), t=try MLMultiArray(shape:[2],dataType:.float32)
@@ -29,7 +29,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
             t[0]=NSNumber(value:currentT); t[1]=NSNumber(value:currentT)
             var feed:[String:MLMultiArray]=["x":batchX,"mask":flowMask,"mu":mu,"t":t,"spks":spks,"cond":cond], velocity:MLMultiArray?
             for i in shards.indices {
-                let result=try shards[i].prediction(from:try MLDictionaryFeatureProvider(dictionary:feed))
+                let result=try await shards[i].prediction(from:try MLDictionaryFeatureProvider(dictionary:feed))
                 if i==0 { feed=["h":try output(result,"h"),"te":try output(result,"te"),"mask":flowMask] }
                 else if i==shards.count-1 { velocity=try output(result,"velocity") }
                 else { feed["h"]=try output(result,"h_out") }
@@ -44,7 +44,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         let f0Values=try f0.prediction(mel:mel), phase=try MLMultiArray(shape:[1,450,9],dataType:.float32), pp=phase.dataPointer.assumingMemoryBound(to:Float.self)
         var sums=[Double](repeating:0,count:9)
         for frame in 0..<450 { for h in 0..<9 { let rad=(f0Values[frame].floatValue*Float(h+1)/24000).truncatingRemainder(dividingBy:1); sums[h]+=Double(rad); pp[frame*9+h]=Float(sums[h])*Float(2*Double.pi) } }
-        let hiftResult=try hift.prediction(from:try MLDictionaryFeatureProvider(dictionary:["mel":mel,"f0":f0Values,"phase":phase])), pcm=try output(hiftResult,"pcm")
+        let hiftResult=try await hift.prediction(from:try MLDictionaryFeatureProvider(dictionary:["mel":mel,"f0":f0Values,"phase":phase])), pcm=try output(hiftResult,"pcm")
         let samples=(0..<pcm.count).map { pcm[$0].floatValue }; guard samples.count==Self.expectedPCMCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }; guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
         return .init(samples:samples,sampleRate:Self.sampleRate,channels:1)
     }

@@ -3,7 +3,7 @@
 import CoreML
 import Foundation
 
-struct CosyVoice3PreparedRequest {
+struct CosyVoice3PreparedRequest: @unchecked Sendable {
     let prefillInput: MLFeatureProvider
     let minimumSpeechTokenCount:Int
     let maximumSpeechTokenCount:Int
