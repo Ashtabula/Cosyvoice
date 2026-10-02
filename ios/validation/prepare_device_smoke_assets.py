@@ -124,4 +124,4 @@ if __name__ == "__main__":
 
 # Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy and the tracked GeneratedAssets/.gitkeep placeholder is preserved.
 # Runtime: macOS Python3 standard library.
-# Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional --candidate-benchmark writes a bundled benchmark-mode marker while keeping canonical source assets untouched.
+# Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional --candidate-benchmark writes a bundled benchmark-mode marker containing the exact host receipt SHA while keeping canonical source assets untouched.
