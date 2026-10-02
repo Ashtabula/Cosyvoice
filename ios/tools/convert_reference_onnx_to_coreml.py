@@ -77,6 +77,60 @@ def install_coreml_torch_comparison_ops():
     return installed
 
 
+def install_coreml_torch_reduction_ops():
+    """Bridge fixed-profile TorchScript reductions that MIL already implements."""
+    installed = []
+
+    if coreml_torch_registry.get_func("prod") is None:
+        @register_torch_op(torch_alias=["prod.dim_int"])
+        def prod(context, node):
+            inputs = _get_inputs(context, node, min_expected=1)
+            if len(inputs) > 4:
+                raise RuntimeError(
+                    f"unsupported torch.prod overload with {len(inputs)} inputs at {node.name}"
+                )
+
+            x = inputs[0]
+            dim = inputs[1] if len(inputs) > 1 else None
+            keepdim = inputs[2] if len(inputs) > 2 else False
+            dtype = inputs[3] if len(inputs) > 3 else None
+
+            if dtype is not None:
+                dtype_value = dtype.val if hasattr(dtype, "val") else dtype
+                if dtype_value is not None:
+                    raise RuntimeError(
+                        f"torch.prod dtype override is not allowed in fixed CAMPPlus conversion: {dtype_value}"
+                    )
+
+            if dim is None:
+                axes = None
+            else:
+                dim_value = dim.val if hasattr(dim, "val") else dim
+                if dim_value is None:
+                    raise RuntimeError(
+                        f"torch.prod requires a compile-time constant dim at {node.name}"
+                    )
+                axes = [int(dim_value)]
+
+            if hasattr(keepdim, "val"):
+                keepdim = keepdim.val
+            if keepdim is None:
+                keepdim = False
+
+            kwargs = {
+                "x": x,
+                "keep_dims": bool(keepdim),
+                "name": node.name,
+            }
+            if axes is not None:
+                kwargs["axes"] = axes
+            context.add(mb.reduce_prod(**kwargs))
+
+        installed.append("prod")
+
+    return installed
+
+
 def unsupported_onnx2torch_nodes(model):
     opsets = {entry.domain: entry.version for entry in model.opset_import}
     unsupported = {}
@@ -168,11 +222,14 @@ def main():
     camp_onnx = onnx.load(str(args.campplus))
 
     coreml_ops = install_coreml_torch_comparison_ops()
+    reduction_ops = install_coreml_torch_reduction_ops()
     print(json.dumps({
-        "status": "COREML_TORCH_FRONTEND_COMPARISON_OPS_READY",
-        "installed": coreml_ops,
+        "status": "COREML_TORCH_FRONTEND_BRIDGES_READY",
+        "installedComparisonOps": coreml_ops,
+        "installedReductionOps": reduction_ops,
         "greaterEqualAvailable": coreml_torch_registry.get_func("greater_equal") is not None,
         "lessEqualAvailable": coreml_torch_registry.get_func("less_equal") is not None,
+        "prodAvailable": coreml_torch_registry.get_func("prod") is not None,
     }, indent=2))
 
     aliases = install_onnx2torch_schema_aliases()
@@ -255,7 +312,8 @@ if __name__ == "__main__":
 
 # Code purpose: produce fixed-profile Core ML candidates for the two learned reference-enrollment graphs.
 # Compatibility note: onnx2torch registers GreaterOrEqual/LessOrEqual only through schema v12 even though opset16 preserves their value semantics; v16 aliases are installed before conversion.
-# Core ML 8.3 MIL supports greater_equal/less_equal, but its Torch frontend lacks these mappings; this tool registers direct TorchScript-to-MIL bridges without changing the model graph mathematics.
+# Core ML 8.3 MIL supports greater_equal/less_equal/reduce_prod, but its Torch frontend lacks mappings exercised by these fixed ONNX->Torch traces; this tool registers direct TorchScript-to-MIL bridges without changing the model graph mathematics.
+# CAMPPlus ReduceProd is emitted by onnx2torch as repeated torch.prod(input, dim=<constant>, keepdim=<constant>); the bridge accepts only that fixed-profile form and fails closed on dtype overrides or dynamic axes.
 # Upstream source assets: speech_tokenizer_v3.onnx and campplus.onnx from Fun-CosyVoice3-0.5B-2512 revision29e01c4e.
 # Runtime: conversion host; requires coremltools, onnx, onnx2torch, torch.
 # Generated: 2026-10-02 America/New_York.
