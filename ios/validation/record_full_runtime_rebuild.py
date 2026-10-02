@@ -43,11 +43,14 @@ def main():
     head=subprocess.check_output(["git","-C",str(source),"rev-parse","HEAD"],text=True).strip()
     if head!=SOURCE_COMMIT: raise RuntimeError(f"pinned source mismatch: {head}")
     hygiene=load(hygiene_path)
-    if hygiene.get("schemaVersion")!=2 or hygiene.get("status")!="PASS_SOURCE_HYGIENE" or hygiene.get("sourceCommit")!=SOURCE_COMMIT or hygiene.get("matchaSubmoduleCommit")!="dd9105b34bf2be2230f4aa1e4769fb586a3c824e" or hygiene.get("originalGitBlob")!="2e0eb4dc5d9216db07207e5564f13a38c4ad2e74" or hygiene.get("matchaUtilsOriginalGitBlob")!="074db6461184e8cbb86d977cb41d9ebd918e958a" or hygiene.get("matchaPyloggerOriginalGitBlob")!="61600678029362e110f655edb91d5f3bc5b1cd1c" or hygiene.get("runtimeMathChanged") is not False: raise RuntimeError("source hygiene receipt mismatch")
-    hygiene_target=source/str(hygiene.get("target","")); matcha_utils=source/"third_party/Matcha-TTS"/str(hygiene.get("matchaUtilsTarget","")); matcha_pylogger=source/"third_party/Matcha-TTS"/str(hygiene.get("matchaPyloggerTarget",""))
+    if hygiene.get("schemaVersion")!=2 or hygiene.get("status")!="PASS_SOURCE_HYGIENE" or hygiene.get("sourceCommit")!=SOURCE_COMMIT or hygiene.get("matchaSubmoduleCommit")!="dd9105b34bf2be2230f4aa1e4769fb586a3c824e" or hygiene.get("originalGitBlob")!="2e0eb4dc5d9216db07207e5564f13a38c4ad2e74" or hygiene.get("matchaUtilsOriginalGitBlob")!="074db6461184e8cbb86d977cb41d9ebd918e958a" or hygiene.get("matchaPyloggerOriginalGitBlob")!="61600678029362e110f655edb91d5f3bc5b1cd1c" or hygiene.get("matchaHifiganXutilsOriginalGitBlob")!="eefadcb7a1d0bf9015e636b88fee3e22c9771bc5" or hygiene.get("runtimeMathChanged") is not False: raise RuntimeError("source hygiene receipt mismatch")
+    hygiene_target=source/str(hygiene.get("target","")); matcha_utils=source/"third_party/Matcha-TTS"/str(hygiene.get("matchaUtilsTarget","")); matcha_pylogger=source/"third_party/Matcha-TTS"/str(hygiene.get("matchaPyloggerTarget","")); matcha_xutils=source/"third_party/Matcha-TTS"/str(hygiene.get("matchaHifiganXutilsTarget",""))
     if not hygiene_target.is_file() or "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in hygiene_target.read_text(): raise RuntimeError("developer-local upstream Python path is still active")
     if not matcha_utils.is_file() or matcha_utils.read_text()!="from matcha.utils.pylogger import get_pylogger\\n": raise RuntimeError("Matcha utils conversion-only hygiene mismatch")
     if not matcha_pylogger.is_file() or "lightning" in matcha_pylogger.read_text() or "logging.getLogger" not in matcha_pylogger.read_text(): raise RuntimeError("Matcha pylogger hygiene mismatch")
+    if not matcha_xutils.is_file(): raise RuntimeError("Matcha HiFiGAN xutils hygiene target missing")
+    xhead=matcha_xutils.read_text().split("def init_weights",1)[0]
+    if "import matplotlib" in xhead or "def plot_spectrogram" not in xhead: raise RuntimeError("Matcha HiFiGAN matplotlib hygiene mismatch")
     manifest=load(root/"cosyvoice3_fixed225.json"); canonical=load(ROOT/"assets/cosyvoice3_fixed225.example.json"); host=load(host_path); ref=manifest.get("referenceEnrollment") or {}
     if manifest.get("schemaVersion")!=1 or manifest.get("profile")!="ios18-fixed225": raise RuntimeError("rebuilt runtime manifest mismatch")
     contract_keys=("schemaVersion","profile","tokenizerFolder","textEmbedding","textEmbeddingRows","speechEmbedding","llmPrefill","llmDecode","flowConditions","flowShards","hift","f0Folder","flowMask","flowNoise","ropeTheta")
@@ -94,4 +97,4 @@ if __name__=="__main__": main()
 # Runtime environment: Apple Silicon macOS, Xcode/Core ML, Python 3.11 pinned rebuild environment.
 # Generated: 2026-10-02 America/New_York.
 # Changes: fixes ROOT/escaped-newline defects; verifies pinned source, exact LLM replay/state invariants, six-shard Flow equivalence, bounded HiFT parity, FP64 F0, reference host parity, full runtime ABI, and environment/tree evidence without claiming byte identity or device promotion.
-# Changes 2026-10-02: require and hash-bind the exact source-hygiene receipt, verify pinned acoustics + Matcha utility/logger blob identities, reject training-only Lightning/Hydra import leakage, and fail if the developer-local Python 3.10 path remains active.
+# Changes 2026-10-02: require and hash-bind the exact source-hygiene receipt, verify pinned acoustics + Matcha utility/logger/HiFiGAN-xutils blob identities, reject training-only Lightning/Hydra and plotting-only eager import leakage, and fail if the developer-local Python 3.10 path remains active.
