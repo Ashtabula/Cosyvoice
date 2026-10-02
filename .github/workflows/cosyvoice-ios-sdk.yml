@@ -1,4 +1,5 @@
 name: CosyVoice iOS SDK
+
 on:
   push:
     paths:
@@ -8,6 +9,7 @@ on:
     paths:
       - "ios/**"
       - ".github/workflows/cosyvoice-ios-sdk.yml"
+
 jobs:
   swift-package:
     runs-on: macos-15
@@ -17,3 +19,27 @@ jobs:
         run: swift --version
       - name: Test standalone iOS package sources
         run: swift test --package-path ios
+
+  release-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Compile release Python tools
+        run: python -m compileall -q ios/tools ios/assets
+      - name: Validate committed JSON contracts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          for path in [
+              Path("ios/manifest.json"),
+              Path("ios/assets/reference_enrollment.json"),
+              Path("ios/assets/cosyvoice3_fixed225.example.json"),
+              Path("ios/validation/development_receipt.json"),
+          ]:
+              json.loads(path.read_text())
+              print("[JSON-PASS]", path)
+          PY
