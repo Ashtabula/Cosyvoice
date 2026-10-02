@@ -1,9 +1,17 @@
 {
-  "schemaVersion": 3,
+  "schemaVersion": 4,
   "engine": "CosyVoice3",
   "platform": "iOS",
   "releaseStatus": "development",
   "shippingReady": false,
+  "sdkIntegrationReady": true,
+  "technicalDistributionReady": false,
+  "publicRedistributionApproved": false,
+  "publisher": {
+    "name": "actacomes",
+    "email": "developer@actacomes.com"
+  },
+  "releaseReadiness": "SDK integration-ready for the immutable private ios-fixed225-reference RC and validated public-API physical-device replay. This is intentionally below ZipVoice technical distribution-ready Candidate: full-runtime one-command rebuild, controlled cold/warm benchmark evidence and validation/release_receipt.json are still incomplete.",
   "publication": {
     "repository": "Ashtabula/Cosyvoice",
     "path": "ios/"
@@ -79,10 +87,13 @@
     "runId": 37007257072
   },
   "candidateBlockers": [
-    "one-command pinned local rebuild",
-    "validation/release_receipt.json evidence bundle",
-    "cold/warm benchmark",
-    "clean-room integration",
+    "one-command pinned full-runtime local rebuild",
+    "controlled cold/warm public-API benchmark",
+    "validation/release_receipt.json evidence bundle"
+  ],
+  "productionBlockers": [
+    "clean-room consumer integration",
+    "release-tree reproducibility",
     "asset redistribution license review"
   ],
   "assetDistribution": {
@@ -94,7 +105,14 @@
     "tag": "ios-fixed225-reference-v0.1.0-rc1",
     "pathInRepo": "ios-fixed225-reference/0.1.0-rc1",
     "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
     "requiresAuthentication": true,
     "publicRedistributionApproved": false
+  },
+  "sdkReadyMilestone": {
+    "status": "PASS_PRIVATE_RC_INTEGRATION_READY",
+    "date": "2026-10-02",
+    "receipt": "validation/ios_fixed225_sdk_ready_2026-10-02.json",
+    "milestone": "MILESTONES/IOS_FIXED225_SDK_READY_2026-10-02.md"
   }
 }
