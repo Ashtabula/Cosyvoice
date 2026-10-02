@@ -1,9 +1,10 @@
 // CosyVoice3DeviceSmokeApp.swift
-// Requirement: physical-device smoke may call only the public CosyVoice3Core API.
+// Requirement: physical-device smoke and Candidate benchmark may call only the public CosyVoice3Core API.
 
 import AVFoundation
 import Combine
 import CryptoKit
+import Darwin
 import SwiftUI
 import UIKit
 import CosyVoice3Core
@@ -11,35 +12,18 @@ import CosyVoice3Core
 @main
 struct CosyVoice3DeviceSmokeApp: App {
     @StateObject private var model = CosyVoice3SmokeModel()
-
     var body: some Scene {
         WindowGroup {
             VStack(alignment: .leading, spacing: 16) {
-                Text("CosyVoice3 Device Smoke")
-                    .font(.title2.bold())
-
-                Text(model.status)
-                    .font(.system(.body, design: .monospaced))
-                    .textSelection(.enabled)
-
-                Button("Run public API reference smoke") {
-                    Task { await model.run() }
-                }
-                .disabled(model.running)
-
-                Button("Copy receipt JSON") {
-                    UIPasteboard.general.string = model.receiptJSON
-                }
-                .disabled(model.receiptJSON.isEmpty)
-
+                Text("CosyVoice3 Device Smoke").font(.title2.bold())
+                Text(model.status).font(.system(.body, design: .monospaced)).textSelection(.enabled)
+                Button("Run public API reference smoke") { Task { await model.runSmoke() } }.disabled(model.running)
+                Button("Run Candidate cold/warm benchmark") { Task { await model.runCandidateBenchmark() } }.disabled(model.running)
+                Button("Copy receipt JSON") { UIPasteboard.general.string = model.receiptJSON }.disabled(model.receiptJSON.isEmpty)
                 Spacer()
             }
             .padding()
-            .task {
-                guard !model.didAutoRun else { return }
-                model.didAutoRun = true
-                await model.run()
-            }
+            .task { guard !model.didAutoRun else { return }; model.didAutoRun = true; await model.runAutoMode() }
         }
     }
 }
@@ -50,193 +34,111 @@ final class CosyVoice3SmokeModel: ObservableObject {
     @Published var running = false
     @Published var receiptJSON = ""
     var didAutoRun = false
-
     private var player: AVAudioPlayer?
 
-    func run() async {
-        guard !running else { return }
-        running = true
-        status = "RUNNING public API custom-reference smoke..."
-        defer { running = false }
-
+    func runAutoMode() async {
         do {
             let resources = try Self.generatedAssets()
-            let runtime = resources.appendingPathComponent("Runtime", isDirectory: true)
-            let wav = resources.appendingPathComponent("reference.wav")
-            let transcriptURL = resources.appendingPathComponent("reference.txt")
-            let transcript = try String(contentsOf: transcriptURL, encoding: .utf8)
-                .trimmingCharacters(in: .whitespacesAndNewlines)
-            let reference = CosyVoice3VoiceReference(audioURL: wav, transcript: transcript)
-            let hostReceiptURL = resources.appendingPathComponent("reference_host_parity_receipt.json")
-            let hostReceiptData = try Data(contentsOf: hostReceiptURL)
-            let hostReceiptSHA256 = SHA256.hash(data: hostReceiptData)
-                .map { String(format: "%02x", $0) }
-                .joined()
-            let text = "This is a CosyVoice3 public API reference voice validation."
+            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
+            else { await runSmoke() }
+        } catch { status = "FAIL \(String(describing: error))" }
+    }
 
-            let engine = try CosyVoice3Engine(assetRoot: runtime)
+    func runSmoke() async {
+        guard !running else { return }; running = true; status = "RUNNING public API custom-reference smoke..."; defer { running = false }
+        do {
+            let fixture = try Self.fixture()
+            let engine = try CosyVoice3Engine(assetRoot: fixture.runtime)
             let capabilities = try await engine.capabilities()
-            guard capabilities.supportsReferenceAudio,
-                  capabilities.supportsInstruction,
-                  capabilities.outputSampleRate == 24_000 else {
-                throw SmokeError("unexpected capabilities")
-            }
+            guard capabilities.supportsReferenceAudio, capabilities.supportsInstruction, capabilities.outputSampleRate == 24_000 else { throw SmokeError("unexpected capabilities") }
+            try await engine.validateReference(fixture.reference, probeText: fixture.text)
+            let clock = ContinuousClock(); let started = clock.now
+            let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
+            let elapsedSeconds = Self.seconds(started.duration(to: clock.now)); try Self.validate(audio)
+            let duration = Self.audioDuration(audio); let stats = Self.stats(audio)
+            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM","sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"durationSeconds":duration,"elapsedSeconds":elapsedSeconds,"rtf":elapsedSeconds/duration,"finite":true,"peakAbs":stats.peak,"rms":stats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            let url = try Self.receiptURL("reference-smoke-receipt.json"); try Self.write(receipt, to: url); try play(audio)
+            status = String(format:"PASS samples=%d duration=%.3fs elapsed=%.3fs rtf=%.3f receipt=%@",audio.samples.count,duration,elapsedSeconds,elapsedSeconds/duration,url.path)
+        } catch { Self.recordFailure(error, filename:"reference-smoke-receipt.json", into:self) }
+    }
 
-            try await engine.validateReference(reference, probeText: text)
-            let clock = ContinuousClock()
-            let started = clock.now
-            let audio = try await engine.synthesize(
-                text,
-                parameters: CosyVoice3Parameters(
-                    reference: reference,
-                    instruction: "You are a helpful assistant.<|endofprompt|>" + transcript
-                )
-            )
-            let elapsed = started.duration(to: clock.now)
-            try Self.validate(audio)
+    func runCandidateBenchmark() async {
+        guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
+        do {
+            let fixture = try Self.fixture(); let clock = ContinuousClock(); let initStart = clock.now
+            let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
+            let capabilities = try await engine.capabilities()
+            guard capabilities.supportsReferenceAudio, capabilities.supportsInstruction, capabilities.outputSampleRate == 24_000 else { throw SmokeError("unexpected capabilities") }
+            let firstStart = clock.now; let first = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let firstMilliseconds = Self.seconds(firstStart.duration(to: clock.now))*1000; try Self.validate(first)
+            let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
+            let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
+            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","coldDefinition":"fresh process + fresh CosyVoice3Engine; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            let url = try Self.receiptURL("candidate-benchmark-receipt.json"); try Self.write(receipt, to: url); try play(repeatAudio)
+            status = String(format:"PASS Candidate first=%.3fs RTF=%.3f repeat=%.3fs RTF=%.3f receipt=%@",firstMilliseconds/1000,firstMilliseconds/1000/firstDuration,repeatMilliseconds/1000,repeatMilliseconds/1000/repeatDuration,url.path)
+        } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
+    }
 
-            let duration = Double(audio.samples.count) / Double(audio.sampleRate * audio.channels)
-            let elapsedSeconds = Double(elapsed.components.seconds)
-                + Double(elapsed.components.attoseconds) / 1e18
-            let peak = audio.samples.reduce(Float.zero) { max($0, abs($1)) }
-            let rms = sqrt(audio.samples.reduce(0.0) { $0 + Double($1 * $1) } / Double(audio.samples.count))
-            let receipt: [String: Any] = [
-                "schemaVersion": 1,
-                "status": "PASS_DEVICE_PUBLIC_API_REFERENCE_PCM",
-                "sampleRate": audio.sampleRate,
-                "channels": audio.channels,
-                "samples": audio.samples.count,
-                "durationSeconds": duration,
-                "elapsedSeconds": elapsedSeconds,
-                "rtf": elapsedSeconds / duration,
-                "finite": true,
-                "peakAbs": peak,
-                "rms": rms,
-                "referenceTranscriptCharacters": transcript.count,
-                "hostReceiptSha256": hostReceiptSHA256,
-                "device": UIDevice.current.model,
-                "systemName": UIDevice.current.systemName,
-                "systemVersion": UIDevice.current.systemVersion
-            ]
-            let data = try JSONSerialization.data(withJSONObject: receipt, options: [.prettyPrinted, .sortedKeys])
-            let receiptURL = try Self.receiptURL()
-            try data.write(to: receiptURL, options: .atomic)
-            receiptJSON = String(decoding: data, as: UTF8.self)
-            try play(audio)
-            status = String(
-                format: "PASS samples=%d duration=%.3fs elapsed=%.3fs rtf=%.3f receipt=%@",
-                audio.samples.count,
-                duration,
-                elapsedSeconds,
-                elapsedSeconds / duration,
-                receiptURL.path
-            )
-        } catch {
-            let receipt: [String: Any] = [
-                "schemaVersion": 1,
-                "status": "FAIL",
-                "error": String(describing: error),
-                "device": UIDevice.current.model,
-                "systemVersion": UIDevice.current.systemVersion
-            ]
-            if let data = try? JSONSerialization.data(withJSONObject: receipt, options: [.prettyPrinted, .sortedKeys]) {
-                try? data.write(to: Self.receiptURL(), options: .atomic)
-                receiptJSON = String(decoding: data, as: UTF8.self)
-            }
-            status = "FAIL \(String(describing: error))"
-        }
+    private struct Fixture {
+        let runtime: URL
+        let reference: CosyVoice3VoiceReference
+        let transcript: String
+        let hostReceiptSHA256: String
+        let text: String
+        let parameters: CosyVoice3Parameters
+    }
+
+    private static func fixture() throws -> Fixture {
+        let resources = try generatedAssets(); let runtime = resources.appendingPathComponent("Runtime", isDirectory:true); let wav = resources.appendingPathComponent("reference.wav"); let transcript = try String(contentsOf:resources.appendingPathComponent("reference.txt"),encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
+        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let hostData = try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json")); let hostSHA = SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined(); let text = "This is a CosyVoice3 public API reference voice validation."
+        return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
     }
 
     private static func generatedAssets() throws -> URL {
-        guard let resourceRoot = Bundle.main.resourceURL else {
-            throw SmokeError("bundle resource root unavailable")
-        }
-        let root = resourceRoot.appendingPathComponent("GeneratedAssets", isDirectory: true)
-        var isDirectory: ObjCBool = false
-        guard FileManager.default.fileExists(atPath: root.path, isDirectory: &isDirectory),
-              isDirectory.boolValue else {
-            throw SmokeError("GeneratedAssets missing; run validation/prepare_device_smoke_assets.py")
-        }
+        guard let resourceRoot = Bundle.main.resourceURL else { throw SmokeError("bundle resource root unavailable") }
+        let root = resourceRoot.appendingPathComponent("GeneratedAssets",isDirectory:true); var isDirectory: ObjCBool = false
+        guard FileManager.default.fileExists(atPath:root.path,isDirectory:&isDirectory), isDirectory.boolValue else { throw SmokeError("GeneratedAssets missing; run validation/prepare_device_smoke_assets.py") }
         return root
     }
 
-    private static func receiptURL() throws -> URL {
-        let directory = try FileManager.default.url(
-            for: .documentDirectory,
-            in: .userDomainMask,
-            appropriateFor: nil,
-            create: true
-        )
-        return directory.appendingPathComponent("reference-smoke-receipt.json")
+    private static func receiptURL(_ name: String) throws -> URL { try FileManager.default.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true).appendingPathComponent(name) }
+    private static func write(_ receipt: [String: Any], to url: URL) throws { let data=try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]); try data.write(to:url,options:.atomic) }
+    private static func recordFailure(_ error: Error, filename: String, into model: CosyVoice3SmokeModel) {
+        let receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
+        if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
+        model.status="FAIL \(String(describing:error))"
     }
+    private static func seconds(_ duration: Duration) -> Double { Double(duration.components.seconds)+Double(duration.components.attoseconds)/1e18 }
+    private static func audioDuration(_ audio: CosyVoice3Audio) -> Double { Double(audio.samples.count)/Double(audio.sampleRate*audio.channels) }
+    private static func stats(_ audio: CosyVoice3Audio) -> (peak: Float, rms: Double) { (audio.samples.reduce(Float.zero){max($0,abs($1))},sqrt(audio.samples.reduce(0.0){$0+Double($1*$1)}/Double(audio.samples.count))) }
+    private static func machineIdentifier() -> String { var value=utsname(); uname(&value); return Mirror(reflecting:value.machine).children.reduce(into:""){ result,element in guard let byte=element.value as? Int8, byte != 0 else { return }; result.append(Character(UnicodeScalar(UInt8(byte)))) } }
 
     private static func validate(_ audio: CosyVoice3Audio) throws {
-        guard audio.sampleRate == 24_000 else { throw SmokeError("unexpected sample rate \(audio.sampleRate)") }
-        guard audio.channels == 1 else { throw SmokeError("unexpected channel count \(audio.channels)") }
+        guard audio.sampleRate==24_000 else { throw SmokeError("unexpected sample rate \(audio.sampleRate)") }
+        guard audio.channels==1 else { throw SmokeError("unexpected channel count \(audio.channels)") }
         guard !audio.samples.isEmpty else { throw SmokeError("empty PCM") }
         guard audio.samples.allSatisfy(\.isFinite) else { throw SmokeError("PCM contains NaN/Inf") }
-        guard audio.samples.contains(where: { abs($0) > 1e-6 }) else { throw SmokeError("PCM is effectively silent") }
+        guard audio.samples.contains(where:{abs($0)>1e-6}) else { throw SmokeError("PCM is effectively silent") }
     }
 
     private func play(_ audio: CosyVoice3Audio) throws {
-        let session = AVAudioSession.sharedInstance()
-        try session.setCategory(.playback, mode: .default)
-        try session.setActive(true)
-        let player = try AVAudioPlayer(data: Self.wavData(audio))
-        guard player.prepareToPlay(), player.play() else { throw SmokeError("playback could not start") }
-        self.player = player
+        let session=AVAudioSession.sharedInstance(); try session.setCategory(.playback,mode:.default); try session.setActive(true); let p=try AVAudioPlayer(data:Self.wavData(audio)); guard p.prepareToPlay(),p.play() else { throw SmokeError("playback could not start") }; player=p
     }
 
     private static func wavData(_ audio: CosyVoice3Audio) -> Data {
-        let channels = UInt16(audio.channels)
-        let sampleRate = UInt32(audio.sampleRate)
-        let bitsPerSample: UInt16 = 16
-        let bytesPerSample = UInt16(bitsPerSample / 8)
-        let blockAlign = channels * bytesPerSample
-        let byteRate = sampleRate * UInt32(blockAlign)
-        let dataBytes = UInt32(audio.samples.count) * UInt32(bytesPerSample)
-
-        var data = Data()
-        data.appendASCII("RIFF")
-        data.appendLittleEndian(UInt32(36) + dataBytes)
-        data.appendASCII("WAVE")
-        data.appendASCII("fmt ")
-        data.appendLittleEndian(UInt32(16))
-        data.appendLittleEndian(UInt16(1))
-        data.appendLittleEndian(channels)
-        data.appendLittleEndian(sampleRate)
-        data.appendLittleEndian(byteRate)
-        data.appendLittleEndian(blockAlign)
-        data.appendLittleEndian(bitsPerSample)
-        data.appendASCII("data")
-        data.appendLittleEndian(dataBytes)
-        for sample in audio.samples {
-            let clipped = max(-1.0, min(1.0, sample))
-            let scaled = clipped < 0 ? clipped * 32768.0 : clipped * 32767.0
-            data.appendLittleEndian(Int16(max(-32768, min(32767, Int(scaled.rounded())))))
-        }
+        let channels=UInt16(audio.channels),sampleRate=UInt32(audio.sampleRate),bitsPerSample:UInt16=16,bytesPerSample=UInt16(2),blockAlign=channels*bytesPerSample,byteRate=sampleRate*UInt32(blockAlign),dataBytes=UInt32(audio.samples.count)*UInt32(bytesPerSample)
+        var data=Data(); data.appendASCII("RIFF"); data.appendLittleEndian(UInt32(36)+dataBytes); data.appendASCII("WAVE"); data.appendASCII("fmt "); data.appendLittleEndian(UInt32(16)); data.appendLittleEndian(UInt16(1)); data.appendLittleEndian(channels); data.appendLittleEndian(sampleRate); data.appendLittleEndian(byteRate); data.appendLittleEndian(blockAlign); data.appendLittleEndian(bitsPerSample); data.appendASCII("data"); data.appendLittleEndian(dataBytes)
+        for sample in audio.samples { let clipped=max(-1.0,min(1.0,sample)); let scaled=clipped<0 ? clipped*32768.0 : clipped*32767.0; data.appendLittleEndian(Int16(max(-32768,min(32767,Int(scaled.rounded()))))) }
         return data
     }
 }
 
-private struct SmokeError: LocalizedError {
-    let message: String
-    init(_ message: String) { self.message = message }
-    var errorDescription: String? { message }
-}
-
+private struct SmokeError: LocalizedError { let message:String; init(_ message:String){self.message=message}; var errorDescription:String?{message} }
 private extension Data {
-    mutating func appendASCII(_ value: String) {
-        append(value.data(using: .ascii)!)
-    }
-
-    mutating func appendLittleEndian<T: FixedWidthInteger>(_ value: T) {
-        var little = value.littleEndian
-        Swift.withUnsafeBytes(of: &little) { append(contentsOf: $0) }
-    }
+    mutating func appendASCII(_ value:String){append(value.data(using:.ascii)!)}
+    mutating func appendLittleEndian<T:FixedWidthInteger>(_ value:T){var little=value.littleEndian; Swift.withUnsafeBytes(of:&little){append(contentsOf:$0)}}
 }
-
-// Code purpose: clean-room physical-device public API custom-reference smoke and machine-readable receipt.
-// Upstream: CosyVoice3Core public API only.
+// Code purpose: clean physical-device public API custom-reference smoke plus Candidate cold/warm public-API benchmark with machine-readable receipts.
+// Upstream: CosyVoice3Core public API only; no private runtime/benchmark internals are invoked.
 // Runtime: iOS18+, SwiftUI, AVFoundation.
 // Generated: 2026-10-02 America/New_York.
+// Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.
