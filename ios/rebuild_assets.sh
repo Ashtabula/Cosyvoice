@@ -77,7 +77,7 @@ main(){
     cp "$ref/parity/fixture/whisper_mel_128.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/kaldi_mel_80.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/matcha_mel_80.f32" "$ref/coreml/" || return $?
     run "$venv/bin/python" "$ROOT/validation/install_rebuilt_reference_assets.py" --asset-root "$output" --reference-dir "$ref/coreml" --host-receipt "$ref/parity/reference_host_parity_receipt.json" || return $?
     run "$venv/bin/python" "$ROOT/assets/validate_assets.py" --root "$output" || return $?
-    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --acoustic-config-receipt "$acoustic_config_receipt" --output "$receipt" || return $?
+    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --acoustic-config-receipt "$acoustic_config_receipt" --fixture-receipt "$fixture/rebuild_fixture_receipt.json" --output "$receipt" || return $?
     log "COMPLETE status=PASS_SUPPORTED_FULL_RUNTIME_REBUILD profile=$profile output=$output receipt=$receipt"
 }
 main "$@"
@@ -94,3 +94,4 @@ test "$RC" -eq 0
 # Changes 2026-10-02: Matcha training-only Lightning/Hydra imports are removed from the temporary exact-blob-gated checkout, so rebuild dependency preflight stays conversion-only.
 # Changes 2026-10-02: rebuild venv is keyed by requirements-rebuild.txt SHA-256 and recreated whenever the lock changes, preventing failed-run dependency residue from contaminating Candidate evidence.
 # Changes 2026-10-02: derive and validate cosyvoice3.acoustic.yaml from the exact pinned checkpoint config before fixture/acoustic export, and bind its receipt into final rebuild evidence.
+# Changes 2026-10-02: bind deterministic fixture receipt into final evidence so the Flow Core ML time input must match production t:[2] shared-CFG-scalar ABI.
