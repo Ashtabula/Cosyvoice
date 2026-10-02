@@ -10,7 +10,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     private let decodeModel:MLModel
     private let conditioner:CosyVoice3TokenConditioner
     private let sampler:CosyVoice3RASampler
-    init(prefillModel:MLModel, decodeModel:MLModel, conditioner:CosyVoice3TokenConditioner, sampler:CosyVoice3RASampler=.init()) {
+    init(prefillModel:MLModel, decodeModel:MLModel, conditioner:CosyVoice3TokenConditioner, sampler: CosyVoice3RASampler = .init()) {
         self.prefillModel=prefillModel; self.decodeModel=decodeModel; self.conditioner=conditioner; self.sampler=sampler
     }
     func generate(_ prepared:CosyVoice3PreparedRequest) throws -> [Int] {
