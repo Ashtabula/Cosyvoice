@@ -7,9 +7,11 @@ PASS: source is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157
 PASS: standalone `Package.swift`, reusable runtime `Sources/`, and Stage1 runtime `Tests/` are present.
 PASS: the 8789402 EOS/stop-token semantic audit is preserved.
 PASS: benchmark application source was not copied into `Sources/`.
+PASS: stable public contract types and concrete `CosyVoice3Engine` facade now exist; synthesis intentionally fails closed while native frontend/RAS extraction remains incomplete.
+PASS: validated HiFT FP64 F0 math was extracted into SDK source with benchmark-only error dependencies removed.
 PASS: accelerator status remains not-claimed.
 
-BLOCKER: no callable end-to-end `CosyVoice3Engine` facade exists.
+BLOCKER: `CosyVoice3Engine` exists but end-to-end synthesis is fail-closed until native frontend/reference enrollment and in-process RAS are integrated.
 BLOCKER: low-level Stage1 runtime types are still public; after facade extraction, implementation-only types should become internal where possible.
 BLOCKER: raw text/reference frontend and enrollment are not integrated into `Sources/`.
 BLOCKER: native LLM/RAS, Flow and HiFT production path remains primarily in the development harness.

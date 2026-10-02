@@ -30,7 +30,8 @@
       "reference",
       "instruction"
     ],
-    "output": "mono Float32 PCM 24000 Hz"
+    "output": "mono Float32 PCM 24000 Hz",
+    "contractImplemented": true
   },
   "tokenSemantics": {
     "speechIdsInclusive": [
@@ -71,5 +72,15 @@
     "cold/warm benchmark",
     "clean-room integration",
     "asset redistribution license review"
-  ]
+  ],
+  "importedRuntimeScaffold": [
+    "CosyVoice3Stage1Runtime",
+    "CosyVoice3FP16StatefulLLMSession",
+    "CosyVoice3HiFTDoubleF0"
+  ],
+  "ci": {
+    "workflow": ".github/workflows/cosyvoice-ios-sdk.yml",
+    "command": "swift test --package-path ios",
+    "status": "PENDING_FIRST_RUN"
+  }
 }

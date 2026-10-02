@@ -13,7 +13,10 @@
     "endToEndPublicEngine": "NOT_IMPLEMENTED",
     "assetContract": "NOT_IMPLEMENTED",
     "cleanRoomDevicePublicApi": "NOT_RUN",
-    "redistributionLicenseReview": "PENDING"
+    "redistributionLicenseReview": "PENDING",
+    "publicApiContract": "PASS_SOURCE_PRESENT",
+    "hiftF0RuntimeExtracted": "PASS_SOURCE_PRESENT",
+    "standaloneSwiftCI": "PENDING_FIRST_RUN"
   },
   "behaviorChangeFromSourceRuntimeCopy": false,
   "acceleratorClaim": "not-claimed"

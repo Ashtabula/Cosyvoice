@@ -1,0 +1,19 @@
+name: CosyVoice iOS SDK
+on:
+  push:
+    paths:
+      - "ios/**"
+      - ".github/workflows/cosyvoice-ios-sdk.yml"
+  pull_request:
+    paths:
+      - "ios/**"
+      - ".github/workflows/cosyvoice-ios-sdk.yml"
+jobs:
+  swift-package:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Swift version
+        run: swift --version
+      - name: Test standalone iOS package sources
+        run: swift test --package-path ios
