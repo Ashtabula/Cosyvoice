@@ -32,6 +32,7 @@ def main() -> None:
     parser.add_argument("--reference-candidate-dir", type=Path, required=True)
     parser.add_argument("--reference-wav", type=Path, required=True)
     parser.add_argument("--reference-transcript", type=Path, required=True)
+    parser.add_argument("--candidate-benchmark", action="store_true")
     args = parser.parse_args()
 
     asset_root = args.asset_root.resolve()
@@ -63,6 +64,8 @@ def main() -> None:
     shutil.copy2(reference_wav, OUTPUT / "reference.wav")
     shutil.copy2(transcript, OUTPUT / "reference.txt")
     shutil.copy2(host_receipt_path, OUTPUT / "reference_host_parity_receipt.json")
+    if args.candidate_benchmark:
+        (OUTPUT / "candidate-benchmark-mode.json").write_text(json.dumps({"schemaVersion": 1, "benchmark": "public-api-candidate-v1"}, indent=2) + "\\n", encoding="utf-8")
 
     manifest_path = runtime / "cosyvoice3_fixed225.json"
     manifest = json.loads(manifest_path.read_text())
@@ -121,4 +124,4 @@ if __name__ == "__main__":
 
 # Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy and the tracked GeneratedAssets/.gitkeep placeholder is preserved.
 # Runtime: macOS Python3 standard library.
-# Generated: 2026-10-02 America/New_York.
+# Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional --candidate-benchmark writes a bundled benchmark-mode marker while keeping canonical source assets untouched.
