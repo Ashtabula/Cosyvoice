@@ -1,13 +1,13 @@
 # CosyVoice3 iOS assets
 
-Status: Development; there is not yet a Candidate-quality standalone asset distribution contract.
+Status: immutable private-RC SDK asset distribution is implemented and device-replayed; Candidate technical-distribution evidence is pending until the new full-runtime rebuild and controlled benchmark gates are executed.
 
-Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. The development audit measured and hash-checked the upstream checkpoint, but those files are not the final iOS SDK payload.
+Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. Locked SDK source: `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
 
-Validated development work uses Core ML artifacts for LLM prefill/decode, Flow conditioning plus FP16 Flow shards, and HiFT, with frontend/reference-conditioning inputs prepared by development tooling. Diagnostic artifact names/layouts are evidence, not yet the canonical SDK ABI.
+The ordinary developer path is `assets/releases.json -> assets/fetch_assets.py -> exact Hugging Face revision -> file/tree hash verification -> assets/validate_assets.py -> atomic activation`. Current private RC: `actacomes/CosyVoice-assets`, profile `ios-fixed225-reference`, version `0.1.0-rc1`, revision `2fb4251057a5c627e76e392c04b0e778f530d0e0`, payload tree `a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f`. That exact hosted revision passed ordinary-developer fetch and physical public-API replay.
 
-Following the ZipVoice contract, Candidate status requires two acquisition paths converging on one canonical asset contract: an immutable prebuilt profile with archive/manifest hashes and atomic validated installation; and a one-command rebuild from pinned source/model/toolchain inputs producing the same runtime ABI and a provenance receipt.
+The advanced path is `rebuild_assets.sh --profile ios-fixed225-reference`. It reconstructs the final LLM prefill/maskwrite512 decode family, six FP16 Flow shards, Flow conditioning, host-phase HiFT, FP64 F0 coefficients, frontend/tokenizer embeddings and custom-reference models/tables from pinned inputs. Historical ignored `CosyVoice3_NPU/iOS/converted` artifacts are not rebuild inputs. A deterministic production-shape validation fixture replaces uncommitted historical large tensor fixtures.
 
-Large model binaries remain outside Git. Not yet implemented here: `assets/assets.txt`, `assets/fetch_assets.py`, `assets/validate_assets.py`, hosted immutable archive/manifest, and one-command rebuild wrapper. These are release blockers.
+Supported rebuild and canonical byte rebuild are distinct. The supported rebuild must satisfy the same runtime ABI, validators and host parity; it does not claim byte-identical Core ML serialization across compiler versions. Fresh rebuilt custom-reference packages remain `PASS_HOST_PARITY_REBUILT` until separately device-promoted; they are never silently relabeled with the immutable RC's device evidence.
 
-Runtime/build entry points must not depend on developer-specific absolute paths. Historical validation evidence may retain such paths. No ANE residency claim follows from `.cpuAndNeuralEngine`.
+Large model binaries remain outside Git. Runtime/build entry points do not require developer-specific absolute paths. The private RC remains authenticated and `publicRedistributionApproved=false` until the separate Production license/redistribution gate passes. No ANE residency claim follows from requested Core ML compute units.
