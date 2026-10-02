@@ -31,8 +31,8 @@ def main():
     torch.save({"args":(x0,),"kwargs":{}},out/"llm_step_000_input.pt"); torch.save(prefill,out/"llm_step_000_output.pt"); torch.save({"args":(x1,),"kwargs":{"cache":cache}},out/"llm_step_001_input.pt")
     tokens=((torch.arange(225,dtype=torch.int64)*29+17)%6561).to(torch.int32); torch.save(tokens,out/"generated_speech_tokens.pt")
     target=tokens.unsqueeze(0); prompt_tokens=((torch.arange(151,dtype=torch.int64)*31+7)%6561).to(torch.int32).unsqueeze(0); prompt_feat=torch.randn((1,302,80),generator=g)*0.03; speaker=torch.randn((1,192),generator=g)*0.02; flow_inputs={"prompt_token":prompt_tokens,"prompt_feat":prompt_feat,"embedding":speaker}
-    with acoustic_config.open() as handle: flow_configs=load_hyperpyyaml(handle)
-    flow=flow_configs["flow"].eval(); flow.load_state_dict(torch.load(model_dir/"flow.pt",weights_only=True,map_location="cpu"),strict=True); conditions=Conditions(flow,flow_inputs).eval()
+    with acoustic_config.open() as handle: flow_configs=load_hyperpyyaml(handle,overrides={"qwen_pretrain_path":str(model_dir/"CosyVoice-BlankEN")})
+    flow=flow_configs["flow"].eval(); flow.load_state_dict(torch.load(model_dir/"flow.pt",weights_only=True,map_location="cpu"),strict=True); del flow_configs; conditions=Conditions(flow,flow_inputs).eval()
     with torch.inference_mode(): mu,spks,cond=conditions(target)
     x=torch.randn((2,80,752),generator=g)*0.1; mask=torch.ones((2,1,752),dtype=torch.float32); t=torch.full((2,),0.25,dtype=torch.float32)
     if tuple(t.shape)!=(2,) or not bool(torch.equal(t,t[0].expand_as(t))): raise RuntimeError(f"Flow scheduler time ABI mismatch: shape={tuple(t.shape)} values={t.tolist()}")
@@ -54,3 +54,4 @@ if __name__=="__main__": main()
 # Changes: new file; synthesizes fixed224 LLM prefill/cache, 225 teacher-forced speech tokens, internally consistent 752-frame Flow conditioning/estimator oracle, and 450-frame HiFT input without old converted assets or user-private reference audio.\n# Changes 2026-10-02: construct export_pipeline_acoustics.Conditions with the actual weighted Flow object plus prompt inputs, exactly matching the upstream converter contract, instead of incorrectly passing model_dir.
 # Changes 2026-10-02: load only the SHA-derived cosyvoice3.acoustic.yaml Flow/HiFT graph so fixture construction never instantiates unrelated GAN/dataset/training objects.
 # Changes 2026-10-02: always re-derive the exact acoustic-only config before loading it, so an interrupted/older rebuild cannot reuse a stale malformed derived YAML.
+# Changes 2026-10-02: load the derived seed->LLM->Flow->HiFT prefix with the canonical qwen_pretrain_path override, then immediately release unused LLM/HiFT objects after extracting Flow.
