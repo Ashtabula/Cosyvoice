@@ -32,7 +32,7 @@ main(){
     if [ ! -x "$venv/bin/python" ]; then run "$PYTHON_BOOTSTRAP" -m venv "$venv" || return $?; fi
     run "$venv/bin/python" -m pip install "pip<26" "setuptools==80.9.0" wheel || return $?
     run "$venv/bin/python" -m pip install -r "$ROOT/requirements-rebuild.txt" || return $?
-    run "$venv/bin/python" -c 'import conformer,diffusers,lightning,PIL; print("[COSYVOICE3-REBUILD] LOCAL_DEPS conformer="+conformer.__file__+" diffusers="+diffusers.__version__+" lightning="+lightning.__version__+" pillow="+PIL.__version__)' || return $?
+    run "$venv/bin/python" -c 'import conformer,diffusers,PIL; print("[COSYVOICE3-REBUILD] LOCAL_DEPS conformer="+conformer.__file__+" diffusers="+diffusers.__version__+" pillow="+PIL.__version__)' || return $?
     if [ -d "$legacy_model" ] && [ ! -e "$model_cache" ]; then mkdir -p "$(dirname "$model_cache")" || return $?; log "preserve prior model download $legacy_model -> $model_cache"; mv "$legacy_model" "$model_cache" || return $?; fi
     rm -rf "$source" "$fixture" "$ref" "$output" || return $?
     run git clone https://github.com/Ashtabula/CosyVoice3_NPU.git "$source" || return $?
@@ -85,4 +85,5 @@ test "$RC" -eq 0
 # Generated: 2026-10-02 America/New_York.
 # Changes: full clean rewrite; all CLI handling lives inside main(), all diagnostics remain visible, no historical converted directory or private reference audio is read, and the accepted LLM/Flow/HiFT/F0/reference converter chain feeds canonical assembly/validation plus a Candidate rebuild receipt.\n# Changes 2026-10-02: lines 18-27 use real physical newlines and assign work before every dependent path under set -u; this fixes the prior patch that accidentally committed literal backslash-n text.
 # Changes 2026-10-02: clear inherited PYTHONPATH/PYTHONHOME, disable user site packages, verify local diffusers/Pillow, sanitize the exact pinned upstream developer-local sys.path append, and bind that hygiene receipt into full-runtime rebuild evidence.
-# Changes 2026-10-02: replace whole-repository Hugging Face download with a 12-pattern persistent local_dir, migrate any previous failed-run model directory before deleting the temporary source checkout, preflight the complete Matcha/CosyVoice import closure before model download, and reuse interrupted blobs across retries.
+# Changes 2026-10-02: replace whole-repository Hugging Face download with a 12-pattern persistent local_dir, migrate any previous failed-run model directory before deleting the temporary source checkout, preflight the complete sanitized Matcha/CosyVoice conversion import closure before model download, and reuse interrupted blobs across retries.
+# Changes 2026-10-02: Matcha training-only Lightning/Hydra imports are removed from the temporary exact-blob-gated checkout, so rebuild dependency preflight stays conversion-only.
