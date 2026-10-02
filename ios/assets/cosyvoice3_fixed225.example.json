@@ -1,24 +1,35 @@
 {
   "schemaVersion": 1,
   "profile": "ios18-fixed225",
-  "tokenizerFolder": "Tokenizer",
-  "textEmbedding": "text_embedding_fp16.bin",
+  "tokenizerFolder": "tokenizer",
+  "textEmbedding": "embeddings/text_embedding_fp16.bin",
   "textEmbeddingRows": 151936,
-  "llmPrefill": "Models/llm-opt-perlayer-prefill.mlpackage",
-  "llmDecode": "Models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
-  "speechEmbedding": "speech_embedding_fp16.bin",
-  "flowConditions": "Models/flow-conditions.mlpackage",
+  "speechEmbedding": "embeddings/speech_embedding_fp16.bin",
+  "llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage",
+  "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+  "flowConditions": "models/flow-conditions-baked-reference.mlpackage",
   "flowShards": [
-    "Models/flow-fp16-shard-00-blocks-00-03.mlpackage",
-    "Models/flow-fp16-shard-01-blocks-04-07.mlpackage",
-    "Models/flow-fp16-shard-02-blocks-08-11.mlpackage",
-    "Models/flow-fp16-shard-03-blocks-12-15.mlpackage",
-    "Models/flow-fp16-shard-04-blocks-16-19.mlpackage",
-    "Models/flow-fp16-shard-05-blocks-20-21.mlpackage"
+    "models/flow-shard-0.mlpackage",
+    "models/flow-shard-1.mlpackage",
+    "models/flow-shard-2.mlpackage",
+    "models/flow-shard-3.mlpackage",
+    "models/flow-shard-4.mlpackage",
+    "models/flow-shard-5.mlpackage"
   ],
-  "hift": "Models/hift-portable-phase-host-fp32.mlpackage",
-  "f0Folder": "F0",
-  "flowMask": "flow_mask.bin",
-  "flowNoise": "flow_x.bin",
-  "ropeTheta": 1000000.0
+  "hift": "models/hift-portable-phase-host-fp32.mlpackage",
+  "f0Folder": "f0-double",
+  "flowMask": "buffers/flow-mask.f32",
+  "flowNoise": "buffers/flow-noise.f32",
+  "ropeTheta": 1000000.0,
+  "referenceEnrollment": {
+    "status": "NOT_VALIDATED",
+    "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage",
+    "campPlus": "reference/campplus-fixed604.mlpackage",
+    "whisperMel128": "reference/whisper_mel_128.f32",
+    "kaldiMel80": "reference/kaldi_mel_80.f32",
+    "matchaMel80": "reference/matcha_mel_80.f32",
+    "flowConditionsDynamic": "reference/flow-conditions-dynamic-151-302.mlpackage",
+    "promptTokenCount": 151,
+    "promptFrameCount": 302
+  }
 }

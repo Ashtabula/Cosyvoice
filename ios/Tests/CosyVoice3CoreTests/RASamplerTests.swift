@@ -14,8 +14,10 @@ final class RASamplerTests:XCTestCase {
         XCTAssertEqual(try CosyVoice3RASampler().sample(logits:logits,decodedTokens:[],suppressSOS:false,using:&rng),42)
     }
     func testRepeatedTopTokenIsMaskedAndResampled() throws {
-        var logits=[Float](repeating:-100,count:6761); logits[42]=10; logits[43]=9; var rng=ZeroRNG()
+        var logits=[Float](repeating:-Float.infinity,count:6761); logits[42]=10; logits[43]=9; var rng=ZeroRNG()
         XCTAssertEqual(try CosyVoice3RASampler().sample(logits:logits,decodedTokens:[42],suppressSOS:false,using:&rng),43)
     }
-    func testInvalidLogitCountFailsClosed() { XCTAssertThrowsError(try CosyVoice3RASampler().sample(logits:[0],decodedTokens:[],suppressSOS:false)) }
+    func testInvalidLogitCountFailsClosed() {
+        XCTAssertThrowsError(try CosyVoice3RASampler().sample(logits:[0],decodedTokens:[],suppressSOS:false))
+    }
 }

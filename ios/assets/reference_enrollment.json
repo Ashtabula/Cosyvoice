@@ -1,16 +1,25 @@
 {
-  "schemaVersion": 1,
-  "profile": "cosyvoice3-reference-enrollment-v1",
+  "schemaVersion": 2,
+  "profile": "cosyvoice3-reference-enrollment-fixed225-v1",
   "status": "NOT_VALIDATED",
+  "fixedReferenceWindow": {
+    "seconds": 6.056,
+    "samples16k": 96896,
+    "samples24k": 145344,
+    "whisperFrames": 605,
+    "campPlusFrames": 604,
+    "speechTokens": 151,
+    "promptMelFrames": 302
+  },
   "sampleRates": {
     "speechTokenizer": 16000,
     "speakerEmbedding": 16000,
     "promptMel": 24000
   },
   "expectedOutputs": {
-    "speechTokens": "int32[1,R]",
+    "speechTokens": "int32[1,151]",
     "speakerEmbedding": "float32[1,192]",
-    "promptMel": "float32[1,F,80]"
+    "promptMel": "float32[1,302,80]"
   },
   "sourceCheckpoint": {
     "model": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
@@ -19,13 +28,16 @@
   "upstreamInputs": {
     "speechTokenizer": "speech_tokenizer_v3.onnx",
     "speakerEmbedding": "campplus.onnx",
-    "promptFeature": "cosyvoice3.yaml feat_extractor"
+    "promptFeature": "Matcha mel_spectrogram n_fft=1920 n_mels=80 sr=24000 hop=480 win=1920 center=False"
   },
   "promotionRequirements": [
-    "host numerical parity against upstream frontend.py",
-    "physical iPhone parity for all three outputs",
-    "finite outputs and exact shape checks",
-    "reference duration <= 30 seconds",
-    "no Python or ONNX Runtime dependency in shipping app"
+    "Swift Whisper128 vs upstream whisper.log_mel_spectrogram numerical parity",
+    "Swift Kaldi80 vs torchaudio.compliance.kaldi.fbank numerical parity",
+    "Swift Matcha80 vs upstream feat_extractor numerical parity",
+    "Core ML speech tokenizer vs upstream ONNX token equality",
+    "Core ML CAMPPlus numerical parity",
+    "dynamic Flow conditions vs upstream mu/spks/cond numerical parity",
+    "physical iPhone end-to-end custom-reference text-to-PCM",
+    "no Python or host bridge in shipping runtime"
   ]
 }
