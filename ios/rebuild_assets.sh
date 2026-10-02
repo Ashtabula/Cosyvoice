@@ -15,7 +15,7 @@ run(){ log "RUN $*"; "$@"; }
 main(){
     [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf '[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\n'; return 2; }
     local profile="$2"; [ "$profile" = "ios-fixed225-reference" ] || { printf '[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\n' "$profile"; return 2; }
-    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model requirements_hash requirements_stamp
+    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model requirements_hash requirements_stamp acoustic_config_receipt
     work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}"
     source="$work/source"
     venv="$work/venv"
@@ -27,6 +27,7 @@ main(){
     hygiene="$work/source-hygiene.json"
     model_cache="$work/model-cache/Fun-CosyVoice3-0.5B-2512"
     legacy_model="$source/pretrained_models/Fun-CosyVoice3-0.5B-2512"
+    acoustic_config_receipt="$model_cache/cosyvoice3.acoustic.config-receipt.json"
     requirements_stamp="$venv/.cosyvoice-rebuild-requirements.sha256"
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$work" "$(dirname "$output")" "$(dirname "$receipt")" || return $?
@@ -46,6 +47,7 @@ main(){
     run "$venv/bin/python" "$ROOT/validation/smoke_rebuild_python_imports.py" --source-root "$source" || return $?
     log "download exact minimal model revision=$MODEL_REVISION"
     run "$venv/bin/python" "$ROOT/validation/fetch_rebuild_checkpoint.py" --source-root "$source" --model-cache "$model_cache" --repo "$MODEL_REPO" --revision "$MODEL_REVISION" || return $?
+    run "$venv/bin/python" "$ROOT/validation/prepare_acoustic_rebuild_config.py" --model-dir "$model_cache" --output "$model_cache/cosyvoice3.acoustic.yaml" || return $?
     run "$venv/bin/python" "$ROOT/validation/generate_rebuild_validation_fixture.py" --source-root "$source" --output "$fixture" || return $?
     mkdir -p "$source/iOS/validation/phase0/run-002" || return $?; ln -s "$fixture" "$source/iOS/validation/phase0/run-002/tensors" || return $?
     log "rebuild final LLM prefill/decode family"
@@ -75,7 +77,7 @@ main(){
     cp "$ref/parity/fixture/whisper_mel_128.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/kaldi_mel_80.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/matcha_mel_80.f32" "$ref/coreml/" || return $?
     run "$venv/bin/python" "$ROOT/validation/install_rebuilt_reference_assets.py" --asset-root "$output" --reference-dir "$ref/coreml" --host-receipt "$ref/parity/reference_host_parity_receipt.json" || return $?
     run "$venv/bin/python" "$ROOT/assets/validate_assets.py" --root "$output" || return $?
-    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --output "$receipt" || return $?
+    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --acoustic-config-receipt "$acoustic_config_receipt" --output "$receipt" || return $?
     log "COMPLETE status=PASS_SUPPORTED_FULL_RUNTIME_REBUILD profile=$profile output=$output receipt=$receipt"
 }
 main "$@"
@@ -91,3 +93,4 @@ test "$RC" -eq 0
 # Changes 2026-10-02: replace whole-repository Hugging Face download with a 12-pattern persistent local_dir, migrate any previous failed-run model directory before deleting the temporary source checkout, preflight the complete sanitized Matcha/CosyVoice conversion import closure before model download, and reuse interrupted blobs across retries.
 # Changes 2026-10-02: Matcha training-only Lightning/Hydra imports are removed from the temporary exact-blob-gated checkout, so rebuild dependency preflight stays conversion-only.
 # Changes 2026-10-02: rebuild venv is keyed by requirements-rebuild.txt SHA-256 and recreated whenever the lock changes, preventing failed-run dependency residue from contaminating Candidate evidence.
+# Changes 2026-10-02: derive and validate cosyvoice3.acoustic.yaml from the exact pinned checkpoint config before fixture/acoustic export, and bind its receipt into final rebuild evidence.
