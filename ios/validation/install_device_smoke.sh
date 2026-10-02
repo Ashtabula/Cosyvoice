@@ -23,6 +23,7 @@ main() {
     if [ ! -x "$PYTHON_BIN" ]; then printf '[COSYVOICE3-INSTALL] ERROR Python environment missing: %s\n' "$PYTHON_BIN"; return 2; fi
     command -v xcodebuild || return $?
     command -v xcrun || return $?
+    command -v swift || return $?
     cd "$ROOT" || return $?
 
     printf '[COSYVOICE3-INSTALL] root=%s\n' "$ROOT"
@@ -31,7 +32,7 @@ main() {
     printf '[COSYVOICE3-INSTALL] hostReceipt=%s referenceCandidates=%s\n' "$HOST_RECEIPT" "$REFERENCE_CANDIDATE_DIR"
     xcrun devicectl list devices || return $?
 
-    if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ]; then
+    if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ] || [ ! -f "$ASSET_ROOT/tokenizer/tokenizer.json" ]; then
         printf '[COSYVOICE3-INSTALL] assembling standalone fixed225 runtime from validated migration assets\n'
         ASSEMBLE_FORCE_ARGS=()
         case "$ASSET_ROOT" in
@@ -53,6 +54,10 @@ main() {
             --output "$ASSET_ROOT" \
             "${ASSEMBLE_FORCE_ARGS[@]}" || return $?
     fi
+
+    printf '[COSYVOICE3-INSTALL] validating exact native tokenizer parity before iPhone build\n'
+    COSYVOICE3_TOKENIZER_PARITY_FOLDER="$ASSET_ROOT/tokenizer" \
+        swift test --package-path "$ROOT" --filter ReferenceTokenizerExternalParityTests || return $?
 
     "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
         --asset-root "$ASSET_ROOT" \

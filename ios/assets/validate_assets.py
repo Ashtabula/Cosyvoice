@@ -49,8 +49,23 @@ def main():
     if (root / m["flowNoise"]).stat().st_size != 1 * 80 * 752 * 4:
         fail("flow noise byte count mismatch")
 
-    for name in ("tokenizer_config.json", "vocab.json", "merges.txt"):
-        nonempty(root / m["tokenizerFolder"] / name)
+    tokenizer_root = root / m["tokenizerFolder"]
+    for name in ("tokenizer_config.json", "tokenizer.json", "vocab.json", "merges.txt"):
+        nonempty(tokenizer_root / name)
+
+    tokenizer_data = json.loads((tokenizer_root / "tokenizer.json").read_text(encoding="utf-8"))
+    added_tokens = tokenizer_data.get("added_tokens")
+    if not isinstance(added_tokens, list):
+        fail("tokenizer.json has no added_tokens array")
+    added_by_content = {
+        item.get("content"): int(item.get("id"))
+        for item in added_tokens
+        if isinstance(item, dict) and isinstance(item.get("content"), str) and item.get("id") is not None
+    }
+    if added_by_content.get("<|endofprompt|>") != 151646:
+        fail("CosyVoice3 <|endofprompt|> token id must be 151646")
+    if not added_tokens or max(int(item["id"]) for item in added_tokens) != rows - 1:
+        fail("CosyVoice3 tokenizer added-token range does not match text embedding rows")
     f0 = root / m["f0Folder"]
     for i in range(5):
         nonempty(f0 / f"f0-{i}-weight.bin")
@@ -92,5 +107,5 @@ if __name__ == "__main__":
         print(f"[COSYVOICE3-ASSETS] FAIL {type(exc).__name__}: {exc}", file=sys.stderr)
         raise
 
-# Purpose: fail-closed structural validator for the fixed225 SDK asset profile and optional custom-reference lane.
+# Purpose: fail-closed structural validator for the fixed225 SDK asset profile, exact local CosyVoice3 tokenizer contract, and optional custom-reference lane.
 # Generated: 2026-10-02 America/New_York.

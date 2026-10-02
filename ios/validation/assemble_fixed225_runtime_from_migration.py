@@ -161,6 +161,8 @@ def main() -> None:
             require(model / "llm.pt"),
             "--tokenizer-dir",
             require(model / "CosyVoice-BlankEN"),
+            "--cosyvoice-tokenizer-source",
+            require(source / "cosyvoice/tokenizer/tokenizer.py"),
             "--output",
             temp,
             "--rope-theta",

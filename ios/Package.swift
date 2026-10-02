@@ -6,5 +6,5 @@ let package = Package(
  dependencies:[.package(url:"https://github.com/huggingface/swift-transformers.git",exact:"1.3.4")],
  targets:[
   .target(name:"CosyVoice3Core",dependencies:[.product(name:"Tokenizers",package:"swift-transformers")],path:"Sources/CosyVoice3Core",linkerSettings:[.linkedFramework("CoreML"),.linkedFramework("AVFoundation"),.linkedFramework("Accelerate")]),
-  .testTarget(name:"CosyVoice3CoreTests",dependencies:["CosyVoice3Core"],path:"Tests/CosyVoice3CoreTests")
+  .testTarget(name:"CosyVoice3CoreTests",dependencies:["CosyVoice3Core",.product(name:"Tokenizers",package:"swift-transformers")],path:"Tests/CosyVoice3CoreTests")
  ])
