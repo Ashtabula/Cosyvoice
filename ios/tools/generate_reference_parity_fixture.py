@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import math
 import wave
@@ -37,17 +38,33 @@ def write_pcm16(path: Path, samples: np.ndarray, sample_rate: int) -> None:
         output.writeframes(pcm.tobytes())
 
 
-def matcha_mel(samples_24k: np.ndarray, source_root: Path) -> torch.Tensor:
-    import sys
-    matcha_root = str(source_root / "third_party/Matcha-TTS")
-    if matcha_root not in sys.path:
-        sys.path.insert(0, matcha_root)
-    from matcha.utils.audio import mel_spectrogram
+def load_pinned_matcha_audio(source_root: Path):
+    audio_path = source_root / "third_party/Matcha-TTS/matcha/utils/audio.py"
+    if not audio_path.is_file():
+        raise RuntimeError(f"pinned Matcha audio.py missing: {audio_path}")
+    spec = importlib.util.spec_from_file_location("cosyvoice3_pinned_matcha_audio", audio_path)
+    if spec is None or spec.loader is None:
+        raise RuntimeError(f"could not load pinned Matcha audio.py: {audio_path}")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module, audio_path
+
+
+def matcha_mel(samples_24k: np.ndarray, source_root: Path) -> tuple[torch.Tensor, Path]:
+    matcha_audio, audio_path = load_pinned_matcha_audio(source_root)
     waveform = torch.from_numpy(samples_24k).unsqueeze(0)
-    return mel_spectrogram(
-        waveform, n_fft=1920, num_mels=80, sampling_rate=24000,
-        hop_size=480, win_size=1920, fmin=0, fmax=None, center=False
+    value = matcha_audio.mel_spectrogram(
+        waveform,
+        n_fft=1920,
+        num_mels=80,
+        sampling_rate=24000,
+        hop_size=480,
+        win_size=1920,
+        fmin=0,
+        fmax=None,
+        center=False,
     )
+    return value, audio_path
 
 
 def main() -> None:
@@ -87,7 +104,11 @@ def main() -> None:
         sample_frequency=16000
     )
     camp = (camp - camp.mean(dim=0, keepdim=True)).unsqueeze(0).cpu().numpy()
-    prompt = matcha_mel(samples24.cpu().numpy(), args.source_root.resolve()).squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
+    prompt_tensor, matcha_audio_path = matcha_mel(
+        samples24.cpu().numpy(),
+        args.source_root.resolve(),
+    )
+    prompt = prompt_tensor.squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
 
     receipt = {
         "schemaVersion": 2,
@@ -109,6 +130,11 @@ def main() -> None:
             "promptMel": [1, 302, 80],
         },
         "resampler": "torchaudio==2.3.1 transforms.Resample default sinc_interp_hann width6 rolloff0.99",
+        "matchaAudio": {
+            "path": str(matcha_audio_path),
+            "sha256": sha256(matcha_audio_path),
+            "loadMode": "direct file import; package __init__ intentionally bypassed",
+        },
     }
     for key, expected in receipt["expectedShapes"].items():
         actual = receipt["upstream"][key]["shape"]
@@ -123,5 +149,5 @@ if __name__ == "__main__":
 
 # Code purpose: deterministic upstream decode/resample/DSP oracle for Swift reference preprocessing.
 # Upstream: CosyVoice3_NPU@8789402; torchaudio==2.3.1; Matcha submodule dd9105b.
-# Runtime: conversion/validation host only.
+# Runtime: conversion/validation host only. Pinned Matcha audio.py is loaded directly by file path so unrelated Matcha/Hydra package initialization is not required.
 # Generated: 2026-10-02 America/New_York.
