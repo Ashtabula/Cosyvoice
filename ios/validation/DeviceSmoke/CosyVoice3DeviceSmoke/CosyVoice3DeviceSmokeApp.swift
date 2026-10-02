@@ -119,7 +119,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "systemVersion": UIDevice.current.systemVersion
             ]
             let data = try JSONSerialization.data(withJSONObject: receipt, options: [.prettyPrinted, .sortedKeys])
-            try data.write(to: Self.receiptURL(), options: .atomic)
+            let receiptURL = try Self.receiptURL()
+            try data.write(to: receiptURL, options: .atomic)
             receiptJSON = String(decoding: data, as: UTF8.self)
             try play(audio)
             status = String(
@@ -128,7 +129,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 duration,
                 elapsedSeconds,
                 elapsedSeconds / duration,
-                Self.receiptURL().path
+                receiptURL.path
             )
         } catch {
             let receipt: [String: Any] = [
