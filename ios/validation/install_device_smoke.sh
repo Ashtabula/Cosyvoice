@@ -143,7 +143,7 @@ main() {
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
-    printf '[COSYVOICE3-INSTALL] App auto-runs once. Copy Documents/reference-smoke-receipt.json after PASS and feed it to tools/promote_reference_assets.py.\n'
+    if [ "$CANDIDATE_BENCHMARK" = "1" ]; then printf '[COSYVOICE3-INSTALL] App auto-runs Candidate benchmark. Retrieve Documents/candidate-benchmark-receipt.json.\n'; else printf '[COSYVOICE3-INSTALL] App auto-runs once. Copy Documents/reference-smoke-receipt.json after PASS and feed it to tools/promote_reference_assets.py.\n'; fi
 }
 
 main "$@"
