@@ -107,11 +107,16 @@ def build_tokenizer(
         raise RuntimeError(
             f"{END_OF_PROMPT} id mismatch: {token_to_id.get(END_OF_PROMPT)} != {END_OF_PROMPT_ID}"
         )
-    if next_id != text_rows:
+    active_text_vocab_rows = next_id
+    padded_text_rows = ((active_text_vocab_rows + 127) // 128) * 128
+    if padded_text_rows != text_rows:
         raise RuntimeError(
-            f"CosyVoice3 tokenizer rows mismatch after exact upstream special-token expansion: "
-            f"next_id={next_id} textEmbeddingRows={text_rows}"
+            "CosyVoice3 tokenizer/embedding alignment mismatch after exact upstream "
+            f"special-token expansion: activeTextVocabRows={active_text_vocab_rows} "
+            f"expected128AlignedEmbeddingRows={padded_text_rows} "
+            f"textEmbeddingRows={text_rows}"
         )
+    padding_rows = text_rows - active_text_vocab_rows
 
     added_tokens = [
         added_token_record(token_id, id_to_token[token_id])
@@ -207,7 +212,10 @@ def build_tokenizer(
         "tokenizerConfigSha256": sha256(output / "tokenizer_config.json"),
         "baseVocabCount": len(vocab),
         "addedTokenCount": len(added_tokens),
-        "textRows": text_rows,
+        "activeTextVocabRows": active_text_vocab_rows,
+        "textEmbeddingRows": text_rows,
+        "embeddingPaddingRows": padding_rows,
+        "embeddingAlignment": 128,
         "endOfPromptID": token_to_id[END_OF_PROMPT],
         "lastTokenID": max(id_to_token),
         "specialTokenSource": str(source_file),
@@ -282,7 +290,7 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: build native Swift embedding assets plus the exact local tokenizer contract required by swift-transformers AutoTokenizer.
+# Code purpose: build native Swift embedding assets plus the exact local tokenizer contract required by swift-transformers AutoTokenizer, distinguishing logical tokenizer vocabulary from 128-row-aligned physical text embeddings.
 # Upstream: pinned llm.pt, CosyVoice-BlankEN vocab/merges/config, and exact CosyVoice3Tokenizer special-token declaration from locked source.
 # Runtime: host PyTorch + Python standard library; no Python/transformers dependency in the shipping iOS runtime.
 # Generated: 2026-10-02 America/New_York.

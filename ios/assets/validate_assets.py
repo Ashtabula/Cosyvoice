@@ -64,8 +64,24 @@ def main():
     }
     if added_by_content.get("<|endofprompt|>") != 151646:
         fail("CosyVoice3 <|endofprompt|> token id must be 151646")
-    if not added_tokens or max(int(item["id"]) for item in added_tokens) != rows - 1:
-        fail("CosyVoice3 tokenizer added-token range does not match text embedding rows")
+    if added_by_content.get("[ǜ]") != 151923:
+        fail("CosyVoice3 final upstream text special token [ǜ] must be id 151923")
+
+    model_vocab = tokenizer_data.get("model", {}).get("vocab")
+    if not isinstance(model_vocab, dict) or not model_vocab:
+        fail("tokenizer.json model.vocab missing/empty")
+    active_text_vocab_rows = max(
+        max(int(value) for value in model_vocab.values()),
+        max(int(item["id"]) for item in added_tokens),
+    ) + 1
+    if active_text_vocab_rows != 151924:
+        fail(f"CosyVoice3 active text vocab rows mismatch: {active_text_vocab_rows}")
+    aligned_rows = ((active_text_vocab_rows + 127) // 128) * 128
+    if rows != aligned_rows or rows - active_text_vocab_rows != 12:
+        fail(
+            "CosyVoice3 text embedding must be the 128-row-aligned physical table: "
+            f"active={active_text_vocab_rows} aligned={aligned_rows} manifestRows={rows}"
+        )
     f0 = root / m["f0Folder"]
     for i in range(5):
         nonempty(f0 / f"f0-{i}-weight.bin")

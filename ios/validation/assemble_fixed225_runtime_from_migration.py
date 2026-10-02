@@ -148,12 +148,31 @@ def main() -> None:
     ]
 
     # Generate the two small native embedding tables and tokenizer metadata from
-    # the pinned checkpoint instead of copying benchmark-app resources.
+    # the pinned checkpoint instead of copying benchmark-app resources. Extract
+    # tokenizer.py from the locked SDK source commit explicitly so a newer local
+    # development HEAD cannot silently change release tokenizer semantics.
     with tempfile.TemporaryDirectory(
         prefix="cosyvoice3-frontend-",
         dir=str(output.parent),
     ) as temp_name:
         temp = Path(temp_name)
+        locked_tokenizer_source = temp / "cosyvoice_tokenizer_locked.py"
+        with locked_tokenizer_source.open("wb") as handle:
+            print(
+                "[COSYVOICE3-RUNTIME-ASSEMBLY] RUN "
+                f"git -C {source} show {SOURCE_COMMIT}:cosyvoice/tokenizer/tokenizer.py",
+                flush=True,
+            )
+            subprocess.run(
+                [
+                    "git", "-C", str(source), "show",
+                    f"{SOURCE_COMMIT}:cosyvoice/tokenizer/tokenizer.py",
+                ],
+                check=True,
+                stdout=handle,
+            )
+        require(locked_tokenizer_source)
+
         run([
             sys.executable,
             EXPORT_FRONTEND,
@@ -162,7 +181,7 @@ def main() -> None:
             "--tokenizer-dir",
             require(model / "CosyVoice-BlankEN"),
             "--cosyvoice-tokenizer-source",
-            require(source / "cosyvoice/tokenizer/tokenizer.py"),
+            locked_tokenizer_source,
             "--output",
             temp,
             "--rope-theta",
@@ -269,7 +288,7 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: build the standalone fixed225 release-layout runtime from previously validated migration artifacts while keeping the migration repository read-only.
+# Code purpose: build the standalone fixed225 release-layout runtime from previously validated migration artifacts while keeping the migration repository read-only and sourcing tokenizer semantics from the locked SDK source commit rather than the local development HEAD.
 # Upstream artifact sources: CosyVoice3_NPU iOS converted LLM/Flow/HiFT/F0 candidates and Fun-CosyVoice3-0.5B-2512 checkpoint.
 # Runtime: macOS host; Python 3.11 environment with torch/numpy for embedding export; large packages remain outside Git.
 # Generated: 2026-10-02 America/New_York.
