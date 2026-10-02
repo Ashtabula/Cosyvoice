@@ -1,5 +1,5 @@
 {
-  "schemaVersion": 2,
+  "schemaVersion": 3,
   "engine": "CosyVoice3",
   "platform": "iOS",
   "releaseStatus": "development",
@@ -24,14 +24,33 @@
     "tests": "Tests/CosyVoice3CoreTests"
   },
   "publicApi": {
-    "endToEndEngineImplemented": false,
     "targetEngine": "CosyVoice3Engine",
-    "plannedUserParameters": [
+    "contractImplemented": true,
+    "fixed225EndToEndSourceImplemented": true,
+    "defaultBakedReferenceSourceImplemented": true,
+    "customReferenceSourceImplemented": true,
+    "customReferencePromoted": false,
+    "userParameters": [
       "reference",
       "instruction"
     ],
-    "output": "mono Float32 PCM 24000 Hz",
-    "contractImplemented": true
+    "output": "mono Float32 PCM 24000 Hz"
+  },
+  "fixed225Profile": {
+    "speechTokens": 225,
+    "outputMelFrames": 450,
+    "outputSamples": 216000,
+    "outputSeconds": 9,
+    "customReference": {
+      "seconds": 6.056,
+      "samples16k": 96896,
+      "samples24k": 145344,
+      "whisperFrames": 605,
+      "campFrames": 604,
+      "promptSpeechTokens": 151,
+      "promptMelFrames": 302,
+      "status": "PARITY_PENDING"
+    }
   },
   "tokenSemantics": {
     "speechIdsInclusive": [
@@ -47,40 +66,28 @@
       6760
     ]
   },
-  "instruct2DevelopmentEvidence": {
-    "labels": [
-      "happy",
-      "angry",
-      "fast",
-      "soft",
-      "sichuan"
-    ],
-    "publicApiFrozen": false
-  },
   "accelerator": {
     "claim": "not-claimed",
     "requestedComputeUnitsMayInclude": "cpuAndNeuralEngine",
     "residencyProven": false
   },
-  "candidateBlockers": [
-    "complete runtime extraction",
-    "end-to-end public engine",
-    "canonical asset contract",
-    "immutable fetch + validation",
-    "one-command rebuild",
-    "physical-device public-API text-to-PCM",
-    "cold/warm benchmark",
-    "clean-room integration",
-    "asset redistribution license review"
-  ],
-  "importedRuntimeScaffold": [
-    "CosyVoice3Stage1Runtime",
-    "CosyVoice3FP16StatefulLLMSession",
-    "CosyVoice3HiFTDoubleF0"
-  ],
   "ci": {
     "workflow": ".github/workflows/cosyvoice-ios-sdk.yml",
     "command": "swift test --package-path ios",
-    "status": "PENDING_FIRST_RUN"
-  }
+    "status": "PASS",
+    "testedCommit": "44da9c1144e78273ea1e635b3641afdf73bf5904",
+    "runId": 37007257072
+  },
+  "candidateBlockers": [
+    "reference DSP tensor parity",
+    "speech-tokenizer Core ML vs ONNX parity",
+    "CAMPPlus Core ML vs ONNX parity",
+    "dynamic Flow-conditioning parity",
+    "physical-device custom-reference text-to-PCM",
+    "immutable asset fetch",
+    "one-command rebuild",
+    "cold/warm benchmark",
+    "clean-room integration",
+    "asset redistribution license review"
+  ]
 }

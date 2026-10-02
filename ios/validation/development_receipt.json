@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 1,
-  "status": "DEVELOPMENT_SCAFFOLD_IMPORTED",
+  "schemaVersion": 2,
+  "status": "DEVELOPMENT_FIXED225_RUNTIME_WIRED",
   "sourceCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
   "sourceTree": "3e84e6681ab123367703a8b612317172b02dc15c",
   "publicationPath": "Ashtabula/Cosyvoice/ios/",
@@ -10,14 +10,22 @@
     "runtimeTestsPresent": "PASS",
     "eosSemanticAuditPreserved": "PASS",
     "benchmarkCodeExcludedFromSources": "PASS",
-    "endToEndPublicEngine": "NOT_IMPLEMENTED",
-    "assetContract": "NOT_IMPLEMENTED",
+    "publicApiContract": "PASS",
+    "defaultFixed225EndToEndSource": "PASS",
+    "nativeRAS": "PASS_SOURCE_IMPLEMENTED",
+    "flowHiFTRuntime": "PASS_SOURCE_IMPLEMENTED",
+    "customReferenceRuntime": "PASS_SOURCE_IMPLEMENTED_PARITY_PENDING",
+    "referenceAssetContract": "PASS_SOURCE_PRESENT",
+    "standaloneSwiftCI": "PASS",
+    "standaloneSwiftCITestedCommit": "44da9c1144e78273ea1e635b3641afdf73bf5904",
+    "standaloneSwiftCIRunId": 37007257072,
+    "physicalDevicePublicApi": "NOT_RUN",
+    "customReferenceParity": "NOT_RUN",
     "cleanRoomDevicePublicApi": "NOT_RUN",
-    "redistributionLicenseReview": "PENDING",
-    "publicApiContract": "PASS_SOURCE_PRESENT",
-    "hiftF0RuntimeExtracted": "PASS_SOURCE_PRESENT",
-    "standaloneSwiftCI": "PENDING_FIRST_RUN"
+    "redistributionLicenseReview": "PENDING"
   },
-  "behaviorChangeFromSourceRuntimeCopy": false,
+  "sourceRuntimeCopyBehaviorChange": false,
+  "nativeReimplementationIntroduced": true,
+  "nativeReimplementationParityRequired": true,
   "acceleratorClaim": "not-claimed"
 }
