@@ -79,7 +79,8 @@
     "runId": 37007257072
   },
   "candidateBlockers": [
-    "one-command rebuild",
+    "one-command pinned local rebuild",
+    "validation/release_receipt.json evidence bundle",
     "cold/warm benchmark",
     "clean-room integration",
     "asset redistribution license review"
