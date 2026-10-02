@@ -8,6 +8,8 @@ transformers==4.51.3
 safetensors==0.8.0
 x-transformers==2.11.24
 diffusers==0.29.0
+conformer==0.3.2
+lightning==2.2.4
 pillow==11.3.0
 HyperPyYAML==1.2.3
 omegaconf==2.3.0
@@ -25,3 +27,4 @@ huggingface_hub<1
 # Generated: 2026-10-02 America/New_York.
 # Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.\n# Changes 2026-10-02: explicitly pin omegaconf==2.3.0 because the shipping Flow class imports DictConfig during HyperPyYAML reconstruction.
 # Changes 2026-10-02: pin diffusers==0.29.0 and pillow==11.3.0 from upstream provenance so Matcha-TTS flow construction never falls through to a developer-local Python 3.10 environment.
+# Changes 2026-10-02: pin conformer==0.3.2 and lightning==2.2.4 because the locked Matcha-TTS decoder imports ConformerBlock and its pylogger imports lightning.pytorch during HyperPyYAML flow reconstruction.
