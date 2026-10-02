@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #@title retry_hift_parity_from_failed_rebuild.sh
 # Requirement: after a late clean-house HiFT parity failure, reuse only the pinned temporary source + persistent checkpoint cache, regenerate the deterministic fixture with the current publication code, and rerun acoustic/HiFT host parity without rerunning LLM Core ML exports.
-set -u
+set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 WORK="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/ios-fixed225-reference}"
 SOURCE="$WORK/source"
@@ -66,10 +66,17 @@ print(f"[COSYVOICE3-HIFT-RETRY] diagnostic-only FP32-F0 vs upstream {p.get('vs_u
 PY
 
 run "$VENV/bin/python" "$ROOT/validation/validate_shipping_hift_host.py" --source-root "$SOURCE" --fixture "$FIXTURE" --output "$WORK/shipping-hift-host-parity.json"
-log "PASS_SHIPPING_HIFT_HOST_PARITY"
+[ -f "$WORK/shipping-hift-host-parity.json" ] || { log "ERROR shipping HiFT receipt missing"; exit 1; }
+run "$VENV/bin/python" - "$WORK/shipping-hift-host-parity.json" <<'PY'
+import json,sys
+p=json.load(open(sys.argv[1]))
+if p.get("status")!="PASS_SHIPPING_HIFT_HOST_PARITY":
+    raise SystemExit("shipping HiFT receipt not PASS: "+str(p.get("status")))
+print("[COSYVOICE3-HIFT-RETRY] PASS_SHIPPING_HIFT_HOST_PARITY",flush=True)
+PY
 
 # Code purpose: quickly validate the corrected clean-house Flow-derived HiFT fixture after a late HiFT failure, without rerunning already-proven LLM/Flow Core ML exports.
 # Upstream source: pinned temporary CosyVoice3_NPU checkout plus persistent official checkpoint cache created by ios/rebuild_assets.sh.
 # Runtime environment: macOS Apple Silicon / existing isolated rebuild Python 3.11 venv / Core ML Tools 9.
 # Generated: 2026-10-02 America/New_York.
-# Changes: late-stage diagnostic retry; deletes/rebuilds only temporary fixture and acoustic outputs, keeps FP32 F0 as a diagnostic, then gates the actual shipping FP64-F0/Float64-host-phase/Core ML HiFT body path at relative-L2 <= 0.02; does not emit full-runtime Candidate PASS.
+# Changes: late-stage diagnostic retry; fail closed with set -euo pipefail, deletes/rebuilds only temporary fixture and acoustic outputs, keeps FP32 F0 as a diagnostic, then requires an actual PASS_SHIPPING_HIFT_HOST_PARITY receipt before printing PASS; does not emit full-runtime Candidate PASS.
