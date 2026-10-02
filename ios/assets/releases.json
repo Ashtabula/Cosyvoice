@@ -23,7 +23,9 @@
       "referenceStatus": "PASS_DEVICE_PARITY",
       "licenseGate": "PENDING",
       "requiresAuthentication": true,
-      "technicalDistributionStatus": "READY",
+      "assetTechnicalStatus": "READY_PRIVATE_RC",
+      "sdkIntegrationReady": true,
+      "candidateTechnicalDistributionReady": false,
       "publicReleaseStatus": "PENDING",
       "publicRedistributionApproved": false
     }
