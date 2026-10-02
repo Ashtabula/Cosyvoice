@@ -5,6 +5,29 @@ import Foundation
 
 enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String) }
 
+struct CosyVoice3ReferenceEnrollmentAssets: Codable, Sendable {
+    let status: String
+    let speechTokenizer: String
+    let campPlus: String
+    let whisperMel128: String
+    let kaldiMel80: String
+    let matchaMel80: String
+    let flowConditionsDynamic: String
+    let promptTokenCount: Int
+    let promptFrameCount: Int
+
+    var isPromoted: Bool { status == "PASS_DEVICE_PARITY" }
+
+    func validate() throws {
+        guard !speechTokenizer.isEmpty, !campPlus.isEmpty,
+              !whisperMel128.isEmpty, !kaldiMel80.isEmpty, !matchaMel80.isEmpty,
+              !flowConditionsDynamic.isEmpty,
+              promptTokenCount == 151, promptFrameCount == 302 else {
+            throw CosyVoice3AssetError.invalidJSON("invalid fixed225 reference enrollment contract")
+        }
+    }
+}
+
 struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
     let schemaVersion: Int
     let profile: String
@@ -21,6 +44,8 @@ struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
     let flowNoise: String
     let ropeTheta: Double
     let textEmbeddingRows: Int
+    let referenceEnrollment: CosyVoice3ReferenceEnrollmentAssets?
+
     func validate() throws {
         guard schemaVersion == 1,
               profile == "ios18-fixed225",
@@ -31,6 +56,7 @@ struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
               !textEmbedding.isEmpty else {
             throw CosyVoice3AssetError.unsupportedProfile(profile)
         }
+        try referenceEnrollment?.validate()
     }
 }
 
@@ -72,7 +98,7 @@ enum CosyVoice3AssetLoader {
     }
 }
 
-// Purpose: centralize immutable asset names instead of leaking benchmark Documents paths into runtime.
-// Upstream: validated CoreML artifacts from CosyVoice3_NPU@8789402.
-// Runtime: iOS18+.
+// Purpose: centralize immutable fixed225 assets and gate custom-reference enrollment on explicit device-parity promotion.
+// Upstream: CosyVoice3_NPU@8789402.
+// Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.

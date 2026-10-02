@@ -1,17 +1,13 @@
 // CosyVoice3Engine.swift
-// Requirement: public SDK facade owns the complete on-device fixed225 lane.
-// Custom-reference enrollment stays fail-closed until its converted assets pass parity; default baked-reference synthesis can produce PCM.
+// Requirement: public SDK facade owns the complete on-device fixed225 lane; custom reference activates only after its assets are explicitly device-parity promoted.
 import CoreML
 import Foundation
 import Tokenizers
 
 public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public let assetRoot: URL
-    private let capabilitiesValue = CosyVoice3Capabilities(
-        supportsReferenceAudio: false,
-        supportsInstruction: true,
-        outputSampleRate: 24_000
-    )
+    private let manifest: CosyVoice3Fixed225AssetManifest
+    private let capabilitiesValue: CosyVoice3Capabilities
 
     public init(assetRoot: URL) throws {
         var isDirectory: ObjCBool = false
@@ -19,6 +15,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             throw CosyVoice3EngineError.assetRootMissing(assetRoot.path)
         }
         self.assetRoot = assetRoot
+        self.manifest = try CosyVoice3AssetLoader.loadManifest(root: assetRoot)
+        self.capabilitiesValue = CosyVoice3Capabilities(
+            supportsReferenceAudio: manifest.referenceEnrollment?.isPromoted == true,
+            supportsInstruction: true,
+            outputSampleRate: 24_000
+        )
     }
 
     public func capabilities() async throws -> CosyVoice3Capabilities { capabilitiesValue }
@@ -29,24 +31,24 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
               FileManager.default.fileExists(atPath: reference.audioURL.path) else {
             throw CosyVoice3EngineError.invalidReference
         }
-        throw CosyVoice3EngineError.developmentRuntimeIncomplete(
-            "custom reference enrollment is not promoted until speech-tokenizer, CAMPPlus and 24-kHz prompt-mel iOS parity pass"
-        )
+        guard let assets = manifest.referenceEnrollment, assets.isPromoted else {
+            throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                "custom reference enrollment assets have not passed physical-device parity"
+            )
+        }
+        _ = try await makeReferenceEncoder(assets: assets).encode(audioURL: reference.audioURL)
     }
 
     public func synthesize(_ text: String, parameters: CosyVoice3Parameters = .init()) async throws -> CosyVoice3Audio {
         let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !cleaned.isEmpty else { throw CosyVoice3EngineError.emptyText }
-        if parameters.reference != nil {
-            throw CosyVoice3EngineError.developmentRuntimeIncomplete(
-                "custom reference enrollment is not yet a validated production asset; omit reference to use the validated baked-reference fixed225 lane"
-            )
-        }
-        guard #available(iOS 18.0, macOS 15.0, *) else {
-            throw CosyVoice3EngineError.developmentRuntimeIncomplete("stateful CosyVoice3 runtime requires iOS18+/macOS15+")
+        if let reference = parameters.reference {
+            guard !reference.transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                  FileManager.default.fileExists(atPath: reference.audioURL.path) else {
+                throw CosyVoice3EngineError.invalidReference
+            }
         }
 
-        let manifest = try CosyVoice3AssetLoader.loadManifest(root: assetRoot)
         let tokenizerRoot = assetRoot.appendingPathComponent(manifest.tokenizerFolder, isDirectory: true)
         let tokenizer = try await AutoTokenizer.from(modelFolder: tokenizerRoot)
         let textEmbeddings = try CosyVoice3FP16EmbeddingTable(
@@ -62,15 +64,32 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             theta: manifest.ropeTheta,
             maximumPosition: 512
         )
-        let frontend = CosyVoice3Fixed224Frontend(
+        let baseFrontend = CosyVoice3Fixed224Frontend(
             tokenizer: tokenizer,
             textEmbeddings: textEmbeddings,
             speechEmbeddings: speechEmbeddings,
             rope: rope
         )
+
+        let frontend: any CosyVoice3NativeFrontend
+        let flowConditionsPath: String
+        if parameters.reference != nil {
+            guard let referenceAssets = manifest.referenceEnrollment, referenceAssets.isPromoted else {
+                throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                    "custom reference requested but reference enrollment is not PASS_DEVICE_PARITY"
+                )
+            }
+            let encoder = try makeReferenceEncoder(assets: referenceAssets)
+            frontend = CosyVoice3ReferenceAwareFrontend(base: baseFrontend, encoder: encoder)
+            flowConditionsPath = referenceAssets.flowConditionsDynamic
+        } else {
+            frontend = baseFrontend
+            flowConditionsPath = manifest.flowConditions
+        }
+
         let prepared = try await frontend.prepare(
             text: cleaned,
-            reference: nil,
+            reference: parameters.reference,
             instruction: parameters.instruction
         )
 
@@ -87,7 +106,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         )
         let speechTokens = try llm.generate(prepared)
 
-        let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.flowConditions)
+        let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
         let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
         let f0 = try CosyVoice3HiFTDoubleF0(folder: assetRoot.appendingPathComponent(manifest.f0Folder, isDirectory: true))
@@ -103,9 +122,37 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         )
         return try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
     }
+
+    private func makeReferenceEncoder(assets: CosyVoice3ReferenceEnrollmentAssets) throws -> CosyVoice3CoreMLReferenceEncoder {
+        let speechTokenizer = try CosyVoice3AssetLoader.model(
+            root: assetRoot, path: assets.speechTokenizer, computeUnits: .cpuOnly
+        )
+        let campPlus = try CosyVoice3AssetLoader.model(
+            root: assetRoot, path: assets.campPlus, computeUnits: .cpuOnly
+        )
+        let dsp = try CosyVoice3ReferenceDSP(
+            whisper128: CosyVoice3MelBank(
+                url: assetRoot.appendingPathComponent(assets.whisperMel128),
+                rows: 128, columns: 201
+            ),
+            kaldi80: CosyVoice3MelBank(
+                url: assetRoot.appendingPathComponent(assets.kaldiMel80),
+                rows: 80, columns: 256
+            ),
+            matcha80: CosyVoice3MelBank(
+                url: assetRoot.appendingPathComponent(assets.matchaMel80),
+                rows: 80, columns: 961
+            )
+        )
+        return CosyVoice3CoreMLReferenceEncoder(
+            speechTokenizer: speechTokenizer,
+            campPlus: campPlus,
+            dsp: dsp
+        )
+    }
 }
 
-// Purpose: connect native tokenizer/prefill, stateful LLM, Swift RAS, Flow and HiFT to actual PCM for the validated fixed225 default-reference profile.
+// Purpose: default baked-reference and separately parity-gated custom-reference fixed225 paths now share one public text->PCM API.
 // Upstream: CosyVoice3_NPU@8789402.
-// Runtime: iOS18+/macOS15+, no Python/host/file bridge.
+// Runtime: iOS18+/macOS15+, no Python/host bridge.
 // Generated: 2026-10-02 America/New_York.
