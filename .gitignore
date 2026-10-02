@@ -69,3 +69,7 @@ ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj/project.xcworkspace/
 ios/validation/DeviceSmoke/GeneratedAssets/*
 !ios/validation/DeviceSmoke/GeneratedAssets/.gitkeep
 ios/.venv-release/
+
+# Candidate release evidence is intentionally tracked even though filenames contain "build".
+!ios/validation/evidence/standalone_build.json
+!ios/validation/evidence/full_runtime_rebuild.json
