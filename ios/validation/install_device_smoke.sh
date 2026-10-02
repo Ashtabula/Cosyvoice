@@ -62,22 +62,52 @@ main() {
         --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
 
     rm -rf "$DERIVED_DATA"
-    xcodebuild \
-        -project "$PROJECT" \
-        -scheme "$SCHEME" \
-        -configuration "$CONFIGURATION" \
-        -sdk iphoneos \
-        -destination "id=$DEVICE_ID" \
-        -derivedDataPath "$DERIVED_DATA" \
-        -allowProvisioningUpdates \
-        -allowProvisioningDeviceRegistration \
-        DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" \
-        PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" \
-        CODE_SIGN_STYLE=Automatic \
-        build || return $?
+    XCODE_ARGS=(
+        -project "$PROJECT"
+        -scheme "$SCHEME"
+        -configuration "$CONFIGURATION"
+        -sdk iphoneos
+        -destination "id=$DEVICE_ID"
+        -derivedDataPath "$DERIVED_DATA"
+        -allowProvisioningUpdates
+        -allowProvisioningDeviceRegistration
+        DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM"
+        PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID"
+        CODE_SIGN_STYLE=Automatic
+    )
+    xcodebuild "${XCODE_ARGS[@]}" build || return $?
 
-    APP="$DERIVED_DATA/Build/Products/${CONFIGURATION}-iphoneos/CosyVoice3DeviceSmoke.app"
-    if [ ! -d "$APP" ]; then printf '[COSYVOICE3-INSTALL] ERROR app not found: %s\n' "$APP"; return 3; fi
+    printf '[COSYVOICE3-INSTALL] resolving actual Xcode product path from build settings\n'
+    BUILD_SETTINGS="$(xcodebuild "${XCODE_ARGS[@]}" -showBuildSettings)" || return $?
+    TARGET_BUILD_DIR="$(
+        printf '%s\n' "$BUILD_SETTINGS" |
+        awk '
+            /Build settings for action build and target CosyVoice3DeviceSmoke:/ { in_target=1; next }
+            in_target && /^[[:space:]]*TARGET_BUILD_DIR = / {
+                sub(/^[[:space:]]*TARGET_BUILD_DIR = /, "")
+                print
+                exit
+            }
+        '
+    )"
+    WRAPPER_NAME="$(
+        printf '%s\n' "$BUILD_SETTINGS" |
+        awk '
+            /Build settings for action build and target CosyVoice3DeviceSmoke:/ { in_target=1; next }
+            in_target && /^[[:space:]]*WRAPPER_NAME = / {
+                sub(/^[[:space:]]*WRAPPER_NAME = /, "")
+                print
+                exit
+            }
+        '
+    )"
+    if [ -z "$TARGET_BUILD_DIR" ] || [ -z "$WRAPPER_NAME" ]; then
+        printf '[COSYVOICE3-INSTALL] ERROR could not resolve TARGET_BUILD_DIR/WRAPPER_NAME from Xcode build settings\n'
+        return 3
+    fi
+    APP="$TARGET_BUILD_DIR/$WRAPPER_NAME"
+    printf '[COSYVOICE3-INSTALL] targetBuildDir=%s wrapper=%s\n' "$TARGET_BUILD_DIR" "$WRAPPER_NAME"
+    if [ ! -d "$APP" ]; then printf '[COSYVOICE3-INSTALL] ERROR app not found at resolved Xcode product path: %s\n' "$APP"; return 3; fi
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
@@ -89,6 +119,6 @@ RC=$?
 printf '[COSYVOICE3-INSTALL] rc=%s\n' "$RC"
 test "$RC" -eq 0
 
-# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; assembles the base fixed225 runtime automatically when absent.
+# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; assembles the base fixed225 runtime automatically when absent and resolves the signed app from Xcode's actual TARGET_BUILD_DIR rather than assuming DerivedData/Build/Products.
 # Runtime: macOS, Xcode, Python3, connected/trusted iPhone.
 # Generated: 2026-10-02 America/New_York.
