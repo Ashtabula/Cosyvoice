@@ -58,8 +58,9 @@ def main():
 
     mel_path=fixture/"hift_input.pt"; mel=read_hift_mel(mel_path)
     graph=HiFTPortable(hift,450).eval()
+    hift.f0_predictor.to(torch.float64)
     with torch.inference_mode():
-        f0_fp64=hift.f0_predictor(mel.double()).float().contiguous()
+        f0_fp64=hift.f0_predictor(mel.to(torch.float64),finalize=True).to(torch.float32).contiguous()
     f0_np=f0_fp64.numpy()
     harmonics=np.arange(1,10,dtype=np.float32)[None,None,:]
     radians=np.remainder(f0_np[:,:,None]*harmonics/np.float32(24000),np.float32(1))
@@ -110,6 +111,8 @@ def main():
         "status":"PASS_SHIPPING_HIFT_HOST_PARITY" if passed else "FAIL_SHIPPING_HIFT_HOST_PARITY",
         "scope":"clean-house production HiFT contract: exported effective FP64 F0 weights, Float64 host phase accumulation rounded to FP32, and Core ML HiFT body",
         "fixture":{"path":str(mel_path),"sha256":sha256(mel_path),"shape":[1,80,450]},
+        "f0PredictorDtype":"float64",
+        "f0UpstreamContract":"CausalHiFTGenerator.inference explicitly moves f0_predictor and speech_feat to torch.float64 before prediction",
         "f0ExportedEffectiveWeightsExact":all_weights_exact,
         "f0WeightFiles":exact_rows,
         "f0ReferenceVsTorchFP64":f0_reference_metric,
@@ -130,4 +133,4 @@ if __name__=="__main__": main()
 # Upstream source: pinned CosyVoice3 CausalHiFTGenerator, export_pipeline_acoustics.HiFTPortable, and effective F0 weights exported by --export-f0-double.
 # Runtime environment: macOS Apple Silicon / clean-house Python 3.11 / Core ML Tools 9 CPU_ONLY.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new production-path host parity gate; max-abs remains recorded as a diagnostic while the accepted global PCM criterion is finite output plus relative-L2 <= 0.02.
+# Changes: production-path host parity gate; explicitly mirrors CausalHiFTGenerator.inference by moving the complete F0 predictor to torch.float64 before inference and before exact effective-weight comparison; max-abs remains diagnostic while the accepted global PCM criterion is finite output plus relative-L2 <= 0.02.
