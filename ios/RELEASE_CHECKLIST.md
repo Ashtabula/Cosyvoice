@@ -25,7 +25,8 @@ PASS: complete fixed225-reference runtime is uploaded as an immutable private Hu
 
 BLOCKER: one-command pinned local rebuild is incomplete.
 BLOCKER: no Candidate `validation/release_receipt.json` ties source, assets, parity, device, PCM and benchmark evidence together.
+BLOCKER: cold/warm benchmark evidence for the release profile is incomplete.
 BLOCKER: clean-room integration has not run.
-BLOCKER: model/runtime redistribution license review remains incomplete.
+BLOCKER: asset redistribution license review remains incomplete.
 
 Do not label Candidate until all Candidate blockers have committed evidence. Do not label Production until human audio review, clean-room integration, release-tree reproducibility and license review also pass.
