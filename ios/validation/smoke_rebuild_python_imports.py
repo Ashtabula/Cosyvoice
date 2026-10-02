@@ -14,7 +14,7 @@ def main():
     p=argparse.ArgumentParser(); p.add_argument("--source-root",type=Path,required=True); a=p.parse_args()
     source=a.source_root.resolve()
     sys.path[:0]=[str(source/"iOS/tools"),str(source),str(source/"third_party/Matcha-TTS")]
-    names=["coremltools","torch","transformers","hyperpyyaml","diffusers","PIL","conformer","matcha.utils","matcha.utils.pylogger","matcha.models.components.decoder","matcha.models.components.transformer","matcha.models.components.flow_matching","cosyvoice.flow.flow","cosyvoice.flow.flow_matching","cosyvoice.flow.DiT.dit","cosyvoice.transformer.upsample_encoder","cosyvoice.hifigan.generator","cosyvoice.hifigan.f0_predictor","export_llm_mask_write512"]
+    names=["coremltools","torch","transformers","hyperpyyaml","diffusers","PIL","conformer","matcha.utils","matcha.utils.pylogger","matcha.models.components.decoder","matcha.models.components.transformer","matcha.models.components.flow_matching","cosyvoice.flow.flow","cosyvoice.flow.flow_matching","cosyvoice.flow.DiT.dit","cosyvoice.transformer.upsample_encoder","cosyvoice.hifigan.generator","cosyvoice.hifigan.f0_predictor","cosyvoice.llm.llm","export_llm_mask_write512"]
     resolved={name:module_file(name) for name in names}
     bad={name:path for name,path in resolved.items() if FORBIDDEN in path}
     bad_path=[entry for entry in sys.path if FORBIDDEN in str(entry)]
@@ -39,3 +39,4 @@ if __name__=="__main__": main()
 # Changes 2026-10-02: explicitly smoke sanitized matcha.utils/pylogger and no longer require Lightning/Hydra, which are training-only for this conversion path.
 # Changes 2026-10-02: preflight the exact Flow/HiFT-only module closure used by the derived acoustic config; GAN wrapper/discriminator and dataset/training modules are intentionally excluded.
 # Changes 2026-10-02: import the sanitized maskwrite512 exporter and exercise its repeated/scalar descriptor helper against the installed protobuf runtime before any multi-hundred-MB LLM export.
+# Changes 2026-10-02: include CosyVoice LLM module import because the runtime-prefix YAML intentionally preserves LLM construction before Flow/HiFT to reproduce canonical HiFT RNG buffers.
