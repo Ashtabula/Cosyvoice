@@ -14,7 +14,7 @@ def main():
     p=argparse.ArgumentParser(); p.add_argument("--source-root",type=Path,required=True); a=p.parse_args()
     source=a.source_root.resolve()
     sys.path[:0]=[str(source/"iOS/tools"),str(source),str(source/"third_party/Matcha-TTS")]
-    names=["coremltools","torch","transformers","hyperpyyaml","diffusers","PIL","conformer","matcha.utils","matcha.utils.pylogger","matcha.models.components.decoder","matcha.models.components.transformer","matcha.models.components.flow_matching","matcha.hifigan.xutils","matcha.hifigan.models","cosyvoice.flow.flow_matching","cosyvoice.flow.DiT.dit","cosyvoice.hifigan.hifigan","cosyvoice.hifigan.generator"]
+    names=["coremltools","torch","transformers","hyperpyyaml","diffusers","PIL","conformer","matcha.utils","matcha.utils.pylogger","matcha.models.components.decoder","matcha.models.components.transformer","matcha.models.components.flow_matching","cosyvoice.flow.flow","cosyvoice.flow.flow_matching","cosyvoice.flow.DiT.dit","cosyvoice.transformer.upsample_encoder","cosyvoice.hifigan.generator","cosyvoice.hifigan.f0_predictor"]
     resolved={name:module_file(name) for name in names}
     bad={name:path for name,path in resolved.items() if FORBIDDEN in path}
     bad_path=[entry for entry in sys.path if FORBIDDEN in str(entry)]
@@ -30,4 +30,4 @@ if __name__=="__main__": main()
 # Generated: 2026-10-02 America/New_York.
 # Changes: validates conformer/diffusers/Pillow/Matcha/CosyVoice conversion imports and rejects the historical developer-local Python 3.10 path.
 # Changes 2026-10-02: explicitly smoke sanitized matcha.utils/pylogger and no longer require Lightning/Hydra, which are training-only for this conversion path.
-# Changes 2026-10-02: extend preflight through Matcha HiFiGAN xutils/models and CosyVoice HiFiGAN wrapper/generator so plotting-only eager dependencies are caught before model fixture construction.
+# Changes 2026-10-02: preflight the exact Flow/HiFT-only module closure used by the derived acoustic config; GAN wrapper/discriminator and dataset/training modules are intentionally excluded.
