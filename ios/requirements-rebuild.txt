@@ -1,0 +1,10 @@
+#@title requirements-rebuild.txt
+# Requirement: exact macOS full-runtime rebuild additions layered on the pinned CosyVoice3_NPU requirements.txt.
+coremltools==9.0
+scikit-learn==1.5.1
+scipy==1.17.1
+safetensors==0.8.0
+# Code purpose: pin the Core ML 9 conversion toolchain and ABI-sensitive numerical dependencies used by the accepted LLM/Flow/HiFT production asset generators.
+# Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 requirements.txt and iOS/tools/requirements-coreml.txt.
+# Runtime: Apple Silicon macOS, Python 3.11.
+# Generated: 2026-10-02 America/New_York.
