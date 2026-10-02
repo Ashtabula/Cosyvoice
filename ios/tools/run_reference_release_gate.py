@@ -71,9 +71,11 @@ def main() -> None:
     run([sys.executable, here / "export_reference_frontend_tables.py", "--output", fixture])
 
     swift_receipt = work / "swift_dsp_parity.json"
+    swift_camp_fbank = work / "swift_campplus_fbank.f32"
     swift_env = dict(os.environ)
     swift_env["COSYVOICE3_REFERENCE_PARITY_FIXTURE"] = str(fixture)
     swift_env["COSYVOICE3_REFERENCE_PARITY_RECEIPT"] = str(swift_receipt)
+    swift_env["COSYVOICE3_SWIFT_CAMPPLUS_FBANK"] = str(swift_camp_fbank)
     swift_rc = run_gate(
         ["swift", "test", "--package-path", package_root, "--filter", "ReferenceDSPExternalParityTests"],
         cwd=package_root.parent,
@@ -87,6 +89,7 @@ def main() -> None:
         "--upstream-model-dir", args.model_dir,
         "--coreml-dir", args.coreml_dir,
         "--fixture", fixture,
+        "--swift-campplus-fbank", swift_camp_fbank,
         "--output", learned,
     ])
     flow_rc = run_gate([

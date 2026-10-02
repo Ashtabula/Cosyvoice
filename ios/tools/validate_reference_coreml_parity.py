@@ -48,6 +48,7 @@ def main() -> None:
     parser.add_argument("--upstream-model-dir", type=Path, required=True)
     parser.add_argument("--coreml-dir", type=Path, required=True)
     parser.add_argument("--fixture", type=Path, required=True)
+    parser.add_argument("--swift-campplus-fbank", type=Path)
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
 
@@ -72,6 +73,15 @@ def main() -> None:
     })[0].reshape(-1)
     onnx_speaker = camp_session.run(None, {camp_session.get_inputs()[0].name: camp_fbank})[0]
 
+    swift_camp_fbank = None
+    onnx_speaker_from_swift = None
+    if args.swift_campplus_fbank is not None and args.swift_campplus_fbank.is_file():
+        swift_camp_fbank = load_f32(args.swift_campplus_fbank, (1, 604, 80))
+        onnx_speaker_from_swift = camp_session.run(
+            None,
+            {camp_session.get_inputs()[0].name: swift_camp_fbank},
+        )[0]
+
     speech_ml_path = coreml_dir / "speech-tokenizer-fixed605.mlpackage"
     camp_ml_path = coreml_dir / "campplus-fixed604.mlpackage"
     speech_ml = ct.models.MLModel(str(speech_ml_path), compute_units=ct.ComputeUnit.CPU_ONLY)
@@ -79,8 +89,32 @@ def main() -> None:
     ml_tokens = np.asarray(speech_ml.predict({"feats": whisper, "feats_length": np.asarray([605], dtype=np.int32)})["indices"]).reshape(-1)
     ml_speaker = np.asarray(camp_ml.predict({"input": camp_fbank})["output"])
 
+    ml_speaker_from_swift = None
+    if swift_camp_fbank is not None:
+        ml_speaker_from_swift = np.asarray(
+            camp_ml.predict({"input": swift_camp_fbank})["output"]
+        )
+
     token_equal = bool(np.array_equal(onnx_tokens.astype(np.int64), ml_tokens.astype(np.int64)))
     speaker = compare_float("campplus", onnx_speaker, ml_speaker, atol=2e-4, rtol=2e-4)
+
+    swift_frontend_impact = None
+    swift_end_to_end = None
+    if onnx_speaker_from_swift is not None and ml_speaker_from_swift is not None:
+        swift_frontend_impact = compare_float(
+            "campplusSwiftFrontendImpact",
+            onnx_speaker,
+            onnx_speaker_from_swift,
+            atol=2e-4,
+            rtol=2e-4,
+        )
+        swift_end_to_end = compare_float(
+            "campplusSwiftEndToEnd",
+            onnx_speaker,
+            ml_speaker_from_swift,
+            atol=3e-4,
+            rtol=3e-4,
+        )
     receipt = {
         "schemaVersion": 1,
         "status": "PASS" if token_equal and speaker["pass"] else "FAIL",
@@ -97,6 +131,13 @@ def main() -> None:
             "mismatchCount": int(np.count_nonzero(onnx_tokens.astype(np.int64) != ml_tokens.astype(np.int64))) if onnx_tokens.shape == ml_tokens.shape else None,
         },
         "campPlus": speaker,
+        "swiftCampPlusDiagnostics": {
+            "fbankPath": str(args.swift_campplus_fbank) if args.swift_campplus_fbank is not None else None,
+            "fbankPresent": bool(args.swift_campplus_fbank is not None and args.swift_campplus_fbank.is_file()),
+            "frontendImpact": swift_frontend_impact,
+            "endToEnd": swift_end_to_end,
+            "promotionEffect": "diagnostic-only in this schema; does not relax the raw Swift DSP gate",
+        },
         "environment": {"platform": platform.platform(), "coremltools": ct.__version__, "onnxruntime": ort.__version__},
     }
     args.output.parent.mkdir(parents=True, exist_ok=True)
@@ -109,6 +150,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: numerical promotion gate for learned reference-enrollment graphs.
+# Code purpose: numerical promotion gate for learned reference-enrollment graphs, plus diagnostic measurement of the actual Swift CAMPPlus frontend drift after propagation through upstream ONNX and Core ML.
 # Runtime: macOS host with coremltools + onnxruntime.
 # Generated: 2026-10-02 America/New_York.

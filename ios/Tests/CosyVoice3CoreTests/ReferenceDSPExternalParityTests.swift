@@ -63,6 +63,12 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
         ))
 
         let camp = try dsp.campPlusFeatures(audio.samples16k)
+        if let campPath = environment["COSYVOICE3_SWIFT_CAMPPLUS_FBANK"], !campPath.isEmpty {
+            try writeFloat32(
+                flatten(camp),
+                to: URL(fileURLWithPath: campPath)
+            )
+        }
         checks.append(try compare(
             name: "campplusFbank",
             observed: flatten(camp),
@@ -103,6 +109,11 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
 
     private func flatten(_ value: MLMultiArray) -> [Float] {
         (0..<value.count).map { value[$0].floatValue }
+    }
+
+    private func writeFloat32(_ values: [Float], to url: URL) throws {
+        let data = values.withUnsafeBytes { Data($0) }
+        try data.write(to: url, options: .atomic)
     }
 
     private func compare(
