@@ -22,6 +22,8 @@ log(){ printf '[COSYVOICE3-REBUILD] %s\n' "$*"; }
 fail(){ printf '[COSYVOICE3-REBUILD] ERROR %s\n' "$1"; return 1; }
 run(){ log "RUN $*"; "$@"; }
 main(){
+    [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf \'[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\\n\'; return 2; }
+    PROFILE="$2"; [ "$PROFILE" = "ios-fixed225-reference" ] || { printf \'[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\\n\' "$PROFILE"; return 2; }
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$WORK" "$(dirname "$OUTPUT")" "$(dirname "$RECEIPT")" || return $?
     if [ ! -x "$VENV/bin/python" ]; then run "$PYTHON_BOOTSTRAP" -m venv "$VENV" || return $?; fi
@@ -94,4 +96,4 @@ test "$RC" -eq 0
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18.
 # Runtime: Apple Silicon macOS, Xcode, Python 3.11; project-local .work virtual environments only.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; fresh source clone, exact model download, deterministic no-private-audio validation fixture, final maskwrite512 LLM, six-shard FP16 Flow, conditioning/HiFT/FP64-F0, custom-reference host parity, canonical assembly/validation and Candidate rebuild receipt.
+# Changes: new file; fresh source clone, exact model download, deterministic no-private-audio validation fixture, final maskwrite512 LLM, six-shard FP16 Flow, conditioning/HiFT/FP64-F0, custom-reference host parity, canonical assembly/validation and Candidate rebuild receipt.\n# Changes 2026-10-02: moved CLI validation inside main() and removed stderr redirection/top-level return compatibility logic; all command diagnostics remain visible.
