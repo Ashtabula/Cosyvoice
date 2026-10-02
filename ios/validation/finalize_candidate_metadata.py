@@ -6,6 +6,10 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
 def load(path): return json.loads(path.read_text())
 def write_json(path,value): path.parent.mkdir(parents=True,exist_ok=True); path.write_text(json.dumps(value,indent=2,sort_keys=True)+"\n")
+def transition(text,old,new,label):
+    if old in text: return text.replace(old,new)
+    if new in text: return text
+    raise RuntimeError(label+" transition text missing")
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--receipt",type=Path,default=ROOT/"validation/release_receipt.json"); a=p.parse_args(); receipt=load(a.receipt)
     if receipt.get("releaseStatus")!="candidate" or receipt.get("technicalDistributionReady") is not True or receipt.get("publicRedistributionApproved") is not False: raise RuntimeError("Candidate release receipt state mismatch")
@@ -17,16 +21,14 @@ def main():
     catalog_path=ROOT/"assets/releases.json"; catalog=load(catalog_path); default=catalog["default"]; rows=[x for x in catalog["releases"] if x.get("profile")==default["profile"] and x.get("version")==default["version"]]
     if len(rows)!=1: raise RuntimeError("release catalog default is not unique")
     row=rows[0]; row["sdkIntegrationReady"]=True; row["candidateTechnicalDistributionReady"]=True; row["publicRedistributionApproved"]=False; row["sdkReleaseStatus"]="CANDIDATE_PRIVATE_ASSETS"; write_json(catalog_path,catalog)
-    checklist_path=ROOT/"RELEASE_CHECKLIST.md"; text=checklist_path.read_text(); text=text.replace("Current status: SDK integration-ready on private RC; release level remains Development.","Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.")
+    checklist_path=ROOT/"RELEASE_CHECKLIST.md"; text=checklist_path.read_text(); text=transition(text,"Current status: SDK integration-ready on private RC; release level remains Development.","Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.","checklist current status")
     replacements={
         "CANDIDATE BLOCKER: one-command pinned full-runtime local rebuild is incomplete. Existing one-command reference-enrollment rebuild/parity tooling does not reconstruct the complete LLM/Flow/HiFT/F0 runtime.":"PASS: one-command pinned full-runtime supported rebuild regenerates LLM/Flow/HiFT/F0/reference assets from exact source/model/toolchain inputs and emits committed evidence.",
         "CANDIDATE BLOCKER: controlled cold/warm public-API benchmark evidence is incomplete.":"PASS: controlled physical-device cold/warm benchmark through CosyVoice3Engine public API is committed.",
         "CANDIDATE BLOCKER: no Candidate `validation/release_receipt.json` ties source, assets, parity, device, PCM and benchmark evidence together.":"PASS: Candidate `validation/release_receipt.json` ties source, rebuild, immutable assets, parity, device PCM and benchmark evidence together.",
         "Do not label Candidate or set `technicalDistributionReady=true` until all Candidate blockers have committed evidence. After Candidate, do not label Production or authorize public runtime assets until the remaining Production blockers pass.":"Candidate engineering gates are complete. Do not label Production or authorize public runtime assets until the remaining Production blockers pass."
     }
-    for old,new in replacements.items():
-        if old not in text: raise RuntimeError("checklist transition text missing: "+old)
-        text=text.replace(old,new)
+    for old,new in replacements.items(): text=transition(text,old,new,"checklist")
     checklist_path.write_text(text)
     m=benchmark["measurement"]; benchmark_text=f"""# CosyVoice3 iOS benchmark status
 
@@ -46,24 +48,21 @@ Evidence: `validation/evidence/candidate_benchmark.json`.
 Earlier StatefulLLMBench/full-pipeline measurements remain development provenance and are not substituted for this SDK Candidate benchmark. Core ML execution is not relabeled as proven ANE residency without independent placement evidence.
 """
     (ROOT/"BENCHMARK.md").write_text(benchmark_text)
-    readme_path=ROOT/"README.md"; readme=readme_path.read_text(); readme=readme.replace("Status: **SDK integration-ready on private RC; release level remains Development.** Publication target: `Ashtabula/Cosyvoice/ios/`.","Status: **Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.** Publication target: `Ashtabula/Cosyvoice/ios/`.")
+    readme_path=ROOT/"README.md"; readme=readme_path.read_text(); readme=transition(readme,"Status: **SDK integration-ready on private RC; release level remains Development.** Publication target: `Ashtabula/Cosyvoice/ios/`.","Status: **Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.** Publication target: `Ashtabula/Cosyvoice/ios/`.","README status")
     readme=readme.replace("The exact hosted revision passed authenticated ordinary-developer fetch, validation, installation and physical-iPhone public-API replay. This supports `sdkIntegrationReady=true`; it does not yet support ZipVoice-style `technicalDistributionReady=true`.","The exact hosted revision passed authenticated ordinary-developer fetch, validation, installation and physical-iPhone public-API replay. The Candidate flow additionally records supported full-runtime rebuild and controlled cold/warm public-API benchmark evidence, so `sdkIntegrationReady=true` and `technicalDistributionReady=true`; public redistribution remains false.")
     old="To reach the same **Technical Distribution-Ready Candidate** state used by ZipVoice iOS, three Candidate gates remain: a one-command pinned rebuild of the complete runtime rather than only reference-enrollment assets; a controlled cold/warm benchmark through the public API; and a committed `validation/release_receipt.json` tying source, immutable asset identity, parity, device PCM and benchmark evidence together. Production then separately requires clean-room consumer integration, release-tree reproducibility and redistribution/license clearance. Human listening acceptance is already recorded as PASS."
     new="The same **Technical Distribution-Ready Candidate** engineering state used by ZipVoice iOS is now represented by committed evidence: one-command pinned supported full-runtime rebuild, controlled cold/warm physical-device public-API benchmark, and `validation/release_receipt.json`. Production still requires clean-room consumer integration, release-tree reproducibility and redistribution/license clearance. Human listening acceptance remains PASS."
-    if old not in readme: raise RuntimeError("README Candidate transition paragraph missing")
-    readme_path.write_text(readme.replace(old,new))
+    readme_path.write_text(transition(readme,old,new,"README Candidate paragraph"))
     sdk_path=ROOT/"SDK_RELEASE.md"; sdk_text=sdk_path.read_text(); old_sdk="This state is intentionally below the ZipVoice iOS **Technical Distribution-Ready Candidate** milestone. `technicalDistributionReady` remains false until the complete-runtime rebuild, controlled cold/warm benchmark and Candidate release receipt gates are closed. Public redistribution remains unauthorized until the later Production license/redistribution gate is closed."
     new_sdk="This branch now satisfies the ZipVoice iOS **Technical Distribution-Ready Candidate** engineering gates: the complete-runtime supported rebuild, controlled cold/warm physical-device public-API benchmark and Candidate release receipt are committed. `technicalDistributionReady=true`; public redistribution remains unauthorized until the Production clean-room/reproducibility/license gates are closed."
-    if old_sdk not in sdk_text: raise RuntimeError("SDK_RELEASE Candidate transition paragraph missing")
-    sdk_path.write_text(sdk_text.replace(old_sdk,new_sdk))
+    sdk_path.write_text(transition(sdk_text,old_sdk,new_sdk,"SDK_RELEASE Candidate paragraph"))
     api_path=ROOT/"API.md"; api_text=api_path.read_text(); old_api="The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Candidate promotion additionally requires committed supported full-runtime rebuild evidence, controlled cold/warm public-API benchmark evidence and `validation/release_receipt.json`; the release finalizer performs that transition only after those gates pass."
     new_api="The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Candidate evidence now additionally includes the supported full-runtime rebuild, controlled cold/warm public-API benchmark and `validation/release_receipt.json`; Production/public release remains separately gated."
-    if old_api not in api_text: raise RuntimeError("API Candidate transition paragraph missing")
-    api_path.write_text(api_text.replace("Status: SDK integration-ready on immutable private RC; public API implementation and physical-device custom-reference text-to-PCM evidence are present.","Status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.").replace(old_api,new_api))
+    api_text=transition(api_text,"Status: SDK integration-ready on immutable private RC; public API implementation and physical-device custom-reference text-to-PCM evidence are present.","Status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.","API status")
+    api_path.write_text(transition(api_text,old_api,new_api,"API Candidate paragraph"))
     assets_path=ROOT/"ASSETS.md"; assets_text=assets_path.read_text(); old_assets="Status: immutable private-RC SDK asset distribution is implemented and device-replayed; Candidate technical-distribution evidence is pending until the new full-runtime rebuild and controlled benchmark gates are executed."
     new_assets="Status: Technical Distribution-Ready Candidate on immutable private RC; ordinary fetch/replay, supported full-runtime rebuild and controlled physical-device benchmark evidence are committed; public redistribution is not authorized."
-    if old_assets not in assets_text: raise RuntimeError("ASSETS Candidate transition status missing")
-    assets_path.write_text(assets_text.replace(old_assets,new_assets))
+    assets_path.write_text(transition(assets_text,old_assets,new_assets,"ASSETS Candidate status"))
     milestone={"schemaVersion":1,"milestone":"ios-fixed225-distribution-ready-technical-2026-10-02","status":"PASS","releaseStatus":"candidate","technicalDistributionReady":True,"publicRedistributionApproved":False,"validatedSourceCommit":receipt["validatedSourceCommit"],"releaseReceipt":"validation/release_receipt.json","assets":receipt["asset"],"device":receipt["device"],"supportedFullRuntimeRebuild":{"status":"PASS","runtimeTreeSha256":rebuild["runtimeTreeSha256"],"runtimeBytes":rebuild["runtimeBytes"],"canonicalByteIdentityClaim":False},"controlledBenchmark":{"status":"PASS",**m},"remainingProductionBlockers":["clean-room consumer integration","release-tree reproducibility","asset redistribution license review"],"publisher":{"name":"actacomes","email":"developer@actacomes.com"}}
     write_json(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-02.json",milestone)
     md=f"""# iOS fixed225 Technical Distribution-Ready milestone — 2026-10-02
@@ -100,4 +99,4 @@ if __name__=="__main__": main()
 # Upstream: validation/release_receipt.json, supported rebuild evidence, controlled Candidate benchmark, immutable asset catalog.
 # Runtime: Python 3 standard library inside the release checkout.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; updates manifest/catalog/checklist/benchmark/README/SDK/API/assets documentation and writes machine/human-readable Candidate milestone evidence while preserving publicRedistributionApproved=false.\n# Changes 2026-10-02: removed accidental backslash escapes before Markdown backticks in exact transition strings and records the Candidate milestone paths in manifest.json.
+# Changes: new file; updates manifest/catalog/checklist/benchmark/README/SDK/API/assets documentation and writes machine/human-readable Candidate milestone evidence while preserving publicRedistributionApproved=false.\n# Changes 2026-10-02: removed accidental backslash escapes before Markdown backticks in exact transition strings and records the Candidate milestone paths in manifest.json.\n# Changes 2026-10-02: make Development->Candidate text transitions strictly idempotent for full revalidation; already-canonical Candidate text is accepted unchanged, while any third/unrecognized state still fails closed.
