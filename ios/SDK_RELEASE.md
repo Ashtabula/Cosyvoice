@@ -16,4 +16,6 @@ Large model binaries stay out of Git. Prebuilt and rebuilt payloads satisfy one 
 
 The 8789402 semantic audit is authoritative for terminology: SOS=6561, EOS=6562, stop region=6561...6760; it records no behavior change.
 
+Reference-enrollment host parity is judged at the actual Flow-conditioning boundary. Raw Whisper/Kaldi/Matcha frontend tensors remain bounded guardrails, but backend-sensitive intermediate differences do not supersede stricter downstream checks when the shipping path transforms them before DiT consumption. Prompt speech tokens must match exactly; Flow `mu` and `spks` must satisfy their numerical gate; `cond`, which is prompt mel after only padding/duplication, uses the same bounded max/mean/p99 criterion as prompt mel. Physical-device public-API PCM parity remains mandatory before promotion.
+
 Core ML execution and requested compute units are descriptive facts. Do not call execution ANE-resident without independent placement/residency evidence.
