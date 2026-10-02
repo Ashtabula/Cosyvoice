@@ -20,6 +20,22 @@ jobs:
       - name: Test standalone iOS package sources
         run: swift test --package-path ios
 
+  device-smoke-compile:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile clean public-API smoke host for simulator
+        run: |
+          xcodebuild \
+            -project ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj \
+            -scheme CosyVoice3DeviceSmoke \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ios/.work/DeviceSmokeCIDerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
   release-tools:
     runs-on: ubuntu-latest
     steps:
@@ -28,7 +44,7 @@ jobs:
         with:
           python-version: '3.10'
       - name: Compile release Python tools
-        run: python -m compileall -q ios/tools ios/assets
+        run: python -m compileall -q ios/tools ios/assets ios/validation
       - name: Validate committed JSON contracts
         run: |
           python - <<'PY'
