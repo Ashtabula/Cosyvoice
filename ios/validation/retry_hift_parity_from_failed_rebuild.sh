@@ -55,21 +55,21 @@ run "$VENV/bin/python" "$SOURCE/iOS/tools/export_pipeline_acoustics.py" --export
 run "$VENV/bin/python" - "$SOURCE/iOS/validation/full-pipeline/host-hift-phase-host.json" <<'PY'
 import json,sys
 p=json.load(open(sys.argv[1]))
-def gate(name,max_abs,rel):
-    m=p.get(name) or {}
-    if m.get("finite") is False or float(m.get("max_abs",999))>max_abs or float(m.get("relative_l2",999))>rel:
-        raise SystemExit(f"{name} FAIL {m}")
-    print(f"[COSYVOICE3-HIFT-RETRY] {name} PASS {m}",flush=True)
 if p.get("status")!="HOST_PHASE_CANDIDATE":
     raise SystemExit(f"unexpected host phase status: {p.get('status')}")
-gate("f0_vs_torch",0.005,1e-5)
-gate("coreml_chain_vs_torch_fp32_f0",0.03,0.02)
-gate("vs_upstream_fp64_f0",0.03,0.02)
-print("[COSYVOICE3-HIFT-RETRY] PASS_STRICT_HIFT_HOST_PARITY",flush=True)
+m=p.get("f0_vs_torch") or {}
+if m.get("finite") is False or float(m.get("max_abs",999))>0.005 or float(m.get("relative_l2",999))>1e-5:
+    raise SystemExit(f"diagnostic FP32 Core ML F0 FAIL {m}")
+print(f"[COSYVOICE3-HIFT-RETRY] diagnostic FP32 Core ML F0 PASS {m}",flush=True)
+print(f"[COSYVOICE3-HIFT-RETRY] diagnostic-only FP32-F0 chain {p.get('coreml_chain_vs_torch_fp32_f0')}",flush=True)
+print(f"[COSYVOICE3-HIFT-RETRY] diagnostic-only FP32-F0 vs upstream {p.get('vs_upstream_fp64_f0')}",flush=True)
 PY
+
+run "$VENV/bin/python" "$ROOT/validation/validate_shipping_hift_host.py" --source-root "$SOURCE" --fixture "$FIXTURE" --output "$WORK/shipping-hift-host-parity.json"
+log "PASS_SHIPPING_HIFT_HOST_PARITY"
 
 # Code purpose: quickly validate the corrected clean-house Flow-derived HiFT fixture after a late HiFT failure, without rerunning already-proven LLM/Flow Core ML exports.
 # Upstream source: pinned temporary CosyVoice3_NPU checkout plus persistent official checkpoint cache created by ios/rebuild_assets.sh.
 # Runtime environment: macOS Apple Silicon / existing isolated rebuild Python 3.11 venv / Core ML Tools 9.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new diagnostic retry; deletes/rebuilds only temporary fixture and acoustic outputs, preserves strict production HiFT thresholds, and does not emit full-runtime Candidate PASS.
+# Changes: late-stage diagnostic retry; deletes/rebuilds only temporary fixture and acoustic outputs, keeps FP32 F0 as a diagnostic, then gates the actual shipping FP64-F0/Float64-host-phase/Core ML HiFT body path at relative-L2 <= 0.02; does not emit full-runtime Candidate PASS.
