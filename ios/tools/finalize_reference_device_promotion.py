@@ -45,6 +45,7 @@ def main() -> None:
     parser.add_argument("--asset-root", type=Path, required=True)
     parser.add_argument("--host-receipt", type=Path, required=True)
     parser.add_argument("--device-receipt", type=Path, required=True)
+    parser.add_argument("--reference-candidate-dir", type=Path, required=True)
     parser.add_argument("--listening-acceptance", type=Path, required=True)
     parser.add_argument("--publication-head", required=True)
     args = parser.parse_args()
@@ -53,6 +54,7 @@ def main() -> None:
     asset_root = args.asset_root.resolve()
     host_receipt = args.host_receipt.resolve()
     device_receipt = args.device_receipt.resolve()
+    reference_candidate_dir = args.reference_candidate_dir.resolve()
     listening_path = args.listening_acceptance.resolve()
 
     tracked_manifest_path = ios_root / "manifest.json"
@@ -73,6 +75,7 @@ def main() -> None:
         runtime_manifest_path,
         host_receipt,
         device_receipt,
+        reference_candidate_dir,
         listening_path,
     ):
         require(path.exists(), f"required promotion input missing: {path}")
@@ -120,11 +123,50 @@ def main() -> None:
     print("[COSYVOICE3-REFERENCE-PROMOTION] RUN " + " ".join(command), flush=True)
     subprocess.run(command, check=True)
     promoted = load(promoted_runtime_manifest)
+    reference_runtime = promoted.get("referenceEnrollment", {})
     require(
-        promoted.get("referenceEnrollment", {}).get("status") == "PASS_DEVICE_PARITY",
+        reference_runtime.get("status") == "PASS_DEVICE_PARITY",
         "promoted runtime manifest did not reach PASS_DEVICE_PARITY",
     )
+
+    candidate_sources = {
+        "speechTokenizer": reference_candidate_dir / "speech-tokenizer-fixed605.mlpackage",
+        "campPlus": reference_candidate_dir / "campplus-fixed604.mlpackage",
+        "whisperMel128": reference_candidate_dir / "whisper_mel_128.f32",
+        "kaldiMel80": reference_candidate_dir / "kaldi_mel_80.f32",
+        "matchaMel80": reference_candidate_dir / "matcha_mel_80.f32",
+        "flowConditionsDynamic": reference_candidate_dir / "flow-conditions-dynamic-151-302.mlpackage",
+    }
+    for key, source in candidate_sources.items():
+        require(source.exists(), f"reference candidate missing: {source}")
+        destination = asset_root / reference_runtime[key]
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if destination.exists():
+            if destination.is_dir():
+                shutil.rmtree(destination)
+            else:
+                destination.unlink()
+        if source.is_dir():
+            shutil.copytree(source, destination)
+        else:
+            shutil.copy2(source, destination)
+        print(
+            f"[COSYVOICE3-REFERENCE-PROMOTION] PROMOTE_ASSET "
+            f"{key} source={source} destination={destination}",
+            flush=True,
+        )
+
     shutil.copy2(promoted_runtime_manifest, runtime_manifest_path)
+
+    asset_validator = ios_root / "assets/validate_assets.py"
+    validate_command = [
+        sys.executable,
+        str(asset_validator),
+        "--root", str(asset_root),
+        "--require-reference",
+    ]
+    print("[COSYVOICE3-REFERENCE-PROMOTION] RUN " + " ".join(validate_command), flush=True)
+    subprocess.run(validate_command, check=True)
 
     tracked_manifest = load(tracked_manifest_path)
     tracked_manifest["publicApi"]["customReferencePromoted"] = True
@@ -236,6 +278,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: finalize the custom-reference lane only after bound host/device machine receipts and separate human listening acceptance all pass.
+# Code purpose: finalize the custom-reference lane only after bound host/device machine receipts and separate human listening acceptance all pass; promote the six validated reference assets into the canonical runtime and revalidate that runtime before tracked release evidence changes.
 # Runtime: macOS Python3 standard library; calls the existing promote_reference_assets.py authority.
 # Generated: 2026-10-02 America/New_York.

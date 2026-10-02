@@ -7,6 +7,7 @@ ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 BUNDLE_ID="${BUNDLE_ID:-com.actacomes.cosyvoice3.devicesmoke}"
 ASSET_ROOT="${COSYVOICE3_ASSET_ROOT:-$ROOT/.work/device-runtime}"
 HOST_RECEIPT="${COSYVOICE3_HOST_PARITY_RECEIPT:-$ROOT/.work/reference-release/parity/reference_host_parity_receipt.json}"
+REFERENCE_CANDIDATE_DIR="${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-$ROOT/.work/reference-release/coreml}"
 LISTENING_ACCEPTANCE="$ROOT/validation/reference-device/listening-acceptance.json"
 WORK="$ROOT/.work/reference-release/device"
 DEVICE_RECEIPT="$WORK/reference-smoke-receipt.json"
@@ -67,6 +68,7 @@ main() {
         --asset-root "$ASSET_ROOT" \
         --host-receipt "$HOST_RECEIPT" \
         --device-receipt "$DEVICE_RECEIPT" \
+        --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
         --listening-acceptance "$LISTENING_ACCEPTANCE" \
         --publication-head "$PUBLICATION_HEAD" || return $?
 

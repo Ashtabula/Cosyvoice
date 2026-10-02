@@ -42,3 +42,14 @@ python3 tools/promote_reference_assets.py \
 ```
 
 A conversion success alone is never sufficient for promotion.
+
+## Finalize an accepted device run
+
+After the app reports PASS and the audible result has been accepted, the promotion helper can pull the machine receipt directly from the installed app container. It validates the host/device receipt binding, promotes the six host-approved reference assets into the canonical fixed225 runtime, re-runs the asset validator with `--require-reference`, updates tracked custom-reference evidence, commits as `actacomes <developer@actacomes.com>`, and pushes `main`.
+
+```bash
+export DEVICE_ID=00008150-000A05CA1440401C
+bash validation/finalize_reference_device_promotion.sh
+```
+
+The helper promotes only the custom-reference lane to `PASS_DEVICE_PARITY`. It deliberately leaves the overall SDK release status at `development` while unrelated Candidate blockers remain.
