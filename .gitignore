@@ -61,3 +61,10 @@ ios/converted/
 asset/leijun-1.txt
 *.mlpackage/
 *.mlmodelc/
+
+# CosyVoice iOS local validation/build work products
+ios/.work/
+ios/.venv-reference/
+ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj/project.xcworkspace/
+ios/validation/DeviceSmoke/GeneratedAssets/*
+!ios/validation/DeviceSmoke/GeneratedAssets/.gitkeep

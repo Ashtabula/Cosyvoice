@@ -53,6 +53,11 @@ def main() -> None:
 
     if OUTPUT.exists():
         shutil.rmtree(OUTPUT)
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    # GeneratedAssets/.gitkeep is a tracked repository placeholder. Recreate it
+    # after replacing the staged tree so device validation never dirties tracked
+    # source state merely by staging runtime assets.
+    (OUTPUT / ".gitkeep").write_text("", encoding="utf-8")
     runtime = OUTPUT / "Runtime"
     shutil.copytree(asset_root, runtime)
     shutil.copy2(reference_wav, OUTPUT / "reference.wav")
@@ -114,6 +119,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy.
+# Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy and the tracked GeneratedAssets/.gitkeep placeholder is preserved.
 # Runtime: macOS Python3 standard library.
 # Generated: 2026-10-02 America/New_York.

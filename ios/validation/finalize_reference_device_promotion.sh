@@ -13,6 +13,7 @@ WORK="$ROOT/.work/reference-release/device"
 DEVICE_RECEIPT="$WORK/reference-smoke-receipt.json"
 PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/python3}"
 COMMIT_PUSH="${COSYVOICE3_PROMOTION_COMMIT_PUSH:-1}"
+GENERATED_KEEP="$ROOT/validation/DeviceSmoke/GeneratedAssets/.gitkeep"
 
 main() {
     if [ -z "${DEVICE_ID:-}" ]; then
@@ -31,6 +32,15 @@ main() {
     if [ "$(git branch --show-current)" != "main" ]; then
         printf '[COSYVOICE3-REFERENCE-PROMOTION] ERROR promotion must run from main\n'
         return 2
+    fi
+
+    # Device staging replaces GeneratedAssets, whose empty .gitkeep is tracked.
+    # Repair only that known tool-owned placeholder before enforcing the clean
+    # tracked-tree invariant. Any other tracked change still blocks promotion.
+    if [ ! -e "$GENERATED_KEEP" ]; then
+        printf '[COSYVOICE3-REFERENCE-PROMOTION] restoring tracked GeneratedAssets/.gitkeep placeholder\n'
+        mkdir -p "$(dirname "$GENERATED_KEEP")" || return $?
+        : > "$GENERATED_KEEP"
     fi
 
     if [ -n "$(git status --porcelain --untracked-files=no)" ]; then
@@ -100,7 +110,7 @@ RC=$?
 printf '[COSYVOICE3-REFERENCE-PROMOTION] rc=%s\n' "$RC"
 test "$RC" -eq 0
 
-# Code purpose: one-command retrieval, validation, evidence recording, Git commit and push for the physical-device custom-reference promotion.
+# Code purpose: one-command retrieval, validation, evidence recording, Git commit and push for the physical-device custom-reference promotion; repairs only the known tool-owned GeneratedAssets/.gitkeep placeholder before the fail-closed tracked-tree check.
 # Upstream evidence: DeviceSmoke Documents/reference-smoke-receipt.json bound to the current PASS_HOST_PARITY receipt.
 # Runtime: macOS + connected trusted iPhone + Python3 + git.
 # Generated: 2026-10-02 America/New_York.
