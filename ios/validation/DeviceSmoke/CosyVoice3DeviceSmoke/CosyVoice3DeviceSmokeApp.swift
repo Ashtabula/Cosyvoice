@@ -2,6 +2,7 @@
 // Requirement: physical-device smoke may call only the public CosyVoice3Core API.
 
 import AVFoundation
+import Combine
 import SwiftUI
 import UIKit
 import CosyVoice3Core
@@ -76,7 +77,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
 
             try await engine.validateReference(reference, probeText: text)
-            let started = ContinuousClock.now
+            let clock = ContinuousClock()
+            let started = clock.now
             let audio = try await engine.synthesize(
                 text,
                 parameters: CosyVoice3Parameters(
@@ -84,11 +86,11 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     instruction: "You are a helpful assistant.<|endofprompt|>" + transcript
                 )
             )
-            let elapsed = started.duration(to: .now)
+            let elapsed = started.duration(to: clock.now)
             try Self.validate(audio)
 
             let duration = Double(audio.samples.count) / Double(audio.sampleRate * audio.channels)
-            let elapsedSeconds = elapsed.components.seconds
+            let elapsedSeconds = Double(elapsed.components.seconds)
                 + Double(elapsed.components.attoseconds) / 1e18
             let peak = audio.samples.reduce(Float.zero) { max($0, abs($1)) }
             let rms = sqrt(audio.samples.reduce(0.0) { $0 + Double($1 * $1) } / Double(audio.samples.count))
