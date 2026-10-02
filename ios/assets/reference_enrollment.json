@@ -1,0 +1,31 @@
+{
+  "schemaVersion": 1,
+  "profile": "cosyvoice3-reference-enrollment-v1",
+  "status": "NOT_VALIDATED",
+  "sampleRates": {
+    "speechTokenizer": 16000,
+    "speakerEmbedding": 16000,
+    "promptMel": 24000
+  },
+  "expectedOutputs": {
+    "speechTokens": "int32[1,R]",
+    "speakerEmbedding": "float32[1,192]",
+    "promptMel": "float32[1,F,80]"
+  },
+  "sourceCheckpoint": {
+    "model": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
+    "revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18"
+  },
+  "upstreamInputs": {
+    "speechTokenizer": "speech_tokenizer_v3.onnx",
+    "speakerEmbedding": "campplus.onnx",
+    "promptFeature": "cosyvoice3.yaml feat_extractor"
+  },
+  "promotionRequirements": [
+    "host numerical parity against upstream frontend.py",
+    "physical iPhone parity for all three outputs",
+    "finite outputs and exact shape checks",
+    "reference duration <= 30 seconds",
+    "no Python or ONNX Runtime dependency in shipping app"
+  ]
+}
