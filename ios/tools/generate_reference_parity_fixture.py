@@ -15,7 +15,6 @@ import torchaudio
 import torchaudio.compliance.kaldi as kaldi
 import whisper
 
-ROOT = Path(__file__).resolve().parents[2]
 
 
 def sha256(path: Path) -> str:
@@ -38,9 +37,9 @@ def write_pcm16(path: Path, samples: np.ndarray, sample_rate: int) -> None:
         output.writeframes(pcm.tobytes())
 
 
-def matcha_mel(samples_24k: np.ndarray) -> torch.Tensor:
+def matcha_mel(samples_24k: np.ndarray, source_root: Path) -> torch.Tensor:
     import sys
-    matcha_root = str(ROOT / "third_party/Matcha-TTS")
+    matcha_root = str(source_root / "third_party/Matcha-TTS")
     if matcha_root not in sys.path:
         sys.path.insert(0, matcha_root)
     from matcha.utils.audio import mel_spectrogram
@@ -54,6 +53,7 @@ def matcha_mel(samples_24k: np.ndarray) -> torch.Tensor:
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--source-root", type=Path, required=True)
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=True)
@@ -87,7 +87,7 @@ def main() -> None:
         sample_frequency=16000
     )
     camp = (camp - camp.mean(dim=0, keepdim=True)).unsqueeze(0).cpu().numpy()
-    prompt = matcha_mel(samples24.cpu().numpy()).squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
+    prompt = matcha_mel(samples24.cpu().numpy(), args.source_root.resolve()).squeeze(0).transpose(0, 1).unsqueeze(0).cpu().numpy()
 
     receipt = {
         "schemaVersion": 2,

@@ -39,7 +39,7 @@ def main() -> None:
     fixture = work / "fixture"
     work.mkdir(parents=True, exist_ok=True)
 
-    run([sys.executable, here / "generate_reference_parity_fixture.py", "--output", fixture])
+    run([sys.executable, here / "generate_reference_parity_fixture.py", "--output", fixture, "--source-root", args.source_root])
     run([sys.executable, here / "export_reference_frontend_tables.py", "--output", fixture])
 
     swift_receipt = work / "swift_dsp_parity.json"
