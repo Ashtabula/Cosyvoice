@@ -43,10 +43,10 @@ PY
     git -C "$REPO" diff --check || return $?
     printf '[COSYVOICE3-CANDIDATE] pending release changes:\n'
     git -C "$REPO" status --short
-    git -C "$REPO" add ios/manifest.json ios/assets/releases.json ios/RELEASE_CHECKLIST.md ios/BENCHMARK.md ios/README.md ios/SDK_RELEASE.md ios/validation/evidence/standalone_build.json ios/validation/evidence/full_runtime_rebuild.json ios/validation/evidence/candidate_benchmark.json ios/validation/release_receipt.json ios/validation/ios_fixed225_distribution_ready_2026-10-02.json ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md || return $?
-    local remaining
-    remaining="$(git -C "$REPO" status --porcelain --untracked-files=no | awk '$1!="M" && $1!="A" {print}')" || return $?
-    if [ -n "$remaining" ]; then printf '[COSYVOICE3-CANDIDATE] ERROR unexpected tracked state before commit:\n%s\n' "$remaining"; return 3; fi
+    git -C "$REPO" add ios/manifest.json ios/assets/releases.json ios/RELEASE_CHECKLIST.md ios/BENCHMARK.md ios/README.md ios/SDK_RELEASE.md ios/API.md ios/ASSETS.md ios/validation/evidence/standalone_build.json ios/validation/evidence/full_runtime_rebuild.json ios/validation/evidence/candidate_benchmark.json ios/validation/release_receipt.json ios/validation/ios_fixed225_distribution_ready_2026-10-02.json ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md || return $?
+    local unstaged
+    unstaged="$(git -C "$REPO" diff --name-only)" || return $?
+    if [ -n "$unstaged" ]; then printf '[COSYVOICE3-CANDIDATE] ERROR unstaged tracked changes remain before release commit:\n%s\n' "$unstaged"; return 3; fi
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" commit -m "release(ios): mark fixed225 technical distribution ready" || return $?
     git -C "$REPO" push origin "$EXPECTED_BRANCH" || return $?
     git -C "$REPO" push origin "HEAD:refs/heads/$MILESTONE_REF" || return $?
@@ -60,4 +60,4 @@ test "$RC" -eq 0
 # Upstream: current release branch, rebuild_assets.sh, immutable HF private RC, DeviceSmoke candidate benchmark, Candidate release receipt/metadata/audit helpers.
 # Runtime: Apple Silicon macOS/Xcode, Python 3.11, authenticated actacomes Hugging Face, connected physical iPhone, Git push access.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; current-HEAD Swift build, full runtime rebuild, physical cold/warm benchmark, release receipt, atomic Candidate metadata transition, strict audit, actacomes commit/push and frozen distribution-ready milestone ref.
+# Changes: new file; current-HEAD Swift build, full runtime rebuild, physical cold/warm benchmark, release receipt, atomic Candidate metadata transition, strict audit, actacomes commit/push and frozen distribution-ready milestone ref.\n# Changes 2026-10-02: stage API/ASSETS transition docs and reject any remaining unstaged tracked diff before the release commit.
