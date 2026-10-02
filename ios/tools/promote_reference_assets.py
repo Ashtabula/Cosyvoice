@@ -33,7 +33,7 @@ def main() -> None:
     host = load(args.host_receipt)
     device = load(args.device_receipt)
 
-    require(host.get("schemaVersion") == 1, "host receipt schema mismatch")
+    require(host.get("schemaVersion") == 2, "host receipt schema mismatch")
     require(host.get("status") == "PASS_HOST_PARITY", "host reference parity is not PASS")
     require(device.get("schemaVersion") == 1, "device receipt schema mismatch")
     require(device.get("status") == "PASS_DEVICE_PUBLIC_API_REFERENCE_PCM", "device custom-reference smoke is not PASS")

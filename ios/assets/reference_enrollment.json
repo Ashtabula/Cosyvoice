@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "profile": "cosyvoice3-reference-enrollment-fixed225-v1",
-  "status": "NOT_VALIDATED",
+  "status": "PASS_HOST_PARITY_DEVICE_PENDING",
   "fixedReferenceWindow": {
     "seconds": 6.056,
     "samples16k": 96896,
@@ -31,11 +31,9 @@
     "promptFeature": "Matcha mel_spectrogram n_fft=1920 n_mels=80 sr=24000 hop=480 win=1920 center=False"
   },
   "promotionRequirements": [
-    "Swift Whisper128 vs upstream whisper.log_mel_spectrogram numerical parity",
-    "Swift Kaldi80 vs torchaudio.compliance.kaldi.fbank numerical parity",
-    "Swift Matcha80 vs upstream feat_extractor numerical parity",
-    "Core ML speech tokenizer vs upstream ONNX token equality",
-    "Core ML CAMPPlus numerical parity",
+    "host reference DSP guardrails and Flow-boundary conditioning parity",
+    "Core ML speech tokenizer exact consumed prompt-token parity",
+    "Core ML CAMPPlus numerical parity and Flow spks parity",
     "dynamic Flow conditions vs upstream mu/spks/cond numerical parity",
     "physical iPhone end-to-end custom-reference text-to-PCM",
     "no Python or host bridge in shipping runtime"

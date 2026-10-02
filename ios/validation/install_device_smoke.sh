@@ -14,6 +14,7 @@ main() {
     if [ -z "${DEVICE_ID:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVICE_ID\n'; return 2; fi
     if [ -z "${COSYVOICE3_ASSET_ROOT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_ASSET_ROOT\n'; return 2; fi
     if [ -z "${COSYVOICE3_HOST_PARITY_RECEIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_HOST_PARITY_RECEIPT\n'; return 2; fi
+    if [ -z "${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_CANDIDATE_DIR\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_TRANSCRIPT\n'; return 2; fi
 
@@ -29,6 +30,7 @@ main() {
     python3 validation/prepare_device_smoke_assets.py \
         --asset-root "$COSYVOICE3_ASSET_ROOT" \
         --host-receipt "$COSYVOICE3_HOST_PARITY_RECEIPT" \
+        --reference-candidate-dir "$COSYVOICE3_REFERENCE_CANDIDATE_DIR" \
         --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
         --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
 

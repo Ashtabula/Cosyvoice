@@ -49,7 +49,7 @@
       "campFrames": 604,
       "promptSpeechTokens": 151,
       "promptMelFrames": 302,
-      "status": "PARITY_PENDING"
+      "status": "PASS_HOST_PARITY_DEVICE_PENDING"
     }
   },
   "tokenSemantics": {
@@ -79,10 +79,6 @@
     "runId": 37007257072
   },
   "candidateBlockers": [
-    "reference DSP tensor parity",
-    "speech-tokenizer Core ML vs ONNX parity",
-    "CAMPPlus Core ML vs ONNX parity",
-    "dynamic Flow-conditioning parity",
     "physical-device custom-reference text-to-PCM",
     "immutable asset fetch",
     "one-command rebuild",

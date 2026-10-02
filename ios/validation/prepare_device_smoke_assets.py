@@ -29,19 +29,23 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--asset-root", type=Path, required=True)
     parser.add_argument("--host-receipt", type=Path, required=True)
+    parser.add_argument("--reference-candidate-dir", type=Path, required=True)
     parser.add_argument("--reference-wav", type=Path, required=True)
     parser.add_argument("--reference-transcript", type=Path, required=True)
     args = parser.parse_args()
 
     asset_root = args.asset_root.resolve()
     host_receipt_path = args.host_receipt.resolve()
+    reference_candidate_dir = args.reference_candidate_dir.resolve()
     reference_wav = args.reference_wav.resolve()
     transcript = args.reference_transcript.resolve()
 
     run([sys.executable, VALIDATOR, "--root", asset_root])
     host = json.loads(host_receipt_path.read_text())
-    if host.get("schemaVersion") != 1 or host.get("status") != "PASS_HOST_PARITY":
-        raise RuntimeError("host reference parity receipt is not PASS_HOST_PARITY")
+    if host.get("schemaVersion") != 2 or host.get("status") != "PASS_HOST_PARITY":
+        raise RuntimeError("host reference parity receipt is not schema-2 PASS_HOST_PARITY")
+    if not reference_candidate_dir.is_dir():
+        raise RuntimeError(f"reference candidate directory missing: {reference_candidate_dir}")
     if not reference_wav.is_file():
         raise RuntimeError(f"reference WAV missing: {reference_wav}")
     if not transcript.is_file() or not transcript.read_text(encoding="utf-8").strip():
@@ -60,6 +64,35 @@ def main() -> None:
     reference = manifest.get("referenceEnrollment")
     if not isinstance(reference, dict):
         raise RuntimeError("manifest has no referenceEnrollment contract")
+
+    candidate_sources = {
+        "speechTokenizer": reference_candidate_dir / "speech-tokenizer-fixed605.mlpackage",
+        "campPlus": reference_candidate_dir / "campplus-fixed604.mlpackage",
+        "whisperMel128": reference_candidate_dir / "whisper_mel_128.f32",
+        "kaldiMel80": reference_candidate_dir / "kaldi_mel_80.f32",
+        "matchaMel80": reference_candidate_dir / "matcha_mel_80.f32",
+        "flowConditionsDynamic": reference_candidate_dir / "flow-conditions-dynamic-151-302.mlpackage",
+    }
+    for key, source in candidate_sources.items():
+        if not source.exists():
+            raise RuntimeError(f"reference candidate missing: {source}")
+        destination = runtime / reference[key]
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        if destination.exists():
+            if destination.is_dir():
+                shutil.rmtree(destination)
+            else:
+                destination.unlink()
+        if source.is_dir():
+            shutil.copytree(source, destination)
+        else:
+            shutil.copy2(source, destination)
+        print(
+            f"[COSYVOICE3-DEVICE-SMOKE-ASSETS] STAGE {key} "
+            f"source={source} destination={destination}",
+            flush=True,
+        )
+
     reference["status"] = "PASS_DEVICE_PARITY"
     reference["validationOverride"] = {
         "scope": "DEVICE_SMOKE_STAGED_COPY_ONLY",
@@ -81,6 +114,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion.
+# Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy.
 # Runtime: macOS Python3 standard library.
 # Generated: 2026-10-02 America/New_York.

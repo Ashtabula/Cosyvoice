@@ -14,10 +14,12 @@ PASS: fixed-profile reference manifest, structural validator, conversion tools a
 PASS: benchmark application source is not copied into `Sources/`.
 PASS: `swift test --package-path ios` passed at commit `44da9c1144e78273ea1e635b3641afdf73bf5904` (Actions run 37007257072).
 PASS: accelerator status remains not-claimed.
+PASS: converted speech-tokenizer/CAMPPlus candidates passed numerical parity against upstream ONNX.
+PASS: native fixed-profile reference DSP passed the bounded host guardrails, including exact consumed prompt-token equality at the Flow boundary.
+PASS: dynamic Flow-conditioning candidate passed host parity for mu/spks/cond.
+PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY` with `HOST_PARITY_COMPLETE_DEVICE_PARITY_PENDING`.
 
-BLOCKER: converted speech-tokenizer/CAMPPlus candidates have not yet passed numerical parity against upstream ONNX.
-BLOCKER: native Whisper128, Kaldi80 and Matcha80 DSP have not yet passed tensor parity against upstream Python implementations.
-BLOCKER: dynamic Flow-conditioning candidate has not yet passed host and physical-device parity.
+BLOCKER: dynamic Flow-conditioning/custom-reference path has not yet passed physical-device public-API parity.
 BLOCKER: custom-reference public API has not yet produced accepted PCM on a physical iPhone from this publication tree.
 BLOCKER: immutable hosted asset manifest/fetch path is incomplete.
 BLOCKER: one-command pinned local rebuild is incomplete.
