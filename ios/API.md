@@ -1,6 +1,6 @@
 # CosyVoice3 iOS API
 
-Status: target public boundary; the end-to-end facade described here is not implemented in the current Development package.
+Status: SDK integration-ready on immutable private RC; public API implementation and physical-device custom-reference text-to-PCM evidence are present.
 
 ```swift
 let engine = try CosyVoice3Engine(assetRoot: assetRoot)
@@ -13,14 +13,16 @@ let audio = try await engine.synthesize(
 )
 ```
 
-`VoiceReference(audioURL:transcript:)` is local reference audio plus its exact transcript. Both values are required together. `CosyVoice3Parameters` should expose only user-meaningful CosyVoice controls: the planned fields are `reference` and optional `instruction`. Development evidence at source commit 8789402 includes Instruct2 controls for happy, angry, fast, soft and Sichuan-style prompts; that evidence does not make those labels a frozen SDK enum or guarantee arbitrary instruction quality.
+`CosyVoice3VoiceReference(audioURL:transcript:)` pairs local reference audio with its exact transcript. Both values are required together. `CosyVoice3Parameters` exposes the user-meaningful controls currently implemented by the SDK: optional `reference` and optional `instruction`. Development evidence at source commit 8789402 includes Instruct2 controls for happy, angry, fast, soft and Sichuan-style prompts; that evidence does not make those labels a frozen SDK enum or guarantee arbitrary instruction quality.
 
-`VoiceAudio` should contain `samples: [Float]`, `sampleRate: Int`, and `channels: Int`. The validated output contract is mono Float32 PCM at 24,000 Hz.
+`CosyVoice3Audio` contains `samples: [Float]`, `sampleRate: Int`, and `channels: Int`. The validated output contract is finite mono Float32 PCM at 24,000 Hz.
 
-The engine must own text/reference frontend assembly, reference conditioning/cache identity, speech-token generation, unchanged RAS behavior, Flow conditioning and 10-step scheduler, HiFT synthesis, model lifetime, Core ML compilation/cache reuse, shape selection and concurrency control.
+`CosyVoice3Engine` owns tokenizer/frontend assembly, reference DSP and learned reference encoders, speech-token generation, RAS behavior, Flow conditioning and 10-step scheduler, FP64-F0/HiFT synthesis, model lifetime and Core ML execution. Custom reference is fail-closed: it is exposed only when the runtime manifest records `referenceEnrollment.status == "PASS_DEVICE_PARITY"`.
 
-Deliberately private: physical/logical prefill length, 512-position state capacity, speech-token IDs, SOS/EOS/stop IDs, top-k/top-p/RAS internals, KV tensor names/shapes, Flow shard layout, CFG value, scheduler steps, Core ML function names, compute units, ANE placement assumptions, cache keys, diagnostic state snapshots and benchmark controls.
+Deliberately private: physical/logical prefill length, 512-position state capacity, speech-token IDs, SOS/EOS/stop IDs, top-k/top-p/RAS internals, KV tensor names/shapes, Flow shard layout, CFG value, scheduler steps, Core ML function names, compute units, placement assumptions, cache keys, diagnostic state snapshots and benchmark controls.
 
-Current implementation note: `Sources/CosyVoice3Core/` contains low-level runtime infrastructure copied exactly from the validated development commit. It does not yet contain the end-to-end types above. Until those types exist and are exercised by a clean-room physical-device text-to-PCM test, this package remains Development.
+The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Candidate promotion additionally requires committed supported full-runtime rebuild evidence, controlled cold/warm public-API benchmark evidence and `validation/release_receipt.json`; the release finalizer performs that transition only after those gates pass.
 
 Token semantics: speech IDs 0...6560; SOS 6561; actual EOS 6562; task 6563; fill 6564; stop/special region 6561...6760. Upstream `ignore_eos=True` masks only 6561/SOS before minimum length; it does not mask actual EOS 6562.
+
+Core ML execution is descriptive; no ANE residency claim is made without separate placement evidence.
