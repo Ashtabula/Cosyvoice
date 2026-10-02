@@ -34,13 +34,14 @@ def main():
     with acoustic_config.open() as handle: flow_configs=load_hyperpyyaml(handle)
     flow=flow_configs["flow"].eval(); flow.load_state_dict(torch.load(model_dir/"flow.pt",weights_only=True,map_location="cpu"),strict=True); conditions=Conditions(flow,flow_inputs).eval()
     with torch.inference_mode(): mu,spks,cond=conditions(target)
-    x=torch.randn((2,80,752),generator=g)*0.1; mask=torch.ones((2,1,752),dtype=torch.float32); t=torch.tensor(0.25,dtype=torch.float32)
+    x=torch.randn((2,80,752),generator=g)*0.1; mask=torch.ones((2,1,752),dtype=torch.float32); t=torch.full((2,),0.25,dtype=torch.float32)
+    if tuple(t.shape)!=(2,) or not bool(torch.equal(t,t[0].expand_as(t))): raise RuntimeError(f"Flow scheduler time ABI mismatch: shape={tuple(t.shape)} values={t.tolist()}")
     config=yaml.load(acoustic_config.read_text(),Loader=yaml.BaseLoader)["flow"]["decoder"]["estimator"]; kwargs={k:int(config[k]) for k in ("dim","depth","heads","dim_head","ff_mult","mel_dim","mu_dim","spk_dim","out_channels")}
     estimator=DiT(**kwargs,static_chunk_size=50,num_decoding_left_chunks=-1).eval(); state=torch.load(model_dir/"flow.pt",map_location="cpu",weights_only=True,mmap=True); prefix="decoder.estimator."; estimator.load_state_dict({k[len(prefix):]:v for k,v in state.items() if k.startswith(prefix)},strict=True)
     flow_args=(x,mask,mu,t,spks,cond)
     with torch.inference_mode(): flow_output=BroadcastMaskDiTGraph(estimator)(*flow_args)
     torch.save({"args":flow_args,"output":flow_output},out/"estimator_00.pt"); torch.save({"args":(),"kwargs":{"token":target,**flow_inputs}},out/"flow_input.pt"); torch.save({"args":(mu[0:1,:,302:].contiguous(),),"kwargs":{}},out/"hift_input.pt")
-    receipt={"schemaVersion":1,"status":"PASS_DETERMINISTIC_REBUILD_FIXTURE","seed":20261002,"scope":"conversion/parity fixture only; not a bundled voice/reference and not product audio","sourceCommit":subprocess_check(source),"shapes":{"llmPrefill":[1,224,896],"llmDecode":[1,1,896],"speechTokens":[225],"flowX":[2,80,752],"flowMu":list(mu.shape),"flowSpks":list(spks.shape),"flowCond":list(cond.shape),"hiftMel":[1,80,450]},"files":{p.name:{"bytes":p.stat().st_size,"sha256":sha(p)} for p in sorted(out.iterdir()) if p.is_file()}}
+    receipt={"schemaVersion":1,"status":"PASS_DETERMINISTIC_REBUILD_FIXTURE","seed":20261002,"scope":"conversion/parity fixture only; not a bundled voice/reference and not product audio","sourceCommit":subprocess_check(source),"shapes":{"llmPrefill":[1,224,896],"llmDecode":[1,1,896],"speechTokens":[225],"flowX":[2,80,752],"flowT":[2],"flowTSharedScalar":True,"flowMu":list(mu.shape),"flowSpks":list(spks.shape),"flowCond":list(cond.shape),"hiftMel":[1,80,450]},"files":{p.name:{"bytes":p.stat().st_size,"sha256":sha(p)} for p in sorted(out.iterdir()) if p.is_file()}}
     (out/"rebuild_fixture_receipt.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-REBUILD-FIXTURE] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 def subprocess_check(source):
     import subprocess
