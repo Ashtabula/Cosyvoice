@@ -1,0 +1,71 @@
+{
+  "schemaVersion": 1,
+  "milestone": "ios-fixed225-sdk-integration-ready-2026-10-02",
+  "status": "PASS",
+  "releaseStatus": "development",
+  "sdkIntegrationReady": true,
+  "technicalDistributionReady": false,
+  "publicRedistributionApproved": false,
+  "publisher": {
+    "name": "actacomes",
+    "email": "developer@actacomes.com"
+  },
+  "source": {
+    "releaseBranch": "release/ios-fixed225-sdk-ready",
+    "releaseBaseHead": "035171073bc3f4bd315fb6a8d3566fe8976510fc",
+    "lockedDevelopmentRepository": "Ashtabula/CosyVoice3_NPU",
+    "lockedDevelopmentCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+    "lockedDevelopmentTree": "3e84e6681ab123367703a8b612317172b02dc15c"
+  },
+  "assets": {
+    "status": "PRIVATE_RC_IMMUTABLE_REPLAY_PASS",
+    "profile": "ios-fixed225-reference",
+    "version": "0.1.0-rc1",
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
+    "tag": "ios-fixed225-reference-v0.1.0-rc1",
+    "pathInRepo": "ios-fixed225-reference/0.1.0-rc1",
+    "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
+    "requiresAuthentication": true
+  },
+  "devicePublicApiEvidence": {
+    "status": "PASS_DEVICE_PUBLIC_API_REFERENCE_PCM",
+    "promotionReceipt": "validation/reference-device/promotion-receipt.json",
+    "hostDeviceBindingVerified": true,
+    "sampleRate": 24000,
+    "channels": 1,
+    "samples": 216000,
+    "durationSeconds": 9,
+    "systemName": "iOS",
+    "systemVersion": "27.2",
+    "finite": true,
+    "recordedRtf": 6.964197921333334,
+    "humanListeningAcceptance": "PASS_USER_LISTENING_ACCEPTANCE"
+  },
+  "privateRcReplay": {
+    "status": "PASS",
+    "ordinaryDeveloperFetchPass": true,
+    "publicApiDeviceReplayPass": true,
+    "sampleRate": 24000,
+    "channels": 1,
+    "samples": 216000,
+    "durationSeconds": 9,
+    "elapsedSeconds": 82.961297709,
+    "rtf": 9.217921967666665,
+    "recordedAtUnix": 1790964091,
+    "releaseMetadataCommit": "faaa59fa8b7da3f36a34aa32364c848b3eef4761",
+    "note": "The finish workflow accepted release metadata only after immutable private-RC fetch and physical public-API replay passed."
+  },
+  "candidateBlockers": [
+    "one-command pinned full-runtime local rebuild",
+    "controlled cold/warm public-API benchmark",
+    "validation/release_receipt.json evidence bundle"
+  ],
+  "productionBlockers": [
+    "clean-room consumer integration",
+    "release-tree reproducibility",
+    "asset redistribution license review"
+  ],
+  "interpretation": "Ready for downstream private SDK integration against the frozen private RC. Not yet the ZipVoice Technical Distribution-Ready Candidate state and not authorized for public runtime-asset redistribution."
+}
