@@ -15,6 +15,7 @@ REFERENCE_CANDIDATE_DIR="${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-$ROOT/.work/refer
 PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/python3}"
 PROMOTED_RUNTIME_MODE="${COSYVOICE3_PROMOTED_RUNTIME_MODE:-0}"
 FRESH_INSTALL="${COSYVOICE3_FRESH_INSTALL:-0}"
+CANDIDATE_BENCHMARK="${COSYVOICE3_CANDIDATE_BENCHMARK:-0}"
 
 main() {
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
@@ -66,19 +67,22 @@ main() {
     COSYVOICE3_TOKENIZER_PARITY_FOLDER="$ASSET_ROOT/tokenizer" \
         swift test --package-path "$ROOT" --filter ReferenceTokenizerExternalParityTests || return $?
 
+    BENCHMARK_ARGS=(); if [ "$CANDIDATE_BENCHMARK" = "1" ]; then BENCHMARK_ARGS=(--candidate-benchmark); fi
     if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
         "$PYTHON_BIN" validation/prepare_promoted_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
             --host-receipt "$HOST_RECEIPT" \
             --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
-            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
+            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" \
+            "${BENCHMARK_ARGS[@]}" || return $?
     else
         "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
             --host-receipt "$HOST_RECEIPT" \
             --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
             --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
-            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
+            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" \
+            "${BENCHMARK_ARGS[@]}" || return $?
     fi
 
     rm -rf "$DERIVED_DATA"
@@ -149,4 +153,4 @@ test "$RC" -eq 0
 
 # Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; supports ordinary local-candidate staging and exact already-promoted runtime replay without substituting local reference models.
 # Runtime: macOS, Xcode, Python3, connected/trusted iPhone.
-# Generated: 2026-10-02 America/New_York.
+# Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: COSYVOICE3_CANDIDATE_BENCHMARK=1 stages the benchmark marker and makes DeviceSmoke auto-run the cold/warm public-API benchmark without changing the normal smoke path.
