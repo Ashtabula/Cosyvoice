@@ -1,33 +1,75 @@
 {
-  "schema_version": 1,
-  "stage": "flow_parity_diagnosis",
-  "source_revision": "074ca6dc9e80a2f424f1f74b48bdd7d3fea531cc",
-  "model_revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
-  "shipping_ready": false,
-  "gates": {
-    "checkpoint_hashes": "PASS",
-    "upstream_automated_capture": "PASS",
-    "local_cpu_repeatability": "PASS",
-    "human_upstream_intelligibility": "USER_ACCEPTED",
-    "human_upstream_speaker_identity": "USER_ACCEPTED",
-    "asset_inventory": "PASS",
-    "redistribution_license_review": "PENDING",
-    "coreml_toolchain_macos_cpu": "PASS",
-    "llm_prefill_parity": "PASS_MACOS_CPU_FIXED_FIXTURE",
-    "llm_decode_kv_parity": "PASS_MACOS_CPU_226_STEPS",
-    "flow_parity": "FAIL_FP32_THRESHOLD_DIAGNOSIS_IN_PROGRESS",
-    "hift_parity": "NOT_STARTED",
-    "swift_runtime": "NOT_STARTED",
-    "iphone_execution": "NOT_TESTED",
-    "ane_residency": "NOT_TESTED",
-    "final_ab_listening": "NOT_TESTED"
+  "schemaVersion": 2,
+  "engine": "CosyVoice3",
+  "platform": "iOS",
+  "releaseStatus": "development",
+  "shippingReady": false,
+  "publication": {
+    "repository": "Ashtabula/Cosyvoice",
+    "path": "ios/"
   },
-  "measured_unique_upstream_weight_payload_bytes": 4432411100,
-  "final_ios_shipping_bytes": null,
-  "device_latency_seconds": null,
-  "device_rtf": null,
-  "device_load_seconds": null,
-  "device_peak_memory_bytes": null,
-  "quantization": "NOT_TESTED",
-  "milestone2": "NOT_AUTHORIZED_BY_GATES"
+  "source": {
+    "repository": "Ashtabula/CosyVoice3_NPU",
+    "commit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+    "tree": "3e84e6681ab123367703a8b612317172b02dc15c"
+  },
+  "model": {
+    "id": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
+    "revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18"
+  },
+  "package": {
+    "entry": "Package.swift",
+    "product": "CosyVoice3Core",
+    "sources": "Sources/CosyVoice3Core",
+    "tests": "Tests/CosyVoice3CoreTests"
+  },
+  "publicApi": {
+    "endToEndEngineImplemented": false,
+    "targetEngine": "CosyVoice3Engine",
+    "plannedUserParameters": [
+      "reference",
+      "instruction"
+    ],
+    "output": "mono Float32 PCM 24000 Hz"
+  },
+  "tokenSemantics": {
+    "speechIdsInclusive": [
+      0,
+      6560
+    ],
+    "sos": 6561,
+    "eos": 6562,
+    "task": 6563,
+    "fill": 6564,
+    "stopIdsInclusive": [
+      6561,
+      6760
+    ]
+  },
+  "instruct2DevelopmentEvidence": {
+    "labels": [
+      "happy",
+      "angry",
+      "fast",
+      "soft",
+      "sichuan"
+    ],
+    "publicApiFrozen": false
+  },
+  "accelerator": {
+    "claim": "not-claimed",
+    "requestedComputeUnitsMayInclude": "cpuAndNeuralEngine",
+    "residencyProven": false
+  },
+  "candidateBlockers": [
+    "complete runtime extraction",
+    "end-to-end public engine",
+    "canonical asset contract",
+    "immutable fetch + validation",
+    "one-command rebuild",
+    "physical-device public-API text-to-PCM",
+    "cold/warm benchmark",
+    "clean-room integration",
+    "asset redistribution license review"
+  ]
 }

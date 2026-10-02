@@ -1,0 +1,116 @@
+{
+  "status": "PASS_STATIC_SEMANTIC_ONLY",
+  "time": "2026-10-02T00:28:50.302347-04:00",
+  "code_checks": [
+    {
+      "path": "iOS/tools/capture_instruct2_token_oracle.py",
+      "before_sha256": "8c18d88b606baa37e810b76bcb7920ca53e647e62a4d776bd21d16c645a92763",
+      "after_sha256": "b3d0fd70b6531657706661867ba92198ed5cc4c6b330506fed510563c5eec888",
+      "executable_equal_excluding_receipt_descriptive_string": true,
+      "changed_lines": "111–112, 180–182"
+    },
+    {
+      "path": "iOS/tools/run_instruct2_native_air.py",
+      "before_sha256": "586655c2d52ca692fc03636fa9596141ec24d5c84812d3a9e5193d270b1cc8c6",
+      "after_sha256": "68ea68c39c723d6d34414471f69d7dcd8dd8013b09c2441c792789102ef5b0dc",
+      "executable_equal_excluding_receipt_descriptive_string": true,
+      "changed_lines": "151, 248–249, 272–273, 327, 370–373"
+    },
+    {
+      "path": "iOS/StatefulLLMBench/App/Instruct2NativeBenchmark.swift",
+      "before_sha256": "5059d4d5a6dd647e29ef2af6e30313603a9cccd5bacf81871d2c7fdd4194321e",
+      "after_sha256": "5db64339c92bf7944395832f3f739dfa781fb1865bb7754ddc92ad84b4c49485",
+      "executable_equal_excluding_receipt_descriptive_string": true,
+      "changed_lines": "251–252, 349, 390–393"
+    }
+  ],
+  "receipt_corrections": [
+    {
+      "original": "iOS/validation/instruct2/native-angry-sparse-state-20261001-221226/host-receipt.json",
+      "original_sha256": "cf74c2d643ccab6aacec9b174fa2a6fc735770d586e8d87ba2f160bbd035d6a1",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-angry-sparse-state-20261001-221226.json",
+      "corrected_sha256": "0e51e8e5dc8474b6ae5c7421cc1adc6b66be1a5c81c140eff47a935684d1eb18",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-fast-sparse-state-20261001-221330/host-receipt.json",
+      "original_sha256": "ba179906264d08546270e297fbf6cbc312fb19abb2a7fca2d57bae20145af876",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-fast-sparse-state-20261001-221330.json",
+      "corrected_sha256": "01c7b135d8ffea30eb8a5ae00957fff9974917ef0c94e9c915c9430c96aecf72",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-happy-20261001-213617/host-receipt.json",
+      "original_sha256": "7dbc36e9b5c870fd7e89a53a852447437b625eb2dfc032b4f3bc6a9565fe404d",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-happy-20261001-213617.json",
+      "corrected_sha256": "3169666a113ccc422e3a3c0b7008b42683c3b47d9ed5e19668d7d3f6493b6229",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "FAILED"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-happy-nostate-20261001-214642/host-receipt.json",
+      "original_sha256": "4eba8298b34e9f42ec5ed8894812c1ea2249fad4e9bf121e4fa3527995133c61",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-happy-nostate-20261001-214642.json",
+      "corrected_sha256": "1126b3deb62e4318958dd2406c8d9855305791472d01457a84ec87af2aa7e779",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-happy-nostate-20261001-214829/host-receipt.json",
+      "original_sha256": "d6ec00108b6d8cb29c94fa834801df702ec7e6ad53833463928eba645ec79bb2",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-happy-nostate-20261001-214829.json",
+      "corrected_sha256": "01a0fcb75bcb28bb8ea3a94594b5c647aa3d2ca87dc288480a655c98477081de",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "FAILED"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-happy-nostate-20261001-215307/host-receipt.json",
+      "original_sha256": "427b393089f06b2780748806132f036e4d502c5e834712dd3e944a655fff2e97",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-happy-nostate-20261001-215307.json",
+      "corrected_sha256": "8b6e6e769bf2825ba9d9ef0af43034aeb6848fbc0f2da5f9b63a228e9630a768",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-happy-sparse-state-20261001-215130/host-receipt.json",
+      "original_sha256": "7eb70d6bdfc520868e107c3b3b89697821f4f806fc43577e7bb40d648add3901",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-happy-sparse-state-20261001-215130.json",
+      "corrected_sha256": "3a6d9fc6b44fe6193b2505be969471e630ce968e27639df6900ceccd46d7f26e",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-sichuan-sparse-state-20261001-221529/host-receipt.json",
+      "original_sha256": "686b9dc83c85dfdccbd91421c7fd44eee670399d51501278661c3756fbe0c563",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-sichuan-sparse-state-20261001-221529.json",
+      "corrected_sha256": "1deba243b50c713b4c35c36914cb545cfa2fad1331e2cbfc413a409158030672",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    },
+    {
+      "original": "iOS/validation/instruct2/native-soft-sparse-state-20261001-221408/host-receipt.json",
+      "original_sha256": "5e529715b605f18c9d2b7eaf122f350c4af4e7a8f9eb540ebb9823940b0d97ec",
+      "corrected": "iOS/validation/eos-semantics-audit-20261002/corrected-receipts/native-soft-sparse-state-20261001-221408.json",
+      "corrected_sha256": "c22cc24622bbfe552e82727bf1d1dd594fb52b83658b5d5844e3e6084feb0f19",
+      "only_changed_field": "sampling",
+      "original_receipt_untouched": true,
+      "original_status": "COMPLETE_EOS"
+    }
+  ],
+  "old_sampling_text": "original ras_sampling(log_softmax, decoded_tokens, 25); EOS6561 suppressed for exact upstream min_len",
+  "corrected_sampling_text": "original ras_sampling(log_softmax, decoded_tokens, 25); upstream sampling_ids masks only speech_token_size/SOS6561 before min_len (CosyVoice3 EOS is6562); valid special stop IDs are6561..6760",
+  "inference_audio_performance_retention_tests": "NOT_RUN",
+  "original_receipts_preserved": true,
+  "final_static_recheck": "PASS",
+  "user_wip_hash_unchanged": true
+}

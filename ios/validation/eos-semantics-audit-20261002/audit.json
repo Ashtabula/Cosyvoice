@@ -1,0 +1,166 @@
+{
+  "status": "PASS_SEMANTIC_AUDIT_NO_BEHAVIOR_CHANGE",
+  "time": "2026-10-02T00:33:03.903261-04:00",
+  "source": [
+    {
+      "path": "cosyvoice/llm/llm.py",
+      "realpath": "/Volumes/WD/Codes/CosyVoice3_NPU/cosyvoice/llm/llm.py",
+      "sha256": "c3799f4b2a00baaf1784bda86c5c7f22d4f9199b45e1fb9edd247b996d101ffa"
+    },
+    {
+      "path": "cosyvoice/utils/common.py",
+      "realpath": "/Volumes/WD/Codes/CosyVoice3_NPU/cosyvoice/utils/common.py",
+      "sha256": "69aab9fe9cc80173f72a608e1b632611174f8c8e5032e4d9ce24fef18c8574bd"
+    },
+    {
+      "path": "pretrained_models/Fun-CosyVoice3-0.5B-2512/cosyvoice3.yaml",
+      "realpath": "/Volumes/WD/Codes/CosyVoice3/pretrained_models/Fun-CosyVoice3-0.5B-2512/cosyvoice3.yaml",
+      "sha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965"
+    },
+    {
+      "path": "iOS/tools/llm_graphs.py",
+      "realpath": "/Volumes/WD/Codes/CosyVoice3_NPU/iOS/tools/llm_graphs.py",
+      "sha256": "f51f2d91d8a08f6b1ae842a7d6274e3ae436e9e5b5caa28027bbce7d81f7b8a5"
+    }
+  ],
+  "ids": {
+    "speech_token_size": 6561,
+    "speech_ids_inclusive": [
+      0,
+      6560
+    ],
+    "sos": 6561,
+    "eos_token": 6562,
+    "task_id": 6563,
+    "fill_token": 6564,
+    "stop_token_ids_inclusive": [
+      6561,
+      6760
+    ],
+    "stop_token_count": 200,
+    "logits_size": 6761
+  },
+  "checkpoint_metadata": {
+    "path": "/Volumes/WD/Codes/CosyVoice3/pretrained_models/Fun-CosyVoice3-0.5B-2512/llm.pt",
+    "inspection": "previous read-only torch.load(map_location=meta,weights_only=True,mmap=True); no inference",
+    "speech_embedding_weight_shape": [
+      6761,
+      896
+    ],
+    "llm_decoder_weight_shape": [
+      6761,
+      896
+    ],
+    "dtype": "torch.float32"
+  },
+  "mask": {
+    "upstream_method": "TransformerLM.sampling_ids inherited by CosyVoice3LM",
+    "ignore_eos_true_masks_only": 6561,
+    "actual_eos_6562_masked": false,
+    "stop_region_fully_masked": false,
+    "native_matches": true
+  },
+  "stop": {
+    "non_vllm_inference_wrapper": "membership in self.stop_token_ids; before yield/append/embedding",
+    "ras_sampling": "No EOS mask or stop decision; original top_p=0.8/top_k=25/win_size=10/tau_r=0.1",
+    "native_host": "masks only scores[6561] before min_len; >=6561 stops within valid 6761-logit domain",
+    "swift": ">=6561 stops; legacy COMPLETE_EOS/eos_token fields mean selected stop token",
+    "decode_limit": "Existing 225-decode diagnostic cap retained; differs from upstream text-based max_len. No behavior change."
+  },
+  "accepted_native_runs": [
+    {
+      "label": "happy",
+      "host_receipt": "iOS/validation/instruct2/native-happy-sparse-state-20261001-215130/host-receipt.json",
+      "host_sha256": "7eb70d6bdfc520868e107c3b3b89697821f4f806fc43577e7bb40d648add3901",
+      "device_receipt": "iOS/validation/instruct2/native-happy-sparse-state-20261001-215130/device-receipt.json",
+      "device_sha256": "dfdd39064e95d93e5118ce5e0054d30ed2f1bde95a36794836dda2756c10e760",
+      "oracle_receipt": "iOS/validation/instruct2/oracle-happy/receipt.json",
+      "oracle_sha256": "27816aa04fd1fb61ef442f4900bde0e5180e23390d8a3ef3223223deeb468c74",
+      "speech_token_count": 174,
+      "terminal_token": 6562,
+      "terminal_selection_index": 174,
+      "prefix": 53,
+      "final_context": 227,
+      "host_device_tokens_equal": true,
+      "preceding_tokens_all_speech": true,
+      "oracle_speech_count": 169,
+      "oracle_terminal_id": "NOT_CAPTURED"
+    },
+    {
+      "label": "angry",
+      "host_receipt": "iOS/validation/instruct2/native-angry-sparse-state-20261001-221226/host-receipt.json",
+      "host_sha256": "cf74c2d643ccab6aacec9b174fa2a6fc735770d586e8d87ba2f160bbd035d6a1",
+      "device_receipt": "iOS/validation/instruct2/native-angry-sparse-state-20261001-221226/device-receipt.json",
+      "device_sha256": "141a198bce0dbd6f4596e86b2553a5d7862b1828065eeb9fc1e7deeaed629a03",
+      "oracle_receipt": "iOS/validation/instruct2/oracle-angry/receipt.json",
+      "oracle_sha256": "c44de0105febf83c9e1df728d9542e7209bb1ef81b04af779673cc0135f5fe14",
+      "speech_token_count": 164,
+      "terminal_token": 6562,
+      "terminal_selection_index": 164,
+      "prefix": 53,
+      "final_context": 217,
+      "host_device_tokens_equal": true,
+      "preceding_tokens_all_speech": true,
+      "oracle_speech_count": 174,
+      "oracle_terminal_id": "NOT_CAPTURED"
+    },
+    {
+      "label": "fast",
+      "host_receipt": "iOS/validation/instruct2/native-fast-sparse-state-20261001-221330/host-receipt.json",
+      "host_sha256": "ba179906264d08546270e297fbf6cbc312fb19abb2a7fca2d57bae20145af876",
+      "device_receipt": "iOS/validation/instruct2/native-fast-sparse-state-20261001-221330/device-receipt.json",
+      "device_sha256": "115b212f0a04e50beec960b08ae3279790fdd5d1770e9db873b962248b3efd8e",
+      "oracle_receipt": "iOS/validation/instruct2/oracle-fast/receipt.json",
+      "oracle_sha256": "2a7b1e618a3b8360bc1b9b66d822e5c390c3c852a8be0d7f4d8ff24311f47ad3",
+      "speech_token_count": 94,
+      "terminal_token": 6562,
+      "terminal_selection_index": 94,
+      "prefix": 56,
+      "final_context": 150,
+      "host_device_tokens_equal": true,
+      "preceding_tokens_all_speech": true,
+      "oracle_speech_count": 93,
+      "oracle_terminal_id": "NOT_CAPTURED"
+    },
+    {
+      "label": "soft",
+      "host_receipt": "iOS/validation/instruct2/native-soft-sparse-state-20261001-221408/host-receipt.json",
+      "host_sha256": "5e529715b605f18c9d2b7eaf122f350c4af4e7a8f9eb540ebb9823940b0d97ec",
+      "device_receipt": "iOS/validation/instruct2/native-soft-sparse-state-20261001-221408/device-receipt.json",
+      "device_sha256": "0c8a790cfc409ce888fce660c65648582e8ad73de4d1fb8885fc93350bce099a",
+      "oracle_receipt": "iOS/validation/instruct2/oracle-soft/receipt.json",
+      "oracle_sha256": "1e98ae5da34a8c1c08c05dca5cf7369ce40b89ee15b54e948b2e3f174b39c198",
+      "speech_token_count": 219,
+      "terminal_token": 6562,
+      "terminal_selection_index": 219,
+      "prefix": 51,
+      "final_context": 270,
+      "host_device_tokens_equal": true,
+      "preceding_tokens_all_speech": true,
+      "oracle_speech_count": 227,
+      "oracle_terminal_id": "NOT_CAPTURED"
+    },
+    {
+      "label": "sichuan",
+      "host_receipt": "iOS/validation/instruct2/native-sichuan-sparse-state-20261001-221529/host-receipt.json",
+      "host_sha256": "686b9dc83c85dfdccbd91421c7fd44eee670399d51501278661c3756fbe0c563",
+      "device_receipt": "iOS/validation/instruct2/native-sichuan-sparse-state-20261001-221529/device-receipt.json",
+      "device_sha256": "abac8b687a3de84d76f0b1ff3dc634a2efee34399fa299289544a7283db827eb",
+      "oracle_receipt": "iOS/validation/instruct2/oracle-sichuan/receipt.json",
+      "oracle_sha256": "3225c512acd0d7ce2e7f14315dd06711547007077c15326435845deaa58bc525",
+      "speech_token_count": 160,
+      "terminal_token": 6562,
+      "terminal_selection_index": 160,
+      "prefix": 50,
+      "final_context": 210,
+      "host_device_tokens_equal": true,
+      "preceding_tokens_all_speech": true,
+      "oracle_speech_count": 175,
+      "oracle_terminal_id": "NOT_CAPTURED"
+    }
+  ],
+  "oracle_limitation": "Oracle generator strips terminal special token before yielding; exact oracle terminal ID cannot be established from existing receipts.",
+  "historical_corrections": "9 separate corrected copies; originals untouched; sampling descriptive string only; statuses and quality fields preserved",
+  "execution": "Static source/receipt audit only; no inference, build, audio, performance or retention experiments",
+  "behavior_changed": false
+}

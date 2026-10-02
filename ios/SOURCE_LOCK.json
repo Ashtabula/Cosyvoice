@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "publicationRepository": "Ashtabula/Cosyvoice",
+  "publicationPath": "ios/",
+  "developmentRepository": "Ashtabula/CosyVoice3_NPU",
+  "developmentCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "developmentTree": "3e84e6681ab123367703a8b612317172b02dc15c",
+  "model": {
+    "id": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
+    "revision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18"
+  },
+  "importedBlobs": {
+    "Package.swift": "ce2817571aeee0613634d734a15051f2ff5c0cd6",
+    "Sources/CosyVoice3Core/CosyVoice3Stage1Runtime.swift": "71d87c5d22f19896f8e9aeb00a9933bc83331e87",
+    "Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift": "0c31407210085113aae8fcbaf5942a46037d8234",
+    "Tests/CosyVoice3CoreTests/Stage1RuntimeTests.swift": "bd8258534fda515eecd0f36db93bbbbb02e4d1d3"
+  },
+  "tokenSemantics": {
+    "speechIdsInclusive": [
+      0,
+      6560
+    ],
+    "sos": 6561,
+    "eos": 6562,
+    "task": 6563,
+    "fill": 6564,
+    "stopIdsInclusive": [
+      6561,
+      6760
+    ],
+    "logitsSize": 6761
+  },
+  "behaviorChangedBy8789402": false
+}

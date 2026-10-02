@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "status": "DEVELOPMENT_SCAFFOLD_IMPORTED",
+  "sourceCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "sourceTree": "3e84e6681ab123367703a8b612317172b02dc15c",
+  "publicationPath": "Ashtabula/Cosyvoice/ios/",
+  "checks": {
+    "packageEntry": "PASS",
+    "runtimeSourcePresent": "PASS",
+    "runtimeTestsPresent": "PASS",
+    "eosSemanticAuditPreserved": "PASS",
+    "benchmarkCodeExcludedFromSources": "PASS",
+    "endToEndPublicEngine": "NOT_IMPLEMENTED",
+    "assetContract": "NOT_IMPLEMENTED",
+    "cleanRoomDevicePublicApi": "NOT_RUN",
+    "redistributionLicenseReview": "PENDING"
+  },
+  "behaviorChangeFromSourceRuntimeCopy": false,
+  "acceleratorClaim": "not-claimed"
+}
