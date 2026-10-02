@@ -110,7 +110,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private static func seconds(_ duration: Duration) -> Double { Double(duration.components.seconds)+Double(duration.components.attoseconds)/1e18 }
     private static func audioDuration(_ audio: CosyVoice3Audio) -> Double { Double(audio.samples.count)/Double(audio.sampleRate*audio.channels) }
     private static func stats(_ audio: CosyVoice3Audio) -> (peak: Float, rms: Double) { (audio.samples.reduce(Float.zero){max($0,abs($1))},sqrt(audio.samples.reduce(0.0){$0+Double($1*$1)}/Double(audio.samples.count))) }
-    private static func machineIdentifier() -> String { var value=utsname(); uname(&value); return Mirror(reflecting:value.machine).children.reduce(into:""){ result,element in guard let byte=element.value as? Int8, byte != 0 else { return }; result.append(Character(UnicodeScalar(UInt8(byte)))) } }
+    private static func machineIdentifier() -> String { var value=utsname(); uname(&value); let capacity=MemoryLayout.size(ofValue:value.machine); return withUnsafePointer(to:&value.machine){ $0.withMemoryRebound(to:CChar.self,capacity:capacity){ String(cString:$0) } } }
 
     private static func validate(_ audio: CosyVoice3Audio) throws {
         guard audio.sampleRate==24_000 else { throw SmokeError("unexpected sample rate \(audio.sampleRate)") }
@@ -141,4 +141,4 @@ private extension Data {
 // Upstream: CosyVoice3Core public API only; no private runtime/benchmark internals are invoked.
 // Runtime: iOS18+, SwiftUI, AVFoundation.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.\n// Changes 2026-10-02: benchmark mode consumes the immutable promotion hostReceiptSha256 from its bundled marker; normal smoke mode still hashes the full staged host receipt.
+// Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.\n// Changes 2026-10-02: benchmark mode consumes the immutable promotion hostReceiptSha256 from its bundled marker; normal smoke mode still hashes the full staged host receipt.\n// Changes 2026-10-02: replaced Mirror-based uname parsing with direct CChar rebinding/String(cString:) for stable device model identifier extraction.
