@@ -1,5 +1,5 @@
 #@title sanitize_rebuild_source.py
-# Requirement: make the pinned temporary rebuild checkout hermetic by removing developer-local Python paths and Matcha training-only eager imports, only after exact Git blob verification; never change model math.
+# Requirement: make the pinned temporary rebuild checkout hermetic and conversion-only, after exact Git blob verification, without changing model math.
 from __future__ import annotations
 import argparse,hashlib,json,subprocess
 from pathlib import Path
@@ -8,16 +8,19 @@ SOURCE_COMMIT="878940245562bcd1dd0231d78157ba78d70b39f6"
 MATCHA_COMMIT="dd9105b34bf2be2230f4aa1e4769fb586a3c824e"
 ACOUSTICS=Path("iOS/tools/export_pipeline_acoustics.py")
 ACOUSTICS_BLOB="2e0eb4dc5d9216db07207e5564f13a38c4ad2e74"
-MATCHA_UTILS=Path("third_party/Matcha-TTS/matcha/utils/__init__.py")
+MATCHA_UTILS=Path("matcha/utils/__init__.py")
 MATCHA_UTILS_BLOB="074db6461184e8cbb86d977cb41d9ebd918e958a"
-MATCHA_PYLOGGER=Path("third_party/Matcha-TTS/matcha/utils/pylogger.py")
+MATCHA_PYLOGGER=Path("matcha/utils/pylogger.py")
 MATCHA_PYLOGGER_BLOB="61600678029362e110f655edb91d5f3bc5b1cd1c"
-MATCHA_HIFIGAN_XUTILS=Path("third_party/Matcha-TTS/matcha/hifigan/xutils.py")
-MATCHA_HIFIGAN_XUTILS_BLOB="eefadcb7a1d0bf9015e636b88fee3e22c9771bc5"
 FORBIDDEN="sys.path.append('/Volumes/WD/Codes/CosyVoice3/.venv-upstream/lib/python3.10/site-packages')"
+FULL_CONFIG="MODEL/'cosyvoice3.yaml'"
+ACOUSTIC_CONFIG="MODEL/'cosyvoice3.acoustic.yaml'"
 UTILS_REPLACEMENT="from matcha.utils.pylogger import get_pylogger\n"
-PYLOGGER_REPLACEMENT="""import logging\n\ndef get_pylogger(name: str = __name__) -> logging.Logger:\n    return logging.getLogger(name)\n"""
-XUTILS_TOP="""\\"\\"\\" from https://github.com/jik876/hifi-gan \\"\\"\\"\n\nimport glob\nimport os\n\nimport torch\nfrom torch.nn.utils import weight_norm\n\n\ndef plot_spectrogram(spectrogram):\n    import matplotlib\n    matplotlib.use(\\"Agg\\")\n    import matplotlib.pylab as plt\n    fig, ax = plt.subplots(figsize=(10, 2))\n    im = ax.imshow(spectrogram, aspect=\\"auto\\", origin=\\"lower\\", interpolation=\\"none\\")\n    plt.colorbar(im, ax=ax)\n    fig.canvas.draw()\n    plt.close()\n    return fig\n\n"""
+PYLOGGER_REPLACEMENT="""import logging
+
+def get_pylogger(name: str = __name__) -> logging.Logger:
+    return logging.getLogger(name)
+"""
 
 def sha256(path:Path)->str:
     h=hashlib.sha256()
@@ -32,7 +35,7 @@ def patch_exact(path:Path,expected_blob:str,replacement:str,repo:Path,name:str)-
     blob=git_blob(repo,path.relative_to(repo))
     if blob!=expected_blob: raise RuntimeError(f"unexpected {name} Git blob: {blob}")
     before=sha256(path); path.write_text(replacement); after=sha256(path)
-    return {"name":name,"target":str(path),"originalGitBlob":blob,"originalSha256":before,"sanitizedSha256":after}
+    return {"name":name,"target":str(path.relative_to(repo)),"originalGitBlob":blob,"originalSha256":before,"sanitizedSha256":after}
 
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--source-root",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
@@ -46,21 +49,20 @@ def main():
     if git_blob(source,ACOUSTICS)!=ACOUSTICS_BLOB: raise RuntimeError("unexpected upstream acoustics blob")
     text=acoustics.read_text()
     if text.count(FORBIDDEN)!=1: raise RuntimeError("expected exactly one developer-local sys.path escape hatch")
-    acoustics_before=sha256(acoustics); acoustics.write_text(text.replace(FORBIDDEN,"# release rebuild: developer-local Python site-packages path intentionally disabled")); acoustics_after=sha256(acoustics)
-    if "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in acoustics.read_text(): raise RuntimeError("developer-local upstream venv path remains after sanitation")
+    if text.count(FULL_CONFIG)!=1: raise RuntimeError("expected exactly one full acoustic HyperPyYAML load")
+    before=sha256(acoustics)
+    text=text.replace(FORBIDDEN,"# release rebuild: developer-local Python site-packages path intentionally disabled")
+    text=text.replace(FULL_CONFIG,ACOUSTIC_CONFIG)
+    acoustics.write_text(text)
+    after=sha256(acoustics)
+    if "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in text or FULL_CONFIG in text: raise RuntimeError("acoustic exporter sanitation incomplete")
 
-    utils=matcha/"matcha/utils/__init__.py"; pylogger=matcha/"matcha/utils/pylogger.py"; xutils=matcha/"matcha/hifigan/xutils.py"
-    utils_patch=patch_exact(utils,MATCHA_UTILS_BLOB,UTILS_REPLACEMENT,matcha,"matcha-utils-init-training-imports")
-    pylogger_patch=patch_exact(pylogger,MATCHA_PYLOGGER_BLOB,PYLOGGER_REPLACEMENT,matcha,"matcha-pylogger-lightning-import")
-    xtext=xutils.read_text(); marker="def init_weights(m, mean=0.0, std=0.01):"
-    if git_blob(matcha,Path("matcha/hifigan/xutils.py"))!=MATCHA_HIFIGAN_XUTILS_BLOB or marker not in xtext: raise RuntimeError("unexpected Matcha HiFiGAN xutils blob/layout")
-    xutils_before=sha256(xutils); xutils.write_text(XUTILS_TOP+marker+xtext.split(marker,1)[1]); xutils_after=sha256(xutils)
-    xutils_patch={"name":"matcha-hifigan-matplotlib-lazy-import","target":str(xutils),"originalGitBlob":MATCHA_HIFIGAN_XUTILS_BLOB,"originalSha256":xutils_before,"sanitizedSha256":xutils_after}
-    if "hydra" in utils.read_text() or "lightning" in utils.read_text()+pylogger.read_text(): raise RuntimeError("training-only Matcha dependency remains in sanitized utility import path")
-    before_init=xutils.read_text().split("def init_weights",1)[0]
-    if "import matplotlib" in before_init: raise RuntimeError("Matcha HiFiGAN matplotlib remains eager after sanitation")
+    utils_patch=patch_exact(matcha/MATCHA_UTILS,MATCHA_UTILS_BLOB,UTILS_REPLACEMENT,matcha,"matcha-utils-init-training-imports")
+    pylogger_patch=patch_exact(matcha/MATCHA_PYLOGGER,MATCHA_PYLOGGER_BLOB,PYLOGGER_REPLACEMENT,matcha,"matcha-pylogger-lightning-import")
+    if "hydra" in (matcha/MATCHA_UTILS).read_text() or "lightning" in (matcha/MATCHA_PYLOGGER).read_text(): raise RuntimeError("training-only Matcha dependency remains")
 
-    receipt={"schemaVersion":2,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":acoustics_before,"sanitizedSha256":acoustics_after,"matchaUtilsTarget":"matcha/utils/__init__.py","matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":"matcha/utils/pylogger.py","matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"matchaHifiganXutilsTarget":"matcha/hifigan/xutils.py","matchaHifiganXutilsOriginalGitBlob":MATCHA_HIFIGAN_XUTILS_BLOB,"matchaHifiganXutilsSanitizedSha256":xutils_after,"patches":[{"name":"developer-local-python-path","target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":acoustics_before,"sanitizedSha256":acoustics_after},utils_patch,pylogger_patch,xutils_patch],"changes":["disable one developer-local Python 3.10 site-packages append","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild","move Matcha HiFiGAN matplotlib import inside plot_spectrogram so conversion/model imports do not require plotting dependencies"],"runtimeMathChanged":False}
+    acoustic_patch={"name":"acoustic-exporter-hermetic-config","target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after}
+    receipt={"schemaVersion":3,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after,"acousticConfigRedirected":True,"acousticConfig":"cosyvoice3.acoustic.yaml","matchaUtilsTarget":MATCHA_UTILS.as_posix(),"matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":MATCHA_PYLOGGER.as_posix(),"matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"patches":[acoustic_patch,utils_patch,pylogger_patch],"changes":["disable one developer-local Python 3.10 site-packages append","redirect acoustic exporter from full checkpoint YAML to derived Flow+HiFT-only YAML","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild"],"runtimeMathChanged":False}
     output.parent.mkdir(parents=True,exist_ok=True); output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-REBUILD-HYGIENE] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 
 if __name__=="__main__": main()
@@ -69,4 +71,4 @@ if __name__=="__main__": main()
 # Upstream source: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and Matcha-TTS@dd9105b34bf2be2230f4aa1e4769fb586a3c824e with exact Git blob guards.
 # Runtime environment: Python 3 standard library inside the publication checkout.
 # Generated: 2026-10-02 America/New_York.
-# Changes: expands exact-blob-gated hygiene from the developer-local sys.path removal to Matcha utils eager training imports, Lightning-only logger decoration, and HiFiGAN plotting-only matplotlib eager import; all changes are temporary checkout hygiene and runtimeMathChanged remains false.
+# Changes: developer-local Python path removal, exact redirect to derived acoustic-only YAML, and Matcha training-only eager-import cleanup; no model equations or weights are changed.
