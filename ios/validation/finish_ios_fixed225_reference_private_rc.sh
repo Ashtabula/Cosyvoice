@@ -25,6 +25,7 @@ DOWNLOADED_RELEASE="$DOWNLOAD_ROOT/$PROFILE/$VERSION"
 FETCHED_RUNTIME="$ROOT/.work/hf-fetch-replay/$VERSION"
 REPLAY_RECEIPT="$ROOT/.work/hf-fetch-replay/$VERSION-device-receipt.json"
 FINAL_RECEIPT="$ROOT/.work/hf-fetch-replay/$VERSION-private-rc-receipt.json"
+WORK_CATALOG="$ROOT/.work/hf-release/$PROFILE/$VERSION-releases.candidate.json"
 REPLAY_BUNDLE_ID="com.actacomes.cosyvoice3.hfreplay"
 
 fail() {
@@ -155,8 +156,10 @@ PY
 }
 
 register_catalog_entry() {
-    printf '\n[COSYVOICE3-HF-FINISH] STEP 5/8 register exact HF commit in assets/releases.json\n'
-    "$PYTHON" - "$ROOT/assets/releases.json" "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" <<'PY'
+    printf '\n[COSYVOICE3-HF-FINISH] STEP 5/8 build candidate release catalog for exact HF commit\n'
+    mkdir -p "$(dirname "$WORK_CATALOG")"
+    cp "$ROOT/assets/releases.json" "$WORK_CATALOG" || return $?
+    "$PYTHON" - "$WORK_CATALOG" "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" <<'PY'
 import json,sys
 from pathlib import Path
 catalog_path=Path(sys.argv[1]);upload=json.loads(Path(sys.argv[2]).read_text());manifest=json.loads(Path(sys.argv[3]).read_text())
@@ -200,7 +203,7 @@ PY
 ordinary_fetch() {
     printf '\n[COSYVOICE3-HF-FINISH] STEP 6/8 ordinary-developer immutable fetch\n'
     rm -rf "$FETCHED_RUNTIME"
-    "$PYTHON" "$ROOT/assets/fetch_assets.py"         --profile "$PROFILE"         --version "$VERSION"         --output "$FETCHED_RUNTIME"         --force || return $?
+    "$PYTHON" "$ROOT/assets/fetch_assets.py"         --catalog "$WORK_CATALOG"         --profile "$PROFILE"         --version "$VERSION"         --output "$FETCHED_RUNTIME"         --force || return $?
 }
 
 physical_hf_replay() {
@@ -268,7 +271,9 @@ PY
 }
 
 record_release_milestone_and_push() {
-    printf '\n[COSYVOICE3-HF-FINISH] STEP 8/8 record private-RC distribution milestone and push\n'
+    printf '\n[COSYVOICE3-HF-FINISH] STEP 8/8 atomically accept catalog, record private-RC milestone and push\n'
+    [ -s "$WORK_CATALOG" ] || { fail "candidate release catalog missing: $WORK_CATALOG"; return 1; }
+    cp "$WORK_CATALOG" "$ROOT/assets/releases.json" || return $?
     "$PYTHON" - "$ROOT/manifest.json" "$ROOT/RELEASE_CHECKLIST.md" "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" <<'PY'
 import json,sys
 from pathlib import Path
@@ -348,7 +353,7 @@ RC=$?
 printf '[COSYVOICE3-HF-FINISH] rc=%s\n' "$RC"
 test "$RC" -eq 0
 
-# Code purpose: one-command private Hugging Face RC publication, immutable commit replay, ordinary-developer fetch, physical public-API replay, and accepted release-catalog push for CosyVoice3 iOS fixed225-reference.
+# Code purpose: one-command private Hugging Face RC publication, immutable commit replay, ordinary-developer fetch, physical public-API replay, and accepted release-catalog push for CosyVoice3 iOS fixed225-reference; tracked releases.json is not mutated until all replay gates pass.
 # Upstream evidence: promoted canonical runtime, PASS_HOST_PARITY, PASS_DEVICE_PUBLIC_API_REFERENCE_PCM, and PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION.
 # Runtime: macOS/Xcode, connected physical iPhone, authenticated Hugging Face account actacomes, and Git push access.
 # Generated: 2026-10-02 America/New_York.

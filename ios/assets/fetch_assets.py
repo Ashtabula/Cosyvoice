@@ -114,11 +114,15 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--profile")
     parser.add_argument("--version")
+    parser.add_argument("--catalog", type=Path, default=CATALOG)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--force", action="store_true")
     args = parser.parse_args()
 
-    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    catalog_path = args.catalog.expanduser().resolve()
+    if not catalog_path.is_file():
+        fail(f"release catalog missing: {catalog_path}")
+    catalog = json.loads(catalog_path.read_text(encoding="utf-8"))
     entry = choose(catalog, args.profile, args.version)
 
     revision = str(entry.get("revision") or "")
@@ -189,6 +193,6 @@ def main() -> None:
 if __name__ == "__main__":
     main()
 
-# Code purpose: immutable ordinary-developer fetch path for private/public CosyVoice3 iOS asset releases registered in assets/releases.json.
+# Code purpose: immutable ordinary-developer fetch path for private/public CosyVoice3 iOS asset releases; --catalog permits fail-closed release validation against a temporary candidate catalog before the tracked catalog is committed.
 # Runtime: Python3 + huggingface_hub; private RCs require an authenticated Hugging Face token.
 # Generated: 2026-10-02 America/New_York.
