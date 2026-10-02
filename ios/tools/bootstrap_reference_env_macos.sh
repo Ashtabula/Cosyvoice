@@ -52,14 +52,29 @@ fi
 PY="$VENV/bin/python"
 PIP="$VENV/bin/pip"
 
-"$PY" -m pip install --upgrade pip setuptools wheel
+# openai-whisper==20231117 setup.py imports pkg_resources during metadata/build.
+# New isolated setuptools environments can omit that import path, so keep one
+# known-compatible setuptools in the real venv and install Whisper without PEP517 isolation.
+"$PY" -m pip install --upgrade "pip<26" "setuptools==80.9.0" wheel
+
+log "installing binary/runtime dependencies"
 "$PIP" install --upgrade --force-reinstall -r "$REQ"
+
+log "installing OpenAI Whisper 20231117 without build isolation"
+"$PIP" install --no-build-isolation --no-cache-dir "openai-whisper==20231117"
 
 log "verifying SciPy/dyld first"
 "$PY" - <<'PY'
 import scipy
 import scipy.sparse.linalg
 print("[SCIPY-DYLD] PASS", scipy.__version__)
+PY
+
+log "verifying Whisper packaging compatibility"
+"$PY" - <<'PY'
+import pkg_resources
+import whisper
+print("[WHISPER-BUILD] PASS", whisper.__version__)
 PY
 
 log "verifying conversion/parity imports"
@@ -85,6 +100,7 @@ print("onnx", onnx.__version__)
 print("onnxruntime", onnxruntime.__version__)
 print("torch", torch.__version__)
 print("torchaudio", torchaudio.__version__)
+print("whisper", whisper.__version__)
 PY
 
 cat <<EOF
@@ -104,7 +120,7 @@ The old Python 3.10 venv under:
 is no longer used.
 EOF
 
-# Code purpose: isolated macOS Python 3.11 environment avoiding the older SciPy PROPACK Mach-O loader failure on recent macOS.
-# Upstream package pins: CosyVoice3_NPU requirements at 878940245562bcd1dd0231d78157ba78d70b39f6, with SciPy raised to 1.17.1 for the fixed PROPACK implementation.
+# Code purpose: isolated macOS Python 3.11 environment avoiding the older SciPy PROPACK Mach-O loader failure and Whisper 20231117 pkg_resources build-isolation failure.
+# Upstream package pins: CosyVoice3_NPU requirements at 878940245562bcd1dd0231d78157ba78d70b39f6, with SciPy raised to 1.17.1 for the newer PROPACK implementation.
 # Runtime: macOS, Python 3.11.
 # Generated: 2026-10-02 America/New_York.
