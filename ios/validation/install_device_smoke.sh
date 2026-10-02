@@ -8,29 +8,40 @@ SCHEME="CosyVoice3DeviceSmoke"
 CONFIGURATION="${CONFIGURATION:-Debug}"
 BUNDLE_ID="${BUNDLE_ID:-com.actacomes.cosyvoice3.devicesmoke}"
 DERIVED_DATA="${DERIVED_DATA:-$ROOT/.work/DeviceSmokeDerivedData}"
+SOURCE_ROOT="${COSYVOICE3_SOURCE_ROOT:-/Volumes/WD/Codes/CosyVoice3_NPU}"
+ASSET_ROOT="${COSYVOICE3_ASSET_ROOT:-$ROOT/.work/device-runtime}"
+HOST_RECEIPT="${COSYVOICE3_HOST_PARITY_RECEIPT:-$ROOT/.work/reference-release/parity/reference_host_parity_receipt.json}"
+REFERENCE_CANDIDATE_DIR="${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-$ROOT/.work/reference-release/coreml}"
+PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/python3}"
 
 main() {
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
     if [ -z "${DEVICE_ID:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVICE_ID\n'; return 2; fi
-    if [ -z "${COSYVOICE3_ASSET_ROOT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_ASSET_ROOT\n'; return 2; fi
-    if [ -z "${COSYVOICE3_HOST_PARITY_RECEIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_HOST_PARITY_RECEIPT\n'; return 2; fi
-    if [ -z "${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_CANDIDATE_DIR\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_TRANSCRIPT\n'; return 2; fi
 
-    command -v python3 || return $?
+    if [ ! -x "$PYTHON_BIN" ]; then printf '[COSYVOICE3-INSTALL] ERROR Python environment missing: %s\n' "$PYTHON_BIN"; return 2; fi
     command -v xcodebuild || return $?
     command -v xcrun || return $?
     cd "$ROOT" || return $?
 
     printf '[COSYVOICE3-INSTALL] root=%s\n' "$ROOT"
     printf '[COSYVOICE3-INSTALL] team=%s device=%s bundle=%s configuration=%s\n' "$DEVELOPMENT_TEAM" "$DEVICE_ID" "$BUNDLE_ID" "$CONFIGURATION"
+    printf '[COSYVOICE3-INSTALL] sourceRoot=%s assetRoot=%s\n' "$SOURCE_ROOT" "$ASSET_ROOT"
+    printf '[COSYVOICE3-INSTALL] hostReceipt=%s referenceCandidates=%s\n' "$HOST_RECEIPT" "$REFERENCE_CANDIDATE_DIR"
     xcrun devicectl list devices || return $?
 
-    python3 validation/prepare_device_smoke_assets.py \
-        --asset-root "$COSYVOICE3_ASSET_ROOT" \
-        --host-receipt "$COSYVOICE3_HOST_PARITY_RECEIPT" \
-        --reference-candidate-dir "$COSYVOICE3_REFERENCE_CANDIDATE_DIR" \
+    if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ]; then
+        printf '[COSYVOICE3-INSTALL] assembling standalone fixed225 runtime from validated migration assets\n'
+        "$PYTHON_BIN" validation/assemble_fixed225_runtime_from_migration.py \
+            --source-root "$SOURCE_ROOT" \
+            --output "$ASSET_ROOT" || return $?
+    fi
+
+    "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
+        --asset-root "$ASSET_ROOT" \
+        --host-receipt "$HOST_RECEIPT" \
+        --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
         --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
         --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
 
@@ -62,6 +73,6 @@ RC=$?
 printf '[COSYVOICE3-INSTALL] rc=%s\n' "$RC"
 test "$RC" -eq 0
 
-# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke.
+# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; assembles the base fixed225 runtime automatically when absent.
 # Runtime: macOS, Xcode, Python3, connected/trusted iPhone.
 # Generated: 2026-10-02 America/New_York.

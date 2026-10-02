@@ -10,18 +10,26 @@ The app auto-runs once at launch, writes `Documents/reference-smoke-receipt.json
 
 The canonical asset root is never prematurely promoted. `prepare_device_smoke_assets.py` requires a schema-2 `PASS_HOST_PARITY` receipt, copies the runtime into `GeneratedAssets/Runtime`, merges the host-approved reference candidate models/tables into that staged copy, and changes only the staged manifest to the post-promotion status so the unchanged public API can be exercised. The source asset root remains unmodified.
 
-Set:
+The installer defaults to the publication work products already produced by the host gate:
+
+- base runtime: `ios/.work/device-runtime`;
+- host receipt: `ios/.work/reference-release/parity/reference_host_parity_receipt.json`;
+- reference candidates: `ios/.work/reference-release/coreml`;
+- migration source assets: `/Volumes/WD/Codes/CosyVoice3_NPU`.
+
+If the base runtime does not exist, the installer calls `assemble_fixed225_runtime_from_migration.py` to create it from the already validated LLM/Flow/HiFT/F0 migration artifacts and the pinned checkpoint. The source repository is read-only.
+
+Set only signing/device identity plus a real reference WAV and its exact transcript:
 
 ```bash
 export DEVELOPMENT_TEAM=...
 export DEVICE_ID=...
-export COSYVOICE3_ASSET_ROOT=/absolute/path/to/runtime
-export COSYVOICE3_HOST_PARITY_RECEIPT=/absolute/path/to/reference_host_parity_receipt.json
-export COSYVOICE3_REFERENCE_CANDIDATE_DIR=/absolute/path/to/reference-release/coreml
 export COSYVOICE3_REFERENCE_WAV=/absolute/path/to/reference.wav
 export COSYVOICE3_REFERENCE_TRANSCRIPT=/absolute/path/to/reference.txt
 bash validation/install_device_smoke.sh
 ```
+
+Override `COSYVOICE3_SOURCE_ROOT`, `COSYVOICE3_ASSET_ROOT`, `COSYVOICE3_HOST_PARITY_RECEIPT`, or `COSYVOICE3_REFERENCE_CANDIDATE_DIR` only when intentionally using non-default locations.
 
 After PASS, copy `reference-smoke-receipt.json` from the app Documents container and formally promote a new manifest:
 
