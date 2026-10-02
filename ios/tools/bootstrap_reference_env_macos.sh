@@ -61,7 +61,7 @@ log "installing binary/runtime dependencies"
 "$PIP" install --upgrade --force-reinstall -r "$REQ"
 
 log "installing OpenAI Whisper 20231117 without build isolation"
-"$PIP" install --no-build-isolation --no-cache-dir "openai-whisper==20231117"
+"$PIP" install --no-build-isolation --no-cache-dir --constraint "$REQ" "openai-whisper==20231117"
 
 log "verifying SciPy/dyld first"
 "$PY" - <<'PY'
@@ -77,7 +77,7 @@ import whisper
 print("[WHISPER-BUILD] PASS", whisper.__version__)
 PY
 
-log "verifying conversion/parity imports"
+log "verifying conversion/parity imports and exact ABI-sensitive versions"
 "$PY" - <<'PY'
 import coremltools
 import hyperpyyaml
@@ -87,20 +87,42 @@ import onnx
 import onnx2torch
 import onnxruntime
 import scipy
+import sklearn
 import soundfile
 import torch
 import torchaudio
 import whisper
 
+expected = {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "sklearn": "1.5.1",
+    "onnx": "1.16.0",
+    "onnxruntime": "1.18.0",
+    "torch": "2.3.1",
+    "torchaudio": "2.3.1",
+    "whisper": "20231117",
+}
+actual = {
+    "numpy": numpy.__version__,
+    "scipy": scipy.__version__,
+    "sklearn": sklearn.__version__,
+    "onnx": onnx.__version__,
+    "onnxruntime": onnxruntime.__version__,
+    "torch": torch.__version__.split("+")[0],
+    "torchaudio": torchaudio.__version__.split("+")[0],
+    "whisper": whisper.__version__,
+}
+bad = {name: (actual[name], version) for name, version in expected.items() if actual[name] != version}
+if bad:
+    for name, (got, want) in bad.items():
+        print(f"[VERSION-MISMATCH] {name}: got={got} expected={want}")
+    raise SystemExit(4)
+
 print("[COSYVOICE3-PYENV] PASS")
 print("coremltools", coremltools.__version__)
-print("numpy", numpy.__version__)
-print("scipy", scipy.__version__)
-print("onnx", onnx.__version__)
-print("onnxruntime", onnxruntime.__version__)
-print("torch", torch.__version__)
-print("torchaudio", torchaudio.__version__)
-print("whisper", whisper.__version__)
+for name in ("numpy", "scipy", "sklearn", "onnx", "onnxruntime", "torch", "torchaudio", "whisper"):
+    print(name, actual[name])
 PY
 
 cat <<EOF
@@ -122,5 +144,5 @@ EOF
 
 # Code purpose: isolated macOS Python 3.11 environment avoiding the older SciPy PROPACK Mach-O loader failure and Whisper 20231117 pkg_resources build-isolation failure.
 # Upstream package pins: CosyVoice3_NPU requirements at 878940245562bcd1dd0231d78157ba78d70b39f6, with SciPy raised to 1.17.1 for the newer PROPACK implementation.
-# Runtime: macOS, Python 3.11.
+# Runtime: macOS, Python 3.11. ABI-sensitive NumPy/SciPy/scikit-learn/ONNX Runtime versions are verified exactly and Whisper installation is constrained by the same lock file.
 # Generated: 2026-10-02 America/New_York.

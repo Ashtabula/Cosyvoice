@@ -74,9 +74,13 @@ check_python() {
     command -v python3 >/dev/null || fail "python3 not found"
     python3 - <<'PY'
 import importlib
+import sys
+
 required = [
     "coremltools",
     "numpy",
+    "scipy",
+    "sklearn",
     "onnx",
     "onnxruntime",
     "onnx2torch",
@@ -86,29 +90,60 @@ required = [
     "librosa",
     "whisper",
 ]
+modules = {}
 missing = []
 for name in required:
     try:
-        importlib.import_module(name)
+        modules[name] = importlib.import_module(name)
     except Exception as exc:
         missing.append((name, repr(exc)))
 if missing:
     for name, error in missing:
         print(f"[PYTHON-MISSING] {name}: {error}")
     raise SystemExit(3)
+
+if sys.version_info[:2] != (3, 11):
+    print(f"[PYTHON-VERSION-MISMATCH] got={sys.version_info.major}.{sys.version_info.minor} expected=3.11")
+    raise SystemExit(4)
+
+expected = {
+    "numpy": "1.26.4",
+    "scipy": "1.17.1",
+    "sklearn": "1.5.1",
+    "onnx": "1.16.0",
+    "onnxruntime": "1.18.0",
+    "torch": "2.3.1",
+    "torchaudio": "2.3.1",
+    "whisper": "20231117",
+}
+actual = {
+    "numpy": modules["numpy"].__version__,
+    "scipy": modules["scipy"].__version__,
+    "sklearn": modules["sklearn"].__version__,
+    "onnx": modules["onnx"].__version__,
+    "onnxruntime": modules["onnxruntime"].__version__,
+    "torch": modules["torch"].__version__.split("+")[0],
+    "torchaudio": modules["torchaudio"].__version__.split("+")[0],
+    "whisper": modules["whisper"].__version__,
+}
+bad = {name: (actual[name], version) for name, version in expected.items() if actual[name] != version}
+if bad:
+    for name, (got, want) in bad.items():
+        print(f"[PYTHON-VERSION-MISMATCH] {name}: got={got} expected={want}")
+    raise SystemExit(4)
+
 print("[PYTHON-DEPS] PASS")
+print("[PYTHON-ABI] numpy=1.26.4 onnxruntime=1.18.0 scipy=1.17.1 sklearn=1.5.1")
 PY
 }
 
 show_install_hint() {
     cat <<'EOF'
-If the Python dependency check fails, use a Python 3.10 environment and install:
-  python3.10 -m venv /Volumes/WD/Codes/Cosyvoice/ios/.venv-reference
-  source /Volumes/WD/Codes/Cosyvoice/ios/.venv-reference/bin/activate
-  python -m pip install --upgrade pip setuptools wheel
-  python -m pip install -r /Volumes/WD/Codes/CosyVoice3_NPU/requirements.txt
-  python -m pip install "coremltools>=8.3,<9" "onnx>=1.16,<2" "onnxruntime>=1.19,<2" "onnx2torch>=1.5,<2" "openai-whisper"
-Then rerun this script from the activated environment.
+If the Python dependency/version check fails, repair the dedicated Python 3.11 environment:
+  cd /Volumes/WD/Codes/Cosyvoice
+  bash ios/tools/bootstrap_reference_env_macos.sh
+  source "$HOME/.venvs/cosyvoice-reference-py311/bin/activate"
+Then rerun this script. Do not install scikit-learn, NumPy, SciPy, ONNX Runtime, Torch, or Torchaudio individually; the lock file must be installed as a unit.
 EOF
 }
 
