@@ -15,7 +15,7 @@ run(){ log "RUN $*"; "$@"; }
 main(){
     [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf '[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\n'; return 2; }
     local profile="$2"; [ "$profile" = "ios-fixed225-reference" ] || { printf '[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\n' "$profile"; return 2; }
-    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model requirements_hash requirements_stamp acoustic_config_receipt
+    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model requirements_hash requirements_stamp acoustic_config_receipt shipping_hift_receipt
     work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}"
     source="$work/source"
     venv="$work/venv"
@@ -28,6 +28,7 @@ main(){
     model_cache="$work/model-cache/Fun-CosyVoice3-0.5B-2512"
     legacy_model="$source/pretrained_models/Fun-CosyVoice3-0.5B-2512"
     acoustic_config_receipt="$model_cache/cosyvoice3.acoustic.config-receipt.json"
+    shipping_hift_receipt="$work/shipping-hift-host-parity.json"
     requirements_stamp="$venv/.cosyvoice-rebuild-requirements.sha256"
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$work" "$(dirname "$output")" "$(dirname "$receipt")" || return $?
@@ -67,6 +68,7 @@ main(){
     run "$venv/bin/python" "$source/iOS/tools/export_pipeline_acoustics.py" || return $?
     run "$venv/bin/python" "$source/iOS/tools/export_pipeline_acoustics.py" --host-phase || return $?
     run "$venv/bin/python" "$source/iOS/tools/export_pipeline_acoustics.py" --export-f0-double || return $?
+    run "$venv/bin/python" "$ROOT/validation/validate_shipping_hift_host.py" --source-root "$source" --fixture "$fixture" --output "$shipping_hift_receipt" || return $?
     run "$venv/bin/python" "$ROOT/validation/assemble_fixed225_runtime_from_migration.py" --source-root "$source" --output "$output" --force || return $?
     log "rebuild and host-validate custom-reference assets"
     COSYVOICE3_PUBLICATION_ROOT="$ROOT/.." COSYVOICE3_REFERENCE_VENV="$ref_venv" bash "$ROOT/tools/bootstrap_reference_env_macos.sh" || return $?
@@ -77,7 +79,7 @@ main(){
     cp "$ref/parity/fixture/whisper_mel_128.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/kaldi_mel_80.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/matcha_mel_80.f32" "$ref/coreml/" || return $?
     run "$venv/bin/python" "$ROOT/validation/install_rebuilt_reference_assets.py" --asset-root "$output" --reference-dir "$ref/coreml" --host-receipt "$ref/parity/reference_host_parity_receipt.json" || return $?
     run "$venv/bin/python" "$ROOT/assets/validate_assets.py" --root "$output" || return $?
-    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --acoustic-config-receipt "$acoustic_config_receipt" --fixture-receipt "$fixture/rebuild_fixture_receipt.json" --output "$receipt" || return $?
+    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --acoustic-config-receipt "$acoustic_config_receipt" --fixture-receipt "$fixture/rebuild_fixture_receipt.json" --shipping-hift-receipt "$shipping_hift_receipt" --output "$receipt" || return $?
     log "COMPLETE status=PASS_SUPPORTED_FULL_RUNTIME_REBUILD profile=$profile output=$output receipt=$receipt"
 }
 main "$@"
@@ -95,3 +97,4 @@ test "$RC" -eq 0
 # Changes 2026-10-02: rebuild venv is keyed by requirements-rebuild.txt SHA-256 and recreated whenever the lock changes, preventing failed-run dependency residue from contaminating Candidate evidence.
 # Changes 2026-10-02: derive and validate cosyvoice3.acoustic.yaml as the byte-exact official seed->LLM->Flow->HiFT construction prefix before fixture/acoustic export, preserving canonical HiFT RNG buffers while excluding GAN/dataset/training sections, and bind its receipt into final rebuild evidence.
 # Changes 2026-10-02: bind deterministic fixture receipt into final evidence so the Flow Core ML time input must match production t:[2] shared-CFG-scalar ABI.
+# Changes 2026-10-02: after FP64 F0 export, gate the actual shipping FP64-F0/host-phase/HiFT-body path on the clean-house Flow-generated mel; the diagnostic FP32-F0 Core ML chain no longer defines Candidate acceptance.\n
