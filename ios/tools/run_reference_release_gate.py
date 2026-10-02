@@ -71,11 +71,15 @@ def main() -> None:
     run([sys.executable, here / "export_reference_frontend_tables.py", "--output", fixture])
 
     swift_receipt = work / "swift_dsp_parity.json"
+    swift_whisper = work / "swift_whisper128.f32"
     swift_camp_fbank = work / "swift_campplus_fbank.f32"
+    swift_prompt_mel = work / "swift_prompt_mel.f32"
     swift_env = dict(os.environ)
     swift_env["COSYVOICE3_REFERENCE_PARITY_FIXTURE"] = str(fixture)
     swift_env["COSYVOICE3_REFERENCE_PARITY_RECEIPT"] = str(swift_receipt)
+    swift_env["COSYVOICE3_SWIFT_WHISPER128"] = str(swift_whisper)
     swift_env["COSYVOICE3_SWIFT_CAMPPLUS_FBANK"] = str(swift_camp_fbank)
+    swift_env["COSYVOICE3_SWIFT_PROMPT_MEL"] = str(swift_prompt_mel)
     swift_rc = run_gate(
         ["swift", "test", "--package-path", package_root, "--filter", "ReferenceDSPExternalParityTests"],
         cwd=package_root.parent,
@@ -84,6 +88,7 @@ def main() -> None:
 
     learned = work / "reference_coreml_parity.json"
     flow = work / "dynamic_flow_conditions_parity.json"
+    swift_end_to_end = work / "swift_reference_conditioning_parity.json"
     learned_rc = run_gate([
         sys.executable, here / "validate_reference_coreml_parity.py",
         "--upstream-model-dir", args.model_dir,
@@ -99,17 +104,33 @@ def main() -> None:
         "--coreml", args.coreml_dir / "flow-conditions-dynamic-151-302.mlpackage",
         "--output", flow,
     ])
+    swift_end_to_end_rc = run_gate([
+        sys.executable, here / "validate_swift_reference_conditioning_parity.py",
+        "--coreml-dir", args.coreml_dir,
+        "--fixture", fixture,
+        "--swift-whisper", swift_whisper,
+        "--swift-campplus-fbank", swift_camp_fbank,
+        "--swift-prompt-mel", swift_prompt_mel,
+        "--output", swift_end_to_end,
+    ])
 
     swift_value = load_or_error(swift_receipt, "swiftDSPParity", swift_rc)
     learned_value = load_or_error(learned, "referenceCoreMLParity", learned_rc)
     flow_value = load_or_error(flow, "dynamicFlowParity", flow_rc)
+    swift_end_to_end_value = load_or_error(
+        swift_end_to_end,
+        "swiftReferenceConditioningParity",
+        swift_end_to_end_rc,
+    )
     passed = (
         swift_rc == 0
         and learned_rc == 0
         and flow_rc == 0
+        and swift_end_to_end_rc == 0
         and swift_value.get("status") == "PASS"
         and learned_value.get("status") == "PASS"
         and flow_value.get("status") == "PASS"
+        and swift_end_to_end_value.get("status") == "PASS"
     )
     receipt = {
         "schemaVersion": 2,
@@ -134,6 +155,12 @@ def main() -> None:
             "sha256": sha256(flow) if flow.is_file() else None,
             "returnCode": flow_rc,
             "status": flow_value.get("status"),
+        },
+        "swiftReferenceConditioningParity": {
+            "path": str(swift_end_to_end),
+            "sha256": sha256(swift_end_to_end) if swift_end_to_end.is_file() else None,
+            "returnCode": swift_end_to_end_rc,
+            "status": swift_end_to_end_value.get("status"),
         },
         "promotionState": "HOST_PARITY_COMPLETE_DEVICE_PARITY_PENDING" if passed else "BLOCKED",
     }

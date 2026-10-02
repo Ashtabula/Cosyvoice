@@ -53,6 +53,12 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
         ))
 
         let whisper = try dsp.whisperFeatures(audio.samples16k)
+        if let whisperPath = environment["COSYVOICE3_SWIFT_WHISPER128"], !whisperPath.isEmpty {
+            try writeFloat32(
+                flatten(whisper),
+                to: URL(fileURLWithPath: whisperPath)
+            )
+        }
         checks.append(try compare(
             name: "whisper128",
             observed: flatten(whisper),
@@ -84,6 +90,12 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
             for mel in 0..<80 {
                 promptTransposed[frame * 80 + mel] = prompt[mel * 302 + frame].floatValue
             }
+        }
+        if let promptPath = environment["COSYVOICE3_SWIFT_PROMPT_MEL"], !promptPath.isEmpty {
+            try writeFloat32(
+                promptTransposed,
+                to: URL(fileURLWithPath: promptPath)
+            )
         }
         checks.append(try compare(
             name: "promptMel",
