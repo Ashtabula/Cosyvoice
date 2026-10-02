@@ -29,7 +29,7 @@
     "fixed225EndToEndSourceImplemented": true,
     "defaultBakedReferenceSourceImplemented": true,
     "customReferenceSourceImplemented": true,
-    "customReferencePromoted": false,
+    "customReferencePromoted": true,
     "userParameters": [
       "reference",
       "instruction"
@@ -49,7 +49,7 @@
       "campFrames": 604,
       "promptSpeechTokens": 151,
       "promptMelFrames": 302,
-      "status": "PASS_HOST_PARITY_DEVICE_PENDING"
+      "status": "PASS_DEVICE_PARITY"
     }
   },
   "tokenSemantics": {
@@ -79,7 +79,6 @@
     "runId": 37007257072
   },
   "candidateBlockers": [
-    "physical-device custom-reference text-to-PCM",
     "immutable asset fetch",
     "one-command rebuild",
     "cold/warm benchmark",

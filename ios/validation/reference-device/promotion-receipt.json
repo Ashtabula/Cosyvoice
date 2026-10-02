@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION",
+  "scope": "CosyVoice3 iOS fixed225 custom-reference lane only",
+  "overallReleaseStatus": "development",
+  "publicationHeadAtPromotion": "ac6ffda132b52545f02bb66bfdcb5dbdb7d47743",
+  "hostReceipt": {
+    "status": "PASS_HOST_PARITY",
+    "sha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106"
+  },
+  "deviceReceipt": {
+    "status": "PASS_DEVICE_PUBLIC_API_REFERENCE_PCM",
+    "sha256": "8fdc0309c94811fda6645809a327f5afe3bcffb7e672c466187d755a076da114",
+    "sampleRate": 24000,
+    "channels": 1,
+    "samples": 216000,
+    "durationSeconds": 9,
+    "elapsedSeconds": 62.677781292,
+    "rtf": 6.964197921333334,
+    "finite": true,
+    "peakAbs": 0.9543629884719849,
+    "rms": 0.07876048334411154,
+    "device": "iPhone",
+    "systemName": "iOS",
+    "systemVersion": "27.2"
+  },
+  "hostDeviceBindingVerified": true,
+  "humanListeningAcceptance": {
+    "status": "PASS_USER_LISTENING_ACCEPTANCE",
+    "userResponse": "GOOD SOUND",
+    "evidence": "validation/reference-device/listening-acceptance.json"
+  },
+  "runtimeManifest": {
+    "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/device-runtime/cosyvoice3_fixed225.json",
+    "sha256": "e74925c008145bffc3aafbd5edfe29b7d3f176db73c10158a74bf1c5b58b4075",
+    "referenceStatus": "PASS_DEVICE_PARITY"
+  },
+  "remainingOverallCandidateBlockers": [
+    "immutable asset fetch",
+    "one-command rebuild",
+    "cold/warm benchmark",
+    "clean-room integration",
+    "asset redistribution license review"
+  ]
+}

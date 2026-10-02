@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "profile": "cosyvoice3-reference-enrollment-fixed225-v1",
-  "status": "PASS_HOST_PARITY_DEVICE_PENDING",
+  "status": "PASS_DEVICE_PARITY",
   "fixedReferenceWindow": {
     "seconds": 6.056,
     "samples16k": 96896,
@@ -37,5 +37,12 @@
     "dynamic Flow conditions vs upstream mu/spks/cond numerical parity",
     "physical iPhone end-to-end custom-reference text-to-PCM",
     "no Python or host bridge in shipping runtime"
-  ]
+  ],
+  "promotionEvidence": {
+    "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+    "deviceReceiptSha256": "8fdc0309c94811fda6645809a327f5afe3bcffb7e672c466187d755a076da114",
+    "deviceReceipt": "validation/reference-device/reference-smoke-receipt.json",
+    "humanListeningAcceptance": "validation/reference-device/listening-acceptance.json",
+    "publicationHeadAtPromotion": "ac6ffda132b52545f02bb66bfdcb5dbdb7d47743"
+  }
 }

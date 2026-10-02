@@ -1,0 +1,18 @@
+{
+  "channels" : 1,
+  "device" : "iPhone",
+  "durationSeconds" : 9,
+  "elapsedSeconds" : 62.677781291999999,
+  "finite" : true,
+  "hostReceiptSha256" : "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+  "peakAbs" : 0.95436298847198486,
+  "referenceTranscriptCharacters" : 32,
+  "rms" : 0.078760483344111537,
+  "rtf" : 6.9641979213333336,
+  "sampleRate" : 24000,
+  "samples" : 216000,
+  "schemaVersion" : 1,
+  "status" : "PASS_DEVICE_PUBLIC_API_REFERENCE_PCM",
+  "systemName" : "iOS",
+  "systemVersion" : "27.2"
+}

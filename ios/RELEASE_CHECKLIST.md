@@ -17,10 +17,11 @@ PASS: accelerator status remains not-claimed.
 PASS: converted speech-tokenizer/CAMPPlus candidates passed numerical parity against upstream ONNX.
 PASS: native fixed-profile reference DSP passed the bounded host guardrails, including exact consumed prompt-token equality at the Flow boundary.
 PASS: dynamic Flow-conditioning candidate passed host parity for mu/spks/cond.
-PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY` with `HOST_PARITY_COMPLETE_DEVICE_PARITY_PENDING`.
+PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY`.
+PASS: physical iPhone public API custom-reference smoke emitted accepted finite 24 kHz mono PCM and is cryptographically bound to the host parity receipt.
+PASS: user listening acceptance for the physical-device custom-reference output is recorded as `GOOD SOUND`.
+PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.
 
-BLOCKER: dynamic Flow-conditioning/custom-reference path has not yet passed physical-device public-API parity.
-BLOCKER: custom-reference public API has not yet produced accepted PCM on a physical iPhone from this publication tree.
 BLOCKER: immutable hosted asset manifest/fetch path is incomplete.
 BLOCKER: one-command pinned local rebuild is incomplete.
 BLOCKER: no Candidate `validation/release_receipt.json` ties source, assets, parity, device, PCM and benchmark evidence together.
