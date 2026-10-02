@@ -182,13 +182,27 @@ struct CosyVoice3Spectrum {
     }
 
     static func periodicHann(_ count: Int) -> [Float] {
-        (0..<count).map { 0.5 - 0.5 * cos(2 * Float.pi * Float($0) / Float(count)) }
+        (0..<count).map { index in
+            let angle = 2.0 * Double.pi * Double(index) / Double(count)
+            return Float(0.5 - 0.5 * Foundation.cos(angle))
+        }
     }
 
     static func povey(_ count: Int) -> [Float] {
-        (0..<count).map {
-            pow(0.5 - 0.5 * cos(2 * Float.pi * Float($0) / Float(count - 1)), 0.85)
+        (0..<count).map { index in
+            let angle = 2.0 * Double.pi * Double(index) / Double(count - 1)
+            let hann = max(0.0, 0.5 - 0.5 * Foundation.cos(angle))
+            return Float(Foundation.pow(hann, 0.85))
         }
+    }
+
+    private static func preciseMean(_ values: [Float]) -> Float {
+        precondition(!values.isEmpty)
+        var sum = 0.0
+        for value in values {
+            sum += Double(value)
+        }
+        return Float(sum / Double(values.count))
     }
 
     private static func reflect(_ values: [Float], by pad: Int) -> [Float] {
@@ -250,7 +264,7 @@ struct CosyVoice3ReferenceDSP: Sendable {
         for f in 0..<frameCount {
             let start = f * hop
             var frame = Array(samples[start..<(start + frameLength)])
-            let mean = frame.reduce(0, +) / Float(frameLength)
+            let mean = CosyVoice3Spectrum.preciseMean(frame)
             for i in frame.indices { frame[i] -= mean }
             for i in stride(from: frameLength - 1, through: 1, by: -1) { frame[i] -= 0.97 * frame[i - 1] }
             frame[0] -= 0.97 * frame[0]
@@ -263,10 +277,14 @@ struct CosyVoice3ReferenceDSP: Sendable {
             for m in 0..<80 { features[f * 80 + m] = log(max(mel[m], Float.ulpOfOne)) }
         }
         for m in 0..<80 {
-            var sum: Float = 0
-            for f in 0..<frameCount { sum += features[f * 80 + m] }
-            let mean = sum / Float(frameCount)
-            for f in 0..<frameCount { features[f * 80 + m] -= mean }
+            var sum = 0.0
+            for f in 0..<frameCount {
+                sum += Double(features[f * 80 + m])
+            }
+            let mean = Float(sum / Double(frameCount))
+            for f in 0..<frameCount {
+                features[f * 80 + m] -= mean
+            }
         }
         let array = try MLMultiArray(shape: [1, NSNumber(value: frameCount), 80], dataType: .float32)
         features.withUnsafeBufferPointer {

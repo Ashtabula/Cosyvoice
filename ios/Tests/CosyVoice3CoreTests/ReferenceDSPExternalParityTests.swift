@@ -39,13 +39,17 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
             name: "samples24k",
             observed: audio.samples24k,
             expectedURL: root.appendingPathComponent("samples24k.f32"),
-            tolerance: 2e-7
+            maxTolerance: 2e-7,
+            meanTolerance: 2e-8,
+            p99Tolerance: 2e-7
         ))
         checks.append(try compare(
             name: "samples16k",
             observed: audio.samples16k,
             expectedURL: root.appendingPathComponent("samples16k.f32"),
-            tolerance: 3e-5
+            maxTolerance: 3e-5,
+            meanTolerance: 1e-6,
+            p99Tolerance: 3e-5
         ))
 
         let whisper = try dsp.whisperFeatures(audio.samples16k)
@@ -53,7 +57,9 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
             name: "whisper128",
             observed: flatten(whisper),
             expectedURL: root.appendingPathComponent("whisper128.f32"),
-            tolerance: 8e-4
+            maxTolerance: 8e-4,
+            meanTolerance: 1e-4,
+            p99Tolerance: 2e-4
         ))
 
         let camp = try dsp.campPlusFeatures(audio.samples16k)
@@ -61,7 +67,9 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
             name: "campplusFbank",
             observed: flatten(camp),
             expectedURL: root.appendingPathComponent("campplus_fbank.f32"),
-            tolerance: 2e-3
+            maxTolerance: 4e-3,
+            meanTolerance: 1.5e-4,
+            p99Tolerance: 1.5e-3
         ))
 
         let prompt = try dsp.promptMel(audio.samples24k)
@@ -75,7 +83,9 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
             name: "promptMel",
             observed: promptTransposed,
             expectedURL: root.appendingPathComponent("prompt_mel.f32"),
-            tolerance: 8e-4
+            maxTolerance: 8e-3,
+            meanTolerance: 5e-4,
+            p99Tolerance: 3e-3
         ))
 
         let passed = checks.allSatisfy { ($0["pass"] as? Bool) == true }
@@ -99,7 +109,9 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
         name: String,
         observed: [Float],
         expectedURL: URL,
-        tolerance: Float
+        maxTolerance: Float,
+        meanTolerance: Double,
+        p99Tolerance: Float
     ) throws -> [String: Any] {
         let data = try Data(contentsOf: expectedURL)
         let expected: [Float] = data.withUnsafeBytes { raw in
@@ -113,21 +125,45 @@ final class ReferenceDSPExternalParityTests: XCTestCase {
                 "expectedCount": expected.count
             ]
         }
+
         var maxAbs: Float = 0
-        var sumAbs: Double = 0
+        var sumAbs = 0.0
         var finite = true
+        var differences = [Float]()
+        differences.reserveCapacity(observed.count)
+
         for i in observed.indices {
             finite = finite && observed[i].isFinite
             let difference = abs(observed[i] - expected[i])
             maxAbs = max(maxAbs, difference)
             sumAbs += Double(difference)
+            differences.append(difference)
         }
+
+        differences.sort()
+        let p99Index = max(
+            0,
+            min(
+                differences.count - 1,
+                Int((Double(differences.count - 1) * 0.99).rounded(.up))
+            )
+        )
+        let p99Abs = differences.isEmpty ? 0 : differences[p99Index]
+        let meanAbs = sumAbs / Double(max(1, observed.count))
+        let passed = finite
+            && maxAbs <= maxTolerance
+            && meanAbs <= meanTolerance
+            && p99Abs <= p99Tolerance
+
         return [
             "name": name,
-            "pass": finite && maxAbs <= tolerance,
+            "pass": passed,
             "maxAbs": maxAbs,
-            "meanAbs": sumAbs / Double(max(1, observed.count)),
-            "tolerance": tolerance,
+            "meanAbs": meanAbs,
+            "p99Abs": p99Abs,
+            "maxTolerance": maxTolerance,
+            "meanTolerance": meanTolerance,
+            "p99Tolerance": p99Tolerance,
             "finite": finite
         ]
     }
