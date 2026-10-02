@@ -13,7 +13,7 @@ run(){ log "RUN $*"; "$@"; }
 main(){
     [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf '[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\n'; return 2; }
     local profile="$2"; [ "$profile" = "ios-fixed225-reference" ] || { printf '[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\n' "$profile"; return 2; }
-    local work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}" source="$work/source" venv="$work/venv" ref_venv="$work/reference-venv" fixture="$work/fixture" ref="$work/reference" output="${COSYVOICE3_REBUILD_OUTPUT:-$ROOT/.work/rebuilt-runtime/$profile}" receipt="${COSYVOICE3_REBUILD_RECEIPT:-$ROOT/validation/evidence/full_runtime_rebuild.json}"
+    local work source venv ref_venv fixture ref output receipt\n    work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}"\n    source="$work/source"; venv="$work/venv"; ref_venv="$work/reference-venv"; fixture="$work/fixture"; ref="$work/reference"\n    output="${COSYVOICE3_REBUILD_OUTPUT:-$ROOT/.work/rebuilt-runtime/$profile}"\n    receipt="${COSYVOICE3_REBUILD_RECEIPT:-$ROOT/validation/evidence/full_runtime_rebuild.json}"
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$work" "$(dirname "$output")" "$(dirname "$receipt")" || return $?
     if [ ! -x "$venv/bin/python" ]; then run "$PYTHON_BOOTSTRAP" -m venv "$venv" || return $?; fi
@@ -78,4 +78,4 @@ test "$RC" -eq 0
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18.
 # Runtime: Apple Silicon macOS, Xcode, Python 3.11; project-local .work virtual environments only.
 # Generated: 2026-10-02 America/New_York.
-# Changes: full clean rewrite; all CLI handling lives inside main(), all diagnostics remain visible, no historical converted directory or private reference audio is read, and the accepted LLM/Flow/HiFT/F0/reference converter chain feeds canonical assembly/validation plus a Candidate rebuild receipt.
+# Changes: full clean rewrite; all CLI handling lives inside main(), all diagnostics remain visible, no historical converted directory or private reference audio is read, and the accepted LLM/Flow/HiFT/F0/reference converter chain feeds canonical assembly/validation plus a Candidate rebuild receipt.\n# Changes 2026-10-02: lines 16-19 split nounset-sensitive local declaration from dependent path assignments so work is assigned before source/venv/reference paths expand under set -u.
