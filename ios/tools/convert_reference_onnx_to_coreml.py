@@ -12,6 +12,83 @@ import numpy as np
 import onnx
 import torch
 from onnx2torch import convert
+from onnx2torch.node_converters import registry as onnx2torch_registry
+
+
+def install_onnx2torch_schema_aliases():
+    """Register ONNX schema-version aliases whose operator semantics are unchanged."""
+    aliases = [
+        ("", "GreaterOrEqual", 12, 16),
+        ("", "LessOrEqual", 12, 16),
+    ]
+    installed = []
+    for domain, operation_type, source_version, target_version in aliases:
+        source = onnx2torch_registry.OperationDescription(
+            domain=domain,
+            operation_type=operation_type,
+            version=source_version,
+        )
+        target = onnx2torch_registry.OperationDescription(
+            domain=domain,
+            operation_type=operation_type,
+            version=target_version,
+        )
+        converter = onnx2torch_registry._CONVERTER_REGISTRY.get(source)
+        if converter is None:
+            raise RuntimeError(
+                f"onnx2torch missing expected source converter {source}"
+            )
+        if target not in onnx2torch_registry._CONVERTER_REGISTRY:
+            onnx2torch_registry._CONVERTER_REGISTRY[target] = converter
+            installed.append({
+                "operation": operation_type,
+                "sourceVersion": source_version,
+                "targetVersion": target_version,
+            })
+    return installed
+
+
+def unsupported_onnx2torch_nodes(model):
+    opsets = {entry.domain: entry.version for entry in model.opset_import}
+    unsupported = {}
+    for node in model.graph.node:
+        domain = node.domain or ""
+        version = opsets.get(domain, 1)
+        try:
+            onnx2torch_registry.get_converter(
+                operation_type=node.op_type,
+                version=version,
+                domain=domain,
+            )
+        except NotImplementedError as error:
+            key = (domain, node.op_type, version, str(error))
+            unsupported[key] = unsupported.get(key, 0) + 1
+    return [
+        {
+            "domain": domain,
+            "operation": operation,
+            "modelOpset": version,
+            "count": count,
+            "error": error,
+        }
+        for (domain, operation, version, error), count in sorted(
+            unsupported.items(),
+            key=lambda item: (item[0][0], item[0][1], item[0][2]),
+        )
+    ]
+
+
+def assert_onnx2torch_supported(name, model):
+    unsupported = unsupported_onnx2torch_nodes(model)
+    if unsupported:
+        print(json.dumps({
+            "status": "UNSUPPORTED_ONNX2TORCH_OPERATORS",
+            "model": name,
+            "unsupported": unsupported,
+        }, indent=2))
+        raise RuntimeError(
+            f"{name} contains {len(unsupported)} unsupported ONNX operator/version groups"
+        )
 
 
 class SpeechTokenizer(torch.nn.Module):
@@ -60,6 +137,17 @@ def main():
 
     speech_onnx = onnx.load(str(args.speech_tokenizer))
     camp_onnx = onnx.load(str(args.campplus))
+
+    aliases = install_onnx2torch_schema_aliases()
+    if aliases:
+        print(json.dumps({
+            "status": "ONNX2TORCH_SCHEMA_ALIASES_INSTALLED",
+            "aliases": aliases,
+        }, indent=2))
+
+    assert_onnx2torch_supported("speech_tokenizer_v3.onnx", speech_onnx)
+    assert_onnx2torch_supported("campplus.onnx", camp_onnx)
+
     speech_torch = SpeechTokenizer(convert(speech_onnx).eval()).eval()
     camp_torch = CampPlus(convert(camp_onnx).eval()).eval()
 
@@ -129,6 +217,7 @@ if __name__ == "__main__":
     main()
 
 # Code purpose: produce fixed-profile Core ML candidates for the two learned reference-enrollment graphs.
+# Compatibility note: onnx2torch registers GreaterOrEqual/LessOrEqual only through schema v12 even though opset16 preserves their value semantics; v16 aliases are installed before conversion and all remaining unsupported operator/version groups are reported in one preflight pass.
 # Upstream source assets: speech_tokenizer_v3.onnx and campplus.onnx from Fun-CosyVoice3-0.5B-2512 revision29e01c4e.
 # Runtime: conversion host; requires coremltools, onnx, onnx2torch, torch.
 # Generated: 2026-10-02 America/New_York.
