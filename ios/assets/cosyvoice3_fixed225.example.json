@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "profile": "ios18-fixed225",
+  "tokenizerFolder": "Tokenizer",
+  "textEmbedding": "text_embedding_fp16.bin",
+  "textEmbeddingRows": 151936,
+  "llmPrefill": "Models/llm-opt-perlayer-prefill.mlpackage",
+  "llmDecode": "Models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+  "speechEmbedding": "speech_embedding_fp16.bin",
+  "flowConditions": "Models/flow-conditions.mlpackage",
+  "flowShards": [
+    "Models/flow-fp16-shard-00-blocks-00-03.mlpackage",
+    "Models/flow-fp16-shard-01-blocks-04-07.mlpackage",
+    "Models/flow-fp16-shard-02-blocks-08-11.mlpackage",
+    "Models/flow-fp16-shard-03-blocks-12-15.mlpackage",
+    "Models/flow-fp16-shard-04-blocks-16-19.mlpackage",
+    "Models/flow-fp16-shard-05-blocks-20-21.mlpackage"
+  ],
+  "hift": "Models/hift-portable-phase-host-fp32.mlpackage",
+  "f0Folder": "F0",
+  "flowMask": "flow_mask.bin",
+  "flowNoise": "flow_x.bin",
+  "ropeTheta": 1000000.0
+}

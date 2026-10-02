@@ -6,23 +6,69 @@ import Foundation
 enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String) }
 
 struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
-    let schemaVersion:Int, profile:String, llmPrefill:String, llmDecode:String, speechEmbedding:String, flowConditions:String, flowShards:[String], hift:String, f0Folder:String, flowMask:String, flowNoise:String, ropeTheta:Double
-    func validate() throws { guard schemaVersion==1,profile=="ios18-fixed225",flowShards.count==6,ropeTheta>0 else { throw CosyVoice3AssetError.unsupportedProfile(profile) } }
+    let schemaVersion: Int
+    let profile: String
+    let tokenizerFolder: String
+    let textEmbedding: String
+    let llmPrefill: String
+    let llmDecode: String
+    let speechEmbedding: String
+    let flowConditions: String
+    let flowShards: [String]
+    let hift: String
+    let f0Folder: String
+    let flowMask: String
+    let flowNoise: String
+    let ropeTheta: Double
+    let textEmbeddingRows: Int
+    func validate() throws {
+        guard schemaVersion == 1,
+              profile == "ios18-fixed225",
+              flowShards.count == 6,
+              ropeTheta > 0,
+              textEmbeddingRows > 151646,
+              !tokenizerFolder.isEmpty,
+              !textEmbedding.isEmpty else {
+            throw CosyVoice3AssetError.unsupportedProfile(profile)
+        }
+    }
 }
 
 @available(iOS 18.0, macOS 15.0, *)
 enum CosyVoice3AssetLoader {
-    static func loadManifest(root:URL) throws -> CosyVoice3Fixed225AssetManifest {
-        let url=root.appendingPathComponent("cosyvoice3_fixed225.json"); guard FileManager.default.fileExists(atPath:url.path) else { throw CosyVoice3AssetError.missing(url.path) }
-        do { let m=try JSONDecoder().decode(CosyVoice3Fixed225AssetManifest.self,from:Data(contentsOf:url)); try m.validate(); return m } catch let e as CosyVoice3AssetError { throw e } catch { throw CosyVoice3AssetError.invalidJSON(String(describing:error)) }
+    static func loadManifest(root: URL) throws -> CosyVoice3Fixed225AssetManifest {
+        let url = root.appendingPathComponent("cosyvoice3_fixed225.json")
+        guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
+        do {
+            let manifest = try JSONDecoder().decode(CosyVoice3Fixed225AssetManifest.self, from: Data(contentsOf: url))
+            try manifest.validate()
+            return manifest
+        } catch let error as CosyVoice3AssetError {
+            throw error
+        } catch {
+            throw CosyVoice3AssetError.invalidJSON(String(describing: error))
+        }
     }
-    static func model(root:URL,path:String,computeUnits: MLComputeUnits = .cpuAndNeuralEngine) throws -> MLModel {
-        let url=root.appendingPathComponent(path); guard FileManager.default.fileExists(atPath:url.path) else { throw CosyVoice3AssetError.missing(url.path) }
-        let compiled=url.pathExtension=="mlmodelc" ? url:try MLModel.compileModel(at:url), config=MLModelConfiguration(); config.computeUnits=computeUnits; return try MLModel(contentsOf:compiled,configuration:config)
+
+    static func model(root: URL, path: String, computeUnits: MLComputeUnits = .cpuAndNeuralEngine) throws -> MLModel {
+        let url = root.appendingPathComponent(path)
+        guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
+        let compiled = url.pathExtension == "mlmodelc" ? url : try MLModel.compileModel(at: url)
+        let config = MLModelConfiguration()
+        config.computeUnits = computeUnits
+        return try MLModel(contentsOf: compiled, configuration: config)
     }
-    static func array(root:URL,path:String,shape:[Int],type:MLMultiArrayDataType) throws -> MLMultiArray {
-        let url=root.appendingPathComponent(path); guard FileManager.default.fileExists(atPath:url.path) else { throw CosyVoice3AssetError.missing(url.path) }
-        let data=try Data(contentsOf:url), a=try MLMultiArray(shape:shape.map(NSNumber.init),dataType:type), bytes=a.count*(type==.float16 ? 2:4); guard data.count==bytes else { throw CosyVoice3AssetError.invalidJSON("asset byte count mismatch \(path)") }; data.withUnsafeBytes { a.dataPointer.copyMemory(from:$0.baseAddress!,byteCount:bytes) }; return a
+
+    static func array(root: URL, path: String, shape: [Int], type: MLMultiArrayDataType) throws -> MLMultiArray {
+        let url = root.appendingPathComponent(path)
+        guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
+        let data = try Data(contentsOf: url)
+        let array = try MLMultiArray(shape: shape.map(NSNumber.init), dataType: type)
+        let bytesPerElement = type == .float16 ? 2 : 4
+        let expected = array.count * bytesPerElement
+        guard data.count == expected else { throw CosyVoice3AssetError.invalidJSON("asset byte count mismatch \(path)") }
+        data.withUnsafeBytes { raw in array.dataPointer.copyMemory(from: raw.baseAddress!, byteCount: expected) }
+        return array
     }
 }
 
