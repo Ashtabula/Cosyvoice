@@ -11,12 +11,28 @@ PINNED_SOURCE="${COSYVOICE3_PINNED_SOURCE:-$PUBLICATION_ROOT/ios/.work/source-$S
 WORK="${COSYVOICE3_REFERENCE_WORK:-$PUBLICATION_ROOT/ios/.work/reference-release}"
 COREML="$WORK/coreml"
 PARITY="$WORK/parity"
+FORCE_REBUILD="${COSYVOICE3_FORCE_REBUILD:-0}"
 
 log() { printf '[COSYVOICE3-REFERENCE-MAC] %s\n' "$*"; }
 fail() { printf '[COSYVOICE3-REFERENCE-MAC] ERROR %s\n' "$*" >&2; exit 2; }
 
 require_file() {
     [ -f "$1" ] || fail "missing file: $1"
+}
+
+stage1_ready() {
+    [ "$FORCE_REBUILD" != "1" ] || return 1
+    [ -f "$COREML/reference_coreml_conversion.json" ] || return 1
+    [ -d "$COREML/speech-tokenizer-fixed605.mlpackage" ] || return 1
+    [ -d "$COREML/campplus-fixed604.mlpackage" ] || return 1
+    python3 - "$COREML/reference_coreml_conversion.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+path = Path(sys.argv[1])
+value = json.loads(path.read_text())
+raise SystemExit(0 if value.get("status") == "CONVERTED_NOT_PARITY_VALIDATED" else 1)
+PY
 }
 
 discover_model_dir() {
@@ -175,18 +191,40 @@ main() {
         exit 3
     fi
 
-    rm -rf "$COREML" "$PARITY"
+    if [ "$FORCE_REBUILD" = "1" ]; then
+        log "force rebuild requested; clearing previous reference-release work"
+        rm -rf "$COREML" "$PARITY"
+    fi
     mkdir -p "$COREML" "$PARITY"
 
     cd "$PUBLICATION_ROOT/ios"
 
-    log "1/4 converting speech tokenizer + CAMPPlus to Core ML candidates"
-    python3 tools/convert_reference_onnx_to_coreml.py \
-        --speech-tokenizer "$MODEL_DIR/speech_tokenizer_v3.onnx" \
-        --campplus "$MODEL_DIR/campplus.onnx" \
-        --output "$COREML"
+    if stage1_ready; then
+        log "1/4 RESUME existing speech tokenizer + CAMPPlus Core ML candidates"
+        python3 - "$COREML/reference_coreml_conversion.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+value = json.loads(Path(sys.argv[1]).read_text())
+print(json.dumps({
+    "status": "RESUME_CONVERTED_REFERENCE_COREML",
+    "speechTokenizer": value.get("speechTokenizer", {}).get("sha256"),
+    "campPlus": value.get("campPlus", {}).get("sha256"),
+}, indent=2))
+PY
+    else
+        log "1/4 converting speech tokenizer + CAMPPlus to Core ML candidates"
+        rm -rf "$COREML/speech-tokenizer-fixed605.mlpackage" \
+               "$COREML/campplus-fixed604.mlpackage" \
+               "$COREML/reference_coreml_conversion.json"
+        python3 tools/convert_reference_onnx_to_coreml.py \
+            --speech-tokenizer "$MODEL_DIR/speech_tokenizer_v3.onnx" \
+            --campplus "$MODEL_DIR/campplus.onnx" \
+            --output "$COREML"
+    fi
 
     log "2/4 exporting dynamic per-reference Flow conditions"
+    rm -rf "$COREML/flow-conditions-dynamic-151-302.mlpackage"
     python3 tools/export_dynamic_flow_conditions.py \
         --model-dir "$MODEL_DIR" \
         --output "$COREML/flow-conditions-dynamic-151-302.mlpackage" \
@@ -226,5 +264,5 @@ main "$@"
 # Code purpose: one-command generation and host parity validation for fixed225 custom-reference iOS assets.
 # Upstream source: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6.
 # Model source: FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18.
-# Runtime: macOS + Xcode + Swift + Python environment with pinned CosyVoice dependencies/coremltools/ONNX.
+# Runtime: macOS + Xcode + Swift + Python environment with pinned CosyVoice dependencies/coremltools/ONNX. Stage 1 resumes validated conversion outputs by default; set COSYVOICE3_FORCE_REBUILD=1 for a clean rebuild.
 # Generated: 2026-10-02 America/New_York.
