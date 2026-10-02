@@ -1,6 +1,7 @@
 #@title export_dynamic_flow_conditions.py
 # Requirement: export generic per-reference Flow conditioning. No prompt token, prompt mel, or speaker embedding may be frozen as a model buffer.
 import argparse
+import hashlib
 import json
 import sys
 from pathlib import Path
@@ -8,24 +9,20 @@ from pathlib import Path
 import coremltools as ct
 import numpy as np
 import torch
-import torch.nn.functional as F
 
-ROOT = Path(__file__).resolve().parents[2]
-sys.path[:0] = [str(ROOT), str(ROOT / "third_party/Matcha-TTS")]
+HERE = Path(__file__).resolve().parent
+sys.path.insert(0, str(HERE))
 
-class DynamicConditions(torch.nn.Module):
-    def __init__(self, flow):
-        super().__init__()
-        self.embedding = flow.input_embedding
-        self.lookahead = flow.pre_lookahead_layer
-        self.affine = flow.spk_embed_affine_layer
+from reference_flow_conditions import EXPECTED_KEYS, load_reference_flow_conditioning
 
-    def forward(self, tokens, prompt_tokens, prompt_feat, speaker):
-        h = self.lookahead(self.embedding(torch.cat((prompt_tokens.long(), tokens.long()), dim=1)))
-        h = h.repeat_interleave(2, dim=1).transpose(1, 2)
-        speaker = self.affine(F.normalize(speaker, dim=1))
-        cond = F.pad(prompt_feat.transpose(1, 2), (0, 450))
-        return torch.cat((h, h * 0), dim=0), torch.cat((speaker, speaker * 0), dim=0), torch.cat((cond, cond * 0), dim=0)
+
+def file_sha256(path: Path):
+    h = hashlib.sha256()
+    with path.open("rb") as handle:
+        for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
 
 def main():
     p = argparse.ArgumentParser()
@@ -35,12 +32,8 @@ def main():
     p.add_argument("--prompt-frame-count", type=int, default=302)
     args = p.parse_args()
 
-    from hyperpyyaml import load_hyperpyyaml
-    with (args.model_dir / "cosyvoice3.yaml").open() as f:
-        cfg = load_hyperpyyaml(f, overrides={"qwen_pretrain_path": str(args.model_dir / "CosyVoice-BlankEN")})
-    flow = cfg["flow"].eval()
-    flow.load_state_dict(torch.load(args.model_dir / "flow.pt", weights_only=True, map_location="cpu"), strict=True)
-    module = DynamicConditions(flow).eval()
+    flow_pt = args.model_dir / "flow.pt"
+    module = load_reference_flow_conditioning(flow_pt)
 
     examples = (
         torch.zeros(1, 225, dtype=torch.int32),
@@ -57,7 +50,11 @@ def main():
             ct.TensorType(name="prompt_feat", shape=examples[2].shape, dtype=np.float32),
             ct.TensorType(name="speaker", shape=examples[3].shape, dtype=np.float32),
         ],
-        outputs=[ct.TensorType(name="mu"), ct.TensorType(name="spks"), ct.TensorType(name="cond")],
+        outputs=[
+            ct.TensorType(name="mu"),
+            ct.TensorType(name="spks"),
+            ct.TensorType(name="cond"),
+        ],
         minimum_deployment_target=ct.target.iOS18,
         compute_precision=ct.precision.FLOAT32,
         compute_units=ct.ComputeUnit.CPU_ONLY,
@@ -65,19 +62,24 @@ def main():
     )
     args.output.parent.mkdir(parents=True, exist_ok=True)
     model.save(str(args.output))
+
     print(json.dumps({
         "status": "EXPORTED_NOT_DEVICE_VALIDATED",
         "scope": "generic per-reference Flow conditioning",
         "output": str(args.output),
         "inputs": ["tokens", "prompt_tokens", "prompt_feat", "speaker"],
-        "prompt_token_count": args.prompt_token_count,
-        "prompt_frame_count": args.prompt_frame_count,
+        "promptTokenCount": args.prompt_token_count,
+        "promptFrameCount": args.prompt_frame_count,
+        "flowPtSha256": file_sha256(flow_pt),
+        "loadedWeightKeys": sorted(EXPECTED_KEYS),
+        "construction": "minimal upstream-equivalent conditioning graph; full cosyvoice3.yaml intentionally not instantiated",
     }, indent=2))
+
 
 if __name__ == "__main__":
     main()
 
-# Code purpose: remove the benchmark-only baked reference from flow-conditions.
-# Upstream: export_pipeline_acoustics.py Conditions at CosyVoice3_NPU@8789402.
+# Code purpose: remove the benchmark-only baked reference from flow-conditions without importing unrelated LLM/HiFT/server dependencies.
+# Upstream math: CausalMaskedDiffWithDiT conditioning path + PreLookaheadLayer at CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6.
 # Runtime: conversion host only; generated package requires parity and device validation before promotion.
 # Generated: 2026-10-02 America/New_York.
