@@ -2,6 +2,8 @@
 # Requirement: one command must reconstruct the complete ios-fixed225-reference runtime from pinned source/model/toolchain inputs without reading any historical CosyVoice3_NPU iOS/converted directory.
 #!/usr/bin/env bash
 set -u
+unset PYTHONPATH PYTHONHOME
+export PYTHONNOUSERSITE=1
 ROOT="$(cd "$(dirname "$0")" && pwd)"
 SOURCE_COMMIT="878940245562bcd1dd0231d78157ba78d70b39f6"
 MODEL_REPO="FunAudioLLM/Fun-CosyVoice3-0.5B-2512"
@@ -13,7 +15,7 @@ run(){ log "RUN $*"; "$@"; }
 main(){
     [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf '[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\n'; return 2; }
     local profile="$2"; [ "$profile" = "ios-fixed225-reference" ] || { printf '[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\n' "$profile"; return 2; }
-    local work source venv ref_venv fixture ref output receipt
+    local work source venv ref_venv fixture ref output receipt hygiene
     work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}"
     source="$work/source"
     venv="$work/venv"
@@ -22,16 +24,19 @@ main(){
     ref="$work/reference"
     output="${COSYVOICE3_REBUILD_OUTPUT:-$ROOT/.work/rebuilt-runtime/$profile}"
     receipt="${COSYVOICE3_REBUILD_RECEIPT:-$ROOT/validation/evidence/full_runtime_rebuild.json}"
+    hygiene="$work/source-hygiene.json"
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$work" "$(dirname "$output")" "$(dirname "$receipt")" || return $?
     if [ ! -x "$venv/bin/python" ]; then run "$PYTHON_BOOTSTRAP" -m venv "$venv" || return $?; fi
     run "$venv/bin/python" -m pip install "pip<26" "setuptools==80.9.0" wheel || return $?
     run "$venv/bin/python" -m pip install -r "$ROOT/requirements-rebuild.txt" || return $?
+    run "$venv/bin/python" -c 'import diffusers,PIL; print("[COSYVOICE3-REBUILD] LOCAL_DEPS diffusers="+diffusers.__version__+" pillow="+PIL.__version__+" diffusersFile="+diffusers.__file__+" pillowFile="+PIL.__file__)' || return $?
     rm -rf "$source" "$fixture" "$ref" "$output" || return $?
     run git clone https://github.com/Ashtabula/CosyVoice3_NPU.git "$source" || return $?
     run git -C "$source" checkout --detach "$SOURCE_COMMIT" || return $?
     run git -C "$source" submodule update --init --recursive || return $?
     [ "$(git -C "$source" rev-parse HEAD)" = "$SOURCE_COMMIT" ] || { fail "source checkout mismatch"; return 1; }
+    run "$venv/bin/python" "$ROOT/validation/sanitize_rebuild_source.py" --source-root "$source" --output "$hygiene" || return $?
     log "download exact model revision=$MODEL_REVISION"
     "$venv/bin/python" - "$source" "$MODEL_REPO" "$MODEL_REVISION" <<'PY'
 from pathlib import Path
@@ -75,7 +80,7 @@ PY
     cp "$ref/parity/fixture/whisper_mel_128.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/kaldi_mel_80.f32" "$ref/coreml/" || return $?; cp "$ref/parity/fixture/matcha_mel_80.f32" "$ref/coreml/" || return $?
     run "$venv/bin/python" "$ROOT/validation/install_rebuilt_reference_assets.py" --asset-root "$output" --reference-dir "$ref/coreml" --host-receipt "$ref/parity/reference_host_parity_receipt.json" || return $?
     run "$venv/bin/python" "$ROOT/assets/validate_assets.py" --root "$output" || return $?
-    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --output "$receipt" || return $?
+    run "$venv/bin/python" "$ROOT/validation/record_full_runtime_rebuild.py" --asset-root "$output" --source-root "$source" --host-receipt "$ref/parity/reference_host_parity_receipt.json" --source-hygiene-receipt "$hygiene" --output "$receipt" || return $?
     log "COMPLETE status=PASS_SUPPORTED_FULL_RUNTIME_REBUILD profile=$profile output=$output receipt=$receipt"
 }
 main "$@"
@@ -86,4 +91,5 @@ test "$RC" -eq 0
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18.
 # Runtime: Apple Silicon macOS, Xcode, Python 3.11; project-local .work virtual environments only.
 # Generated: 2026-10-02 America/New_York.
-# Changes: full clean rewrite; all CLI handling lives inside main(), all diagnostics remain visible, no historical converted directory or private reference audio is read, and the accepted LLM/Flow/HiFT/F0/reference converter chain feeds canonical assembly/validation plus a Candidate rebuild receipt.\n# Changes 2026-10-02: lines 16-24 use real physical newlines and assign work before every dependent path under set -u; this fixes the prior patch that accidentally committed literal backslash-n text.
+# Changes: full clean rewrite; all CLI handling lives inside main(), all diagnostics remain visible, no historical converted directory or private reference audio is read, and the accepted LLM/Flow/HiFT/F0/reference converter chain feeds canonical assembly/validation plus a Candidate rebuild receipt.\n# Changes 2026-10-02: lines 18-27 use real physical newlines and assign work before every dependent path under set -u; this fixes the prior patch that accidentally committed literal backslash-n text.
+# Changes 2026-10-02: clear inherited PYTHONPATH/PYTHONHOME, disable user site packages, verify local diffusers/Pillow, sanitize the exact pinned upstream developer-local sys.path append, and bind that hygiene receipt into full-runtime rebuild evidence.
