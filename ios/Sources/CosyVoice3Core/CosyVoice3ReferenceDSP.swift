@@ -196,7 +196,7 @@ struct CosyVoice3Spectrum {
         }
     }
 
-    private static func preciseMean(_ values: [Float]) -> Float {
+    static func preciseMean(_ values: [Float]) -> Float {
         precondition(!values.isEmpty)
         var sum = 0.0
         for value in values {
