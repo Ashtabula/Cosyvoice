@@ -1,10 +1,23 @@
 #@title requirements-rebuild.txt
-# Requirement: exact macOS full-runtime rebuild additions layered on the pinned CosyVoice3_NPU requirements.txt.
+# Requirement: exact minimal macOS Python 3.11 environment for clean full-runtime reconstruction of the accepted fixed225 Core ML graph family.
 coremltools==9.0
-scikit-learn==1.5.1
-scipy==1.17.1
+torch==2.3.1
+torchaudio==2.3.1
+numpy==1.26.4
+transformers==4.51.3
 safetensors==0.8.0
-# Code purpose: pin the Core ML 9 conversion toolchain and ABI-sensitive numerical dependencies used by the accepted LLM/Flow/HiFT production asset generators.
+x-transformers==2.11.24
+HyperPyYAML==1.2.3
+scipy==1.17.1
+scikit-learn==1.5.1
+librosa==0.10.2
+soundfile==0.12.1
+onnx==1.16.0
+onnxruntime==1.18.0
+protobuf==4.25
+huggingface_hub<1
+# Code purpose: pin the smallest toolchain needed by the accepted LLM/Flow/HiFT/F0 converters and deterministic rebuild fixture without installing unrelated server/UI/training dependencies.
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 requirements.txt and iOS/tools/requirements-coreml.txt.
 # Runtime: Apple Silicon macOS, Python 3.11.
 # Generated: 2026-10-02 America/New_York.
+# Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.
