@@ -89,7 +89,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     private static func fixture() throws -> Fixture {
         let resources = try generatedAssets(); let runtime = resources.appendingPathComponent("Runtime", isDirectory:true); let wav = resources.appendingPathComponent("reference.wav"); let transcript = try String(contentsOf:resources.appendingPathComponent("reference.txt"),encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
-        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let hostData = try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json")); let hostSHA = SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined(); let text = "This is a CosyVoice3 public API reference voice validation."
+        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let marker=resources.appendingPathComponent("candidate-benchmark-mode.json"); let hostSHA:String; if FileManager.default.fileExists(atPath:marker.path) { let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]; guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("Candidate benchmark marker host binding missing") }; hostSHA=bound } else { let hostData=try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json")); hostSHA=SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined() }; let text = "This is a CosyVoice3 public API reference voice validation."
         return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
     }
 
@@ -141,4 +141,4 @@ private extension Data {
 // Upstream: CosyVoice3Core public API only; no private runtime/benchmark internals are invoked.
 // Runtime: iOS18+, SwiftUI, AVFoundation.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.
+// Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.\n// Changes 2026-10-02: benchmark mode consumes the immutable promotion hostReceiptSha256 from its bundled marker; normal smoke mode still hashes the full staged host receipt.
