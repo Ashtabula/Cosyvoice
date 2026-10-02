@@ -8,6 +8,7 @@ transformers==4.51.3
 safetensors==0.8.0
 x-transformers==2.11.24
 HyperPyYAML==1.2.3
+omegaconf==2.3.0
 scipy==1.17.1
 scikit-learn==1.5.1
 librosa==0.10.2
@@ -20,4 +21,4 @@ huggingface_hub<1
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 requirements.txt and iOS/tools/requirements-coreml.txt.
 # Runtime: Apple Silicon macOS, Python 3.11.
 # Generated: 2026-10-02 America/New_York.
-# Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.
+# Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.\n# Changes 2026-10-02: explicitly pin omegaconf==2.3.0 because the shipping Flow class imports DictConfig during HyperPyYAML reconstruction.
