@@ -18,7 +18,16 @@ def main():
     pass_check("standalone build",build.get("status")); pass_check("full runtime rebuild",rebuild.get("status"),"PASS_SUPPORTED_FULL_RUNTIME_REBUILD"); pass_check("candidate benchmark",benchmark.get("status")); pass_check("SDK integration milestone",sdk.get("status")); pass_check("device public API",device.get("status"),"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM"); pass_check("custom reference promotion",promotion.get("status"),"PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION")
     for name,value in (("build source",build.get("sourceCommit")),("rebuild publication",rebuild.get("publicationCommit")),("benchmark source",benchmark.get("sourceCommit"))):
         if value!=head: raise RuntimeError(f"{name} commit {value} != current HEAD {head}")
-    if manifest.get("sdkIntegrationReady") is not True or manifest.get("technicalDistributionReady") is not False or manifest.get("publicRedistributionApproved") is not False: raise RuntimeError("manifest pre-Candidate state is not the expected SDK-integration-ready/private state")
+    if manifest.get("sdkIntegrationReady") is not True or manifest.get("publicRedistributionApproved") is not False:
+        raise RuntimeError("manifest is not SDK-integration-ready/private")
+    technical=manifest.get("technicalDistributionReady")
+    if technical is False:
+        pass
+    elif technical is True:
+        if manifest.get("releaseStatus")!="candidate" or manifest.get("candidateBlockers")!=[] or manifest.get("candidateReleaseReceipt")!="validation/release_receipt.json":
+            raise RuntimeError("existing Candidate manifest is not a valid revalidation starting state")
+    else:
+        raise RuntimeError(f"unexpected technicalDistributionReady state: {technical!r}")
     default=catalog.get("default") or {}; rows=[r for r in catalog.get("releases",[]) if r.get("profile")==default.get("profile") and r.get("version")==default.get("version")]
     if len(rows)!=1: raise RuntimeError("release catalog default is not unique")
     release=rows[0]; asset=benchmark.get("asset") or {}; sdk_asset=sdk.get("assets") or {}
@@ -36,3 +45,4 @@ if __name__=="__main__": main()
 # Runtime: macOS Python 3 standard library inside the release checkout.
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; fail-closed commit/hash/status cross-checks and Candidate receipt generation while leaving Production clean-room/reproducibility/license gates pending.
+# Changes 2026-10-02: permit strict full Candidate revalidation when the branch is already in a self-consistent private Candidate state; public redistribution must still be false and malformed partial Candidate state still fails closed.
