@@ -12,6 +12,8 @@ MATCHA_UTILS=Path("matcha/utils/__init__.py")
 MATCHA_UTILS_BLOB="074db6461184e8cbb86d977cb41d9ebd918e958a"
 MATCHA_PYLOGGER=Path("matcha/utils/pylogger.py")
 MATCHA_PYLOGGER_BLOB="61600678029362e110f655edb91d5f3bc5b1cd1c"
+MASKWRITE512=Path("iOS/tools/export_llm_mask_write512.py")
+MASKWRITE512_BLOB="26be8d181bf0886282a372ea8627ac37e0c15a65"
 FORBIDDEN="sys.path.append('/Volumes/WD/Codes/CosyVoice3/.venv-upstream/lib/python3.10/site-packages')"
 FULL_CONFIG="MODEL/'cosyvoice3.yaml'"
 ACOUSTIC_CONFIG="MODEL/'cosyvoice3.acoustic.yaml'"
@@ -20,6 +22,14 @@ PYLOGGER_REPLACEMENT="""import logging
 
 def get_pylogger(name: str = __name__) -> logging.Logger:
     return logging.getLogger(name)
+"""
+MASKWRITE_HELPER="""def field_is_repeated(field):
+    value = getattr(field, 'is_repeated', None)
+    if value is not None:
+        return bool(value)
+    return field.label == field.LABEL_REPEATED
+
+
 """
 
 def sha256(path:Path)->str:
@@ -61,8 +71,20 @@ def main():
     pylogger_patch=patch_exact(matcha/MATCHA_PYLOGGER,MATCHA_PYLOGGER_BLOB,PYLOGGER_REPLACEMENT,matcha,"matcha-pylogger-lightning-import")
     if "hydra" in (matcha/MATCHA_UTILS).read_text() or "lightning" in (matcha/MATCHA_PYLOGGER).read_text(): raise RuntimeError("training-only Matcha dependency remains")
 
+    maskwrite=source/MASKWRITE512
+    if git_blob(source,MASKWRITE512)!=MASKWRITE512_BLOB: raise RuntimeError("unexpected maskwrite512 exporter blob")
+    mask_text=maskwrite.read_text()
+    root_marker="ROOT = Path(__file__).resolve().parents[2]\n\n\n"
+    if root_marker not in mask_text or mask_text.count("field.is_repeated")!=2: raise RuntimeError("unexpected maskwrite512 descriptor-access layout")
+    mask_before=sha256(maskwrite)
+    mask_text=mask_text.replace(root_marker,root_marker+MASKWRITE_HELPER,1).replace("field.is_repeated","field_is_repeated(field)")
+    maskwrite.write_text(mask_text)
+    mask_after=sha256(maskwrite)
+    if "field.is_repeated" in mask_text or "def field_is_repeated(field):" not in mask_text: raise RuntimeError("maskwrite512 protobuf compatibility sanitation incomplete")
+    mask_patch={"name":"maskwrite512-protobuf-repeated-field-compat","target":MASKWRITE512.as_posix(),"originalGitBlob":MASKWRITE512_BLOB,"originalSha256":mask_before,"sanitizedSha256":mask_after}
+
     acoustic_patch={"name":"acoustic-exporter-hermetic-config","target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after}
-    receipt={"schemaVersion":3,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after,"acousticConfigRedirected":True,"acousticConfig":"cosyvoice3.acoustic.yaml","matchaUtilsTarget":MATCHA_UTILS.as_posix(),"matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":MATCHA_PYLOGGER.as_posix(),"matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"patches":[acoustic_patch,utils_patch,pylogger_patch],"changes":["disable one developer-local Python 3.10 site-packages append","redirect acoustic exporter from full checkpoint YAML to derived Flow+HiFT-only YAML","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild"],"runtimeMathChanged":False}
+    receipt={"schemaVersion":4,"status":"PASS_SOURCE_HYGIENE","sourceCommit":SOURCE_COMMIT,"matchaSubmoduleCommit":MATCHA_COMMIT,"target":ACOUSTICS.as_posix(),"originalGitBlob":ACOUSTICS_BLOB,"originalSha256":before,"sanitizedSha256":after,"acousticConfigRedirected":True,"acousticConfig":"cosyvoice3.acoustic.yaml","matchaUtilsTarget":MATCHA_UTILS.as_posix(),"matchaUtilsOriginalGitBlob":MATCHA_UTILS_BLOB,"matchaUtilsSanitizedSha256":utils_patch["sanitizedSha256"],"matchaPyloggerTarget":MATCHA_PYLOGGER.as_posix(),"matchaPyloggerOriginalGitBlob":MATCHA_PYLOGGER_BLOB,"matchaPyloggerSanitizedSha256":pylogger_patch["sanitizedSha256"],"maskwrite512Target":MASKWRITE512.as_posix(),"maskwrite512OriginalGitBlob":MASKWRITE512_BLOB,"maskwrite512SanitizedSha256":mask_after,"patches":[acoustic_patch,utils_patch,pylogger_patch,mask_patch],"changes":["disable one developer-local Python 3.10 site-packages append","redirect acoustic exporter from full checkpoint YAML to derived Flow+HiFT-only YAML","stop Matcha utils package from eagerly importing training/CLI utilities","replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild","replace protobuf-version-specific FieldDescriptor.is_repeated access with a compatibility helper that falls back to LABEL_REPEATED"],"runtimeMathChanged":False}
     output.parent.mkdir(parents=True,exist_ok=True); output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-REBUILD-HYGIENE] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 
 if __name__=="__main__": main()
@@ -71,4 +93,4 @@ if __name__=="__main__": main()
 # Upstream source: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and Matcha-TTS@dd9105b34bf2be2230f4aa1e4769fb586a3c824e with exact Git blob guards.
 # Runtime environment: Python 3 standard library inside the publication checkout.
 # Generated: 2026-10-02 America/New_York.
-# Changes: developer-local Python path removal, exact redirect to derived acoustic-only YAML, and Matcha training-only eager-import cleanup; no model equations or weights are changed.
+# Changes: developer-local Python path removal, exact redirect to derived acoustic-only YAML, Matcha training-only eager-import cleanup, and exact-blob-gated protobuf descriptor compatibility for maskwrite512; no model equations, weights, State semantics, or tensor dimensions are changed.
