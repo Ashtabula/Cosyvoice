@@ -25,6 +25,7 @@ huggingface_hub<1
 # Upstream: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 requirements.txt and iOS/tools/requirements-coreml.txt.
 # Runtime: Apple Silicon macOS, Python 3.11.
 # Generated: 2026-10-02 America/New_York.
-# Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.\n# Changes 2026-10-02: explicitly pin omegaconf==2.3.0 because the shipping Flow class imports DictConfig during HyperPyYAML reconstruction.
+# Changes: replaced the initial additive four-package file with a standalone exact rebuild lock covering Core ML, PyTorch, Qwen/DiT, numerical, audio, ONNX, protobuf and Hugging Face dependencies.
+# Changes 2026-10-02: explicitly pin omegaconf==2.3.0 because the shipping Flow class imports DictConfig during HyperPyYAML reconstruction.
 # Changes 2026-10-02: pin diffusers==0.29.0 and pillow==11.3.0 from upstream provenance so Matcha-TTS flow construction never falls through to a developer-local Python 3.10 environment.
 # Changes 2026-10-02: pin conformer==0.3.2 and lightning==2.2.4 because the locked Matcha-TTS decoder imports ConformerBlock and its pylogger imports lightning.pytorch during HyperPyYAML flow reconstruction.
