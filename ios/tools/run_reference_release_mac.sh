@@ -35,6 +35,36 @@ raise SystemExit(0 if value.get("status") == "CONVERTED_NOT_PARITY_VALIDATED" el
 PY
 }
 
+stage2_ready() {
+    [ "$FORCE_REBUILD" != "1" ] || return 1
+    [ -f "$COREML/flow_conditions_dynamic_export.json" ] || return 1
+    [ -d "$COREML/flow-conditions-dynamic-151-302.mlpackage" ] || return 1
+    python3 - "$COREML/flow_conditions_dynamic_export.json" "$MODEL_DIR/flow.pt" <<'PY'
+import hashlib
+import json
+import sys
+from pathlib import Path
+
+receipt_path = Path(sys.argv[1])
+flow_path = Path(sys.argv[2])
+value = json.loads(receipt_path.read_text())
+
+h = hashlib.sha256()
+with flow_path.open("rb") as handle:
+    for chunk in iter(lambda: handle.read(1024 * 1024), b""):
+        h.update(chunk)
+
+ok = (
+    value.get("schemaVersion") == 1
+    and value.get("status") == "EXPORTED_NOT_DEVICE_VALIDATED"
+    and value.get("promptTokenCount") == 151
+    and value.get("promptFrameCount") == 302
+    and value.get("flowPtSha256") == h.hexdigest()
+)
+raise SystemExit(0 if ok else 1)
+PY
+}
+
 discover_model_dir() {
     if [ -n "${MODEL_DIR:-}" ]; then
         printf '%s\n' "$MODEL_DIR"
@@ -223,13 +253,30 @@ PY
             --output "$COREML"
     fi
 
-    log "2/4 exporting dynamic per-reference Flow conditions"
-    rm -rf "$COREML/flow-conditions-dynamic-151-302.mlpackage"
-    python3 tools/export_dynamic_flow_conditions.py \
-        --model-dir "$MODEL_DIR" \
-        --output "$COREML/flow-conditions-dynamic-151-302.mlpackage" \
-        --prompt-token-count 151 \
-        --prompt-frame-count 302
+    if stage2_ready; then
+        log "2/4 RESUME existing dynamic per-reference Flow conditions"
+        python3 - "$COREML/flow_conditions_dynamic_export.json" <<'PY'
+import json
+import sys
+from pathlib import Path
+value = json.loads(Path(sys.argv[1]).read_text())
+print(json.dumps({
+    "status": "RESUME_EXPORTED_DYNAMIC_FLOW_CONDITIONS",
+    "flowPtSha256": value.get("flowPtSha256"),
+    "promptTokenCount": value.get("promptTokenCount"),
+    "promptFrameCount": value.get("promptFrameCount"),
+}, indent=2))
+PY
+    else
+        log "2/4 exporting dynamic per-reference Flow conditions"
+        rm -rf "$COREML/flow-conditions-dynamic-151-302.mlpackage" \
+               "$COREML/flow_conditions_dynamic_export.json"
+        python3 tools/export_dynamic_flow_conditions.py \
+            --model-dir "$MODEL_DIR" \
+            --output "$COREML/flow-conditions-dynamic-151-302.mlpackage" \
+            --prompt-token-count 151 \
+            --prompt-frame-count 302
+    fi
 
     log "3/4 running Swift DSP + ONNX/CoreML + dynamic Flow parity"
     python3 tools/run_reference_release_gate.py \
@@ -264,5 +311,5 @@ main "$@"
 # Code purpose: one-command generation and host parity validation for fixed225 custom-reference iOS assets.
 # Upstream source: Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6.
 # Model source: FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18.
-# Runtime: macOS + Xcode + Swift + Python environment with pinned CosyVoice dependencies/coremltools/ONNX. Stage 1 resumes validated conversion outputs by default; set COSYVOICE3_FORCE_REBUILD=1 for a clean rebuild.
+# Runtime: macOS + Xcode + Swift + Python environment with pinned CosyVoice dependencies/coremltools/ONNX. Stages 1-2 resume matching conversion/export outputs by default; set COSYVOICE3_FORCE_REBUILD=1 for a clean rebuild.
 # Generated: 2026-10-02 America/New_York.
