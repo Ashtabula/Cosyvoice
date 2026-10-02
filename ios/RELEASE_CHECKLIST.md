@@ -21,8 +21,8 @@ PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY`.
 PASS: physical iPhone public API custom-reference smoke emitted accepted finite 24 kHz mono PCM and is cryptographically bound to the host parity receipt.
 PASS: user listening acceptance for the physical-device custom-reference output is recorded as `GOOD SOUND`.
 PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.
+PASS: complete fixed225-reference runtime is uploaded as an immutable private Hugging Face RC and the exact commit passes ordinary-developer fetch plus physical public-API replay.
 
-BLOCKER: immutable hosted asset manifest/fetch path is incomplete.
 BLOCKER: one-command pinned local rebuild is incomplete.
 BLOCKER: no Candidate `validation/release_receipt.json` ties source, assets, parity, device, PCM and benchmark evidence together.
 BLOCKER: clean-room integration has not run.
