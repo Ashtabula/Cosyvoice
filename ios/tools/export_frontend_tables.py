@@ -7,7 +7,7 @@ import numpy as np
 import torch
 
 TEXT_KEY="llm.model.model.embed_tokens.weight"
-SPEECH_KEY="llm.speech_embedding.weight"
+SPEECH_KEY="speech_embedding.weight"
 
 def sha256(path):
     h=hashlib.sha256()
@@ -24,6 +24,12 @@ def main():
     a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=True)
     state=torch.load(a.llm,map_location="cpu",weights_only=True,mmap=True)
+    missing=[key for key in (TEXT_KEY,SPEECH_KEY) if key not in state]
+    if missing:
+        embedding_keys=sorted(key for key in state if "embed" in key.lower())
+        raise RuntimeError(
+            f"required embedding keys missing: {missing}; available embedding-like keys: {embedding_keys}"
+        )
     text=state[TEXT_KEY].detach().cpu().to(torch.float16).contiguous().numpy()
     speech=state[SPEECH_KEY].detach().cpu().to(torch.float16).contiguous().numpy()
     if text.ndim!=2 or text.shape[1]!=896: raise RuntimeError(f"unexpected text embedding shape {text.shape}")
@@ -52,5 +58,5 @@ def main():
 if __name__=="__main__": main()
 
 # Purpose: build native Swift embedding assets; Python is build-time only.
-# Upstream: pinned llm.pt and CosyVoice-BlankEN tokenizer metadata.
+# Upstream: pinned llm.pt and CosyVoice-BlankEN tokenizer metadata; speech embedding key matches CosyVoice3_NPU iOS validators: speech_embedding.weight.
 # Runtime: host PyTorch/Numpy; output consumed by iOS without Python.

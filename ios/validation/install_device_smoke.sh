@@ -33,9 +33,25 @@ main() {
 
     if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ]; then
         printf '[COSYVOICE3-INSTALL] assembling standalone fixed225 runtime from validated migration assets\n'
+        ASSEMBLE_FORCE_ARGS=()
+        case "$ASSET_ROOT" in
+            "$ROOT/.work/"*)
+                if [ -e "$ASSET_ROOT" ]; then
+                    printf '[COSYVOICE3-INSTALL] replacing incomplete tool-owned runtime: %s\n' "$ASSET_ROOT"
+                    ASSEMBLE_FORCE_ARGS=(--force)
+                fi
+                ;;
+            *)
+                if [ -e "$ASSET_ROOT" ]; then
+                    printf '[COSYVOICE3-INSTALL] ERROR custom asset root exists without manifest; refusing to overwrite: %s\n' "$ASSET_ROOT"
+                    return 2
+                fi
+                ;;
+        esac
         "$PYTHON_BIN" validation/assemble_fixed225_runtime_from_migration.py \
             --source-root "$SOURCE_ROOT" \
-            --output "$ASSET_ROOT" || return $?
+            --output "$ASSET_ROOT" \
+            "${ASSEMBLE_FORCE_ARGS[@]}" || return $?
     fi
 
     "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
