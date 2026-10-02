@@ -15,7 +15,7 @@ run(){ log "RUN $*"; "$@"; }
 main(){
     [ "${1:-}" = "--profile" ] && [ -n "${2:-}" ] || { printf '[COSYVOICE3-REBUILD] usage: bash rebuild_assets.sh --profile ios-fixed225-reference\n'; return 2; }
     local profile="$2"; [ "$profile" = "ios-fixed225-reference" ] || { printf '[COSYVOICE3-REBUILD] ERROR unsupported profile=%s\n' "$profile"; return 2; }
-    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model
+    local work source venv ref_venv fixture ref output receipt hygiene model_cache legacy_model requirements_hash requirements_stamp
     work="${COSYVOICE3_REBUILD_WORK:-$ROOT/.work/rebuild/$profile}"
     source="$work/source"
     venv="$work/venv"
@@ -27,11 +27,14 @@ main(){
     hygiene="$work/source-hygiene.json"
     model_cache="$work/model-cache/Fun-CosyVoice3-0.5B-2512"
     legacy_model="$source/pretrained_models/Fun-CosyVoice3-0.5B-2512"
+    requirements_stamp="$venv/.cosyvoice-rebuild-requirements.sha256"
     command -v git || return $?; command -v "$PYTHON_BOOTSTRAP" || return $?; command -v xcodebuild || return $?; command -v swift || return $?
     mkdir -p "$work" "$(dirname "$output")" "$(dirname "$receipt")" || return $?
-    if [ ! -x "$venv/bin/python" ]; then run "$PYTHON_BOOTSTRAP" -m venv "$venv" || return $?; fi
+    requirements_hash="$("$PYTHON_BOOTSTRAP" -c 'import hashlib,sys; print(hashlib.sha256(open(sys.argv[1],"rb").read()).hexdigest())' "$ROOT/requirements-rebuild.txt")" || return $?
+    if [ ! -x "$venv/bin/python" ] || [ ! -f "$requirements_stamp" ] || [ "$(cat "$requirements_stamp")" != "$requirements_hash" ]; then log "recreate rebuild venv for requirements sha256=$requirements_hash"; rm -rf "$venv" || return $?; run "$PYTHON_BOOTSTRAP" -m venv "$venv" || return $?; fi
     run "$venv/bin/python" -m pip install "pip<26" "setuptools==80.9.0" wheel || return $?
     run "$venv/bin/python" -m pip install -r "$ROOT/requirements-rebuild.txt" || return $?
+    printf '%s\n' "$requirements_hash" > "$requirements_stamp" || return $?
     run "$venv/bin/python" -c 'import conformer,diffusers,PIL; print("[COSYVOICE3-REBUILD] LOCAL_DEPS conformer="+conformer.__file__+" diffusers="+diffusers.__version__+" pillow="+PIL.__version__)' || return $?
     if [ -d "$legacy_model" ] && [ ! -e "$model_cache" ]; then mkdir -p "$(dirname "$model_cache")" || return $?; log "preserve prior model download $legacy_model -> $model_cache"; mv "$legacy_model" "$model_cache" || return $?; fi
     rm -rf "$source" "$fixture" "$ref" "$output" || return $?
@@ -87,3 +90,4 @@ test "$RC" -eq 0
 # Changes 2026-10-02: clear inherited PYTHONPATH/PYTHONHOME, disable user site packages, verify local diffusers/Pillow, sanitize the exact pinned upstream developer-local sys.path append, and bind that hygiene receipt into full-runtime rebuild evidence.
 # Changes 2026-10-02: replace whole-repository Hugging Face download with a 12-pattern persistent local_dir, migrate any previous failed-run model directory before deleting the temporary source checkout, preflight the complete sanitized Matcha/CosyVoice conversion import closure before model download, and reuse interrupted blobs across retries.
 # Changes 2026-10-02: Matcha training-only Lightning/Hydra imports are removed from the temporary exact-blob-gated checkout, so rebuild dependency preflight stays conversion-only.
+# Changes 2026-10-02: rebuild venv is keyed by requirements-rebuild.txt SHA-256 and recreated whenever the lock changes, preventing failed-run dependency residue from contaminating Candidate evidence.
