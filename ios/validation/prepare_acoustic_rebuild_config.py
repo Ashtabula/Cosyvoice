@@ -13,9 +13,8 @@ def sha256(path:Path)->str:
         for block in iter(lambda:f.read(1024*1024),b""): h.update(block)
     return h.hexdigest()
 
-def main():
-    p=argparse.ArgumentParser(); p.add_argument("--model-dir",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
-    model=a.model_dir.resolve(); source=model/"cosyvoice3.yaml"; output=a.output.resolve()
+def derive(model:Path,output:Path)->dict:
+    model=model.resolve(); source=model/"cosyvoice3.yaml"; output=output.resolve()
     actual=sha256(source)
     if actual!=EXPECTED_SHA256: raise RuntimeError(f"pinned cosyvoice3.yaml sha256 mismatch: {actual}")
     text=source.read_text(encoding="utf-8")
@@ -40,6 +39,11 @@ def main():
     receipt={"schemaVersion":1,"status":"PASS_ACOUSTIC_CONFIG_DERIVATION","source":str(source),"sourceSha256":actual,"output":str(output),"outputSha256":sha256(output),"scalarKeys":list(SCALAR_KEYS),"sections":["flow","hift"],"excluded":["llm","gan wrapper/discriminators","dataset processors","training config"],"runtimeMathChanged":False}
     (output.parent/"cosyvoice3.acoustic.config-receipt.json").write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
     print("[COSYVOICE3-ACOUSTIC-CONFIG] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
+    return receipt
+
+def main():
+    p=argparse.ArgumentParser(); p.add_argument("--model-dir",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
+    derive(a.model_dir,a.output)
 
 if __name__=="__main__": main()
 
@@ -47,4 +51,5 @@ if __name__=="__main__": main()
 # Upstream source: FunAudioLLM/Fun-CosyVoice3-0.5B-2512 cosyvoice3.yaml sha256 f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965.
 # Runtime environment: Python 3 standard library in the rebuild venv.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; no copied model parameters beyond exact scalar lines/sections extracted from the pinned checkpoint YAML.
+# Changes: no copied model parameters beyond exact scalar lines/sections extracted from the pinned checkpoint YAML.
+# Changes 2026-10-02: expose derive(model, output) so downstream fixture generation can self-heal a missing acoustic-only config instead of depending solely on shell-step ordering.
