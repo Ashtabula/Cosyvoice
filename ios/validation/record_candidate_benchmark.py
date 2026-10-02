@@ -4,11 +4,19 @@ from __future__ import annotations
 import argparse,hashlib,json,subprocess,time
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]
-def sha(path):\n    h=hashlib.sha256()\n    with path.open("rb") as f:\n        for b in iter(lambda:f.read(8*1024*1024),b""): h.update(b)\n    return h.hexdigest()\ndef load(path):
+
+def sha(path):
+    h=hashlib.sha256()
+    with path.open("rb") as f:
+        for block in iter(lambda:f.read(8*1024*1024),b""): h.update(block)
+    return h.hexdigest()
+
+def load(path):
     if not path.is_file(): raise RuntimeError(f"missing JSON: {path}")
     value=json.loads(path.read_text())
     if not isinstance(value,dict): raise RuntimeError(f"JSON object required: {path}")
     return value
+
 def main():
     p=argparse.ArgumentParser(); p.add_argument("--raw-receipt",type=Path,required=True); p.add_argument("--asset-root",type=Path,required=True); p.add_argument("--reference-wav",type=Path,required=True); p.add_argument("--reference-transcript",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
     raw=load(a.raw_receipt.resolve()); asset=load(a.asset_root.resolve()/"asset-manifest.json"); catalog=load(ROOT/"assets/releases.json"); promotion=load(ROOT/"validation/reference-device/promotion-receipt.json")
@@ -24,12 +32,19 @@ def main():
     if not raw.get("deviceModelIdentifier") or not raw.get("systemVersion"): raise RuntimeError("Candidate benchmark device identity incomplete")
     if raw.get("hostReceiptSha256")!=promotion.get("hostReceipt",{}).get("sha256"): raise RuntimeError("Candidate benchmark host-parity binding mismatch")
     if asset.get("profile")!=release.get("profile") or asset.get("assetVersion")!=release.get("version") or asset.get("payloadTreeSha256")!=release.get("payloadTreeSha256") or asset.get("testedRuntimeTreeSha256")!=release.get("testedRuntimeTreeSha256"): raise RuntimeError("Candidate benchmark asset identity differs from committed release catalog")
-    wav=a.reference_wav.resolve(); transcript_path=a.reference_transcript.resolve(); transcript=transcript_path.read_text(encoding="utf-8").strip()\n    if not wav.is_file() or not transcript: raise RuntimeError("Candidate benchmark reference workload missing")\n    if len(transcript)!=int(raw.get("referenceTranscriptCharacters",0)): raise RuntimeError("Candidate benchmark transcript length differs from device receipt")\n    head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
+    wav=a.reference_wav.resolve(); transcript_path=a.reference_transcript.resolve()
+    if not wav.is_file(): raise RuntimeError("Candidate benchmark reference WAV missing")
+    transcript=transcript_path.read_text(encoding="utf-8").strip()
+    if not transcript: raise RuntimeError("Candidate benchmark reference transcript missing/empty")
+    if len(transcript)!=int(raw.get("referenceTranscriptCharacters",0)): raise RuntimeError("Candidate benchmark transcript length differs from device receipt")
+    head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     receipt={"schemaVersion":1,"status":"PASS","benchmark":"public-api-candidate-v1","sourceCommit":head,"asset":{"profile":release["profile"],"version":release["version"],"repoId":release["repoId"],"revision":release["revision"],"payloadTreeSha256":release["payloadTreeSha256"],"testedRuntimeTreeSha256":release["testedRuntimeTreeSha256"]},"device":{"model":raw.get("device"),"modelIdentifier":raw["deviceModelIdentifier"],"systemName":raw.get("systemName"),"systemVersion":raw["systemVersion"]},"workload":{"text":"This is a CosyVoice3 public API reference voice validation.","instructionPrefix":"You are a helpful assistant.<|endofprompt|>","referenceWavSha256":sha(wav),"referenceWavBytes":wav.stat().st_size,"referenceTranscriptSha256":hashlib.sha256(transcript.encode("utf-8")).hexdigest(),"referenceTranscriptCharacters":len(transcript)},"measurement":{"coldDefinition":raw.get("coldDefinition"),"warmDefinition":raw.get("warmDefinition"),"referenceValidationPrewarm":False,"engineInitMilliseconds":raw["engineInitMilliseconds"],"firstSynthesisMilliseconds":raw["firstSynthesisMilliseconds"],"repeatSynthesisMilliseconds":raw["repeatSynthesisMilliseconds"],"firstAudioSeconds":raw["firstAudioSeconds"],"repeatAudioSeconds":raw["repeatAudioSeconds"],"firstRTF":raw["firstRTF"],"repeatRTF":raw["repeatRTF"],"firstSamples":raw["firstSamples"],"repeatSamples":raw["repeatSamples"],"sameSampleCount":raw.get("sameSampleCount"),"sampleRate":24000,"channels":1,"finite":True},"hostReceiptSha256":raw["hostReceiptSha256"],"recordedAtUnix":int(time.time()),"performanceThresholdApplied":False}
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-CANDIDATE-BENCHMARK] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
+
 if __name__=="__main__": main()
+
 # Code purpose: convert the DeviceSmoke raw benchmark into committed Candidate evidence bound to exact SDK/HF/runtime identities.
-# Upstream: DeviceSmoke public CosyVoice3Engine benchmark, assets/releases.json, fetched asset-manifest.json, reference promotion receipt.
-# Runtime: macOS Python 3 standard library after physical iPhone benchmark retrieval.
+# Upstream source: DeviceSmoke public CosyVoice3Engine benchmark, assets/releases.json, fetched asset-manifest.json, reference promotion receipt.
+# Runtime environment: macOS Python 3 standard library after physical iPhone benchmark retrieval.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; enforces no reference prewarm, fixed225 216000-sample PCM, positive cold/warm measurements, device identity, host-parity binding and exact immutable release-catalog asset identity; no numerical speed threshold is imposed.\n# Changes 2026-10-02: bind the benchmark workload to reference WAV/transcript SHA-256 and byte/character metadata without committing transcript content.
+# Changes: fixes malformed literal newline escapes; enforces no reference prewarm, fixed225 PCM, positive cold/warm measurements, device identity, host-parity binding, immutable asset identity, and workload hashes; no speed threshold is imposed.
