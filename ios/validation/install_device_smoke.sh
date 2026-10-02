@@ -13,6 +13,8 @@ ASSET_ROOT="${COSYVOICE3_ASSET_ROOT:-$ROOT/.work/device-runtime}"
 HOST_RECEIPT="${COSYVOICE3_HOST_PARITY_RECEIPT:-$ROOT/.work/reference-release/parity/reference_host_parity_receipt.json}"
 REFERENCE_CANDIDATE_DIR="${COSYVOICE3_REFERENCE_CANDIDATE_DIR:-$ROOT/.work/reference-release/coreml}"
 PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/python3}"
+PROMOTED_RUNTIME_MODE="${COSYVOICE3_PROMOTED_RUNTIME_MODE:-0}"
+FRESH_INSTALL="${COSYVOICE3_FRESH_INSTALL:-0}"
 
 main() {
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
@@ -32,39 +34,52 @@ main() {
     printf '[COSYVOICE3-INSTALL] hostReceipt=%s referenceCandidates=%s\n' "$HOST_RECEIPT" "$REFERENCE_CANDIDATE_DIR"
     xcrun devicectl list devices || return $?
 
-    if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ] || [ ! -f "$ASSET_ROOT/tokenizer/tokenizer.json" ]; then
-        printf '[COSYVOICE3-INSTALL] assembling standalone fixed225 runtime from validated migration assets\n'
-        ASSEMBLE_FORCE_ARGS=()
-        case "$ASSET_ROOT" in
-            "$ROOT/.work/"*)
-                if [ -e "$ASSET_ROOT" ]; then
-                    printf '[COSYVOICE3-INSTALL] replacing incomplete tool-owned runtime: %s\n' "$ASSET_ROOT"
-                    ASSEMBLE_FORCE_ARGS=(--force)
-                fi
-                ;;
-            *)
-                if [ -e "$ASSET_ROOT" ]; then
-                    printf '[COSYVOICE3-INSTALL] ERROR custom asset root exists without manifest; refusing to overwrite: %s\n' "$ASSET_ROOT"
-                    return 2
-                fi
-                ;;
-        esac
-        "$PYTHON_BIN" validation/assemble_fixed225_runtime_from_migration.py \
-            --source-root "$SOURCE_ROOT" \
-            --output "$ASSET_ROOT" \
-            "${ASSEMBLE_FORCE_ARGS[@]}" || return $?
+    if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
+        printf '[COSYVOICE3-INSTALL] promoted-runtime mode: exact runtime must already contain PASS_DEVICE_PARITY reference assets\n'
+        "$PYTHON_BIN" assets/validate_assets.py --root "$ASSET_ROOT" --require-reference || return $?
+    else
+        if [ ! -f "$ASSET_ROOT/cosyvoice3_fixed225.json" ] || [ ! -f "$ASSET_ROOT/tokenizer/tokenizer.json" ]; then
+            printf '[COSYVOICE3-INSTALL] assembling standalone fixed225 runtime from validated migration assets\n'
+            ASSEMBLE_FORCE_ARGS=()
+            case "$ASSET_ROOT" in
+                "$ROOT/.work/"*)
+                    if [ -e "$ASSET_ROOT" ]; then
+                        printf '[COSYVOICE3-INSTALL] replacing incomplete tool-owned runtime: %s\n' "$ASSET_ROOT"
+                        ASSEMBLE_FORCE_ARGS=(--force)
+                    fi
+                    ;;
+                *)
+                    if [ -e "$ASSET_ROOT" ]; then
+                        printf '[COSYVOICE3-INSTALL] ERROR custom asset root exists without manifest; refusing to overwrite: %s\n' "$ASSET_ROOT"
+                        return 2
+                    fi
+                    ;;
+            esac
+            "$PYTHON_BIN" validation/assemble_fixed225_runtime_from_migration.py \
+                --source-root "$SOURCE_ROOT" \
+                --output "$ASSET_ROOT" \
+                "${ASSEMBLE_FORCE_ARGS[@]}" || return $?
+        fi
     fi
 
     printf '[COSYVOICE3-INSTALL] validating exact native tokenizer parity before iPhone build\n'
     COSYVOICE3_TOKENIZER_PARITY_FOLDER="$ASSET_ROOT/tokenizer" \
         swift test --package-path "$ROOT" --filter ReferenceTokenizerExternalParityTests || return $?
 
-    "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
-        --asset-root "$ASSET_ROOT" \
-        --host-receipt "$HOST_RECEIPT" \
-        --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
-        --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
-        --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
+    if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
+        "$PYTHON_BIN" validation/prepare_promoted_device_smoke_assets.py \
+            --asset-root "$ASSET_ROOT" \
+            --host-receipt "$HOST_RECEIPT" \
+            --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
+            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
+    else
+        "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
+            --asset-root "$ASSET_ROOT" \
+            --host-receipt "$HOST_RECEIPT" \
+            --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
+            --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
+            --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" || return $?
+    fi
 
     rm -rf "$DERIVED_DATA"
     XCODE_ARGS=(
@@ -113,6 +128,14 @@ main() {
     APP="$TARGET_BUILD_DIR/$WRAPPER_NAME"
     printf '[COSYVOICE3-INSTALL] targetBuildDir=%s wrapper=%s\n' "$TARGET_BUILD_DIR" "$WRAPPER_NAME"
     if [ ! -d "$APP" ]; then printf '[COSYVOICE3-INSTALL] ERROR app not found at resolved Xcode product path: %s\n' "$APP"; return 3; fi
+    if [ "$FRESH_INSTALL" = "1" ]; then
+        printf '[COSYVOICE3-INSTALL] requesting fresh install by removing prior bundle %s\n' "$BUNDLE_ID"
+        if xcrun devicectl device uninstall app --device "$DEVICE_ID" "$BUNDLE_ID"; then
+            printf '[COSYVOICE3-INSTALL] prior bundle removed\n'
+        else
+            printf '[COSYVOICE3-INSTALL] prior bundle was absent or could not be removed; continuing to install\n'
+        fi
+    fi
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
@@ -124,6 +147,6 @@ RC=$?
 printf '[COSYVOICE3-INSTALL] rc=%s\n' "$RC"
 test "$RC" -eq 0
 
-# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; assembles the base fixed225 runtime automatically when absent and resolves the signed app from Xcode's actual TARGET_BUILD_DIR rather than assuming DerivedData/Build/Products.
+# Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; supports ordinary local-candidate staging and exact already-promoted runtime replay without substituting local reference models.
 # Runtime: macOS, Xcode, Python3, connected/trusted iPhone.
 # Generated: 2026-10-02 America/New_York.

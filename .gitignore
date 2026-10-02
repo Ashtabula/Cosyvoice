@@ -68,3 +68,4 @@ ios/.venv-reference/
 ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj/project.xcworkspace/
 ios/validation/DeviceSmoke/GeneratedAssets/*
 !ios/validation/DeviceSmoke/GeneratedAssets/.gitkeep
+ios/.venv-release/

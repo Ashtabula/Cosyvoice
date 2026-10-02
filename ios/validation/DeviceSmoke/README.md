@@ -53,3 +53,17 @@ bash validation/finalize_reference_device_promotion.sh
 ```
 
 The helper promotes only the custom-reference lane to `PASS_DEVICE_PARITY`. It deliberately leaves the overall SDK release status at `development` while unrelated Candidate blockers remain.
+
+## Immutable Hugging Face replay mode
+
+For an already-promoted complete runtime fetched from `ios/assets/releases.json`, set `COSYVOICE3_PROMOTED_RUNTIME_MODE=1`. In this mode DeviceSmoke validates and copies that runtime byte-for-byte and does not overwrite its reference models/tables from local conversion candidates.
+
+The private-RC release workflow is:
+
+```bash
+export DEVICE_ID=00008150-000A05CA1440401C
+export DEVELOPMENT_TEAM=H5R282PV62
+bash validation/finish_ios_fixed225_reference_private_rc.sh
+```
+
+It stages the complete fixed225 runtime, uploads `actacomes/CosyVoice-assets` privately, verifies the immutable HF commit, registers it in `assets/releases.json`, fetches through the ordinary-developer path, and physically replays that fetched runtime before release metadata is committed.

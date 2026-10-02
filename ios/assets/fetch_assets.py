@@ -1,0 +1,194 @@
+#!/usr/bin/env python3
+# fetch_assets.py
+# Requirement: fetch a CosyVoice3 iOS asset release only from the committed immutable release catalog, verify every byte/tree hash, and atomically activate the complete runtime.
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import shutil
+import subprocess
+import sys
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parents[1]
+CATALOG = ROOT / "assets/releases.json"
+
+
+def fail(message: str) -> None:
+    raise RuntimeError(message)
+
+
+def sha256(path: Path) -> str:
+    h = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(8 * 1024 * 1024), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+
+def tree_identity(rows: list[dict]) -> str:
+    h = hashlib.sha256()
+    for row in sorted(rows, key=lambda item: item["path"]):
+        h.update(row["path"].encode("utf-8"))
+        h.update(b"\0")
+        h.update(str(int(row["bytes"])).encode("ascii"))
+        h.update(b"\0")
+        h.update(row["sha256"].encode("ascii"))
+        h.update(b"\n")
+    return h.hexdigest()
+
+
+def choose(catalog: dict, profile: str | None, version: str | None) -> dict:
+    if catalog.get("schemaVersion") != 1 or catalog.get("engine") != "CosyVoice3":
+        fail("release catalog identity mismatch")
+    if profile is None or version is None:
+        default = catalog.get("default")
+        if not isinstance(default, dict):
+            fail("release catalog has no default; specify --profile and --version")
+        profile = profile or default.get("profile")
+        version = version or default.get("version")
+    matches = [
+        row
+        for row in catalog.get("releases", [])
+        if row.get("profile") == profile and row.get("version") == version
+    ]
+    if len(matches) != 1:
+        fail(f"expected exactly one catalog entry for {profile}/{version}")
+    return matches[0]
+
+
+def validate_release(release: Path, entry: dict) -> dict:
+    manifest_path = release / "asset-manifest.json"
+    if not manifest_path.is_file():
+        fail(f"asset-manifest.json missing: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+
+    for key in ("profile", "assetVersion", "payloadTreeSha256", "testedRuntimeTreeSha256"):
+        if not manifest.get(key):
+            fail(f"asset manifest missing {key}")
+    if manifest["profile"] != entry["profile"] or manifest["assetVersion"] != entry["version"]:
+        fail("downloaded manifest profile/version mismatch")
+    if manifest["payloadTreeSha256"] != entry["payloadTreeSha256"]:
+        fail("downloaded manifest payload tree differs from release catalog")
+    if manifest["testedRuntimeTreeSha256"] != entry["testedRuntimeTreeSha256"]:
+        fail("downloaded manifest runtime tree differs from release catalog")
+    if manifest.get("referenceStatus") != "PASS_DEVICE_PARITY":
+        fail("downloaded release is not PASS_DEVICE_PARITY")
+    if manifest.get("licenseGate") != entry.get("licenseGate"):
+        fail("downloaded license gate differs from release catalog")
+
+    observed = []
+    for row in manifest.get("files") or []:
+        relative = Path(str(row["path"]))
+        path = release / relative
+        if not path.is_file():
+            fail(f"downloaded file missing: {relative}")
+        size = path.stat().st_size
+        digest = sha256(path)
+        if size != int(row["bytes"]) or digest != row["sha256"]:
+            fail(f"downloaded file identity mismatch: {relative}")
+        observed.append(
+            {"path": relative.as_posix(), "bytes": size, "sha256": digest}
+        )
+
+    if len(observed) != int(manifest.get("fileCount", -1)):
+        fail("downloaded file count mismatch")
+    if tree_identity(observed) != manifest["payloadTreeSha256"]:
+        fail("downloaded payloadTreeSha256 mismatch")
+
+    subprocess.run(
+        [
+            sys.executable,
+            str(ROOT / "assets/validate_assets.py"),
+            "--root",
+            str(release),
+            "--require-reference",
+        ],
+        check=True,
+    )
+    return manifest
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--profile")
+    parser.add_argument("--version")
+    parser.add_argument("--output", type=Path, required=True)
+    parser.add_argument("--force", action="store_true")
+    args = parser.parse_args()
+
+    catalog = json.loads(CATALOG.read_text(encoding="utf-8"))
+    entry = choose(catalog, args.profile, args.version)
+
+    revision = str(entry.get("revision") or "")
+    if len(revision) != 40 or any(char not in "0123456789abcdef" for char in revision):
+        fail("release catalog revision must be an exact 40-char lowercase HF commit")
+    if entry.get("repoType") != "model":
+        fail("only Hugging Face model repos are supported")
+
+    try:
+        from huggingface_hub import snapshot_download
+    except Exception as error:
+        fail(f"huggingface_hub is required: {error}")
+
+    output = args.output.expanduser().resolve()
+    if output.exists() and not args.force:
+        fail(f"output already exists; pass --force: {output}")
+
+    work = output.with_name(output.name + ".download")
+    snapshot = work / "snapshot"
+    candidate = work / "candidate"
+    shutil.rmtree(work, ignore_errors=True)
+    work.mkdir(parents=True)
+
+    remote = str(entry["pathInRepo"])
+    print(
+        f"[COSYVOICE3-HF-FETCH] repo={entry['repoId']} revision={revision} path={remote}",
+        flush=True,
+    )
+    snapshot_download(
+        repo_id=entry["repoId"],
+        repo_type="model",
+        revision=revision,
+        allow_patterns=[f"{remote}/**"],
+        local_dir=snapshot,
+    )
+
+    release = snapshot / remote
+    if not release.is_dir():
+        fail(f"downloaded release directory missing: {release}")
+
+    shutil.copytree(release, candidate)
+    manifest = validate_release(candidate, entry)
+
+    if output.exists():
+        shutil.rmtree(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    candidate.rename(output)
+    shutil.rmtree(work, ignore_errors=True)
+
+    print(
+        "[COSYVOICE3-HF-FETCH] PASS "
+        + json.dumps(
+            {
+                "output": str(output),
+                "repoId": entry["repoId"],
+                "revision": revision,
+                "profile": entry["profile"],
+                "version": entry["version"],
+                "payloadTreeSha256": manifest["payloadTreeSha256"],
+                "testedRuntimeTreeSha256": manifest["testedRuntimeTreeSha256"],
+            },
+            sort_keys=True,
+        ),
+        flush=True,
+    )
+
+
+if __name__ == "__main__":
+    main()
+
+# Code purpose: immutable ordinary-developer fetch path for private/public CosyVoice3 iOS asset releases registered in assets/releases.json.
+# Runtime: Python3 + huggingface_hub; private RCs require an authenticated Hugging Face token.
+# Generated: 2026-10-02 America/New_York.
