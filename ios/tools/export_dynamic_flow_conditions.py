@@ -63,7 +63,8 @@ def main():
     args.output.parent.mkdir(parents=True, exist_ok=True)
     model.save(str(args.output))
 
-    print(json.dumps({
+    receipt = {
+        "schemaVersion": 1,
         "status": "EXPORTED_NOT_DEVICE_VALIDATED",
         "scope": "generic per-reference Flow conditioning",
         "output": str(args.output),
@@ -73,7 +74,10 @@ def main():
         "flowPtSha256": file_sha256(flow_pt),
         "loadedWeightKeys": sorted(EXPECTED_KEYS),
         "construction": "minimal upstream-equivalent conditioning graph; full cosyvoice3.yaml intentionally not instantiated",
-    }, indent=2))
+    }
+    receipt_path = args.output.parent / "flow_conditions_dynamic_export.json"
+    receipt_path.write_text(json.dumps(receipt, indent=2) + "\n")
+    print(json.dumps(receipt, indent=2))
 
 
 if __name__ == "__main__":
