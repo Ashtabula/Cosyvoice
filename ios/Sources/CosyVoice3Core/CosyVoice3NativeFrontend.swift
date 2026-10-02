@@ -114,7 +114,10 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
         return CosyVoice3PreparedRequest(
             prefillInput: provider,
             minimumSpeechTokenCount: targetIDs.count * 2,
-            maximumSpeechTokenCount: min(targetIDs.count * 20, 512 - logical),
+            maximumSpeechTokenCount: CosyVoice3Fixed225GenerationPolicy.maximumSpeechTokenCount(
+                targetTextTokenCount: targetIDs.count,
+                logicalPrefixLength: logical
+            ),
             logicalPrefixLength: logical
         )
     }
@@ -142,7 +145,7 @@ struct CosyVoice3RoPEGenerator: Sendable {
     }
 }
 
-// Purpose: native equivalent of probe_instruct2_reuse.py prefill_x/cos/sin/mask generation.
+// Purpose: native equivalent of probe_instruct2_reuse.py prefill_x/cos/sin/mask generation; the publication fixed225 lane preserves upstream 20x max-length semantics but caps it at the 225-token acoustic bucket.
 // Upstream: CosyVoice3LM.inference + prepare_instruct2_prefill224_probe.py at8789402.
 // Runtime: Swift + CoreML + swift-transformers.
 // Generated: 2026-10-02 America/New_York.

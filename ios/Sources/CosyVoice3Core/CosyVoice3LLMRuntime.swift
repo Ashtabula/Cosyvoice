@@ -5,7 +5,7 @@ import Foundation
 
 @available(iOS 18.0, macOS 15.0, *)
 final class CosyVoice3LLMRuntime: @unchecked Sendable {
-    enum RuntimeError: Error { case missingLogits; case invalidLogitsShape([Int]); case decodeLimit; case unexpectedStop(Int) }
+    enum RuntimeError: Error { case missingLogits; case invalidLogitsShape([Int]); case unexpectedStop(Int) }
     private let prefillModel:MLModel
     private let decodeModel:MLModel
     private let conditioner:CosyVoice3TokenConditioner
@@ -23,10 +23,19 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
                 return decoded
             }
             decoded.append(token)
+
+            // Upstream inference_wrapper treats max_len exhaustion as normal completion:
+            // the last yielded speech token is returned without running another decode
+            // step. The fixed225 publication lane uses the same behavior at its
+            // downstream bucket capacity.
+            if decoded.count == prepared.maximumSpeechTokenCount {
+                return decoded
+            }
+
             let embedding=try conditioner.embeddingFP16(token:token), rope=try conditioner.ropeFP16(position:prepared.logicalPrefixLength+step)
             output=try session.decode(embedding:embedding,cos:rope.cos,sin:rope.sin,absolutePosition:prepared.logicalPrefixLength+step)
         }
-        throw RuntimeError.decodeLimit
+        return decoded
     }
     private static func logits(_ output:MLFeatureProvider) throws -> [Float] {
         let names=["logits","logp","scores"]; guard let array=names.compactMap({output.featureValue(for:$0)?.multiArrayValue}).first else { throw RuntimeError.missingLogits }
@@ -39,7 +48,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     }
 }
 
-// Purpose: collapse the former Air<->Mac per-step bridge into a single on-device autoregressive loop.
+// Purpose: collapse the former Air<->Mac per-step bridge into a single on-device autoregressive loop; max-length exhaustion is normal upstream completion rather than a runtime error.
 // Upstream behavior: fixed512 stateful LLM + sampling_ids/ras_sampling audited at8789402. Stop region is6561...6760; actual EOS is6562.
 // Runtime: iOS18+/macOS15+ CoreML State.
 // Generated: 2026-10-02 America/New_York.
