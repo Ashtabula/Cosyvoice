@@ -38,10 +38,14 @@ def require_metric(metric,max_abs,relative_l2,name):
     if metric.get("finite") is False or float(metric.get("max_abs",999))>max_abs or float(metric.get("relative_l2",999))>relative_l2: raise RuntimeError(f"{name} parity failed: {metric}")
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("--asset-root",type=Path,required=True); p.add_argument("--source-root",type=Path,required=True); p.add_argument("--host-receipt",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
-    root=a.asset_root.resolve(); source=a.source_root.resolve(); host_path=a.host_receipt.resolve(); out=a.output.resolve()
+    p=argparse.ArgumentParser(); p.add_argument("--asset-root",type=Path,required=True); p.add_argument("--source-root",type=Path,required=True); p.add_argument("--host-receipt",type=Path,required=True); p.add_argument("--source-hygiene-receipt",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
+    root=a.asset_root.resolve(); source=a.source_root.resolve(); host_path=a.host_receipt.resolve(); hygiene_path=a.source_hygiene_receipt.resolve(); out=a.output.resolve()
     head=subprocess.check_output(["git","-C",str(source),"rev-parse","HEAD"],text=True).strip()
     if head!=SOURCE_COMMIT: raise RuntimeError(f"pinned source mismatch: {head}")
+    hygiene=load(hygiene_path)
+    if hygiene.get("schemaVersion")!=1 or hygiene.get("status")!="PASS_SOURCE_HYGIENE" or hygiene.get("sourceCommit")!=SOURCE_COMMIT or hygiene.get("originalGitBlob")!="2e0eb4dc5d9216db07207e5564f13a38c4ad2e74" or hygiene.get("runtimeMathChanged") is not False: raise RuntimeError("source hygiene receipt mismatch")
+    hygiene_target=source/str(hygiene.get("target",""))
+    if not hygiene_target.is_file() or "/Volumes/WD/Codes/CosyVoice3/.venv-upstream" in hygiene_target.read_text(): raise RuntimeError("developer-local upstream Python path is still active")
     manifest=load(root/"cosyvoice3_fixed225.json"); canonical=load(ROOT/"assets/cosyvoice3_fixed225.example.json"); host=load(host_path); ref=manifest.get("referenceEnrollment") or {}
     if manifest.get("schemaVersion")!=1 or manifest.get("profile")!="ios18-fixed225": raise RuntimeError("rebuilt runtime manifest mismatch")
     contract_keys=("schemaVersion","profile","tokenizerFolder","textEmbedding","textEmbeddingRows","speechEmbedding","llmPrefill","llmDecode","flowConditions","flowShards","hift","f0Folder","flowMask","flowNoise","ropeTheta")
@@ -78,7 +82,7 @@ def main():
     modules={"coremltools":"coremltools","torch":"torch","torchaudio":"torchaudio","numpy":"numpy","transformers":"transformers","onnx":"onnx","onnxruntime":"onnxruntime","HyperPyYAML":"hyperpyyaml"}
     versions={dist:importlib.metadata.version(dist) for dist,module in modules.items() if importlib.util.find_spec(module) is not None}
     publication=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
-    receipt={"schemaVersion":1,"status":"PASS_SUPPORTED_FULL_RUNTIME_REBUILD","engine":"CosyVoice3","platform":"iOS","profile":"ios-fixed225-reference","runtimeProfile":"ios18-fixed225","publicationCommit":publication,"sourceCommit":SOURCE_COMMIT,"modelRevision":MODEL_REVISION,"assetRoot":str(root),"runtimeFileCount":len(rows),"runtimeBytes":sum(r["bytes"] for r in rows),"runtimeTreeSha256":tree_id(rows),"hostParityReceiptSha256":sha(host_path),"checks":{"llmFixed225Replay":"PASS_BIT_EXACT","llmStateInvariants":"PASS","flowSixShardHostParity":"PASS_BIT_EXACT_TO_MONOLITHIC_FP16","hiftHostPhase":"PASS_BOUNDED_NUMERICAL","fp64F0Export":"PASS","customReferenceHostParity":"PASS","canonicalAssetValidation":"PASS","canonicalAssetContract":"PASS"},"rebuildSemantics":{"supportedRebuild":True,"canonicalByteIdentityClaim":False,"devicePromotionRequiredForRebuiltPackages":True},"environment":{"platform":platform.platform(),"python":sys.version.split()[0],"xcode":xcode,"packages":versions},"recordedAtUnix":int(time.time())}
+    receipt={"schemaVersion":1,"status":"PASS_SUPPORTED_FULL_RUNTIME_REBUILD","engine":"CosyVoice3","platform":"iOS","profile":"ios-fixed225-reference","runtimeProfile":"ios18-fixed225","publicationCommit":publication,"sourceCommit":SOURCE_COMMIT,"modelRevision":MODEL_REVISION,"assetRoot":str(root),"runtimeFileCount":len(rows),"runtimeBytes":sum(r["bytes"] for r in rows),"runtimeTreeSha256":tree_id(rows),"hostParityReceiptSha256":sha(host_path),"sourceHygieneReceiptSha256":sha(hygiene_path),"checks":{"llmFixed225Replay":"PASS_BIT_EXACT","llmStateInvariants":"PASS","flowSixShardHostParity":"PASS_BIT_EXACT_TO_MONOLITHIC_FP16","hiftHostPhase":"PASS_BOUNDED_NUMERICAL","fp64F0Export":"PASS","customReferenceHostParity":"PASS","canonicalAssetValidation":"PASS","canonicalAssetContract":"PASS","sourceHygiene":"PASS"},"rebuildSemantics":{"supportedRebuild":True,"canonicalByteIdentityClaim":False,"devicePromotionRequiredForRebuiltPackages":True},"environment":{"platform":platform.platform(),"python":sys.version.split()[0],"xcode":xcode,"packages":versions},"recordedAtUnix":int(time.time())}
     out.parent.mkdir(parents=True,exist_ok=True); out.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-FULL-REBUILD] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 
 if __name__=="__main__": main()
@@ -88,3 +92,4 @@ if __name__=="__main__": main()
 # Runtime environment: Apple Silicon macOS, Xcode/Core ML, Python 3.11 pinned rebuild environment.
 # Generated: 2026-10-02 America/New_York.
 # Changes: fixes ROOT/escaped-newline defects; verifies pinned source, exact LLM replay/state invariants, six-shard Flow equivalence, bounded HiFT parity, FP64 F0, reference host parity, full runtime ABI, and environment/tree evidence without claiming byte identity or device promotion.
+# Changes 2026-10-02: require and hash-bind the exact source-hygiene receipt, verify the pinned upstream acoustics blob identity, and fail if the developer-local Python 3.10 path remains active.
