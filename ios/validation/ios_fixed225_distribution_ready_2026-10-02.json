@@ -12,17 +12,17 @@
   "controlledBenchmark": {
     "channels": 1,
     "coldDefinition": "fresh process + fresh CosyVoice3Engine; no validateReference prewarm",
-    "engineInitMilliseconds": 0.473125,
+    "engineInitMilliseconds": 0.289875,
     "finite": true,
     "firstAudioSeconds": 9,
-    "firstRTF": 6.508011763888889,
+    "firstRTF": 6.008158847222223,
     "firstSamples": 216000,
-    "firstSynthesisMilliseconds": 58572.105875,
+    "firstSynthesisMilliseconds": 54073.429625000004,
     "referenceValidationPrewarm": false,
     "repeatAudioSeconds": 9,
-    "repeatRTF": 6.864515726888889,
+    "repeatRTF": 7.426964370333334,
     "repeatSamples": 216000,
-    "repeatSynthesisMilliseconds": 61780.641542,
+    "repeatSynthesisMilliseconds": 66842.67933300001,
     "sameSampleCount": true,
     "sampleRate": 24000,
     "status": "PASS",
@@ -50,9 +50,9 @@
   "supportedFullRuntimeRebuild": {
     "canonicalByteIdentityClaim": false,
     "runtimeBytes": 3526615077,
-    "runtimeTreeSha256": "3ad9fb4cec0076c7b45fe2351bbb171ff82e04a2eefadd116543dbe241a993c3",
+    "runtimeTreeSha256": "95f53e9a8402f94faf3d488edac1c8c17259dfe0f921c6561d601f228a1f3f45",
     "status": "PASS"
   },
   "technicalDistributionReady": true,
-  "validatedSourceCommit": "e1b76b5e03eeb22b189762370af5ebbe309252a7"
+  "validatedSourceCommit": "3e78a73679a144342818a41ec320a78dafda0e66"
 }

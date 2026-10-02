@@ -83,9 +83,9 @@
     "licenseReview"
   ],
   "publicRedistributionApproved": false,
-  "recordedAtUnix": 1790983917,
+  "recordedAtUnix": 1790985460,
   "releaseStatus": "candidate",
   "schemaVersion": 1,
   "technicalDistributionReady": true,
-  "validatedSourceCommit": "e1b76b5e03eeb22b189762370af5ebbe309252a7"
+  "validatedSourceCommit": "3e78a73679a144342818a41ec320a78dafda0e66"
 }
