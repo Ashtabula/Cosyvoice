@@ -16,7 +16,7 @@ enum CosyVoice3AssetLoader {
         let url=root.appendingPathComponent("cosyvoice3_fixed225.json"); guard FileManager.default.fileExists(atPath:url.path) else { throw CosyVoice3AssetError.missing(url.path) }
         do { let m=try JSONDecoder().decode(CosyVoice3Fixed225AssetManifest.self,from:Data(contentsOf:url)); try m.validate(); return m } catch let e as CosyVoice3AssetError { throw e } catch { throw CosyVoice3AssetError.invalidJSON(String(describing:error)) }
     }
-    static func model(root:URL,path:String,computeUnits:MLComputeUnits=.cpuAndNeuralEngine) throws -> MLModel {
+    static func model(root:URL,path:String,computeUnits: MLComputeUnits = .cpuAndNeuralEngine) throws -> MLModel {
         let url=root.appendingPathComponent(path); guard FileManager.default.fileExists(atPath:url.path) else { throw CosyVoice3AssetError.missing(url.path) }
         let compiled=url.pathExtension=="mlmodelc" ? url:try MLModel.compileModel(at:url), config=MLModelConfiguration(); config.computeUnits=computeUnits; return try MLModel(contentsOf:compiled,configuration:config)
     }
