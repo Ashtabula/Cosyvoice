@@ -21,9 +21,12 @@ def derive(model:Path,output:Path)->dict:
     lines=text.splitlines()
     scalar={}
     for line in lines:
-        stripped=line.strip()
+        if not line or line[0].isspace():
+            continue
         for key in SCALAR_KEYS:
-            if stripped.startswith(key+":"):
+            if line.startswith(key+":"):
+                if key in scalar:
+                    raise RuntimeError(f"duplicate top-level acoustic scalar key: {key}")
                 scalar[key]=line.split("#",1)[0].rstrip()
     missing=[key for key in SCALAR_KEYS if key not in scalar]
     if missing: raise RuntimeError(f"missing required acoustic scalar keys: {missing}")
@@ -34,6 +37,12 @@ def derive(model:Path,output:Path)->dict:
     flow=text[flow_start+1:hift_start].rstrip()
     hift=text[hift_start+1:gan_start].rstrip()
     derived="\n".join([scalar[key] for key in SCALAR_KEYS])+"\n\n"+flow+"\n\n"+hift+"\n"
+    if any(line.startswith((" ","\t")) for line in derived.splitlines()[:len(SCALAR_KEYS)]):
+        raise RuntimeError("derived acoustic scalar preamble contains indented/non-top-level keys")
+    if not derived.startswith("sample_rate:"):
+        raise RuntimeError("derived acoustic config does not begin with the expected top-level sample_rate")
+    if "\nflow:" not in derived or "\nhift:" not in derived:
+        raise RuntimeError("derived acoustic config is missing top-level flow/hift sections")
     if any(token in derived for token in ("cosyvoice.llm","cosyvoice.dataset","cosyvoice.hifigan.hifigan","matcha.hifigan.models","parquet_opener","data_pipeline")): raise RuntimeError("non-acoustic object leaked into derived config")
     output.write_text(derived,encoding="utf-8")
     receipt={"schemaVersion":1,"status":"PASS_ACOUSTIC_CONFIG_DERIVATION","source":str(source),"sourceSha256":actual,"output":str(output),"outputSha256":sha256(output),"scalarKeys":list(SCALAR_KEYS),"sections":["flow","hift"],"excluded":["llm","gan wrapper/discriminators","dataset processors","training config"],"runtimeMathChanged":False}
@@ -53,3 +62,4 @@ if __name__=="__main__": main()
 # Generated: 2026-10-02 America/New_York.
 # Changes: no copied model parameters beyond exact scalar lines/sections extracted from the pinned checkpoint YAML.
 # Changes 2026-10-02: expose derive(model, output) so downstream fixture generation can self-heal a missing acoustic-only config instead of depending solely on shell-step ordering.
+# Changes 2026-10-02: only capture unindented top-level scalar definitions; nested Flow !ref keys no longer overwrite the scalar preamble. Validate the derived preamble/sections before emitting PASS_ACOUSTIC_CONFIG_DERIVATION.
