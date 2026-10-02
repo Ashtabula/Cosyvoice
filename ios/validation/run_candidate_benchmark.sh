@@ -35,7 +35,7 @@ PY
         sleep 10
     done
     [ -s "$RAW" ] || { printf '[COSYVOICE3-CANDIDATE-BENCH] ERROR device benchmark receipt not produced\n'; return 3; }
-    "$PYTHON" "$ROOT/validation/record_candidate_benchmark.py" --raw-receipt "$RAW" --asset-root "$FETCHED" --output "$OUTPUT" || return $?
+    "$PYTHON" "$ROOT/validation/record_candidate_benchmark.py" --raw-receipt "$RAW" --asset-root "$FETCHED" --reference-wav "$COSYVOICE3_REFERENCE_WAV" --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" --output "$OUTPUT" || return $?
     printf '[COSYVOICE3-CANDIDATE-BENCH] COMPLETE receipt=%s\n' "$OUTPUT"
 }
 main "$@"
@@ -46,4 +46,4 @@ test "$RC" -eq 0
 # Upstream: assets/fetch_assets.py, immutable ios-fixed225-reference/0.1.0-rc1, DeviceSmoke Candidate benchmark mode.
 # Runtime: macOS/Xcode, authenticated actacomes Hugging Face access, connected physical iPhone, developer signing identity.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new file; immutable fetch, fresh Release install, two-call public API benchmark, receipt polling and fail-closed metadata binding.
+# Changes: new file; immutable fetch, fresh Release install, two-call public API benchmark, receipt polling and fail-closed metadata binding.\n# Changes 2026-10-02: pass the exact local reference WAV/transcript to the recorder so Candidate evidence stores reproducible workload hashes without storing private transcript content.
