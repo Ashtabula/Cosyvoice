@@ -70,9 +70,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let capabilities = try await engine.capabilities()
             guard capabilities.supportsReferenceAudio, capabilities.supportsInstruction, capabilities.outputSampleRate == 24_000 else { throw SmokeError("unexpected capabilities") }
             let firstStart = clock.now; let first = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let firstMilliseconds = Self.seconds(firstStart.duration(to: clock.now))*1000; try Self.validate(first)
+            let firstStages = await engine.lastSynthesisReport()
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
+            let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
-            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","coldDefinition":"fresh process + fresh CosyVoice3Engine; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
+            if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); try Self.write(receipt, to: url); try play(repeatAudio)
             status = String(format:"PASS Candidate first=%.3fs RTF=%.3f repeat=%.3fs RTF=%.3f receipt=%@",firstMilliseconds/1000,firstMilliseconds/1000/firstDuration,repeatMilliseconds/1000,repeatMilliseconds/1000/repeatDuration,url.path)
         } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
@@ -106,6 +110,17 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
         if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
         model.status="FAIL \(String(describing:error))"
+    }
+    private static func reportDictionary(_ report: CosyVoice3SynthesisReport) -> [String: Any] {
+        [
+            "totalMilliseconds": report.totalMilliseconds,
+            "preparationMilliseconds": report.preparationMilliseconds,
+            "frontendMilliseconds": report.frontendMilliseconds,
+            "llmModelLoadMilliseconds": report.llmModelLoadMilliseconds,
+            "llmGenerationMilliseconds": report.llmGenerationMilliseconds,
+            "acousticModelLoadMilliseconds": report.acousticModelLoadMilliseconds,
+            "acousticSynthesisMilliseconds": report.acousticSynthesisMilliseconds
+        ]
     }
     private static func seconds(_ duration: Duration) -> Double { Double(duration.components.seconds)+Double(duration.components.attoseconds)/1e18 }
     private static func audioDuration(_ audio: CosyVoice3Audio) -> Double { Double(audio.samples.count)/Double(audio.sampleRate*audio.channels) }
@@ -142,3 +157,5 @@ private extension Data {
 // Runtime: iOS18+, SwiftUI, AVFoundation.
 // Generated: 2026-10-02 America/New_York.
 // Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.\n// Changes 2026-10-02: benchmark mode consumes the immutable promotion hostReceiptSha256 from its bundled marker; normal smoke mode still hashes the full staged host receipt.\n// Changes 2026-10-02: replaced Mirror-based uname parsing with direct CChar rebinding/String(cString:) for stable device model identifier extraction.
+
+// Changes 2026-10-02: Candidate receipt records public engine stage timings for automatic preparation, frontend, LLM model load/generation and acoustic model load/synthesis; first measurement still includes all automatic cold preparation.
