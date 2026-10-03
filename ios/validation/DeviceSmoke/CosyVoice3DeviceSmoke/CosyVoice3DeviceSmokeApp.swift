@@ -64,6 +64,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     func runCandidateBenchmark() async {
         guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
+        if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
         do {
             let fixture = try Self.fixture(); let clock = ContinuousClock(); let initStart = clock.now
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
@@ -159,3 +160,5 @@ private extension Data {
 // Changes 2026-10-02: retained the original smoke path; added bundled benchmark-mode auto-selection, fresh-engine first synthesis timing, same-engine repeat synthesis timing, physical device identifier, separate candidate-benchmark-receipt.json and explicit no-prewarm semantics.\n// Changes 2026-10-02: benchmark mode consumes the immutable promotion hostReceiptSha256 from its bundled marker; normal smoke mode still hashes the full staged host receipt.\n// Changes 2026-10-02: replaced Mirror-based uname parsing with direct CChar rebinding/String(cString:) for stable device model identifier extraction.
 
 // Changes 2026-10-02: Candidate receipt records public engine stage timings for automatic preparation, frontend, LLM model load/generation and acoustic model load/synthesis; first measurement still includes all automatic cold preparation.
+
+// Changes 2026-10-02: delete any prior Candidate receipt at benchmark start so a same-install process relaunch cannot be mistaken for a completed new run by host polling.
