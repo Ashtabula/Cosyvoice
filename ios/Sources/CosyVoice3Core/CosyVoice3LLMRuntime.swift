@@ -33,7 +33,14 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
             }
 
             let embedding=try conditioner.embeddingFP16(token:token), rope=try conditioner.ropeFP16(position:prepared.logicalPrefixLength+step)
-            output=try session.decode(embedding:embedding,cos:rope.cos,sin:rope.sin,absolutePosition:prepared.logicalPrefixLength+step)
+            output=try autoreleasepool {
+                try session.decode(
+                    embedding:embedding,
+                    cos:rope.cos,
+                    sin:rope.sin,
+                    absolutePosition:prepared.logicalPrefixLength+step
+                )
+            }
         }
         return decoded
     }
@@ -52,3 +59,5 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
 // Upstream behavior: fixed512 stateful LLM + sampling_ids/ras_sampling audited at8789402. Stop region is6561...6760; actual EOS is6562.
 // Runtime: iOS18+/macOS15+ CoreML State.
 // Generated: 2026-10-02 America/New_York.
+
+// Changes 2026-10-02: restore the accepted physical-benchmark per-step autoreleasepool around each Core ML decode call so 225-step temporary Core ML/provider objects do not accumulate until utterance completion; model/state/token math is unchanged.
