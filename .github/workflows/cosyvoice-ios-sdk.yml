@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "ios/**"
+      - "tools/**"
+      - "PUBLIC_RELEASE_IDENTITY.md"
+      - ".mailmap"
       - ".github/workflows/cosyvoice-ios-sdk.yml"
   pull_request:
     paths:

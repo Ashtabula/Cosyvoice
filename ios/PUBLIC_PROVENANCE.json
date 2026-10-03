@@ -16,6 +16,6 @@
     "modelIdentifier": "iPhone18,4",
     "systemVersion": "27.2"
   },
-  "candidateReceipt": "validation/release_receipt.json",
-  "publicRedistributionApproved": false
+  "publicRedistributionApproved": false,
+  "candidateReleaseReceiptPrivatePath": "validation/release_receipt.json"
 }

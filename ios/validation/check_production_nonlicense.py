@@ -5,7 +5,7 @@ from __future__ import annotations
 import json,subprocess
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; REPO=ROOT.parent
-def load(p): 
+def load(p):
     if not p.is_file(): raise RuntimeError(f"missing Production evidence: {p}")
     return json.loads(p.read_text())
 def main():

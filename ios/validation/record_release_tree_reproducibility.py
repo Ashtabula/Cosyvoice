@@ -7,7 +7,7 @@ from pathlib import Path
 ROOT=Path(__file__).resolve().parents[1]; REPO=ROOT.parent; PATHS=ROOT/"public_snapshot_paths.txt"
 def specs(): return [x.strip() for x in PATHS.read_text().splitlines() if x.strip() and not x.lstrip().startswith("#")]
 def selected():
-    tracked=subprocess.check_output(["git","-C",str(REPO),"ls-files"],text=True).splitlines(); out=["LICENSE"]
+    tracked=subprocess.check_output(["git","-C",str(REPO),"ls-files"],text=True).splitlines(); out=["LICENSE","PUBLIC_RELEASE_IDENTITY.md"]
     for spec in specs():
         p="ios/"+spec
         if spec.endswith("/"): rows=[x for x in tracked if x.startswith(p)]
@@ -47,3 +47,5 @@ if __name__=="__main__": main()
 # Code purpose: deterministic public-snapshot tree/archive proof bound to the exact private release commit.
 # Runtime environment: Python 3 standard library + Git.
 # Generated time: 2026-10-03 America/New_York.
+
+# Changes 2026-10-03: reproducibility hash now covers PUBLIC_RELEASE_IDENTITY.md because the fresh public snapshot exports it at repository root.
