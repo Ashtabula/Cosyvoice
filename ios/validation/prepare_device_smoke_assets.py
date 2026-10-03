@@ -33,7 +33,10 @@ def main() -> None:
     parser.add_argument("--reference-wav", type=Path, required=True)
     parser.add_argument("--reference-transcript", type=Path, required=True)
     parser.add_argument("--candidate-benchmark", action="store_true")
+    parser.add_argument("--flow-steps-head-to-head", action="store_true")
     args = parser.parse_args()
+    if args.candidate_benchmark and args.flow_steps_head_to_head:
+        raise RuntimeError("Candidate benchmark and Flow head-to-head modes are mutually exclusive")
 
     asset_root = args.asset_root.resolve()
     host_receipt_path = args.host_receipt.resolve()
@@ -64,9 +67,11 @@ def main() -> None:
     shutil.copy2(reference_wav, OUTPUT / "reference.wav")
     shutil.copy2(transcript, OUTPUT / "reference.txt")
     shutil.copy2(host_receipt_path, OUTPUT / "reference_host_parity_receipt.json")
-    if args.candidate_benchmark:
+    if args.candidate_benchmark or args.flow_steps_head_to_head:
         source_commit = subprocess.check_output(["git", "-C", str(ROOT.parent), "rev-parse", "HEAD"], text=True).strip()
-        (OUTPUT / "candidate-benchmark-mode.json").write_text(json.dumps({"schemaVersion": 1, "benchmark": "public-api-candidate-v1", "hostReceiptSha256": sha256(host_receipt_path), "sourceCommit": source_commit}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+        marker_name = "candidate-benchmark-mode.json" if args.candidate_benchmark else "flow-step-head-to-head-mode.json"
+        benchmark_name = "public-api-candidate-v1" if args.candidate_benchmark else "flow-steps-head-to-head-v1"
+        (OUTPUT / marker_name).write_text(json.dumps({"schemaVersion": 1, "benchmark": benchmark_name, "hostReceiptSha256": sha256(host_receipt_path), "sourceCommit": source_commit}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     manifest_path = runtime / "cosyvoice3_fixed225.json"
     manifest = json.loads(manifest_path.read_text())
@@ -129,3 +134,5 @@ if __name__ == "__main__":
 # Changes 2026-10-02: optional --candidate-benchmark writes a bundled benchmark-mode marker containing the exact host receipt SHA while keeping canonical source assets untouched.
 
 # Changes 2026-10-02: Candidate marker now includes host receipt SHA and exact local Git HEAD, aligning generic staging with promoted-runtime benchmark diagnostics.
+
+# Changes 2026-10-02: add mutually exclusive Flow 10/8/6 head-to-head marker staging with the same host/source identity binding used by Candidate diagnostics.
