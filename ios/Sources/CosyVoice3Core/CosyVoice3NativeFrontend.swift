@@ -21,6 +21,7 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
     private let textEmbeddings: CosyVoice3FP16EmbeddingTable
     private let speechEmbeddings: CosyVoice3FP16EmbeddingTable
     private let rope: CosyVoice3RoPEConfiguration
+    private let ropeRows: [(cos: Data, sin: Data)]
 
     init(
         tokenizer: any Tokenizer,
@@ -32,6 +33,8 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
         self.textEmbeddings = textEmbeddings
         self.speechEmbeddings = speechEmbeddings
         self.rope = rope
+        let generator = CosyVoice3RoPEGenerator(configuration: rope)
+        self.ropeRows = (0..<Self.physicalLength).map { generator.fp16Unchecked(position: $0) }
     }
 
     func prepare(text: String, reference: CosyVoice3VoiceReference?, instruction: String?) async throws -> CosyVoice3PreparedRequest {
@@ -76,12 +79,11 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
             }
         }
 
-        let ropeGenerator = CosyVoice3RoPEGenerator(configuration: rope)
         let cosPointer = cos.dataPointer.bindMemory(to: UInt8.self, capacity: cos.count * 2)
         let sinPointer = sin.dataPointer.bindMemory(to: UInt8.self, capacity: sin.count * 2)
         for position in 0..<Self.physicalLength {
             let sourcePosition = min(position, logical - 1)
-            let pair = try ropeGenerator.fp16(position: sourcePosition)
+            let pair = ropeRows[sourcePosition]
             pair.cos.withUnsafeBytes { raw in
                 cosPointer.advanced(by: position * 64 * 2).update(from: raw.bindMemory(to: UInt8.self).baseAddress!, count: 64 * 2)
             }
@@ -125,11 +127,16 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
 
 struct CosyVoice3RoPEGenerator: Sendable {
     let configuration: CosyVoice3RoPEConfiguration
+
     func fp16(position: Int) throws -> (cos: Data, sin: Data) {
         try configuration.validate()
         guard position >= 0, position < configuration.maximumPosition else {
             throw CosyVoice3TokenConditionerError.invalidPosition(position)
         }
+        return fp16Unchecked(position: position)
+    }
+
+    func fp16Unchecked(position: Int) -> (cos: Data, sin: Data) {
         let half = configuration.headDimension / 2
         var c = [UInt16](repeating: 0, count: configuration.headDimension)
         var s = [UInt16](repeating: 0, count: configuration.headDimension)
@@ -149,3 +156,5 @@ struct CosyVoice3RoPEGenerator: Sendable {
 // Upstream: CosyVoice3LM.inference + prepare_instruct2_prefill224_probe.py at8789402.
 // Runtime: Swift + CoreML + swift-transformers.
 // Generated: 2026-10-02 America/New_York.
+
+// Changes 2026-10-02: cache the 224 physical prefill RoPE rows in each reusable frontend instance; per-request prefill assembly now copies immutable FP16 rows instead of repeating pow/cos/sin.
