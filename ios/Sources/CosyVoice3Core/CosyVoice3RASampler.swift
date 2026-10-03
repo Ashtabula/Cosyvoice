@@ -86,7 +86,16 @@ struct CosyVoice3RASampler: Sendable {
         using rng:inout some RandomNumberGenerator
     ) throws -> Int {
         let stats=try softmaxStats(logits:logits,suppressed:suppressed)
-        let draw=Double.random(in:0..<1.0,using:&rng)
+        // Match the former softmax-array path's floating-point draw range exactly:
+        // normalize each probability first, then reduce those normalized values in index order.
+        var total=0.0
+        for index in logits.indices {
+            if index==suppressed { continue }
+            let score=Double(logits[index])
+            if score.isFinite { total += exp(score-stats.maximum)/stats.sum }
+        }
+        guard total.isFinite && total>0 else { throw CosyVoice3RASamplerError.noFiniteProbability }
+        let draw=Double.random(in:0..<total,using:&rng)
         var cumulative=0.0
         var last:Int?
         for index in logits.indices {
