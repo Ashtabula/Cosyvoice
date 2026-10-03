@@ -73,3 +73,7 @@ ios/.venv-release/
 # Candidate release evidence is intentionally tracked even though filenames contain "build".
 !ios/validation/evidence/standalone_build.json
 !ios/validation/evidence/full_runtime_rebuild.json
+
+# CosyVoice iOS local SwiftPM / promotion work products
+ios/Package.resolved
+ios/validation/reference-device/cosyvoice3_fixed225.promoted.json

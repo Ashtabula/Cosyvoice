@@ -89,7 +89,7 @@ main() {
         git add \
             ios/manifest.json \
             ios/assets/reference_enrollment.json \
-            ios/RELEASE_CHECKLIST.md \
+            ios/VALIDATION.md \
             ios/validation/development_receipt.json \
             ios/validation/reference-device/reference-smoke-receipt.json \
             ios/validation/reference-device/promotion-receipt.json || return $?
@@ -114,3 +114,5 @@ test "$RC" -eq 0
 # Upstream evidence: DeviceSmoke Documents/reference-smoke-receipt.json bound to the current PASS_HOST_PARITY receipt.
 # Runtime: macOS + connected trusted iPhone + Python3 + git.
 # Generated: 2026-10-02 America/New_York.
+
+# Changes 2026-10-03: track ios/VALIDATION.md after SDK release-layout cleanup; RELEASE_CHECKLIST.md no longer exists on this release branch.

@@ -274,7 +274,7 @@ record_release_milestone_and_push() {
     printf '\n[COSYVOICE3-HF-FINISH] STEP 8/8 atomically accept catalog, record private-RC milestone and push\n'
     [ -s "$WORK_CATALOG" ] || { fail "candidate release catalog missing: $WORK_CATALOG"; return 1; }
     cp "$WORK_CATALOG" "$ROOT/assets/releases.json" || return $?
-    "$PYTHON" - "$ROOT/manifest.json" "$ROOT/RELEASE_CHECKLIST.md" "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" <<'PY'
+    "$PYTHON" - "$ROOT/manifest.json" "$ROOT/VALIDATION.md" "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" <<'PY'
 import json,sys
 from pathlib import Path
 manifest_path=Path(sys.argv[1]);checklist_path=Path(sys.argv[2]);upload=json.loads(Path(sys.argv[3]).read_text());asset=json.loads(Path(sys.argv[4]).read_text())
@@ -312,14 +312,14 @@ PY
     printf '[COSYVOICE3-HF-FINISH] tracked changes before release commit:\n%s\n' "$status"
 
     local unexpected
-    unexpected="$(git -C "$repo_root" diff --name-only -- .         ':(exclude)ios/assets/releases.json'         ':(exclude)ios/manifest.json'         ':(exclude)ios/RELEASE_CHECKLIST.md')"
+    unexpected="$(git -C "$repo_root" diff --name-only -- .         ':(exclude)ios/assets/releases.json'         ':(exclude)ios/manifest.json'         ':(exclude)ios/VALIDATION.md')"
     if [ -n "$unexpected" ]; then
         printf '%s\n' "$unexpected"
         fail "tracked changes exist outside the accepted HF release metadata"
         return 1
     fi
 
-    git -C "$repo_root" add         ios/assets/releases.json         ios/manifest.json         ios/RELEASE_CHECKLIST.md || return $?
+    git -C "$repo_root" add         ios/assets/releases.json         ios/manifest.json         ios/VALIDATION.md || return $?
     git -C "$repo_root" -c user.name="actacomes" -c user.email="developer@actacomes.com"         commit -m "release(ios): register fixed225 reference private RC" || return $?
     git -C "$repo_root" push origin main || return $?
     printf '[COSYVOICE3-HF-FINISH] RELEASE_METADATA_PUSH_PASS head=%s\n' "$(git -C "$repo_root" rev-parse HEAD)"
@@ -357,3 +357,5 @@ test "$RC" -eq 0
 # Upstream evidence: promoted canonical runtime, PASS_HOST_PARITY, PASS_DEVICE_PUBLIC_API_REFERENCE_PCM, and PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION.
 # Runtime: macOS/Xcode, connected physical iPhone, authenticated Hugging Face account actacomes, and Git push access.
 # Generated: 2026-10-02 America/New_York.
+
+# Changes 2026-10-03: use VALIDATION.md as the engine-owned release-status document; RELEASE_CHECKLIST.md was retired from the release branch.

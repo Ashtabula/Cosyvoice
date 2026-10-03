@@ -35,7 +35,7 @@ def require(condition: bool, message: str) -> None:
 
 
 def replace_exact(text: str, old: str, new: str, label: str) -> str:
-    require(old in text, f"expected checklist text missing: {label}")
+    require(old in text, f"expected validation text missing: {label}")
     return text.replace(old, new, 1)
 
 
@@ -59,7 +59,7 @@ def main() -> None:
 
     tracked_manifest_path = ios_root / "manifest.json"
     reference_contract_path = ios_root / "assets/reference_enrollment.json"
-    checklist_path = ios_root / "RELEASE_CHECKLIST.md"
+    validation_path = ios_root / "VALIDATION.md"
     development_receipt_path = ios_root / "validation/development_receipt.json"
     runtime_manifest_path = asset_root / "cosyvoice3_fixed225.json"
     evidence_dir = ios_root / "validation/reference-device"
@@ -70,7 +70,7 @@ def main() -> None:
     for path in (
         tracked_manifest_path,
         reference_contract_path,
-        checklist_path,
+        validation_path,
         development_receipt_path,
         runtime_manifest_path,
         host_receipt,
@@ -201,9 +201,9 @@ def main() -> None:
     checks["customReferenceParity"] = "PASS_HOST_PARITY_AND_DEVICE_PUBLIC_API"
     write(development_receipt_path, development)
 
-    checklist = checklist_path.read_text(encoding="utf-8")
-    checklist = replace_exact(
-        checklist,
+    validation = validation_path.read_text(encoding="utf-8")
+    validation = replace_exact(
+        validation,
         "PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY` with `HOST_PARITY_COMPLETE_DEVICE_PARITY_PENDING`.\n",
         "PASS: complete custom-reference host gate emitted `PASS_HOST_PARITY`.\n"
         "PASS: physical iPhone public API custom-reference smoke emitted accepted finite 24 kHz mono PCM and is cryptographically bound to the host parity receipt.\n"
@@ -211,15 +211,15 @@ def main() -> None:
         "PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.\n",
         "host parity status",
     )
-    checklist = checklist.replace(
+    validation = validation.replace(
         "BLOCKER: dynamic Flow-conditioning/custom-reference path has not yet passed physical-device public-API parity.\n",
         "",
     )
-    checklist = checklist.replace(
+    validation = validation.replace(
         "BLOCKER: custom-reference public API has not yet produced accepted PCM on a physical iPhone from this publication tree.\n",
         "",
     )
-    checklist_path.write_text(checklist, encoding="utf-8")
+    validation_path.write_text(validation, encoding="utf-8")
 
     evidence_dir.mkdir(parents=True, exist_ok=True)
     shutil.copy2(device_receipt, tracked_device_receipt)
@@ -281,3 +281,5 @@ if __name__ == "__main__":
 # Code purpose: finalize the custom-reference lane only after bound host/device machine receipts and separate human listening acceptance all pass; promote the six validated reference assets into the canonical runtime and revalidate that runtime before tracked release evidence changes.
 # Runtime: macOS Python3 standard library; calls the existing promote_reference_assets.py authority.
 # Generated: 2026-10-02 America/New_York.
+
+# Changes 2026-10-03: use VALIDATION.md as the engine-owned status document after release-layout cleanup; no RELEASE_CHECKLIST.md dependency remains.
