@@ -17,6 +17,8 @@ def main():
     build=load(a.build_receipt); rebuild=load(a.rebuild_receipt); benchmark=load(a.benchmark_receipt); promotion=load(ROOT/"validation/reference-device/promotion-receipt.json"); device=load(ROOT/"validation/reference-device/reference-smoke-receipt.json"); sdk=load(ROOT/"validation/ios_fixed225_sdk_ready_2026-10-02.json"); flow6_acceptance=load(ROOT/"validation/evidence/flow6_listening_acceptance.json"); catalog=load(ROOT/"assets/releases.json"); manifest=load(ROOT/"manifest.json")
     pass_check("standalone build",build.get("status")); pass_check("full runtime rebuild",rebuild.get("status"),"PASS_SUPPORTED_FULL_RUNTIME_REBUILD"); pass_check("candidate benchmark",benchmark.get("status")); pass_check("SDK integration milestone",sdk.get("status")); pass_check("device public API",device.get("status"),"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM"); pass_check("custom reference promotion",promotion.get("status"),"PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION")
     if (benchmark.get("measurement") or {}).get("flowSteps")!=6: raise RuntimeError("Candidate benchmark does not validate production default flowSteps=6")
+    rebuild_semantics=rebuild.get("rebuildSemantics") or {}
+    if rebuild_semantics.get("productionDefaultFlowSteps")!=6 or rebuild_semantics.get("validatedPublicFlowSteps")!=[6,8,10] or rebuild_semantics.get("flowParityFixtureSteps")!=10 or rebuild_semantics.get("flowParityFixtureRole")!="upstream-reference-parity-fixture": raise RuntimeError("full-runtime rebuild does not distinguish 10-step parity fixture from 6-step production default")
     h2h=flow6_acceptance.get("headToHead") or {}; selected=h2h.get("selectedVariant") or {}
     if flow6_acceptance.get("status")!="PASS_USER_FLOW6_LISTENING_ACCEPTANCE" or flow6_acceptance.get("decision")!="ACCEPT_FLOW6_AS_PRODUCTION_DEFAULT" or h2h.get("selectedFlowSteps")!=6: raise RuntimeError("6-step human listening acceptance is missing or does not select flowSteps=6")
     if h2h.get("hostReceiptSha256")!=promotion.get("hostReceipt",{}).get("sha256") or selected.get("wavSha256")!="f6b9633d96747ac6f36519c2fb3cc41f918c56b595251e4ef1265636a8eef2f5": raise RuntimeError("6-step listening evidence is not bound to the accepted head-to-head output")
@@ -54,3 +56,5 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: Candidate release generation requires benchmark evidence for production default flowSteps=6.
 
 # Changes 2026-10-03: Candidate generation now requires dedicated human listening acceptance for the exact 6-step head-to-head WAV, rather than inheriting the older 10-step promotion listening decision.
+
+# Changes 2026-10-03: Candidate release generation requires rebuild evidence to distinguish the 10-step upstream parity fixture from production default 6 and public 6/8/10 choices.
