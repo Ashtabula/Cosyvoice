@@ -18,7 +18,7 @@ poll_receipt(){
         printf '[COSYVOICE3-PERF] %s receipt poll %s/48\n' "$label" "$attempt"
         if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/candidate-benchmark-receipt.json" --destination "$output"; then
             if [ -s "$output" ]; then
-                if ! "$PYTHON" - "$output" "$minimum_epoch" <<'PY'
+                if "$PYTHON" - "$output" "$minimum_epoch" <<'PY'
 import json,sys
 p=json.load(open(sys.argv[1]))
 minimum=int(sys.argv[2])
@@ -27,7 +27,8 @@ if recorded < minimum:
     print(f"[COSYVOICE3-PERF] STALE receipt recordedAtUnix={recorded} minimum={minimum}",flush=True)
     raise SystemExit(10)
 if p.get("status")!="PASS_CANDIDATE_BENCHMARK":
-    raise SystemExit("benchmark receipt is not PASS: "+str(p.get("status")))
+    print("[COSYVOICE3-PERF] FAIL receipt "+str(p.get("status"))+" error="+str(p.get("error")),flush=True)
+    raise SystemExit(20)
 print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
     "sourceCommit":p.get("sourceCommit"),
     "firstRTF":p.get("firstRTF"),
@@ -39,11 +40,16 @@ print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
 },sort_keys=True),flush=True)
 PY
                 then
-                    rm -f "$output"
-                    sleep 1
-                    continue
+                    return 0
+                else
+                    receipt_rc=$?
+                    if [ "$receipt_rc" -eq 10 ]; then
+                        rm -f "$output"
+                        sleep 1
+                        continue
+                    fi
+                    return "$receipt_rc"
                 fi
-                return 0
             fi
         fi
         sleep 5
