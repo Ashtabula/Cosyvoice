@@ -84,47 +84,60 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referenceCacheHit = try cachedReferenceConditioning(for: reference, assets: assets) != nil
         }
 
-        // Order is deliberately interleaved so a batch of two never starts both large LLM
-        // models together. With a cold custom reference the first pair is LLM-prefill +
-        // speech-tokenizer, then decode + Flow shard0, etc. Each warmed MLModel is released
-        // before the next batch; this is not persistent all-model residency.
-        var plan: [CosyVoice3ModelWarmSpec] = []
+        // Main synthesis preparation and reference-enrollment preparation have separate
+        // persistent markers. The reference tensors may already be cached on a later process
+        // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
+        let mainPlan: [CosyVoice3ModelWarmSpec] = [
+            .init(manifest.llmPrefill),
+            .init(manifest.flowShards[0]),
+            .init(manifest.llmDecode),
+            .init(manifest.flowShards[1]),
+            .init(flowConditionsPath),
+            .init(manifest.flowShards[2]),
+            .init(manifest.flowShards[3]),
+            .init(manifest.flowShards[4]),
+            .init(manifest.flowShards[5]),
+            .init(manifest.hift)
+        ]
+        let referencePlan: [CosyVoice3ModelWarmSpec]
         if let assets = referenceAssets, !referenceCacheHit {
-            plan.append(.init(manifest.llmPrefill))
-            plan.append(.init(assets.speechTokenizer, computeUnits: .cpuOnly))
-            plan.append(.init(manifest.llmDecode))
-            plan.append(.init(manifest.flowShards[0]))
-            plan.append(.init(assets.campPlus, computeUnits: .cpuOnly))
-            plan.append(.init(manifest.flowShards[1]))
-            plan.append(.init(flowConditionsPath))
-            plan.append(.init(manifest.flowShards[2]))
-            plan.append(.init(manifest.flowShards[3]))
-            plan.append(.init(manifest.flowShards[4]))
-            plan.append(.init(manifest.flowShards[5]))
-            plan.append(.init(manifest.hift))
-        } else {
-            plan = [
-                .init(manifest.llmPrefill),
-                .init(manifest.flowShards[0]),
-                .init(manifest.llmDecode),
-                .init(manifest.flowShards[1]),
-                .init(flowConditionsPath),
-                .init(manifest.flowShards[2]),
-                .init(manifest.flowShards[3]),
-                .init(manifest.flowShards[4]),
-                .init(manifest.flowShards[5]),
-                .init(manifest.hift)
+            referencePlan = [
+                .init(assets.speechTokenizer, computeUnits: .cpuOnly),
+                .init(assets.campPlus, computeUnits: .cpuOnly)
             ]
+        } else {
+            referencePlan = []
         }
 
         var modelPreparationCacheHit = false
-        var missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
         let warmStart = DispatchTime.now().uptimeNanoseconds
-        if !missing.isEmpty, try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: plan) {
+        if try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: mainPlan) {
             modelPreparationCacheHit = true
-            warmedModelKeys.formUnion(plan.map { warmKey($0) })
-            missing.removeAll(keepingCapacity: false)
+            warmedModelKeys.formUnion(mainPlan.map { warmKey($0) })
         }
+        if !referencePlan.isEmpty,
+           try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: referencePlan) {
+            modelPreparationCacheHit = true
+            warmedModelKeys.formUnion(referencePlan.map { warmKey($0) })
+        }
+
+        // Cold custom-reference preparation remains deliberately interleaved so a batch of
+        // two never starts both large LLM models together.
+        let plan: [CosyVoice3ModelWarmSpec]
+        if referencePlan.count == 2 {
+            plan = [
+                mainPlan[0], referencePlan[0],
+                mainPlan[2], mainPlan[1],
+                referencePlan[1], mainPlan[3],
+                mainPlan[4], mainPlan[5],
+                mainPlan[6], mainPlan[7],
+                mainPlan[8], mainPlan[9]
+            ]
+        } else {
+            plan = mainPlan
+        }
+
+        let missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
         if !missing.isEmpty {
             try await CosyVoice3AssetLoader.warmModels(
                 root: assetRoot,
@@ -132,7 +145,13 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 maximumConcurrent: maximumConcurrentModelWarmups
             )
             warmedModelKeys.formUnion(missing.map { warmKey($0) })
-            try CosyVoice3AssetLoader.storeWarmMarker(root: assetRoot, specs: plan)
+        }
+        if mainPlan.allSatisfy({ warmedModelKeys.contains(warmKey($0)) }) {
+            try CosyVoice3AssetLoader.storeWarmMarker(root: assetRoot, specs: mainPlan)
+        }
+        if !referencePlan.isEmpty,
+           referencePlan.allSatisfy({ warmedModelKeys.contains(warmKey($0)) }) {
+            try CosyVoice3AssetLoader.storeWarmMarker(root: assetRoot, specs: referencePlan)
         }
         let modelWarmupMilliseconds = Self.milliseconds(since: warmStart)
 
@@ -477,3 +496,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: expose coarse preparation/synthesis stage timings for physical performance validation.
 
 // Changes 2026-10-02: same-install process relaunch recognizes a successful prior model-preparation plan and skips redundant prewarm constructors; the marker is performance-only and never bypasses actual MLModel loading or validation.
+
+// Changes 2026-10-02: split persistent warm markers into the main synthesis plan and reference-enrollment plan so a disk-cached reference on process relaunch does not accidentally invalidate the already-prepared LLM/Flow/HiFT marker.
