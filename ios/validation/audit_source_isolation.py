@@ -13,8 +13,8 @@ for p in files:
         if token in executable: bad.append(f"{p.relative_to(ROOT)}: forbidden runtime dependency/path marker {token!r}")
 if bad: raise RuntimeError("iOS source isolation failed:\n" + "\n".join(bad))
 print(f"[COSYVOICE3-SOURCE-ISOLATION] PASS swiftFiles={len(files)} sourceRoot={SRC}",flush=True)
-# Code purpose: enforce the canonical 检查单 source-isolation boundary on shipping iOS Sources only.
-# Upstream source: Ashtabula/NPU_engines_Demo/SDK_RELEASE.md source-isolation gate.
+# Code purpose: enforce the CosyVoice3 iOS SDK source-isolation boundary on shipping iOS Sources only.
+# Upstream source: ios/SDK_RELEASE.md source-isolation contract.
 # Runtime environment: Python 3 standard library in CI or release checkout; shipping runtime itself has no Python dependency.
 # Generated time: 2026-10-03 America/New_York.
 # Changed lines: new file; runtime-only static dependency/path audit.

@@ -58,6 +58,6 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: Candidate generation now requires dedicated human listening acceptance for the exact 6-step head-to-head WAV, rather than inheriting the older 10-step promotion listening decision.
 
 # Changes 2026-10-03: Candidate release generation requires rebuild evidence to distinguish the 10-step upstream parity fixture from production default 6 and public 6/8/10 choices.
-# Changes 2026-10-03: align future Candidate receipts with canonical 检查单 fields: sourceCommit, assetIdentity, sourceIsolation, targetRuntimeExecution, normalized device fields, and publicIdentityReview as a Production gate.
+# Changes 2026-10-03: align future Candidate receipts with SDK release contract fields: sourceCommit, assetIdentity, sourceIsolation, targetRuntimeExecution, normalized device fields, and publicIdentityReview as a Production gate.
 # Changes 2026-10-03: execute the shipping-source isolation audit before generating any Candidate PASS and cite that audit in sourceIsolation evidence.
 # Changes 2026-10-03: Production-pending ledger now includes immutable public asset publication in addition to clean-room, reproducibility, license and public-identity gates.

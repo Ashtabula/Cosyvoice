@@ -17,3 +17,7 @@ Python remains conversion/validation tooling only. Shipping runtime uses Swift, 
 The previously committed Candidate evidence remains useful historical evidence for the immutable RC assets, but it predates the production Flow-default/API change and therefore does not certify the current SDK source commit. Re-promotion requires current-source standalone build and supported full-runtime rebuild evidence, a controlled cold/warm physical-device public-API benchmark at the production 6-step Flow default, and a regenerated `validation/release_receipt.json`. Production still separately requires clean-room consumer integration, release-tree reproducibility, redistribution/license clearance, public release identity review/fresh public snapshot, and immutable public runtime asset publication after those gates pass. Human listening acceptance for the 6-step Flow setting is PASS.
 
 Core ML execution and requested compute units are descriptive only; accelerator residency remains unclaimed.
+
+## SDK layout
+
+The release-facing root is intentionally small: `Package.swift`, `Sources/`, `Tests/`, `README.md`, `API.md`, `ASSETS.md`, `VALIDATION.md`, `BENCHMARK.md`, `LICENSES.md`, `SDK_RELEASE.md`, `manifest.json`, `SOURCE_LOCK.json`, `assets/`, `tools/`, `validation/`, `MILESTONES/`, and `docs/provenance/`. Historical migration plans and detailed audits live under `docs/provenance/`; no Demo repository is part of the SDK build or runtime boundary.

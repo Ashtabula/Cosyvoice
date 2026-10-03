@@ -1,6 +1,6 @@
 # CosyVoice3 iOS validation and release status
 
-This file records CosyVoice3-specific status and evidence against the canonical `SDK_RELEASE.md` 检查单; it is not a second checklist body.
+This file records CosyVoice3-specific validation status and evidence against this engine's `SDK_RELEASE.md` release contract.
 
 Current status: SDK integration-ready on private RC; release level remains Development.
 
@@ -26,7 +26,7 @@ PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.
 PASS: complete fixed225-reference runtime is uploaded as an immutable private Hugging Face RC and the exact hosted revision passes ordinary-developer fetch plus physical public-API replay.
 PASS: private-RC SDK integration boundary is frozen as `sdkIntegrationReady=true`.
 PASS: physical iPhone 10/8/6 head-to-head used identical tokens/reference/noise/model instances, and the exact 6-step WAV is recorded as accepted for the production default in `validation/evidence/flow6_listening_acceptance.json`.
-CHECKLIST EXCEPTION (explicit product API decision): the canonical generic checklist normally keeps scheduler steps private, but CosyVoice3 intentionally exposes only the physically validated `CosyVoice3FlowSteps` choices 6/8/10 to advanced SDK users, with 6 as production default. Arbitrary Flow step counts, scheduler formula/timesteps, shard topology and compute placement remain private.
+PUBLIC API POLICY: CosyVoice3 intentionally exposes only the physically validated `CosyVoice3FlowSteps` choices 6/8/10 to advanced SDK users, with 6 as production default. Arbitrary Flow step counts, scheduler formula/timesteps, shard topology and compute placement remain private.
 
 CANDIDATE BLOCKER: current-source standalone build and supported full-runtime rebuild evidence must be regenerated after the public Flow-default/API change.
 CANDIDATE BLOCKER: controlled cold/warm public-API benchmark evidence must be regenerated with production default flowSteps=6.

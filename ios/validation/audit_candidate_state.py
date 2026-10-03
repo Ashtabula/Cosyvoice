@@ -69,6 +69,6 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: Candidate audit requires the dedicated 6-step human listening acceptance evidence and its explicit PASS check in the release receipt.
 
 # Changes 2026-10-03: audit targets the new 2026-10-03 revalidation milestone and treats the 2026-10-02 milestone as immutable historical evidence.
-# Changes 2026-10-03: engine-specific status moved from RELEASE_CHECKLIST.md to VALIDATION.md so SDK_RELEASE.md can remain the byte-identical canonical cross-engine checklist mirror.
-# Changes 2026-10-03: Candidate metadata-only commits are no longer allowed to modify SDK_RELEASE.md; canonical checklist synchronization is a separate authority.
-# Changes 2026-10-03: require all canonical Candidate receipt checks explicitly; an incomplete check dictionary can no longer pass merely because every present item says PASS.
+# Changes 2026-10-03: engine-specific status moved from RELEASE_CHECKLIST.md to VALIDATION.md so SDK_RELEASE.md remains the engine-owned release contract.
+# Changes 2026-10-03: Candidate metadata-only commits are no longer allowed to modify SDK_RELEASE.md; SDK_RELEASE.md is release policy and is not rewritten by Candidate metadata finalization.
+# Changes 2026-10-03: require all required Candidate receipt checks explicitly; an incomplete check dictionary can no longer pass merely because every present item says PASS.
