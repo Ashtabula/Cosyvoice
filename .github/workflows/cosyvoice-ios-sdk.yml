@@ -45,6 +45,8 @@ jobs:
           python-version: '3.10'
       - name: Compile release Python tools
         run: python -m compileall -q ios/tools ios/assets ios/validation
+      - name: Audit shipping iOS source isolation
+        run: python ios/validation/audit_source_isolation.py
       - name: Validate committed JSON contracts
         run: |
           python - <<'PY'
