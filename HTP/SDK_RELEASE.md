@@ -262,8 +262,8 @@ validated source graph
 The two Demo applications are independent consumers, not engine implementation repositories.
 
 - [ ] `VoiceBenchmark` and `RealtimeRadioPodcast` link engines only through their public package products.
-- [ ] Demo registry contains only stable engine identity plus public SDK factory/adapter information.
-- [ ] Demo source contains no engine-private model filename, runtime profile, compute placement or optimization-revision selection.
+- [ ] Demo registry contains only stable engine identity, public SDK-facing consumer metadata, a generic staging key, and public SDK factory/adapter information.
+- [ ] Allowed registry metadata is limited to consumer-facing facts such as package product, documented/nominal public output format, reference support and public streaming support; Demo source contains no engine-private model filename, runtime profile, compute placement or optimization-revision selection.
 - [ ] Demo asset staging uses only the generic `VoiceAssets/<engine-id>` container contract; the engine SDK validates the contents of its own asset root.
 - [ ] Each Demo has its own sandbox asset copy or documented system-hosted asset path.
 - [ ] Benchmark measures the common public synthesis boundary for every registered engine.
@@ -349,4 +349,4 @@ This checklist is intentionally engine-independent. Engine-specific implementati
 # Upstream source: the ZipVoice release checklist/SDK release architecture, generalized to the public-interface-only multi-engine model.
 # Runtime environment: repository/release engineering; no runtime dependency.
 # Generated time: 2026-10-03 America/New_York.
-# Changed lines: replace engine-specific checklist forks with one canonical synchronized checklist for Demo, iOS and HTP.
+# Changed lines: keep one canonical synchronized checklist and clarify that multi-engine Demo registrations may expose only public SDK-facing metadata plus the generic staging key/factory, never engine-private runtime/model selection details.
