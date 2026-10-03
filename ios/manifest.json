@@ -17,12 +17,17 @@
     "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
     "version": "0.1.0-rc1"
   },
-  "candidateBlockers": [],
+  "candidateBlockers": [
+    "current-source standalone build and supported full-runtime rebuild evidence after public Flow-default/API change",
+    "controlled cold/warm public-API benchmark with production default flowSteps=6",
+    "regenerated validation/release_receipt.json bound to current source"
+  ],
   "candidateMilestone": {
     "date": "2026-10-02",
     "milestone": "MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md",
     "receipt": "validation/ios_fixed225_distribution_ready_2026-10-02.json",
-    "status": "PASS"
+    "status": "STALE_SOURCE_COMMIT",
+    "validatedSourceCommit": "3e78a73679a144342818a41ec320a78dafda0e66"
   },
   "candidateReleaseReceipt": "validation/release_receipt.json",
   "ci": {
@@ -47,7 +52,15 @@
     "outputMelFrames": 450,
     "outputSamples": 216000,
     "outputSeconds": 9,
-    "speechTokens": 225
+    "speechTokens": 225,
+    "flowSteps": {
+      "default": 6,
+      "supported": [
+        6,
+        8,
+        10
+      ]
+    }
   },
   "model": {
     "id": "FunAudioLLM/Fun-CosyVoice3-0.5B-2512",
@@ -75,7 +88,8 @@
     "targetEngine": "CosyVoice3Engine",
     "userParameters": [
       "reference",
-      "instruction"
+      "instruction",
+      "flowSteps"
     ]
   },
   "publicRedistributionApproved": false,
@@ -87,8 +101,8 @@
     "email": "developer@actacomes.com",
     "name": "actacomes"
   },
-  "releaseReadiness": "Technical Distribution-Ready Candidate for ios-fixed225-reference. Public API, immutable private-RC fetch/replay, supported full-runtime rebuild and controlled cold/warm physical-device benchmark are validated. Production/public redistribution remains blocked by clean-room consumer integration, release-tree reproducibility and license/redistribution review.",
-  "releaseStatus": "candidate",
+  "releaseReadiness": "SDK integration-ready on the immutable private ios-fixed225-reference RC. The public Flow default/API changed to validated 6/8/10 with production default 6 after the last source-bound Candidate evidence; current-source build/rebuild, controlled 6-step benchmark and release receipt must be regenerated before Technical Distribution-Ready Candidate is re-declared.",
+  "releaseStatus": "development",
   "schemaVersion": 4,
   "sdkIntegrationReady": true,
   "sdkReadyMilestone": {
@@ -103,7 +117,7 @@
     "repository": "Ashtabula/CosyVoice3_NPU",
     "tree": "3e84e6681ab123367703a8b612317172b02dc15c"
   },
-  "technicalDistributionReady": true,
+  "technicalDistributionReady": false,
   "tokenSemantics": {
     "eos": 6562,
     "fill": 6564,

@@ -16,13 +16,13 @@ Production additionally requires human audio review, clean-room consumer integra
 
 The `ios-fixed225-reference/0.1.0-rc1` private asset profile has immutable fetch/validation and physical-device public-API replay PASS. The custom-reference lane has host parity, device parity and human listening acceptance. Therefore this release branch records `sdkIntegrationReady=true`.
 
-This branch now satisfies the ZipVoice iOS **Technical Distribution-Ready Candidate** engineering gates: the complete-runtime supported rebuild, controlled cold/warm physical-device public-API benchmark and Candidate release receipt are committed. `technicalDistributionReady=true`; public redistribution remains unauthorized until the Production clean-room/reproducibility/license gates are closed.
+The current SDK source is intentionally below the ZipVoice iOS **Technical Distribution-Ready Candidate** milestone because the public Flow default/API changed after the last source-bound Candidate evidence. `technicalDistributionReady=false` until the current-source build/rebuild evidence, the controlled cold/warm benchmark at flowSteps=6, and the Candidate release receipt are regenerated. Public redistribution remains unauthorized until the later Production gates are closed.
 
 ## Runtime isolation and API rules
 
 `Sources/` must contain all runtime code. It may not depend on `StatefulLLMBench`, sibling repositories, Python at runtime, product UI, playback/document code, or developer-specific absolute paths. Conversion and benchmark tools stay outside runtime source.
 
-Public API exposes only user-meaningful synthesis controls: target text, paired voice reference, and instruction/style control once validated. Model names, token IDs, KV layouts, sequence buckets, scheduler steps, Flow shard topology, Core ML functions, compute units, caches and diagnostic controls remain private.
+Public API exposes only user-meaningful synthesis controls: target text, paired voice reference, instruction/style control, and the validated Flow quality/performance choices 6/8/10 with production default 6. Model names, token IDs, KV layouts, sequence buckets, scheduler integration internals/timesteps, Flow shard topology, Core ML functions, compute units, caches and diagnostic controls remain private; arbitrary unvalidated Flow step counts are not exposed.
 
 Large model binaries stay out of Git. Prebuilt and rebuilt payloads must satisfy one fail-closed contract. Downloaded archives are immutable and hash verified before extraction; complete-runtime rebuilds must pin source/model/compiler identity and emit receipts.
 

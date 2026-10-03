@@ -1,6 +1,6 @@
 # CosyVoice3 iOS assets
 
-Status: Technical Distribution-Ready Candidate on immutable private RC; ordinary fetch/replay, supported full-runtime rebuild and controlled physical-device benchmark evidence are committed; public redistribution is not authorized.
+Status: immutable private-RC asset distribution remains validated and device-replayed; current SDK Candidate status is pending revalidation after the public 6-step Flow-default/API change.
 
 Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. Locked SDK source: `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
 

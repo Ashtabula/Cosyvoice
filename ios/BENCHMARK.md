@@ -1,8 +1,8 @@
 # CosyVoice3 iOS benchmark status
 
-Current Candidate benchmark: **PASS — physical-device public-API cold/warm evidence recorded.**
+Historical Candidate benchmark: **PASS for source commit 3e78a73679a144342818a41ec320a78dafda0e66; stale for the current SDK source.**
 
-The benchmark uses the exact immutable `ios-fixed225-reference/0.1.0-rc1` private RC through `CosyVoice3Engine.synthesize()`. The first synthesis starts from a fresh process and fresh engine and does not call `validateReference()` beforehand; the repeat synthesis uses the same engine instance and identical text/reference/instruction workload. Performance numbers are measurements, not release thresholds.
+This historical benchmark uses the exact immutable `ios-fixed225-reference/0.1.0-rc1` private RC through `CosyVoice3Engine.synthesize()`. It predates the public Flow-default/API change and therefore does not establish performance for the current production default of 6 steps. A new current-source Candidate benchmark is required. Performance numbers below are retained only as provenance, not release thresholds.
 
 Device: `iPhone18,4`, iOS `27.2`.
 Engine init: `0.290 ms`.

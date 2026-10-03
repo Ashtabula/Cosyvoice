@@ -8,7 +8,7 @@
   "releases": [
     {
       "assetTechnicalStatus": "READY_PRIVATE_RC",
-      "candidateTechnicalDistributionReady": true,
+      "candidateTechnicalDistributionReady": false,
       "distributionStatus": "PRIVATE_RC",
       "licenseGate": "PENDING",
       "minimumIOS": "18.0",
@@ -24,7 +24,7 @@
       "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
       "runtimeProfile": "ios18-fixed225",
       "sdkIntegrationReady": true,
-      "sdkReleaseStatus": "CANDIDATE_PRIVATE_ASSETS",
+      "sdkReleaseStatus": "SDK_INTEGRATION_READY_PRIVATE_ASSETS",
       "tag": "ios-fixed225-reference-v0.1.0-rc1",
       "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
       "version": "0.1.0-rc1"
