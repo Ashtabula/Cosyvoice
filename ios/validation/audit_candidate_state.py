@@ -10,7 +10,6 @@ ALLOWED_RELEASE_COMMIT_PATHS={
     "ios/VALIDATION.md",
     "ios/BENCHMARK.md",
     "ios/README.md",
-    "ios/SDK_RELEASE.md",
     "ios/API.md",
     "ios/ASSETS.md",
     "ios/validation/evidence/standalone_build.json",
@@ -69,3 +68,4 @@ if __name__=="__main__": main()
 
 # Changes 2026-10-03: audit targets the new 2026-10-03 revalidation milestone and treats the 2026-10-02 milestone as immutable historical evidence.
 # Changes 2026-10-03: engine-specific status moved from RELEASE_CHECKLIST.md to VALIDATION.md so SDK_RELEASE.md can remain the byte-identical canonical cross-engine checklist mirror.
+# Changes 2026-10-03: Candidate metadata-only commits are no longer allowed to modify SDK_RELEASE.md; canonical checklist synchronization is a separate authority.
