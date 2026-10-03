@@ -34,6 +34,7 @@ public struct CosyVoice3PreparationReport: Sendable {
     public let referencePreparationMilliseconds: Double
     public let warmedModelCount: Int
     public let maximumConcurrentModelWarmups: Int
+    public let modelPreparationCacheHit: Bool
     public let referenceCacheHit: Bool
 
     public init(
@@ -42,6 +43,7 @@ public struct CosyVoice3PreparationReport: Sendable {
         referencePreparationMilliseconds: Double,
         warmedModelCount: Int,
         maximumConcurrentModelWarmups: Int,
+        modelPreparationCacheHit: Bool,
         referenceCacheHit: Bool
     ) {
         self.totalMilliseconds = totalMilliseconds
@@ -49,6 +51,7 @@ public struct CosyVoice3PreparationReport: Sendable {
         self.referencePreparationMilliseconds = referencePreparationMilliseconds
         self.warmedModelCount = warmedModelCount
         self.maximumConcurrentModelWarmups = maximumConcurrentModelWarmups
+        self.modelPreparationCacheHit = modelPreparationCacheHit
         self.referenceCacheHit = referenceCacheHit
     }
 }
@@ -61,6 +64,9 @@ public struct CosyVoice3SynthesisReport: Sendable {
     public let llmGenerationMilliseconds: Double
     public let acousticModelLoadMilliseconds: Double
     public let acousticSynthesisMilliseconds: Double
+    public let modelPreparationCacheHit: Bool
+    public let referenceCacheHit: Bool
+    public let warmedModelCount: Int
 
     public init(
         totalMilliseconds: Double,
@@ -69,7 +75,10 @@ public struct CosyVoice3SynthesisReport: Sendable {
         llmModelLoadMilliseconds: Double,
         llmGenerationMilliseconds: Double,
         acousticModelLoadMilliseconds: Double,
-        acousticSynthesisMilliseconds: Double
+        acousticSynthesisMilliseconds: Double,
+        modelPreparationCacheHit: Bool,
+        referenceCacheHit: Bool,
+        warmedModelCount: Int
     ) {
         self.totalMilliseconds = totalMilliseconds
         self.preparationMilliseconds = preparationMilliseconds
@@ -78,6 +87,9 @@ public struct CosyVoice3SynthesisReport: Sendable {
         self.llmGenerationMilliseconds = llmGenerationMilliseconds
         self.acousticModelLoadMilliseconds = acousticModelLoadMilliseconds
         self.acousticSynthesisMilliseconds = acousticSynthesisMilliseconds
+        self.modelPreparationCacheHit = modelPreparationCacheHit
+        self.referenceCacheHit = referenceCacheHit
+        self.warmedModelCount = warmedModelCount
     }
 }
 
@@ -114,3 +126,5 @@ public extension CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: add public preparation telemetry so applications and the Candidate runner can distinguish one-time Core ML/reference preparation from actual synthesis latency without exposing model internals.
 
 // Changes 2026-10-02: add public coarse synthesis stage telemetry to separate preparation, frontend, LLM load/generation and acoustic load/synthesis without exposing private model/shard details.
+
+// Changes 2026-10-02: preparation/synthesis telemetry now reports persistent model-preparation marker hits, reference-conditioning cache hits and the number of model constructors actually warmed.
