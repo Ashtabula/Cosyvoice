@@ -87,8 +87,14 @@ final class RASamplerTests:XCTestCase {
 
     func testOptimizedTopKPathMatchesFormerFullSortForDeterministicDraws() throws {
         let optimized=CosyVoice3RASampler(), reference=ReferenceRAS()
-        var logits=(0..<6761).map { i in
-            Float(sin(Double(i)*0.0137)*2.0 + cos(Double(i)*0.0071)*0.5 - Double(i%17)*0.003)
+        var logits=[Float]()
+        logits.reserveCapacity(6761)
+        for i in 0..<6761 {
+            let x=Double(i)
+            let waveA=sin(x*0.0137)*2.0
+            let waveB=cos(x*0.0071)*0.5
+            let bucketPenalty=Double(i%17)*0.003
+            logits.append(Float(waveA+waveB-bucketPenalty))
         }
         logits[6561]=3.75
         logits[6562]=3.70
