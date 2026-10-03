@@ -92,6 +92,122 @@ final class CosyVoice3SmokeModel: ObservableObject {
         } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
     }
 
+    func runFlowStepHeadToHead() async {
+        guard !running else { return }
+        running = true
+        status = "RUNNING Flow 10 / 8 / 6 head-to-head..."
+        receiptJSON = ""
+        availableFlowSteps = []
+        flowStepAudios = [:]
+        defer { running = false }
+
+        for name in [
+            "flow-steps-head-to-head-receipt.json",
+            "flow-steps-10.wav",
+            "flow-steps-8.wav",
+            "flow-steps-6.wav"
+        ] {
+            if let stale = try? Self.receiptURL(name) { try? FileManager.default.removeItem(at: stale) }
+        }
+
+        do {
+            let fixture = try Self.fixture()
+            let engine = try CosyVoice3Engine(assetRoot: fixture.runtime)
+            let report = try await engine.synthesizeFlowStepHeadToHead(
+                fixture.text,
+                parameters: fixture.parameters,
+                flowSteps: [10,8,6]
+            )
+
+            var variants: [[String: Any]] = []
+            var generated: [Int: CosyVoice3Audio] = [:]
+            for result in report.variants {
+                try Self.validate(result.audio)
+                let stats = Self.stats(result.audio)
+                let wav = Self.wavData(result.audio)
+                let filename = "flow-steps-\(result.flowSteps).wav"
+                let wavURL = try Self.receiptURL(filename)
+                try wav.write(to: wavURL, options: .atomic)
+                let wavSHA256 = SHA256.hash(data: wav).map { String(format:"%02x",$0) }.joined()
+                generated[result.flowSteps] = result.audio
+                variants.append([
+                    "flowSteps": result.flowSteps,
+                    "synthesisMilliseconds": result.synthesisMilliseconds,
+                    "audioSeconds": result.audioSeconds,
+                    "rtf": result.rtf,
+                    "samples": result.audio.samples.count,
+                    "sampleRate": result.audio.sampleRate,
+                    "channels": result.audio.channels,
+                    "peakAbs": stats.peak,
+                    "rms": stats.rms,
+                    "wavFilename": filename,
+                    "wavSha256": wavSHA256
+                ])
+            }
+            guard Set(generated.keys) == Set([10,8,6]) else {
+                throw SmokeError("head-to-head did not produce all 10/8/6 variants")
+            }
+
+            flowStepAudios = generated
+            availableFlowSteps = Set(generated.keys)
+            let receipt: [String: Any] = [
+                "schemaVersion": 1,
+                "status": "PASS_FLOW_STEPS_HEAD_TO_HEAD",
+                "benchmark": "flow-steps-head-to-head-v1",
+                "sourceCommit": fixture.sourceCommit,
+                "recordedAtUnix": Int(Date().timeIntervalSince1970),
+                "device": UIDevice.current.model,
+                "deviceModelIdentifier": Self.machineIdentifier(),
+                "systemName": UIDevice.current.systemName,
+                "systemVersion": UIDevice.current.systemVersion,
+                "hostReceiptSha256": fixture.hostReceiptSHA256,
+                "referenceTranscriptCharacters": fixture.transcript.count,
+                "productionDefaultFlowSteps": 10,
+                "measuredFlowSteps": report.flowSteps,
+                "warmupFlowSteps": report.warmupFlowSteps,
+                "warmupMilliseconds": report.warmupMilliseconds,
+                "speechTokenSha256": report.speechTokenSHA256,
+                "sameSpeechTokensAcrossVariants": true,
+                "sameReferenceConditioningAcrossVariants": true,
+                "sameInitialNoiseAcrossVariants": true,
+                "sameAcousticModelInstancesAcrossVariants": true,
+                "timingDefinition": "acoustic synthesis only; shared model loading excluded; one 10-step acoustic warm-up precedes measured 10/8/6 variants",
+                "sharedPreparationMilliseconds": report.preparationMilliseconds,
+                "sharedFrontendMilliseconds": report.frontendMilliseconds,
+                "sharedLLMModelLoadMilliseconds": report.llmModelLoadMilliseconds,
+                "sharedLLMGenerationMilliseconds": report.llmGenerationMilliseconds,
+                "sharedAcousticModelLoadMilliseconds": report.acousticModelLoadMilliseconds,
+                "variants": variants
+            ]
+            let receiptURL = try Self.receiptURL("flow-steps-head-to-head-receipt.json")
+            receiptJSON = try Self.write(receipt, to: receiptURL)
+
+            let bySteps = Dictionary(uniqueKeysWithValues: report.variants.map { ($0.flowSteps, $0) })
+            status = String(
+                format: "PASS Flow H2H 10=%.3fs RTF=%.3f 8=%.3fs RTF=%.3f 6=%.3fs RTF=%.3f",
+                (bySteps[10]?.synthesisMilliseconds ?? 0) / 1000,
+                bySteps[10]?.rtf ?? 0,
+                (bySteps[8]?.synthesisMilliseconds ?? 0) / 1000,
+                bySteps[8]?.rtf ?? 0,
+                (bySteps[6]?.synthesisMilliseconds ?? 0) / 1000,
+                bySteps[6]?.rtf ?? 0
+            )
+            if let baseline = generated[10] { try play(baseline) }
+        } catch {
+            Self.recordFailure(error, filename:"flow-steps-head-to-head-receipt.json", into:self)
+        }
+    }
+
+    func playFlowStep(_ steps: Int) {
+        guard let audio = flowStepAudios[steps] else { return }
+        do {
+            try play(audio)
+            status = "PLAYING Flow \(steps) steps"
+        } catch {
+            status = "FAIL playback Flow \(steps): \(String(describing:error))"
+        }
+    }
+
     private struct Fixture {
         let runtime: URL
         let reference: CosyVoice3VoiceReference
