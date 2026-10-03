@@ -356,7 +356,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             return tokens
         }()
         let speechTokenSHA256 = SHA256.hash(
-            data: Data(speechTokens.map(String.init).joined(separator: ",").utf8)
+            data: Data(speechTokens.map { String($0) }.joined(separator: ",").utf8)
         ).map { String(format: "%02x", $0) }.joined()
 
         // Match the production sequential lifetime: LLM objects are out of scope before
