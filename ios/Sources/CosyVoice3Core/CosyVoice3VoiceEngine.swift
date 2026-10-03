@@ -53,6 +53,34 @@ public struct CosyVoice3PreparationReport: Sendable {
     }
 }
 
+public struct CosyVoice3SynthesisReport: Sendable {
+    public let totalMilliseconds: Double
+    public let preparationMilliseconds: Double
+    public let frontendMilliseconds: Double
+    public let llmModelLoadMilliseconds: Double
+    public let llmGenerationMilliseconds: Double
+    public let acousticModelLoadMilliseconds: Double
+    public let acousticSynthesisMilliseconds: Double
+
+    public init(
+        totalMilliseconds: Double,
+        preparationMilliseconds: Double,
+        frontendMilliseconds: Double,
+        llmModelLoadMilliseconds: Double,
+        llmGenerationMilliseconds: Double,
+        acousticModelLoadMilliseconds: Double,
+        acousticSynthesisMilliseconds: Double
+    ) {
+        self.totalMilliseconds = totalMilliseconds
+        self.preparationMilliseconds = preparationMilliseconds
+        self.frontendMilliseconds = frontendMilliseconds
+        self.llmModelLoadMilliseconds = llmModelLoadMilliseconds
+        self.llmGenerationMilliseconds = llmGenerationMilliseconds
+        self.acousticModelLoadMilliseconds = acousticModelLoadMilliseconds
+        self.acousticSynthesisMilliseconds = acousticSynthesisMilliseconds
+    }
+}
+
 public enum CosyVoice3EngineError: Error, LocalizedError, Sendable {
     case emptyText
     case invalidReference
@@ -84,3 +112,5 @@ public extension CosyVoice3SynthesisEngine {
 // Generated: 2026-10-02 America/New_York.
 
 // Changes 2026-10-02: add public preparation telemetry so applications and the Candidate runner can distinguish one-time Core ML/reference preparation from actual synthesis latency without exposing model internals.
+
+// Changes 2026-10-02: add public coarse synthesis stage telemetry to separate preparation, frontend, LLM load/generation and acoustic load/synthesis without exposing private model/shard details.
