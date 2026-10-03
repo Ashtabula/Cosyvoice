@@ -6,6 +6,12 @@ import Foundation
 
 enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String); case compiledCache(String) }
 
+struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
+    let path: String
+    let computeUnits: MLComputeUnits
+    init(_ path: String, computeUnits: MLComputeUnits = .cpuAndNeuralEngine) { self.path = path; self.computeUnits = computeUnits }
+}
+
 struct CosyVoice3ReferenceEnrollmentAssets: Codable, Sendable {
     let status: String
     let speechTokenizer: String
@@ -87,6 +93,39 @@ enum CosyVoice3AssetLoader {
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
         return try MLModel(contentsOf: compiled, configuration: config)
+    }
+
+    static func warmModels(root: URL, specs: [CosyVoice3ModelWarmSpec], maximumConcurrent: Int = 2) async throws {
+        guard maximumConcurrent > 0 else { throw CosyVoice3AssetError.compiledCache("maximumConcurrent must be positive") }
+        var offset = 0
+        while offset < specs.count {
+            let upper = min(offset + maximumConcurrent, specs.count)
+            let batch = Array(specs[offset..<upper])
+            try await withThrowingTaskGroup(of: Void.self) { group in
+                for spec in batch {
+                    group.addTask {
+                        try autoreleasepool {
+                            let warmed = try model(root: root, path: spec.path, computeUnits: spec.computeUnits)
+                            _ = warmed.modelDescription
+                        }
+                    }
+                }
+                try await group.waitForAll()
+            }
+            offset = upper
+        }
+    }
+
+    static func assetCacheIdentity(root: URL, paths: [String]) throws -> String {
+        let fileManager = FileManager.default
+        var rows: [String] = []
+        rows.reserveCapacity(paths.count)
+        for path in paths.sorted() {
+            let source = root.appendingPathComponent(path)
+            guard fileManager.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
+            rows.append(try sourceFingerprint(source, fileManager: fileManager))
+        }
+        return SHA256.hash(data: Data(rows.joined(separator: "\n").utf8)).map { String(format: "%02x", $0) }.joined()
     }
 
     static func array(root: URL, path: String, shape: [Int], type: MLMultiArrayDataType) throws -> MLMultiArray {
@@ -179,4 +218,4 @@ enum CosyVoice3AssetLoader {
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
 // Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes OS version, standardized source path and package file sizes/mtimes and remains fail-closed.
+// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes OS version, standardized source path and package file sizes/mtimes and remains fail-closed.\n// Changes 2026-10-02: add bounded batch warm-up that releases every MLModel after constructor/execution-plan preparation; maximumConcurrent defaults to two so cold-start specialization can overlap without reintroducing the rejected all-model-residency memory profile. Asset metadata fingerprints are also exposed internally for safe derived-cache invalidation.\n
