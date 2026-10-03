@@ -13,6 +13,7 @@
     "version": "0.1.0-rc1",
     "visibility": "private"
   },
+  "assetIdentity": "ios-fixed225-reference/0.1.0-rc1@2fb4251057a5c627e76e392c04b0e778f530d0e0#a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
   "checks": {
     "assetValidation": {
       "evidence": [
@@ -30,6 +31,12 @@
     "customReferenceDeviceParity": {
       "evidence": [
         "validation/reference-device/promotion-receipt.json"
+      ],
+      "status": "PASS"
+    },
+    "flow6HumanListeningAcceptance": {
+      "evidence": [
+        "validation/evidence/flow6_listening_acceptance.json"
       ],
       "status": "PASS"
     },
@@ -58,9 +65,24 @@
       ],
       "status": "PASS"
     },
+    "sourceIsolation": {
+      "evidence": [
+        "validation/audit_source_isolation.py",
+        "validation/evidence/standalone_build.json",
+        "Package.swift"
+      ],
+      "status": "PASS"
+    },
     "standaloneBuild": {
       "evidence": [
         "validation/evidence/standalone_build.json"
+      ],
+      "status": "PASS"
+    },
+    "targetRuntimeExecution": {
+      "evidence": [
+        "validation/reference-device/reference-smoke-receipt.json",
+        "validation/ios_fixed225_sdk_ready_2026-10-02.json"
       ],
       "status": "PASS"
     },
@@ -72,7 +94,9 @@
     }
   },
   "device": {
+    "model": "iPhone",
     "modelIdentifier": "iPhone18,4",
+    "os": "iOS 27.2",
     "systemVersion": "27.2"
   },
   "engine": "CosyVoice3",
@@ -80,12 +104,15 @@
   "productionPending": [
     "cleanRoomIntegration",
     "releaseTreeReproducible",
-    "licenseReview"
+    "licenseReview",
+    "publicIdentityReview",
+    "publicAssetPublication"
   ],
   "publicRedistributionApproved": false,
-  "recordedAtUnix": 1790985460,
+  "recordedAtUnix": 1791050906,
   "releaseStatus": "candidate",
   "schemaVersion": 1,
+  "sourceCommit": "e0f0ac4123eb25e166d91ee94ce284f5875fd6ac",
   "technicalDistributionReady": true,
-  "validatedSourceCommit": "3e78a73679a144342818a41ec320a78dafda0e66"
+  "validatedSourceCommit": "e0f0ac4123eb25e166d91ee94ce284f5875fd6ac"
 }

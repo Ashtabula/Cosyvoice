@@ -2,7 +2,7 @@
 
 This file records CosyVoice3-specific validation status and evidence against this engine's `SDK_RELEASE.md` release contract.
 
-Current status: SDK integration-ready on private RC; release level remains Development.
+Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
 
 PASS: publication target is `Ashtabula/Cosyvoice/ios/`.
 PASS: canonical maintained SDK source is `Ashtabula/Cosyvoice/ios/`; migration provenance is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
@@ -28,9 +28,9 @@ PASS: private-RC SDK integration boundary is frozen as `sdkIntegrationReady=true
 PASS: physical iPhone 10/8/6 head-to-head used identical tokens/reference/noise/model instances, and the exact 6-step WAV is recorded as accepted for the production default in `validation/evidence/flow6_listening_acceptance.json`.
 PUBLIC API POLICY: CosyVoice3 intentionally exposes only the physically validated `CosyVoice3FlowSteps` choices 6/8/10 to advanced SDK users, with 6 as production default. Arbitrary Flow step counts, scheduler formula/timesteps, shard topology and compute placement remain private.
 
-CANDIDATE BLOCKER: current-source standalone build and supported full-runtime rebuild evidence must be regenerated after the public Flow-default/API change.
-CANDIDATE BLOCKER: controlled cold/warm public-API benchmark evidence must be regenerated with production default flowSteps=6.
-CANDIDATE BLOCKER: `validation/release_receipt.json` is bound to an older source commit and must be regenerated.
+PASS: current-source standalone build and supported full-runtime rebuild evidence are regenerated and bound to this promotion commit.
+PASS: controlled physical-device cold/warm benchmark through CosyVoice3Engine public API validates production default flowSteps=6.
+PASS: Candidate `validation/release_receipt.json` ties current source, rebuild, immutable assets, parity, device PCM and 6-step benchmark evidence together.
 
 PRODUCTION BLOCKER: clean-room consumer integration has not run.
 PRODUCTION BLOCKER: release-tree reproducibility has not been frozen.
@@ -39,4 +39,4 @@ PRODUCTION BLOCKER: public release identity review/fresh public snapshot has not
 PRODUCTION BLOCKER: immutable public runtime asset publication remains pending until clean-room/license approval.
 PASS FOR PRODUCTION EVIDENCE: human audio review is already recorded and need not be repeated unless runtime/audio behavior changes.
 
-Do not label Candidate or set `technicalDistributionReady=true` until all current-source Candidate blockers have committed evidence. After Candidate, do not label Production or authorize public runtime assets until the remaining Production blockers pass.
+Candidate engineering gates are complete. Do not label Production or authorize public runtime assets until the remaining Production blockers pass.

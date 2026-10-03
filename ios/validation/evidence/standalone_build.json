@@ -3,9 +3,9 @@
   "engine": "CosyVoice3",
   "gate": "standaloneBuild",
   "platform": "iOS",
-  "recordedAtUnix": 1790984449,
+  "recordedAtUnix": 1791049959,
   "schemaVersion": 1,
-  "sourceCommit": "3e78a73679a144342818a41ec320a78dafda0e66",
+  "sourceCommit": "e0f0ac4123eb25e166d91ee94ce284f5875fd6ac",
   "status": "PASS",
   "xcode": "Xcode 27.2;Build version 27B5019j"
 }

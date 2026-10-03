@@ -1,21 +1,15 @@
 {
-  "asset": {
+  "assets": {
     "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
     "profile": "ios-fixed225-reference",
+    "publicRedistributionApproved": false,
     "repoId": "actacomes/CosyVoice-assets",
     "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
     "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
-    "version": "0.1.0-rc1"
+    "version": "0.1.0-rc1",
+    "visibility": "private"
   },
-  "benchmark": "public-api-candidate-v1",
-  "device": {
-    "model": "iPhone",
-    "modelIdentifier": "iPhone18,4",
-    "systemName": "iOS",
-    "systemVersion": "27.2"
-  },
-  "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
-  "measurement": {
+  "controlledBenchmark": {
     "channels": 1,
     "coldDefinition": "fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm",
     "engineInitMilliseconds": 0.79075,
@@ -58,19 +52,38 @@
     "repeatSynthesisMilliseconds": 5758.416083,
     "sameSampleCount": true,
     "sampleRate": 24000,
+    "status": "PASS",
     "warmDefinition": "second identical public synthesize call on the same engine instance after automatic preparation"
   },
-  "performanceThresholdApplied": false,
-  "recordedAtUnix": 1791050905,
+  "device": {
+    "model": "iPhone",
+    "modelIdentifier": "iPhone18,4",
+    "os": "iOS 27.2",
+    "systemVersion": "27.2"
+  },
+  "milestone": "ios-fixed225-distribution-ready-technical-2026-10-03",
+  "publicRedistributionApproved": false,
+  "publisher": {
+    "email": "developer@actacomes.com",
+    "name": "actacomes"
+  },
+  "releaseReceipt": "validation/release_receipt.json",
+  "releaseStatus": "candidate",
+  "remainingProductionBlockers": [
+    "clean-room consumer integration",
+    "release-tree reproducibility",
+    "asset redistribution license review",
+    "public release identity review/fresh public snapshot",
+    "immutable public runtime asset publication"
+  ],
   "schemaVersion": 1,
-  "sourceCommit": "e0f0ac4123eb25e166d91ee94ce284f5875fd6ac",
   "status": "PASS",
-  "workload": {
-    "instructionPrefix": "You are a helpful assistant.<|endofprompt|>",
-    "referenceTranscriptCharacters": 32,
-    "referenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
-    "referenceWavBytes": 291028,
-    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
-    "text": "This is a CosyVoice3 public API reference voice validation."
-  }
+  "supportedFullRuntimeRebuild": {
+    "canonicalByteIdentityClaim": false,
+    "runtimeBytes": 3526615077,
+    "runtimeTreeSha256": "041078c3f94989a27d3dcd6aef82f7107e7d8435e39b7c9a51479ff4e93890e8",
+    "status": "PASS"
+  },
+  "technicalDistributionReady": true,
+  "validatedSourceCommit": "e0f0ac4123eb25e166d91ee94ce284f5875fd6ac"
 }
