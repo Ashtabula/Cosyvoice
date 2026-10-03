@@ -156,10 +156,10 @@ enum CosyVoice3AssetLoader {
             options: [.skipsHiddenFiles]
         ) else {
             let values = try source.resourceValues(forKeys: [.contentModificationDateKey])
-            return [compiledCacheVersion, source.path, String(values.contentModificationDate?.timeIntervalSince1970 ?? 0)].joined(separator: "|")
+            return [compiledCacheVersion, ProcessInfo.processInfo.operatingSystemVersionString, source.standardizedFileURL.path, String(values.contentModificationDate?.timeIntervalSince1970 ?? 0)].joined(separator: "|")
         }
 
-        var rows: [String] = [compiledCacheVersion, source.path]
+        var rows: [String] = [compiledCacheVersion, ProcessInfo.processInfo.operatingSystemVersionString, source.standardizedFileURL.path]
         while let item = enumerator.nextObject() as? URL {
             let values = try item.resourceValues(forKeys: keys)
             guard values.isRegularFile == true else { continue }
@@ -179,4 +179,4 @@ enum CosyVoice3AssetLoader {
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
 // Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes source path plus package file sizes/mtimes and remains fail-closed.
+// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes OS version, standardized source path and package file sizes/mtimes and remains fail-closed.
