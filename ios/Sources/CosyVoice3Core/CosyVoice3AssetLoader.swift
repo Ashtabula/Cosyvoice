@@ -121,6 +121,16 @@ enum CosyVoice3AssetLoader {
         }
     }
 
+    static func hasWarmMarker(root: URL, specs: [CosyVoice3ModelWarmSpec]) throws -> Bool {
+        let marker = try warmMarkerURL(root: root, specs: specs)
+        return FileManager.default.fileExists(atPath: marker.path)
+    }
+
+    static func storeWarmMarker(root: URL, specs: [CosyVoice3ModelWarmSpec]) throws {
+        let marker = try warmMarkerURL(root: root, specs: specs)
+        try Data("ready\n".utf8).write(to: marker, options: .atomic)
+    }
+
     static func assetCacheIdentity(root: URL, paths: [String]) throws -> String {
         let fileManager = FileManager.default
         var rows: [String] = []
@@ -202,6 +212,31 @@ enum CosyVoice3AssetLoader {
         return root
     }
 
+    private static func warmMarkerURL(root: URL, specs: [CosyVoice3ModelWarmSpec]) throws -> URL {
+        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            throw CosyVoice3AssetError.compiledCache("Caches directory unavailable")
+        }
+        let markerRoot = caches
+            .appendingPathComponent("CosyVoice3Core", isDirectory: true)
+            .appendingPathComponent("PreparedModelPlans-v1", isDirectory: true)
+        try FileManager.default.createDirectory(at: markerRoot, withIntermediateDirectories: true)
+
+        let manifest = root.appendingPathComponent("cosyvoice3_fixed225.json")
+        let manifestData = try Data(contentsOf: manifest)
+        let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+        let rows = specs.map {
+            $0.path + "|" + String(describing: $0.computeUnits)
+        }.sorted()
+        let identity = [
+            ProcessInfo.processInfo.operatingSystemVersionString,
+            root.standardizedFileURL.path,
+            manifestHash,
+            rows.joined(separator: "\n")
+        ].joined(separator: "\n")
+        let key = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
+        return markerRoot.appendingPathComponent(key + ".ready")
+    }
+
     private static func sourceFingerprint(_ source: URL, fileManager: FileManager) throws -> String {
         let keys: Set<URLResourceKey> = [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
         guard let enumerator = fileManager.enumerator(
@@ -237,3 +272,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-02: memoize resolved stable .mlmodelc URLs within the process after the first full package fingerprint/cache check; immutable SDK assets therefore avoid repeated package-tree enumeration on warm model construction.
 
 // Changes 2026-10-02: wrap process-local compiled-URL memoization in a locked @unchecked Sendable reference so Swift 6 strict concurrency sees no unisolated mutable static storage.
+
+// Changes 2026-10-02: store a same-install/OS/runtime-plan performance-only warm marker after successful model preparation; process relaunch can skip redundant prewarm, while actual MLModel construction remains authoritative and safely rebuilds if Core ML system caches were evicted.
