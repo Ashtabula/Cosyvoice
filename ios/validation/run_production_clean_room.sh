@@ -50,6 +50,13 @@ PY
     rm -f "$RAW"
     for attempt in $(seq 1 36); do printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] receipt poll %s/36\n' "$attempt"; if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/production-clean-room-receipt.json" --destination "$RAW"; then [ -s "$RAW" ] && break; fi; sleep 10; done
     [ -s "$RAW" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR receipt not produced\n'; return 5; }
+    "$PYTHON" - "$RAW" <<'PY' || return $?
+import json,sys
+from pathlib import Path
+x=json.loads(Path(sys.argv[1]).read_text())
+print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] deviceReceipt="+json.dumps(x,sort_keys=True),flush=True)
+if x.get("status")=="FAIL_PRODUCTION_CLEAN_ROOM": raise SystemExit(f"device clean-room failed phase={x.get('phase')} error={x.get('error')}")
+PY
     "$PYTHON" - "$RAW" "$ROOT/validation/production_baseline.json" "$ROOT/validation/release_receipt.json" "$OUTPUT" <<'PY' || return $?
 import json,sys,time
 from pathlib import Path
@@ -65,3 +72,5 @@ main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; tes
 # Code purpose: physical independent-consumer Production clean-room gate using only public CosyVoice3Core + ordinary immutable asset fetch.
 # Runtime environment: macOS/Xcode, authenticated actacomes Hugging Face, connected trusted iPhone.
 # Generated time: 2026-10-03 America/New_York.
+
+# Changes 2026-10-03: print and fail immediately on a machine-readable device FAIL receipt instead of turning every app-side failure into a six-minute missing-file timeout.
