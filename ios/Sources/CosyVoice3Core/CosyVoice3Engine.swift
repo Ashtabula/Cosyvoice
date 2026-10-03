@@ -1,5 +1,5 @@
 // CosyVoice3Engine.swift
-// Requirement: public SDK facade owns the complete on-device fixed225 lane; immutable Core ML artifacts are compiled once, lightweight frontend/reference state is reused across calls, and large inference MLModel objects retain the validated sequential lifetime.
+// Requirement: public SDK facade owns the complete on-device fixed225 lane; first-use Core ML execution-plan preparation is bounded/parallel, small immutable/reference state is reused, and large inference MLModel objects retain the validated sequential stage lifetime.
 import CoreML
 import CryptoKit
 import Foundation
@@ -22,6 +22,17 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var flowMaskCache: MLMultiArray?
     private var flowNoiseCache: MLMultiArray?
     private var referenceConditioningCache: [String: CosyVoice3ReferenceConditioning] = [:]
+    private var referenceAssetIdentityCache: String?
+    private var referenceDiskCache: CosyVoice3ReferenceConditioningDiskCache?
+    private var warmedModelKeys = Set<String>()
+    private var lastPreparationReportValue: CosyVoice3PreparationReport?
+    private var lastSynthesisReportValue: CosyVoice3SynthesisReport?
+
+    private struct ReferenceCacheDescriptor {
+        let cacheKey: String
+        let referenceFingerprint: String
+        let assetIdentity: String
+    }
 
     public init(assetRoot: URL) throws {
         var isDirectory: ObjCBool = false
@@ -41,9 +52,100 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             theta: manifest.ropeTheta,
             maximumPosition: 512
         )
+        self.referenceDiskCache = try? CosyVoice3ReferenceConditioningDiskCache()
     }
 
     public func capabilities() async throws -> CosyVoice3Capabilities { capabilitiesValue }
+    public func lastPreparationReport() -> CosyVoice3PreparationReport? { lastPreparationReportValue }
+    public func lastSynthesisReport() -> CosyVoice3SynthesisReport? { lastSynthesisReportValue }
+
+    // Applications may call prepare(reference:) immediately after assets/reference selection.
+    // synthesize() also calls it automatically, so callers are never required to manage warm-up.
+    @discardableResult
+    public func prepare(reference: CosyVoice3VoiceReference? = nil) async throws -> CosyVoice3PreparationReport {
+        let totalStart = DispatchTime.now().uptimeNanoseconds
+        let maximumConcurrentModelWarmups = 2
+
+        var flowConditionsPath = manifest.flowConditions
+        var referenceAssets: CosyVoice3ReferenceEnrollmentAssets?
+        var referenceCacheHit = false
+        if let reference {
+            guard !reference.transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                  FileManager.default.fileExists(atPath: reference.audioURL.path) else {
+                throw CosyVoice3EngineError.invalidReference
+            }
+            guard let assets = manifest.referenceEnrollment, assets.isPromoted else {
+                throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                    "custom reference requested but reference enrollment is not PASS_DEVICE_PARITY"
+                )
+            }
+            referenceAssets = assets
+            flowConditionsPath = assets.flowConditionsDynamic
+            referenceCacheHit = try cachedReferenceConditioning(for: reference, assets: assets) != nil
+        }
+
+        // Order is deliberately interleaved so a batch of two never starts both large LLM
+        // models together. With a cold custom reference the first pair is LLM-prefill +
+        // speech-tokenizer, then decode + Flow shard0, etc. Each warmed MLModel is released
+        // before the next batch; this is not persistent all-model residency.
+        var plan: [CosyVoice3ModelWarmSpec] = []
+        if let assets = referenceAssets, !referenceCacheHit {
+            plan.append(.init(manifest.llmPrefill))
+            plan.append(.init(assets.speechTokenizer, computeUnits: .cpuOnly))
+            plan.append(.init(manifest.llmDecode))
+            plan.append(.init(manifest.flowShards[0]))
+            plan.append(.init(assets.campPlus, computeUnits: .cpuOnly))
+            plan.append(.init(manifest.flowShards[1]))
+            plan.append(.init(flowConditionsPath))
+            plan.append(.init(manifest.flowShards[2]))
+            plan.append(.init(manifest.flowShards[3]))
+            plan.append(.init(manifest.flowShards[4]))
+            plan.append(.init(manifest.flowShards[5]))
+            plan.append(.init(manifest.hift))
+        } else {
+            plan = [
+                .init(manifest.llmPrefill),
+                .init(manifest.flowShards[0]),
+                .init(manifest.llmDecode),
+                .init(manifest.flowShards[1]),
+                .init(flowConditionsPath),
+                .init(manifest.flowShards[2]),
+                .init(manifest.flowShards[3]),
+                .init(manifest.flowShards[4]),
+                .init(manifest.flowShards[5]),
+                .init(manifest.hift)
+            ]
+        }
+
+        let missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
+        let warmStart = DispatchTime.now().uptimeNanoseconds
+        if !missing.isEmpty {
+            try await CosyVoice3AssetLoader.warmModels(
+                root: assetRoot,
+                specs: missing,
+                maximumConcurrent: maximumConcurrentModelWarmups
+            )
+            warmedModelKeys.formUnion(missing.map(warmKey))
+        }
+        let modelWarmupMilliseconds = Self.milliseconds(since: warmStart)
+
+        let referenceStart = DispatchTime.now().uptimeNanoseconds
+        if let reference, let assets = referenceAssets, !referenceCacheHit {
+            _ = try await referenceConditioning(for: reference, assets: assets)
+        }
+        let referencePreparationMilliseconds = Self.milliseconds(since: referenceStart)
+
+        let report = CosyVoice3PreparationReport(
+            totalMilliseconds: Self.milliseconds(since: totalStart),
+            modelWarmupMilliseconds: modelWarmupMilliseconds,
+            referencePreparationMilliseconds: referencePreparationMilliseconds,
+            warmedModelCount: missing.count,
+            maximumConcurrentModelWarmups: maximumConcurrentModelWarmups,
+            referenceCacheHit: referenceCacheHit
+        )
+        lastPreparationReportValue = report
+        return report
+    }
 
     public func validateReference(_ reference: CosyVoice3VoiceReference, probeText: String) async throws {
         guard !reference.transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
@@ -60,6 +162,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     public func synthesize(_ text: String, parameters: CosyVoice3Parameters = .init()) async throws -> CosyVoice3Audio {
+        let totalStart = DispatchTime.now().uptimeNanoseconds
         let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !cleaned.isEmpty else { throw CosyVoice3EngineError.emptyText }
         if let reference = parameters.reference {
@@ -69,6 +172,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             }
         }
 
+        let preparation = try await prepare(reference: parameters.reference)
+
+        let frontendStart = DispatchTime.now().uptimeNanoseconds
         let baseFrontend = try await reusableBaseFrontend()
         let basePrepared = try await baseFrontend.prepare(
             text: cleaned,
@@ -97,11 +203,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             prepared = basePrepared
             flowConditionsPath = manifest.flowConditions
         }
+        let frontendMilliseconds = Self.milliseconds(since: frontendStart)
 
-        // MLModel objects remain request-scoped to preserve the previously validated memory
-        // lifecycle. CosyVoice3AssetLoader now resolves these through a persistent .mlmodelc
-        // cache, so this is model construction, not package recompilation.
+        var llmModelLoadMilliseconds = 0.0
+        var llmGenerationMilliseconds = 0.0
         let speechTokens: [Int] = try {
+            let loadStart = DispatchTime.now().uptimeNanoseconds
             let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
             let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
             let llm = CosyVoice3LLMRuntime(
@@ -109,11 +216,16 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 decodeModel: decode,
                 conditioner: try reusableConditioner()
             )
-            return try llm.generate(prepared)
+            llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
+            let generationStart = DispatchTime.now().uptimeNanoseconds
+            let tokens = try llm.generate(prepared)
+            llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+            return tokens
         }()
 
         // The lexical scope above intentionally drops request-scoped LLM model references
         // before Flow model construction, matching the accepted device benchmark lifecycle.
+        let acousticLoadStart = DispatchTime.now().uptimeNanoseconds
         let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
         let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
@@ -125,7 +237,21 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             flowMask: try reusableFlowMask(),
             initialNoise: try reusableFlowNoise()
         )
-        return try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+        let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
+        let acousticStart = DispatchTime.now().uptimeNanoseconds
+        let audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+        let acousticSynthesisMilliseconds = Self.milliseconds(since: acousticStart)
+
+        lastSynthesisReportValue = CosyVoice3SynthesisReport(
+            totalMilliseconds: Self.milliseconds(since: totalStart),
+            preparationMilliseconds: preparation.totalMilliseconds,
+            frontendMilliseconds: frontendMilliseconds,
+            llmModelLoadMilliseconds: llmModelLoadMilliseconds,
+            llmGenerationMilliseconds: llmGenerationMilliseconds,
+            acousticModelLoadMilliseconds: acousticModelLoadMilliseconds,
+            acousticSynthesisMilliseconds: acousticSynthesisMilliseconds
+        )
+        return audio
     }
 
     private func reusableBaseFrontend() async throws -> CosyVoice3Fixed224Frontend {
@@ -222,14 +348,68 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         for reference: CosyVoice3VoiceReference,
         assets: CosyVoice3ReferenceEnrollmentAssets
     ) async throws -> CosyVoice3ReferenceConditioning {
-        let key = try referenceFingerprint(reference.audioURL)
-        if let cached = referenceConditioningCache[key] { return cached }
+        if let cached = try cachedReferenceConditioning(for: reference, assets: assets) { return cached }
+        let descriptor = try referenceCacheDescriptor(for: reference, assets: assets)
         let encoded = try await makeReferenceEncoder(assets: assets).encode(audioURL: reference.audioURL)
-        guard encoded.fingerprint == key else {
+        guard encoded.fingerprint == descriptor.referenceFingerprint else {
             throw CosyVoice3EngineError.developmentRuntimeIncomplete("reference conditioning fingerprint mismatch")
         }
-        referenceConditioningCache[key] = encoded
+        referenceConditioningCache[descriptor.cacheKey] = encoded
+        try? referenceDiskCache?.store(encoded, cacheKey: descriptor.cacheKey, assetIdentity: descriptor.assetIdentity)
         return encoded
+    }
+
+    private func cachedReferenceConditioning(
+        for reference: CosyVoice3VoiceReference,
+        assets: CosyVoice3ReferenceEnrollmentAssets
+    ) throws -> CosyVoice3ReferenceConditioning? {
+        let descriptor = try referenceCacheDescriptor(for: reference, assets: assets)
+        if let cached = referenceConditioningCache[descriptor.cacheKey] { return cached }
+        guard let disk = referenceDiskCache else { return nil }
+        do {
+            if let cached = try disk.load(
+                cacheKey: descriptor.cacheKey,
+                referenceFingerprint: descriptor.referenceFingerprint,
+                assetIdentity: descriptor.assetIdentity
+            ) {
+                referenceConditioningCache[descriptor.cacheKey] = cached
+                return cached
+            }
+        } catch {
+            disk.remove(cacheKey: descriptor.cacheKey)
+        }
+        return nil
+    }
+
+    private func referenceCacheDescriptor(
+        for reference: CosyVoice3VoiceReference,
+        assets: CosyVoice3ReferenceEnrollmentAssets
+    ) throws -> ReferenceCacheDescriptor {
+        let referenceFingerprint = try referenceFingerprint(reference.audioURL)
+        let assetIdentity: String
+        if let cached = referenceAssetIdentityCache {
+            assetIdentity = cached
+        } else {
+            let value = try CosyVoice3AssetLoader.assetCacheIdentity(
+                root: assetRoot,
+                paths: [
+                    assets.speechTokenizer,
+                    assets.campPlus,
+                    assets.whisperMel128,
+                    assets.kaldiMel80,
+                    assets.matchaMel80
+                ]
+            )
+            referenceAssetIdentityCache = value
+            assetIdentity = value
+        }
+        let material = referenceFingerprint + "|" + assetIdentity
+        let cacheKey = SHA256.hash(data: Data(material.utf8)).map { String(format: "%02x", $0) }.joined()
+        return ReferenceCacheDescriptor(
+            cacheKey: cacheKey,
+            referenceFingerprint: referenceFingerprint,
+            assetIdentity: assetIdentity
+        )
     }
 
     private func referenceFingerprint(_ url: URL) throws -> String {
@@ -264,14 +444,23 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             dsp: dsp
         )
     }
+
+    private func warmKey(_ spec: CosyVoice3ModelWarmSpec) -> String {
+        spec.path + "|" + String(describing: spec.computeUnits)
+    }
+
+    private static func milliseconds(since start: UInt64) -> Double {
+        Double(DispatchTime.now().uptimeNanoseconds - start) / 1_000_000
+    }
 }
 
-// Purpose: default baked-reference and separately parity-gated custom-reference fixed225 paths share one public text->PCM API without recompiling immutable Core ML packages on every synthesis.
+// Purpose: default baked-reference and separately parity-gated custom-reference fixed225 paths share one public text->PCM API with bounded first-use preparation and no all-model persistent residency.
 // Upstream: CosyVoice3_NPU@8789402; request-scoped large-model lifetime follows the accepted StatefulLLMBench full-pipeline memory behavior.
 // Runtime: iOS18+/macOS15+, no Python/host bridge.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: cache tokenizer/embedding/F0/static buffers and per-audio reference conditioning on the engine; large LLM/Flow/HiFT MLModel objects remain request-scoped but now load from CosyVoice3AssetLoader's persistent compiled cache.
-
-// Changes 2026-10-02: explicit LLM lexical lifetime releases request-scoped prefill/decode references before Flow construction, matching accepted full-pipeline memory behavior.
-
-// Changes 2026-10-02: persist the immutable native frontend object so its tokenizer, embeddings and precomputed 224-row RoPE table are reused across synthesis calls.
+// Changes 2026-10-02: persistent compiled Core ML cache; tokenizer/embedding/F0/static buffers and per-reference in-memory state are reused.
+// Changes 2026-10-02: explicit LLM lexical lifetime releases request-scoped prefill/decode references before Flow construction.
+// Changes 2026-10-02: persist the immutable native frontend object and precomputed RoPE rows across synthesis calls.
+// Changes 2026-10-02: add automatic/public prepare(reference:) using at most two concurrent one-model warmups, preserving request-stage residency while overlapping cold execution-plan construction.
+// Changes 2026-10-02: persist only derived fixed151/302/192 reference tensors across launches, keyed by reference-audio SHA plus exact reference-asset metadata identity; raw reference audio is never persisted by the SDK cache.
+// Changes 2026-10-02: expose coarse preparation/synthesis stage timings for physical performance validation.
