@@ -43,7 +43,7 @@ PY
     git -C "$REPO" diff --check || return $?
     printf '[COSYVOICE3-CANDIDATE] pending release changes:\n'
     git -C "$REPO" status --short
-    git -C "$REPO" add ios/manifest.json ios/assets/releases.json ios/RELEASE_CHECKLIST.md ios/BENCHMARK.md ios/README.md ios/SDK_RELEASE.md ios/API.md ios/ASSETS.md ios/validation/evidence/standalone_build.json ios/validation/evidence/full_runtime_rebuild.json ios/validation/evidence/candidate_benchmark.json ios/validation/release_receipt.json ios/validation/ios_fixed225_distribution_ready_2026-10-03.json ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md || return $?
+    git -C "$REPO" add ios/manifest.json ios/assets/releases.json ios/VALIDATION.md ios/BENCHMARK.md ios/README.md ios/API.md ios/ASSETS.md ios/validation/evidence/standalone_build.json ios/validation/evidence/full_runtime_rebuild.json ios/validation/evidence/candidate_benchmark.json ios/validation/release_receipt.json ios/validation/ios_fixed225_distribution_ready_2026-10-03.json ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md || return $?
     git -C "$REPO" ls-files --error-unmatch ios/validation/evidence/standalone_build.json >/dev/null || { printf '[COSYVOICE3-CANDIDATE] ERROR standalone_build.json was not staged/tracked\n'; return 4; }
     git -C "$REPO" ls-files --error-unmatch ios/validation/evidence/full_runtime_rebuild.json >/dev/null || { printf '[COSYVOICE3-CANDIDATE] ERROR full_runtime_rebuild.json was not staged/tracked\n'; return 4; }
     git -C "$REPO" ls-files --error-unmatch ios/validation/evidence/candidate_benchmark.json >/dev/null || { printf '[COSYVOICE3-CANDIDATE] ERROR candidate_benchmark.json was not staged/tracked\n'; return 4; }
@@ -71,3 +71,5 @@ test "$RC" -eq 0
 # Changes 2026-10-03: run the strict Candidate audit again after creating the release commit and before any push; the audit binds evidence to the direct source parent and permits only the fixed release metadata/evidence path set in that child commit.
 
 # Changes 2026-10-03: revalidation publishes a new 2026-10-03 milestone ref/files instead of moving the historical 2026-10-02 milestone.
+
+# Changes 2026-10-03: stage engine-owned VALIDATION.md instead of retired RELEASE_CHECKLIST.md, and do not stage SDK_RELEASE.md because Candidate promotion may not rewrite release policy.
