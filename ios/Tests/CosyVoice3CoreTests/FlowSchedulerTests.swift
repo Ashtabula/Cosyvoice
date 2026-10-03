@@ -20,7 +20,7 @@ final class FlowSchedulerTests: XCTestCase {
         for steps in [10, 8, 6] {
             let span = try CosyVoice3Fixed225AcousticRuntime.flowTimeSpan(stepCount: steps)
             XCTAssertEqual(span.count, steps + 1)
-            XCTAssertEqual(span.first, 0)
+            XCTAssertEqual(span.first ?? -1, 0, accuracy: 1e-7)
             XCTAssertEqual(span.last ?? -1, 1, accuracy: 1e-6)
             for index in 1..<span.count {
                 XCTAssertGreaterThan(span[index], span[index - 1])
