@@ -31,7 +31,9 @@ def main():
     if public_api.get("userParameters")!=["reference","instruction","flowSteps"] or flow_contract.get("default")!=6 or flow_contract.get("supported")!=[6,8,10]: raise RuntimeError("manifest public Flow-step contract mismatch")
     if (benchmark.get("measurement") or {}).get("flowSteps")!=6: raise RuntimeError("Candidate benchmark does not validate production default flowSteps=6")
     if flow6_acceptance.get("status")!="PASS_USER_FLOW6_LISTENING_ACCEPTANCE" or (flow6_acceptance.get("headToHead") or {}).get("selectedFlowSteps")!=6: raise RuntimeError("6-step listening acceptance evidence mismatch")
-    if release.get("releaseStatus")!="candidate" or release.get("technicalDistributionReady") is not True or release.get("publicRedistributionApproved") is not False or any(v.get("status")!="PASS" for v in release.get("checks",{}).values()): raise RuntimeError("release receipt Candidate state mismatch")
+    checks=release.get("checks") or {}; required_checks={"sourceIsolation","standaloneBuild","assetValidation","hostParity","targetRuntimeExecution","physicalDeviceExecution","textToPcm","benchmarkRecorded"}; missing=sorted(required_checks-set(checks))
+    if missing: raise RuntimeError(f"release receipt missing canonical Candidate checks: {missing}")
+    if release.get("releaseStatus")!="candidate" or release.get("technicalDistributionReady") is not True or release.get("publicRedistributionApproved") is not False or any(v.get("status")!="PASS" for v in checks.values()): raise RuntimeError("release receipt Candidate state mismatch")
     if (release.get("checks") or {}).get("flow6HumanListeningAcceptance",{}).get("status")!="PASS": raise RuntimeError("Candidate release receipt omits 6-step human listening acceptance")
     validated=release.get("validatedSourceCommit")
     if not isinstance(validated,str) or len(validated)!=40: raise RuntimeError("Candidate receipt validatedSourceCommit missing/invalid")
@@ -69,3 +71,4 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: audit targets the new 2026-10-03 revalidation milestone and treats the 2026-10-02 milestone as immutable historical evidence.
 # Changes 2026-10-03: engine-specific status moved from RELEASE_CHECKLIST.md to VALIDATION.md so SDK_RELEASE.md can remain the byte-identical canonical cross-engine checklist mirror.
 # Changes 2026-10-03: Candidate metadata-only commits are no longer allowed to modify SDK_RELEASE.md; canonical checklist synchronization is a separate authority.
+# Changes 2026-10-03: require all canonical Candidate receipt checks explicitly; an incomplete check dictionary can no longer pass merely because every present item says PASS.
