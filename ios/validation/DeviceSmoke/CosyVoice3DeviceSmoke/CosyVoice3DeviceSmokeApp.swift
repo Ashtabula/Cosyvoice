@@ -75,7 +75,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
             let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
-            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); try Self.write(receipt, to: url); try play(repeatAudio)
@@ -88,14 +88,27 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let reference: CosyVoice3VoiceReference
         let transcript: String
         let hostReceiptSHA256: String
+        let sourceCommit: String
         let text: String
         let parameters: CosyVoice3Parameters
     }
 
     private static func fixture() throws -> Fixture {
         let resources = try generatedAssets(); let runtime = resources.appendingPathComponent("Runtime", isDirectory:true); let wav = resources.appendingPathComponent("reference.wav"); let transcript = try String(contentsOf:resources.appendingPathComponent("reference.txt"),encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
-        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let marker=resources.appendingPathComponent("candidate-benchmark-mode.json"); let hostSHA:String; if FileManager.default.fileExists(atPath:marker.path) { let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]; guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("Candidate benchmark marker host binding missing") }; hostSHA=bound } else { let hostData=try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json")); hostSHA=SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined() }; let text = "This is a CosyVoice3 public API reference voice validation."
-        return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
+        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let marker=resources.appendingPathComponent("candidate-benchmark-mode.json"); let hostSHA:String; let sourceCommit:String
+        if FileManager.default.fileExists(atPath:marker.path) {
+            let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
+            guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("Candidate benchmark marker host binding missing") }
+            guard let commit=value?["sourceCommit"] as? String, commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { throw SmokeError("Candidate benchmark marker sourceCommit missing") }
+            hostSHA=bound
+            sourceCommit=commit
+        } else {
+            let hostData=try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json"))
+            hostSHA=SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined()
+            sourceCommit="unbound-noncandidate-smoke"
+        }
+        let text = "This is a CosyVoice3 public API reference voice validation."
+        return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,sourceCommit:sourceCommit,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
     }
 
     private static func generatedAssets() throws -> URL {
@@ -108,9 +121,20 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private static func receiptURL(_ name: String) throws -> URL { try FileManager.default.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true).appendingPathComponent(name) }
     private static func write(_ receipt: [String: Any], to url: URL) throws { let data=try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]); try data.write(to:url,options:.atomic) }
     private static func recordFailure(_ error: Error, filename: String, into model: CosyVoice3SmokeModel) {
-        let receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
+        var receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","recordedAtUnix":Int(Date().timeIntervalSince1970),"error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
+        if let sourceCommit = candidateSourceCommit() { receipt["sourceCommit"] = sourceCommit }
         if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
         model.status="FAIL \(String(describing:error))"
+    }
+
+    private static func candidateSourceCommit() -> String? {
+        guard let resources = try? generatedAssets() else { return nil }
+        let marker = resources.appendingPathComponent("candidate-benchmark-mode.json")
+        guard let data = try? Data(contentsOf: marker),
+              let value = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
+              let commit = value["sourceCommit"] as? String,
+              commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { return nil }
+        return commit
     }
     private static func reportDictionary(_ report: CosyVoice3SynthesisReport) -> [String: Any] {
         [
@@ -167,3 +191,5 @@ private extension Data {
 // Changes 2026-10-02: delete any prior Candidate receipt at benchmark start so a same-install process relaunch cannot be mistaken for a completed new run by host polling.
 
 // Changes 2026-10-02: raw device Candidate receipts include recordedAtUnix so same-install relaunch probes can reject a stale receipt even if host polling races app startup cleanup.
+
+// Changes 2026-10-02: bind Candidate PASS and FAIL receipts to the exact Git sourceCommit embedded at staging time; failures also carry recordedAtUnix so stale binaries/receipts are immediately distinguishable from the current run.
