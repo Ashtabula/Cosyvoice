@@ -263,7 +263,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             hift: hift,
             f0: try reusableF0(),
             flowMask: try reusableFlowMask(),
-            initialNoise: try reusableFlowNoise()
+            initialNoise: try reusableFlowNoise(),
+            flowStepCount: parameters.flowSteps.rawValue
         )
         let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
         let acousticStart = DispatchTime.now().uptimeNanoseconds
@@ -271,6 +272,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         let acousticSynthesisMilliseconds = Self.milliseconds(since: acousticStart)
 
         lastSynthesisReportValue = CosyVoice3SynthesisReport(
+            flowSteps: parameters.flowSteps,
             totalMilliseconds: Self.milliseconds(since: totalStart),
             preparationMilliseconds: preparation.totalMilliseconds,
             frontendMilliseconds: frontendMilliseconds,
@@ -643,3 +645,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: physical iPhone18,4 Core ML -14 under two-model constructor overlap invalidated the bounded-parallel cold-start experiment; prepare(reference:) now serializes execution-plan construction and relies on early invocation/caching rather than simultaneous large-model specialization.
 
 // Changes 2026-10-02: add validation-SPI 10/8/6 Flow head-to-head synthesis that generates one shared 225-token trajectory, reuses one acoustic model set and identical initial noise/reference conditioning, performs a 10-step warm-up, then measures only the three acoustic variants; production synthesize() remains fixed at 10 steps.
+
+// Changes 2026-10-02: production synthesis forwards the public 6/8/10 Flow-step choice into the acoustic runtime; the selected setting is recorded in synthesis telemetry and the public default is 6.

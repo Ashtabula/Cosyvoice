@@ -1,5 +1,5 @@
 // CosyVoice3AcousticRuntime.swift
-// Requirement: validated fixed225 Flow -> 10-step CFG Euler -> 450-frame mel -> FP64-F0/HiFT; support baked or dynamic per-reference conditioning.
+// Requirement: validated fixed225 Flow -> selectable 6/8/10-step CFG Euler -> 450-frame mel -> FP64-F0/HiFT; production defaults to 6 steps and supports baked or dynamic per-reference conditioning.
 import CoreML
 import Foundation
 
@@ -20,7 +20,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
     private let conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray
     private let flowStepCount:Int
 
-    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray, flowStepCount:Int=10) throws {
+    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray, flowStepCount:Int=6) throws {
         guard shards.count==6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards",[shards.count]) }
         guard flowMask.shape.map(\.intValue)==[2,1,752] else { throw CosyVoice3AcousticError.invalidShape("flow_mask",flowMask.shape.map(\.intValue)) }
         guard initialNoise.shape.map(\.intValue)==[1,80,752] else { throw CosyVoice3AcousticError.invalidShape("flow_x",initialNoise.shape.map(\.intValue)) }
@@ -132,4 +132,4 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
 
 // Changes 2026-10-02: use direct contiguous Float32 pointers for immutable noise copy, Flow velocity CFG/Euler reads and PCM extraction, with the prior MLMultiArray subscript path retained as a non-contiguous fallback; arithmetic/order and model calls are unchanged.
 
-// Changes 2026-10-02: parameterize the otherwise unchanged cosine-Euler Flow scheduler for validation-only 10/8/6 head-to-head runs; production construction still defaults to the previously validated 10 steps.
+// Changes 2026-10-02: parameterize the otherwise unchanged cosine-Euler Flow scheduler for physically validated 6/8/10 operation; production construction now defaults to the accepted 6-step setting.

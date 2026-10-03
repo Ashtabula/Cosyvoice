@@ -65,7 +65,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
             let elapsedSeconds = Self.seconds(started.duration(to: clock.now)); try Self.validate(audio)
             let duration = Self.audioDuration(audio); let stats = Self.stats(audio)
-            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM","sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"durationSeconds":duration,"elapsedSeconds":elapsedSeconds,"rtf":elapsedSeconds/duration,"finite":true,"peakAbs":stats.peak,"rms":stats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM","sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"durationSeconds":duration,"elapsedSeconds":elapsedSeconds,"rtf":elapsedSeconds/duration,"finite":true,"peakAbs":stats.peak,"rms":stats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
             let url = try Self.receiptURL("reference-smoke-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(audio)
             status = String(format:"PASS samples=%d duration=%.3fs elapsed=%.3fs rtf=%.3f receipt=%@",audio.samples.count,duration,elapsedSeconds,elapsedSeconds/duration,url.path)
         } catch { Self.recordFailure(error, filename:"reference-smoke-receipt.json", into:self) }
@@ -84,7 +84,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
             let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
-            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(repeatAudio)
@@ -166,7 +166,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "systemVersion": UIDevice.current.systemVersion,
                 "hostReceiptSha256": fixture.hostReceiptSHA256,
                 "referenceTranscriptCharacters": fixture.transcript.count,
-                "productionDefaultFlowSteps": 10,
+                "productionDefaultFlowSteps": CosyVoice3FlowSteps.productionDefault.rawValue,
                 "measuredFlowSteps": report.flowSteps,
                 "warmupFlowSteps": report.warmupFlowSteps,
                 "warmupMilliseconds": report.warmupMilliseconds,
@@ -196,7 +196,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 (bySteps[6]?.synthesisMilliseconds ?? 0) / 1000,
                 ((report.llmGenerationMilliseconds + (bySteps[6]?.synthesisMilliseconds ?? 0)) / 1000 / (bySteps[6]?.audioSeconds ?? 9))
             )
-            if let baseline = generated[10] { try play(baseline) }
+            if let productionDefault = generated[CosyVoice3FlowSteps.productionDefault.rawValue] { try play(productionDefault) }
         } catch {
             Self.recordFailure(error, filename:"flow-steps-head-to-head-receipt.json", into:self)
         }
@@ -274,6 +274,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     }
     private static func reportDictionary(_ report: CosyVoice3SynthesisReport) -> [String: Any] {
         [
+            "flowSteps": report.flowSteps.rawValue,
             "totalMilliseconds": report.totalMilliseconds,
             "preparationMilliseconds": report.preparationMilliseconds,
             "frontendMilliseconds": report.frontendMilliseconds,
@@ -335,3 +336,5 @@ private extension Data {
 // Changes 2026-10-02: DeviceSmoke supports validation-only Flow 10/8/6 head-to-head mode, saves all three WAVs plus a bound receipt, exposes play buttons, and reads source/host identity from either Candidate or Flow validation markers.
 
 // Changes 2026-10-02: head-to-head receipt now distinguishes acoustic-only RTF from steady compute RTF (shared LLM generation + each Flow/HiFT variant), matching the optimization question rather than conflating model-load/setup overhead.
+
+// Changes 2026-10-02: smoke/Candidate receipts record the selected public Flow-step value; head-to-head metadata and automatic playback derive the production default from CosyVoice3FlowSteps.productionDefault (6).

@@ -8,10 +8,28 @@ public struct CosyVoice3VoiceReference: Sendable {
     public init(audioURL: URL, transcript: String) { self.audioURL=audioURL; self.transcript=transcript }
 }
 
+public enum CosyVoice3FlowSteps: Int, CaseIterable, Sendable {
+    case steps6 = 6
+    case steps8 = 8
+    case steps10 = 10
+
+    public static let productionDefault: CosyVoice3FlowSteps = .steps6
+}
+
 public struct CosyVoice3Parameters: Sendable {
     public let reference: CosyVoice3VoiceReference?
     public let instruction: String?
-    public init(reference: CosyVoice3VoiceReference?=nil, instruction: String?=nil) { self.reference=reference; self.instruction=instruction }
+    public let flowSteps: CosyVoice3FlowSteps
+
+    public init(
+        reference: CosyVoice3VoiceReference?=nil,
+        instruction: String?=nil,
+        flowSteps: CosyVoice3FlowSteps = .productionDefault
+    ) {
+        self.reference=reference
+        self.instruction=instruction
+        self.flowSteps=flowSteps
+    }
 }
 
 public struct CosyVoice3Audio: Sendable {
@@ -25,7 +43,22 @@ public struct CosyVoice3Capabilities: Sendable {
     public let supportsReferenceAudio: Bool
     public let supportsInstruction: Bool
     public let outputSampleRate: Int
-    public init(supportsReferenceAudio: Bool=true, supportsInstruction: Bool=true, outputSampleRate: Int=24000) { self.supportsReferenceAudio=supportsReferenceAudio; self.supportsInstruction=supportsInstruction; self.outputSampleRate=outputSampleRate }
+    public let supportedFlowSteps: [CosyVoice3FlowSteps]
+    public let defaultFlowSteps: CosyVoice3FlowSteps
+
+    public init(
+        supportsReferenceAudio: Bool=true,
+        supportsInstruction: Bool=true,
+        outputSampleRate: Int=24000,
+        supportedFlowSteps: [CosyVoice3FlowSteps]=CosyVoice3FlowSteps.allCases,
+        defaultFlowSteps: CosyVoice3FlowSteps=.productionDefault
+    ) {
+        self.supportsReferenceAudio=supportsReferenceAudio
+        self.supportsInstruction=supportsInstruction
+        self.outputSampleRate=outputSampleRate
+        self.supportedFlowSteps=supportedFlowSteps
+        self.defaultFlowSteps=defaultFlowSteps
+    }
 }
 
 public struct CosyVoice3PreparationReport: Sendable {
@@ -57,6 +90,7 @@ public struct CosyVoice3PreparationReport: Sendable {
 }
 
 public struct CosyVoice3SynthesisReport: Sendable {
+    public let flowSteps: CosyVoice3FlowSteps
     public let totalMilliseconds: Double
     public let preparationMilliseconds: Double
     public let frontendMilliseconds: Double
@@ -69,6 +103,7 @@ public struct CosyVoice3SynthesisReport: Sendable {
     public let warmedModelCount: Int
 
     public init(
+        flowSteps: CosyVoice3FlowSteps,
         totalMilliseconds: Double,
         preparationMilliseconds: Double,
         frontendMilliseconds: Double,
@@ -80,6 +115,7 @@ public struct CosyVoice3SynthesisReport: Sendable {
         referenceCacheHit: Bool,
         warmedModelCount: Int
     ) {
+        self.flowSteps = flowSteps
         self.totalMilliseconds = totalMilliseconds
         self.preparationMilliseconds = preparationMilliseconds
         self.frontendMilliseconds = frontendMilliseconds
@@ -158,4 +194,6 @@ public extension CosyVoice3SynthesisEngine {
 
 // Changes 2026-10-02: preparation/synthesis telemetry now reports persistent model-preparation marker hits, reference-conditioning cache hits and the number of model constructors actually warmed.
 
-// Changes 2026-10-02: add validation-SPI-only Flow 10/8/6 head-to-head result types; the stable production synthesis API and default parameters remain unchanged.
+// Changes 2026-10-02: add validation-SPI-only Flow 10/8/6 head-to-head result types.
+
+// Changes 2026-10-02: promote the physically validated 6/8/10 Flow choices into the stable public API; production defaults to 6 steps while callers may explicitly select 8 or 10, and capabilities/telemetry expose the selected contract.

@@ -1,12 +1,12 @@
 // FlowSchedulerTests.swift
-// Requirement: production 10-step cosine Euler schedule must remain byte-for-byte formula equivalent while validation-only 8/6 step schedules stay bounded and monotonic.
+// Requirement: production 6-step cosine Euler schedule and public 8/10 alternatives must stay bounded and monotonic; the legacy validated 10-step formula remains byte-for-byte equivalent.
 @testable import CosyVoice3Core
 import Foundation
 import XCTest
 
 @available(iOS 18.0, macOS 15.0, *)
 final class FlowSchedulerTests: XCTestCase {
-    func testProductionTenStepScheduleMatchesPreviousFormula() throws {
+    func testValidatedTenStepScheduleMatchesPreviousFormula() throws {
         let actual = try CosyVoice3Fixed225AcousticRuntime.flowTimeSpan(stepCount: 10)
         let expected: [Float] = (0...10).map {
             1 - cos(Float($0) / 10 * Float.pi / 2)
@@ -36,8 +36,8 @@ final class FlowSchedulerTests: XCTestCase {
     }
 }
 
-// Code purpose: protect the production 10-step schedule and validation-only 10/8/6 scheduler contract.
+// Code purpose: protect the public production 6-step default, validated 8/10 alternatives, and the unchanged cosine-Euler scheduler formula.
 // Upstream: CosyVoice3Fixed225AcousticRuntime.
 // Runtime: Swift Package XCTest, macOS15+/iOS18+.
 // Generated: 2026-10-02 America/New_York.
-// Changes: new validation coverage for generalized Flow step count without changing production default.
+// Changes: 6/8/10 are the public validated Flow choices; production default is 6 while the legacy 10-step formula remains explicitly regression-tested.
