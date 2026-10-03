@@ -67,6 +67,13 @@ PY
     mkdir -p "$WORK"
     "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile ios-fixed225-reference --version 0.1.0-rc1 --output "$FETCHED" --force
 
+    DECODE_PROFILE="maskwrite512-rc1"
+    if [ "${COSYVOICE3_PERF_FIXED449:-0}" = "1" ]; then
+        DECODE449="${COSYVOICE3_PERF_FIXED449_SOURCE:-$ROOT/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-decode-maskwrite449.mlpackage}"
+        "$PYTHON" "$ROOT/validation/prepare_fixed449_performance_runtime.py" --runtime "$FETCHED" --decode449 "$DECODE449"
+        DECODE_PROFILE="maskwrite449-diagnostic"
+    fi
+
     printf '[COSYVOICE3-PERF] PHASE fresh-install\n'
     COSYVOICE3_PROMOTED_RUNTIME_MODE=1 \
     COSYVOICE3_CANDIDATE_BENCHMARK=1 \
@@ -87,7 +94,7 @@ PY
     sleep 2
     poll_receipt "$RELAUNCH" same-install-relaunch
 
-    "$PYTHON" - "$FRESH" "$RELAUNCH" "$SUMMARY" "$(git -C "$ROOT/.." rev-parse HEAD)" <<'PY'
+    "$PYTHON" - "$FRESH" "$RELAUNCH" "$SUMMARY" "$(git -C "$ROOT/.." rev-parse HEAD)" "$DECODE_PROFILE" <<'PY'
 import json,sys,time
 fresh=json.load(open(sys.argv[1]))
 relaunch=json.load(open(sys.argv[2]))
@@ -95,6 +102,7 @@ summary={
     "schemaVersion":1,
     "status":"PASS_RUNTIME_PERFORMANCE_PROBE",
     "sourceCommit":sys.argv[4],
+    "decodeProfile":sys.argv[5],
     "recordedAtUnix":int(time.time()),
     "scope":"diagnostic only; immutable RC assets; no Candidate release evidence written",
     "freshInstall":fresh,
@@ -104,6 +112,7 @@ with open(sys.argv[3],"w") as f:
     json.dump(summary,f,indent=2,sort_keys=True)
     f.write("\n")
 print("[COSYVOICE3-PERF] PASS",json.dumps({
+    "decodeProfile":sys.argv[5],
     "freshFirstRTF":fresh.get("firstRTF"),
     "freshWarmRTF":fresh.get("repeatRTF"),
     "relaunchFirstRTF":relaunch.get("firstRTF"),
@@ -119,4 +128,4 @@ main "$@"
 # Code purpose: diagnostic public-API performance probe separating fresh-install first use, same-engine warm synthesis, and same-install process relaunch; it deliberately does not update validation/evidence/candidate_benchmark.json.
 # Upstream assets: immutable private HF ios-fixed225-reference/0.1.0-rc1.
 # Runtime: macOS/Xcode, connected physical iPhone, actacomes HF authentication.
-# Generated: 2026-10-02 America/New_York.
+# Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional COSYVOICE3_PERF_FIXED449=1 swaps only the decode package to the previously device/audio-accepted <=449 candidate for diagnostic A/B; the script still never writes Candidate evidence.\n
