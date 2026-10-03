@@ -1,5 +1,5 @@
 // CosyVoice3DeviceSmokeApp.swift
-// Requirement: physical-device smoke and Candidate benchmark may call only the public CosyVoice3Core API.
+// Requirement: physical-device smoke/Candidate paths use the stable public CosyVoice3Core API; Flow-step head-to-head uses only the explicit Validation SPI.
 
 import AVFoundation
 import Combine
@@ -220,11 +220,15 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     private static func fixture() throws -> Fixture {
         let resources = try generatedAssets(); let runtime = resources.appendingPathComponent("Runtime", isDirectory:true); let wav = resources.appendingPathComponent("reference.wav"); let transcript = try String(contentsOf:resources.appendingPathComponent("reference.txt"),encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
-        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript); let marker=resources.appendingPathComponent("candidate-benchmark-mode.json"); let hostSHA:String; let sourceCommit:String
-        if FileManager.default.fileExists(atPath:marker.path) {
+        let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript)
+        let candidateMarker=resources.appendingPathComponent("candidate-benchmark-mode.json")
+        let flowMarker=resources.appendingPathComponent("flow-step-head-to-head-mode.json")
+        let marker:URL? = FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil)
+        let hostSHA:String; let sourceCommit:String
+        if let marker {
             let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
-            guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("Candidate benchmark marker host binding missing") }
-            guard let commit=value?["sourceCommit"] as? String, commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { throw SmokeError("Candidate benchmark marker sourceCommit missing") }
+            guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("validation marker host binding missing") }
+            guard let commit=value?["sourceCommit"] as? String, commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { throw SmokeError("validation marker sourceCommit missing") }
             hostSHA=bound
             sourceCommit=commit
         } else {
@@ -247,19 +251,22 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private static func write(_ receipt: [String: Any], to url: URL) throws -> String { let data=try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]); try data.write(to:url,options:.atomic); return String(decoding:data,as:UTF8.self) }
     private static func recordFailure(_ error: Error, filename: String, into model: CosyVoice3SmokeModel) {
         var receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","recordedAtUnix":Int(Date().timeIntervalSince1970),"error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
-        if let sourceCommit = candidateSourceCommit() { receipt["sourceCommit"] = sourceCommit }
+        if let sourceCommit = validationSourceCommit() { receipt["sourceCommit"] = sourceCommit }
         if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
         model.status="FAIL \(String(describing:error))"
     }
 
-    private static func candidateSourceCommit() -> String? {
+    private static func validationSourceCommit() -> String? {
         guard let resources = try? generatedAssets() else { return nil }
-        let marker = resources.appendingPathComponent("candidate-benchmark-mode.json")
-        guard let data = try? Data(contentsOf: marker),
-              let value = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
-              let commit = value["sourceCommit"] as? String,
-              commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { return nil }
-        return commit
+        for name in ["flow-step-head-to-head-mode.json","candidate-benchmark-mode.json"] {
+            let marker = resources.appendingPathComponent(name)
+            guard let data = try? Data(contentsOf: marker),
+                  let value = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
+                  let commit = value["sourceCommit"] as? String,
+                  commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { continue }
+            return commit
+        }
+        return nil
     }
     private static func reportDictionary(_ report: CosyVoice3SynthesisReport) -> [String: Any] {
         [
@@ -320,3 +327,5 @@ private extension Data {
 // Changes 2026-10-02: bind Candidate PASS and FAIL receipts to the exact Git sourceCommit embedded at staging time; failures also carry recordedAtUnix so stale binaries/receipts are immediately distinguishable from the current run.
 
 // Changes 2026-10-02: successful smoke/Candidate runs now publish the exact written receipt JSON into the observable UI state; Copy receipt JSON is enabled after PASS just as it already was after FAIL.
+
+// Changes 2026-10-02: DeviceSmoke supports validation-only Flow 10/8/6 head-to-head mode, saves all three WAVs plus a bound receipt, exposes play buttons, and reads source/host identity from either Candidate or Flow validation markers.
