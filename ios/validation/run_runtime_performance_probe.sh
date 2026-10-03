@@ -34,6 +34,14 @@ if p.get("sourceCommit")!=expected_commit:
 if p.get("status")!="PASS_CANDIDATE_BENCHMARK":
     print("[COSYVOICE3-PERF] FAIL receipt "+str(p.get("status"))+" error="+str(p.get("error")),flush=True)
     raise SystemExit(20)
+if p.get("flowSteps")!=6:
+    print(f"[COSYVOICE3-PERF] FAIL flowSteps={p.get('flowSteps')!r} expected=6",flush=True)
+    raise SystemExit(21)
+for stage_name in ("firstStages","repeatStages"):
+    stage=p.get(stage_name)
+    if not isinstance(stage,dict) or stage.get("flowSteps")!=6:
+        print(f"[COSYVOICE3-PERF] FAIL {stage_name}.flowSteps={(stage or {}).get('flowSteps') if isinstance(stage,dict) else None!r} expected=6",flush=True)
+        raise SystemExit(21)
 print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
     "sourceCommit":p.get("sourceCommit"),
     "flowSteps":p.get("flowSteps"),
@@ -158,3 +166,5 @@ main "$@"
 # Changes 2026-10-02: performance probe rejects any raw receipt whose embedded sourceCommit differs from the exact host HEAD, eliminating ambiguity from stale installed binaries or previously written receipts.
 
 # Changes 2026-10-03: performance diagnostics print flowSteps so new 6-step production runs cannot be confused with older 10-step receipts.
+
+# Changes 2026-10-03: production performance probing now fails closed unless top-level and first/repeat stage telemetry all prove flowSteps=6.

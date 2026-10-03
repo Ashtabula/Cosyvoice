@@ -76,6 +76,8 @@ if p.get("sourceCommit")!=expected:
 if p.get("status")!="PASS_FLOW_STEPS_HEAD_TO_HEAD":
     print(f"[COSYVOICE3-FLOW-H2H] FAIL status={p.get('status')} error={p.get('error')}",flush=True)
     raise SystemExit(20)
+if p.get("productionDefaultFlowSteps")!=6:
+    raise SystemExit(f"receipt productionDefaultFlowSteps={p.get('productionDefaultFlowSteps')!r}, expected 6")
 variants={int(v["flowSteps"]):v for v in p.get("variants",[])}
 if set(variants)!={6,8,10}:
     raise SystemExit("receipt does not contain exactly 10/8/6 variants")
@@ -130,6 +132,8 @@ main "$@"
 # Upstream assets: immutable ios-fixed225-reference/0.1.0-rc1; reuses an already-fetched validated RC when available.
 # Runtime: macOS/Xcode, connected physical iPhone18,4, Release build.
 # Generated: 2026-10-02 America/New_York.
-# Changes: new dedicated Flow scheduler head-to-head runner; production default remains 10 steps.
+# Changes: new dedicated Flow scheduler head-to-head runner; comparison order remains 10/8/6 while production default is independently recorded and must now be 6.
 
 # Changes 2026-10-02: reject stale same-commit receipts by host launch epoch and print both acoustic-only and shared-LLM steady-compute RTF for each 10/8/6 variant.
+
+# Changes 2026-10-03: head-to-head host validation rejects receipts that do not identify 6 as the production Flow default.
