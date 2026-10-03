@@ -14,6 +14,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     // Safe persistent engine state. Large LLM/Flow/HiFT MLModel objects intentionally remain
     // request-scoped so the accepted sequential memory lifecycle is preserved.
     private var tokenizerCache: (any Tokenizer)?
+    private var baseFrontendCache: CosyVoice3Fixed224Frontend?
     private var textEmbeddingsCache: CosyVoice3FP16EmbeddingTable?
     private var speechEmbeddingsCache: CosyVoice3FP16EmbeddingTable?
     private var conditionerCache: CosyVoice3TokenConditioner?
@@ -128,6 +129,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     private func reusableBaseFrontend() async throws -> CosyVoice3Fixed224Frontend {
+        if let cached = baseFrontendCache { return cached }
         let tokenizer: any Tokenizer
         if let cached = tokenizerCache {
             tokenizer = cached
@@ -163,12 +165,14 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             speechEmbeddings = loaded
         }
 
-        return CosyVoice3Fixed224Frontend(
+        let frontend = CosyVoice3Fixed224Frontend(
             tokenizer: tokenizer,
             textEmbeddings: textEmbeddings,
             speechEmbeddings: speechEmbeddings,
             rope: rope
         )
+        baseFrontendCache = frontend
+        return frontend
     }
 
     private func reusableConditioner() throws -> CosyVoice3TokenConditioner {
@@ -269,3 +273,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: cache tokenizer/embedding/F0/static buffers and per-audio reference conditioning on the engine; large LLM/Flow/HiFT MLModel objects remain request-scoped but now load from CosyVoice3AssetLoader's persistent compiled cache.
 
 // Changes 2026-10-02: explicit LLM lexical lifetime releases request-scoped prefill/decode references before Flow construction, matching accepted full-pipeline memory behavior.
+
+// Changes 2026-10-02: persist the immutable native frontend object so its tokenizer, embeddings and precomputed 224-row RoPE table are reused across synthesis calls.
