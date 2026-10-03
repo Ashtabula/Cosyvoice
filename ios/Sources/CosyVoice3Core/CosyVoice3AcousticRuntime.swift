@@ -43,7 +43,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
 
         let conditionResult=try await conditions.prediction(from:conditionProvider)
         let mu=try output(conditionResult,"mu"), spks=try output(conditionResult,"spks"), cond=try output(conditionResult,"cond")
-        var x=(0..<initialNoise.count).map { initialNoise[$0].floatValue }
+        var x=Self.floatValues(initialNoise)
         let batchX=try MLMultiArray(shape:[2,80,752],dataType:.float32), t=try MLMultiArray(shape:[2],dataType:.float32)
         let span:[Float]=(0...10).map { 1-cos(Float($0)/10*Float.pi/2) }; var currentT=span[0], dt=span[1]-span[0]
         for step in 0..<10 {
@@ -61,7 +61,12 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
                 else { feed["h"]=try output(result,"h_out") }
             }
             guard let velocity else { throw CosyVoice3AcousticError.missingOutput("velocity") }
-            for i in x.indices { x[i] += dt*(1.7*velocity[i].floatValue-0.7*velocity[i+x.count].floatValue) }
+            if velocity.dataType == .float32, Self.isContiguous(velocity), velocity.count == x.count * 2 {
+                let vp=velocity.dataPointer.assumingMemoryBound(to:Float.self)
+                for i in x.indices { x[i] += dt*(1.7*vp[i]-0.7*vp[i+x.count]) }
+            } else {
+                for i in x.indices { x[i] += dt*(1.7*velocity[i].floatValue-0.7*velocity[i+x.count].floatValue) }
+            }
             currentT += dt; if step<9 { dt=span[step+2]-currentT }
         }
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
@@ -79,7 +84,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         }
         let hiftResult=try await hift.prediction(from:try MLDictionaryFeatureProvider(dictionary:["mel":mel,"f0":f0Values,"phase":phase]))
         let pcm=try output(hiftResult,"pcm")
-        let samples=(0..<pcm.count).map { pcm[$0].floatValue }
+        let samples=Self.floatValues(pcm)
         guard samples.count==Self.expectedPCMCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
         guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
         return .init(samples:samples,sampleRate:Self.sampleRate,channels:1)
@@ -89,9 +94,31 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         guard let a=provider.featureValue(for:name)?.multiArrayValue else { throw CosyVoice3AcousticError.missingOutput(name) }
         return a
     }
+
+    private static func isContiguous(_ array: MLMultiArray) -> Bool {
+        let shape=array.shape.map(\.intValue)
+        let strides=array.strides.map(\.intValue)
+        guard shape.count==strides.count else { return false }
+        var expected=1
+        for i in shape.indices.reversed() {
+            if strides[i] != expected { return false }
+            expected *= shape[i]
+        }
+        return true
+    }
+
+    private static func floatValues(_ array: MLMultiArray) -> [Float] {
+        if array.dataType == .float32, isContiguous(array) {
+            let pointer=array.dataPointer.assumingMemoryBound(to:Float.self)
+            return Array(UnsafeBufferPointer(start:pointer,count:array.count))
+        }
+        return (0..<array.count).map { array[$0].floatValue }
+    }
 }
 
 // Purpose: preserve the validated fixed225 acoustic math while allowing a separately parity-gated generic reference-conditioning graph.
 // Upstream: FullPipelineBenchmark.swift and export_pipeline_acoustics.py at CosyVoice3_NPU@8789402.
 // Runtime: iOS18+ CoreML.
 // Generated: 2026-10-02 America/New_York.
+
+// Changes 2026-10-02: use direct contiguous Float32 pointers for immutable noise copy, Flow velocity CFG/Euler reads and PCM extraction, with the prior MLMultiArray subscript path retained as a non-contiguous fallback; arithmetic/order and model calls are unchanged.
