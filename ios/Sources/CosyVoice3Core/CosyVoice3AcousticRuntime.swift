@@ -10,18 +10,22 @@ enum CosyVoice3AcousticError: Error, Equatable {
     case invalidShape(String,[Int])
     case nonFinite(String)
     case invalidPCMCount(Int)
+    case invalidFlowStepCount(Int)
 }
 
 @available(iOS 18.0, macOS 15.0, *)
 final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unchecked Sendable {
     static let speechTokenCount=225, flowFrames=752, promptFrames=302, outputMelFrames=450, sampleRate=24000, expectedPCMCount=216000
+    static let validatedFlowStepCounts = [6,8,10]
     private let conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray
+    private let flowStepCount:Int
 
-    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray) throws {
+    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray, flowStepCount:Int=10) throws {
         guard shards.count==6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards",[shards.count]) }
         guard flowMask.shape.map(\.intValue)==[2,1,752] else { throw CosyVoice3AcousticError.invalidShape("flow_mask",flowMask.shape.map(\.intValue)) }
         guard initialNoise.shape.map(\.intValue)==[1,80,752] else { throw CosyVoice3AcousticError.invalidShape("flow_x",initialNoise.shape.map(\.intValue)) }
-        self.conditions=conditions; self.shards=shards; self.hift=hift; self.f0=f0; self.flowMask=flowMask; self.initialNoise=initialNoise
+        guard Self.validatedFlowStepCounts.contains(flowStepCount) else { throw CosyVoice3AcousticError.invalidFlowStepCount(flowStepCount) }
+        self.conditions=conditions; self.shards=shards; self.hift=hift; self.f0=f0; self.flowMask=flowMask; self.initialNoise=initialNoise; self.flowStepCount=flowStepCount
     }
 
     func synthesize(speechTokens:[Int], prepared:CosyVoice3PreparedRequest) async throws -> CosyVoice3Audio {
@@ -45,8 +49,8 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         let mu=try output(conditionResult,"mu"), spks=try output(conditionResult,"spks"), cond=try output(conditionResult,"cond")
         var x=Self.floatValues(initialNoise)
         let batchX=try MLMultiArray(shape:[2,80,752],dataType:.float32), t=try MLMultiArray(shape:[2],dataType:.float32)
-        let span:[Float]=(0...10).map { 1-cos(Float($0)/10*Float.pi/2) }; var currentT=span[0], dt=span[1]-span[0]
-        for step in 0..<10 {
+        let span=try Self.flowTimeSpan(stepCount:flowStepCount); var currentT=span[0], dt=span[1]-span[0]
+        for step in 0..<flowStepCount {
             let p=batchX.dataPointer.assumingMemoryBound(to:Float.self)
             x.withUnsafeBufferPointer {
                 p.update(from:$0.baseAddress!,count:x.count)
@@ -67,7 +71,7 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
             } else {
                 for i in x.indices { x[i] += dt*(1.7*velocity[i].floatValue-0.7*velocity[i+x.count].floatValue) }
             }
-            currentT += dt; if step<9 { dt=span[step+2]-currentT }
+            currentT += dt; if step<flowStepCount-1 { dt=span[step+2]-currentT }
         }
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
 
@@ -88,6 +92,11 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
         guard samples.count==Self.expectedPCMCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
         guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
         return .init(samples:samples,sampleRate:Self.sampleRate,channels:1)
+    }
+
+    static func flowTimeSpan(stepCount:Int) throws -> [Float] {
+        guard validatedFlowStepCounts.contains(stepCount) else { throw CosyVoice3AcousticError.invalidFlowStepCount(stepCount) }
+        return (0...stepCount).map { 1-cos(Float($0)/Float(stepCount)*Float.pi/2) }
     }
 
     private func output(_ provider:MLFeatureProvider,_ name:String) throws -> MLMultiArray {
@@ -122,3 +131,5 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
 // Generated: 2026-10-02 America/New_York.
 
 // Changes 2026-10-02: use direct contiguous Float32 pointers for immutable noise copy, Flow velocity CFG/Euler reads and PCM extraction, with the prior MLMultiArray subscript path retained as a non-contiguous fallback; arithmetic/order and model calls are unchanged.
+
+// Changes 2026-10-02: parameterize the otherwise unchanged cosine-Euler Flow scheduler for validation-only 10/8/6 head-to-head runs; production construction still defaults to the previously validated 10 steps.
