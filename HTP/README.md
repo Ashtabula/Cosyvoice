@@ -1,6 +1,6 @@
 # CosyVoice3 HTP
 
-Status: **checklist mirror only; CosyVoice3 HTP implementation/runtime publication does not exist yet.**
+Status: **checklist mirror only; CosyVoice3 HTP implementation/runtime publication does not exist yet.** `manifest.json` records `availability=false`, `status=not-implemented`, and `releaseStatus=not-claimed`.
 
 `SDK_RELEASE.md` is the byte-identical canonical cross-engine 检查单 mirror required by the project synchronization contract. Its presence does not claim Development, Candidate, or Production HTP support.
 
