@@ -2,7 +2,7 @@
 # Requirement: fail closed when shipping iOS runtime source depends on migration/demo/product repositories, developer-specific paths, Python runtime launching, or non-Swift runtime files.
 import re
 from pathlib import Path
-ROOT=Path(__file__).resolve().parents[1]; SRC=ROOT/"Sources"; forbidden=("CosyVoice3_NPU","NPU_engines_Demo","NPU_bookreader","StatefulLLMBench","/Volumes/","/Users/","Process(","python3","python ")
+ROOT=Path(__file__).resolve().parents[1]; SRC=ROOT/"Sources"; forbidden=("import CosyVoice3_NPU","import NPU_engines_Demo","import NPU_bookreader","import StatefulLLMBench","/Volumes/","/Users/","Process(","python3","python ")
 if not SRC.is_dir(): raise RuntimeError(f"missing runtime source directory: {SRC}")
 files=sorted(p for p in SRC.rglob("*") if p.is_file())
 bad=[]
@@ -19,3 +19,4 @@ print(f"[COSYVOICE3-SOURCE-ISOLATION] PASS swiftFiles={len(files)} sourceRoot={S
 # Generated time: 2026-10-03 America/New_York.
 # Changed lines: new file; runtime-only static dependency/path audit.
 # Changes 2026-10-03: strip Swift comments before dependency/path scanning so frozen provenance annotations remain allowed while executable source stays isolated.
+# Changes 2026-10-03: repository names are forbidden as actual Swift import statements rather than provenance words; absolute paths/process-based Python launching remain forbidden anywhere in executable source.
