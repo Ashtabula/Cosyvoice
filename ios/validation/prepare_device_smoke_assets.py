@@ -65,7 +65,7 @@ def main() -> None:
     shutil.copy2(transcript, OUTPUT / "reference.txt")
     shutil.copy2(host_receipt_path, OUTPUT / "reference_host_parity_receipt.json")
     if args.candidate_benchmark:
-        (OUTPUT / "candidate-benchmark-mode.json").write_text(json.dumps({"schemaVersion": 1, "benchmark": "public-api-candidate-v1"}, indent=2) + "\\n", encoding="utf-8")
+        source_commit = subprocess.check_output(["git", "-C", str(ROOT.parent), "rev-parse", "HEAD"], text=True).strip()\n        (OUTPUT / "candidate-benchmark-mode.json").write_text(json.dumps({"schemaVersion": 1, "benchmark": "public-api-candidate-v1", "hostReceiptSha256": sha256(host_receipt_path), "sourceCommit": source_commit}, indent=2, sort_keys=True) + "\\n", encoding="utf-8")
 
     manifest_path = runtime / "cosyvoice3_fixed225.json"
     manifest = json.loads(manifest_path.read_text())
@@ -125,3 +125,5 @@ if __name__ == "__main__":
 # Code purpose: safe staged-copy activation for physical-device validation after host parity and before formal promotion; host-approved reference candidate assets are merged only into the staged copy and the tracked GeneratedAssets/.gitkeep placeholder is preserved.
 # Runtime: macOS Python3 standard library.
 # Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional --candidate-benchmark writes a bundled benchmark-mode marker containing the exact host receipt SHA while keeping canonical source assets untouched.
+
+# Changes 2026-10-02: Candidate marker now includes host receipt SHA and exact local Git HEAD, aligning generic staging with promoted-runtime benchmark diagnostics.
