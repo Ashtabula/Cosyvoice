@@ -17,7 +17,8 @@ def main():
         release=json.loads((asset/"asset-manifest.json").read_text()); promotion=json.loads((asset/"reference_promotion_receipt.json").read_text()); host_sha=str(release.get("hostReceiptSha256") or "")
         if release.get("hostReceiptStatus")!="PASS_HOST_PARITY" or not re.fullmatch(r"[0-9a-f]{64}",host_sha): raise RuntimeError("immutable asset manifest has no valid PASS host-receipt binding")
         if promotion.get("hostReceipt",{}).get("sha256")!=host_sha or promotion.get("status")!="PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION": raise RuntimeError("immutable promotion receipt host binding mismatch")
-        source_commit=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()\n        benchmark_binding={"schemaVersion":1,"benchmark":"public-api-candidate-v1","hostReceiptSha256":host_sha,"sourceCommit":source_commit,"bindingSource":"immutable asset-manifest.json + reference_promotion_receipt.json + local Git HEAD"}
+        source_commit=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
+        benchmark_binding={"schemaVersion":1,"benchmark":"public-api-candidate-v1","hostReceiptSha256":host_sha,"sourceCommit":source_commit,"bindingSource":"immutable asset-manifest.json + reference_promotion_receipt.json + local Git HEAD"}
     else:
         if a.host_receipt is None: raise RuntimeError("--host-receipt is required outside Candidate benchmark mode")
         host_path=a.host_receipt.resolve(); host=json.loads(host_path.read_text(encoding="utf-8"))
