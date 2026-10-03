@@ -57,7 +57,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let elapsedSeconds = Self.seconds(started.duration(to: clock.now)); try Self.validate(audio)
             let duration = Self.audioDuration(audio); let stats = Self.stats(audio)
             let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM","sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"durationSeconds":duration,"elapsedSeconds":elapsedSeconds,"rtf":elapsedSeconds/duration,"finite":true,"peakAbs":stats.peak,"rms":stats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
-            let url = try Self.receiptURL("reference-smoke-receipt.json"); try Self.write(receipt, to: url); try play(audio)
+            let url = try Self.receiptURL("reference-smoke-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(audio)
             status = String(format:"PASS samples=%d duration=%.3fs elapsed=%.3fs rtf=%.3f receipt=%@",audio.samples.count,duration,elapsedSeconds,elapsedSeconds/duration,url.path)
         } catch { Self.recordFailure(error, filename:"reference-smoke-receipt.json", into:self) }
     }
@@ -78,7 +78,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
-            let url = try Self.receiptURL("candidate-benchmark-receipt.json"); try Self.write(receipt, to: url); try play(repeatAudio)
+            let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(repeatAudio)
             status = String(format:"PASS Candidate first=%.3fs RTF=%.3f repeat=%.3fs RTF=%.3f receipt=%@",firstMilliseconds/1000,firstMilliseconds/1000/firstDuration,repeatMilliseconds/1000,repeatMilliseconds/1000/repeatDuration,url.path)
         } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
     }
@@ -119,7 +119,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     }
 
     private static func receiptURL(_ name: String) throws -> URL { try FileManager.default.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true).appendingPathComponent(name) }
-    private static func write(_ receipt: [String: Any], to url: URL) throws { let data=try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]); try data.write(to:url,options:.atomic) }
+    private static func write(_ receipt: [String: Any], to url: URL) throws -> String { let data=try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]); try data.write(to:url,options:.atomic); return String(decoding:data,as:UTF8.self) }
     private static func recordFailure(_ error: Error, filename: String, into model: CosyVoice3SmokeModel) {
         var receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","recordedAtUnix":Int(Date().timeIntervalSince1970),"error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
         if let sourceCommit = candidateSourceCommit() { receipt["sourceCommit"] = sourceCommit }
@@ -193,3 +193,5 @@ private extension Data {
 // Changes 2026-10-02: raw device Candidate receipts include recordedAtUnix so same-install relaunch probes can reject a stale receipt even if host polling races app startup cleanup.
 
 // Changes 2026-10-02: bind Candidate PASS and FAIL receipts to the exact Git sourceCommit embedded at staging time; failures also carry recordedAtUnix so stale binaries/receipts are immediately distinguishable from the current run.
+
+// Changes 2026-10-02: successful smoke/Candidate runs now publish the exact written receipt JSON into the observable UI state; Copy receipt JSON is enabled after PASS just as it already was after FAIL.
