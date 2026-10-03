@@ -51,6 +51,8 @@ PY
     unstaged="$(git -C "$REPO" diff --name-only)" || return $?
     if [ -n "$unstaged" ]; then printf '[COSYVOICE3-CANDIDATE] ERROR unstaged tracked changes remain before release commit:\n%s\n' "$unstaged"; return 3; fi
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" commit -m "release(ios): mark fixed225 technical distribution ready" || return $?
+    printf '[COSYVOICE3-CANDIDATE] post-commit source-binding audit before push\n'
+    python3 "$ROOT/validation/audit_candidate_state.py" || return $?
     git -C "$REPO" push origin "$EXPECTED_BRANCH" || return $?
     git -C "$REPO" push origin "HEAD:refs/heads/$MILESTONE_REF" || return $?
     printf '[COSYVOICE3-CANDIDATE] COMPLETE status=CANDIDATE technicalDistributionReady=true publicRedistributionApproved=false head=%s milestone=%s\n' "$(git -C "$REPO" rev-parse HEAD)" "$MILESTONE_REF"
@@ -65,3 +67,5 @@ test "$RC" -eq 0
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; current-HEAD Swift build, full runtime rebuild, physical cold/warm benchmark, release receipt, atomic Candidate metadata transition, strict audit, actacomes commit/push and frozen distribution-ready milestone ref.\n# Changes 2026-10-02: stage API/ASSETS transition docs and reject any remaining unstaged tracked diff before the release commit.
 # Changes 2026-10-02: fail closed unless all three Candidate evidence JSON files are actually tracked after staging, preventing ignored build-named receipts from producing a locally-valid but incomplete release commit.
+
+# Changes 2026-10-03: run the strict Candidate audit again after creating the release commit and before any push; the audit binds evidence to the direct source parent and permits only the fixed release metadata/evidence path set in that child commit.
