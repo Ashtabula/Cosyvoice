@@ -77,7 +77,8 @@
     "clean-room consumer integration",
     "release-tree reproducibility",
     "asset redistribution license review",
-    "public release identity review and fresh public snapshot"
+    "public release identity review and fresh public snapshot",
+    "immutable public runtime asset publication after clean-room and license approval"
   ],
   "publicApi": {
     "contractImplemented": true,

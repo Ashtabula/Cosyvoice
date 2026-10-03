@@ -34,6 +34,8 @@ CANDIDATE BLOCKER: `validation/release_receipt.json` is bound to an older source
 PRODUCTION BLOCKER: clean-room consumer integration has not run.
 PRODUCTION BLOCKER: release-tree reproducibility has not been frozen.
 PRODUCTION BLOCKER: asset redistribution license review remains incomplete.
+PRODUCTION BLOCKER: public release identity review/fresh public snapshot has not run.
+PRODUCTION BLOCKER: immutable public runtime asset publication remains pending until clean-room/license approval.
 PASS FOR PRODUCTION EVIDENCE: human audio review is already recorded and need not be repeated unless runtime/audio behavior changes.
 
 Do not label Candidate or set `technicalDistributionReady=true` until all current-source Candidate blockers have committed evidence. After Candidate, do not label Production or authorize public runtime assets until the remaining Production blockers pass.
