@@ -1,0 +1,67 @@
+#@title run_production_clean_room.sh
+# Requirement: from a clean release checkout, fetch the immutable private RC through the ordinary SDK path, build/install an independent public-API-only consumer, retrieve physical-iPhone PCM evidence, and write a sanitized Production clean-room receipt.
+#!/usr/bin/env bash
+set -u
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"; REPO="$(cd "$ROOT/.." && pwd)"; EXPECTED_BRANCH="release/ios-fixed225-sdk-ready"
+PROJECT="$ROOT/validation/ProductionCleanRoom/CosyVoice3ProductionCleanRoom.xcodeproj"; SCHEME="CosyVoice3ProductionCleanRoom"; BUNDLE_ID="${COSYVOICE3_PRODUCTION_CLEANROOM_BUNDLE_ID:-com.actacomes.cosyvoice3.productioncleanroom}"
+PYTHON="$ROOT/.venv-release/bin/python"; FETCHED="$ROOT/.work/production-clean-room/fetched-runtime"; GENERATED="$ROOT/validation/ProductionCleanRoom/GeneratedAssets"; RAW="$ROOT/.work/production-clean-room/device-receipt.json"; OUTPUT="$ROOT/validation/evidence/production_clean_room.json"; DERIVED="$ROOT/.work/ProductionCleanRoomDerivedData"
+main(){
+    [ -n "${DEVICE_ID:-}" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR set DEVICE_ID\n'; return 2; }
+    [ -n "${DEVELOPMENT_TEAM:-}" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR set DEVELOPMENT_TEAM\n'; return 2; }
+    [ -f "${COSYVOICE3_REFERENCE_WAV:-}" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR reference WAV missing\n'; return 2; }
+    [ -s "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR reference transcript missing/empty\n'; return 2; }
+    command -v git || return $?; command -v python3 || return $?; command -v xcodebuild || return $?; command -v xcrun || return $?
+    [ "$(git -C "$REPO" branch --show-current)" = "$EXPECTED_BRANCH" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR wrong branch\n'; return 2; }
+    [ -z "$(git -C "$REPO" status --porcelain --untracked-files=no)" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR tracked worktree must be clean\n'; git -C "$REPO" status --short; return 2; }
+    git -C "$REPO" pull --ff-only origin "$EXPECTED_BRANCH" || return $?
+    python3 "$ROOT/validation/audit_production_clean_room.py" || return $?
+    local candidate head
+    candidate="$(python3 -c 'import json;print(json.load(open("'"$ROOT"'/validation/production_baseline.json"))["candidateReleaseHead"])')" || return $?
+    git -C "$REPO" diff --quiet "$candidate" HEAD -- ios/Package.swift ios/Sources || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR runtime source changed after frozen Candidate baseline; rerun Candidate validation\n'; return 3; }
+    head="$(git -C "$REPO" rev-parse HEAD)" || return $?
+    if [ ! -x "$PYTHON" ]; then python3 -m venv "$ROOT/.venv-release" || return $?; fi
+    "$PYTHON" -m pip install -r "$ROOT/requirements-release.txt" || return $?
+    "$PYTHON" - <<'PY' || return $?
+from huggingface_hub import HfApi
+x=HfApi().whoami(); n=(x.get("name") or x.get("fullname") or "") if isinstance(x,dict) else (getattr(x,"name","") or getattr(x,"fullname",""))
+print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] HF identity="+repr(n),flush=True)
+if n!="actacomes": raise SystemExit("Hugging Face login must be actacomes")
+PY
+    rm -rf "$FETCHED" "$GENERATED" "$DERIVED"; mkdir -p "$GENERATED" "$(dirname "$RAW")" "$(dirname "$OUTPUT")"; : > "$GENERATED/.gitkeep"
+    "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile ios-fixed225-reference --version 0.1.0-rc1 --output "$FETCHED" --force || return $?
+    "$PYTHON" "$ROOT/assets/validate_assets.py" --root "$FETCHED" --require-reference || return $?
+    cp -R "$FETCHED" "$GENERATED/Runtime" || return $?; cp "$COSYVOICE3_REFERENCE_WAV" "$GENERATED/reference.wav" || return $?; cp "$COSYVOICE3_REFERENCE_TRANSCRIPT" "$GENERATED/reference.txt" || return $?
+    "$PYTHON" - "$ROOT/validation/release_receipt.json" "$ROOT/validation/production_baseline.json" "$GENERATED/production-clean-room-binding.json" "$head" "$COSYVOICE3_REFERENCE_TRANSCRIPT" <<'PY' || return $?
+import json,sys
+from pathlib import Path
+release=json.loads(Path(sys.argv[1]).read_text()); base=json.loads(Path(sys.argv[2]).read_text()); transcript=Path(sys.argv[5]).read_text().strip()
+a=release["asset"]; out={"schemaVersion":1,"releaseHead":sys.argv[4],"candidateReleaseHead":base["candidateReleaseHead"],"validatedSourceCommit":base["validatedSourceCommit"],"assetIdentity":release["assetIdentity"],"profile":a["profile"],"version":a["version"],"revision":a["revision"],"payloadTreeSha256":a["payloadTreeSha256"],"testedRuntimeTreeSha256":a["testedRuntimeTreeSha256"],"referenceTranscriptCharacters":len(transcript)}
+Path(sys.argv[3]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
+PY
+    XCODE_ARGS=(-project "$PROJECT" -scheme "$SCHEME" -configuration Release -sdk iphoneos -destination "id=$DEVICE_ID" -derivedDataPath "$DERIVED" -allowProvisioningUpdates -allowProvisioningDeviceRegistration DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" PRODUCT_BUNDLE_IDENTIFIER="$BUNDLE_ID" CODE_SIGN_STYLE=Automatic)
+    xcodebuild "${XCODE_ARGS[@]}" build || return $?
+    SETTINGS="$(xcodebuild "${XCODE_ARGS[@]}" -showBuildSettings)" || return $?
+    TARGET="$(printf '%s\n' "$SETTINGS" | awk '/Build settings for action build and target CosyVoice3ProductionCleanRoom:/{f=1;next} f&&/^[[:space:]]*TARGET_BUILD_DIR = /{sub(/^[[:space:]]*TARGET_BUILD_DIR = /,"");print;exit}')"
+    WRAPPER="$(printf '%s\n' "$SETTINGS" | awk '/Build settings for action build and target CosyVoice3ProductionCleanRoom:/{f=1;next} f&&/^[[:space:]]*WRAPPER_NAME = /{sub(/^[[:space:]]*WRAPPER_NAME = /,"");print;exit}')"
+    APP="$TARGET/$WRAPPER"; [ -d "$APP" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR app missing: %s\n' "$APP"; return 4; }
+    xcrun devicectl device uninstall app --device "$DEVICE_ID" "$BUNDLE_ID" || true
+    xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
+    xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
+    rm -f "$RAW"
+    for attempt in $(seq 1 36); do printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] receipt poll %s/36\n' "$attempt"; if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/production-clean-room-receipt.json" --destination "$RAW"; then [ -s "$RAW" ] && break; fi; sleep 10; done
+    [ -s "$RAW" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR receipt not produced\n'; return 5; }
+    "$PYTHON" - "$RAW" "$ROOT/validation/production_baseline.json" "$ROOT/validation/release_receipt.json" "$OUTPUT" <<'PY' || return $?
+import json,sys,time
+from pathlib import Path
+raw=json.loads(Path(sys.argv[1]).read_text()); base=json.loads(Path(sys.argv[2]).read_text()); release=json.loads(Path(sys.argv[3]).read_text())
+if raw.get("status")!="PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM" or raw.get("publicApiOnly") is not True: raise SystemExit("clean-room device status mismatch")
+if raw.get("candidateReleaseHead")!=base["candidateReleaseHead"] or raw.get("validatedSourceCommit")!=base["validatedSourceCommit"] or raw.get("assetIdentity")!=release["assetIdentity"]: raise SystemExit("clean-room source/asset binding mismatch")
+if raw.get("sampleRate")!=24000 or raw.get("channels")!=1 or int(raw.get("samples",0))<=0 or raw.get("finite") is not True or raw.get("flowSteps")!=6: raise SystemExit("clean-room PCM/public-default contract mismatch")
+out={"schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM","releaseHead":raw["releaseHead"],"candidateReleaseHead":raw["candidateReleaseHead"],"validatedSourceCommit":raw["validatedSourceCommit"],"assetIdentity":raw["assetIdentity"],"publicApiOnly":True,"flowSteps":6,"device":{"model":raw.get("device"),"modelIdentifier":raw.get("deviceModelIdentifier"),"systemName":raw.get("systemName"),"systemVersion":raw.get("systemVersion")},"pcm":{"sampleRate":24000,"channels":1,"samples":raw["samples"],"finite":True},"recordedAtUnix":int(time.time())}
+Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] PASS "+json.dumps(out,sort_keys=True),flush=True)
+PY
+}
+main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; test "$RC" -eq 0
+# Code purpose: physical independent-consumer Production clean-room gate using only public CosyVoice3Core + ordinary immutable asset fetch.
+# Runtime environment: macOS/Xcode, authenticated actacomes Hugging Face, connected trusted iPhone.
+# Generated time: 2026-10-03 America/New_York.

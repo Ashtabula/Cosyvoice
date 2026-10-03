@@ -1,0 +1,15 @@
+# CosyVoice3 public Swift SDK snapshot scope, relative to ios/.
+# Directories end in "/". Conversion/rebuild/device-validation/provenance tooling is intentionally excluded.
+Package.swift
+Sources/
+Tests/
+README.md
+API.md
+ASSETS.md
+BENCHMARK.md
+LICENSES.md
+SDK_RELEASE.md
+manifest.json
+SOURCE_LOCK.json
+PUBLIC_PROVENANCE.json
+assets/

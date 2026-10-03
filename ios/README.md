@@ -1,8 +1,8 @@
 # CosyVoice3 iOS SDK publication tree
 
-Status: **Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.** Publication target: `Ashtabula/Cosyvoice/ios/`.
+Status: **Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.** Public publication target: `actacomes/Cosyvoice` as a fresh-history Swift SDK snapshot after Production gates. Private validation provenance remains in `Ashtabula/Cosyvoice/ios/`.
 
-The canonical maintained SDK source is this `Ashtabula/Cosyvoice/ios/` tree. `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6` is retained only as frozen migration provenance for the implementation baseline. The Swift package contains the application-facing `CosyVoice3Engine` and the fixed225 on-device path: native tokenizer/prefill -> stateful Core ML LLM -> Swift RAS -> Flow -> FP64-F0/HiFT -> finite mono Float32 PCM at 24 kHz. Benchmark/UI/runner code is not a runtime dependency.
+The canonical private validation SDK source is this `Ashtabula/Cosyvoice/ios/` tree; external publication uses the explicit slim snapshot scope in `public_snapshot_paths.txt`. `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6` is retained only as frozen migration provenance for the implementation baseline. The Swift package contains the application-facing `CosyVoice3Engine` and the fixed225 on-device path: native tokenizer/prefill -> stateful Core ML LLM -> Swift RAS -> Flow -> FP64-F0/HiFT -> finite mono Float32 PCM at 24 kHz. Benchmark/UI/runner code is not a runtime dependency.
 
 The current integration profile is `ios-fixed225-reference/0.1.0-rc1`. Its complete runtime is hosted as an immutable private Hugging Face RC at `actacomes/CosyVoice-assets`, bound to revision `2fb4251057a5c627e76e392c04b0e778f530d0e0` and payload tree `a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f`. The exact hosted revision passed authenticated ordinary-developer fetch, validation, installation and physical-iPhone public-API replay. Current-source Candidate evidence now validates the supported full-runtime rebuild and controlled cold/warm public-API benchmark at flowSteps=6, so `sdkIntegrationReady=true` and `technicalDistributionReady=true`; public redistribution remains false.
 
@@ -20,4 +20,6 @@ Core ML execution and requested compute units are descriptive only; accelerator 
 
 ## SDK layout
 
-The release-facing root is intentionally small: `Package.swift`, `Sources/`, `Tests/`, `README.md`, `API.md`, `ASSETS.md`, `VALIDATION.md`, `BENCHMARK.md`, `LICENSES.md`, `SDK_RELEASE.md`, `manifest.json`, `SOURCE_LOCK.json`, `assets/`, `tools/`, `validation/`, `MILESTONES/`, and `docs/provenance/`. Historical migration plans and detailed audits live under `docs/provenance/`; no Demo repository is part of the SDK build or runtime boundary.
+The private validation tree retains conversion/rebuild tools and detailed evidence. The external fresh-history snapshot is narrower and is defined by `public_snapshot_paths.txt`: Swift package source/tests, public documentation, public manifest/provenance, and ordinary immutable-asset fetch/validation tooling. Maintainer conversion/rebuild/device-validation/provenance tooling is intentionally excluded from the consumer repository. No Demo repository is part of either SDK build or runtime boundary.
+
+Production tooling now includes an independent `validation/ProductionCleanRoom` public-API consumer, deterministic public-tree verification, exact-scope public identity scanning, and a fresh-history snapshot exporter. Their presence does not mark the corresponding Production gates PASS until committed receipts exist.

@@ -94,7 +94,9 @@
     "branch": "release/ios-fixed225-sdk-ready",
     "canonicalSource": true,
     "path": "ios/",
-    "repository": "Ashtabula/Cosyvoice"
+    "repository": "Ashtabula/Cosyvoice",
+    "publicTargetRepository": "actacomes/Cosyvoice",
+    "publicSnapshotScope": "ios/public_snapshot_paths.txt"
   },
   "publisher": {
     "email": "developer@actacomes.com",
@@ -131,5 +133,15 @@
       6760
     ],
     "task": 6563
+  },
+  "productionTooling": {
+    "cleanRoomConsumer": "validation/ProductionCleanRoom",
+    "cleanRoomRunner": "validation/run_production_clean_room.sh",
+    "releaseTreeVerifier": "validation/record_release_tree_reproducibility.py",
+    "publicIdentityGate": "../tools/check_public_identity.py",
+    "publicSnapshotExporter": "../tools/create_public_snapshot.sh",
+    "licenseInventory": "validation/generate_license_review_inventory.py",
+    "licenseGate": "validation/check_license_review.py",
+    "status": "IMPLEMENTED_GATES_PENDING_EVIDENCE"
   }
 }

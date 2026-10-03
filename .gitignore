@@ -77,3 +77,8 @@ ios/.venv-release/
 # CosyVoice iOS local SwiftPM / promotion work products
 ios/Package.resolved
 ios/validation/reference-device/cosyvoice3_fixed225.promoted.json
+
+# Production clean-room local staged assets/workspace
+ios/validation/ProductionCleanRoom/GeneratedAssets/*
+!ios/validation/ProductionCleanRoom/GeneratedAssets/.gitkeep
+ios/validation/ProductionCleanRoom/CosyVoice3ProductionCleanRoom.xcodeproj/project.xcworkspace/

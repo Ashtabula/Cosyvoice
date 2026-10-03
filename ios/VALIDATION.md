@@ -4,7 +4,7 @@ This file records CosyVoice3-specific validation status and evidence against thi
 
 Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
 
-PASS: publication target is `Ashtabula/Cosyvoice/ios/`.
+PASS: private validation publication source is `Ashtabula/Cosyvoice/ios/`; formal external target is a fresh-history `actacomes/Cosyvoice` SDK snapshot after Production gates.
 PASS: canonical maintained SDK source is `Ashtabula/Cosyvoice/ios/`; migration provenance is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
 PASS: standalone Swift package, Sources and Tests are present.
 PASS: stable public `CosyVoice3Engine` contract is present.
@@ -40,3 +40,5 @@ PRODUCTION BLOCKER: immutable public runtime asset publication remains pending u
 PASS FOR PRODUCTION EVIDENCE: human audio review is already recorded and need not be repeated unless runtime/audio behavior changes.
 
 Candidate engineering gates are complete. Do not label Production or authorize public runtime assets until the remaining Production blockers pass.
+
+PRODUCTION TOOLING READY / NOT YET PASS: `validation/ProductionCleanRoom`, `run_production_clean_room.sh`, `record_release_tree_reproducibility.py`, repository public-identity gate and fresh-snapshot exporter are implemented. Clean-room/reproducibility/identity gates remain blockers until their exact-current-tree receipts are recorded; license review remains human-gated and public assets remain private.

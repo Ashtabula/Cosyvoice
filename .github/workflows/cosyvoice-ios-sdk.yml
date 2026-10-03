@@ -36,6 +36,24 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             build
 
+  production-clean-room-compile:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Audit Production clean-room public API boundary
+        run: python ios/validation/audit_production_clean_room.py
+      - name: Compile Production clean-room consumer for simulator
+        run: |
+          xcodebuild \
+            -project ios/validation/ProductionCleanRoom/CosyVoice3ProductionCleanRoom.xcodeproj \
+            -scheme CosyVoice3ProductionCleanRoom \
+            -configuration Debug \
+            -sdk iphonesimulator \
+            -destination 'generic/platform=iOS Simulator' \
+            -derivedDataPath ios/.work/ProductionCleanRoomCIDerivedData \
+            CODE_SIGNING_ALLOWED=NO \
+            build
+
   release-tools:
     runs-on: ubuntu-latest
     steps:
@@ -47,6 +65,10 @@ jobs:
         run: python -m compileall -q ios/tools ios/assets ios/validation
       - name: Audit shipping iOS source isolation
         run: python ios/validation/audit_source_isolation.py
+      - name: Audit public release identity
+        run: python tools/check_public_identity.py
+      - name: Check deterministic public release tree
+        run: python ios/validation/record_release_tree_reproducibility.py --check-only
       - name: Validate committed JSON contracts
         run: |
           python - <<'PY'
@@ -57,6 +79,8 @@ jobs:
               Path("ios/assets/reference_enrollment.json"),
               Path("ios/assets/cosyvoice3_fixed225.example.json"),
               Path("ios/validation/development_receipt.json"),
+              Path("ios/validation/production_baseline.json"),
+              Path("ios/PUBLIC_PROVENANCE.json"),
           ]:
               json.loads(path.read_text())
               print("[JSON-PASS]", path)

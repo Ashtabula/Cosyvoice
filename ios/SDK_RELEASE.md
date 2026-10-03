@@ -2,7 +2,7 @@
 
 Updated: 2026-10-03.
 
-This file defines the release architecture and acceptance boundary for the standalone CosyVoice3 iOS SDK in `Ashtabula/Cosyvoice/ios/`. It is owned by this engine repository. External applications, benchmark runners and demos are consumers only; they are not release authorities and are not runtime/build dependencies.
+This file defines the release architecture and acceptance boundary for the standalone CosyVoice3 iOS SDK. The private validation source is `Ashtabula/Cosyvoice/ios/`; formal external publication uses a fresh-history `actacomes/Cosyvoice` snapshot. External applications, benchmark runners and demos are consumers only; they are not release authorities and are not runtime/build dependencies. External applications, benchmark runners and demos are consumers only; they are not release authorities and are not runtime/build dependencies.
 
 ## Canonical package boundary
 
@@ -51,7 +51,7 @@ Model filenames, graph names, token IDs, KV layouts, physical/logical sequence l
 
 ## Asset contract
 
-Ordinary developers use `assets/releases.json -> assets/fetch_assets.py -> assets/validate_assets.py` to fetch and atomically activate an immutable asset profile. Advanced developers use `rebuild_assets.sh --profile ios-fixed225-reference` to reconstruct the supported runtime from pinned inputs.
+Ordinary developers use `assets/releases.json -> assets/fetch_assets.py -> assets/validate_assets.py` to fetch and atomically activate an immutable asset profile. `rebuild_assets.sh --profile ios-fixed225-reference` is maintainer validation/provenance tooling and is not part of the external consumer snapshot.
 
 Downloaded and rebuilt payloads must converge on the same runtime ABI and validator. Hash/profile mismatch, incomplete staging, incompatible reference enrollment or wrong asset identity must fail closed. Rebuilt reference assets remain host-parity-only until separately promoted on device.
 
@@ -75,20 +75,9 @@ Candidate additionally requires current-source standalone/rebuild evidence, cont
 
 Production additionally requires clean-room independent consumer integration, release-tree reproducibility, completed redistribution/license review for the exact public payload, public-release identity review/fresh public snapshot, and immutable public runtime-asset publication.
 
-## Current state
+## Status authority
 
-```text
-releaseStatus = development
-sdkIntegrationReady = true
-technicalDistributionReady = false
-publicRedistributionApproved = false
-```
-
-Already preserved: immutable private-RC fetch/replay, custom-reference host/device parity, public-API finite PCM, human listening acceptance, and physical 10/8/6 head-to-head with 6 selected as the production default.
-
-Current Candidate blockers are only the current-source evidence closure after the Flow API/default change: regenerate source-bound standalone/full-runtime rebuild evidence, rerun the controlled cold/warm public-API benchmark at flowSteps=6, and regenerate the Candidate release receipt.
-
-Production blockers remain clean-room independent consumer integration, release-tree reproducibility, asset redistribution/license review, public identity/fresh public snapshot, and immutable public asset publication after those gates pass.
+Dynamic release status is not maintained in this policy document. The authoritative current state is `VALIDATION.md`, `manifest.json`, `assets/releases.json`, and `validation/release_receipt.json`. Production evidence is recorded separately so Candidate source/runtime evidence remains immutable.
 
 # Code purpose: engine-owned SDK release architecture and acceptance contract for CosyVoice3 iOS.
 # Upstream source: validated CosyVoice3 iOS publication history and ZipVoice-style standalone SDK release architecture.
