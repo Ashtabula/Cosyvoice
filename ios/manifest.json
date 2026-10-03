@@ -95,7 +95,9 @@
   "publicRedistributionApproved": false,
   "publication": {
     "path": "ios/",
-    "repository": "Ashtabula/Cosyvoice"
+    "repository": "Ashtabula/Cosyvoice",
+    "canonicalSource": true,
+    "branch": "release/ios-fixed225-sdk-ready"
   },
   "publisher": {
     "email": "developer@actacomes.com",
@@ -115,7 +117,8 @@
   "source": {
     "commit": "878940245562bcd1dd0231d78157ba78d70b39f6",
     "repository": "Ashtabula/CosyVoice3_NPU",
-    "tree": "3e84e6681ab123367703a8b612317172b02dc15c"
+    "tree": "3e84e6681ab123367703a8b612317172b02dc15c",
+    "role": "migration-provenance"
   },
   "technicalDistributionReady": false,
   "tokenSemantics": {

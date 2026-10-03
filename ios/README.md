@@ -2,7 +2,7 @@
 
 Status: **SDK integration-ready on private RC; release level remains Development.** Publication target: `Ashtabula/Cosyvoice/ios/`.
 
-Development source of truth remains `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`. The Swift package contains the application-facing `CosyVoice3Engine` and the fixed225 on-device path: native tokenizer/prefill -> stateful Core ML LLM -> Swift RAS -> Flow -> FP64-F0/HiFT -> finite mono Float32 PCM at 24 kHz. Benchmark/UI/runner code is not a runtime dependency.
+The canonical maintained SDK source is this `Ashtabula/Cosyvoice/ios/` tree. `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6` is retained only as frozen migration provenance for the implementation baseline. The Swift package contains the application-facing `CosyVoice3Engine` and the fixed225 on-device path: native tokenizer/prefill -> stateful Core ML LLM -> Swift RAS -> Flow -> FP64-F0/HiFT -> finite mono Float32 PCM at 24 kHz. Benchmark/UI/runner code is not a runtime dependency.
 
 The current integration profile is `ios-fixed225-reference/0.1.0-rc1`. Its complete runtime is hosted as an immutable private Hugging Face RC at `actacomes/CosyVoice-assets`, bound to revision `2fb4251057a5c627e76e392c04b0e778f530d0e0` and payload tree `a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f`. The exact hosted revision passed authenticated ordinary-developer fetch, validation, installation and physical-iPhone public-API replay. This supports `sdkIntegrationReady=true`; the current SDK source does not yet support `technicalDistributionReady=true` because the public Flow-default/API change postdates the last source-bound Candidate evidence.
 

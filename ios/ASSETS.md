@@ -2,7 +2,7 @@
 
 Status: immutable private-RC asset distribution remains validated and device-replayed; current SDK Candidate status is pending revalidation after the public 6-step Flow-default/API change.
 
-Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. Locked SDK source: `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
+Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. Canonical maintained SDK source: `Ashtabula/Cosyvoice/ios/`. Frozen migration provenance: `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
 
 The ordinary developer path is `assets/releases.json -> assets/fetch_assets.py -> exact Hugging Face revision -> file/tree hash verification -> assets/validate_assets.py -> atomic activation`. Current private RC: `actacomes/CosyVoice-assets`, profile `ios-fixed225-reference`, version `0.1.0-rc1`, revision `2fb4251057a5c627e76e392c04b0e778f530d0e0`, payload tree `a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f`. That exact hosted revision passed ordinary-developer fetch and physical public-API replay.
 

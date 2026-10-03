@@ -1,6 +1,6 @@
 # CosyVoice3 iOS SDK release contract
 
-This directory follows the same release architecture used by ZipVoice. Source of truth is `Ashtabula/CosyVoice3_NPU`; this publication directory is a reviewed release tree, not an independently maintained implementation. Current locked source: `878940245562bcd1dd0231d78157ba78d70b39f6`.
+This directory follows the same release architecture used by ZipVoice. The canonical maintained SDK source and publication tree is `Ashtabula/Cosyvoice/ios/`. `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6` is frozen migration provenance for the implementation baseline, not a second source-of-truth checkout.
 
 ## Release levels
 

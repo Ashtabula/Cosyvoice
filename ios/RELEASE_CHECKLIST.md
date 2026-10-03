@@ -3,7 +3,7 @@
 Current status: SDK integration-ready on private RC; release level remains Development.
 
 PASS: publication target is `Ashtabula/Cosyvoice/ios/`.
-PASS: source is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
+PASS: canonical maintained SDK source is `Ashtabula/Cosyvoice/ios/`; migration provenance is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.
 PASS: standalone Swift package, Sources and Tests are present.
 PASS: stable public `CosyVoice3Engine` contract is present.
 PASS: native fixed224 text/prompt prefill, stateful LLM, Swift RAS, Flow and HiFT are wired to PCM for the fixed225 profile.
