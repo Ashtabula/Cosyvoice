@@ -7,7 +7,7 @@ import CryptoKit
 import Darwin
 import SwiftUI
 import UIKit
-import CosyVoice3Core
+@_spi(Validation) import CosyVoice3Core
 
 @main
 struct CosyVoice3DeviceSmokeApp: App {
@@ -19,6 +19,12 @@ struct CosyVoice3DeviceSmokeApp: App {
                 Text(model.status).font(.system(.body, design: .monospaced)).textSelection(.enabled)
                 Button("Run public API reference smoke") { Task { await model.runSmoke() } }.disabled(model.running)
                 Button("Run Candidate cold/warm benchmark") { Task { await model.runCandidateBenchmark() } }.disabled(model.running)
+                Button("Run Flow 10 / 8 / 6 head-to-head") { Task { await model.runFlowStepHeadToHead() } }.disabled(model.running)
+                HStack {
+                    Button("Play 10") { model.playFlowStep(10) }.disabled(model.running || !model.availableFlowSteps.contains(10))
+                    Button("Play 8") { model.playFlowStep(8) }.disabled(model.running || !model.availableFlowSteps.contains(8))
+                    Button("Play 6") { model.playFlowStep(6) }.disabled(model.running || !model.availableFlowSteps.contains(6))
+                }
                 Button("Copy receipt JSON") { UIPasteboard.general.string = model.receiptJSON }.disabled(model.receiptJSON.isEmpty)
                 Spacer()
             }
@@ -33,13 +39,16 @@ final class CosyVoice3SmokeModel: ObservableObject {
     @Published var status = "READY"
     @Published var running = false
     @Published var receiptJSON = ""
+    @Published var availableFlowSteps = Set<Int>()
     var didAutoRun = false
     private var player: AVAudioPlayer?
+    private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
 
     func runAutoMode() async {
         do {
             let resources = try Self.generatedAssets()
-            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
+            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("flow-step-head-to-head-mode.json").path) { await runFlowStepHeadToHead() }
+            else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
             else { await runSmoke() }
         } catch { status = "FAIL \(String(describing: error))" }
     }
