@@ -1,5 +1,5 @@
 // CosyVoice3RASampler.swift
-// Requirement: native implementation of upstream ras_sampling/nucleus_sampling with the audited CosyVoice3 SOS/EOS semantics.
+// Requirement: native implementation of upstream ras_sampling/nucleus_sampling with the audited CosyVoice3 SOS/EOS semantics and O(V log K), not O(V log V), top-k nucleus selection.
 import Foundation
 
 enum CosyVoice3RASamplerError: Error, Equatable { case invalidLogitCount(Int); case noFiniteProbability; case invalidConfiguration }
@@ -9,42 +9,126 @@ struct CosyVoice3RASampler: Sendable {
     let topK: Int
     let windowSize: Int
     let repetitionThreshold: Double
+
     init(topP: Double=0.8, topK: Int=25, windowSize: Int=10, repetitionThreshold: Double=0.1) {
         self.topP=topP; self.topK=topK; self.windowSize=windowSize; self.repetitionThreshold=repetitionThreshold
     }
+
     func sample(logits: [Float], decodedTokens: [Int], suppressSOS: Bool, using rng: inout some RandomNumberGenerator) throws -> Int {
         guard logits.count==CosyVoice3TokenSemantics.logitsCount else { throw CosyVoice3RASamplerError.invalidLogitCount(logits.count) }
         guard topP>0, topP<=1, topK>0, windowSize>0, repetitionThreshold>=0 else { throw CosyVoice3RASamplerError.invalidConfiguration }
-        var scores=logits.map(Double.init); if suppressSOS { scores[CosyVoice3TokenSemantics.sos] = -.infinity }
-        var token=try nucleusSample(scores: scores, using:&rng)
-        let recent=decodedTokens.suffix(windowSize), repetitions=recent.reduce(0) { $0+($1==token ? 1:0) }
+
+        var token=try nucleusSample(logits:logits,suppressed:suppressSOS ? CosyVoice3TokenSemantics.sos : nil,using:&rng)
+        let recent=decodedTokens.suffix(windowSize)
+        let repetitions=recent.reduce(0) { $0+($1==token ? 1:0) }
         if Double(repetitions)>=Double(windowSize)*repetitionThreshold {
-            scores[token] = -.infinity
-            token=try categoricalSample(scores:scores,using:&rng)
+            token=try categoricalSample(logits:logits,suppressed:token,using:&rng)
         }
         return token
     }
+
     func sample(logits: [Float], decodedTokens: [Int], suppressSOS: Bool) throws -> Int {
-        var rng=SystemRandomNumberGenerator(); return try sample(logits:logits,decodedTokens:decodedTokens,suppressSOS:suppressSOS,using:&rng)
+        var rng=SystemRandomNumberGenerator()
+        return try sample(logits:logits,decodedTokens:decodedTokens,suppressSOS:suppressSOS,using:&rng)
     }
-    private func nucleusSample(scores: [Double], using rng: inout some RandomNumberGenerator) throws -> Int {
-        let probabilities=try softmax(scores), sorted=(0..<probabilities.count).sorted { probabilities[$0]==probabilities[$1] ? $0<$1 : probabilities[$0]>probabilities[$1] }
-        var selected:[Int]=[], weights:[Double]=[], cumulative=0.0
-        for index in sorted { if cumulative>=topP || selected.count>=topK { break }; selected.append(index); weights.append(probabilities[index]); cumulative += probabilities[index] }
-        return try categorical(indices:selected,weights:weights,using:&rng)
+
+    // Upstream applies top-p after descending score order and caps the retained set at topK.
+    // Ranking is invariant to the common softmax denominator, so only the best K logits need
+    // sorting. The denominator is still accumulated over the complete vocabulary in index
+    // order, preserving the same probability definition as the previous implementation.
+    private func nucleusSample(
+        logits:[Float],
+        suppressed:Int?,
+        using rng:inout some RandomNumberGenerator
+    ) throws -> Int {
+        let stats=try softmaxStats(logits:logits,suppressed:suppressed)
+        var best:[(index:Int,score:Double)]=[]
+        best.reserveCapacity(topK)
+
+        for index in logits.indices {
+            if index==suppressed { continue }
+            let score=Double(logits[index])
+            guard score.isFinite else { continue }
+            let candidate=(index:index,score:score)
+            var insertion=best.endIndex
+            for i in best.indices {
+                if score>best[i].score || (score==best[i].score && index<best[i].index) {
+                    insertion=i
+                    break
+                }
+            }
+            if insertion<topK {
+                best.insert(candidate,at:insertion)
+                if best.count>topK { best.removeLast() }
+            } else if best.count<topK {
+                best.append(candidate)
+            }
+        }
+
+        guard !best.isEmpty else { throw CosyVoice3RASamplerError.noFiniteProbability }
+        var indices:[Int]=[]
+        var weights:[Double]=[]
+        indices.reserveCapacity(best.count); weights.reserveCapacity(best.count)
+        var cumulative=0.0
+        for item in best {
+            if cumulative>=topP || indices.count>=topK { break }
+            let probability=exp(item.score-stats.maximum)/stats.sum
+            indices.append(item.index)
+            weights.append(probability)
+            cumulative += probability
+        }
+        return try categorical(indices:indices,weights:weights,using:&rng)
     }
-    private func categoricalSample(scores: [Double], using rng: inout some RandomNumberGenerator) throws -> Int {
-        let probabilities=try softmax(scores); return try categorical(indices:Array(probabilities.indices),weights:probabilities,using:&rng)
+
+    private func categoricalSample(
+        logits:[Float],
+        suppressed:Int?,
+        using rng:inout some RandomNumberGenerator
+    ) throws -> Int {
+        let stats=try softmaxStats(logits:logits,suppressed:suppressed)
+        let draw=Double.random(in:0..<1.0,using:&rng)
+        var cumulative=0.0
+        var last:Int?
+        for index in logits.indices {
+            if index==suppressed { continue }
+            let score=Double(logits[index])
+            guard score.isFinite else { continue }
+            last=index
+            cumulative += exp(score-stats.maximum)/stats.sum
+            if draw<cumulative { return index }
+        }
+        guard let last else { throw CosyVoice3RASamplerError.noFiniteProbability }
+        return last
     }
-    private func softmax(_ scores:[Double]) throws -> [Double] {
-        guard let maximum=scores.filter({$0.isFinite}).max() else { throw CosyVoice3RASamplerError.noFiniteProbability }
-        var values=scores.map { $0.isFinite ? exp($0-maximum):0 }, sum=values.reduce(0,+); guard sum.isFinite && sum>0 else { throw CosyVoice3RASamplerError.noFiniteProbability }
-        for i in values.indices { values[i] /= sum }; return values
+
+    private func softmaxStats(logits:[Float],suppressed:Int?) throws -> (maximum:Double,sum:Double) {
+        var maximum = -Double.infinity
+        for index in logits.indices {
+            if index==suppressed { continue }
+            let value=Double(logits[index])
+            if value.isFinite && value>maximum { maximum=value }
+        }
+        guard maximum.isFinite else { throw CosyVoice3RASamplerError.noFiniteProbability }
+
+        var sum=0.0
+        for index in logits.indices {
+            if index==suppressed { continue }
+            let value=Double(logits[index])
+            if value.isFinite { sum += exp(value-maximum) }
+        }
+        guard sum.isFinite && sum>0 else { throw CosyVoice3RASamplerError.noFiniteProbability }
+        return (maximum,sum)
     }
-    private func categorical(indices:[Int],weights:[Double],using rng: inout some RandomNumberGenerator) throws -> Int {
-        let total=weights.reduce(0,+); guard !indices.isEmpty, indices.count==weights.count, total.isFinite, total>0 else { throw CosyVoice3RASamplerError.noFiniteProbability }
-        let draw=Double.random(in:0..<total,using:&rng); var cumulative=0.0
-        for i in weights.indices { cumulative += weights[i]; if draw<cumulative { return indices[i] } }
+
+    private func categorical(indices:[Int],weights:[Double],using rng:inout some RandomNumberGenerator) throws -> Int {
+        let total=weights.reduce(0,+)
+        guard !indices.isEmpty,indices.count==weights.count,total.isFinite,total>0 else { throw CosyVoice3RASamplerError.noFiniteProbability }
+        let draw=Double.random(in:0..<total,using:&rng)
+        var cumulative=0.0
+        for i in weights.indices {
+            cumulative += weights[i]
+            if draw<cumulative { return indices[i] }
+        }
         return indices.last!
     }
 }
@@ -53,3 +137,4 @@ struct CosyVoice3RASampler: Sendable {
 // Upstream: cosyvoice/utils/common.py ras_sampling+nucleus_sampling and TransformerLM.sampling_ids at CosyVoice3_NPU@8789402.
 // Runtime: pure Swift; production randomness uses SystemRandomNumberGenerator. Exact PyTorch RNG sequence is intentionally a validation-oracle concern, not a runtime dependency.
 // Generated: 2026-10-02 America/New_York.
+// Changes 2026-10-02: replace full-vocabulary sort and two full probability arrays per generated token with full-vocabulary softmax statistics plus an exact topK<=25 insertion set; top-p/top-k ordering, suppression, repetition resample structure and random-draw count are unchanged.
