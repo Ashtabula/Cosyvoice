@@ -1,6 +1,7 @@
 // FlowSchedulerTests.swift
 // Requirement: production 10-step cosine Euler schedule must remain byte-for-byte formula equivalent while validation-only 8/6 step schedules stay bounded and monotonic.
 @testable import CosyVoice3Core
+import Foundation
 import XCTest
 
 @available(iOS 18.0, macOS 15.0, *)
