@@ -130,11 +130,15 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 try wav.write(to: wavURL, options: .atomic)
                 let wavSHA256 = SHA256.hash(data: wav).map { String(format:"%02x",$0) }.joined()
                 generated[result.flowSteps] = result.audio
+                let steadyComputeMilliseconds = report.llmGenerationMilliseconds + result.synthesisMilliseconds
+                let steadyComputeRTF = steadyComputeMilliseconds / 1000 / result.audioSeconds
                 variants.append([
                     "flowSteps": result.flowSteps,
-                    "synthesisMilliseconds": result.synthesisMilliseconds,
+                    "acousticSynthesisMilliseconds": result.synthesisMilliseconds,
                     "audioSeconds": result.audioSeconds,
-                    "rtf": result.rtf,
+                    "acousticRTF": result.rtf,
+                    "steadyComputeMilliseconds": steadyComputeMilliseconds,
+                    "steadyComputeRTF": steadyComputeRTF,
                     "samples": result.audio.samples.count,
                     "sampleRate": result.audio.sampleRate,
                     "channels": result.audio.channels,
@@ -184,13 +188,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
             let bySteps = Dictionary(uniqueKeysWithValues: report.variants.map { ($0.flowSteps, $0) })
             status = String(
-                format: "PASS Flow H2H 10=%.3fs RTF=%.3f 8=%.3fs RTF=%.3f 6=%.3fs RTF=%.3f",
+                format: "PASS Flow H2H 10=%.3fs computeRTF=%.3f 8=%.3fs computeRTF=%.3f 6=%.3fs computeRTF=%.3f",
                 (bySteps[10]?.synthesisMilliseconds ?? 0) / 1000,
-                bySteps[10]?.rtf ?? 0,
+                ((report.llmGenerationMilliseconds + (bySteps[10]?.synthesisMilliseconds ?? 0)) / 1000 / (bySteps[10]?.audioSeconds ?? 9)),
                 (bySteps[8]?.synthesisMilliseconds ?? 0) / 1000,
-                bySteps[8]?.rtf ?? 0,
+                ((report.llmGenerationMilliseconds + (bySteps[8]?.synthesisMilliseconds ?? 0)) / 1000 / (bySteps[8]?.audioSeconds ?? 9)),
                 (bySteps[6]?.synthesisMilliseconds ?? 0) / 1000,
-                bySteps[6]?.rtf ?? 0
+                ((report.llmGenerationMilliseconds + (bySteps[6]?.synthesisMilliseconds ?? 0)) / 1000 / (bySteps[6]?.audioSeconds ?? 9))
             )
             if let baseline = generated[10] { try play(baseline) }
         } catch {
@@ -329,3 +333,5 @@ private extension Data {
 // Changes 2026-10-02: successful smoke/Candidate runs now publish the exact written receipt JSON into the observable UI state; Copy receipt JSON is enabled after PASS just as it already was after FAIL.
 
 // Changes 2026-10-02: DeviceSmoke supports validation-only Flow 10/8/6 head-to-head mode, saves all three WAVs plus a bound receipt, exposes play buttons, and reads source/host identity from either Candidate or Flow validation markers.
+
+// Changes 2026-10-02: head-to-head receipt now distinguishes acoustic-only RTF from steady compute RTF (shared LLM generation + each Flow/HiFT variant), matching the optimization question rather than conflating model-load/setup overhead.
