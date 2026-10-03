@@ -30,7 +30,7 @@ def tree_id(rs):
 def archive(paths):
     return subprocess.check_output(["git","-C",str(REPO),"archive","--format=tar","HEAD","--",*paths])
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("--output",type=Path,default=ROOT/"validation/evidence/release_tree_reproducible.json"); p.add_argument("--check-only",action="store_true"); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument("--output",type=Path,default=ROOT/"validation/evidence/release_tree_reproducible.json"); p.add_argument("--check-only",action="store_true"); p.add_argument("--expect-tree-sha256"); a=p.parse_args()
     paths=selected()
     if subprocess.run(["git","-C",str(REPO),"diff","--quiet","HEAD","--",*paths]).returncode!=0: raise RuntimeError("public snapshot scope has uncommitted tracked changes")
     rs=rows(paths); a1=archive(paths); a2=archive(paths)
@@ -40,7 +40,9 @@ def main():
     for r in rs:
         if amap.get(r["sourcePath"])!=r["sha256"]: raise RuntimeError(f"archive/content mismatch: {r['sourcePath']}")
     head=subprocess.check_output(["git","-C",str(REPO),"rev-parse","HEAD"],text=True).strip(); baseline=json.loads((ROOT/"validation/production_baseline.json").read_text())
-    receipt={"schemaVersion":1,"status":"PASS_RELEASE_TREE_REPRODUCIBLE","sourceCommit":head,"candidateReleaseHead":baseline["candidateReleaseHead"],"validatedSourceCommit":baseline["validatedSourceCommit"],"publicationTreeSha256":tree_id(rs),"fileCount":len(rs),"archiveSha256":hashlib.sha256(a1).hexdigest(),"scope":"ios/public_snapshot_paths.txt + repository LICENSE","recordedAtUnix":int(time.time())}
+    tree=tree_id(rs)
+    if a.expect_tree_sha256 and tree!=a.expect_tree_sha256: raise RuntimeError(f"public snapshot tree changed: {tree} != {a.expect_tree_sha256}")
+    receipt={"schemaVersion":1,"status":"PASS_RELEASE_TREE_REPRODUCIBLE","sourceCommit":head,"candidateReleaseHead":baseline["candidateReleaseHead"],"validatedSourceCommit":baseline["validatedSourceCommit"],"publicationTreeSha256":tree,"fileCount":len(rs),"archiveSha256":hashlib.sha256(a1).hexdigest(),"scope":"ios/public_snapshot_paths.txt + repository LICENSE","recordedAtUnix":int(time.time())}
     if not a.check_only: a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n")
     print("[COSYVOICE3-RELEASE-TREE] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 if __name__=="__main__": main()
@@ -49,3 +51,5 @@ if __name__=="__main__": main()
 # Generated time: 2026-10-03 America/New_York.
 
 # Changes 2026-10-03: reproducibility hash now covers PUBLIC_RELEASE_IDENTITY.md because the fresh public snapshot exports it at repository root.
+
+# Changes 2026-10-03: optional --expect-tree-sha256 lets later Production gates prove the public snapshot scope has not drifted since the committed reproducibility receipt.

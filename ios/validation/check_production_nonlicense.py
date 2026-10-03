@@ -15,9 +15,12 @@ def main():
     if subprocess.run(["git","-C",str(REPO),"diff","--quiet",base["candidateReleaseHead"],"HEAD","--","ios/Package.swift","ios/Sources"]).returncode!=0: raise RuntimeError("runtime source changed after Candidate baseline")
     if clean.get("status")!="PASS_PRODUCTION_CLEAN_ROOM" or clean.get("candidateReleaseHead")!=base["candidateReleaseHead"] or clean.get("assetIdentity")!=base["assetIdentity"] or clean.get("publicApiOnly") is not True: raise RuntimeError("Production clean-room evidence mismatch")
     if tree.get("status")!="PASS_RELEASE_TREE_REPRODUCIBLE" or tree.get("candidateReleaseHead")!=base["candidateReleaseHead"]: raise RuntimeError("release-tree reproducibility evidence mismatch")
+    subprocess.run(["python3",str(ROOT/"validation/record_release_tree_reproducibility.py"),"--check-only","--expect-tree-sha256",tree["publicationTreeSha256"]],check=True)
     if audio.get("status")!="PASS_USER_FLOW6_LISTENING_ACCEPTANCE": raise RuntimeError("human audio review evidence mismatch")
     print("[COSYVOICE3-PRODUCTION-PREFLIGHT] PASS_EXCEPT_LICENSE_IDENTITY_AND_PUBLICATION "+json.dumps({"candidateReleaseHead":base["candidateReleaseHead"],"passedChecks":["audioReview","cleanRoomIntegration","releaseTreeReproducible"],"pendingChecks":["licenseReview","publicIdentityReview","publicAssetPublication"],"publicRedistributionApproved":False},sort_keys=True),flush=True)
 if __name__=="__main__": main()
 # Code purpose: non-license/non-identity Production preflight; cannot mark Production or make assets public.
 # Runtime environment: Python 3 standard library + Git.
 # Generated time: 2026-10-03 America/New_York.
+
+# Changes 2026-10-03: rerun deterministic current-tree verification against the committed publicationTreeSha256 so later evidence-only commits cannot hide public-snapshot drift.
