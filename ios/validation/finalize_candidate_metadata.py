@@ -91,7 +91,7 @@ technicalDistributionReady = true
 publicRedistributionApproved = false
 ```
 
-Production/public release remains blocked by clean-room consumer integration, release-tree reproducibility and asset redistribution/license review. Human listening acceptance remains PASS from the unchanged promoted runtime evidence.
+Production/public release remains blocked by clean-room consumer integration, release-tree reproducibility and asset redistribution/license review. Human listening acceptance for the selected 6-step production default is recorded in `validation/evidence/flow6_listening_acceptance.json`.
 """
     path=ROOT/"MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md"; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(md)
     print("[COSYVOICE3-CANDIDATE-METADATA] PASS",flush=True)
@@ -105,3 +105,5 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: revalidation transitions now match the post-6-step Development state and Candidate benchmark documentation records the production Flow step count.
 
 # Changes 2026-10-03: Candidate finalization now consumes the exact post-6-step README/API Development wording, preventing a successful revalidation from leaving stale Development claims behind.
+
+# Changes 2026-10-03: milestone text now cites the dedicated 6-step listening acceptance instead of reusing the older 10-step promoted-runtime listening decision.

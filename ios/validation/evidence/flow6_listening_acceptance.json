@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_USER_FLOW6_LISTENING_ACCEPTANCE",
+  "engine": "CosyVoice3",
+  "platform": "iOS",
+  "decision": "ACCEPT_FLOW6_AS_PRODUCTION_DEFAULT",
+  "acceptedAt": "2026-10-02T22:51:58-04:00",
+  "evidenceSource": "interactive physical-device head-to-head listening session; user explicitly judged 6 steps good enough and selected it as SDK production default",
+  "headToHead": {
+    "benchmark": "flow-steps-head-to-head-v1",
+    "sourceCommit": "0c9fee15099c5aaed15e94be880a004e30a8f32c",
+    "recordedAtUnix": 1790995727,
+    "device": "iPhone",
+    "deviceModelIdentifier": "iPhone18,4",
+    "systemName": "iOS",
+    "systemVersion": "27.2",
+    "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+    "sameSpeechTokensAcrossVariants": true,
+    "sameReferenceConditioningAcrossVariants": true,
+    "sameInitialNoiseAcrossVariants": true,
+    "sameAcousticModelInstancesAcrossVariants": true,
+    "comparedFlowSteps": [
+      10,
+      8,
+      6
+    ],
+    "selectedFlowSteps": 6,
+    "selectedVariant": {
+      "audioSeconds": 9,
+      "samples": 216000,
+      "sampleRate": 24000,
+      "channels": 1,
+      "wavFilename": "flow-steps-6.wav",
+      "wavSha256": "f6b9633d96747ac6f36519c2fb3cc41f918c56b595251e4ef1265636a8eef2f5",
+      "acousticSynthesisMilliseconds": 1914.4845,
+      "acousticRTF": 0.21272049999999998,
+      "steadyComputeMilliseconds": 4887.039541,
+      "steadyComputeRTF": 0.5430043934444444
+    }
+  }
+}

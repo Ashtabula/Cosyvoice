@@ -23,6 +23,7 @@ PASS: user listening acceptance is recorded as `GOOD SOUND`.
 PASS: custom-reference lane is promoted to `PASS_DEVICE_PARITY`.
 PASS: complete fixed225-reference runtime is uploaded as an immutable private Hugging Face RC and the exact hosted revision passes ordinary-developer fetch plus physical public-API replay.
 PASS: private-RC SDK integration boundary is frozen as `sdkIntegrationReady=true`.
+PASS: physical iPhone 10/8/6 head-to-head used identical tokens/reference/noise/model instances, and the exact 6-step WAV is recorded as accepted for the production default in `validation/evidence/flow6_listening_acceptance.json`.
 
 CANDIDATE BLOCKER: current-source standalone build and supported full-runtime rebuild evidence must be regenerated after the public Flow-default/API change.
 CANDIDATE BLOCKER: controlled cold/warm public-API benchmark evidence must be regenerated with production default flowSteps=6.
