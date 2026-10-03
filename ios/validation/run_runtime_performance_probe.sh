@@ -10,6 +10,7 @@ FRESH="$WORK/fresh-install.json"
 RELAUNCH="$WORK/same-install-relaunch.json"
 SUMMARY="$WORK/summary.json"
 BUNDLE_ID="${COSYVOICE3_CANDIDATE_BUNDLE_ID:-com.actacomes.cosyvoice3.candidatebenchmark}"
+EXPECTED_COMMIT="$(git -C "$ROOT/.." rev-parse HEAD)"
 
 poll_receipt(){
     local output="$1" label="$2" minimum_epoch="${3:-0}"
@@ -18,14 +19,18 @@ poll_receipt(){
         printf '[COSYVOICE3-PERF] %s receipt poll %s/48\n' "$label" "$attempt"
         if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/candidate-benchmark-receipt.json" --destination "$output"; then
             if [ -s "$output" ]; then
-                if "$PYTHON" - "$output" "$minimum_epoch" <<'PY'
+                if "$PYTHON" - "$output" "$minimum_epoch" "$EXPECTED_COMMIT" <<'PY'
 import json,sys
 p=json.load(open(sys.argv[1]))
 minimum=int(sys.argv[2])
+expected_commit=sys.argv[3]
 recorded=int(p.get("recordedAtUnix",0))
 if recorded < minimum:
     print(f"[COSYVOICE3-PERF] STALE receipt recordedAtUnix={recorded} minimum={minimum}",flush=True)
     raise SystemExit(10)
+if p.get("sourceCommit")!=expected_commit:
+    print(f"[COSYVOICE3-PERF] STALE binary/receipt sourceCommit={p.get('sourceCommit')!r} expected={expected_commit}",flush=True)
+    raise SystemExit(11)
 if p.get("status")!="PASS_CANDIDATE_BENCHMARK":
     print("[COSYVOICE3-PERF] FAIL receipt "+str(p.get("status"))+" error="+str(p.get("error")),flush=True)
     raise SystemExit(20)
@@ -43,7 +48,7 @@ PY
                     return 0
                 else
                     receipt_rc=$?
-                    if [ "$receipt_rc" -eq 10 ]; then
+                    if [ "$receipt_rc" -eq 10 ] || [ "$receipt_rc" -eq 11 ]; then
                         rm -f "$output"
                         sleep 1
                         continue
@@ -111,7 +116,7 @@ PY
     sleep 2
     poll_receipt "$RELAUNCH" same-install-relaunch "$RELAUNCH_EPOCH"
 
-    "$PYTHON" - "$FRESH" "$RELAUNCH" "$SUMMARY" "$(git -C "$ROOT/.." rev-parse HEAD)" "$DECODE_PROFILE" <<'PY'
+    "$PYTHON" - "$FRESH" "$RELAUNCH" "$SUMMARY" "$EXPECTED_COMMIT" "$DECODE_PROFILE" <<'PY'
 import json,sys,time
 fresh=json.load(open(sys.argv[1]))
 relaunch=json.load(open(sys.argv[2]))
@@ -147,3 +152,5 @@ main "$@"
 # Runtime: macOS/Xcode, connected physical iPhone, actacomes HF authentication.
 # Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional COSYVOICE3_PERF_FIXED449=1 swaps only the decode package to the previously device/audio-accepted <=449 candidate for diagnostic A/B; the script still never writes Candidate evidence.\n
 # Changes 2026-10-02: same-install relaunch polling rejects receipts older than the host launch epoch, closing the stale-receipt race even if polling beats app-side cleanup.
+
+# Changes 2026-10-02: performance probe rejects any raw receipt whose embedded sourceCommit differs from the exact host HEAD, eliminating ambiguity from stale installed binaries or previously written receipts.
