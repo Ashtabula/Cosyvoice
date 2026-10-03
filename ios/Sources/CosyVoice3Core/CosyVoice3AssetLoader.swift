@@ -1,9 +1,10 @@
 // CosyVoice3AssetLoader.swift
-// Requirement: fail-closed SDK asset loading for the validated fixed225 production lane.
+// Requirement: fail-closed SDK asset loading for the validated fixed225 production lane, with persistent compiled Core ML caching so repeated synthesis never recompiles immutable .mlpackage assets.
 import CoreML
+import CryptoKit
 import Foundation
 
-enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String) }
+enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String); case compiledCache(String) }
 
 struct CosyVoice3ReferenceEnrollmentAssets: Codable, Sendable {
     let status: String
@@ -62,6 +63,9 @@ struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
 
 @available(iOS 18.0, macOS 15.0, *)
 enum CosyVoice3AssetLoader {
+    private static let compileLock = NSLock()
+    private static let compiledCacheVersion = "v1"
+
     static func loadManifest(root: URL) throws -> CosyVoice3Fixed225AssetManifest {
         let url = root.appendingPathComponent("cosyvoice3_fixed225.json")
         guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
@@ -77,9 +81,9 @@ enum CosyVoice3AssetLoader {
     }
 
     static func model(root: URL, path: String, computeUnits: MLComputeUnits = .cpuAndNeuralEngine) throws -> MLModel {
-        let url = root.appendingPathComponent(path)
-        guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
-        let compiled = url.pathExtension == "mlmodelc" ? url : try MLModel.compileModel(at: url)
+        let source = root.appendingPathComponent(path)
+        guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
+        let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
         return try MLModel(contentsOf: compiled, configuration: config)
@@ -96,9 +100,83 @@ enum CosyVoice3AssetLoader {
         data.withUnsafeBytes { raw in array.dataPointer.copyMemory(from: raw.baseAddress!, byteCount: expected) }
         return array
     }
+
+    private static func compiledModelURL(source: URL) throws -> URL {
+        if source.pathExtension == "mlmodelc" { return source }
+
+        let fileManager = FileManager.default
+        let cacheRoot = try compiledModelCacheRoot(fileManager: fileManager)
+        let fingerprint = try sourceFingerprint(source, fileManager: fileManager)
+        let digest = SHA256.hash(data: Data(fingerprint.utf8)).map { String(format: "%02x", $0) }.joined()
+        let destination = cacheRoot.appendingPathComponent(digest + ".mlmodelc", isDirectory: true)
+
+        compileLock.lock()
+        defer { compileLock.unlock() }
+
+        var isDirectory: ObjCBool = false
+        if fileManager.fileExists(atPath: destination.path, isDirectory: &isDirectory), isDirectory.boolValue {
+            return destination
+        }
+
+        let compiledTemporary = try MLModel.compileModel(at: source)
+        let staging = cacheRoot.appendingPathComponent(".staging-" + UUID().uuidString + ".mlmodelc", isDirectory: true)
+        do {
+            try fileManager.copyItem(at: compiledTemporary, to: staging)
+            if fileManager.fileExists(atPath: destination.path) {
+                try fileManager.removeItem(at: staging)
+            } else {
+                try fileManager.moveItem(at: staging, to: destination)
+            }
+        } catch {
+            try? fileManager.removeItem(at: staging)
+            throw CosyVoice3AssetError.compiledCache(String(describing: error))
+        }
+        guard fileManager.fileExists(atPath: destination.path, isDirectory: &isDirectory), isDirectory.boolValue else {
+            throw CosyVoice3AssetError.compiledCache("compiled model cache was not materialized: \(destination.path)")
+        }
+        return destination
+    }
+
+    private static func compiledModelCacheRoot(fileManager: FileManager) throws -> URL {
+        guard let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
+            throw CosyVoice3AssetError.compiledCache("Caches directory unavailable")
+        }
+        let root = caches
+            .appendingPathComponent("CosyVoice3Core", isDirectory: true)
+            .appendingPathComponent("CompiledModels-" + compiledCacheVersion, isDirectory: true)
+        try fileManager.createDirectory(at: root, withIntermediateDirectories: true)
+        return root
+    }
+
+    private static func sourceFingerprint(_ source: URL, fileManager: FileManager) throws -> String {
+        let keys: Set<URLResourceKey> = [.fileSizeKey, .contentModificationDateKey, .isRegularFileKey]
+        guard let enumerator = fileManager.enumerator(
+            at: source,
+            includingPropertiesForKeys: Array(keys),
+            options: [.skipsHiddenFiles]
+        ) else {
+            let values = try source.resourceValues(forKeys: [.contentModificationDateKey])
+            return [compiledCacheVersion, source.path, String(values.contentModificationDate?.timeIntervalSince1970 ?? 0)].joined(separator: "|")
+        }
+
+        var rows: [String] = [compiledCacheVersion, source.path]
+        while let item = enumerator.nextObject() as? URL {
+            let values = try item.resourceValues(forKeys: keys)
+            guard values.isRegularFile == true else { continue }
+            let relative = String(item.path.dropFirst(source.path.count))
+            rows.append([
+                relative,
+                String(values.fileSize ?? -1),
+                String(values.contentModificationDate?.timeIntervalSince1970 ?? 0)
+            ].joined(separator: ":"))
+        }
+        rows.sort()
+        return rows.joined(separator: "|")
+    }
 }
 
-// Purpose: centralize immutable fixed225 assets and gate custom-reference enrollment on explicit device-parity promotion.
-// Upstream: CosyVoice3_NPU@8789402.
+// Purpose: centralize immutable fixed225 assets, gate custom-reference enrollment on explicit device-parity promotion, and persist compiled Core ML artifacts outside each synthesis call.
+// Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
 // Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.
+// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes source path plus package file sizes/mtimes and remains fail-closed.
