@@ -125,7 +125,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 specs: missing,
                 maximumConcurrent: maximumConcurrentModelWarmups
             )
-            warmedModelKeys.formUnion(missing.map(warmKey))
+            warmedModelKeys.formUnion(missing.map { warmKey($0) })
         }
         let modelWarmupMilliseconds = Self.milliseconds(since: warmStart)
 
