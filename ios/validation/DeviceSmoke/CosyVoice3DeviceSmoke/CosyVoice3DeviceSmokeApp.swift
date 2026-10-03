@@ -59,7 +59,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let fixture = try Self.fixture()
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime)
             let capabilities = try await engine.capabilities()
-            guard capabilities.supportsReferenceAudio, capabilities.supportsInstruction, capabilities.outputSampleRate == 24_000 else { throw SmokeError("unexpected capabilities") }
+            guard capabilities.supportsReferenceAudio,
+                  capabilities.supportsInstruction,
+                  capabilities.outputSampleRate == 24_000,
+                  capabilities.defaultFlowSteps == .steps6,
+                  capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else {
+                throw SmokeError("unexpected capabilities")
+            }
             try await engine.validateReference(fixture.reference, probeText: fixture.text)
             let clock = ContinuousClock(); let started = clock.now
             let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
@@ -78,7 +84,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let fixture = try Self.fixture(); let clock = ContinuousClock(); let initStart = clock.now
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
             let capabilities = try await engine.capabilities()
-            guard capabilities.supportsReferenceAudio, capabilities.supportsInstruction, capabilities.outputSampleRate == 24_000 else { throw SmokeError("unexpected capabilities") }
+            guard capabilities.supportsReferenceAudio,
+                  capabilities.supportsInstruction,
+                  capabilities.outputSampleRate == 24_000,
+                  capabilities.defaultFlowSteps == .steps6,
+                  capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else {
+                throw SmokeError("unexpected capabilities")
+            }
             let firstStart = clock.now; let first = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let firstMilliseconds = Self.seconds(firstStart.duration(to: clock.now))*1000; try Self.validate(first)
             let firstStages = await engine.lastSynthesisReport()
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
@@ -338,3 +350,5 @@ private extension Data {
 // Changes 2026-10-02: head-to-head receipt now distinguishes acoustic-only RTF from steady compute RTF (shared LLM generation + each Flow/HiFT variant), matching the optimization question rather than conflating model-load/setup overhead.
 
 // Changes 2026-10-02: smoke/Candidate receipts record the selected public Flow-step value; head-to-head metadata and automatic playback derive the production default from CosyVoice3FlowSteps.productionDefault (6).
+
+// Changes 2026-10-03: smoke and Candidate modes fail closed unless capabilities expose exactly default 6 and supported 6/8/10.

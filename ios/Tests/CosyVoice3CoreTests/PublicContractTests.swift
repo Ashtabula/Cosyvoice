@@ -15,5 +15,20 @@ final class PublicContractTests:XCTestCase {
         XCTAssertEqual(capabilities.defaultFlowSteps,.steps6)
         XCTAssertEqual(capabilities.supportedFlowSteps.map(\.rawValue),[6,8,10])
     }
+    func testSynthesisReportInitializerDefaultsToProductionFlowSteps() {
+        let report=CosyVoice3SynthesisReport(
+            totalMilliseconds:0,
+            preparationMilliseconds:0,
+            frontendMilliseconds:0,
+            llmModelLoadMilliseconds:0,
+            llmGenerationMilliseconds:0,
+            acousticModelLoadMilliseconds:0,
+            acousticSynthesisMilliseconds:0,
+            modelPreparationCacheHit:false,
+            referenceCacheHit:false,
+            warmedModelCount:0
+        )
+        XCTAssertEqual(report.flowSteps,.steps6)
+    }
     func testAudioDefaults() { let a=CosyVoice3Audio(samples:[0]); XCTAssertEqual(a.sampleRate,24000); XCTAssertEqual(a.channels,1) }
 }

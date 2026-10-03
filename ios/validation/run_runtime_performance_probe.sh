@@ -36,6 +36,7 @@ if p.get("status")!="PASS_CANDIDATE_BENCHMARK":
     raise SystemExit(20)
 print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
     "sourceCommit":p.get("sourceCommit"),
+    "flowSteps":p.get("flowSteps"),
     "firstRTF":p.get("firstRTF"),
     "repeatRTF":p.get("repeatRTF"),
     "firstMs":p.get("firstSynthesisMilliseconds"),
@@ -135,6 +136,7 @@ with open(sys.argv[3],"w") as f:
     f.write("\n")
 print("[COSYVOICE3-PERF] PASS",json.dumps({
     "decodeProfile":sys.argv[5],
+    "flowSteps":fresh.get("flowSteps"),
     "freshFirstRTF":fresh.get("firstRTF"),
     "freshWarmRTF":fresh.get("repeatRTF"),
     "relaunchFirstRTF":relaunch.get("firstRTF"),
@@ -154,3 +156,5 @@ main "$@"
 # Changes 2026-10-02: same-install relaunch polling rejects receipts older than the host launch epoch, closing the stale-receipt race even if polling beats app-side cleanup.
 
 # Changes 2026-10-02: performance probe rejects any raw receipt whose embedded sourceCommit differs from the exact host HEAD, eliminating ambiguity from stale installed binaries or previously written receipts.
+
+# Changes 2026-10-03: performance diagnostics print flowSteps so new 6-step production runs cannot be confused with older 10-step receipts.

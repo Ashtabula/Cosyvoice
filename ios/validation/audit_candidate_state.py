@@ -11,6 +11,10 @@ def main():
     manifest=load(ROOT/"manifest.json"); release=load(ROOT/"validation/release_receipt.json"); milestone=load(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-02.json"); catalog=load(ROOT/"assets/releases.json"); checklist=(ROOT/"RELEASE_CHECKLIST.md").read_text()
     head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     if manifest.get("releaseStatus")!="candidate" or manifest.get("technicalDistributionReady") is not True or manifest.get("sdkIntegrationReady") is not True or manifest.get("publicRedistributionApproved") is not False or manifest.get("candidateBlockers")!=[]: raise RuntimeError("manifest Candidate state mismatch")
+    public_api=manifest.get("publicApi") or {}; flow_contract=(manifest.get("fixed225Profile") or {}).get("flowSteps") or {}
+    if public_api.get("userParameters")!=["reference","instruction","flowSteps"] or flow_contract.get("default")!=6 or flow_contract.get("supported")!=[6,8,10]: raise RuntimeError("manifest public Flow-step contract mismatch")
+    benchmark=load(ROOT/"validation/evidence/candidate_benchmark.json")
+    if (benchmark.get("measurement") or {}).get("flowSteps")!=6: raise RuntimeError("Candidate benchmark does not validate production default flowSteps=6")
     if release.get("releaseStatus")!="candidate" or release.get("technicalDistributionReady") is not True or release.get("publicRedistributionApproved") is not False or any(v.get("status")!="PASS" for v in release.get("checks",{}).values()): raise RuntimeError("release receipt Candidate state mismatch")
     if release.get("validatedSourceCommit")!=head: raise RuntimeError(f"Candidate receipt validates {release.get('validatedSourceCommit')} but current HEAD is {head}; rerun the full Candidate finalizer")
     if milestone.get("status")!="PASS" or milestone.get("releaseStatus")!="candidate" or milestone.get("technicalDistributionReady") is not True or milestone.get("publicRedistributionApproved") is not False: raise RuntimeError("distribution-ready milestone state mismatch")
@@ -26,3 +30,5 @@ if __name__=="__main__": main()
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; strict consistency audit for Candidate state while requiring Production blockers and public-redistribution=false to remain explicit.
 # Changes 2026-10-02: bind Candidate validity to the current Git HEAD so post-Candidate runtime changes cannot inherit stale release status without full revalidation.
+
+# Changes 2026-10-03: Candidate audit requires manifest 6/8/10 public Flow metadata and committed benchmark evidence at the production 6-step default.

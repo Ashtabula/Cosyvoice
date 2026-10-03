@@ -16,11 +16,11 @@ enum CosyVoice3AcousticError: Error, Equatable {
 @available(iOS 18.0, macOS 15.0, *)
 final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unchecked Sendable {
     static let speechTokenCount=225, flowFrames=752, promptFrames=302, outputMelFrames=450, sampleRate=24000, expectedPCMCount=216000
-    static let validatedFlowStepCounts = [6,8,10]
+    static let validatedFlowStepCounts = CosyVoice3FlowSteps.allCases.map(\.rawValue)
     private let conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray
     private let flowStepCount:Int
 
-    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray, flowStepCount:Int=6) throws {
+    init(conditions:MLModel, shards:[MLModel], hift:MLModel, f0:CosyVoice3HiFTDoubleF0, flowMask:MLMultiArray, initialNoise:MLMultiArray, flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue) throws {
         guard shards.count==6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards",[shards.count]) }
         guard flowMask.shape.map(\.intValue)==[2,1,752] else { throw CosyVoice3AcousticError.invalidShape("flow_mask",flowMask.shape.map(\.intValue)) }
         guard initialNoise.shape.map(\.intValue)==[1,80,752] else { throw CosyVoice3AcousticError.invalidShape("flow_x",initialNoise.shape.map(\.intValue)) }
@@ -133,3 +133,5 @@ final class CosyVoice3Fixed225AcousticRuntime: CosyVoice3AcousticRuntime, @unche
 // Changes 2026-10-02: use direct contiguous Float32 pointers for immutable noise copy, Flow velocity CFG/Euler reads and PCM extraction, with the prior MLMultiArray subscript path retained as a non-contiguous fallback; arithmetic/order and model calls are unchanged.
 
 // Changes 2026-10-02: parameterize the otherwise unchanged cosine-Euler Flow scheduler for physically validated 6/8/10 operation; production construction now defaults to the accepted 6-step setting.
+
+// Changes 2026-10-03: derive internal validated/default Flow step counts from the public CosyVoice3FlowSteps contract so API and runtime cannot drift.

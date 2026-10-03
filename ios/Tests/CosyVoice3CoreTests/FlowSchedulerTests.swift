@@ -29,6 +29,11 @@ final class FlowSchedulerTests: XCTestCase {
         }
     }
 
+    func testRuntimeValidatedStepsMatchPublicContract() {
+        XCTAssertEqual(CosyVoice3Fixed225AcousticRuntime.validatedFlowStepCounts,CosyVoice3FlowSteps.allCases.map(\.rawValue))
+        XCTAssertEqual(CosyVoice3FlowSteps.productionDefault.rawValue,6)
+    }
+
     func testUnsupportedFlowStepCountFailsClosed() {
         XCTAssertThrowsError(try CosyVoice3Fixed225AcousticRuntime.flowTimeSpan(stepCount: 5)) { error in
             XCTAssertEqual(error as? CosyVoice3AcousticError, .invalidFlowStepCount(5))

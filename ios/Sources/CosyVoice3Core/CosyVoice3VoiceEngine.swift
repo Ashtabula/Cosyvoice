@@ -22,8 +22,8 @@ public struct CosyVoice3Parameters: Sendable {
     public let flowSteps: CosyVoice3FlowSteps
 
     public init(
-        reference: CosyVoice3VoiceReference?=nil,
-        instruction: String?=nil,
+        reference: CosyVoice3VoiceReference? = nil,
+        instruction: String? = nil,
         flowSteps: CosyVoice3FlowSteps = .productionDefault
     ) {
         self.reference=reference
@@ -47,11 +47,11 @@ public struct CosyVoice3Capabilities: Sendable {
     public let defaultFlowSteps: CosyVoice3FlowSteps
 
     public init(
-        supportsReferenceAudio: Bool=true,
-        supportsInstruction: Bool=true,
-        outputSampleRate: Int=24000,
-        supportedFlowSteps: [CosyVoice3FlowSteps]=CosyVoice3FlowSteps.allCases,
-        defaultFlowSteps: CosyVoice3FlowSteps=.productionDefault
+        supportsReferenceAudio: Bool = true,
+        supportsInstruction: Bool = true,
+        outputSampleRate: Int = 24000,
+        supportedFlowSteps: [CosyVoice3FlowSteps] = CosyVoice3FlowSteps.allCases,
+        defaultFlowSteps: CosyVoice3FlowSteps = .productionDefault
     ) {
         self.supportsReferenceAudio=supportsReferenceAudio
         self.supportsInstruction=supportsInstruction
@@ -103,7 +103,7 @@ public struct CosyVoice3SynthesisReport: Sendable {
     public let warmedModelCount: Int
 
     public init(
-        flowSteps: CosyVoice3FlowSteps,
+        flowSteps: CosyVoice3FlowSteps = .productionDefault,
         totalMilliseconds: Double,
         preparationMilliseconds: Double,
         frontendMilliseconds: Double,
@@ -197,3 +197,5 @@ public extension CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: add validation-SPI-only Flow 10/8/6 head-to-head result types.
 
 // Changes 2026-10-02: promote the physically validated 6/8/10 Flow choices into the stable public API; production defaults to 6 steps while callers may explicitly select 8 or 10, and capabilities/telemetry expose the selected contract.
+
+// Changes 2026-10-03: normalize Swift 6 default-argument syntax and keep CosyVoice3SynthesisReport source-compatible by defaulting its new flowSteps field to the production 6-step setting.

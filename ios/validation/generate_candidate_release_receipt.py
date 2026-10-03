@@ -16,6 +16,7 @@ def main():
     head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     build=load(a.build_receipt); rebuild=load(a.rebuild_receipt); benchmark=load(a.benchmark_receipt); promotion=load(ROOT/"validation/reference-device/promotion-receipt.json"); device=load(ROOT/"validation/reference-device/reference-smoke-receipt.json"); sdk=load(ROOT/"validation/ios_fixed225_sdk_ready_2026-10-02.json"); catalog=load(ROOT/"assets/releases.json"); manifest=load(ROOT/"manifest.json")
     pass_check("standalone build",build.get("status")); pass_check("full runtime rebuild",rebuild.get("status"),"PASS_SUPPORTED_FULL_RUNTIME_REBUILD"); pass_check("candidate benchmark",benchmark.get("status")); pass_check("SDK integration milestone",sdk.get("status")); pass_check("device public API",device.get("status"),"PASS_DEVICE_PUBLIC_API_REFERENCE_PCM"); pass_check("custom reference promotion",promotion.get("status"),"PASS_CUSTOM_REFERENCE_DEVICE_PROMOTION")
+    if (benchmark.get("measurement") or {}).get("flowSteps")!=6: raise RuntimeError("Candidate benchmark does not validate production default flowSteps=6")
     for name,value in (("build source",build.get("sourceCommit")),("rebuild publication",rebuild.get("publicationCommit")),("benchmark source",benchmark.get("sourceCommit"))):
         if value!=head: raise RuntimeError(f"{name} commit {value} != current HEAD {head}")
     if manifest.get("sdkIntegrationReady") is not True or manifest.get("publicRedistributionApproved") is not False:
@@ -46,3 +47,5 @@ if __name__=="__main__": main()
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; fail-closed commit/hash/status cross-checks and Candidate receipt generation while leaving Production clean-room/reproducibility/license gates pending.
 # Changes 2026-10-02: permit strict full Candidate revalidation when the branch is already in a self-consistent private Candidate state; public redistribution must still be false and malformed partial Candidate state still fails closed.
+
+# Changes 2026-10-03: Candidate release generation requires benchmark evidence for production default flowSteps=6.
