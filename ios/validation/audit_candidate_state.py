@@ -17,14 +17,14 @@ ALLOWED_RELEASE_COMMIT_PATHS={
     "ios/validation/evidence/full_runtime_rebuild.json",
     "ios/validation/evidence/candidate_benchmark.json",
     "ios/validation/release_receipt.json",
-    "ios/validation/ios_fixed225_distribution_ready_2026-10-02.json",
-    "ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md",
+    "ios/validation/ios_fixed225_distribution_ready_2026-10-03.json",
+    "ios/MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md",
 }
 def load(path):
     if not path.is_file(): raise RuntimeError(f"missing Candidate file: {path}")
     return json.loads(path.read_text())
 def main():
-    manifest=load(ROOT/"manifest.json"); release=load(ROOT/"validation/release_receipt.json"); milestone=load(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-02.json"); catalog=load(ROOT/"assets/releases.json"); checklist=(ROOT/"RELEASE_CHECKLIST.md").read_text()
+    manifest=load(ROOT/"manifest.json"); release=load(ROOT/"validation/release_receipt.json"); milestone=load(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-03.json"); catalog=load(ROOT/"assets/releases.json"); checklist=(ROOT/"RELEASE_CHECKLIST.md").read_text()
     build=load(ROOT/"validation/evidence/standalone_build.json"); rebuild=load(ROOT/"validation/evidence/full_runtime_rebuild.json"); benchmark=load(ROOT/"validation/evidence/candidate_benchmark.json"); flow6_acceptance=load(ROOT/"validation/evidence/flow6_listening_acceptance.json")
     head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     if manifest.get("releaseStatus")!="candidate" or manifest.get("technicalDistributionReady") is not True or manifest.get("sdkIntegrationReady") is not True or manifest.get("publicRedistributionApproved") is not False or manifest.get("candidateBlockers")!=[]: raise RuntimeError("manifest Candidate state mismatch")
@@ -66,3 +66,5 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: validatedSourceCommit now means the source/runtime commit; audit accepts either that pre-commit HEAD or one direct metadata/evidence-only release child, verifies all evidence binds to the validated parent, and rejects any runtime/source delta in the release commit.
 
 # Changes 2026-10-03: Candidate audit requires the dedicated 6-step human listening acceptance evidence and its explicit PASS check in the release receipt.
+
+# Changes 2026-10-03: audit targets the new 2026-10-03 revalidation milestone and treats the 2026-10-02 milestone as immutable historical evidence.

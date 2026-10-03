@@ -16,7 +16,7 @@ def main():
     if any(v.get("status")!="PASS" for v in receipt.get("checks",{}).values()): raise RuntimeError("Candidate release receipt contains non-PASS checks")
     benchmark=load(ROOT/"validation/evidence/candidate_benchmark.json"); rebuild=load(ROOT/"validation/evidence/full_runtime_rebuild.json"); manifest_path=ROOT/"manifest.json"; manifest=load(manifest_path)
     if manifest.get("publicRedistributionApproved") is not False: raise RuntimeError("refusing Candidate transition from public-redistribution-approved state")
-    manifest["releaseStatus"]="candidate"; manifest["shippingReady"]=False; manifest["sdkIntegrationReady"]=True; manifest["technicalDistributionReady"]=True; manifest["candidateBlockers"]=[]; manifest["releaseReadiness"]="Technical Distribution-Ready Candidate for ios-fixed225-reference. Public API, immutable private-RC fetch/replay, supported full-runtime rebuild and controlled cold/warm physical-device benchmark are validated. Production/public redistribution remains blocked by clean-room consumer integration, release-tree reproducibility and license/redistribution review."; manifest["candidateReleaseReceipt"]="validation/release_receipt.json"; manifest["candidateMilestone"]={"status":"PASS","date":"2026-10-02","receipt":"validation/ios_fixed225_distribution_ready_2026-10-02.json","milestone":"MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md"}
+    manifest["releaseStatus"]="candidate"; manifest["shippingReady"]=False; manifest["sdkIntegrationReady"]=True; manifest["technicalDistributionReady"]=True; manifest["candidateBlockers"]=[]; manifest["releaseReadiness"]="Technical Distribution-Ready Candidate for ios-fixed225-reference. Public API, immutable private-RC fetch/replay, supported full-runtime rebuild and controlled cold/warm physical-device benchmark are validated. Production/public redistribution remains blocked by clean-room consumer integration, release-tree reproducibility and license/redistribution review."; manifest["candidateReleaseReceipt"]="validation/release_receipt.json"; manifest["candidateMilestone"]={"status":"PASS","date":"2026-10-03","receipt":"validation/ios_fixed225_distribution_ready_2026-10-03.json","milestone":"MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md"}
     write_json(manifest_path,manifest)
     catalog_path=ROOT/"assets/releases.json"; catalog=load(catalog_path); default=catalog["default"]; rows=[x for x in catalog["releases"] if x.get("profile")==default["profile"] and x.get("version")==default["version"]]
     if len(rows)!=1: raise RuntimeError("release catalog default is not unique")
@@ -64,9 +64,9 @@ Earlier StatefulLLMBench/full-pipeline measurements remain development provenanc
     assets_path=ROOT/"ASSETS.md"; assets_text=assets_path.read_text(); old_assets="Status: immutable private-RC asset distribution remains validated and device-replayed; current SDK Candidate status is pending revalidation after the public 6-step Flow-default/API change."
     new_assets="Status: Technical Distribution-Ready Candidate on immutable private RC; ordinary fetch/replay plus current-source supported full-runtime rebuild and controlled 6-step physical-device benchmark evidence are committed; public redistribution is not authorized."
     assets_path.write_text(transition(assets_text,old_assets,new_assets,"ASSETS Candidate status"))
-    milestone={"schemaVersion":1,"milestone":"ios-fixed225-distribution-ready-technical-2026-10-02","status":"PASS","releaseStatus":"candidate","technicalDistributionReady":True,"publicRedistributionApproved":False,"validatedSourceCommit":receipt["validatedSourceCommit"],"releaseReceipt":"validation/release_receipt.json","assets":receipt["asset"],"device":receipt["device"],"supportedFullRuntimeRebuild":{"status":"PASS","runtimeTreeSha256":rebuild["runtimeTreeSha256"],"runtimeBytes":rebuild["runtimeBytes"],"canonicalByteIdentityClaim":False},"controlledBenchmark":{"status":"PASS",**m},"remainingProductionBlockers":["clean-room consumer integration","release-tree reproducibility","asset redistribution license review"],"publisher":{"name":"actacomes","email":"developer@actacomes.com"}}
-    write_json(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-02.json",milestone)
-    md=f"""# iOS fixed225 Technical Distribution-Ready milestone — 2026-10-02
+    milestone={"schemaVersion":1,"milestone":"ios-fixed225-distribution-ready-technical-2026-10-03","status":"PASS","releaseStatus":"candidate","technicalDistributionReady":True,"publicRedistributionApproved":False,"validatedSourceCommit":receipt["validatedSourceCommit"],"releaseReceipt":"validation/release_receipt.json","assets":receipt["asset"],"device":receipt["device"],"supportedFullRuntimeRebuild":{"status":"PASS","runtimeTreeSha256":rebuild["runtimeTreeSha256"],"runtimeBytes":rebuild["runtimeBytes"],"canonicalByteIdentityClaim":False},"controlledBenchmark":{"status":"PASS",**m},"remainingProductionBlockers":["clean-room consumer integration","release-tree reproducibility","asset redistribution license review"],"publisher":{"name":"actacomes","email":"developer@actacomes.com"}}
+    write_json(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-03.json",milestone)
+    md=f"""# iOS fixed225 Technical Distribution-Ready milestone — 2026-10-03
 
 Status: **PASS — Technical Distribution-Ready Candidate / public redistribution not authorized**
 
@@ -93,7 +93,7 @@ publicRedistributionApproved = false
 
 Production/public release remains blocked by clean-room consumer integration, release-tree reproducibility and asset redistribution/license review. Human listening acceptance for the selected 6-step production default is recorded in `validation/evidence/flow6_listening_acceptance.json`.
 """
-    path=ROOT/"MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-02.md"; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(md)
+    path=ROOT/"MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md"; path.parent.mkdir(parents=True,exist_ok=True); path.write_text(md)
     print("[COSYVOICE3-CANDIDATE-METADATA] PASS",flush=True)
 if __name__=="__main__": main()
 # Code purpose: perform the evidence-gated Development -> Candidate metadata transition and freeze a ZipVoice-style technical Distribution-Ready milestone.
@@ -107,3 +107,5 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: Candidate finalization now consumes the exact post-6-step README/API Development wording, preventing a successful revalidation from leaving stale Development claims behind.
 
 # Changes 2026-10-03: milestone text now cites the dedicated 6-step listening acceptance instead of reusing the older 10-step promoted-runtime listening decision.
+
+# Changes 2026-10-03: revalidation writes a new 2026-10-03 Candidate milestone receipt/document; the historical 2026-10-02 milestone remains immutable.
