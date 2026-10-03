@@ -285,6 +285,146 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         return audio
     }
 
+    @_spi(Validation)
+    public func synthesizeFlowStepHeadToHead(
+        _ text: String,
+        parameters: CosyVoice3Parameters = .init(),
+        flowSteps: [Int] = [10,8,6]
+    ) async throws -> CosyVoice3FlowStepHeadToHeadReport {
+        guard flowSteps == [10,8,6] else {
+            throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                "Flow head-to-head requires the fixed validation order [10, 8, 6]"
+            )
+        }
+        let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
+        guard !cleaned.isEmpty else { throw CosyVoice3EngineError.emptyText }
+        if let reference = parameters.reference {
+            guard !reference.transcript.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty,
+                  FileManager.default.fileExists(atPath: reference.audioURL.path) else {
+                throw CosyVoice3EngineError.invalidReference
+            }
+        }
+
+        let preparation = try await prepare(reference: parameters.reference)
+
+        let frontendStart = DispatchTime.now().uptimeNanoseconds
+        let baseFrontend = try await reusableBaseFrontend()
+        let basePrepared = try await baseFrontend.prepare(
+            text: cleaned,
+            reference: parameters.reference,
+            instruction: parameters.instruction
+        )
+
+        let prepared: CosyVoice3PreparedRequest
+        let flowConditionsPath: String
+        if let reference = parameters.reference {
+            guard let referenceAssets = manifest.referenceEnrollment, referenceAssets.isPromoted else {
+                throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                    "custom reference requested but reference enrollment is not PASS_DEVICE_PARITY"
+                )
+            }
+            let conditioning = try await referenceConditioning(for: reference, assets: referenceAssets)
+            prepared = CosyVoice3PreparedRequest(
+                prefillInput: basePrepared.prefillInput,
+                minimumSpeechTokenCount: basePrepared.minimumSpeechTokenCount,
+                maximumSpeechTokenCount: basePrepared.maximumSpeechTokenCount,
+                logicalPrefixLength: basePrepared.logicalPrefixLength,
+                referenceConditioning: conditioning
+            )
+            flowConditionsPath = referenceAssets.flowConditionsDynamic
+        } else {
+            prepared = basePrepared
+            flowConditionsPath = manifest.flowConditions
+        }
+        let frontendMilliseconds = Self.milliseconds(since: frontendStart)
+
+        var llmModelLoadMilliseconds = 0.0
+        var llmGenerationMilliseconds = 0.0
+        let speechTokens: [Int] = try {
+            let loadStart = DispatchTime.now().uptimeNanoseconds
+            let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
+            let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
+            let llm = CosyVoice3LLMRuntime(
+                prefillModel: prefill,
+                decodeModel: decode,
+                conditioner: try reusableConditioner()
+            )
+            llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
+            let generationStart = DispatchTime.now().uptimeNanoseconds
+            let tokens = try llm.generate(prepared)
+            llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+            return tokens
+        }()
+        let speechTokenSHA256 = SHA256.hash(
+            data: Data(speechTokens.map(String.init).joined(separator: ",").utf8)
+        ).map { String(format: "%02x", $0) }.joined()
+
+        // Match the production sequential lifetime: LLM objects are out of scope before
+        // the acoustic models are constructed. Acoustic models are then reused only inside
+        // this validation call so all three variants share identical model instances,
+        // speech tokens, reference conditioning, and initial Flow noise.
+        let acousticLoadStart = DispatchTime.now().uptimeNanoseconds
+        let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
+        let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
+        let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
+        let f0 = try reusableF0()
+        let flowMask = try reusableFlowMask()
+        let flowNoise = try reusableFlowNoise()
+        let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
+
+        // One untimed-for-comparison 10-step acoustic warm-up removes first-prediction
+        // effects from the measured 10/8/6 sequence while preserving the same model set.
+        let warmup = try CosyVoice3Fixed225AcousticRuntime(
+            conditions: conditions,
+            shards: shards,
+            hift: hift,
+            f0: f0,
+            flowMask: flowMask,
+            initialNoise: flowNoise,
+            flowStepCount: 10
+        )
+        let warmupStart = DispatchTime.now().uptimeNanoseconds
+        _ = try await warmup.synthesize(speechTokens: speechTokens, prepared: prepared)
+        let warmupMilliseconds = Self.milliseconds(since: warmupStart)
+
+        var variants: [CosyVoice3FlowStepValidationResult] = []
+        variants.reserveCapacity(flowSteps.count)
+        for stepCount in flowSteps {
+            let acoustic = try CosyVoice3Fixed225AcousticRuntime(
+                conditions: conditions,
+                shards: shards,
+                hift: hift,
+                f0: f0,
+                flowMask: flowMask,
+                initialNoise: flowNoise,
+                flowStepCount: stepCount
+            )
+            let started = DispatchTime.now().uptimeNanoseconds
+            let audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+            let milliseconds = Self.milliseconds(since: started)
+            variants.append(
+                CosyVoice3FlowStepValidationResult(
+                    flowSteps: stepCount,
+                    synthesisMilliseconds: milliseconds,
+                    audio: audio
+                )
+            )
+        }
+
+        return CosyVoice3FlowStepHeadToHeadReport(
+            flowSteps: flowSteps,
+            warmupFlowSteps: 10,
+            warmupMilliseconds: warmupMilliseconds,
+            speechTokenSHA256: speechTokenSHA256,
+            preparationMilliseconds: preparation.totalMilliseconds,
+            frontendMilliseconds: frontendMilliseconds,
+            llmModelLoadMilliseconds: llmModelLoadMilliseconds,
+            llmGenerationMilliseconds: llmGenerationMilliseconds,
+            acousticModelLoadMilliseconds: acousticModelLoadMilliseconds,
+            variants: variants
+        )
+    }
+
     private func reusableBaseFrontend() async throws -> CosyVoice3Fixed224Frontend {
         if let cached = baseFrontendCache { return cached }
         let tokenizer: any Tokenizer
@@ -501,3 +641,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: split persistent warm markers into the main synthesis plan and reference-enrollment plan so a disk-cached reference on process relaunch does not accidentally invalidate the already-prepared LLM/Flow/HiFT marker.
 
 // Changes 2026-10-02: physical iPhone18,4 Core ML -14 under two-model constructor overlap invalidated the bounded-parallel cold-start experiment; prepare(reference:) now serializes execution-plan construction and relies on early invocation/caching rather than simultaneous large-model specialization.
+
+// Changes 2026-10-02: add validation-SPI 10/8/6 Flow head-to-head synthesis that generates one shared 225-token trajectory, reuses one acoustic model set and identical initial noise/reference conditioning, performs a 10-step warm-up, then measures only the three acoustic variants; production synthesize() remains fixed at 10 steps.
