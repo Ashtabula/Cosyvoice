@@ -12,15 +12,20 @@ SUMMARY="$WORK/summary.json"
 BUNDLE_ID="${COSYVOICE3_CANDIDATE_BUNDLE_ID:-com.actacomes.cosyvoice3.candidatebenchmark}"
 
 poll_receipt(){
-    local output="$1" label="$2"
+    local output="$1" label="$2" minimum_epoch="${3:-0}"
     rm -f "$output"
     for attempt in $(seq 1 48); do
         printf '[COSYVOICE3-PERF] %s receipt poll %s/48\n' "$label" "$attempt"
         if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/candidate-benchmark-receipt.json" --destination "$output"; then
             if [ -s "$output" ]; then
-                "$PYTHON" - "$output" <<'PY'
+                if ! "$PYTHON" - "$output" "$minimum_epoch" <<'PY'
 import json,sys
 p=json.load(open(sys.argv[1]))
+minimum=int(sys.argv[2])
+recorded=int(p.get("recordedAtUnix",0))
+if recorded < minimum:
+    print(f"[COSYVOICE3-PERF] STALE receipt recordedAtUnix={recorded} minimum={minimum}",flush=True)
+    raise SystemExit(10)
 if p.get("status")!="PASS_CANDIDATE_BENCHMARK":
     raise SystemExit("benchmark receipt is not PASS: "+str(p.get("status")))
 print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
@@ -33,6 +38,11 @@ print("[COSYVOICE3-PERF] RECEIPT",json.dumps({
     "repeatStages":p.get("repeatStages"),
 },sort_keys=True),flush=True)
 PY
+                then
+                    rm -f "$output"
+                    sleep 1
+                    continue
+                fi
                 return 0
             fi
         fi
@@ -85,14 +95,15 @@ PY
     DERIVED_DATA="$ROOT/.work/RuntimePerformanceDerivedData" \
     bash "$ROOT/validation/install_device_smoke.sh"
 
-    poll_receipt "$FRESH" fresh-install
+    poll_receipt "$FRESH" fresh-install 0
 
     # Relaunch the already-installed bundle. Application Support and Library/Caches
     # remain intact; DeviceSmoke deletes the old receipt at run start.
     printf '[COSYVOICE3-PERF] PHASE same-install-process-relaunch\n'
+    RELAUNCH_EPOCH="$(date +%s)"
     xcrun devicectl device process launch --terminate-existing --device "$DEVICE_ID" "$BUNDLE_ID"
     sleep 2
-    poll_receipt "$RELAUNCH" same-install-relaunch
+    poll_receipt "$RELAUNCH" same-install-relaunch "$RELAUNCH_EPOCH"
 
     "$PYTHON" - "$FRESH" "$RELAUNCH" "$SUMMARY" "$(git -C "$ROOT/.." rev-parse HEAD)" "$DECODE_PROFILE" <<'PY'
 import json,sys,time
@@ -129,3 +140,4 @@ main "$@"
 # Upstream assets: immutable private HF ios-fixed225-reference/0.1.0-rc1.
 # Runtime: macOS/Xcode, connected physical iPhone, actacomes HF authentication.
 # Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: optional COSYVOICE3_PERF_FIXED449=1 swaps only the decode package to the previously device/audio-accepted <=449 candidate for diagnostic A/B; the script still never writes Candidate evidence.\n
+# Changes 2026-10-02: same-install relaunch polling rejects receipts older than the host launch epoch, closing the stale-receipt race even if polling beats app-side cleanup.
