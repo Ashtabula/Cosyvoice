@@ -1,5 +1,5 @@
 #@title finalize_reference_device_promotion.sh
-# Requirement: pull the latest DeviceSmoke receipt from the connected physical iPhone, validate/promote the custom-reference lane, record evidence, commit as actacomes, and push main.
+# Requirement: pull the latest DeviceSmoke receipt from the connected physical iPhone, validate/promote the custom-reference lane, record evidence, commit as actacomes, and push the explicit SDK release branch.
 #!/usr/bin/env bash
 set -u
 
@@ -13,6 +13,7 @@ WORK="$ROOT/.work/reference-release/device"
 DEVICE_RECEIPT="$WORK/reference-smoke-receipt.json"
 PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/python3}"
 COMMIT_PUSH="${COSYVOICE3_PROMOTION_COMMIT_PUSH:-1}"
+EXPECTED_BRANCH="${COSYVOICE3_RELEASE_BRANCH:-release/ios-fixed225-sdk-ready}"
 GENERATED_KEEP="$ROOT/validation/DeviceSmoke/GeneratedAssets/.gitkeep"
 
 main() {
@@ -29,8 +30,8 @@ main() {
 
     cd "$ROOT/.." || return $?
 
-    if [ "$(git branch --show-current)" != "main" ]; then
-        printf '[COSYVOICE3-REFERENCE-PROMOTION] ERROR promotion must run from main\n'
+    if [ "$(git branch --show-current)" != "$EXPECTED_BRANCH" ]; then
+        printf '[COSYVOICE3-REFERENCE-PROMOTION] ERROR promotion must run from $EXPECTED_BRANCH\n'
         return 2
     fi
 
@@ -49,8 +50,8 @@ main() {
         return 2
     fi
 
-    printf '[COSYVOICE3-REFERENCE-PROMOTION] updating main before evidence promotion\n'
-    git pull --ff-only origin main || return $?
+    printf '[COSYVOICE3-REFERENCE-PROMOTION] updating $EXPECTED_BRANCH before evidence promotion\n'
+    git pull --ff-only origin "$EXPECTED_BRANCH" || return $?
     PUBLICATION_HEAD="$(git rev-parse HEAD)" || return $?
 
     mkdir -p "$WORK"
@@ -96,7 +97,7 @@ main() {
 
         git -c user.name="actacomes" -c user.email="developer@actacomes.com" \
             commit -m "iOS: promote custom reference lane after device parity" || return $?
-        git push origin main || return $?
+        git push origin "$EXPECTED_BRANCH" || return $?
         printf '[COSYVOICE3-REFERENCE-PROMOTION] PUSHED commit=%s\n' "$(git rev-parse HEAD)"
     else
         printf '[COSYVOICE3-REFERENCE-PROMOTION] validated promotion complete; commit/push disabled by COSYVOICE3_PROMOTION_COMMIT_PUSH=%s\n' "$COMMIT_PUSH"
@@ -116,3 +117,5 @@ test "$RC" -eq 0
 # Generated: 2026-10-02 America/New_York.
 
 # Changes 2026-10-03: track ios/VALIDATION.md after SDK release-layout cleanup; RELEASE_CHECKLIST.md no longer exists on this release branch.
+
+# Changes 2026-10-03: promotion targets the explicit SDK release branch instead of main; override only with COSYVOICE3_RELEASE_BRANCH when intentionally validating another release branch.

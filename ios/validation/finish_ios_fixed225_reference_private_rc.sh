@@ -15,7 +15,7 @@ REFERENCE_WAV="${COSYVOICE3_REFERENCE_WAV:-/Volumes/WD/Codes/dub/dub_ios/ios/Exp
 REFERENCE_TRANSCRIPT="${COSYVOICE3_REFERENCE_TRANSCRIPT:-/Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.txt}"
 DEVICE_ID="${DEVICE_ID:-00008150-000A05CA1440401C}"
 DEVELOPMENT_TEAM="${DEVELOPMENT_TEAM:-H5R282PV62}"
-EXPECTED_BRANCH="main"
+EXPECTED_BRANCH="${COSYVOICE3_RELEASE_BRANCH:-release/ios-fixed225-sdk-ready}"
 PYTHON="$ROOT/.venv-release/bin/python"
 
 RELEASE_ROOT="$ROOT/.work/hf-release/$PROFILE/$VERSION"
@@ -37,7 +37,7 @@ ensure_clean_checkout() {
     local branch status
     branch="$(git -C "$ROOT/.." branch --show-current)" || return $?
     [ "$branch" = "$EXPECTED_BRANCH" ] || {
-        fail "release workflow must run on main; observed $branch"
+        fail "release workflow must run on $EXPECTED_BRANCH; observed $branch"
         return 1
     }
     status="$(git -C "$ROOT/.." status --porcelain --untracked-files=no)" || return $?
@@ -321,7 +321,7 @@ PY
 
     git -C "$repo_root" add         ios/assets/releases.json         ios/manifest.json         ios/VALIDATION.md || return $?
     git -C "$repo_root" -c user.name="actacomes" -c user.email="developer@actacomes.com"         commit -m "release(ios): register fixed225 reference private RC" || return $?
-    git -C "$repo_root" push origin main || return $?
+    git -C "$repo_root" push origin "$EXPECTED_BRANCH" || return $?
     printf '[COSYVOICE3-HF-FINISH] RELEASE_METADATA_PUSH_PASS head=%s\n' "$(git -C "$repo_root" rev-parse HEAD)"
 }
 
@@ -334,7 +334,7 @@ main() {
 
     printf '[COSYVOICE3-HF-FINISH] profile=%s version=%s repo=%s\n' "$PROFILE" "$VERSION" "$REPO_ID"
     ensure_clean_checkout || return $?
-    git -C "$ROOT/.." pull --ff-only origin main || return $?
+    git -C "$ROOT/.." pull --ff-only origin "$EXPECTED_BRANCH" || return $?
     ensure_release_python_and_hf_identity || return $?
     validate_canonical_runtime || return $?
     prepare_release || return $?
@@ -359,3 +359,5 @@ test "$RC" -eq 0
 # Generated: 2026-10-02 America/New_York.
 
 # Changes 2026-10-03: use VALIDATION.md as the engine-owned release-status document; RELEASE_CHECKLIST.md was retired from the release branch.
+
+# Changes 2026-10-03: private-RC workflow targets the explicit SDK release branch instead of main; override only with COSYVOICE3_RELEASE_BRANCH for an intentional alternate release branch.
