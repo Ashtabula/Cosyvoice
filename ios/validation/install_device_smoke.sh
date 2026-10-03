@@ -16,8 +16,10 @@ PYTHON_BIN="${COSYVOICE3_PYTHON:-$HOME/.venvs/cosyvoice-reference-py311/bin/pyth
 PROMOTED_RUNTIME_MODE="${COSYVOICE3_PROMOTED_RUNTIME_MODE:-0}"
 FRESH_INSTALL="${COSYVOICE3_FRESH_INSTALL:-0}"
 CANDIDATE_BENCHMARK="${COSYVOICE3_CANDIDATE_BENCHMARK:-0}"
+FLOW_STEPS_HEAD_TO_HEAD="${COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD:-0}"
 
 main() {
+    if [ "$CANDIDATE_BENCHMARK" = "1" ] && [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then printf '[COSYVOICE3-INSTALL] ERROR Candidate benchmark and Flow head-to-head modes are mutually exclusive\n'; return 2; fi
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
     if [ -z "${DEVICE_ID:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVICE_ID\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2; fi
@@ -67,14 +69,16 @@ main() {
     COSYVOICE3_TOKENIZER_PARITY_FOLDER="$ASSET_ROOT/tokenizer" \
         swift test --package-path "$ROOT" --filter ReferenceTokenizerExternalParityTests || return $?
 
-    BENCHMARK_ARGS=(); if [ "$CANDIDATE_BENCHMARK" = "1" ]; then BENCHMARK_ARGS=(--candidate-benchmark); fi
+    STAGING_ARGS=()
+    if [ "$CANDIDATE_BENCHMARK" = "1" ]; then STAGING_ARGS+=(--candidate-benchmark); fi
+    if [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then STAGING_ARGS+=(--flow-steps-head-to-head); fi
     if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
         "$PYTHON_BIN" validation/prepare_promoted_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
             --host-receipt "$HOST_RECEIPT" \
             --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
             --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" \
-            "${BENCHMARK_ARGS[@]}" || return $?
+            "${STAGING_ARGS[@]}" || return $?
     else
         "$PYTHON_BIN" validation/prepare_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
@@ -143,7 +147,13 @@ main() {
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
-    if [ "$CANDIDATE_BENCHMARK" = "1" ]; then printf '[COSYVOICE3-INSTALL] App auto-runs Candidate benchmark. Retrieve Documents/candidate-benchmark-receipt.json.\n'; else printf '[COSYVOICE3-INSTALL] App auto-runs once. Copy Documents/reference-smoke-receipt.json after PASS and feed it to tools/promote_reference_assets.py.\n'; fi
+    if [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then
+        printf '[COSYVOICE3-INSTALL] App auto-runs Flow 10/8/6 head-to-head. Retrieve Documents/flow-steps-head-to-head-receipt.json and flow-steps-{10,8,6}.wav.\n'
+    elif [ "$CANDIDATE_BENCHMARK" = "1" ]; then
+        printf '[COSYVOICE3-INSTALL] App auto-runs Candidate benchmark. Retrieve Documents/candidate-benchmark-receipt.json.\n'
+    else
+        printf '[COSYVOICE3-INSTALL] App auto-runs once. Copy Documents/reference-smoke-receipt.json after PASS and feed it to tools/promote_reference_assets.py.\n'
+    fi
 }
 
 main "$@"
@@ -154,3 +164,5 @@ test "$RC" -eq 0
 # Code purpose: one-command physical-iPhone build/install/launch for standalone public CosyVoice3Core custom-reference smoke; supports ordinary local-candidate staging and exact already-promoted runtime replay without substituting local reference models.
 # Runtime: macOS, Xcode, Python3, connected/trusted iPhone.
 # Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: COSYVOICE3_CANDIDATE_BENCHMARK=1 stages the benchmark marker and makes DeviceSmoke auto-run the cold/warm public-API benchmark without changing the normal smoke path.
+
+# Changes 2026-10-02: COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD=1 stages and auto-runs the validation-only 10/8/6 Flow comparison; it is mutually exclusive with Candidate benchmark mode.
