@@ -97,27 +97,29 @@ enum CosyVoice3AssetLoader {
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
-        return try MLModel(contentsOf: compiled, configuration: config)
+        do {
+            return try MLModel(contentsOf: compiled, configuration: config)
+        } catch {
+            throw CosyVoice3AssetError.compiledCache(
+                "MLModel load failed path=\(path) computeUnits=\(String(describing: computeUnits)) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+            )
+        }
     }
 
-    static func warmModels(root: URL, specs: [CosyVoice3ModelWarmSpec], maximumConcurrent: Int = 2) async throws {
-        guard maximumConcurrent > 0 else { throw CosyVoice3AssetError.compiledCache("maximumConcurrent must be positive") }
-        var offset = 0
-        while offset < specs.count {
-            let upper = min(offset + maximumConcurrent, specs.count)
-            let batch = Array(specs[offset..<upper])
-            try await withThrowingTaskGroup(of: Void.self) { group in
-                for spec in batch {
-                    group.addTask {
-                        try autoreleasepool {
-                            let warmed = try model(root: root, path: spec.path, computeUnits: spec.computeUnits)
-                            _ = warmed.modelDescription
-                        }
-                    }
-                }
-                try await group.waitForAll()
+    static func warmModels(root: URL, specs: [CosyVoice3ModelWarmSpec], maximumConcurrent: Int = 1) async throws {
+        guard maximumConcurrent == 1 else {
+            throw CosyVoice3AssetError.compiledCache(
+                "parallel Core ML execution-plan construction is disabled on the validated iPhone path; maximumConcurrent must be 1"
+            )
+        }
+        for spec in specs {
+            try autoreleasepool {
+                let warmed = try model(root: root, path: spec.path, computeUnits: spec.computeUnits)
+                _ = warmed.modelDescription
             }
-            offset = upper
+            // Yield between large constructors so Core ML can tear down temporary
+            // execution-plan resources before the next model is specialized.
+            await Task.yield()
         }
     }
 
@@ -274,3 +276,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-02: wrap process-local compiled-URL memoization in a locked @unchecked Sendable reference so Swift 6 strict concurrency sees no unisolated mutable static storage.
 
 // Changes 2026-10-02: store a same-install/OS/runtime-plan performance-only warm marker after successful model preparation; process relaunch can skip redundant prewarm, while actual MLModel construction remains authoritative and safely rebuilds if Core ML system caches were evicted.
+
+// Changes 2026-10-02: disable concurrent Core ML execution-plan constructors after physical iPhone18,4 returned Core ML -14 during two-model cold prewarm; first-use specialization is serialized with an autoreleasepool/yield boundary, and model-load errors now identify the exact asset path/computeUnits/compiled cache entry.
