@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "PENDING_REVIEW",
+  "assetIdentity": "ios-fixed225-reference/0.1.0-rc1@2fb4251057a5c627e76e392c04b0e778f530d0e0#a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
+  "publicRedistributionApproved": false,
+  "reviewedBy": null,
+  "reviewedAt": null,
+  "notices": [],
+  "componentDecisions": [],
+  "notes": "Template only. Human review must replace PENDING_REVIEW with PASS_LICENSE_REVIEW only after exact-payload redistribution/commercial/attribution terms and required notices are verified."
+}

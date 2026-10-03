@@ -12,7 +12,7 @@ python3 ios/validation/check_production_nonlicense.py || exit $?
 python3 ios/validation/record_release_tree_reproducibility.py --check-only || exit $?
 if [ -e "$DEST" ]; then [ -d "$DEST" ] && [ -z "$(find "$DEST" -mindepth 1 -maxdepth 1 -print -quit)" ] || { printf '[COSYVOICE3-PUBLIC-SNAPSHOT] ERROR destination must be an empty directory\n'; exit 4; }; else mkdir -p "$DEST" || exit $?; fi
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
-git archive --format=tar HEAD -- ios LICENSE PUBLIC_RELEASE_IDENTITY.md | tar -xf - -C "$TMP" || exit $?
+git archive --format=tar HEAD -- ios LICENSE | tar -xf - -C "$TMP" || exit $?
 while IFS= read -r spec; do
     case "$spec" in ""|#*) continue;; esac
     src="$TMP/ios/$spec"; dst="$DEST/$spec"
@@ -21,7 +21,6 @@ while IFS= read -r spec; do
     if [ -d "$src" ]; then mkdir -p "$dst"; cp -R "$src"/. "$dst"/ || exit $?; else cp "$src" "$dst" || exit $?; fi
 done < "$IOS/public_snapshot_paths.txt"
 cp "$TMP/LICENSE" "$DEST/LICENSE" || exit $?
-cp "$TMP/PUBLIC_RELEASE_IDENTITY.md" "$DEST/PUBLIC_RELEASE_IDENTITY.md" || exit $?
 git -C "$DEST" init -b main || exit $?
 git -C "$DEST" config user.name "$PUBLIC_NAME"; git -C "$DEST" config user.email "$PUBLIC_EMAIL"; git -C "$DEST" add -A || exit $?
 GIT_AUTHOR_NAME="$PUBLIC_NAME" GIT_AUTHOR_EMAIL="$PUBLIC_EMAIL" GIT_COMMITTER_NAME="$PUBLIC_NAME" GIT_COMMITTER_EMAIL="$PUBLIC_EMAIL" git -C "$DEST" commit -m "Initial public CosyVoice3 iOS SDK snapshot" || exit $?
@@ -32,3 +31,5 @@ printf '[COSYVOICE3-PUBLIC-SNAPSHOT] PASS sourceHead=%s publicCommit=%s author=%
 # Upstream source: ios/public_snapshot_paths.txt and current reviewed private release tree.
 # Runtime environment: POSIX shell, Git, tar, Python 3.
 # Generated time: 2026-10-03 America/New_York.
+
+# Changes 2026-10-03: public identity policy stays in the private release-engineering repository; the external consumer snapshot contains only the explicit Swift SDK scope plus Apache LICENSE.
