@@ -100,16 +100,19 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // MLModel objects remain request-scoped to preserve the previously validated memory
         // lifecycle. CosyVoice3AssetLoader now resolves these through a persistent .mlmodelc
         // cache, so this is model construction, not package recompilation.
-        let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
-        let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
-        let conditioner = try reusableConditioner()
-        let llm = CosyVoice3LLMRuntime(
-            prefillModel: prefill,
-            decodeModel: decode,
-            conditioner: conditioner
-        )
-        let speechTokens = try llm.generate(prepared)
+        let speechTokens: [Int] = try {
+            let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
+            let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
+            let llm = CosyVoice3LLMRuntime(
+                prefillModel: prefill,
+                decodeModel: decode,
+                conditioner: try reusableConditioner()
+            )
+            return try llm.generate(prepared)
+        }()
 
+        // The lexical scope above intentionally drops request-scoped LLM model references
+        // before Flow model construction, matching the accepted device benchmark lifecycle.
         let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
         let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
@@ -264,3 +267,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Runtime: iOS18+/macOS15+, no Python/host bridge.
 // Generated: 2026-10-02 America/New_York.
 // Changes 2026-10-02: cache tokenizer/embedding/F0/static buffers and per-audio reference conditioning on the engine; large LLM/Flow/HiFT MLModel objects remain request-scoped but now load from CosyVoice3AssetLoader's persistent compiled cache.
+
+// Changes 2026-10-02: explicit LLM lexical lifetime releases request-scoped prefill/decode references before Flow construction, matching accepted full-pipeline memory behavior.
