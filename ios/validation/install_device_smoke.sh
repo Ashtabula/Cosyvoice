@@ -86,7 +86,7 @@ main() {
             --reference-candidate-dir "$REFERENCE_CANDIDATE_DIR" \
             --reference-wav "$COSYVOICE3_REFERENCE_WAV" \
             --reference-transcript "$COSYVOICE3_REFERENCE_TRANSCRIPT" \
-            "${BENCHMARK_ARGS[@]}" || return $?
+            "${STAGING_ARGS[@]}" || return $?
     fi
 
     rm -rf "$DERIVED_DATA"
