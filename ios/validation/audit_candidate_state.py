@@ -7,7 +7,7 @@ ROOT=Path(__file__).resolve().parents[1]
 ALLOWED_RELEASE_COMMIT_PATHS={
     "ios/manifest.json",
     "ios/assets/releases.json",
-    "ios/RELEASE_CHECKLIST.md",
+    "ios/VALIDATION.md",
     "ios/BENCHMARK.md",
     "ios/README.md",
     "ios/SDK_RELEASE.md",
@@ -24,7 +24,7 @@ def load(path):
     if not path.is_file(): raise RuntimeError(f"missing Candidate file: {path}")
     return json.loads(path.read_text())
 def main():
-    manifest=load(ROOT/"manifest.json"); release=load(ROOT/"validation/release_receipt.json"); milestone=load(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-03.json"); catalog=load(ROOT/"assets/releases.json"); checklist=(ROOT/"RELEASE_CHECKLIST.md").read_text()
+    manifest=load(ROOT/"manifest.json"); release=load(ROOT/"validation/release_receipt.json"); milestone=load(ROOT/"validation/ios_fixed225_distribution_ready_2026-10-03.json"); catalog=load(ROOT/"assets/releases.json"); status_doc=(ROOT/"VALIDATION.md").read_text()
     build=load(ROOT/"validation/evidence/standalone_build.json"); rebuild=load(ROOT/"validation/evidence/full_runtime_rebuild.json"); benchmark=load(ROOT/"validation/evidence/candidate_benchmark.json"); flow6_acceptance=load(ROOT/"validation/evidence/flow6_listening_acceptance.json")
     head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     if manifest.get("releaseStatus")!="candidate" or manifest.get("technicalDistributionReady") is not True or manifest.get("sdkIntegrationReady") is not True or manifest.get("publicRedistributionApproved") is not False or manifest.get("candidateBlockers")!=[]: raise RuntimeError("manifest Candidate state mismatch")
@@ -50,12 +50,12 @@ def main():
     if milestone.get("status")!="PASS" or milestone.get("releaseStatus")!="candidate" or milestone.get("technicalDistributionReady") is not True or milestone.get("publicRedistributionApproved") is not False: raise RuntimeError("distribution-ready milestone state mismatch")
     default=catalog.get("default") or {}; rows=[x for x in catalog.get("releases",[]) if x.get("profile")==default.get("profile") and x.get("version")==default.get("version")]
     if len(rows)!=1 or rows[0].get("candidateTechnicalDistributionReady") is not True or rows[0].get("publicRedistributionApproved") is not False: raise RuntimeError("asset catalog Candidate state mismatch")
-    if "CANDIDATE BLOCKER:" in checklist: raise RuntimeError("Candidate blocker remains in release checklist")
-    if "PRODUCTION BLOCKER:" not in checklist: raise RuntimeError("Production blockers unexpectedly absent")
+    if "CANDIDATE BLOCKER:" in status_doc: raise RuntimeError("Candidate blocker remains in validation status")
+    if "PRODUCTION BLOCKER:" not in status_doc: raise RuntimeError("Production blockers unexpectedly absent")
     print(f"[COSYVOICE3-CANDIDATE-AUDIT] PASS bindingMode={binding_mode} validatedSourceCommit={validated} releaseHead={head} releaseStatus=candidate technicalDistributionReady=true publicRedistributionApproved=false",flush=True)
 if __name__=="__main__": main()
 # Code purpose: prevent a partial or contradictory Candidate metadata commit after all non-license engineering gates pass.
-# Upstream: manifest.json, assets/releases.json, validation/release_receipt.json, distribution-ready milestone receipt and RELEASE_CHECKLIST.md.
+# Upstream: manifest.json, assets/releases.json, validation/release_receipt.json, distribution-ready milestone receipt and VALIDATION.md.
 # Runtime: Python 3 standard library.
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; strict consistency audit for Candidate state while requiring Production blockers and public-redistribution=false to remain explicit.
@@ -68,3 +68,4 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: Candidate audit requires the dedicated 6-step human listening acceptance evidence and its explicit PASS check in the release receipt.
 
 # Changes 2026-10-03: audit targets the new 2026-10-03 revalidation milestone and treats the 2026-10-02 milestone as immutable historical evidence.
+# Changes 2026-10-03: engine-specific status moved from RELEASE_CHECKLIST.md to VALIDATION.md so SDK_RELEASE.md can remain the byte-identical canonical cross-engine checklist mirror.

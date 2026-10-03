@@ -1,4 +1,6 @@
-# CosyVoice3 iOS release checklist
+# CosyVoice3 iOS validation and release status
+
+This file records CosyVoice3-specific status and evidence against the canonical `SDK_RELEASE.md` 检查单; it is not a second checklist body.
 
 Current status: SDK integration-ready on private RC; release level remains Development.
 
