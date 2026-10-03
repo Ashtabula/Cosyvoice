@@ -69,9 +69,13 @@ struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
 
 @available(iOS 18.0, macOS 15.0, *)
 enum CosyVoice3AssetLoader {
-    private static let compileLock = NSLock()
+    private final class CacheState: @unchecked Sendable {
+        let lock = NSLock()
+        var resolvedCompiledURLs: [String: URL] = [:]
+    }
+
+    private static let cacheState = CacheState()
     private static let compiledCacheVersion = "v1"
-    private static var resolvedCompiledURLs: [String: URL] = [:]
 
     static func loadManifest(root: URL) throws -> CosyVoice3Fixed225AssetManifest {
         let url = root.appendingPathComponent("cosyvoice3_fixed225.json")
@@ -147,11 +151,11 @@ enum CosyVoice3AssetLoader {
         let fileManager = FileManager.default
         let processKey = ProcessInfo.processInfo.operatingSystemVersionString + "|" + source.standardizedFileURL.path
 
-        compileLock.lock()
-        defer { compileLock.unlock() }
+        cacheState.lock.lock()
+        defer { cacheState.lock.unlock() }
 
         var isDirectory: ObjCBool = false
-        if let cached = resolvedCompiledURLs[processKey],
+        if let cached = cacheState.resolvedCompiledURLs[processKey],
            fileManager.fileExists(atPath: cached.path, isDirectory: &isDirectory),
            isDirectory.boolValue {
             return cached
@@ -163,7 +167,7 @@ enum CosyVoice3AssetLoader {
         let destination = cacheRoot.appendingPathComponent(digest + ".mlmodelc", isDirectory: true)
 
         if fileManager.fileExists(atPath: destination.path, isDirectory: &isDirectory), isDirectory.boolValue {
-            resolvedCompiledURLs[processKey] = destination
+            cacheState.resolvedCompiledURLs[processKey] = destination
             return destination
         }
 
@@ -183,7 +187,7 @@ enum CosyVoice3AssetLoader {
         guard fileManager.fileExists(atPath: destination.path, isDirectory: &isDirectory), isDirectory.boolValue else {
             throw CosyVoice3AssetError.compiledCache("compiled model cache was not materialized: \(destination.path)")
         }
-        resolvedCompiledURLs[processKey] = destination
+        cacheState.resolvedCompiledURLs[processKey] = destination
         return destination
     }
 
@@ -231,3 +235,5 @@ enum CosyVoice3AssetLoader {
 // Generated: 2026-10-02 America/New_York.
 // Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes OS version, standardized source path and package file sizes/mtimes and remains fail-closed.\n// Changes 2026-10-02: add bounded batch warm-up that releases every MLModel after constructor/execution-plan preparation; maximumConcurrent defaults to two so cold-start specialization can overlap without reintroducing the rejected all-model-residency memory profile. Asset metadata fingerprints are also exposed internally for safe derived-cache invalidation.\n
 // Changes 2026-10-02: memoize resolved stable .mlmodelc URLs within the process after the first full package fingerprint/cache check; immutable SDK assets therefore avoid repeated package-tree enumeration on warm model construction.
+
+// Changes 2026-10-02: wrap process-local compiled-URL memoization in a locked @unchecked Sendable reference so Swift 6 strict concurrency sees no unisolated mutable static storage.
