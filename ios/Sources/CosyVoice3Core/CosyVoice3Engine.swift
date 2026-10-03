@@ -1,5 +1,5 @@
 // CosyVoice3Engine.swift
-// Requirement: public SDK facade owns the complete on-device fixed225 lane; first-use Core ML execution-plan preparation is bounded/parallel, small immutable/reference state is reused, and large inference MLModel objects retain the validated sequential stage lifetime.
+// Requirement: public SDK facade owns the complete on-device fixed225 lane; first-use Core ML execution-plan preparation is serialized and may be invoked early, small immutable/reference state is reused, and large inference MLModel objects retain the validated sequential stage lifetime.
 import CoreML
 import CryptoKit
 import Foundation
@@ -64,7 +64,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     @discardableResult
     public func prepare(reference: CosyVoice3VoiceReference? = nil) async throws -> CosyVoice3PreparationReport {
         let totalStart = DispatchTime.now().uptimeNanoseconds
-        let maximumConcurrentModelWarmups = 2
+        let maximumConcurrentModelWarmups = 1
 
         var flowConditionsPath = manifest.flowConditions
         var referenceAssets: CosyVoice3ReferenceEnrollmentAssets?
@@ -121,8 +121,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             warmedModelKeys.formUnion(referencePlan.map { warmKey($0) })
         }
 
-        // Cold custom-reference preparation remains deliberately interleaved so a batch of
-        // two never starts both large LLM models together.
+        // Cold custom-reference preparation remains deliberately interleaved by stage, but
+        // execution-plan construction itself is serialized after physical iPhone -14 failures
+        // under concurrent constructors.
         let plan: [CosyVoice3ModelWarmSpec]
         if referencePlan.count == 2 {
             plan = [
@@ -498,3 +499,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: same-install process relaunch recognizes a successful prior model-preparation plan and skips redundant prewarm constructors; the marker is performance-only and never bypasses actual MLModel loading or validation.
 
 // Changes 2026-10-02: split persistent warm markers into the main synthesis plan and reference-enrollment plan so a disk-cached reference on process relaunch does not accidentally invalidate the already-prepared LLM/Flow/HiFT marker.
+
+// Changes 2026-10-02: physical iPhone18,4 Core ML -14 under two-model constructor overlap invalidated the bounded-parallel cold-start experiment; prepare(reference:) now serializes execution-plan construction and relies on early invocation/caching rather than simultaneous large-model specialization.
