@@ -117,8 +117,14 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             ]
         }
 
-        let missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
+        var modelPreparationCacheHit = false
+        var missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
         let warmStart = DispatchTime.now().uptimeNanoseconds
+        if !missing.isEmpty, try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: plan) {
+            modelPreparationCacheHit = true
+            warmedModelKeys.formUnion(plan.map { warmKey($0) })
+            missing.removeAll(keepingCapacity: false)
+        }
         if !missing.isEmpty {
             try await CosyVoice3AssetLoader.warmModels(
                 root: assetRoot,
@@ -126,6 +132,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 maximumConcurrent: maximumConcurrentModelWarmups
             )
             warmedModelKeys.formUnion(missing.map { warmKey($0) })
+            try CosyVoice3AssetLoader.storeWarmMarker(root: assetRoot, specs: plan)
         }
         let modelWarmupMilliseconds = Self.milliseconds(since: warmStart)
 
@@ -141,6 +148,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referencePreparationMilliseconds: referencePreparationMilliseconds,
             warmedModelCount: missing.count,
             maximumConcurrentModelWarmups: maximumConcurrentModelWarmups,
+            modelPreparationCacheHit: modelPreparationCacheHit,
             referenceCacheHit: referenceCacheHit
         )
         lastPreparationReportValue = report
@@ -249,7 +257,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             llmModelLoadMilliseconds: llmModelLoadMilliseconds,
             llmGenerationMilliseconds: llmGenerationMilliseconds,
             acousticModelLoadMilliseconds: acousticModelLoadMilliseconds,
-            acousticSynthesisMilliseconds: acousticSynthesisMilliseconds
+            acousticSynthesisMilliseconds: acousticSynthesisMilliseconds,
+            modelPreparationCacheHit: preparation.modelPreparationCacheHit,
+            referenceCacheHit: preparation.referenceCacheHit,
+            warmedModelCount: preparation.warmedModelCount
         )
         return audio
     }
@@ -464,3 +475,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: add automatic/public prepare(reference:) using at most two concurrent one-model warmups, preserving request-stage residency while overlapping cold execution-plan construction.
 // Changes 2026-10-02: persist only derived fixed151/302/192 reference tensors across launches, keyed by reference-audio SHA plus exact reference-asset metadata identity; raw reference audio is never persisted by the SDK cache.
 // Changes 2026-10-02: expose coarse preparation/synthesis stage timings for physical performance validation.
+
+// Changes 2026-10-02: same-install process relaunch recognizes a successful prior model-preparation plan and skips redundant prewarm constructors; the marker is performance-only and never bypasses actual MLModel loading or validation.
