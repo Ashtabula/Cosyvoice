@@ -120,7 +120,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
             "llmModelLoadMilliseconds": report.llmModelLoadMilliseconds,
             "llmGenerationMilliseconds": report.llmGenerationMilliseconds,
             "acousticModelLoadMilliseconds": report.acousticModelLoadMilliseconds,
-            "acousticSynthesisMilliseconds": report.acousticSynthesisMilliseconds
+            "acousticSynthesisMilliseconds": report.acousticSynthesisMilliseconds,
+            "modelPreparationCacheHit": report.modelPreparationCacheHit,
+            "referenceCacheHit": report.referenceCacheHit,
+            "warmedModelCount": report.warmedModelCount
         ]
     }
     private static func seconds(_ duration: Duration) -> Double { Double(duration.components.seconds)+Double(duration.components.attoseconds)/1e18 }
