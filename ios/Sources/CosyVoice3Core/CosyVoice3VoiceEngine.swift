@@ -28,6 +28,31 @@ public struct CosyVoice3Capabilities: Sendable {
     public init(supportsReferenceAudio: Bool=true, supportsInstruction: Bool=true, outputSampleRate: Int=24000) { self.supportsReferenceAudio=supportsReferenceAudio; self.supportsInstruction=supportsInstruction; self.outputSampleRate=outputSampleRate }
 }
 
+public struct CosyVoice3PreparationReport: Sendable {
+    public let totalMilliseconds: Double
+    public let modelWarmupMilliseconds: Double
+    public let referencePreparationMilliseconds: Double
+    public let warmedModelCount: Int
+    public let maximumConcurrentModelWarmups: Int
+    public let referenceCacheHit: Bool
+
+    public init(
+        totalMilliseconds: Double,
+        modelWarmupMilliseconds: Double,
+        referencePreparationMilliseconds: Double,
+        warmedModelCount: Int,
+        maximumConcurrentModelWarmups: Int,
+        referenceCacheHit: Bool
+    ) {
+        self.totalMilliseconds = totalMilliseconds
+        self.modelWarmupMilliseconds = modelWarmupMilliseconds
+        self.referencePreparationMilliseconds = referencePreparationMilliseconds
+        self.warmedModelCount = warmedModelCount
+        self.maximumConcurrentModelWarmups = maximumConcurrentModelWarmups
+        self.referenceCacheHit = referenceCacheHit
+    }
+}
+
 public enum CosyVoice3EngineError: Error, LocalizedError, Sendable {
     case emptyText
     case invalidReference
@@ -57,3 +82,5 @@ public extension CosyVoice3SynthesisEngine {
 // Upstream: ZipVoice release API pattern adapted for CosyVoice3 reference + instruction control.
 // Runtime: Swift concurrency, iOS17+.
 // Generated: 2026-10-02 America/New_York.
+
+// Changes 2026-10-02: add public preparation telemetry so applications and the Candidate runner can distinguish one-time Core ML/reference preparation from actual synthesis latency without exposing model internals.
