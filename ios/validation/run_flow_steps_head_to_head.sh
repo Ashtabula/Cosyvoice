@@ -41,6 +41,8 @@ main() {
     printf '[COSYVOICE3-FLOW-H2H] sourceCommit=%s\n' "$EXPECTED_COMMIT"
     printf '[COSYVOICE3-FLOW-H2H] assetRoot=%s\n' "$ASSET_ROOT"
 
+    START_EPOCH="$(date +%s)"
+
     COSYVOICE3_PROMOTED_RUNTIME_MODE=1 \
     COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD=1 \
     COSYVOICE3_ASSET_ROOT="$ASSET_ROOT" \
@@ -60,10 +62,14 @@ main() {
             --source "Documents/flow-steps-head-to-head-receipt.json" \
             --destination "$RECEIPT"; then
             if [ -s "$RECEIPT" ]; then
-                if "$PYTHON" - "$RECEIPT" "$EXPECTED_COMMIT" <<'PY'
+                if "$PYTHON" - "$RECEIPT" "$EXPECTED_COMMIT" "$START_EPOCH" <<'PY'
 import json,sys
 p=json.load(open(sys.argv[1]))
 expected=sys.argv[2]
+minimum_epoch=int(sys.argv[3])
+if int(p.get("recordedAtUnix",0)) < minimum_epoch:
+    print(f"[COSYVOICE3-FLOW-H2H] STALE recordedAtUnix={p.get('recordedAtUnix')} minimum={minimum_epoch}",flush=True)
+    raise SystemExit(10)
 if p.get("sourceCommit")!=expected:
     print(f"[COSYVOICE3-FLOW-H2H] STALE sourceCommit={p.get('sourceCommit')!r} expected={expected}",flush=True)
     raise SystemExit(10)
@@ -75,8 +81,10 @@ if set(variants)!={6,8,10}:
     raise SystemExit("receipt does not contain exactly 10/8/6 variants")
 print("[COSYVOICE3-FLOW-H2H] PASS",json.dumps({
     str(k):{
-        "milliseconds":variants[k]["synthesisMilliseconds"],
-        "rtf":variants[k]["rtf"],
+        "acousticMilliseconds":variants[k]["acousticSynthesisMilliseconds"],
+        "acousticRTF":variants[k]["acousticRTF"],
+        "steadyComputeMilliseconds":variants[k]["steadyComputeMilliseconds"],
+        "steadyComputeRTF":variants[k]["steadyComputeRTF"],
         "wav":variants[k]["wavFilename"],
         "wavSha256":variants[k]["wavSha256"],
     } for k in (10,8,6)
@@ -123,3 +131,5 @@ main "$@"
 # Runtime: macOS/Xcode, connected physical iPhone18,4, Release build.
 # Generated: 2026-10-02 America/New_York.
 # Changes: new dedicated Flow scheduler head-to-head runner; production default remains 10 steps.
+
+# Changes 2026-10-02: reject stale same-commit receipts by host launch epoch and print both acoustic-only and shared-LLM steady-compute RTF for each 10/8/6 variant.
