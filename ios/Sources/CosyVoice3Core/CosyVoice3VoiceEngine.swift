@@ -93,6 +93,35 @@ public struct CosyVoice3SynthesisReport: Sendable {
     }
 }
 
+@_spi(Validation)
+public struct CosyVoice3FlowStepValidationResult: Sendable {
+    public let flowSteps: Int
+    public let synthesisMilliseconds: Double
+    public let audio: CosyVoice3Audio
+
+    public var audioSeconds: Double {
+        Double(audio.samples.count) / Double(audio.sampleRate * audio.channels)
+    }
+
+    public var rtf: Double {
+        synthesisMilliseconds / 1000.0 / audioSeconds
+    }
+}
+
+@_spi(Validation)
+public struct CosyVoice3FlowStepHeadToHeadReport: Sendable {
+    public let flowSteps: [Int]
+    public let warmupFlowSteps: Int
+    public let warmupMilliseconds: Double
+    public let speechTokenSHA256: String
+    public let preparationMilliseconds: Double
+    public let frontendMilliseconds: Double
+    public let llmModelLoadMilliseconds: Double
+    public let llmGenerationMilliseconds: Double
+    public let acousticModelLoadMilliseconds: Double
+    public let variants: [CosyVoice3FlowStepValidationResult]
+}
+
 public enum CosyVoice3EngineError: Error, LocalizedError, Sendable {
     case emptyText
     case invalidReference
@@ -128,3 +157,5 @@ public extension CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: add public coarse synthesis stage telemetry to separate preparation, frontend, LLM load/generation and acoustic load/synthesis without exposing private model/shard details.
 
 // Changes 2026-10-02: preparation/synthesis telemetry now reports persistent model-preparation marker hits, reference-conditioning cache hits and the number of model constructors actually warmed.
+
+// Changes 2026-10-02: add validation-SPI-only Flow 10/8/6 head-to-head result types; the stable production synthesis API and default parameters remain unchanged.
