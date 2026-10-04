@@ -104,3 +104,10 @@ Prompt：真实文本actual EOS/count，不padding，并自主修复范围问题
 修改文件：export_observed_text_family.py、run_dynamic_acoustic_host.py、run_phase2_dynamic_flow.py、run_phase3_dynamic_hift.py；历史工作记录.txt。
 验证：四脚本语法/git diff --check通过；LLM cap225和RAS未改变。新family转换待执行。原device两个backend execution通过，endpoint质量未accepted，promotion=false。
 GitHub Timeline：7072a48已push；新family代码即将commit/push。
+
+时间：2026-10-04 00:47 EDT (America/New_York)
+Prompt：actual EOS N164/N151继续自然长度host/device，无padding。
+动作：observed-text-family-v1 条件/6Flow/HiFT转换编译成功；设备staging/probe按host-bound identity.counts执行实际长度和原controls；PCM文件写入错误不再被忽略。
+修改文件：DeviceProbe Swift；stage_acoustic_probe.py；历史工作记录.txt。
+验证：统一N151..225/T604..752/G302..450真实re-export；HiFT USER_INPUT noise[1,480*s0,9]；range s0[302,450]、480*s0[144960,216000]；source parity exact。新四长度完整host待执行。
+GitHub Timeline：380ed8f 已push；本次小修正即将commit/push，冻结release不变。

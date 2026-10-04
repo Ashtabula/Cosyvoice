@@ -243,7 +243,8 @@ enum AcousticProbe {
             }
             let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
             var rows=[[String:Any]]()
-            for n in [186,225] {
+            let counts=(identity as? [String:Any])?["counts"] as? [Int] ?? [186,225]
+            for n in counts {
                 let t=302+2*n,g=2*n,samples=g*480,folder=root.appendingPathComponent("N\(n)")
                 receipt["phase"]="conditions_N\(n)";try save()
                 let feed=["tokens":try read(folder,"tokens",[1,n],integer:true),"prompt_tokens":try read(folder,"prompt_tokens",[1,151],integer:true),"prompt_feat":try read(folder,"prompt_feat",[1,302,80]),"speaker":try read(folder,"speaker",[1,192])]
@@ -282,7 +283,7 @@ enum AcousticProbe {
                 guard pcmArray.shape.map(\.intValue)==[1,samples],pcm.allSatisfy(\.isFinite),melValues.allSatisfy(\.isFinite) else { throw NSError(domain:"AcousticPCMShapeOrFinite",code:pcm.count) }
                 let hostMel=try floats(folder.appendingPathComponent("expected-mel.bin")),hostPCM=try floats(folder.appendingPathComponent("expected-pcm.bin"))
                 let row:[String:Any]=["N":n,"T":t,"G":g,"samples":pcm.count,"finite":true,"pcmShape":pcmArray.shape.map(\.intValue),"melVsHost":try metric(hostMel,melValues),"pcmVsHost":try metric(hostPCM,pcm),"status":"PASS_PHYSICAL_EXECUTION_NUMERICS_RECORDED_NOT_PROMOTED"]
-                pcm.withUnsafeBytes { try? Data($0).write(to:docs.appendingPathComponent("dynamic-acoustic-\(backend)-N\(n).f32")) }
+                try pcm.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("dynamic-acoustic-\(backend)-N\(n).f32")) }
                 rows.append(row);receipt["tests"]=rows;try save()
                 print("DYNAMIC_ACOUSTIC_PCM N\(n) samples=\(pcm.count)")
             }
@@ -297,3 +298,6 @@ enum AcousticProbe {
 
 // 2026-10-04: replace simultaneous MLModel retention with per-prediction
 // autoreleasepool lifetime after SIGKILL at flow-4_load; model math/bytes unchanged.
+
+// 2026-10-04: host-bound identity supplies observed EOS counts; PCM write errors
+// propagate into durable failure receipt instead of being discarded.

@@ -23,7 +23,8 @@ def main():
         shutil.copytree(source,dest/f'{role}.mlpackage');identity['models'][role]=row['sha256']
     shutil.copytree(ROOT/'ios/.work/production-clean-room/fetched-runtime/f0-double',dest/'f0-double')
     identity['f0WeightsSha256']=sha(dest/'f0-double')
-    for n in (186,225):
+    identity['counts']=[row['N'] for row in r['tests']]
+    for n in identity['counts']:
         folder=dest/f'N{n}';folder.mkdir()
         flow=dict(np.load(work/f'flow-N{n}.npz'));hift=dict(np.load(work/f'hift-dynamic-N{n}.npz'))
         values={k:flow[f'input_{k}'] for k in ('tokens','prompt_tokens','prompt_feat','speaker')}
@@ -37,3 +38,5 @@ if __name__=='__main__':main()
 # Purpose: independent full acoustic physical staging; upstream Phase2/3 host family.
 # Environment: local macOS Python3.11. Generated: 2026-10-04 America/New_York.
 # New file, all lines; large assets remain ignored, previous staging preserved.
+
+# 2026-10-04: stage observed EOS lengths and original controls from host receipt.
