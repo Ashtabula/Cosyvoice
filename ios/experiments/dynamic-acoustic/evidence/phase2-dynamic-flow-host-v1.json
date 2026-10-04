@@ -253,10 +253,10 @@
           "tile": 1,
           "transpose": 21
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-00/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-00/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "f9a7d96922522bfcd0659abfdc21775c53c161f7559c3b22263e5d8e0f65fb3f",
+      "packageSha256": "4a4675be21ac50669b5bf0a6ca8ed9ec28f5a7e68a0d93c40c268d5df2ef49f0",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -419,10 +419,10 @@
           "stack": 9,
           "transpose": 16
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-01/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-01/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "52b96a3bd6266769b291a06260a876c77900b0cf8997a792a2477462579be32c",
+      "packageSha256": "6d097267c4d96508e9c6b6b7821a98ef36faad5017e798d7d310f93265769ef2",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -585,10 +585,10 @@
           "stack": 9,
           "transpose": 16
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-02/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-02/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "c34fc48e4e10036840d57e8dce28222025cbe660ea08b7f1099a11b5fb9be4a9",
+      "packageSha256": "9731c91a698666869d9be80e4baa194490d91621676249dab2960d2ab6ef5968",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -751,10 +751,10 @@
           "stack": 9,
           "transpose": 16
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-03/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-03/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "16ad56d770dfa08d7f6f04d2157882a49dab4bbcc5acfb0e14506a102b87fdbc",
+      "packageSha256": "a62333a35fc540179460fc2a0e0e855a619433b6382cb0eaf3beac98216d22b3",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -917,10 +917,10 @@
           "stack": 9,
           "transpose": 16
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-04/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-04/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "1460ae4045d105d0410df72bde6f35869aa8fb93fffd4c88367efb7496797ef1",
+      "packageSha256": "eef38eb82811dd56d7bca5eba434af16e7e191e46457c2159d4ec46667decf3e",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -1083,10 +1083,10 @@
           "stack": 5,
           "transpose": 9
         },
-        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-05/flow-shard.mlpackage",
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-05/flow-shard.mlpackage",
         "status": "PASS"
       },
-      "packageSha256": "24afff7ca3e3a07e360c18fe5283fa6cda26e02846fb91a724e552ba3489a48c",
+      "packageSha256": "c592dd7e79fc2950280e0b19eaeae783589dbc6e551177462776c22b1f9ecffc",
       "rangeConstraints": {
         "s0": "VR[674, 752]"
       },
@@ -1099,7 +1099,7 @@
   "precision": "fp16",
   "productionPromotion": false,
   "schemaVersion": 1,
-  "sourceCommit": "4b117b0429586aaa3a0bc726aed7ec616b984492",
+  "sourceCommit": "2dce45c4f42e8198baba64e6a71c647e57a7972e",
   "sourceRolloutPrecomputedBeforeCoreMLPrediction": true,
   "sourceSixShardVsFull": {
     "186": {
