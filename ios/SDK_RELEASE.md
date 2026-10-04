@@ -115,35 +115,39 @@ asset receipt referenced by release_receipt.json
 
 ## Development, build, validation and consumer environment
 
-Environment metadata is part of the release contract. **Validated Environment is not the same thing as Required Environment.** A platform may have been converted, optimized or validated on one host while the Candidate/consumer build requires only a smaller runtime SDK closure on another host. Release documentation must distinguish these roles explicitly instead of copying historical maintainer requirements into the public SDK requirements.
+The canonical release-engineering and clean-room host for this project is **macOS on Apple Silicon**. The current reference clean-room machine is **Mac mini (M4)**. Candidate and Production release paths must be reproducible from a clean checkout on that Mac environment, or on a later macOS/Apple-Silicon host that has been explicitly revalidated as equivalent. Historical Linux/Windows workstations may remain in provenance notes, but they are not part of the supported release path and must not be required to build, stage, validate or consume a Candidate/Production release.
 
-**Development / Build Environment**
+**Canonical macOS Development / Build Environment**
 
-- [ ] Host OS, host architecture and relevant OS build/version are recorded for every conversion, compilation or packaging step that can affect released assets.
-- [ ] Primary toolchain versions and build identifiers are recorded, including Xcode/Swift for Apple builds and Android/JDK/Gradle/NDK/CMake or equivalent for Android builds when applicable.
-- [ ] External accelerator/compiler/runtime SDK identity is exact, including product name, version and vendor build number when available.
-- [ ] Host-specific limitations are explicit; a tool validated only on Ubuntu x86_64, macOS arm64 or another host is not described as portable without evidence.
-- [ ] Maintainer-only Python environments, converters, AOT compilers, model exporters and optimization tools are identified as maintainer dependencies rather than runtime/consumer dependencies.
-- [ ] Source archives, installers or SDK packages used to reproduce a release are pinned to an official source/release identity and SHA-256 when a stable downloadable archive is available.
-- [ ] Generated assets/graphs retain enough provenance to recover the source revision, compiler/runtime SDK identity and exact build environment that produced them.
+- [ ] The supported release build/bootstrap/packaging path runs on macOS Apple Silicon without requiring a Linux VM, container, remote Linux host or developer-specific workstation.
+- [ ] The release receipt records the clean-room Mac hardware model/chip, exact macOS version/build, and the exact toolchain versions used for the validated build.
+- [ ] Apple builds record Xcode version/build, Apple SDK version, Swift language mode and deployment target.
+- [ ] Android/HTP builds record Android/JDK/Gradle/NDK/CMake versions when material, plus the exact QNN/QAIRT runtime SDK identity used by the Mac-hosted build.
+- [ ] External accelerator/compiler/runtime SDK inputs required by the release path are usable from the canonical Mac host and are pinned by exact product/version/build identity.
+- [ ] Maintainer-only model conversion/export/AOT steps that cannot run on macOS are not part of the Candidate/Production clean-room path. Their output must instead be represented by immutable, hash-bound release assets with recorded provenance and Mac-side validation.
+- [ ] A Candidate/Production release is blocked if any required release step still depends on an unpublished Linux-only toolchain, an inaccessible historical `/home/...` tree, or another maintainer machine.
+- [ ] Source archives, installers and vendor SDK packages required by the Mac clean-room path are pinned to an official source/release identity and SHA-256 when a stable archive is available.
+- [ ] Build/bootstrap tooling uses project-local state and documented caches only; it does not silently depend on global developer state from prior experiments.
 
-**Validation Environment**
+**Canonical macOS Validation Environment**
 
+- [ ] Clean-room validation starts from a clean checkout on the Mac mini (M4) reference host, or an explicitly revalidated compatible macOS Apple-Silicon host.
+- [ ] The full release-consumer sequence succeeds on that Mac: obtain/verify required assets -> build/package -> stage/install -> execute the public API on the physical target device -> finite non-empty PCM.
 - [ ] Physical validation device model, SoC, OS version/build and relevant accelerator/runtime/driver identity are recorded.
-- [ ] Validation records the exact public package/library source commit and immutable asset identity used on the device.
-- [ ] Validation commands or committed scripts are sufficient to distinguish host preparation from device execution.
-- [ ] A PASS names the environment actually tested; it does not imply compatibility with untested host, OS, SoC or runtime versions.
-- [ ] If multiple validation hosts are supported, each supported path is either independently validated or clearly labeled as equivalent packaging around the same immutable assets/runtime closure.
+- [ ] Validation records the exact public package/library source commit, immutable asset identity and clean-room Mac environment used.
+- [ ] Clean-room validation must not read source, SDKs, converted models or caches from another workstation merely because they existed during development.
+- [ ] A historical Ubuntu/Linux conversion environment may be recorded as provenance for an already frozen asset, but clean-room PASS requires the released Mac path to consume that immutable asset without rerunning the Linux-only conversion.
+- [ ] A PASS applies only to the macOS clean-room path and target/device combinations actually validated; broader compatibility requires separate evidence.
 
 **Consumer / Runtime Requirements**
 
-- [ ] Public documentation states the minimum consumer host/toolchain requirements separately from maintainer conversion requirements.
-- [ ] Required vendor SDK closure is enumerated by logical component and, when material, exact subdirectory/ABI/accelerator architecture; consumers are not told to install an entire historical development stack when only headers/runtime libraries are required.
-- [ ] Documentation explicitly states which heavyweight tools are **not** required for normal Candidate/Production consumption, such as converter/AOT/Python environments, when they are maintainer-only.
-- [ ] A supported bootstrap path first accepts an existing explicit SDK root when provided and otherwise may obtain a pinned official archive, verify SHA-256, and extract only the required closure.
-- [ ] Bootstrap/rebuild code fails closed on version/hash mismatch and never silently substitutes a newer vendor SDK or runtime.
-- [ ] Consumer build/run paths contain no developer-specific absolute path and do not depend on the original maintainer workstation.
-- [ ] The release documents unsupported consumer hosts or runtime combinations rather than leaving them ambiguous.
+- [ ] The documented release/clean-room integration path is Mac-first and is known to pass on macOS Apple Silicon.
+- [ ] Public SDK consumers are not told to reproduce historical Linux-only conversion environments when the release provides immutable validated assets.
+- [ ] Required vendor SDK closure is enumerated by logical component and exact ABI/accelerator subdirectory when material; the Mac clean-room fetch/bootstrap path obtains only what the Candidate/Production build actually needs.
+- [ ] A supported bootstrap path first accepts an explicit local SDK root when provided and otherwise may obtain a pinned official archive, verify SHA-256, and extract only the required closure on macOS.
+- [ ] Bootstrap/build code fails closed on version/hash mismatch and never silently substitutes a newer vendor SDK or runtime.
+- [ ] Consumer build/run paths contain no developer-specific absolute path and do not depend on the original development machine.
+- [ ] Additional non-Mac consumer hosts may be documented only when independently supported/validated; they are not required for the canonical release gate.
 
 Recommended environment metadata belongs in `README.md`, `ASSETS.md`, `VALIDATION.md`, `BENCHMARK.md` and the machine-readable release receipt as applicable. Engine-specific version numbers, archive URLs and closure paths remain in engine-owned documentation/receipts rather than this engine-independent checklist.
 
@@ -204,10 +208,10 @@ release_receipt.json -> checks.benchmarkRecorded
 
 ## Clean-room integration
 
-- [ ] Start from a clean checkout or independent consumer project.
+- [ ] Start from a clean checkout or independent consumer project on the canonical macOS Apple-Silicon clean-room host.
 - [ ] Consume only the public package/library API.
 - [ ] Obtain assets only through the documented public/staging path.
-- [ ] Build without another engine repository's source being required.
+- [ ] Build on macOS Apple Silicon without another engine repository's source, Linux VM/container, remote Linux host or maintainer workstation being required.
 - [ ] Install on a physical target device.
 - [ ] Synthesize real text through the public API to finite non-empty PCM.
 - [ ] No engine-source modification is required.
@@ -274,11 +278,11 @@ clean checkout
 - [ ] App developer does not call low-level graph/tensor/delegate methods to perform normal synthesis.
 - [ ] QNN/QAIRT/runtime identity is recorded with exact vendor version/build identifier.
 - [ ] SoC-specific asset identity is recorded and incompatible assets fail closed.
-- [ ] Host compilation/conversion path is reproducible for each supported SoC/runtime family.
-- [ ] Maintainer converter/AOT host requirements are documented separately from Candidate packaging/build requirements; a Linux-only converter path does not make Linux a consumer requirement when the released build needs only a portable runtime SDK closure.
-- [ ] The minimum QNN/QAIRT closure needed by the supported build is documented, including required headers, Android target libraries and DSP/HTP libraries/architecture when applicable.
-- [ ] When an official QAIRT/QNN archive is acquired automatically, its release identity and SHA-256 are pinned and only the required closure is extracted; hash/version mismatch fails closed.
-- [ ] `QNN_SDK_ROOT` or equivalent explicit SDK-root override is supported when documented; fallback acquisition must not silently select a different SDK version.
+- [ ] The Candidate/Production HTP packaging/build/stage/validation path is reproducible on the canonical macOS Apple-Silicon clean-room host for each supported SoC/runtime family.
+- [ ] Linux-only converter/AOT tooling may remain historical provenance for frozen assets, but it is not a supported release dependency. If a required asset cannot be supplied immutably and validated from the Mac clean-room path, Candidate/Production is blocked.
+- [ ] The minimum QNN/QAIRT closure needed by the Mac-hosted build is documented, including required headers, Android target libraries and DSP/HTP libraries/architecture when applicable.
+- [ ] When an official QAIRT/QNN archive is acquired automatically on macOS, its release identity and SHA-256 are pinned and only the required closure is extracted; hash/version mismatch fails closed.
+- [ ] `QNN_SDK_ROOT` or equivalent explicit SDK-root override is supported when documented; Mac fallback acquisition must not silently select a different SDK version.
 - [ ] Physical Qualcomm device execution is preserved as committed evidence.
 - [ ] QNN/HTP execution claims are distinct from residency claims when tooling cannot prove both.
 - [ ] Large assets are external to the base application package and consumed through the same public engine facade.
@@ -286,8 +290,9 @@ clean checkout
 Acceptance sequence:
 
 ```text
-validated source graph
--> pinned host QNN/QAIRT build
+clean macOS Apple-Silicon checkout
+-> validated source graph
+-> pinned Mac-side QNN/QAIRT runtime closure
 -> SoC-specific runtime package
 -> host/numerical validation
 -> clean Android consumer
@@ -332,10 +337,12 @@ Minimum structure:
   "sourceCommit": "abcdef1234567890",
   "assetIdentity": "immutable-profile-or-tree-hash",
   "environment": {
-    "buildHost": "host OS / architecture / version used for the release build",
-    "toolchain": "exact Xcode, QAIRT/QNN, Android/NDK or equivalent identity",
+    "cleanRoomHost": "Mac mini (M4), exact macOS version/build",
+    "releaseHost": "macOS Apple Silicon",
+    "toolchain": "exact Xcode, QAIRT/QNN, Android/NDK or equivalent identity used from macOS",
     "validationTarget": "physical device / SoC / OS / runtime identity",
-    "consumerRequirements": "minimum supported consumer host/toolchain/runtime closure"
+    "historicalAssetBuildProvenance": "optional non-Mac provenance for already frozen immutable assets only",
+    "consumerRequirements": "Mac clean-room integration path plus minimum target runtime/SDK closure"
   },
   "device": {
     "model": "physical device model",
@@ -360,9 +367,9 @@ Minimum structure:
 }
 ~~~
 
-Candidate/Production receipts created or refreshed under this checklist should record the environment block above. Historical receipts need not be rewritten solely for format, but the next release promotion/refresh must capture the current Development/Build, Validation and Consumer/Runtime environment boundaries.
+Candidate/Production receipts created or refreshed under this checklist should record the environment block above and identify the Mac clean-room host used. Historical non-Mac provenance does not need to be rewritten, but it cannot satisfy the current release-host gate by itself.
 
-HTP Candidate receipts should additionally record SoC asset validation when SoC-specific assets are required, plus exact QNN/QAIRT version/build identity and the runtime SDK closure actually required by the supported build path.
+HTP Candidate receipts should additionally record SoC asset validation when SoC-specific assets are required, plus exact QNN/QAIRT version/build identity and the runtime SDK closure actually required by the Mac-hosted supported build path.
 
 Production receipts additionally require evidence for:
 
@@ -400,4 +407,4 @@ This checklist is intentionally engine-independent. Engine-specific implementati
 # Upstream source: the ZipVoice release checklist/SDK release architecture, generalized to the public-interface-only multi-engine model.
 # Runtime environment: repository/release engineering; no runtime dependency.
 # Generated time: 2026-10-04 America/New_York.
-# Changed lines: add mandatory Development/Build, Validation and Consumer/Runtime environment boundaries; require reproducible vendor-SDK provenance and minimal runtime closure; strengthen iOS Xcode metadata and HTP QAIRT/QNN host/closure rules; extend release receipts with environment evidence.
+# Changed lines: make macOS Apple Silicon the canonical release/clean-room host, with Mac mini (M4) as the current reference machine; require all Candidate/Production build/bootstrap/stage/validation paths to pass from that Mac environment; demote Linux-only tooling to historical frozen-asset provenance only; update HTP and release-receipt gates accordingly.
