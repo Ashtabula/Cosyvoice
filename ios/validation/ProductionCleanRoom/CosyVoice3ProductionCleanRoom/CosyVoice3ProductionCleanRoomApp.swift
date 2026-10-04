@@ -1,6 +1,7 @@
 // CosyVoice3ProductionCleanRoomApp.swift
 // Requirement: independent physical-device consumer using only the stable CosyVoice3Core public API and the ordinary fetched asset root.
 import Darwin
+import CryptoKit
 import Foundation
 import SwiftUI
 import UIKit
@@ -59,6 +60,9 @@ final class CleanRoomModel: ObservableObject {
             phase = "capabilities"
             let capabilities = try await engine.capabilities()
             guard capabilities.outputSampleRate == 24_000, capabilities.defaultFlowSteps == .steps6, capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else { throw NSError(domain:"CleanRoom",code:4,userInfo:[NSLocalizedDescriptionKey:"public capabilities mismatch"]) }
+            phase = "workload-binding"
+            let observedWorkloadSHA256 = SHA256.hash(data: Data(binding.workloadText.utf8)).map { String(format:"%02x",$0) }.joined()
+            guard observedWorkloadSHA256 == binding.workloadTextSha256 else { throw NSError(domain:"CleanRoom",code:6,userInfo:[NSLocalizedDescriptionKey:"workload text hash mismatch"]) }
             phase = "synthesize"
             let audio = try await engine.synthesize(binding.workloadText, parameters: CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>",flowSteps:.steps6))
             phase = "pcm-validation"
@@ -86,3 +90,5 @@ final class CleanRoomModel: ObservableObject {
 // Changes 2026-10-03: every clean-room failure now writes the same Documents receipt with FAIL_PRODUCTION_CLEAN_ROOM plus the exact phase/error, so host polling cannot time out silently on app-side validation/runtime errors.
 
 // Changes 2026-10-03: Production clean-room now consumes the exact Candidate-frozen public-API workload from its staged binding. The fixed225 acoustic bucket requires 225 generated speech tokens; inventing a new sentence can legitimately hit EOS early and is outside this validated fixed bucket.
+
+// Changes 2026-10-03: recompute SHA256 of the staged workload on device before synthesis; the receipt now proves the exact Candidate-frozen text rather than merely echoing a host-provided digest.

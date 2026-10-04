@@ -13,7 +13,7 @@
   "publicRedistributionApproved": false,
   "candidateBenchmarkWorkload": {
     "text": "This is a CosyVoice3 public API reference voice validation.",
-    "textSha256": "c0219ad18aff345aa5196a07c72d13728abf56632faaf805559559e62c7b90ed",
+    "textSha256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed",
     "fixed225ExpectedSpeechTokens": 225
   }
 }
