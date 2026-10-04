@@ -163,7 +163,71 @@ def source_first_call(full_graph, shards, case):
     return args, official, sharded, boundaries
 
 
+def canonicalize_export_example(shard, index: int, example):
+    original = tuple(tensor.detach() for tensor in example)
+    canonical = tuple(tensor.detach().contiguous() for tensor in example)
+    layout = []
+    for position, (before, after) in enumerate(zip(original, canonical)):
+        layout.append(
+            {
+                "position": position,
+                "shape": list(before.shape),
+                "beforeStride": list(before.stride()),
+                "afterStride": list(after.stride()),
+                "beforeContiguous": bool(before.is_contiguous()),
+                "afterContiguous": bool(after.is_contiguous()),
+                "valuesExact": bool(torch.equal(before, after)),
+            }
+        )
+        if not torch.equal(before, after):
+            raise RuntimeError(
+                f"shard {index} export-boundary contiguous canonicalization changed input values at position {position}"
+            )
+        if not after.is_contiguous():
+            raise RuntimeError(
+                f"shard {index} export-boundary input {position} is still non-contiguous"
+            )
+
+    with torch.no_grad():
+        before_output = shard(*original)
+        after_output = shard(*canonical)
+
+    before_values = before_output if isinstance(before_output, tuple) else (before_output,)
+    after_values = after_output if isinstance(after_output, tuple) else (after_output,)
+    if len(before_values) != len(after_values):
+        raise RuntimeError(f"shard {index} canonicalization changed output arity")
+
+    output_metrics = []
+    for position, (before, after) in enumerate(zip(before_values, after_values)):
+        value = metrics(
+            before.detach().cpu().numpy(),
+            after.detach().cpu().numpy(),
+        )
+        output_metrics.append({"position": position, **value})
+        if (
+            not value["finite"]
+            or value["maxAbsError"] != 0.0
+            or value["relativeL2"] != 0.0
+        ):
+            raise RuntimeError(
+                f"shard {index} contiguous export-boundary canonicalization is not numerically exact: {value}"
+            )
+
+    return canonical, {
+        "inputLayout": layout,
+        "outputExactBeforeVsAfter": output_metrics,
+        "semanticChange": False,
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+    }
+
+
 def export_package(shard, index: int, example, output_dir: Path, precision):
+    example, boundary_layout = canonicalize_export_example(
+        shard,
+        index,
+        example,
+    )
+
     if index == 0:
         frame = torch.export.Dim("flow_frames", min=674, max=752)
         dynamic_shapes = ({2: frame}, {2: frame}, {2: frame}, {}, {}, {2: frame})
@@ -259,6 +323,7 @@ def export_package(shard, index: int, example, output_dir: Path, precision):
         "index": index,
         "blocks": list(CUTS[index]),
         "sourceSymbolic": True,
+        "exportBoundaryLayout": boundary_layout,
         "rangeConstraints": {
             str(key): str(value)
             for key, value in exported.range_constraints.items()
@@ -515,19 +580,23 @@ def main() -> int:
         }
 
         h225, te225 = shards[0](*source_first[225]["args"])
-        source_examples[0] = source_first[225]["args"]
+        source_examples[0] = tuple(
+            tensor.detach().contiguous()
+            for tensor in source_first[225]["args"]
+        )
         for index in range(1, 6):
             source_examples[index] = (
-                h225,
-                te225,
-                cases[225]["mask"],
+                h225.detach().contiguous(),
+                te225.detach().contiguous(),
+                cases[225]["mask"].detach().contiguous(),
             )
             if index < 5:
-                h225 = shards[index](
-                    h225,
-                    te225,
-                    cases[225]["mask"],
-                )
+                with torch.no_grad():
+                    h225 = shards[index](
+                        source_examples[index][0],
+                        source_examples[index][1],
+                        source_examples[index][2],
+                    )
 
         precision = (
             ct.precision.FLOAT16
@@ -710,3 +779,4 @@ if __name__ == "__main__":
 # Runtime environment: macOS arm64, Python 3.11, torch 2.7, coremltools 9, Core ML CPU_ONLY.
 # Generated time: 2026-10-03 America/New_York.
 # Changes: new experiment-only complete dynamic Flow exporter/host validator; no HiFT, Swift shipping runtime, LLM EOS/cap, Candidate evidence, or public asset changes.
+# Changes 2026-10-03: canonicalize every cross-shard export fixture to contiguous external-input layout, record pre/post strides, and require exact PyTorch output equivalence before conversion; this fixes Core ML EXIR non-contiguous dim-order rejection without changing Flow math.
