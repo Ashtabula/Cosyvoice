@@ -563,7 +563,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 defaultSpeaker: try reusableDynamicDefaultSpeaker(dynamic),
                 flowNoiseMaximum: try reusableDynamicFlowNoiseMaximum(dynamic),
                 hiftExcitationMaximum: try reusableDynamicHiFTExcitationMaximum(dynamic),
-                flowStepCount: flowStepCount
+                flowStepCount: flowStepCount,
+                progress: validationProgressObserver
             )
         }
         return try CosyVoice3Fixed225AcousticRuntime(
