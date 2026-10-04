@@ -42,3 +42,14 @@ PASS FOR PRODUCTION EVIDENCE: human audio review is already recorded and need no
 Candidate engineering gates are complete. Do not label Production or authorize public runtime assets until the remaining Production blockers pass.
 
 PRODUCTION TOOLING READY / NOT YET PASS: `validation/ProductionCleanRoom`, `run_production_clean_room.sh`, `record_release_tree_reproducibility.py`, repository public-identity gate and fresh-snapshot exporter are implemented. Clean-room/reproducibility/identity gates remain blockers until their exact-current-tree receipts are recorded; license review remains human-gated and public assets remain private.
+
+## Dynamic-acoustic experiment status
+
+PASS / NOT PROMOTED: the isolated `experiment/ios-dynamic-acoustic` candidate has a complete physical N3...479 integer shape sweep (477/477, no missing/duplicates), then passed real `CosyVoice3Engine.synthesize()` on a physical iPhone for both default and custom-reference lanes after replacing simultaneous acoustic-model residency with the same one-model-per-prediction/autoreleasepool lifecycle used by the accepted shape sweep. The public-API PASS is bound to source commit `6cb25b4dba7e7540914dd3807a186767d6290110`: default N140 -> 134400 samples and reference N260 -> 249600 samples, profile `ios18-dynamic-n3-n479-candidate`, `productionPromotion=false`.
+
+DYNAMIC BLOCKER: N1/N2 are not yet physically promoted into the candidate envelope. The focused lower-bound extension must pass N1/N2 plus overlapping N3/N225/N479 on a fresh N1...479 package, prove N0/N480 rejection, and prove graph/state/CoreML-weight carry-forward equivalence before an N1 candidate may be assembled.
+
+DYNAMIC BLOCKER: human listening acceptance is not yet recorded for the final dynamic candidate. Numerical PCM/shape PASS is not treated as audible-quality acceptance.
+
+The fixed225 release status and its existing production blockers above are unchanged by this experiment.
+
