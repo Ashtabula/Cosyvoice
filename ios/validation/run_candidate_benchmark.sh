@@ -4,9 +4,11 @@
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 PYTHON="$ROOT/.venv-release/bin/python"
-FETCHED="$ROOT/.work/candidate/fetched-runtime"
-RAW="$ROOT/.work/candidate/candidate-benchmark-device.json"
-OUTPUT="$ROOT/validation/evidence/candidate_benchmark.json"
+PROFILE="${COSYVOICE3_ASSET_PROFILE:-ios-fixed225-reference}"
+VERSION="${COSYVOICE3_ASSET_VERSION:-0.1.0-rc1}"
+FETCHED="$ROOT/.work/candidate/${PROFILE}-${VERSION}-fetched-runtime"
+RAW="$ROOT/.work/candidate/${PROFILE}-${VERSION}-candidate-benchmark-device.json"
+OUTPUT="${COSYVOICE3_CANDIDATE_BENCHMARK_OUTPUT:-$ROOT/validation/evidence/candidate_benchmark.json}"
 BUNDLE_ID="${COSYVOICE3_CANDIDATE_BUNDLE_ID:-com.actacomes.cosyvoice3.candidatebenchmark}"
 main(){
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { printf '[COSYVOICE3-CANDIDATE-BENCH] ERROR set DEVELOPMENT_TEAM\n'; return 2; }
@@ -24,7 +26,8 @@ if name!="actacomes": raise SystemExit("Hugging Face login must be actacomes")
 PY
     [ $? -eq 0 ] || return $?
     rm -rf "$FETCHED" || return $?; mkdir -p "$(dirname "$RAW")" "$(dirname "$OUTPUT")" || return $?
-    "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile ios-fixed225-reference --version 0.1.0-rc1 --output "$FETCHED" --force || return $?
+    printf '[COSYVOICE3-CANDIDATE-BENCH] profile=%s version=%s output=%s\n' "$PROFILE" "$VERSION" "$OUTPUT"
+    "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile "$PROFILE" --version "$VERSION" --output "$FETCHED" --force || return $?
     COSYVOICE3_PROMOTED_RUNTIME_MODE=1 COSYVOICE3_CANDIDATE_BENCHMARK=1 COSYVOICE3_FRESH_INSTALL=1 COSYVOICE3_ASSET_ROOT="$FETCHED" COSYVOICE3_PYTHON="$PYTHON" CONFIGURATION=Release BUNDLE_ID="$BUNDLE_ID" DERIVED_DATA="$ROOT/.work/CandidateBenchmarkDerivedData" bash "$ROOT/validation/install_device_smoke.sh" || return $?
     rm -f "$RAW" || return $?
     for attempt in $(seq 1 36); do
@@ -43,7 +46,9 @@ RC=$?
 printf '[COSYVOICE3-CANDIDATE-BENCH] rc=%s\n' "$RC"
 test "$RC" -eq 0
 # Code purpose: produce Candidate cold/warm benchmark evidence from a fresh install of the exact immutable HF private RC using only CosyVoice3Engine public synthesis API.
-# Upstream: assets/fetch_assets.py, immutable ios-fixed225-reference/0.1.0-rc1, DeviceSmoke Candidate benchmark mode.
+# Upstream: assets/fetch_assets.py, a committed immutable private-RC catalog entry selected by COSYVOICE3_ASSET_PROFILE/COSYVOICE3_ASSET_VERSION, and DeviceSmoke Candidate benchmark mode.
 # Runtime: macOS/Xcode, authenticated actacomes Hugging Face access, connected physical iPhone, developer signing identity.
 # Generated: 2026-10-02 America/New_York.
 # Changes: new file; immutable fetch, fresh Release install, two-call public API benchmark, receipt polling and fail-closed metadata binding.\n# Changes 2026-10-02: pass the exact local reference WAV/transcript to the recorder so Candidate evidence stores reproducible workload hashes without storing private transcript content.
+
+# Changes 2026-10-04: benchmark runner is profile/version-generic; dynamic N1 private RCs can be selected without changing the fixed225 historical default, and the output receipt path is overrideable for side-by-side historical evidence.
