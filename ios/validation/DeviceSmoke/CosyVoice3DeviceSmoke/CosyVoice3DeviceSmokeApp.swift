@@ -9,6 +9,36 @@ import SwiftUI
 import UIKit
 @_spi(Validation) import CosyVoice3Core
 
+private func writeDynamicEngineProgress(
+    url: URL,
+    lane: String,
+    stage: String,
+    sourceCommit: String,
+    hostReceiptSHA256: String,
+    profile: String,
+    speechTokenBounds: [Int],
+    recordedAtUnix: Int,
+    defaultN: Int? = nil,
+    defaultSamples: Int? = nil
+) {
+    var value: [String: Any] = [
+        "schemaVersion": 1,
+        "status": "RUNNING",
+        "phase": lane + ":" + stage,
+        "sourceCommit": sourceCommit,
+        "hostReceiptSha256": hostReceiptSHA256,
+        "profile": profile,
+        "speechTokenBounds": speechTokenBounds,
+        "recordedAtUnix": recordedAtUnix,
+        "updatedAtUnix": Int(Date().timeIntervalSince1970),
+        "productionPromotion": false
+    ]
+    if let defaultN { value["defaultInferredSpeechTokensFromPCM"] = defaultN }
+    if let defaultSamples { value["defaultSamples"] = defaultSamples }
+    guard let data = try? JSONSerialization.data(withJSONObject: value, options: [.prettyPrinted,.sortedKeys]) else { return }
+    try? data.write(to: url, options: .atomic)
+}
+
 @main
 struct CosyVoice3DeviceSmokeApp: App {
     @StateObject private var model = CosyVoice3SmokeModel()
@@ -92,11 +122,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
         do {
             let progressURL = try Self.receiptURL("dynamic-public-api-smoke-receipt.json")
+            let smokeRecordedAtUnix = Int(Date().timeIntervalSince1970)
             var progress: [String: Any] = [
                 "schemaVersion": 1,
                 "status": "RUNNING",
                 "phase": "START",
-                "recordedAtUnix": Int(Date().timeIntervalSince1970),
+                "recordedAtUnix": smokeRecordedAtUnix,
                 "productionPromotion": false
             ]
             if let sourceCommit = Self.validationSourceCommit() { progress["sourceCommit"] = sourceCommit }
@@ -127,6 +158,18 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
             let clock = ContinuousClock()
             let defaultText = "This is a CosyVoice3 dynamic default voice validation."
+            await engine.setValidationProgressObserver { stage in
+                writeDynamicEngineProgress(
+                    url: progressURL,
+                    lane: "DEFAULT",
+                    stage: stage,
+                    sourceCommit: fixture.sourceCommit,
+                    hostReceiptSHA256: fixture.hostReceiptSHA256,
+                    profile: profile,
+                    speechTokenBounds: [nmin,nmax],
+                    recordedAtUnix: smokeRecordedAtUnix
+                )
+            }
             progress["phase"] = "DEFAULT_SYNTHESIS"
             progress["profile"] = profile
             progress["speechTokenBounds"] = [nmin,nmax]
@@ -155,6 +198,20 @@ final class CosyVoice3SmokeModel: ObservableObject {
             progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
             _ = try Self.write(progress, to: progressURL)
 
+            await engine.setValidationProgressObserver { stage in
+                writeDynamicEngineProgress(
+                    url: progressURL,
+                    lane: "REFERENCE",
+                    stage: stage,
+                    sourceCommit: fixture.sourceCommit,
+                    hostReceiptSHA256: fixture.hostReceiptSHA256,
+                    profile: profile,
+                    speechTokenBounds: [nmin,nmax],
+                    recordedAtUnix: smokeRecordedAtUnix,
+                    defaultN: defaultN,
+                    defaultSamples: defaultAudio.samples.count
+                )
+            }
             let referenceParameters = CosyVoice3Parameters(
                 reference: fixture.reference,
                 instruction: nil,
@@ -174,6 +231,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let referenceWAV = Self.wavData(referenceAudio)
             try referenceWAV.write(to: Self.receiptURL("dynamic-reference.wav"), options: .atomic)
 
+            await engine.setValidationProgressObserver(nil)
             var receipt: [String: Any] = [
                 "schemaVersion": 1,
                 "status": "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
@@ -499,3 +557,5 @@ private extension Data {
 // Changes 2026-10-04: dynamic-public-api-smoke mode runs two real public syntheses in one physical process: default/no-reference and custom reference with instruction=nil so reference transcript contributes to logicalPrefixLength. Receipt records active profile, manifest N bounds, PCM-derived N, stage timings, WAV hashes, source commit and device identity.
 
 // Changes 2026-10-04: dynamic public-API smoke now creates its receipt immediately with RUNNING/START and atomically updates DEFAULT_SYNTHESIS then REFERENCE_SYNTHESIS progress before final PASS/FAIL, eliminating the normal no-file polling window and exposing durable device progress.
+
+// Changes 2026-10-04: dynamic smoke installs the validation-only engine observer while continuing to call the public synthesize() API. Durable receipt phase now identifies prepare/model warming, frontend, LLM prefill/decode progress, acoustic model load, Conditions/Flow/F0/HiFT, separately for DEFAULT and REFERENCE lanes.
