@@ -39,3 +39,11 @@ Prompt 摘要：从最新 fixed225 release 建立独立 dynamic acoustic 分支�
 测试或验证结果：conditions attempt1保留symbolic N但CoreML dynamic pad转换失败，attempt2等价自然长度cond concat通过同package N186/N225 host验证，mu maxAbs5.245e-6。shard0 symbolic T674/T752转换/编译/加载/预测完成，eager/export与官方4block输出逐值一致；FP16 vs官方h maxAbs约2.959/2.991，N225 vs fixed h maxAbs1.8125，未判定数值通过。独立physical probe准备中；不得进入Phase2或移除cap。附件末尾Phase5 Then find截断，已请求补充。
 平台/路径/阶段：本地macOS /Volumes/WD/Codes/Cosyvoice，实验环境/模型/失败证据位于ios/.work/dynamic-acoustic；无Colab/Drive操作；物理Air已连接。
 GitHub Timeline：实验分支已push（base4ab288d3）；当前实验新增文件未commit，后续同流程commit/push；release分支未改变。
+
+时间：2026-10-03 21:44 America/New_York
+Prompt 摘要：继续Phase1 dynamic acoustic数值控制和物理probe。
+具体动作：增加独立FP32 shard0数值控制；修复实验Swift probe编译并签名Release构建成功；stage identity加入实际Swift源文件hash。此前本次记录的21:50为错误时间，实际首次实验提交时间约21:41 EDT，本条追加纠正，不覆盖旧记录。
+修改文件：实验probe_symbolic_shard0.py、stage_device_probe.py、DynamicAcousticProbeApp.swift、历史工作记录.txt。
+测试或验证结果：FP32 symbolic同package T674/T752 macOS CPU预测finite，h maxAbs0.03378/0.03386，RMSE0.001008/0.001012；仍未宣称数值gate通过。Release build通过；第一次签名team配置错误、第一次Swift API/type-check失败保留，已纠正到现有H5R282PV62团队与optimizationHints API。
+平台/路径/阶段：本地macOS；物理设备执行准备；完整日志ios/.work/dynamic-acoustic/device-build*.log。
+GitHub Timeline：c18f48c已commit已push；本次修复将在独立实验分支commit/push；release未改变。

@@ -8,7 +8,7 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--conditions',type=Path,required=True);p.add_argument('--shard0',type=Path,required=True);a=p.parse_args()
     dest=Path(__file__).parent/'DeviceProbe/GeneratedAssets'
     dest.mkdir(parents=True,exist_ok=False)
-    identity={'profile':'experimental-symbolic-natural-N186-225','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'modelRevision':'29e01c4e8d000f4bcd70751be16fa94bf3d85a18','scope':'conditioning and shard0 only; synthetic fixture prefixes, no full synthesis','models':{}}
+    identity={'profile':'experimental-symbolic-natural-N186-225','sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'modelRevision':'29e01c4e8d000f4bcd70751be16fa94bf3d85a18','probeSwiftSha256':sha(Path(__file__).parent/'DeviceProbe/DynamicAcousticProbe/DynamicAcousticProbeApp.swift'),'scope':'conditioning and shard0 only; synthetic fixture prefixes, no full synthesis','models':{}}
     for role,folder in [('conditions',a.conditions),('shard0',a.shard0)]:
         r=json.loads((folder/'receipt.json').read_text())
         if not r.get('symbolicDimensionRetained') or r.get('conversion')!='PASS':raise RuntimeError(f'{role} symbolic source conversion not proven')

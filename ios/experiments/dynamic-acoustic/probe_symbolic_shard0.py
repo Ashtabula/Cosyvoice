@@ -13,9 +13,9 @@ sys.path.insert(0,str(ROOT/'ios/tools'))
 from reference_flow_conditions import load_reference_flow_conditioning
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument('--source-root',type=Path,required=True); p.add_argument('--model-dir',type=Path,required=True); p.add_argument('--fixture',type=Path,required=True); p.add_argument('--conditions-receipt',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--materialize-static-reshape-dims',action='store_true'); a=p.parse_args()
+    p=argparse.ArgumentParser(); p.add_argument('--source-root',type=Path,required=True); p.add_argument('--model-dir',type=Path,required=True); p.add_argument('--fixture',type=Path,required=True); p.add_argument('--conditions-receipt',type=Path,required=True); p.add_argument('--output',type=Path,required=True); p.add_argument('--precision',choices=['fp16','fp32'],default='fp16'); p.add_argument('--materialize-static-reshape-dims',action='store_true'); a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
-    receipt=dict(schemaVersion=1,status='RUNNING',phase='source',sourceCommit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),pinnedUpstream=PIN,physicalDevice='NOT_RUN',tests=[],precision='FP16 internal, FP32 boundaries',workloadProvenance='deterministic rebuild fixture target prefix; NOT real LLM workload tokens',environment=dict(torch=torch.__version__,coremltools=ct.__version__))
+    receipt=dict(schemaVersion=1,status='RUNNING',phase='source',sourceCommit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),pinnedUpstream=PIN,physicalDevice='NOT_RUN',tests=[],precision=a.precision+' internal, FP32 boundaries',workloadProvenance='deterministic rebuild fixture target prefix; NOT real LLM workload tokens',environment=dict(torch=torch.__version__,coremltools=ct.__version__))
     rp=a.output/'receipt.json'
     def save(): rp.write_text(json.dumps(receipt,indent=2)+'\n')
     save()
@@ -84,7 +84,7 @@ def main():
         receipt['phase']='conversion'; save()
         rd=ct.RangeDim(674,752,default=752,symbol='flow_frames')
         types=[ct.TensorType(name=k,shape=tuple(rd if axis==2 and k in ('x','mask','mu','cond') else d for axis,d in enumerate(v.shape)),dtype=np.float32) for k,v in zip(names,inputs(225))]
-        model=ct.convert(ep,source='pytorch',inputs=types,outputs=[ct.TensorType(name=k,dtype=np.float32) for k in outputs],minimum_deployment_target=ct.target.iOS18,compute_precision=ct.precision.FLOAT16,convert_to='mlprogram',skip_model_load=True)
+        model=ct.convert(ep,source='pytorch',inputs=types,outputs=[ct.TensorType(name=k,dtype=np.float32) for k in outputs],minimum_deployment_target=ct.target.iOS18,compute_precision=ct.precision.FLOAT16 if a.precision=='fp16' else ct.precision.FLOAT32,convert_to='mlprogram',skip_model_load=True)
         package=a.output/'shard0.mlpackage'; model.save(str(package)); receipt['conversion']='PASS'; receipt['packageSha256']=sha(package)
         receipt['phase']='compilation'; save(); subprocess.run(['xcrun','coremlcompiler','compile',str(package),str(a.output)],check=True); receipt['compilation']='PASS'
         receipt['phase']='loading'; save(); model=ct.models.MLModel(str(package),compute_units=ct.ComputeUnit.CPU_ONLY); receipt['loading']='PASS'
@@ -107,3 +107,5 @@ if __name__=='__main__': raise SystemExit(main())
 # Upstream: CosyVoice3_NPU@8789402 FirstShard/DiT and official flow.pt revision29e01c4. No math approximation.
 # Environment: isolated macOS torch2.7/coremltools9/Python3.11. Generated: 2026-10-03 America/New_York.
 # New file, all lines. Does not export shards1-5 or change shipping runtime/cap.
+
+# Changes 2026-10-03: line15 and conversion allow an independent FP32 control to isolate precision from symbolic-shape lowering; no Flow math changes.

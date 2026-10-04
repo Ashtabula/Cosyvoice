@@ -42,7 +42,7 @@ struct Probe {
                 phase = "loading"; receipt["phase"] = "\(role)_\(phase)"; try save()
                 let config = MLModelConfiguration()
                 config.computeUnits = backend == "CPU_ONLY" ? .cpuOnly : .cpuAndNeuralEngine
-                config.reshapeFrequency = .infrequent
+                config.optimizationHints.reshapeFrequency = .infrequent
                 model = try MLModel(contentsOf: compiled, configuration: config)
                 receipt["\(role)Loading"] = "PASS"; try save()
             } catch {
@@ -82,7 +82,14 @@ struct Probe {
                             finite = finite && a.isFinite && b.isFinite
                             maxAbs = max(maxAbs,abs(d)); absSum += abs(d); sqSum += d*d; aa += a*a; bb += b*b; ab += a*b
                         }
-                        outputMetrics[name] = ["outputShape":actual.shape.map(\.intValue), "finite":finite, "maxAbsError":finite ? maxAbs : NSNull(), "meanAbsError":finite ? absSum/Double(expected.count) : NSNull(), "rmse":finite ? sqrt(sqSum/Double(expected.count)) : NSNull(), "cosineSimilarity":finite && aa*bb>0 ? ab/sqrt(aa*bb) : NSNull()]
+                        var metric: [String: Any] = ["outputShape":actual.shape.map(\.intValue), "finite":finite]
+                        if finite {
+                            metric["maxAbsError"] = maxAbs
+                            metric["meanAbsError"] = absSum/Double(expected.count)
+                            metric["rmse"] = sqrt(sqSum/Double(expected.count))
+                            metric["cosineSimilarity"] = aa*bb>0 ? ab/sqrt(aa*bb) : 1.0
+                        }
+                        outputMetrics[name] = metric
                     }
                     row["outputs"] = outputMetrics; row["status"] = "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
                 } catch {
@@ -106,3 +113,5 @@ struct Probe {
 // Upstream: symbolic exact official Flow conditions and FirstShard, CosyVoice3_NPU@8789402; no LLM/EOS change.
 // Environment: signed Release iOS18+ CoreML, physical iPhone. Generated: 2026-10-03 America/New_York.
 // New file, all lines; numerical acceptance is separate from successful execution and requested backend.
+
+// Changes 2026-10-03: line45 sets reshapeFrequency through optimizationHints; lines85-92 split metrics for reliable Swift type checking.
