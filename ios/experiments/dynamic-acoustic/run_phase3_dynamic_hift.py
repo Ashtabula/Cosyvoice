@@ -661,12 +661,21 @@ def main() -> int:
             example_case["norm"],
         )
 
+        canonical_example, canonical_records = canonicalize_export_example(
+            example
+        )
+        receipt["exportInputCanonicalization"] = canonical_records
+        receipt["exportInputsAllNormalTensors"] = all(
+            not row["afterInferenceTensor"]
+            and row["valuesExact"]
+            for row in canonical_records
+        )
         receipt["phase"] = "export"
         save()
 
         export = export_dynamic_body(
             dynamic_body,
-            example,
+            canonical_example,
             args.output,
         )
         receipt["dynamicPackage"] = {
