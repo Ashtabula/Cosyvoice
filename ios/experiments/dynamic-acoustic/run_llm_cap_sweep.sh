@@ -86,19 +86,20 @@ try:
     caps=[x for x in ok if x.get("stopReason")=="MAX_LENGTH"]
     context=[x for x in caps if isinstance(x.get("logicalPrefixLength"),int) and x.get("maximumSpeechTokenCount")==512-x.get("logicalPrefixLength")]
     ratio=[x for x in caps if x not in context]
+    zeros=[x for x in ok if x.get("N")==0]
     fields=[
         str(r.get("status","")),str(len(runs)),str(len(ok)),str(len(bad)),
         str(min(ns) if ns else ""),str(max(ns) if ns else ""),
-        str(len(caps)),str(len(context)),str(len(ratio)),str(r.get("phase",""))
+        str(len(caps)),str(len(context)),str(len(ratio)),str(len(zeros)),str(r.get("phase",""))
     ]
     print("|".join(fields))
 except Exception:
     print("|||||||||")
 PY
 )"
-    IFS='|' read -r status done ok bad min_n max_n cap_hits context_hits ratio_hits phase <<<"$progress"
+    IFS='|' read -r status done ok bad min_n max_n cap_hits context_hits ratio_hits zero_hits phase <<<"$progress"
     if [[ -n "${done:-}" && "$done" != "$last_done" ]]; then
-      echo "LLM_CAP_PROGRESS done=$done/$((8*RUNS)) success=$ok failed=$bad minN=${min_n:-NA} maxN=${max_n:-NA} maxLength=$cap_hits context512=$context_hits ratio20x=$ratio_hits phase=$phase"
+      echo "LLM_CAP_PROGRESS done=$done/$((8*RUNS)) success=$ok failed=$bad minN=${min_n:-NA} maxN=${max_n:-NA} N0=$zero_hits maxLength=$cap_hits context512=$context_hits ratio20x=$ratio_hits phase=$phase"
       last_done="$done"
     fi
     if [[ -n "${status:-}" && "$status" != "RUNNING" ]]; then
@@ -136,10 +137,14 @@ print("STOP REASONS =",dict(collections.Counter(x.get("stopReason") for x in ok)
 print("MAX_LENGTH =",len(caps))
 print("CONTEXT_512_HITS =",len(context))
 print("UPSTREAM_20X_HITS =",len(ratio))
+zeros=[x for x in ok if x.get("N")==0]
+print("N0_RUNS =",len(zeros))
+print("N0_RATE =",len(zeros)/len(ok) if ok else None)
 for text_index in sorted({x.get("textIndex") for x in ok}):
     rows=[x for x in ok if x.get("textIndex")==text_index]
     values=[x["N"] for x in rows if isinstance(x.get("N"),int)]
     print("TEXT",text_index,"runs",len(rows),"minN",min(values) if values else None,"maxN",max(values) if values else None,
+          "N0",sum(x.get("N")==0 for x in rows),
           "context512",sum(x in context for x in rows),"ratio20x",sum(x in ratio for x in rows))
 if bad:
     print("FAILURES:")
@@ -154,3 +159,5 @@ echo "PASS receipt=$LOCAL"
 # Runtime environment: macOS Xcode/xcrun, signed physical iPhone, CPU_ONLY LLM backend, foreground runner with live durable-receipt progress.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: dedicated cap sweep; explicit isolated-cap policy assertion; unique receipts; progress shows min/max and distinguishes 512-context from upstream-20x max-length hits; finite timeout; terminal prompt returns on completion or failure.
+
+# Changes 2026-10-04: explicitly count/report native stochastic N0 observations overall and per text. This is evidence-only; EOS=6562 sampling and production SDK behavior remain unchanged.
