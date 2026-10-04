@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_DYNAMIC_LISTENING_ACCEPTANCE",
+  "engine": "CosyVoice3",
+  "platform": "iOS",
+  "acceptedAt": "2026-10-04T19:19:49-04:00",
+  "evidenceSource": "interactive listening of the exact physical-device N1-candidate public-API smoke WAVs; user explicitly judged the default lane natural/good and the reference lane natural/good and matching the intended Lei Jun validation reference",
+  "smoke": {
+    "status": "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
+    "sourceCommit": "3267547f6436444e72889d443a030fd9be41e2af",
+    "profile": "ios18-dynamic-n1-n479-candidate",
+    "speechTokenBounds": [
+      1,
+      479
+    ],
+    "evidenceDirectory": "validation/evidence/dynamic-public-api-smoke-1791154976",
+    "default": {
+      "decision": "ACCEPT_NATURAL_DEFAULT_VOICE",
+      "expectedIdentity": "candidate default baked conditioning; not Lei Jun",
+      "N": 134,
+      "samples": 128640,
+      "sampleRate": 24000,
+      "durationSeconds": 5.36,
+      "wavFilename": "dynamic-default.wav",
+      "wavSha256": "5ef55fa0efb9b0e2b0919c5d7f4cd86ddfecddebf25389e527768d5b8544a21e"
+    },
+    "reference": {
+      "decision": "ACCEPT_NATURAL_REFERENCE_VOICE",
+      "expectedIdentity": "user-identified Lei Jun validation reference",
+      "identityMatchJudgment": "PASS_USER_JUDGMENT",
+      "N": 260,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "durationSeconds": 10.4,
+      "wavFilename": "dynamic-reference.wav",
+      "wavSha256": "24a20a7aca6d6810d54184c20feccba506552b98d47b2292bb02cf99a59b6f1b"
+    }
+  },
+  "distributionBoundary": {
+    "referenceIdentityAssetRole": "validation-only",
+    "publicRedistributionAuthorized": false,
+    "rule": "The public SDK may expose generic user-supplied reference voice cloning, but this validation reference/audio/derived identity evidence is not authorized as a public runtime or example voice asset."
+  },
+  "productionPromotion": false
+}
