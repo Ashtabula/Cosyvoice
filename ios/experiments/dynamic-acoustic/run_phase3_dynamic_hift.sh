@@ -51,6 +51,57 @@ main(){
         return 2
     }
 
+
+    echo "[COSYVOICE3-DYNAMIC-PHASE3] VERIFY PINNED PYTHON DEPENDENCIES"
+    if ! "$PYTHON" - <<'PY'
+import importlib
+import importlib.metadata as md
+
+required = {
+    "HyperPyYAML": "1.2.3",
+    "omegaconf": "2.3.0",
+    "scipy": "1.13.1",
+    "transformers": "4.51.3",
+}
+
+modules = {
+    "HyperPyYAML": "hyperpyyaml",
+    "omegaconf": "omegaconf",
+    "scipy": "scipy",
+    "transformers": "transformers",
+}
+
+problems = []
+for distribution, expected in required.items():
+    try:
+        actual = md.version(distribution)
+        importlib.import_module(modules[distribution])
+    except Exception as exc:
+        problems.append(f"{distribution}: missing/import failed: {exc}")
+        continue
+    if actual != expected:
+        problems.append(f"{distribution}: {actual} != {expected}")
+
+if problems:
+    print("[COSYVOICE3-DYNAMIC-PHASE3] dependency preflight failed")
+    for problem in problems:
+        print(" -", problem)
+    raise SystemExit(1)
+
+for distribution, expected in required.items():
+    print(f"[COSYVOICE3-DYNAMIC-PHASE3] dependency {distribution}={expected}")
+PY
+    then
+        echo "[COSYVOICE3-DYNAMIC-PHASE3] installing pinned Phase3 dependencies from experiment requirements"
+        "$PYTHON" -m pip install             --disable-pip-version-check             "HyperPyYAML==1.2.3"             "omegaconf==2.3.0"             "scipy==1.13.1"             "transformers==4.51.3"
+
+        "$PYTHON" - <<'PY'
+import importlib.metadata as md
+for name in ("HyperPyYAML", "omegaconf", "scipy", "transformers"):
+    print(f"[COSYVOICE3-DYNAMIC-PHASE3] installed {name}={md.version(name)}")
+PY
+    fi
+
     "$PYTHON" - <<'PY'
 import json
 from pathlib import Path
@@ -206,3 +257,4 @@ main "$@"
 # Runtime environment: macOS arm64, isolated Python3.11/torch2.7/coremltools9, Core ML CPU_ONLY host validation.
 # Generated time: 2026-10-03 America/New_York.
 # Changes: experiment-only Phase3 runner; no shipping runtime, LLM cap/EOS, Candidate evidence, or public asset changes.
+# Changes 2026-10-03: add exact Phase3 dependency preflight/bootstrap for HyperPyYAML 1.2.3, omegaconf 2.3.0, scipy 1.13.1, and transformers 4.51.3, matching the accepted upstream environment before HiFT construction.
