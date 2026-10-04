@@ -246,6 +246,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "speechTokenBounds": [nmin,nmax],
                 "flowSteps": CosyVoice3FlowSteps.productionDefault.rawValue,
                 "generationContract": "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)",
+                "requestedComputePlacement": [
+                    "llmPrefill": "CPU_ONLY",
+                    "llmDecode": "CPU_ONLY",
+                    "dynamicAcoustic": "CPU_AND_NE",
+                    "referenceEncoders": "CPU_ONLY",
+                    "meaning": "requested MLComputeUnits; not measured accelerator residency"
+                ],
                 "default": [
                     "text": defaultText,
                     "samples": defaultAudio.samples.count,
@@ -565,3 +572,5 @@ private extension Data {
 // Changes 2026-10-04: dynamic smoke installs the validation-only engine observer while continuing to call the public synthesize() API. Durable receipt phase now identifies prepare/model warming, frontend, LLM prefill/decode progress, acoustic model load, Conditions/Flow/F0/HiFT, separately for DEFAULT and REFERENCE lanes.
 
 // Changes 2026-10-04: validation observer closures capture only Sendable scalar/value bindings rather than the non-Sendable Fixture aggregate, keeping Swift 6 concurrency checking explicit.
+
+// Changes 2026-10-04: dynamic public-API PASS receipt records the validated requested mixed placement: LLM CPU_ONLY, dynamic acoustic CPU_AND_NE, reference encoders CPU_ONLY; this is not a residency claim.
