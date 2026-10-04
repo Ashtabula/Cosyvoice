@@ -116,7 +116,7 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
         return CosyVoice3PreparedRequest(
             prefillInput: provider,
             minimumSpeechTokenCount: targetIDs.count * 2,
-            maximumSpeechTokenCount: CosyVoice3Fixed225GenerationPolicy.maximumSpeechTokenCount(
+            maximumSpeechTokenCount: CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
                 targetTextTokenCount: targetIDs.count,
                 logicalPrefixLength: logical
             ),
@@ -158,3 +158,5 @@ struct CosyVoice3RoPEGenerator: Sendable {
 // Generated: 2026-10-02 America/New_York.
 
 // Changes 2026-10-02: cache the 224 physical prefill RoPE rows in each reusable frontend instance; per-request prefill assembly now copies immutable FP16 rows instead of repeating pow/cos/sin.
+
+// Changes 2026-10-04: frontend maximumSpeechTokenCount now follows the request-dynamic fixed512 generation policy; reference/prompt/target tokenization is already represented by logicalPrefixLength.
