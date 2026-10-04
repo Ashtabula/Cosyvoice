@@ -118,3 +118,10 @@ Prompt：继续直到完整真实natural text-to-PCM；隔离实验不改shippin
 修改文件：实验DeviceProbe Swift/project；prepare_text_probe.py；stage_acoustic_probe.py；stage_text_runtime.py；evidence/observed-text-family-v1.json/full-text-acoustic-host-v1.json/index；历史工作记录.txt。
 验证：N151 T604 G302 samples144960 HiFTsame-mel upstreamrelativeL2=.01244961；N164 T630 G328 samples157440 relativeL2=.01047791；N186/N225原gate通过。source HiFT exact；endpoint/source错误仍记录，不宣称质量接受。Native LLM host traces实际EOS6562、cap225不变。TEXT设备build/执行待验证。
 GitHub Timeline：9209197已push；本次code/evidence即将commit/push实验分支。
+
+时间：2026-10-04 00:54 EDT (America/New_York)
+Prompt：中间build错误自主修复继续。
+动作：TEXT新build在Swift parser阶段发现mel写入if缺少闭合brace；补齐并为PCM文件添加textIndex，避免两个utterance同N时相互覆盖；失败完整build log保留text-device-build-v1.log。
+修改文件：实验DeviceProbe Swift；历史工作记录.txt。
+验证：源语法修复、git diff --check；isolated SDK library已编译，probe重新build待执行。没有device推理结果受影响。
+GitHub Timeline：cb1bbd97b28293d53841aea1e02b40f7ec66725b已push；本次parser fix即将commit/push。

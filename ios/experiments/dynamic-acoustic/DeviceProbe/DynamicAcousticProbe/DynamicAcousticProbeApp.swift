@@ -323,8 +323,10 @@ enum AcousticProbe {
                     row["melVsHost"]=try metric(floats(folder.appendingPathComponent("expected-mel.bin")),melValues)
                     row["pcmVsHost"]=try metric(floats(folder.appendingPathComponent("expected-pcm.bin")),pcm)
                 } else { row["textIndex"]=testIndex;row["actualEarlyEOS"]=traces[testIndex]["actualEarlyEOS"] }
-                try pcm.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("\(prefix)-\(backend)-N\(n).f32")) }
-                if textMode { try melValues.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("device-text-\(testIndex)-mel.f32")) }
+                let pcmName=textMode ? "\(prefix)-\(backend)-text\(testIndex)-N\(n).f32" : "\(prefix)-\(backend)-N\(n).f32"
+                row["pcmFileName"]=pcmName
+                try pcm.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent(pcmName)) }
+                if textMode { try melValues.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("device-text-\(testIndex)-mel.f32")) } }
                 rows.append(row);receipt["tests"]=rows;try save()
                 print("DYNAMIC_ACOUSTIC_PCM N\(n) samples=\(pcm.count)")
             }
@@ -346,3 +348,6 @@ enum AcousticProbe {
 // 2026-10-04: TEXT mode runs unchanged native frontend/LLM in isolated SDK
 // library, releases LLM scope, feeds actual tokens into the dynamic acoustic
 // family; validates exported bounds, records EOS/count and natural PCM.
+
+// 2026-10-04: close TEXT mel receipt write scope; distinct text-index PCM names
+// preserve both utterances even when their sampled token counts happen to match.
