@@ -296,7 +296,20 @@ final class CosyVoice3SmokeModel: ObservableObject {
         guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
         if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
         do {
-            let fixture = try Self.fixture(); let clock = ContinuousClock(); let initStart = clock.now
+            let fixture = try Self.fixture()
+            let dynamicManifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_dynamic.json")
+            let fixedManifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_fixed225.json")
+            let activeManifestURL = FileManager.default.fileExists(atPath: dynamicManifestURL.path) ? dynamicManifestURL : fixedManifestURL
+            let activeManifest = try JSONSerialization.jsonObject(with: Data(contentsOf: activeManifestURL)) as? [String: Any]
+            guard let activeProfile = activeManifest?["profile"] as? String else { throw SmokeError("active manifest profile missing") }
+            let dynamicContract = activeManifest?["dynamicAcoustic"] as? [String: Any]
+            let speechTokenBounds: [Int]? = {
+                guard let d = dynamicContract,
+                      let lo = d["speechTokenMinimum"] as? Int,
+                      let hi = d["speechTokenMaximum"] as? Int else { return nil }
+                return [lo, hi]
+            }()
+            let clock = ContinuousClock(); let initStart = clock.now
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
             let capabilities = try await engine.capabilities()
             guard capabilities.supportsReferenceAudio,
@@ -311,7 +324,21 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
             let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
-            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            if let speechTokenBounds {
+                receipt["speechTokenBounds"] = speechTokenBounds
+                receipt["requestedComputePlacement"] = [
+                    "llmPrefill": "CPU_ONLY",
+                    "llmDecode": "CPU_ONLY",
+                    "dynamicAcoustic": "CPU_AND_NE",
+                    "referenceEncoders": "CPU_ONLY",
+                    "meaning": "requested MLComputeUnits; not measured accelerator residency"
+                ]
+                receipt["dynamicAcousticExecutionHints"] = [
+                    "reshapeFrequency": "INFREQUENT",
+                    "meaning": "MLModelConfiguration optimization hint matching physical validation"
+                ]
+            }
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(repeatAudio)
@@ -580,3 +607,5 @@ private extension Data {
 // Changes 2026-10-04: dynamic public-API PASS receipt records the validated requested mixed placement: LLM CPU_ONLY, dynamic acoustic CPU_AND_NE, reference encoders CPU_ONLY; this is not a residency claim.
 
 // Changes 2026-10-04: dynamic public-API receipt now binds reshapeFrequency=INFREQUENT for dynamic acoustic MLModel loads, matching the physical shape-sweep execution configuration.
+
+// Changes 2026-10-04: Candidate benchmark receipt records active runtime profile; dynamic profiles also record N bounds, validated requested mixed placement, and reshapeFrequency=INFREQUENT so host-side Candidate evidence can bind the exact dynamic execution contract.
