@@ -36,7 +36,8 @@ def main():
     p=argparse.ArgumentParser()
     p.add_argument('--family',type=Path,required=True)
     p.add_argument('--fixed-runtime',type=Path,required=True)
-    p.add_argument('--base-conditioning',type=Path,required=True)
+    p.add_argument('--base-conditioning',type=Path)
+    p.add_argument('--fixture',type=Path)
     p.add_argument('--flow-noise-max',type=Path,required=True)
     p.add_argument('--hift-excitation-max',type=Path,required=True)
     p.add_argument('--hift-excitation-n225-reference',type=Path,required=True)
@@ -65,14 +66,32 @@ def main():
     for source,target in copies:
         require(source.exists(),f'missing family asset {source}');copy_replace(source,target)
 
-    base_paths={
-        'default-prompt-tokens.bin':a.base_conditioning/'prompt_tokens.bin',
-        'default-prompt-feat.bin':a.base_conditioning/'prompt_feat.bin',
-        'default-speaker.bin':a.base_conditioning/'speaker.bin',
-    }
-    for name,source in base_paths.items():
-        require(source.is_file(),f'missing base conditioning {source}')
-        copy_replace(source,model_root/name)
+    if a.base_conditioning:
+        base_paths={
+            'default-prompt-tokens.bin':a.base_conditioning/'prompt_tokens.bin',
+            'default-prompt-feat.bin':a.base_conditioning/'prompt_feat.bin',
+            'default-speaker.bin':a.base_conditioning/'speaker.bin',
+        }
+        for name,source in base_paths.items():
+            require(source.is_file(),f'missing base conditioning {source}')
+            copy_replace(source,model_root/name)
+    else:
+        require(a.fixture is not None,'provide --base-conditioning or --fixture')
+        import torch
+        fixture=torch.load(a.fixture/'flow_input.pt',weights_only=True)['kwargs']
+        values={
+            'default-prompt-tokens.bin':fixture['prompt_token'].int().cpu().numpy().astype(np.int32,copy=False),
+            'default-prompt-feat.bin':fixture['prompt_feat'].float().cpu().numpy().astype(np.float32,copy=False),
+            'default-speaker.bin':fixture['embedding'].float().cpu().numpy().astype(np.float32,copy=False),
+        }
+        expected={
+            'default-prompt-tokens.bin':(1,151),
+            'default-prompt-feat.bin':(1,302,80),
+            'default-speaker.bin':(1,192),
+        }
+        for name,value in values.items():
+            require(tuple(value.shape)==expected[name],f'{name} shape mismatch {value.shape}')
+            value.tofile(model_root/name)
 
     max_t=302+2*nmax
     max_samples=960*nmax
@@ -134,3 +153,5 @@ if __name__=='__main__':main()
 # Runtime environment: macOS/Linux Python3 with NumPy; no Core ML execution.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: fail-closed N225 prefix identity gates; dynamic manifest schema2; generic custom/default conditioning; no invented zero-noise production fallback and no release promotion.
+
+# 2026-10-04: --fixture can now materialize exact default prompt/reference tensors directly from the pinned flow fixture when staged probe assets are unavailable.
