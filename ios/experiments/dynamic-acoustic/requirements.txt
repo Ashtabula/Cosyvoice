@@ -1,0 +1,11 @@
+# requirements.txt
+# Requirement: isolate symbolic export dependencies from the accepted fixed225 environment.
+torch==2.7.0
+torchaudio==2.7.0
+coremltools==9.0
+numpy==1.26.4
+PyYAML==6.0.3
+einops==0.8.2
+x-transformers==2.11.24
+# Purpose: initial dynamic experiment only. Upstream: official checkpoint and pinned DiT.
+# Environment: macOS arm64 Python 3.11. Generated: 2026-10-03 America/New_York.

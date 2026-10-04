@@ -31,3 +31,11 @@ Prompt 摘要：完成本次 Ashtabula/Cosyvoice 提交与 push 的最终状态�
 测试或验证结果：远端返回 074ca6d..9ffb9d9 main -> main；首次 push 成功。
 平台/路径/阶段：本地 Git repository 到 GitHub remote https://github.com/Ashtabula/Cosyvoice.git；无 Colab/Google Drive 操作。
 GitHub Timeline：已 commit 9ffb9d9，已 push 到 ashtabula/main；本条最终记录将在后续小型日志 commit 中同步到同一分支。
+
+时间：2026-10-03 21:50 America/New_York
+Prompt 摘要：从最新 fixed225 release 建立独立 dynamic acoustic 分支，恢复真实自然长度 N186，按 symbolic conditions/shard0 阶段门槛验证，不改变 EOS、cap 或 frozen Candidate。
+具体动作：核实本地与 GitHub release HEAD 均为4ab288d39b92d68b448c2d4b5fa011dddc29e202；建立并push experiment/ios-dynamic-acoustic；完成实际长度传播审计；建立独立torch2.7/coremltools9环境，读取 pinned8789402官方 Flow/HiFT、全部六shard exporter、OmniVoice symbolic Higgs与ZipVoice padding失败历史；新增独立symbolic conditions/shard0 exporter、exact upstream oracle interception、失败receipt和物理设备probe/staging。
+修改文件：ios/experiments/dynamic-acoustic/*、.gitignore、历史工作记录.txt；不修改现有runtime/exporter、fixed225资产与Candidate receipts。
+测试或验证结果：conditions attempt1保留symbolic N但CoreML dynamic pad转换失败，attempt2等价自然长度cond concat通过同package N186/N225 host验证，mu maxAbs5.245e-6。shard0 symbolic T674/T752转换/编译/加载/预测完成，eager/export与官方4block输出逐值一致；FP16 vs官方h maxAbs约2.959/2.991，N225 vs fixed h maxAbs1.8125，未判定数值通过。独立physical probe准备中；不得进入Phase2或移除cap。附件末尾Phase5 Then find截断，已请求补充。
+平台/路径/阶段：本地macOS /Volumes/WD/Codes/Cosyvoice，实验环境/模型/失败证据位于ios/.work/dynamic-acoustic；无Colab/Drive操作；物理Air已连接。
+GitHub Timeline：实验分支已push（base4ab288d3）；当前实验新增文件未commit，后续同流程commit/push；release分支未改变。
