@@ -85,7 +85,27 @@ main() {
     if [ "$CANDIDATE_BENCHMARK" = "1" ]; then STAGING_ARGS+=(--candidate-benchmark); fi
     if [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then STAGING_ARGS+=(--flow-steps-head-to-head); fi
     if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ]; then STAGING_ARGS+=(--dynamic-public-api-smoke); fi
-    if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
+
+    EXACT_RUNTIME_MODE="$PROMOTED_RUNTIME_MODE"
+    if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ] && [ "$EXACT_RUNTIME_MODE" != "1" ]; then
+        ACTIVE_REFERENCE_STATUS="$("$PYTHON_BIN" - "$ASSET_ROOT" <<'PY'
+import json,pathlib,sys
+root=pathlib.Path(sys.argv[1])
+p=root/"cosyvoice3_dynamic.json"
+if not p.exists(): p=root/"cosyvoice3_fixed225.json"
+try:
+    m=json.loads(p.read_text()); print((m.get("referenceEnrollment") or {}).get("status",""))
+except Exception:
+    print("")
+PY
+)"
+        if [ "$ACTIVE_REFERENCE_STATUS" = "PASS_DEVICE_PARITY" ]; then
+            EXACT_RUNTIME_MODE=1
+            printf '[COSYVOICE3-INSTALL] dynamic candidate already carries PASS_DEVICE_PARITY reference assets; exact-staging runtime bytes\n'
+        fi
+    fi
+
+    if [ "$EXACT_RUNTIME_MODE" = "1" ]; then
         "$PYTHON_BIN" validation/prepare_promoted_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
             --host-receipt "$HOST_RECEIPT" \
@@ -183,3 +203,5 @@ test "$RC" -eq 0
 # Changes 2026-10-02: COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD=1 stages and auto-runs the validation-only 10/8/6 Flow comparison; it is mutually exclusive with Candidate benchmark mode.
 
 # Changes 2026-10-04: add COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE=1 and auto-detect the first available physical iPhone when DEVICE_ID is unset; existing explicit DEVICE_ID remains authoritative.
+
+# Changes 2026-10-04: dynamic smoke exact-stages candidate runtime bytes automatically when the active manifest already carries PASS_DEVICE_PARITY reference enrollment; otherwise it falls back to host-approved local reference staging.
