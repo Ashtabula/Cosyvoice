@@ -103,17 +103,20 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // Main synthesis preparation and reference-enrollment preparation have separate
         // persistent markers. The reference tensors may already be cached on a later process
         // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
+        func acousticWarmSpec(_ path: String) -> CosyVoice3ModelWarmSpec {
+            manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
+        }
         let mainPlan: [CosyVoice3ModelWarmSpec] = [
             .llm(manifest.llmPrefill),
-            .init(manifest.flowShards[0]),
+            acousticWarmSpec(manifest.flowShards[0]),
             .llm(manifest.llmDecode),
-            .init(manifest.flowShards[1]),
-            .init(flowConditionsPath),
-            .init(manifest.flowShards[2]),
-            .init(manifest.flowShards[3]),
-            .init(manifest.flowShards[4]),
-            .init(manifest.flowShards[5]),
-            .init(manifest.hift)
+            acousticWarmSpec(manifest.flowShards[1]),
+            acousticWarmSpec(flowConditionsPath),
+            acousticWarmSpec(manifest.flowShards[2]),
+            acousticWarmSpec(manifest.flowShards[3]),
+            acousticWarmSpec(manifest.flowShards[4]),
+            acousticWarmSpec(manifest.flowShards[5]),
+            acousticWarmSpec(manifest.hift)
         ]
         let referencePlan: [CosyVoice3ModelWarmSpec]
         if let assets = referenceAssets, !referenceCacheHit {
@@ -752,7 +755,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     private func warmKey(_ spec: CosyVoice3ModelWarmSpec) -> String {
-        spec.path + "|" + String(describing: spec.computeUnits)
+        spec.path
+            + "|" + String(describing: spec.computeUnits)
+            + "|reshapeInfrequent=" + String(spec.reshapeFrequencyInfrequent)
     }
 
     private static func milliseconds(since start: UInt64) -> Double {
@@ -790,3 +795,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: production dynamic synthesis no longer constructs a resident Conditions+6 Flow+HiFT model set. It instantiates the stage-scoped dynamic runtime from asset paths, reports aggregate per-stage model-load time, keeps fixed225 resident behavior unchanged, clamps per-request LLM maxN to the active dynamic acoustic envelope, and fail-closes the legacy same-instance Flow head-to-head on dynamic profiles.
 
 // Changes 2026-10-04: enforce the accepted mixed placement contract at every Engine LLM call site: prefill/decode warm and request-scoped loads use CPU_ONLY; Flow/Conditions/HiFT remain CPU_AND_NE requested placement. This fixes cold-plan Core ML -14 observed on the N1 candidate smoke.
+
+// Changes 2026-10-04: dynamic prepare() now warms Conditions/Flow/HiFT with the same reshapeFrequency=.infrequent hint used by the accepted physical acoustic sweep; warm-key identity includes the hint so an older plan marker cannot mask this change.
