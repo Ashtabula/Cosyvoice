@@ -240,7 +240,8 @@ A multi-engine Demo may provide consumer evidence only when each engine is invok
 - [ ] Development/validation/provenance history is preserved; historical commit SHAs are not rewritten merely to normalize identity.
 - [ ] Formal external/public release author/committer/maintainer/submitter identity is `actacomes <developer@actacomes.com>`.
 - [ ] A fresh public snapshot/history is created from the frozen accepted source when the public repository is established.
-- [ ] Public identity gate scans documentation, scripts, package metadata and release artifacts for unintended personal identity residue.
+- [ ] A development-only public-identity gate scans documentation, scripts, package metadata and final installable/release artifacts for unintended personal identity residue before publication.
+- [ ] Private personal-identity alias/pattern definitions used by that gate are not shipped in final public SDK snapshots or end-user release/install guidance.
 - [ ] Source SHA, asset identity, device evidence and validation receipts remain traceable after publication.
 
 ## iOS platform gate
@@ -306,30 +307,36 @@ clean macOS Apple-Silicon checkout
 
 ## All-SDK clean-room rebuild gate
 
-The canonical batch release check is repository-driven and fail closed. `SDK_CLEANROOM_MATRIX.json` must enumerate every engine/platform pair represented by the synchronized checklist mirrors. The one-command entrypoint is `bash scripts/rebuild_validate_all_sdks.sh`.
+The canonical batch release check is repository-driven and fail closed. The development/agent workspace root is `/Volumes/WD/Codes/final_test`; the controller lives at `/Volumes/WD/Codes/final_test/NPU_engines_Demo`. `SDK_CLEANROOM_MATRIX.json` enumerates every engine/platform pair represented by the synchronized checklist mirrors. The one-command entrypoint is `bash NPU_engines_Demo/scripts/rebuild_validate_all_sdks.sh` when invoked from the final_test root.
 
-- [ ] Before every batch run, delete the entire tool-owned `.work/all-sdk-cleanroom` workspace and recreate it empty. The batch must never delete developer working trees, committed evidence or unrelated caches.
-- [ ] Fresh clone every selected engine repository from its configured remote/ref into the disposable workspace; do not consume sibling `/Volumes/...` developer checkouts or previously staged clean-room source trees.
-- [ ] Record the exact resolved Git commit for every fresh clone and require its platform `SDK_RELEASE.md` mirror to be byte-identical to the canonical Demo checklist before build/validation.
+- [ ] Before every batch run, delete the entire tool-owned `/Volumes/WD/Codes/final_test/cleanroom` workspace and recreate it empty. Never delete/reset developer working trees, committed evidence or unrelated caches.
+- [ ] Fresh clone every selected engine repository/ref into the disposable final_test clean room; do not consume sibling `/Volumes/WD/Codes/...` developer checkouts or previously staged clean-room source trees.
+- [ ] Multiple platform entries may intentionally resolve different refs from the same repository. Each unique repository/ref checkout is isolated and its exact resolved commit is recorded.
+- [ ] Require each platform `SDK_RELEASE.md` mirror to be byte-identical to the canonical Demo checklist before build/validation.
+- [ ] Run the development-only identity hygiene gate on each fresh source tree before build. The private alias/pattern definitions remain development tooling and are not copied into public consumer guidance.
 - [ ] Rebuild every available SDK from that fresh clone on the canonical macOS Apple-Silicon host before running device validation.
-- [ ] Full validation must use only immutable/pinned asset acquisition or a release-documented Mac rebuild path. A local historical model/output directory may not silently satisfy a Candidate/Production clean-room gate.
-- [ ] Each engine/platform entry is evaluated independently. A missing implementation, missing immutable asset path, missing clean-room entrypoint, missing device gate or incomplete release contract is reported as explicit `BLOCKED`; it is never silently skipped or counted as PASS.
-- [ ] The batch must continue through every SDK after an individual FAIL/BLOCKED result so one broken engine cannot hide the state of later engines.
+- [ ] For every installable Android clean-room artifact, the order is source-tree identity PASS -> build APK/test APK -> scan every packaged ZIP entry/byte including JNI `.so` -> only then `adb install`. `.gitignore` or omitted `.cxx` files are not package-level proof.
+- [ ] Full validation uses only immutable/pinned asset acquisition or a release-documented Mac rebuild/bootstrap path. A local historical model/output directory may not silently satisfy a Candidate/Production clean-room gate.
+- [ ] Each engine/platform entry is evaluated independently. A technical gap is reported as `BLOCKED_TECHNICAL`; unavailable physical devices/signing may be `SKIPPED_EXTERNAL`; neither is silently counted as PASS.
+- [ ] The batch continues through every SDK after FAIL/BLOCKED/SKIPPED results so one broken engine cannot hide later SDK state.
 - [ ] iOS full gates use a physical iPhone and a real Apple Developer Team ID derived from certificate `subject.OU`; certificate display-name suffixes/Team Member IDs are not valid `DEVELOPMENT_TEAM` substitutes.
 - [ ] HTP full gates use a physical compatible Qualcomm device and the exact pinned QNN/QAIRT runtime closure required by the Mac-hosted Candidate path.
-- [ ] The batch writes per-SDK logs plus one aggregate `all_sdk_cleanroom_receipt.json` containing host identity, canonical checklist hash, source SHAs, build status, clean-room status and exact blocker/failure reason.
-- [ ] Aggregate full validation returns nonzero unless every selected SDK is PASS. Host-only diagnostic mode must be labeled as such and must not be promoted to Candidate/Production evidence.
-- [ ] The batch validator does not commit, push, publish, upload or promote evidence automatically. Publication remains a separate explicit release action after review of the aggregate and engine-owned receipts.
+- [ ] The batch writes per-SDK logs plus one aggregate `all_sdk_cleanroom_receipt.json` containing host identity, canonical checklist hash, source SHAs, identity/build/clean-room status and exact skip/blocker/failure reason.
+- [ ] Aggregate full validation returns success only when every selected SDK is PASS. Host-only diagnostics and external skips are not Candidate/Production evidence.
+- [ ] Legal/license/public-redistribution authorization is excluded from this technical batch. It remains a separate release decision and cannot be auto-promoted by technical automation.
+- [ ] Development-only personal-identity scanners/pattern definitions and workstation publication guidance must be excluded from the final public SDK snapshot/user installation guidance after they have performed the pre-export gate.
 
-Current repository readiness is allowed to be mixed. The all-SDK batch is therefore both a release gate and a top-down gap detector: Development or not-yet-migrated platforms remain visible as `BLOCKED` until their engine-owned build/asset/device clean-room path is implemented.
+Current repository readiness may be mixed. The all-SDK batch is both a release gate and a top-down gap detector. Autonomous development agents should repair all technically solvable gaps, while unavailable physical-device tests and unresolved legal/public-redistribution decisions remain explicit external skips rather than reasons to stop later SDK work.
 
 Acceptance evidence:
 
 ```text
 SDK_CLEANROOM_MATRIX.json
+AGENT_ALL_SDK_CLEANROOM.md (development only)
 scripts/rebuild_validate_all_sdks.sh
 scripts/rebuild_validate_all_sdks.py
-.work/all-sdk-cleanroom-results/<run>/all_sdk_cleanroom_receipt.json
+tools/dev_identity_policy.py (development only)
+/Volumes/WD/Codes/final_test/results/<run>/all_sdk_cleanroom_receipt.json
 per-SDK logs referenced by that aggregate receipt
 ```
 
@@ -436,4 +443,4 @@ This checklist is intentionally engine-independent. Engine-specific implementati
 # Upstream source: the ZipVoice release checklist/SDK release architecture, generalized to the public-interface-only multi-engine model.
 # Runtime environment: repository/release engineering; no runtime dependency.
 # Generated time: 2026-10-04 America/New_York.
-# Changed lines: add the canonical all-SDK clean-room batch gate: destructive reset is limited to the Demo-owned disposable workspace, every engine/platform is fresh-cloned and rebuilt, missing/incomplete paths are explicit BLOCKED, validation continues across failures, and one aggregate fail-closed receipt records all eight SDK outcomes.
+# Changed lines: move the canonical batch root to /Volumes/WD/Codes/final_test, support isolated per-ref checkouts, add development-only source/final-package identity hygiene before install, distinguish technical blockers from external device/legal skips, and require autonomous continuation through all SDKs.
