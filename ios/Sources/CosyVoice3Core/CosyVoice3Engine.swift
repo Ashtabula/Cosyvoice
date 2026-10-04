@@ -259,7 +259,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
-                conditioner: try reusableConditioner()
+                conditioner: try reusableConditioner(),
+                progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
             validationProgress("llm.load.end")
@@ -366,7 +367,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
-                conditioner: try reusableConditioner()
+                conditioner: try reusableConditioner(),
+                progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
             let generationStart = DispatchTime.now().uptimeNanoseconds
@@ -751,3 +753,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: manifest-selected dynamic acoustic runtime uses request-dynamic LLM capacity and exact N/T/G/PCM shapes; fixed225 manifests retain a 225 LLM cap and the original mask/noise runtime for regression compatibility.
 
 // Changes 2026-10-04: validation SPI observer emits durable stage boundaries for automatic prepare, per-model warming, frontend geometry, LLM load/generation and acoustic load/synthesis. Observer is nil by default and does not alter public synthesis semantics or model math.
+
+// Changes 2026-10-04: validation observer is forwarded into request-scoped LLM runtime for prefill/decode liveness without changing default execution.
