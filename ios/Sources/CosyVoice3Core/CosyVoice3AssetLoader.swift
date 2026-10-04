@@ -19,13 +19,28 @@ enum CosyVoice3ModelComputePlacement {
 struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
     let path: String
     let computeUnits: MLComputeUnits
-    init(_ path: String, computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic) {
+    let reshapeFrequencyInfrequent: Bool
+
+    init(
+        _ path: String,
+        computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
+        reshapeFrequencyInfrequent: Bool = false
+    ) {
         self.path = path
         self.computeUnits = computeUnits
+        self.reshapeFrequencyInfrequent = reshapeFrequencyInfrequent
     }
 
     static func llm(_ path: String) -> Self {
         .init(path, computeUnits: CosyVoice3ModelComputePlacement.llm)
+    }
+
+    static func dynamicAcoustic(_ path: String) -> Self {
+        .init(
+            path,
+            computeUnits: CosyVoice3ModelComputePlacement.acoustic,
+            reshapeFrequencyInfrequent: true
+        )
     }
 }
 
@@ -175,24 +190,37 @@ enum CosyVoice3AssetLoader {
     static func model(
         root: URL,
         path: String,
-        computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic
+        computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
+        reshapeFrequencyInfrequent: Bool = false
     ) throws -> MLModel {
         let source = root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
+        if reshapeFrequencyInfrequent {
+            config.optimizationHints.reshapeFrequency = .infrequent
+        }
         do {
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
-                "MLModel load failed path=\(path) computeUnits=\(String(describing: computeUnits)) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+                "MLModel load failed path=\(path) computeUnits=\(String(describing: computeUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
             )
         }
     }
 
     static func llmModel(root: URL, path: String) throws -> MLModel {
         try model(root: root, path: path, computeUnits: CosyVoice3ModelComputePlacement.llm)
+    }
+
+    static func dynamicAcousticModel(root: URL, path: String) throws -> MLModel {
+        try model(
+            root: root,
+            path: path,
+            computeUnits: CosyVoice3ModelComputePlacement.acoustic,
+            reshapeFrequencyInfrequent: true
+        )
     }
 
     static func warmModels(
@@ -209,7 +237,12 @@ enum CosyVoice3AssetLoader {
         for (index, spec) in specs.enumerated() {
             progress?("prepare.model.\(index + 1).\(specs.count).begin:\(spec.path)")
             try autoreleasepool {
-                let warmed = try model(root: root, path: spec.path, computeUnits: spec.computeUnits)
+                let warmed = try model(
+                    root: root,
+                    path: spec.path,
+                    computeUnits: spec.computeUnits,
+                    reshapeFrequencyInfrequent: spec.reshapeFrequencyInfrequent
+                )
                 _ = warmed.modelDescription
             }
             progress?("prepare.model.\(index + 1).\(specs.count).end:\(spec.path)")
@@ -324,7 +357,7 @@ enum CosyVoice3AssetLoader {
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
         let rows = specs.map {
-            $0.path + "|" + String(describing: $0.computeUnits)
+            $0.path + "|" + String(describing: $0.computeUnits) + "|reshapeInfrequent=" + String($0.reshapeFrequencyInfrequent)
         }.sorted()
         let identity = [
             ProcessInfo.processInfo.operatingSystemVersionString,
@@ -381,3 +414,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-04: optional validation-only progress callback around each serialized model warm; nil default leaves production compilation/loading/lifetime behavior unchanged.
 
 // Changes 2026-10-04: centralize validated mixed compute placement. Stateful LLM warm/load is CPU_ONLY to avoid physical iPhone Core ML -14; acoustic defaults remain CPU_AND_NE; reference encoders remain CPU_ONLY. Added llmModel()/WarmSpec.llm so call sites cannot silently inherit acoustic placement.
+
+// Changes 2026-10-04: dynamic acoustic model configuration now matches the physically accepted shape-sweep probe by setting optimizationHints.reshapeFrequency=.infrequent for both warm and prediction loads. The hint participates in warm-marker identity; fixed225/LLM/reference behavior is unchanged unless explicitly selected.
