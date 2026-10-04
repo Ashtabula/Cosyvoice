@@ -8,6 +8,7 @@ PyYAML==6.0.3
 einops==0.8.2
 x-transformers==2.11.24
 # Phase3 HiFT runtime-prefix construction dependencies pinned to the accepted upstream environment.
+conformer==0.3.2
 HyperPyYAML==1.2.3
 omegaconf==2.3.0
 onnxruntime==1.18.0
