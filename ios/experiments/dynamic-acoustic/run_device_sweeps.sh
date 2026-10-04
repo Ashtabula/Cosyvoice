@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Requirement: build/install the existing DynamicAcousticProbe, run native-RAS LLM length sweep and exhaustive dynamic acoustic integer-N sweep, then retrieve durable receipts without modifying shipping SDK/assets.
+# Requirement: build/install DynamicAcousticProbe, auto-select an available physical iPhone, launch detached native-RAS/acoustic sweeps without --console, and retrieve unique durable receipts without modifying shipping SDK/assets.
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 EXP="$ROOT/ios/experiments/dynamic-acoustic"
 PROJECT="$EXP/DeviceProbe/DynamicAcousticProbe.xcodeproj"
@@ -11,14 +11,42 @@ CONFIGURATION="Release"
 RUNS="${RUNS:-32}"
 NMIN="${NMIN:-151}"
 NMAX="${NMAX:-225}"
-OUT="${OUT:-$EXP/evidence/device-sweeps-$(date +%Y%m%d-%H%M%S)}"
-: "${DEVICE_ID:?export DEVICE_ID=<physical-iPhone-device-id>}"
+DETACH="${DETACH:-1}"
+RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}"
+OUT="${OUT:-$EXP/evidence/device-sweeps-$RUN_ID}"
 : "${DEVELOPMENT_TEAM:?export DEVELOPMENT_TEAM=<Apple-development-team-id>}"
-mkdir -p "$OUT"
 
+if [[ "${1:-}" != "--worker" && "$DETACH" == "1" ]]; then
+  mkdir -p "$OUT"
+  LOG="$OUT/runner.log"
+  echo "===== START DETACHED SWEEP ====="
+  nohup env OUT="$OUT" RUN_ID="$RUN_ID" RUNS="$RUNS" NMIN="$NMIN" NMAX="$NMAX" DETACH=0 DEVICE_ID="${DEVICE_ID:-}" DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" bash "$0" --worker >"$LOG" 2>&1 &
+  PID=$!
+  echo "$PID" > "$OUT/runner.pid"
+  echo "RUNNER_PID=$PID"
+  echo "RUNNER_LOG=$LOG"
+  echo "RECEIPTS_DIR=$OUT"
+  echo "TERMINAL_RETURNED=YES"
+  exit 0
+fi
+[[ "${1:-}" == "--worker" ]] && shift
+
+mkdir -p "$OUT"
 echo "===== VERIFY SOURCE ====="
 git -C "$ROOT" rev-parse HEAD
 git -C "$ROOT" status --short
+
+echo "===== SELECT PHYSICAL IPHONE ====="
+DESTINATIONS="$(xcodebuild -project "$PROJECT" -scheme "$SCHEME" -showdestinations 2>&1)"
+printf '%s\n' "$DESTINATIONS" | tee "$OUT/destinations.log"
+if [[ -z "${DEVICE_ID:-}" ]] || [[ "$DEVICE_ID" == *"physical-iPhone-device-id"* ]] || ! printf '%s\n' "$DESTINATIONS" | grep -F "id:$DEVICE_ID" >/tmp/cosyvoice-device-match-$RUN_ID.txt; then
+  DEVICE_ID="$(printf '%s\n' "$DESTINATIONS" | sed -n 's/.*{ platform:iOS, arch:arm64, id:\([^,}]*\), name:.*/\1/p' | head -n 1 | xargs)"
+fi
+if [[ -z "$DEVICE_ID" ]]; then
+  echo "ERROR: no available physical iPhone found"
+  exit 1
+fi
+echo "DEVICE_ID=$DEVICE_ID"
 
 echo "===== BUILD ====="
 BUILD_SETTINGS="$OUT/build-settings.txt"
@@ -33,24 +61,45 @@ echo "APP=$APP"
 echo "===== INSTALL ====="
 xcrun devicectl device install app --device "$DEVICE_ID" "$APP" | tee "$OUT/install.log"
 
-pull_receipt() {
-  local remote="$1" local_path="$2"
-  rm -f "$local_path"
-  xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/$remote" --destination "$local_path"
-  test -s "$local_path"
-  python3 -m json.tool "$local_path"
+wait_receipt() {
+  local remote="$1" local_path="$2" label="$3" attempt=0 tmp="$local_path.tmp" copy_log="$OUT/$label-copy.log"
+  while true; do
+    attempt=$((attempt+1))
+    rm -f "$tmp"
+    if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/$remote" --destination "$tmp" >"$copy_log" 2>&1; then
+      if [[ -s "$tmp" ]]; then
+        local status
+        status="$(python3 - "$tmp" <<'PY'
+import json,sys
+try: print(json.load(open(sys.argv[1])).get("status",""))
+except Exception: print("")
+PY
+)"
+        if [[ -n "$status" && "$status" != "RUNNING" ]]; then
+          mv "$tmp" "$local_path"
+          echo "$label status=$status"
+          python3 -m json.tool "$local_path"
+          return 0
+        fi
+      fi
+    fi
+    if (( attempt % 15 == 0 )); then echo "$label waiting for unique receipt $remote"; fi
+    sleep 2
+  done
 }
 
 echo "===== LLM LENGTH SWEEP ====="
-xcrun devicectl device process launch --device "$DEVICE_ID" --terminate-existing --console "$BUNDLE_ID" -- LLM_SWEEP "RUNS=$RUNS" | tee "$OUT/llm-sweep-console.log"
-pull_receipt "llm-length-sweep.json" "$OUT/llm-length-sweep.json"
+LLM_REMOTE="llm-length-sweep-$RUN_ID.json"
+xcrun devicectl device process launch --device "$DEVICE_ID" --terminate-existing "$BUNDLE_ID" -- LLM_SWEEP "RUNS=$RUNS" "RUN_ID=$RUN_ID" | tee "$OUT/llm-sweep-launch.log"
+wait_receipt "$LLM_REMOTE" "$OUT/$LLM_REMOTE" "llm-sweep"
 
 echo "===== ACOUSTIC INTEGER-N SWEEP ====="
-xcrun devicectl device process launch --device "$DEVICE_ID" --terminate-existing --console "$BUNDLE_ID" -- ACOUSTIC_SWEEP CPU_AND_NE "NMIN=$NMIN" "NMAX=$NMAX" | tee "$OUT/acoustic-sweep-console.log"
-pull_receipt "dynamic-acoustic-shape-sweep-CPU_AND_NE-N$NMIN-$NMAX.json" "$OUT/dynamic-acoustic-shape-sweep-CPU_AND_NE-N$NMIN-$NMAX.json"
+AC_REMOTE="dynamic-acoustic-shape-sweep-CPU_AND_NE-N$NMIN-$NMAX-$RUN_ID.json"
+xcrun devicectl device process launch --device "$DEVICE_ID" --terminate-existing "$BUNDLE_ID" -- ACOUSTIC_SWEEP CPU_AND_NE "NMIN=$NMIN" "NMAX=$NMAX" "RUN_ID=$RUN_ID" | tee "$OUT/acoustic-sweep-launch.log"
+wait_receipt "$AC_REMOTE" "$OUT/$AC_REMOTE" "acoustic-sweep"
 
 echo "===== SUMMARY ====="
-python3 - "$OUT/llm-length-sweep.json" "$OUT/dynamic-acoustic-shape-sweep-CPU_AND_NE-N$NMIN-$NMAX.json" <<'PY'
+python3 - "$OUT/$LLM_REMOTE" "$OUT/$AC_REMOTE" <<'PY'
 import json,sys
 llm=json.load(open(sys.argv[1]));ac=json.load(open(sys.argv[2]))
 print("LLM_STATUS",llm["status"])
@@ -64,9 +113,9 @@ PY
 
 echo "PASS receipts=$OUT"
 
-# Code purpose: reproducibly execute physical-iPhone LLM output-length and exhaustive dynamic-acoustic shape sweeps and retrieve machine-readable receipts.
+# Code purpose: reproducibly run physical-iPhone LLM output-length and exhaustive dynamic-acoustic shape sweeps while immediately returning the invoking Terminal prompt.
 # Upstream code/source: ios/experiments/dynamic-acoustic/DeviceProbe on experiment/ios-dynamic-acoustic; existing staged text-runtime and acoustic dynamic-family assets.
 # Upstream purpose: prove native stochastic EOS-length distribution and every integer flexible-shape execution inside the exported N interval without production promotion.
 # Runtime environment: macOS with Xcode/xcrun, signed physical iPhone, staged DeviceProbe assets.
 # Generated time: 2026-10-04 America/New_York.
-# Changes: new file, all lines; no shipping SDK/runtime/asset modification.
+# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; remove --console; detached coordinator is default; unique RUN_ID receipts prevent stale-result reuse.
