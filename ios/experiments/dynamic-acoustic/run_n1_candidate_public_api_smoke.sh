@@ -53,7 +53,7 @@ PY
 
 echo "===== RUN PHYSICAL PUBLIC-API DEFAULT + REFERENCE SMOKE ====="
 BEFORE="$(date +%s)"
-COSYVOICE3_ASSET_ROOT="$RUNTIME" COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE=1 COSYVOICE3_PROMOTED_RUNTIME_MODE=0 bash "$SMOKE_SCRIPT"
+COSYVOICE3_ASSET_ROOT="$RUNTIME" COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE=1 COSYVOICE3_PROMOTED_RUNTIME_MODE=0 COSYVOICE3_FRESH_INSTALL=1 bash "$SMOKE_SCRIPT"
 
 echo "===== LOCATE AND VERIFY NEW SMOKE EVIDENCE ====="
 EVIDENCE="$(python3 - "$ROOT/ios/validation/evidence" "$BEFORE" "$SOURCE_COMMIT" <<'PY'
@@ -125,3 +125,5 @@ echo "NEXT: listen to both WAVs; only then run record_dynamic_listening_acceptan
 # Runtime environment: macOS arm64 Swift6/Xcode/xcrun, connected signed physical iPhone, existing validated reference inputs.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new exact-candidate build+device-smoke orchestration, source/profile/bounds/WAV-hash fail-closed verification, no background process and no production promotion.
+
+# Changes 2026-10-04: force a fresh DeviceSmoke install for the large dynamic runtime, reclaiming the prior app/container before iOS install staging so replacement does not transiently require storage for two full copies.
