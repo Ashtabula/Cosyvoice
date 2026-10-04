@@ -19,10 +19,12 @@ def main():
     dest=a.output/'Sources/Probe';shutil.copytree(ROOT/'ios/Sources/CosyVoice3Core',dest)
     if a.remove_fixed225_cap:
         contracts=dest/'CosyVoice3RuntimeContracts.swift';c=contracts.read_text()
-        needle='    static let speechTokenCapacity = 225'
-        replacement='    static let speechTokenCapacity = CosyVoice3FP16StatefulLLMSession.capacity'
-        if needle not in c:raise RuntimeError('fixed225 generation-cap anchor not found')
-        contracts.write_text(c.replace(needle,replacement,1))
+        legacy='    static let speechTokenCapacity = 225'
+        if legacy in c:
+            c=c.replace(legacy,'    static let speechTokenCapacity = CosyVoice3FP16StatefulLLMSession.capacity',1)
+            contracts.write_text(c)
+        elif 'enum CosyVoice3GenerationPolicy' not in c or 'contextCapacity - logicalPrefixLength' not in c:
+            raise RuntimeError('request-dynamic generation policy not found')
     llm=dest/'CosyVoice3LLMRuntime.swift';s=llm.read_text()
     s=s.replace('    private let prefillModel:MLModel','    var experimentStopToken: Int?\n    var experimentStopReason = "RUNNING"\n    private let prefillModel:MLModel',1)
     s=s.replace('                return decoded\n','                experimentStopToken=token; experimentStopReason="STOP_REGION"\n                return decoded\n',1)
@@ -194,3 +196,5 @@ if __name__=='__main__':main()
 # 2026-10-04: remove accidental coremltools dependency from this lightweight generator; ROOT/sha are now local and require only Python stdlib.
 
 # 2026-10-04: add deterministic experiment-only LLM state capacity walk targeting the maximum existing 20x/512 policy capacity; no sampler/model/shipping edits.
+
+# 2026-10-04: --remove-fixed225-cap is now backward-compatible: legacy sources are patched, while integrated request-dynamic sources are verified and left unchanged.
