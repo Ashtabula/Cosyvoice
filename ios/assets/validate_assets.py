@@ -38,22 +38,24 @@ def main():
     f0=root/m["f0Folder"]
     for i in range(5): nonempty(f0/f"f0-{i}-weight.bin"); nonempty(f0/f"f0-{i}-bias.bin")
     nonempty(f0/"f0-classifier-weight.bin"); nonempty(f0/"f0-classifier-bias.bin")
-    ref=m.get("referenceEnrollment"); status=ref.get("status") if isinstance(ref,dict) else None; promoted=status=="PASS_DEVICE_PARITY"; rebuilt=status=="PASS_HOST_PARITY_REBUILT"
-    if args.require_reference and not promoted: fail("reference enrollment is not PASS_DEVICE_PARITY")
+    dynamic_path=root/"cosyvoice3_dynamic.json"
+    d=json.loads(dynamic_path.read_text()) if dynamic_path.exists() else None
+    active=d if isinstance(d,dict) else m
+    ref=active.get("referenceEnrollment"); status=ref.get("status") if isinstance(ref,dict) else None; promoted=status=="PASS_DEVICE_PARITY"; rebuilt=status=="PASS_HOST_PARITY_REBUILT"
+    if args.require_reference and not promoted: fail("active reference enrollment is not PASS_DEVICE_PARITY")
     must_check_reference=promoted or rebuilt or args.require_reference or args.require_reference_files
     if must_check_reference:
-        if not isinstance(ref,dict): fail("manifest has no referenceEnrollment contract")
-        if status not in ("PASS_DEVICE_PARITY","PASS_HOST_PARITY_REBUILT"): fail(f"reference files requested but status is {status!r}")
-        if int(ref.get("promptTokenCount",0))!=151 or int(ref.get("promptFrameCount",0))!=302: fail("reference fixed-profile shape mismatch")
+        if not isinstance(ref,dict): fail("active manifest has no referenceEnrollment contract")
+        if status not in ("PASS_DEVICE_PARITY","PASS_HOST_PARITY_REBUILT"): fail(f"reference files requested but active status is {status!r}")
+        if int(ref.get("promptTokenCount",0))!=151 or int(ref.get("promptFrameCount",0))!=302: fail("reference fixed prompt-profile shape mismatch")
         ref_paths=[ref["speechTokenizer"],ref["campPlus"],ref["whisperMel128"],ref["kaldiMel80"],ref["matchaMel80"],ref["flowConditionsDynamic"]]
         for rel in ref_paths: nonempty(root/rel)
         expected={ref["whisperMel128"]:128*201*4,ref["kaldiMel80"]:80*256*4,ref["matchaMel80"]:80*961*4}
         for rel,size in expected.items():
             if (root/rel).stat().st_size!=size: fail(f"reference table byte count mismatch: {rel}")
-    dynamic_path=root/"cosyvoice3_dynamic.json"
     active_profile=m["profile"]
-    if dynamic_path.exists():
-        nonempty(dynamic_path); d=json.loads(dynamic_path.read_text())
+    if d is not None:
+        nonempty(dynamic_path)
         if d.get("schemaVersion")!=2 or not str(d.get("profile","")).startswith("ios18-dynamic-"): fail("dynamic manifest identity mismatch")
         if len(d.get("flowShards",[]))!=6: fail("dynamic manifest expected six Flow shards")
         if int(d.get("textEmbeddingRows",0))!=rows: fail("dynamic manifest textEmbeddingRows mismatch")
@@ -97,3 +99,5 @@ if __name__=="__main__":
 # Changes: adds --require-reference-files for supported rebuilds; validates PASS_HOST_PARITY_REBUILT files without falsely treating them as device-promoted; preserves --require-reference as the stricter PASS_DEVICE_PARITY gate.
 
 # Changes 2026-10-04: when cosyvoice3_dynamic.json exists, validate its shared-asset identity, N/P bounds, six symbolic Flow packages, dynamic Conditions/HiFT packages, exact default-conditioning byte sizes, and max Flow/HiFT stochastic-buffer byte sizes while preserving fixed-only behavior.
+
+# Changes 2026-10-04: reference validation now follows the same dynamic-first active-manifest rule as CosyVoice3AssetLoader. --require-reference checks dynamic referenceEnrollment when cosyvoice3_dynamic.json exists, while fixed-only roots retain prior behavior.
