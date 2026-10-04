@@ -32,6 +32,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var warmedModelKeys = Set<String>()
     private var lastPreparationReportValue: CosyVoice3PreparationReport?
     private var lastSynthesisReportValue: CosyVoice3SynthesisReport?
+    private var validationProgressObserver: (@Sendable (String) -> Void)?
 
     private struct ReferenceCacheDescriptor {
         let cacheKey: String
@@ -64,10 +65,20 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public func lastPreparationReport() -> CosyVoice3PreparationReport? { lastPreparationReportValue }
     public func lastSynthesisReport() -> CosyVoice3SynthesisReport? { lastSynthesisReportValue }
 
+    @_spi(Validation)
+    public func setValidationProgressObserver(_ observer: (@Sendable (String) -> Void)?) {
+        validationProgressObserver = observer
+    }
+
+    private func validationProgress(_ phase: String) {
+        validationProgressObserver?(phase)
+    }
+
     // Applications may call prepare(reference:) immediately after assets/reference selection.
     // synthesize() also calls it automatically, so callers are never required to manage warm-up.
     @discardableResult
     public func prepare(reference: CosyVoice3VoiceReference? = nil) async throws -> CosyVoice3PreparationReport {
+        validationProgress("prepare.begin")
         let totalStart = DispatchTime.now().uptimeNanoseconds
         let maximumConcurrentModelWarmups = 1
 
@@ -145,10 +156,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
         let missing = plan.filter { !warmedModelKeys.contains(warmKey($0)) }
         if !missing.isEmpty {
+            let progress = validationProgressObserver
             try await CosyVoice3AssetLoader.warmModels(
                 root: assetRoot,
                 specs: missing,
-                maximumConcurrent: maximumConcurrentModelWarmups
+                maximumConcurrent: maximumConcurrentModelWarmups,
+                progress: progress
             )
             warmedModelKeys.formUnion(missing.map { warmKey($0) })
         }
@@ -177,6 +190,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referenceCacheHit: referenceCacheHit
         )
         lastPreparationReportValue = report
+        validationProgress("prepare.end:warmed=\(missing.count)")
         return report
     }
 
@@ -195,6 +209,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     public func synthesize(_ text: String, parameters: CosyVoice3Parameters = .init()) async throws -> CosyVoice3Audio {
+        validationProgress("synthesis.begin")
         let totalStart = DispatchTime.now().uptimeNanoseconds
         let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !cleaned.isEmpty else { throw CosyVoice3EngineError.emptyText }
@@ -206,6 +221,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         }
 
         let preparation = try await prepare(reference: parameters.reference)
+        validationProgress("frontend.begin")
 
         let frontendStart = DispatchTime.now().uptimeNanoseconds
         let baseFrontend = try await reusableBaseFrontend()
@@ -231,6 +247,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             flowConditionsPath = manifest.flowConditions
         }
         let frontendMilliseconds = Self.milliseconds(since: frontendStart)
+        validationProgress("frontend.end:logicalPrefix=\(prepared.logicalPrefixLength):minN=\(prepared.minimumSpeechTokenCount):maxN=\(prepared.maximumSpeechTokenCount)")
+        validationProgress("llm.load.begin")
 
         var llmModelLoadMilliseconds = 0.0
         var llmGenerationMilliseconds = 0.0
@@ -244,14 +262,18 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 conditioner: try reusableConditioner()
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
+            validationProgress("llm.load.end")
+            validationProgress("llm.generate.begin:maxN=\(prepared.maximumSpeechTokenCount)")
             let generationStart = DispatchTime.now().uptimeNanoseconds
             let tokens = try llm.generate(prepared)
             llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+            validationProgress("llm.generate.end:N=\(tokens.count)")
             return tokens
         }()
 
         // The lexical scope above intentionally drops request-scoped LLM model references
         // before Flow model construction, matching the accepted device benchmark lifecycle.
+        validationProgress("acoustic.load.begin:N=\(speechTokens.count)")
         let acousticLoadStart = DispatchTime.now().uptimeNanoseconds
         let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
@@ -264,9 +286,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             flowStepCount: parameters.flowSteps.rawValue
         )
         let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
+        validationProgress("acoustic.load.end:N=\(speechTokens.count)")
+        validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
         let acousticStart = DispatchTime.now().uptimeNanoseconds
         let audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
         let acousticSynthesisMilliseconds = Self.milliseconds(since: acousticStart)
+        validationProgress("acoustic.synthesize.end:N=\(speechTokens.count):samples=\(audio.samples.count)")
 
         lastSynthesisReportValue = CosyVoice3SynthesisReport(
             flowSteps: parameters.flowSteps,
@@ -281,6 +306,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referenceCacheHit: preparation.referenceCacheHit,
             warmedModelCount: preparation.warmedModelCount
         )
+        validationProgress("synthesis.end:N=\(speechTokens.count):samples=\(audio.samples.count)")
         return audio
     }
 
@@ -723,3 +749,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: production synthesis forwards the public 6/8/10 Flow-step choice into the acoustic runtime; the selected setting is recorded in synthesis telemetry and the public default is 6.
 
 // Changes 2026-10-04: manifest-selected dynamic acoustic runtime uses request-dynamic LLM capacity and exact N/T/G/PCM shapes; fixed225 manifests retain a 225 LLM cap and the original mask/noise runtime for regression compatibility.
+
+// Changes 2026-10-04: validation SPI observer emits durable stage boundaries for automatic prepare, per-model warming, frontend geometry, LLM load/generation and acoustic load/synthesis. Observer is nil by default and does not alter public synthesis semantics or model math.
