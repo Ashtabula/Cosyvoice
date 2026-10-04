@@ -1,0 +1,1563 @@
+{
+  "acceptance": "UNRESOLVED_BY_DESIGN",
+  "environment": {
+    "coremltools": "9.0",
+    "numpy": "1.26.4",
+    "torch": "2.7.0"
+  },
+  "fixedAssetManifestSha256": "e74925c008145bffc3aafbd5edfe29b7d3f176db73c10158a74bf1c5b58b4075",
+  "flowPtSha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+  "frozenCoreMLVsOfficial": {
+    "h": {
+      "cosineSimilarity": 0.9996821630067902,
+      "finite": true,
+      "maxAbsError": 3.85723876953125,
+      "meanAbsError": 0.035890356636318475,
+      "relativeL2": 0.025380264891901722,
+      "rmse": 0.06766581085220749,
+      "shape": [
+        2,
+        752,
+        1024
+      ]
+    },
+    "te": {
+      "cosineSimilarity": 0.9999951789234258,
+      "finite": true,
+      "maxAbsError": 0.018059730529785156,
+      "meanAbsError": 0.00031752631007719856,
+      "relativeL2": 0.0031179697630487027,
+      "rmse": 0.0008930273515102765,
+      "shape": [
+        2,
+        1024
+      ]
+    }
+  },
+  "frozenOpInventory": {
+    "functions": [
+      {
+        "name": "main",
+        "specializations": [
+          {
+            "maxNestedBlockDepth": 0,
+            "operationCount": 627,
+            "operationTypeCounts": {
+              "add": 33,
+              "cast": 8,
+              "concat": 10,
+              "const": 332,
+              "conv": 2,
+              "cos": 1,
+              "expand_dims": 28,
+              "gelu": 4,
+              "layer_norm": 8,
+              "linear": 31,
+              "logical_not": 1,
+              "mul": 44,
+              "pad": 2,
+              "reshape": 32,
+              "scaled_dot_product_attention": 4,
+              "select": 4,
+              "silu": 2,
+              "sin": 1,
+              "slice_by_index": 18,
+              "softplus": 2,
+              "split": 12,
+              "squeeze": 16,
+              "stack": 8,
+              "tanh": 2,
+              "tile": 1,
+              "transpose": 21
+            },
+            "specialization": "CoreML8"
+          }
+        ]
+      }
+    ],
+    "maxNestedBlockDepth": 0,
+    "operationCount": 627,
+    "operationTypeCounts": {
+      "add": 33,
+      "cast": 8,
+      "concat": 10,
+      "const": 332,
+      "conv": 2,
+      "cos": 1,
+      "expand_dims": 28,
+      "gelu": 4,
+      "layer_norm": 8,
+      "linear": 31,
+      "logical_not": 1,
+      "mul": 44,
+      "pad": 2,
+      "reshape": 32,
+      "scaled_dot_product_attention": 4,
+      "select": 4,
+      "silu": 2,
+      "sin": 1,
+      "slice_by_index": 18,
+      "softplus": 2,
+      "split": 12,
+      "squeeze": 16,
+      "stack": 8,
+      "tanh": 2,
+      "tile": 1,
+      "transpose": 21
+    },
+    "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/production-clean-room/fetched-runtime/models/flow-shard-0.mlpackage",
+    "status": "PASS"
+  },
+  "frozenShard0Sha256": "2b1218ee3df3fc663b7ea9c95976e5705e3e310f828cc9ebeb22a28e86ddb5ec",
+  "inputSha256": {
+    "cond": "b58da7a9e3f16fdb79f70e5750c9be17281d1ba8c654a873308df674f6fb480c",
+    "mask": "2a751c9be54424eb9513e1f2476a7c9b6fda58ebd51679594b37670eeea0a77c",
+    "mu": "2657ac9d5392bad4942c850a1460c8caeca5838a1356296e3746d1f2ce341c16",
+    "spks": "3d3473bdb932b9fe4b1481dcc6ee45be74d3dd7982a5cff71e13b038626b9a49",
+    "t": "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+    "x": "e905ca33a2b353738c8138268ebae9f33b71c0758518339cf51f4e0d53a4ff71"
+  },
+  "inputShapes": {
+    "cond": [
+      2,
+      80,
+      752
+    ],
+    "mask": [
+      2,
+      1,
+      752
+    ],
+    "mu": [
+      2,
+      80,
+      752
+    ],
+    "spks": [
+      2,
+      80
+    ],
+    "t": [
+      2
+    ],
+    "x": [
+      2,
+      80,
+      752
+    ]
+  },
+  "modelRevision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+  "officialOutputSha256": {
+    "h": "d98534b1cb17b7446274904dc09464bb463d3a93e11c88fa3bab999effa4ba84",
+    "te": "fb5aff0468f143dccef1d967d1b9e074d7aa544f43272281b67a0c0e6c83a36b"
+  },
+  "pairwise": {
+    "export_static_fp16__vs__export_static_fp32": {
+      "h": {
+        "cosineSimilarity": 0.9997149173588219,
+        "finite": true,
+        "maxAbsError": 2.9304428100585938,
+        "meanAbsError": 0.03445663999485376,
+        "relativeL2": 0.024282514275354036,
+        "rmse": 0.06447387312412349,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 635,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": -7,
+          "const": -7
+        },
+        "rightOperationCount": 621,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 0.9999951790779963,
+        "finite": true,
+        "maxAbsError": 0.018059253692626953,
+        "meanAbsError": 0.0003175260009697922,
+        "relativeL2": 0.0031188223050128967,
+        "rmse": 0.0008930151924787745,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "export_static_fp16__vs__export_symbolic_fp16": {
+      "h": {
+        "cosineSimilarity": 0.9999295447662492,
+        "finite": true,
+        "maxAbsError": 1.6875,
+        "meanAbsError": 0.01609786082023694,
+        "relativeL2": 0.011961709725397819,
+        "rmse": 0.03176021010171164,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 635,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": 3,
+          "concat": 2,
+          "const": 36,
+          "cos": 1,
+          "equal": 1,
+          "gather": 1,
+          "matmul": 1,
+          "mul": 1,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 4,
+          "select": 1,
+          "shape": 1,
+          "sin": 1,
+          "slice_by_index": 4,
+          "stack": 1
+        },
+        "rightOperationCount": 695,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "export_static_fp32__vs__export_symbolic_fp32": {
+      "h": {
+        "cosineSimilarity": 0.9999999999039407,
+        "finite": true,
+        "maxAbsError": 0.00211334228515625,
+        "meanAbsError": 1.7205114865700917e-05,
+        "relativeL2": 1.3855417783092947e-05,
+        "rmse": 3.6940501332674005e-05,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 621,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": 1,
+          "concat": 2,
+          "const": 34,
+          "cos": 1,
+          "equal": 1,
+          "gather": 1,
+          "matmul": 1,
+          "mul": 1,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 4,
+          "select": 1,
+          "shape": 1,
+          "sin": 1,
+          "slice_by_index": 4,
+          "stack": 1
+        },
+        "rightOperationCount": 677,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "export_symbolic_fp16__vs__export_symbolic_fp32": {
+      "h": {
+        "cosineSimilarity": 0.9996843117443313,
+        "finite": true,
+        "maxAbsError": 2.9915528297424316,
+        "meanAbsError": 0.03608353837808371,
+        "relativeL2": 0.025308972880276684,
+        "rmse": 0.06729369687716173,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 695,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": -9,
+          "const": -9
+        },
+        "rightOperationCount": 677,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 0.9999951790779963,
+        "finite": true,
+        "maxAbsError": 0.018059253692626953,
+        "meanAbsError": 0.0003175260009697922,
+        "relativeL2": 0.0031188223050128967,
+        "rmse": 0.0008930151924787745,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "jit_static_fp16__vs__export_static_fp16": {
+      "h": {
+        "cosineSimilarity": 0.9999141001679276,
+        "finite": true,
+        "maxAbsError": 1.6875,
+        "meanAbsError": 0.01788152242505098,
+        "relativeL2": 0.013129331674723282,
+        "rmse": 0.03489015894117377,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 627,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "const": 8
+        },
+        "rightOperationCount": 635,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "jit_static_fp16__vs__export_symbolic_fp16": {
+      "h": {
+        "cosineSimilarity": 0.9999162613042681,
+        "finite": true,
+        "maxAbsError": 1.8125,
+        "meanAbsError": 0.017872111193045905,
+        "relativeL2": 0.01295662670395966,
+        "rmse": 0.034431209161462265,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 627,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": 3,
+          "concat": 2,
+          "const": 44,
+          "cos": 1,
+          "equal": 1,
+          "gather": 1,
+          "matmul": 1,
+          "mul": 1,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 4,
+          "select": 1,
+          "shape": 1,
+          "sin": 1,
+          "slice_by_index": 4,
+          "stack": 1
+        },
+        "rightOperationCount": 695,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "jit_static_fp32__vs__export_static_fp32": {
+      "h": {
+        "cosineSimilarity": 0.9999999282842359,
+        "finite": true,
+        "maxAbsError": 0.0337677001953125,
+        "meanAbsError": 0.000578139415592982,
+        "relativeL2": 0.0003794493185969256,
+        "rmse": 0.001011641830168541,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 613,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "const": 8
+        },
+        "rightOperationCount": 621,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    },
+    "jit_static_fp32__vs__export_symbolic_fp32": {
+      "h": {
+        "cosineSimilarity": 0.9999999282841773,
+        "finite": true,
+        "maxAbsError": 0.033782958984375,
+        "meanAbsError": 0.0005782708861830243,
+        "relativeL2": 0.0003794606881747859,
+        "rmse": 0.0010116721423604226,
+        "shape": [
+          2,
+          752,
+          1024
+        ]
+      },
+      "opInventoryDiff": {
+        "leftOperationCount": 613,
+        "leftStatus": "PASS",
+        "operationTypeDeltaRightMinusLeft": {
+          "cast": 1,
+          "concat": 2,
+          "const": 42,
+          "cos": 1,
+          "equal": 1,
+          "gather": 1,
+          "matmul": 1,
+          "mul": 1,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 4,
+          "select": 1,
+          "shape": 1,
+          "sin": 1,
+          "slice_by_index": 4,
+          "stack": 1
+        },
+        "rightOperationCount": 677,
+        "rightStatus": "PASS"
+      },
+      "te": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          2,
+          1024
+        ]
+      }
+    }
+  },
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "schemaVersion": 1,
+  "sourceCommit": "5cbaa190682909c72bd4bde91545a5d028b0fe1a",
+  "status": "PASS_MATRIX_COMPLETE_NUMERICAL_ACCEPTANCE_UNRESOLVED",
+  "successfulVariants": [
+    "jit_static_fp16",
+    "jit_static_fp32",
+    "export_static_fp16",
+    "export_static_fp32",
+    "export_symbolic_fp16",
+    "export_symbolic_fp32"
+  ],
+  "variants": {
+    "export_static_fp16": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 0.9999141001679276,
+          "finite": true,
+          "maxAbsError": 1.6875,
+          "meanAbsError": 0.01788152242505098,
+          "relativeL2": 0.013129331674723282,
+          "rmse": 0.03489015894117377,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9997151514002276,
+          "finite": true,
+          "maxAbsError": 2.91973876953125,
+          "meanAbsError": 0.03442988499083144,
+          "relativeL2": 0.02416919186859165,
+          "rmse": 0.06443699356158726,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951789234258,
+          "finite": true,
+          "maxAbsError": 0.018059730529785156,
+          "meanAbsError": 0.00031752631007719856,
+          "relativeL2": 0.0031179697630487027,
+          "rmse": 0.0008930273515102765,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": false,
+      "frontend": "export",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 635,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 8,
+                  "concat": 10,
+                  "const": 340,
+                  "conv": 2,
+                  "cos": 1,
+                  "expand_dims": 28,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "mul": 44,
+                  "pad": 2,
+                  "reshape": 32,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "silu": 2,
+                  "sin": 1,
+                  "slice_by_index": 18,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 8,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 635,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 8,
+          "concat": 10,
+          "const": 340,
+          "conv": 2,
+          "cos": 1,
+          "expand_dims": 28,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "mul": 44,
+          "pad": 2,
+          "reshape": 32,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "silu": 2,
+          "sin": 1,
+          "slice_by_index": 18,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 8,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_static_fp16/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "a740d1a275ef21c8bcdd4b5c845a44675d45197cf38a7b5cc07c765b80f8119e",
+      "phase": "complete",
+      "precision": "FLOAT16",
+      "rangeConstraints": {
+        "s0": "VR[2, int_oo]",
+        "s1": "VR[2, int_oo]",
+        "s2": "VR[2, int_oo]"
+      },
+      "sourceGraphSymbolic": false,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    },
+    "export_static_fp32": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 0.9996828808252629,
+          "finite": true,
+          "maxAbsError": 3.8679428100585938,
+          "meanAbsError": 0.03585691895990265,
+          "relativeL2": 0.025437930261882066,
+          "rmse": 0.06759928471302501,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951790779963,
+          "finite": true,
+          "maxAbsError": 0.018059253692626953,
+          "meanAbsError": 0.0003175260009697922,
+          "relativeL2": 0.0031188223050128967,
+          "rmse": 0.0008930151924787745,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999281632198,
+          "finite": true,
+          "maxAbsError": 0.033843994140625,
+          "meanAbsError": 0.0005788076519928371,
+          "relativeL2": 0.0003797485809752775,
+          "rmse": 0.0010124400104223816,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999999999999029,
+          "finite": true,
+          "maxAbsError": 2.0265579223632812e-06,
+          "meanAbsError": 3.8276532166037214e-08,
+          "relativeL2": 4.4755659398628775e-07,
+          "rmse": 1.2818606662424249e-07,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": false,
+      "frontend": "export",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 621,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 1,
+                  "concat": 10,
+                  "const": 333,
+                  "conv": 2,
+                  "cos": 1,
+                  "expand_dims": 28,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "mul": 44,
+                  "pad": 2,
+                  "reshape": 32,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "silu": 2,
+                  "sin": 1,
+                  "slice_by_index": 18,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 8,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 621,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 1,
+          "concat": 10,
+          "const": 333,
+          "conv": 2,
+          "cos": 1,
+          "expand_dims": 28,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "mul": 44,
+          "pad": 2,
+          "reshape": 32,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "silu": 2,
+          "sin": 1,
+          "slice_by_index": 18,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 8,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_static_fp32/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "ff7220aab3df9167cca638ec8bee7cb4074bde0183733d698dda3834f8e81dae",
+      "phase": "complete",
+      "precision": "FLOAT32",
+      "rangeConstraints": {
+        "s0": "VR[2, int_oo]",
+        "s1": "VR[2, int_oo]",
+        "s2": "VR[2, int_oo]"
+      },
+      "sourceGraphSymbolic": false,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    },
+    "export_symbolic_fp16": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 0.9999162613042681,
+          "finite": true,
+          "maxAbsError": 1.8125,
+          "meanAbsError": 0.017872111193045905,
+          "relativeL2": 0.01295662670395966,
+          "rmse": 0.034431209161462265,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9996838154437762,
+          "finite": true,
+          "maxAbsError": 2.9914278984069824,
+          "meanAbsError": 0.03608260116058753,
+          "relativeL2": 0.025257509332309046,
+          "rmse": 0.06733853473780024,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951789234258,
+          "finite": true,
+          "maxAbsError": 0.018059730529785156,
+          "meanAbsError": 0.00031752631007719856,
+          "relativeL2": 0.0031179697630487027,
+          "rmse": 0.0008930273515102765,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": true,
+      "frontend": "export",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 695,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 11,
+                  "concat": 12,
+                  "const": 376,
+                  "conv": 2,
+                  "cos": 2,
+                  "equal": 1,
+                  "expand_dims": 28,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 45,
+                  "pad": 2,
+                  "range_1d": 1,
+                  "real_div": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 5,
+                  "shape": 1,
+                  "silu": 2,
+                  "sin": 2,
+                  "slice_by_index": 22,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 695,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 11,
+          "concat": 12,
+          "const": 376,
+          "conv": 2,
+          "cos": 2,
+          "equal": 1,
+          "expand_dims": 28,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 45,
+          "pad": 2,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 5,
+          "shape": 1,
+          "silu": 2,
+          "sin": 2,
+          "slice_by_index": 22,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_symbolic_fp16/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "1583cb6df236020264021e78db3c184cdfcbb5e9bf02d1304d65c5505eb227f3",
+      "phase": "complete",
+      "precision": "FLOAT16",
+      "rangeConstraints": {
+        "s0": "VR[2, int_oo]",
+        "s1": "VR[2, int_oo]",
+        "s2": "VR[2, int_oo]",
+        "s3": "VR[674, 752]"
+      },
+      "sourceGraphSymbolic": true,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    },
+    "export_symbolic_fp32": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 0.9996828820776099,
+          "finite": true,
+          "maxAbsError": 3.8683738708496094,
+          "meanAbsError": 0.03585681294734975,
+          "relativeL2": 0.025437906628878567,
+          "rmse": 0.06759922191019088,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951790779963,
+          "finite": true,
+          "maxAbsError": 0.018059253692626953,
+          "meanAbsError": 0.0003175260009697922,
+          "relativeL2": 0.0031188223050128967,
+          "rmse": 0.0008930151924787745,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999281647931,
+          "finite": true,
+          "maxAbsError": 0.0338592529296875,
+          "meanAbsError": 0.0005789135841842306,
+          "relativeL2": 0.00037975549334730627,
+          "rmse": 0.001012458439357632,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999999999999029,
+          "finite": true,
+          "maxAbsError": 2.0265579223632812e-06,
+          "meanAbsError": 3.8276532166037214e-08,
+          "relativeL2": 4.4755659398628775e-07,
+          "rmse": 1.2818606662424249e-07,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": true,
+      "frontend": "export",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 677,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 2,
+                  "concat": 12,
+                  "const": 367,
+                  "conv": 2,
+                  "cos": 2,
+                  "equal": 1,
+                  "expand_dims": 28,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 45,
+                  "pad": 2,
+                  "range_1d": 1,
+                  "real_div": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 5,
+                  "shape": 1,
+                  "silu": 2,
+                  "sin": 2,
+                  "slice_by_index": 22,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 677,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 2,
+          "concat": 12,
+          "const": 367,
+          "conv": 2,
+          "cos": 2,
+          "equal": 1,
+          "expand_dims": 28,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 45,
+          "pad": 2,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 5,
+          "shape": 1,
+          "silu": 2,
+          "sin": 2,
+          "slice_by_index": 22,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_symbolic_fp32/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "6d20755847ed38b9cb93b800c45c685fa2c6530c21451a8643adfcde0e0ddbda",
+      "phase": "complete",
+      "precision": "FLOAT32",
+      "rangeConstraints": {
+        "s0": "VR[2, int_oo]",
+        "s1": "VR[2, int_oo]",
+        "s2": "VR[2, int_oo]",
+        "s3": "VR[674, 752]"
+      },
+      "sourceGraphSymbolic": true,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    },
+    "jit_static_fp16": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9996821630067902,
+          "finite": true,
+          "maxAbsError": 3.85723876953125,
+          "meanAbsError": 0.035890356636318475,
+          "relativeL2": 0.025380264891901722,
+          "rmse": 0.06766581085220749,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951789234258,
+          "finite": true,
+          "maxAbsError": 0.018059730529785156,
+          "meanAbsError": 0.00031752631007719856,
+          "relativeL2": 0.0031179697630487027,
+          "rmse": 0.0008930273515102765,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": false,
+      "frontend": "jit",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 627,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 8,
+                  "concat": 10,
+                  "const": 332,
+                  "conv": 2,
+                  "cos": 1,
+                  "expand_dims": 28,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "mul": 44,
+                  "pad": 2,
+                  "reshape": 32,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "silu": 2,
+                  "sin": 1,
+                  "slice_by_index": 18,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 8,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 627,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 8,
+          "concat": 10,
+          "const": 332,
+          "conv": 2,
+          "cos": 1,
+          "expand_dims": 28,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "mul": 44,
+          "pad": 2,
+          "reshape": 32,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "silu": 2,
+          "sin": 1,
+          "slice_by_index": 18,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 8,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/jit_static_fp16/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "aa4b22b5fb4cbd559bd1395b15f20c142ebcdf7b6745f9891396d1b606047195",
+      "phase": "complete",
+      "precision": "FLOAT16",
+      "sourceGraphSymbolic": false,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    },
+    "jit_static_fp32": {
+      "compilation": "PASS",
+      "coremlVsFrozen": {
+        "h": {
+          "cosineSimilarity": 0.9996821806381867,
+          "finite": true,
+          "maxAbsError": 3.858306884765625,
+          "meanAbsError": 0.03589031803649634,
+          "relativeL2": 0.025462224691491474,
+          "rmse": 0.06766384523533162,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999951790779963,
+          "finite": true,
+          "maxAbsError": 0.018059253692626953,
+          "meanAbsError": 0.0003175260009697922,
+          "relativeL2": 0.0031188223050128967,
+          "rmse": 0.0008930151924787745,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "coremlVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999995136613,
+          "finite": true,
+          "maxAbsError": 0.005402565002441406,
+          "meanAbsError": 3.87609934839269e-05,
+          "relativeL2": 3.118569217246671e-05,
+          "rmse": 8.314354309639622e-05,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 0.9999999999999029,
+          "finite": true,
+          "maxAbsError": 2.0265579223632812e-06,
+          "meanAbsError": 3.8276532166037214e-08,
+          "relativeL2": 4.4755659398628775e-07,
+          "rmse": 1.2818606662424249e-07,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "dynamic": false,
+      "frontend": "jit",
+      "loading": "PASS",
+      "opInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 613,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 1,
+                  "concat": 10,
+                  "const": 325,
+                  "conv": 2,
+                  "cos": 1,
+                  "expand_dims": 28,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "mul": 44,
+                  "pad": 2,
+                  "reshape": 32,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "silu": 2,
+                  "sin": 1,
+                  "slice_by_index": 18,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 8,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 613,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 1,
+          "concat": 10,
+          "const": 325,
+          "conv": 2,
+          "cos": 1,
+          "expand_dims": 28,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "mul": 44,
+          "pad": 2,
+          "reshape": 32,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "silu": 2,
+          "sin": 1,
+          "slice_by_index": 18,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 8,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/jit_static_fp32/shard0.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "03abb8d34b19ec1e9ae853c61d956d566475966fb04fca16e7d92aee2eb639fe",
+      "phase": "complete",
+      "precision": "FLOAT32",
+      "sourceGraphSymbolic": false,
+      "sourceGraphVsOfficial": {
+        "h": {
+          "cosineSimilarity": 0.9999999999999039,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            752,
+            1024
+          ]
+        },
+        "te": {
+          "cosineSimilarity": 1.0,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      },
+      "status": "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED"
+    }
+  }
+}

@@ -1,5 +1,4 @@
 {
-  "scope": "independent phase0/phase1 only",
   "files": {
     "conditions-exported-graph.txt": {
       "bytes": 3939,
@@ -25,13 +24,21 @@
       "bytes": 1590,
       "sha256": "59a6a65b3015ee02e30609a60f421b3cde700bd1f5672bee49bc7740e1edcac8"
     },
+    "hybrid-downstream-v1.json": {
+      "bytes": 7835,
+      "sha256": "56c17ef3d414782092e9a5d6373585e3105e9912c6c6471d0ce5edad8124b33e"
+    },
     "lowering-control.json": {
       "bytes": 1451,
       "sha256": "6be3fb453d1d067431b57e60d9cd5a574e9fbb145516a2046a5c60adff65cd22"
     },
+    "numerical-attribution-v1.json": {
+      "bytes": 41659,
+      "sha256": "bbec02375dc82d91ba8502339c4f8235aa22c5ebc36c3bc292d703d502417f87"
+    },
     "phase1-gate.json": {
-      "bytes": 1039,
-      "sha256": "66380b78dd7b6c543ef2741e1606a8522d07b44f13bd71d566da7adc4a7c8c87"
+      "bytes": 1329,
+      "sha256": "20098998ccf97fe65dbf1523da1e3e71d194d881dbb169437305490b19bf5394"
     },
     "shard0-exported-graph.txt": {
       "bytes": 41020,
@@ -50,6 +57,7 @@
       "sha256": "a61ddb619de1c1cf8a47b569e64ce18b7933dfe168709c98788cee92e5549284"
     }
   },
+  "frozenReleaseAssetsAndReceipts": "untouched",
   "largeArtifacts": "preserved locally under ios/.work/dynamic-acoustic; not committed",
-  "frozenReleaseAssetsAndReceipts": "untouched"
+  "scope": "independent dynamic-acoustic experiment evidence only"
 }

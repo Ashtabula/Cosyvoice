@@ -1,24 +1,29 @@
 {
-  "schemaVersion": 1,
-  "status": "FAIL_PHASE1_GATE",
+  "acceleratorResidencyPass": false,
+  "acceleratorResidencyState": "NOT_PROVEN_CPU_PREFERRED",
+  "acceptanceBoundaryNote": "Frozen release bit-exact evidence compares accepted Core ML monolithic FP16 with accepted Core ML sharded FP16. It does not by itself define a cross-converter tolerance for an intermediate shard0 h tensor.",
   "checks": {
-    "conditionsSourceSymbolic": true,
-    "shard0SourceSymbolic": true,
     "conditionsHostMultiLength": true,
-    "shard0HostExecution": true,
-    "frozen225BitExactRegression": false,
-    "physicalCPUOnly": true,
+    "conditionsSourceSymbolic": true,
     "physicalCPUAndNEPolicy": true,
-    "sameAssetFamilyAcrossBackends": true
+    "physicalCPUOnly": true,
+    "sameAssetFamilyAcrossBackends": true,
+    "shard0HostExecution": true,
+    "shard0SourceSymbolic": true
   },
+  "dynamicShapeExecutionPass": true,
+  "fullDynamicPCM": "NOT_RUN",
+  "gateReason": "Dynamic multi-length execution is a separate success. Phase2 remains blocked until the N225 conversion matrix and downstream hybrid control establish a justified numerical acceptance boundary.",
+  "legacyIntermediateBitExactControl": false,
+  "numericalAcceptancePass": false,
+  "numericalAcceptanceState": "ATTRIBUTION_COMPLETE_ACCEPTANCE_UNRESOLVED",
+  "numericalAttributionComplete": true,
   "phase2Allowed": false,
   "phase3Allowed": false,
   "phase4Allowed": false,
   "phase5Allowed": false,
-  "gateReason": "Frozen225 numerical regression is not bit exact; do not interpret dynamic execution as numerical acceptance.",
-  "acceptanceSource": "ios/validation/record_full_runtime_rebuild.py:98-101 (frozen Flow sharded vs monolithic FP16 max_abs=0, relative_l2=0)",
-  "acceptanceBoundaryNote": "The release bit-exact comparison covers full vs sharded FP16, not a declared dynamic h tolerance; no looser boundary tolerance is inferred in this conservative hold.",
-  "residency": "NOT_MEASURED",
   "realLLM186Workload": "NOT_RUN",
-  "fullDynamicPCM": "NOT_RUN"
+  "schemaVersion": 2,
+  "status": "HOLD_PHASE1_NUMERICAL_ACCEPTANCE",
+  "trueDynamicShapeFeasible": true
 }
