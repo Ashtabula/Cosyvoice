@@ -100,7 +100,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         }
 
         progress?("acoustic.conditions.begin:N=\(n):T=\(tFrames)")
-        let (mu,spks,cond) = try await predictConditions(
+        let (mu,spks,cond) = try predictConditions(
             tokens: tokens,
             promptTokens: promptTokens,
             promptFeat: promptFeat,
@@ -133,7 +133,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             ]
             var velocity: MLMultiArray?
             for index in flowShardPaths.indices {
-                let stage = try await predictFlowShard(index: index, feed: feed, tFrames: tFrames)
+                let stage = try predictFlowShard(index: index, feed: feed, tFrames: tFrames)
                 switch stage {
                 case .first(let h, let te):
                     feed = ["h":h, "te":te, "mask":mask]
@@ -187,7 +187,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let excitation = try hiftExcitationPrefix(sampleCount: samplesCount)
         let norm = try overlapAddNorm(sampleCount: samplesCount)
         progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
-        let samples = try await predictHiFT(
+        let samples = try predictHiFT(
             mel: mel,
             f0: f0Values,
             phase: phase,
@@ -222,52 +222,56 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         promptFeat: MLMultiArray,
         speaker: MLMultiArray,
         tFrames: Int
-    ) async throws -> (MLMultiArray, MLMultiArray, MLMultiArray) {
-        let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model")
-        progress?("acoustic.conditions.prediction.begin:T=\(tFrames)")
-        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
-            "tokens": tokens,
-            "prompt_tokens": promptTokens,
-            "prompt_feat": promptFeat,
-            "speaker": speaker
-        ]))
-        let mu = try ownedFloat32Output(result, "mu")
-        let spks = try ownedFloat32Output(result, "spks")
-        let cond = try ownedFloat32Output(result, "cond")
-        guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
-        guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
-        guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
-        progress?("acoustic.conditions.prediction.end:T=\(tFrames)")
-        return (mu,spks,cond)
+    ) throws -> (MLMultiArray, MLMultiArray, MLMultiArray) {
+        try autoreleasepool {
+            let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model")
+            progress?("acoustic.conditions.prediction.begin:T=\(tFrames)")
+            let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
+                "tokens": tokens,
+                "prompt_tokens": promptTokens,
+                "prompt_feat": promptFeat,
+                "speaker": speaker
+            ]))
+            let mu = try ownedFloat32Output(result, "mu")
+            let spks = try ownedFloat32Output(result, "spks")
+            let cond = try ownedFloat32Output(result, "cond")
+            guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
+            guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
+            guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
+            progress?("acoustic.conditions.prediction.end:T=\(tFrames)")
+            return (mu,spks,cond)
+        }
     }
 
     private func predictFlowShard(
         index: Int,
         feed: [String: MLMultiArray],
         tFrames: Int
-    ) async throws -> FlowShardStage {
-        let path = flowShardPaths[index]
-        let label = "acoustic.flow.shard.\(index + 1).6"
-        let model = try loadModel(path: path, stage: label)
-        progress?("\(label).prediction.begin:T=\(tFrames)")
-        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
-        let stage: FlowShardStage
-        if index == 0 {
-            let h = try ownedFloat32Output(result, "h")
-            let te = try ownedFloat32Output(result, "te")
-            guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
-            guard te.shape.map(\.intValue) == [2,1024] else { throw CosyVoice3AcousticError.invalidShape("te", te.shape.map(\.intValue)) }
-            stage = .first(h,te)
-        } else if index == flowShardPaths.count - 1 {
-            let velocity = try ownedFloat32Output(result, "velocity")
-            stage = .velocity(velocity)
-        } else {
-            let h = try ownedFloat32Output(result, "h_out")
-            guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h_out", h.shape.map(\.intValue)) }
-            stage = .hidden(h)
+    ) throws -> FlowShardStage {
+        try autoreleasepool {
+            let path = flowShardPaths[index]
+            let label = "acoustic.flow.shard.\(index + 1).6"
+            let model = try loadModel(path: path, stage: label)
+            progress?("\(label).prediction.begin:T=\(tFrames)")
+            let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
+            let stage: FlowShardStage
+            if index == 0 {
+                let h = try ownedFloat32Output(result, "h")
+                let te = try ownedFloat32Output(result, "te")
+                guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
+                guard te.shape.map(\.intValue) == [2,1024] else { throw CosyVoice3AcousticError.invalidShape("te", te.shape.map(\.intValue)) }
+                stage = .first(h,te)
+            } else if index == flowShardPaths.count - 1 {
+                let velocity = try ownedFloat32Output(result, "velocity")
+                stage = .velocity(velocity)
+            } else {
+                let h = try ownedFloat32Output(result, "h_out")
+                guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h_out", h.shape.map(\.intValue)) }
+                stage = .hidden(h)
+            }
+            progress?("\(label).prediction.end:T=\(tFrames)")
+            return stage
         }
-        progress?("\(label).prediction.end:T=\(tFrames)")
-        return stage
     }
 
     private func predictHiFT(
@@ -277,19 +281,21 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         excitation: MLMultiArray,
         norm: MLMultiArray,
         samplesCount: Int
-    ) async throws -> [Float] {
-        let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model")
-        progress?("acoustic.hift.prediction.begin:samples=\(samplesCount)")
-        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
-            "mel": mel, "f0": f0, "phase": phase, "noise": excitation, "norm": norm
-        ]))
-        let pcm = try output(result, "pcm")
-        guard pcm.shape.map(\.intValue) == [1,samplesCount] else { throw CosyVoice3AcousticError.invalidShape("pcm", pcm.shape.map(\.intValue)) }
-        let samples = Self.floatValues(pcm)
-        guard samples.count == samplesCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
-        guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
-        progress?("acoustic.hift.prediction.end:samples=\(samplesCount)")
-        return samples
+    ) throws -> [Float] {
+        try autoreleasepool {
+            let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model")
+            progress?("acoustic.hift.prediction.begin:samples=\(samplesCount)")
+            let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
+                "mel": mel, "f0": f0, "phase": phase, "noise": excitation, "norm": norm
+            ]))
+            let pcm = try output(result, "pcm")
+            guard pcm.shape.map(\.intValue) == [1,samplesCount] else { throw CosyVoice3AcousticError.invalidShape("pcm", pcm.shape.map(\.intValue)) }
+            let samples = Self.floatValues(pcm)
+            guard samples.count == samplesCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
+            guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
+            progress?("acoustic.hift.prediction.end:samples=\(samplesCount)")
+            return samples
+        }
     }
 
     private func ownedFloat32Output(_ provider: MLFeatureProvider, _ name: String) throws -> MLMultiArray {
@@ -393,3 +399,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-04: optional nil-default validation progress marks Conditions, each Euler Flow step, F0 and HiFT boundaries; tensor math, model inputs and production behavior are unchanged.
 
 // Changes 2026-10-04: replace resident Conditions+6 Flow+HiFT model set with stage-scoped loading. Conditions/Flow outputs are copied into owned Float32 arrays before the producing model leaves scope; each Flow shard is loaded/predicted/released for each Euler step; HiFT loads only after Flow/F0. This trades model-instantiation time for bounded memory while preserving exact dynamic tensors and scheduler math.
+
+// Changes 2026-10-04: align production dynamic model lifetime exactly with the physically accepted shape-sweep pattern: synchronous MLModel.prediction inside a throwing autoreleasepool, one request-scoped model per prediction. Owned outputs escape the pool; MLModel/provider temporaries do not.
