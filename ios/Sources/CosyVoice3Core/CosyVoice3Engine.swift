@@ -273,25 +273,56 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         }()
 
         // The lexical scope above intentionally drops request-scoped LLM model references
-        // before Flow model construction, matching the accepted device benchmark lifecycle.
-        validationProgress("acoustic.load.begin:N=\(speechTokens.count)")
-        let acousticLoadStart = DispatchTime.now().uptimeNanoseconds
-        let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
-        let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
-        let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
-        let acoustic = try makeAcousticRuntime(
-            conditions: conditions,
-            shards: shards,
-            hift: hift,
-            f0: try reusableF0(),
-            flowStepCount: parameters.flowSteps.rawValue
-        )
-        let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
-        validationProgress("acoustic.load.end:N=\(speechTokens.count)")
-        validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
-        let acousticStart = DispatchTime.now().uptimeNanoseconds
-        let audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
-        let acousticSynthesisMilliseconds = Self.milliseconds(since: acousticStart)
+        // before acoustic execution. The frozen fixed225 lane keeps its validated resident
+        // acoustic set. The dynamic lane instead owns stage-scoped model loading internally
+        // so Conditions + six Flow shards + HiFT are never intentionally resident together.
+        let acousticTotalStart = DispatchTime.now().uptimeNanoseconds
+        let audio: CosyVoice3Audio
+        let acousticModelLoadMilliseconds: Double
+        let acousticSynthesisMilliseconds: Double
+        if let dynamic = manifest.dynamicAcoustic {
+            validationProgress("acoustic.runtime.begin:N=\(speechTokens.count):lifetime=sequential")
+            let acoustic = try CosyVoice3DynamicAcousticRuntime(
+                assetRoot: assetRoot,
+                conditionsPath: flowConditionsPath,
+                flowShardPaths: manifest.flowShards,
+                hiftPath: manifest.hift,
+                f0: try reusableF0(),
+                contract: dynamic,
+                defaultPromptTokens: try reusableDynamicDefaultPromptTokens(dynamic),
+                defaultPromptFeat: try reusableDynamicDefaultPromptFeat(dynamic),
+                defaultSpeaker: try reusableDynamicDefaultSpeaker(dynamic),
+                flowNoiseMaximum: try reusableDynamicFlowNoiseMaximum(dynamic),
+                hiftExcitationMaximum: try reusableDynamicHiFTExcitationMaximum(dynamic),
+                flowStepCount: parameters.flowSteps.rawValue,
+                progress: validationProgressObserver
+            )
+            validationProgress("acoustic.runtime.end:N=\(speechTokens.count):lifetime=sequential")
+            validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
+            audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+            let acousticTotalMilliseconds = Self.milliseconds(since: acousticTotalStart)
+            acousticModelLoadMilliseconds = acoustic.modelLoadMilliseconds
+            acousticSynthesisMilliseconds = max(0, acousticTotalMilliseconds - acousticModelLoadMilliseconds)
+        } else {
+            validationProgress("acoustic.load.begin:N=\(speechTokens.count):lifetime=resident-fixed225")
+            let acousticLoadStart = DispatchTime.now().uptimeNanoseconds
+            let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
+            let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
+            let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
+            let acoustic = try makeAcousticRuntime(
+                conditions: conditions,
+                shards: shards,
+                hift: hift,
+                f0: try reusableF0(),
+                flowStepCount: parameters.flowSteps.rawValue
+            )
+            acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
+            validationProgress("acoustic.load.end:N=\(speechTokens.count):lifetime=resident-fixed225")
+            validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
+            let fixedSynthesisStart = DispatchTime.now().uptimeNanoseconds
+            audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+            acousticSynthesisMilliseconds = Self.milliseconds(since: fixedSynthesisStart)
+        }
         validationProgress("acoustic.synthesize.end:N=\(speechTokens.count):samples=\(audio.samples.count)")
 
         lastSynthesisReportValue = CosyVoice3SynthesisReport(
@@ -317,6 +348,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         parameters: CosyVoice3Parameters = .init(),
         flowSteps: [Int] = [10,8,6]
     ) async throws -> CosyVoice3FlowStepHeadToHeadReport {
+        guard !manifest.isDynamicAcoustic else {
+            throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                "dynamic acoustic uses sequential stage-scoped MLModel lifetime; the legacy same-model-instance Flow head-to-head is fixed225-only"
+            )
+        }
         guard flowSteps == [10,8,6] else {
             throw CosyVoice3EngineError.developmentRuntimeIncomplete(
                 "Flow head-to-head requires the fixed validation order [10, 8, 6]"
@@ -534,7 +570,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         _ base: CosyVoice3PreparedRequest,
         referenceConditioning: CosyVoice3ReferenceConditioning?
     ) -> CosyVoice3PreparedRequest {
-        let maximum = manifest.isDynamicAcoustic ? base.maximumSpeechTokenCount : min(base.maximumSpeechTokenCount, 225)
+        let maximum: Int
+        if let dynamic = manifest.dynamicAcoustic {
+            maximum = min(base.maximumSpeechTokenCount, dynamic.speechTokenMaximum)
+        } else {
+            maximum = min(base.maximumSpeechTokenCount, 225)
+        }
         return CosyVoice3PreparedRequest(
             prefillInput: base.prefillInput,
             minimumSpeechTokenCount: base.minimumSpeechTokenCount,
@@ -551,20 +592,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         f0: CosyVoice3HiFTDoubleF0,
         flowStepCount: Int
     ) throws -> any CosyVoice3AcousticRuntime {
-        if let dynamic = manifest.dynamicAcoustic {
-            return try CosyVoice3DynamicAcousticRuntime(
-                conditions: conditions,
-                shards: shards,
-                hift: hift,
-                f0: f0,
-                contract: dynamic,
-                defaultPromptTokens: try reusableDynamicDefaultPromptTokens(dynamic),
-                defaultPromptFeat: try reusableDynamicDefaultPromptFeat(dynamic),
-                defaultSpeaker: try reusableDynamicDefaultSpeaker(dynamic),
-                flowNoiseMaximum: try reusableDynamicFlowNoiseMaximum(dynamic),
-                hiftExcitationMaximum: try reusableDynamicHiFTExcitationMaximum(dynamic),
-                flowStepCount: flowStepCount,
-                progress: validationProgressObserver
+        guard !manifest.isDynamicAcoustic else {
+            throw CosyVoice3EngineError.developmentRuntimeIncomplete(
+                "resident acoustic construction is fixed225-only; dynamic acoustic must use sequential stage-scoped runtime"
             )
         }
         return try CosyVoice3Fixed225AcousticRuntime(
@@ -756,3 +786,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: validation SPI observer emits durable stage boundaries for automatic prepare, per-model warming, frontend geometry, LLM load/generation and acoustic load/synthesis. Observer is nil by default and does not alter public synthesis semantics or model math.
 
 // Changes 2026-10-04: validation observer is forwarded into request-scoped LLM runtime for prefill/decode liveness without changing default execution.
+
+// Changes 2026-10-04: production dynamic synthesis no longer constructs a resident Conditions+6 Flow+HiFT model set. It instantiates the stage-scoped dynamic runtime from asset paths, reports aggregate per-stage model-load time, keeps fixed225 resident behavior unchanged, clamps per-request LLM maxN to the active dynamic acoustic envelope, and fail-closes the legacy same-instance Flow head-to-head on dynamic profiles.
