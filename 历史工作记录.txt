@@ -47,3 +47,11 @@ Prompt 摘要：继续Phase1 dynamic acoustic数值控制和物理probe。
 测试或验证结果：FP32 symbolic同package T674/T752 macOS CPU预测finite，h maxAbs0.03378/0.03386，RMSE0.001008/0.001012；仍未宣称数值gate通过。Release build通过；第一次签名team配置错误、第一次Swift API/type-check失败保留，已纠正到现有H5R282PV62团队与optimizationHints API。
 平台/路径/阶段：本地macOS；物理设备执行准备；完整日志ios/.work/dynamic-acoustic/device-build*.log。
 GitHub Timeline：c18f48c已commit已push；本次修复将在独立实验分支commit/push；release未改变。
+
+时间：2026-10-03 21:49 America/New_York
+Prompt 摘要：完成Phase1物理风险probe并保持Phase2数值门槛。
+具体动作：物理Air对同一symbolic conditions/shard0资产分别CPU_ONLY、CPU_AND_NE运行N186/N225，四项预测在两个backend均完成，保存device receipts；新增Phase1 fail-closed gate；补充exact源码/fixture hash与compute-plan preferred分配。
+修改文件：实验probe、gate和历史工作记录.txt。
+测试或验证结果：两个policy均完成所有预测且finite，无E5RT/BNNS首预测shape错误；conditions物理mu最大误差5.245e-6；shard0物理h最大误差N186约4.0178、N225约3.9670。Host dynamic-vs-fixedN225 h maxAbs1.8125，数值回归尚未通过严格固定控制；因此六shard扩展、动态HiFT、全链路与cap移除未开始。物理preferred分配正在补充；requestedCPU_AND_NE不代表ANE residency。
+平台/路径/阶段：物理Air/iOS27.2，独立bundle com.actacomes.cosyvoice3.dynamicacoustic；本地ios/.work/dynamic-acoustic保留完整失败与执行日志；无Colab/Drive。
+GitHub Timeline：3fbc317已commit已push；本条及补充probe准备commit/push；release仍4ab288d3。

@@ -75,6 +75,10 @@ def main():
     p=argparse.ArgumentParser(); p.add_argument('--source-root',type=Path,required=True); p.add_argument('--model-dir',type=Path,required=True); p.add_argument('--fixture',type=Path,required=True); p.add_argument('--output',type=Path,required=True); a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     receipt=dict(schemaVersion=1, status='RUNNING', phase='source', sourceCommit=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(), pinnedUpstream=PIN, physicalDevice='NOT_RUN', tests=[], environment=dict(torch=torch.__version__,coremltools=ct.__version__), workloadProvenance='deterministic rebuild fixture target prefix; NOT real LLM workload tokens', productionDefaultFlowSteps=6)
+    receipt['exporterSha256']=sha(Path(__file__))
+    receipt['oracleHelperSha256']=sha(Path(__file__).parent/'probe_symbolic_conditions.py')
+    receipt['sourceDirty']=bool(subprocess.check_output(['git','status','--porcelain','--untracked-files=normal'],cwd=ROOT,text=True).strip())
+    receipt['fixtureFlowInputSha256']=sha(a.fixture/'flow_input.pt')
     rp=a.output/'receipt.json'
     def save(): rp.write_text(json.dumps(receipt,indent=2)+'\n')
     save()
@@ -137,3 +141,5 @@ if __name__=='__main__': raise SystemExit(main())
 # Generated: 2026-10-03 America/New_York. New file; all lines independent of the frozen exporter/runtime.
 
 # Changes 2026-10-03: line68 replaces symbolic F.pad with exact natural-T zero conditioning concatenation; attempt1 dynamic-pad conversion failure is retained.
+
+# Changes 2026-10-03: record exporter/oracle-helper/fixture SHA256 and working-tree dirtiness before export for exact experimental provenance.

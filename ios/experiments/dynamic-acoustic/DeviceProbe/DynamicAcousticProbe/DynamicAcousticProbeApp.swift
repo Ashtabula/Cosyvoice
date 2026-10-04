@@ -14,18 +14,18 @@ struct ProbeView: View {
         Text(status).padding().task {
             UIApplication.shared.isIdleTimerDisabled = true
             let backend = ProcessInfo.processInfo.arguments.contains("CPU_AND_NE") ? "CPU_AND_NE" : "CPU_ONLY"
-            do { try await Task.detached { try Probe.run(backend: backend) }.value; status = "Completed \(backend); inspect receipt" }
+            do { try await Task.detached { try await Probe.run(backend: backend) }.value; status = "Completed \(backend); inspect receipt" }
             catch { status = String(describing: error) }
         }
     }
 }
 struct Probe {
-    static func run(backend: String) throws {
+    static func run(backend: String) async throws {
         let root = Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets")
         let document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let path = document.appendingPathComponent("dynamic-probe-\(backend).json")
         let identity = try JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("identity.json")))
-        var receipt: [String: Any] = ["schemaVersion": 1, "status": "RUNNING", "backend": backend, "backendMeaning": "requested MLComputeUnits; not ANE residency", "physicalDevice": true, "deviceOS": ProcessInfo.processInfo.operatingSystemVersionString, "assetIdentity": identity, "tests": [[String: Any]]()]
+        var receipt: [String: Any] = ["recordedAtUnix": Date().timeIntervalSince1970, "schemaVersion": 1, "status": "RUNNING", "backend": backend, "backendMeaning": "requested MLComputeUnits; not ANE residency", "physicalDevice": true, "deviceOS": ProcessInfo.processInfo.operatingSystemVersionString, "assetIdentity": identity, "tests": [[String: Any]]()]
         func save() throws {
             let data = try JSONSerialization.data(withJSONObject: receipt, options: [.prettyPrinted, .sortedKeys])
             try data.write(to: path, options: .atomic)
@@ -37,14 +37,32 @@ struct Probe {
             var phase = "compilation"
             do {
                 receipt["phase"] = "\(role)_\(phase)"; try save()
-                let compiled = try MLModel.compileModel(at: root.appendingPathComponent("\(role).mlpackage"))
+                let compiled = try await MLModel.compileModel(at: root.appendingPathComponent("\(role).mlpackage"))
                 receipt["\(role)Compilation"] = "PASS"
                 phase = "loading"; receipt["phase"] = "\(role)_\(phase)"; try save()
                 let config = MLModelConfiguration()
                 config.computeUnits = backend == "CPU_ONLY" ? .cpuOnly : .cpuAndNeuralEngine
                 config.optimizationHints.reshapeFrequency = .infrequent
-                model = try MLModel(contentsOf: compiled, configuration: config)
+                model = try await MLModel(contentsOf: compiled, configuration: config)
                 receipt["\(role)Loading"] = "PASS"; try save()
+                do {
+                    let plan = try await MLComputePlan.load(contentsOf: compiled, configuration: config)
+                    var counts = [String: Int]()
+                    if case let .program(program) = plan.modelStructure {
+                        func visit(_ block: MLModelStructure.Program.Block) {
+                            for op in block.operations {
+                                if let usage = plan.deviceUsage(for: op) {
+                                    counts[usage.preferred.description, default:0] += 1
+                                }
+                                for child in op.blocks { visit(child) }
+                            }
+                        }
+                        for function in program.functions.values { visit(function.block) }
+                    }
+                    receipt["\(role)ComputePlanPreferredCounts"] = counts
+                    receipt["computePlanMeaning"] = "preferred placement hints; not measured execution residency"
+                } catch { receipt["\(role)ComputePlanError"] = errorRecord(error) }
+                try save()
             } catch {
                 receipt["\(role)Failure"] = ["phase": phase, "error": errorRecord(error)]
                 try save(); continue
@@ -68,11 +86,13 @@ struct Probe {
                     row["inputShapes"] = shapes
                     phase = "first_prediction"; receipt["phase"] = "\(role)_N\(n)_\(phase)"; receipt["pendingTest"] = row; try save()
                     let start = Date()
-                    let prediction = try model!.prediction(from: MLDictionaryFeatureProvider(dictionary: feed))
+                    let prediction = try await model!.prediction(from: MLDictionaryFeatureProvider(dictionary: feed))
                     row["milliseconds"] = Date().timeIntervalSince(start)*1000
                     var outputMetrics = [String: Any]()
                     for name in role == "conditions" ? ["mu","spks","cond"] : ["h","te"] {
                         guard let actual = prediction.featureValue(for: name)?.multiArrayValue else { throw NSError(domain:"ProbeOutput",code:1) }
+                        let expectedShape = role == "conditions" ? (name == "spks" ? [2,80] : [2,80,t]) : (name == "h" ? [2,t,1024] : [2,1024])
+                        guard actual.shape.map(\.intValue) == expectedShape else { throw NSError(domain:"ProbeOutputShape",code:1,userInfo:[NSLocalizedDescriptionKey: "\(name) \(actual.shape)"]) }
                         let data = try Data(contentsOf: folder.appendingPathComponent("expected-\(name).bin"))
                         let expected = data.withUnsafeBytes { Array($0.bindMemory(to: Float.self)) }
                         guard actual.count == expected.count else { throw NSError(domain:"ProbeOutputSize",code:actual.count) }
@@ -115,3 +135,5 @@ struct Probe {
 // New file, all lines; numerical acceptance is separate from successful execution and requested backend.
 
 // Changes 2026-10-03: line45 sets reshapeFrequency through optimizationHints; lines85-92 split metrics for reliable Swift type checking.
+
+// Changes 2026-10-03: async compute-plan preferred placement hints, wall-clock receipt timestamp, exact output-shape guards; physical execution still does not establish residency.
