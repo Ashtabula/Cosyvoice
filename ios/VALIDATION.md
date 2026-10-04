@@ -49,7 +49,9 @@ PASS / NOT PROMOTED: the isolated `experiment/ios-dynamic-acoustic` candidate ha
 
 PASS / NOT PROMOTED: focused physical lower-bound extension now proves N1/N2 plus overlapping N3/N225/N479 on a fresh N1...479 package, with N0/N480 rejection and exact graph/state/CoreML-weight carry-forward equivalence. Receipt status is `PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED`; evidence is `experiments/dynamic-acoustic/evidence/lower-bound-n1-extension-20261004-173341-20292`.
 
-DYNAMIC BLOCKER: the exact N1...479 integrated SDK candidate has not yet completed default + custom-reference physical public-API smoke and human listening acceptance.
+PASS / NOT PROMOTED: focused physical interior-shape replay of the exact widened N1 family at N145/T592 completed `PASS_SHAPE_EXECUTION` using requested CPU_AND_NE plus `reshapeFrequency=.infrequent`, the same configuration as the accepted shape-sweep probe. Evidence: `experiments/dynamic-acoustic/evidence/interior-n1-interior-20261004-184558-32925`. This rules out the N145 family package/shape itself as the cause of the prior DeviceSmoke stall.
+
+DYNAMIC BLOCKER: the exact N1...479 integrated SDK candidate has not yet completed default + custom-reference physical public-API smoke on the corrected dynamic acoustic execution configuration, nor human listening acceptance.
 
 DYNAMIC RISK / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope and remains fail-closed; do not change EOS semantics merely to hide this case.
 
