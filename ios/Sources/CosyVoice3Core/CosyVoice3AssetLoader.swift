@@ -1,5 +1,5 @@
 // CosyVoice3AssetLoader.swift
-// Requirement: fail-closed SDK asset loading for the validated fixed225 production lane, with persistent compiled Core ML caching so repeated synthesis never recompiles immutable .mlpackage assets.
+// Requirement: fail-closed SDK asset loading for both the frozen fixed225 oracle and the dynamic-acoustic production candidate, with persistent compiled Core ML caching so repeated synthesis never recompiles immutable .mlpackage assets.
 import CoreML
 import CryptoKit
 import Foundation
@@ -30,12 +30,43 @@ struct CosyVoice3ReferenceEnrollmentAssets: Codable, Sendable {
               !whisperMel128.isEmpty, !kaldiMel80.isEmpty, !matchaMel80.isEmpty,
               !flowConditionsDynamic.isEmpty,
               promptTokenCount == 151, promptFrameCount == 302 else {
-            throw CosyVoice3AssetError.invalidJSON("invalid fixed225 reference enrollment contract")
+            throw CosyVoice3AssetError.invalidJSON("invalid reference enrollment contract")
         }
     }
 }
 
-struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
+struct CosyVoice3DynamicAcousticAssets: Codable, Sendable {
+    let status: String
+    let speechTokenMinimum: Int
+    let speechTokenMaximum: Int
+    let promptFrameCount: Int
+    let defaultPromptTokens: String
+    let defaultPromptFeat: String
+    let defaultSpeaker: String
+    let flowNoiseMaximum: String
+    let hiftExcitationMaximum: String
+
+    func validate() throws {
+        guard status == "CANDIDATE",
+              speechTokenMinimum >= 1,
+              speechTokenMaximum >= speechTokenMinimum,
+              speechTokenMaximum <= CosyVoice3FP16StatefulLLMSession.capacity,
+              promptFrameCount == 302,
+              !defaultPromptTokens.isEmpty,
+              !defaultPromptFeat.isEmpty,
+              !defaultSpeaker.isEmpty,
+              !flowNoiseMaximum.isEmpty,
+              !hiftExcitationMaximum.isEmpty else {
+            throw CosyVoice3AssetError.invalidJSON("invalid dynamic acoustic contract")
+        }
+    }
+
+    var maximumFlowFrames: Int { promptFrameCount + 2 * speechTokenMaximum }
+    var maximumMelFrames: Int { 2 * speechTokenMaximum }
+    var maximumPCMSamples: Int { 960 * speechTokenMaximum }
+}
+
+struct CosyVoice3AssetManifest: Codable, Sendable {
     let schemaVersion: Int
     let profile: String
     let tokenizerFolder: String
@@ -47,25 +78,51 @@ struct CosyVoice3Fixed225AssetManifest: Codable, Sendable {
     let flowShards: [String]
     let hift: String
     let f0Folder: String
-    let flowMask: String
-    let flowNoise: String
+    let flowMask: String?
+    let flowNoise: String?
     let ropeTheta: Double
     let textEmbeddingRows: Int
     let referenceEnrollment: CosyVoice3ReferenceEnrollmentAssets?
+    let dynamicAcoustic: CosyVoice3DynamicAcousticAssets?
+
+    var isDynamicAcoustic: Bool { profile.hasPrefix("ios18-dynamic-") }
+    var manifestFileName: String { isDynamicAcoustic ? "cosyvoice3_dynamic.json" : "cosyvoice3_fixed225.json" }
 
     func validate() throws {
-        guard schemaVersion == 1,
-              profile == "ios18-fixed225",
-              flowShards.count == 6,
+        guard flowShards.count == 6,
               ropeTheta > 0,
               textEmbeddingRows > 151646,
               !tokenizerFolder.isEmpty,
-              !textEmbedding.isEmpty else {
+              !textEmbedding.isEmpty,
+              !llmPrefill.isEmpty,
+              !llmDecode.isEmpty,
+              !speechEmbedding.isEmpty,
+              !flowConditions.isEmpty,
+              !hift.isEmpty,
+              !f0Folder.isEmpty else {
+            throw CosyVoice3AssetError.unsupportedProfile(profile)
+        }
+
+        if profile == "ios18-fixed225" {
+            guard schemaVersion == 1,
+                  dynamicAcoustic == nil,
+                  flowMask?.isEmpty == false,
+                  flowNoise?.isEmpty == false else {
+                throw CosyVoice3AssetError.unsupportedProfile(profile)
+            }
+        } else if isDynamicAcoustic {
+            guard schemaVersion == 2, let dynamicAcoustic else {
+                throw CosyVoice3AssetError.unsupportedProfile(profile)
+            }
+            try dynamicAcoustic.validate()
+        } else {
             throw CosyVoice3AssetError.unsupportedProfile(profile)
         }
         try referenceEnrollment?.validate()
     }
 }
+
+typealias CosyVoice3Fixed225AssetManifest = CosyVoice3AssetManifest
 
 @available(iOS 18.0, macOS 15.0, *)
 enum CosyVoice3AssetLoader {
@@ -77,12 +134,19 @@ enum CosyVoice3AssetLoader {
     private static let cacheState = CacheState()
     private static let compiledCacheVersion = "v1"
 
-    static func loadManifest(root: URL) throws -> CosyVoice3Fixed225AssetManifest {
-        let url = root.appendingPathComponent("cosyvoice3_fixed225.json")
-        guard FileManager.default.fileExists(atPath: url.path) else { throw CosyVoice3AssetError.missing(url.path) }
+    static func loadManifest(root: URL) throws -> CosyVoice3AssetManifest {
+        let names = ["cosyvoice3_dynamic.json", "cosyvoice3_fixed225.json"]
+        guard let url = names.map({ root.appendingPathComponent($0) }).first(where: {
+            FileManager.default.fileExists(atPath: $0.path)
+        }) else {
+            throw CosyVoice3AssetError.missing(names.joined(separator: " or "))
+        }
         do {
-            let manifest = try JSONDecoder().decode(CosyVoice3Fixed225AssetManifest.self, from: Data(contentsOf: url))
+            let manifest = try JSONDecoder().decode(CosyVoice3AssetManifest.self, from: Data(contentsOf: url))
             try manifest.validate()
+            guard manifest.manifestFileName == url.lastPathComponent else {
+                throw CosyVoice3AssetError.invalidJSON("manifest/profile filename mismatch: \(url.lastPathComponent) profile=\(manifest.profile)")
+            }
             return manifest
         } catch let error as CosyVoice3AssetError {
             throw error
@@ -223,7 +287,8 @@ enum CosyVoice3AssetLoader {
             .appendingPathComponent("PreparedModelPlans-v1", isDirectory: true)
         try FileManager.default.createDirectory(at: markerRoot, withIntermediateDirectories: true)
 
-        let manifest = root.appendingPathComponent("cosyvoice3_fixed225.json")
+        let loadedManifest = try loadManifest(root: root)
+        let manifest = root.appendingPathComponent(loadedManifest.manifestFileName)
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
         let rows = specs.map {
@@ -266,7 +331,7 @@ enum CosyVoice3AssetLoader {
     }
 }
 
-// Purpose: centralize immutable fixed225 assets, gate custom-reference enrollment on explicit device-parity promotion, and persist compiled Core ML artifacts outside each synthesis call.
+// Purpose: centralize immutable fixed225-or-dynamic assets, gate custom-reference enrollment on explicit device-parity promotion, and persist compiled Core ML artifacts outside each synthesis call.
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
 // Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.
@@ -278,3 +343,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-02: store a same-install/OS/runtime-plan performance-only warm marker after successful model preparation; process relaunch can skip redundant prewarm, while actual MLModel construction remains authoritative and safely rebuilds if Core ML system caches were evicted.
 
 // Changes 2026-10-02: disable concurrent Core ML execution-plan constructors after physical iPhone18,4 returned Core ML -14 during two-model cold prewarm; first-use specialization is serialized with an autoreleasepool/yield boundary, and model-load errors now identify the exact asset path/computeUnits/compiled cache entry.
+
+// Changes 2026-10-04: add schemaVersion2 ios18-dynamic-* manifests with exact dynamic acoustic bounds/default conditioning/max noise/excitation assets. Loader prefers cosyvoice3_dynamic.json when present and otherwise preserves the frozen cosyvoice3_fixed225.json path.
