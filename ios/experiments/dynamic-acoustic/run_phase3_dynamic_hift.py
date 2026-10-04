@@ -393,6 +393,8 @@ def export_dynamic_body(
     body,
     example,
     output: Path,
+    receipt,
+    save,
 ):
     example, export_input_records = canonicalize_export_example(
         example
@@ -426,6 +428,37 @@ def export_dynamic_body(
         for node in exported.graph.nodes
         if node.op == "placeholder"
     }
+    # Persist actual EXIR USER_INPUT contracts before any converter can fail.
+    input_records = []
+    for spec in exported.graph_signature.input_specs:
+        if spec.kind.name != "USER_INPUT":
+            continue
+        name = spec.arg.name
+        value = placeholders[name].meta["val"]
+        def dimension(value):
+            return str(value) if isinstance(value, torch.SymInt) else int(value)
+        input_records.append({
+            "name": name,
+            "inputSpec": str(spec),
+            "shape": [dimension(d) for d in value.shape],
+            "stride": [dimension(d) for d in value.stride()],
+            "dtype": str(value.dtype),
+            "dimOrder": list(value.dim_order()),
+        })
+    receipt["exportedUserInputs"] = input_records
+    receipt["rangeConstraints"] = {
+        str(key): str(value) for key, value in exported.range_constraints.items()
+    }
+    (output / "exported_user_inputs.json").write_text(
+        json.dumps(input_records, indent=2) + "\n"
+    )
+    save()
+    names = ("mel", "f0", "phase", "noise", "norm")
+    if tuple(row["name"] for row in input_records) != names:
+        raise RuntimeError(f"Unexpected HiFT USER_INPUT order: {input_records}")
+    if input_records[2]["shape"][2] != input_records[3]["shape"][2]:
+        raise RuntimeError("Phase and official noise harmonic dimensions disagree")
+
     mel_symbolic = isinstance(
         placeholders["mel"].meta["val"].shape[2],
         torch.SymInt,
@@ -458,36 +491,29 @@ def export_dynamic_body(
         symbol="pcm_samples",
     )
 
+    symbolic_axes = {"mel": (2, frame_rd), "f0": (1, frame_rd),
+                     "phase": (1, frame_rd), "noise": (1, sample_rd),
+                     "norm": (2, sample_rd)}
+    coreml_inputs = []
+    contracts = []
+    for row, tensor in zip(input_records, example):
+        axis, range_dim = symbolic_axes[row["name"]]
+        shape = list(row["shape"])
+        for index, size in enumerate(shape):
+            if index != axis and (not isinstance(size, int) or size != tensor.shape[index]):
+                raise RuntimeError(f"Static EXIR/example dimension mismatch: {row}")
+        shape[axis] = range_dim
+        coreml_inputs.append(ct.TensorType(name=row["name"], shape=tuple(shape), dtype=np.float32))
+        contracts.append({"name": row["name"], "shape": [str(d) for d in shape],
+                          "symbolicAxis": axis, "exampleShape": list(tensor.shape)})
+    receipt["coreMLInputContracts"] = contracts
+    receipt["phase"] = "coreml_conversion"
+    save()
+
     model = ct.convert(
         exported,
         source="pytorch",
-        inputs=[
-            ct.TensorType(
-                name="mel",
-                shape=(1, 80, frame_rd),
-                dtype=np.float32,
-            ),
-            ct.TensorType(
-                name="f0",
-                shape=(1, frame_rd),
-                dtype=np.float32,
-            ),
-            ct.TensorType(
-                name="phase",
-                shape=(1, frame_rd, 9),
-                dtype=np.float32,
-            ),
-            ct.TensorType(
-                name="noise",
-                shape=(1, sample_rd, 1),
-                dtype=np.float32,
-            ),
-            ct.TensorType(
-                name="norm",
-                shape=(1, 1, sample_rd),
-                dtype=np.float32,
-            ),
-        ],
+        inputs=coreml_inputs,
         outputs=[
             ct.TensorType(
                 name="pcm",
@@ -502,6 +528,8 @@ def export_dynamic_body(
     package = output / "hift-dynamic-body-fp32.mlpackage"
     model.save(str(package))
 
+    receipt["phase"] = "coreml_compile"
+    save()
     compiled = output / "compiled"
     compiled.mkdir()
     subprocess.run(
@@ -677,6 +705,8 @@ def main() -> int:
             dynamic_body,
             canonical_example,
             args.output,
+            receipt,
+            save,
         )
         receipt["dynamicPackage"] = {
             key: value
@@ -831,3 +861,7 @@ if __name__ == "__main__":
 # Generated time: 2026-10-03 America/New_York.
 # Changes: experiment-only externalization of frame-dependent official noise-prefix and iSTFT normalization tensors; source parity must be bit-exact before Core ML conversion; no shipping runtime/assets/Candidate changes.
 # Changes 2026-10-04: generate source-parity intermediates under torch.no_grad instead of torch.inference_mode, then rebuild every torch.export example input as a normal CPU tensor with exact-value/stride/inference-state receipts before AOTAutograd export.
+
+# 2026-10-04 America/New_York: export_dynamic_body derives static input dimensions
+# from EXIR USER_INPUT placeholders and persists shape/stride/dtype/dim_order before
+# conversion; noise preserves the official harmonic channel dimension (9).

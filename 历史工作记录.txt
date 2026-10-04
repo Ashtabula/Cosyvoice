@@ -55,3 +55,10 @@ Prompt 摘要：完成Phase1物理风险probe并保持Phase2数值门槛。
 测试或验证结果：两个policy均完成所有预测且finite，无E5RT/BNNS首预测shape错误；conditions物理mu最大误差5.245e-6；shard0物理h最大误差N186约4.0178、N225约3.9670。Host dynamic-vs-fixedN225 h maxAbs1.8125，数值回归尚未通过严格固定控制；因此六shard扩展、动态HiFT、全链路与cap移除未开始。物理preferred分配正在补充；requestedCPU_AND_NE不代表ANE residency。
 平台/路径/阶段：物理Air/iOS27.2，独立bundle com.actacomes.cosyvoice3.dynamicacoustic；本地ios/.work/dynamic-acoustic保留完整失败与执行日志；无Colab/Drive。
 GitHub Timeline：3fbc317已commit已push；本条及补充probe准备commit/push；release仍4ab288d3。
+
+时间：2026-10-04 00:29 EDT (America/New_York)
+Prompt：继续 true-natural-length dynamic acoustic；修复 Phase3 noise contract，转换前保存真实 EXIR 输入，之后继续 host/device/text 验证。
+动作：从 USER_INPUT FX placeholder 推导 Core ML 静态维度，保持 symbolic G 与 480G；保存 name/shape/stride/dtype/dim_order 和 Core ML 输入契约；区分 conversion/compile 阶段。保留原输入 canonicalization、source parity、阈值和 productionPromotion=false。
+修改文件：ios/experiments/dynamic-acoustic/run_phase3_dynamic_hift.py；历史工作记录.txt。
+验证：venv Python 语法检查、git diff --check；真实新转换待执行。默认 Python py_compile 的系统缓存路径被沙盒阻止，改用 /private/tmp 缓存。
+GitHub Timeline：即将 commit/push experiment/ios-dynamic-acoustic；冻结 release 不变。
