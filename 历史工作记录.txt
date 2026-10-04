@@ -146,3 +146,10 @@ Prompt：真实native text-to-PCM完整证明及原numericalgate。
 修改文件：validate_physical_text.py；历史工作记录.txt。
 验证：原句0N167 T636 G334 samples160320；句1N178 T658 G356 samples170880；native tokenizer/frontend/LLM真实执行，cap225未改，无padding/假EOS。same family所有shards/HiFT执行完成；source/HiFTgate后处理待运行。
 GitHub Timeline：e791bccce1500fa255495d451f4069a30f7aa95c已push；本次数值validator补充即将commit/push。
+
+时间：2026-10-04 01:06 EDT (America/New_York)
+Prompt：自主继续直到完整natural-length text-to-PCM通过，并保存所有证据。
+动作：完成physical-real-text-validation-v1；归档统一family四长度device、nativeTEXT成功和sourcegate receipts；README说明复现、明确CPU LLM路线、支持范围、失败保留及未接受的full endpoint误差；WAV预览保存.work、Float32 readback exact。
+修改文件：ios/experiments/dynamic-acoustic/evidence/observed-family-device-CPU_AND_NE-v1.json；physical-real-text-v2.json；physical-real-text-validation-v1.json；evidence-index.json；README.md；历史工作记录.txt。
+验证：Air原句0actualEOS6562 N167 T636 G334 samples160320/6.68s、句1EOS6562 N178 T658 G356 samples170880/7.12s，finite，无padding/truncation/假EOS；same统一symbolic family；source dynamic/fixed HiFT maxAbs/relativeL2均0；actual-device-mel CoreML/upstreamFP64 relativeL2=.008859934628/.008727899948，原.02 gate通过；full endpoint/source1.193424/1.082897不是parity/quality PASS；WAV逐sample与rawPCM exact。Native frontend/RAS/cap225未改；实验guard明确exported N151..225而非exact225；>225/<151未验证。冻结release仍4ab288d39b92d68b448c2d4b5fa011dddc29e202；productionPromotion=false。实际执行local macOS+物理iPhone，非Colab；LLM CPU_ONLY，acoustic请求CPU_AND_NE且preferredCPU，非ANE residency。
+GitHub Timeline：validator代码已push d585144；本次最终evidence/docs即将commit/push实验分支；之后检查local/remote HEAD与tracked clean。

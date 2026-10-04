@@ -56,6 +56,10 @@
       "bytes": 41659,
       "sha256": "bbec02375dc82d91ba8502339c4f8235aa22c5ebc36c3bc292d703d502417f87"
     },
+    "observed-family-device-CPU_AND_NE-v1.json": {
+      "bytes": 8935,
+      "sha256": "048aa075bd37928fccecab9a12b4172ce9c34ec7f0725714b2666dd3223b4940"
+    },
     "observed-text-family-v1.json": {
       "bytes": 34240,
       "sha256": "af077d8c5aba0f20599fc97f01224f727b8b522db2ae4187eae578cb0e0c1325"
@@ -79,6 +83,14 @@
     "physical-real-text-v1-failed.json": {
       "bytes": 9684,
       "sha256": "675848ca9932c383671af058b0c92361b3afc531d6df919b9030a2922b155b83"
+    },
+    "physical-real-text-v2.json": {
+      "bytes": 15869,
+      "sha256": "f63bf46f411d4a271eb40724ab36855d82d25911ac6d1fed4dd2538e254b45d5"
+    },
+    "physical-real-text-validation-v1.json": {
+      "bytes": 6401,
+      "sha256": "580fb56044ee8c741ee7dcf5a45c9b7f03dc93bc1e62a85eb4999143da0f5281"
     },
     "shard0-exported-graph.txt": {
       "bytes": 41020,

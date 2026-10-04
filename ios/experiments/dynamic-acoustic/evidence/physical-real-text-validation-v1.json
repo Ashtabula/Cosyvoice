@@ -1,0 +1,194 @@
+{
+  "acceptance": "Existing same-mel shipping HiFT FP64 relativeL2<=0.02; full endpoint divergence diagnostic; audible quality/Candidate acceptance separate.",
+  "acousticConfig": {
+    "constructionPrefixByteExact": true,
+    "excluded": [
+      "gan wrapper/discriminators",
+      "dataset processors",
+      "training config"
+    ],
+    "output": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/physical-real-text-validation-v1/cosyvoice3.acoustic.yaml",
+    "outputSha256": "6f0288840c227d4241dcc11579803c0a905e27f1ad6bd5157e8430e16bb58f43",
+    "qwenPretrainPathPresent": true,
+    "reason": "CausalHiFTGenerator.SineGen2 creates rand_ini and sine_waves during construction; preserving the original YAML prefix preserves their RNG trajectory without instantiating post-HiFT training objects.",
+    "rngConstructionOrder": [
+      "seed",
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "rngSeed": 1986,
+    "runtimeMathChanged": false,
+    "schemaVersion": 2,
+    "sections": [
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "source": "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512/cosyvoice3.yaml",
+    "sourceSha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965",
+    "status": "PASS_RUNTIME_PREFIX_CONFIG_DERIVATION"
+  },
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "productionPromotion": false,
+  "rawDeviceReceiptSha256": "f63bf46f411d4a271eb40724ab36855d82d25911ac6d1fed4dd2538e254b45d5",
+  "schemaVersion": 1,
+  "sourceCommit": "d58514435cfdb16feafafd1717833117a08ddda6",
+  "status": "PASS_PHYSICAL_TEXT_NATURAL_PCM_HIFT_COMPONENT_NOT_PROMOTED",
+  "tests": [
+    {
+      "G": 334,
+      "N": 167,
+      "T": 636,
+      "actualEarlyEOS": true,
+      "deviceMelVsSourceNatural": {
+        "cosineSimilarity": 0.9994022110520421,
+        "finite": true,
+        "maxAbsError": 1.1724497079849243,
+        "meanAbsError": 0.08029186456813389,
+        "relativeL2": 0.03663246418704717,
+        "rmse": 0.11139490689198023,
+        "shape": [
+          1,
+          80,
+          334
+        ]
+      },
+      "fullDeviceEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.24902031343661998,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.12580418989639955,
+        "relativeL2": 1.193424054306227,
+        "rmse": 0.22835437105499048,
+        "shape": [
+          1,
+          160320
+        ]
+      },
+      "melSha256": "9b9ccc5fc0da647057d35cd09bfee7b29ebeee62ee1ceb688d478e2e146087d9",
+      "pcmSha256": "93ce970b690e8a3bb7762c55a0b7fcfeb2ee1faae7a2ce5d32cdc38e32bf3e53",
+      "sameDeviceMelPCMVsSourceBody": {
+        "cosineSimilarity": 0.9999718750703279,
+        "finite": true,
+        "maxAbsError": 0.013754308223724365,
+        "meanAbsError": 0.0008170289637164606,
+        "relativeL2": 0.00885976720496785,
+        "rmse": 0.0016119637585290413,
+        "shape": [
+          1,
+          160320
+        ]
+      },
+      "sameDeviceMelPCMVsUpstreamFP64": {
+        "cosineSimilarity": 0.999971873530776,
+        "finite": true,
+        "maxAbsError": 0.013756990432739258,
+        "meanAbsError": 0.0008170464458976272,
+        "relativeL2": 0.008859934628251825,
+        "rmse": 0.001611994203064799,
+        "shape": [
+          1,
+          160320
+        ]
+      },
+      "sameMelHiFTGatePass": true,
+      "samples": 160320,
+      "seconds": 6.68,
+      "sourceDynamicVsFixedBody": {
+        "cosineSimilarity": 0.9999999999999777,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          160320
+        ]
+      },
+      "stopToken": 6562,
+      "text": "This is a CosyVoice3 production clean-room public API validation.",
+      "textIndex": 0,
+      "wavPath": "ios/.work/dynamic-acoustic/physical-real-text-validation-v1/text-0-N167.wav",
+      "wavSha256": "01898409e9620692363da3475a0de29ccf451f15b813a5212916ebea0f90224b"
+    },
+    {
+      "G": 356,
+      "N": 178,
+      "T": 658,
+      "actualEarlyEOS": true,
+      "deviceMelVsSourceNatural": {
+        "cosineSimilarity": 0.999619914024656,
+        "finite": true,
+        "maxAbsError": 0.9705432653427124,
+        "meanAbsError": 0.08448218879665331,
+        "relativeL2": 0.03204942814939637,
+        "rmse": 0.11106669962622415,
+        "shape": [
+          1,
+          80,
+          356
+        ]
+      },
+      "fullDeviceEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.3723908583446258,
+        "finite": true,
+        "maxAbsError": 1.8209065198898315,
+        "meanAbsError": 0.06478635123754738,
+        "relativeL2": 1.0828972569733653,
+        "rmse": 0.14240136301686263,
+        "shape": [
+          1,
+          170880
+        ]
+      },
+      "melSha256": "bd235d3cb1b82910b536788f834e2a3f4d7f1e8a9c2479c4213e4309c5e7d65d",
+      "pcmSha256": "1968be8d0a260208c2a9410b9d637a6efbaa5482602f439222569502992fb1ea",
+      "sameDeviceMelPCMVsSourceBody": {
+        "cosineSimilarity": 0.9999659075675156,
+        "finite": true,
+        "maxAbsError": 0.02039545774459839,
+        "meanAbsError": 0.0004475533918579385,
+        "relativeL2": 0.00872751336449048,
+        "rmse": 0.0010708219613241173,
+        "shape": [
+          1,
+          170880
+        ]
+      },
+      "sameDeviceMelPCMVsUpstreamFP64": {
+        "cosineSimilarity": 0.999965903950195,
+        "finite": true,
+        "maxAbsError": 0.020388543605804443,
+        "meanAbsError": 0.00044757086923995605,
+        "relativeL2": 0.00872789994779502,
+        "rmse": 0.0010708693046052869,
+        "shape": [
+          1,
+          170880
+        ]
+      },
+      "sameMelHiFTGatePass": true,
+      "samples": 170880,
+      "seconds": 7.12,
+      "sourceDynamicVsFixedBody": {
+        "cosineSimilarity": 0.999999999999982,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          170880
+        ]
+      },
+      "stopToken": 6562,
+      "text": "This is a CosyVoice3 public API reference voice validation.",
+      "textIndex": 1,
+      "wavPath": "ios/.work/dynamic-acoustic/physical-real-text-validation-v1/text-1-N178.wav",
+      "wavSha256": "bfd7facf858b1a282aa8c491d726ce6abc609e82f2b8b8614d062dd3ddbf70ca"
+    }
+  ]
+}
