@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Requirement: stage a host-parity-approved custom-reference candidate into the public-API device-smoke app without mutating the canonical asset root.
+# Requirement: stage a host-parity-approved custom-reference candidate into the public-API device-smoke app without mutating the canonical asset root; when a dynamic manifest exists it is the active manifest and its symbolic flowConditionsDynamic must not be replaced by the legacy reference Flow package.
 from __future__ import annotations
 
 import argparse
@@ -73,11 +73,14 @@ def main() -> None:
         benchmark_name = "public-api-candidate-v1" if args.candidate_benchmark else "flow-steps-head-to-head-v1"
         (OUTPUT / marker_name).write_text(json.dumps({"schemaVersion": 1, "benchmark": benchmark_name, "hostReceiptSha256": sha256(host_receipt_path), "sourceCommit": source_commit}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
-    manifest_path = runtime / "cosyvoice3_fixed225.json"
+    dynamic_manifest_path = runtime / "cosyvoice3_dynamic.json"
+    fixed_manifest_path = runtime / "cosyvoice3_fixed225.json"
+    manifest_path = dynamic_manifest_path if dynamic_manifest_path.exists() else fixed_manifest_path
     manifest = json.loads(manifest_path.read_text())
+    dynamic_active = manifest_path == dynamic_manifest_path
     reference = manifest.get("referenceEnrollment")
     if not isinstance(reference, dict):
-        raise RuntimeError("manifest has no referenceEnrollment contract")
+        raise RuntimeError("active manifest has no referenceEnrollment contract")
 
     candidate_sources = {
         "speechTokenizer": reference_candidate_dir / "speech-tokenizer-fixed605.mlpackage",
@@ -85,8 +88,15 @@ def main() -> None:
         "whisperMel128": reference_candidate_dir / "whisper_mel_128.f32",
         "kaldiMel80": reference_candidate_dir / "kaldi_mel_80.f32",
         "matchaMel80": reference_candidate_dir / "matcha_mel_80.f32",
-        "flowConditionsDynamic": reference_candidate_dir / "flow-conditions-dynamic-151-302.mlpackage",
     }
+    if not dynamic_active:
+        candidate_sources["flowConditionsDynamic"] = reference_candidate_dir / "flow-conditions-dynamic-151-302.mlpackage"
+    else:
+        if reference.get("flowConditionsDynamic") != manifest.get("flowConditions"):
+            raise RuntimeError(
+                "dynamic active manifest must bind referenceEnrollment.flowConditionsDynamic "
+                "to the same symbolic flowConditions package"
+            )
     for key, source in candidate_sources.items():
         if not source.exists():
             raise RuntimeError(f"reference candidate missing: {source}")
@@ -120,6 +130,7 @@ def main() -> None:
     print(
         "[COSYVOICE3-DEVICE-SMOKE-ASSETS] PASS "
         f"output={OUTPUT} hostReceiptSha256={sha256(host_receipt_path)} "
+        f"activeManifest={manifest_path.name} dynamicActive={dynamic_active} "
         "canonicalAssetRootMutated=false",
         flush=True,
     )
@@ -136,3 +147,5 @@ if __name__ == "__main__":
 # Changes 2026-10-02: Candidate marker now includes host receipt SHA and exact local Git HEAD, aligning generic staging with promoted-runtime benchmark diagnostics.
 
 # Changes 2026-10-02: add mutually exclusive Flow 10/8/6 head-to-head marker staging with the same host/source identity binding used by Candidate diagnostics.
+
+# Changes 2026-10-04: active-manifest staging is dynamic-first. For dynamic candidates, stage reference encoder/frontend assets but preserve referenceEnrollment.flowConditionsDynamic == manifest.flowConditions so custom reference uses the validated symbolic Conditions package; fixed225 oracle manifest is not mutated.
