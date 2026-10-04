@@ -1,6 +1,6 @@
 # CosyVoice3 iOS dynamic-acoustic status
 
-Status: **PHYSICAL N1...479 ACOUSTIC ENVELOPE PASS; PUBLIC-API PASS EXISTS FOR N3...479 CANDIDATE / NOT PROMOTED**.
+Status: **PHYSICAL N1...479 ACOUSTIC ENVELOPE + EXACT N1 CANDIDATE PUBLIC-API PASS / NOT PROMOTED**.
 
 The frozen fixed225 release remains unchanged. This experiment branch is `experiment/ios-dynamic-acoustic`; production promotion remains false.
 
@@ -62,12 +62,34 @@ Result:
 
 This clears the widened Core ML package and the N145 interior shape itself. The remaining hypothesis for the earlier DeviceSmoke stall is the SDK execution-configuration mismatch; current source now applies the same `reshapeFrequency=.infrequent` hint to dynamic acoustic warm and per-prediction loads. Public-API replay on the current source is still required before that diagnosis is closed.
 
+## Exact N1 candidate public-API evidence
+
+PASS / NOT PROMOTED: the fresh lower-bound-gated integration candidate passed real `CosyVoice3Engine.synthesize()` on a physical iPhone for both default and custom-reference lanes after the SDK was aligned to the accepted physical acoustic execution configuration.
+
+Candidate root:
+`ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime`
+
+Evidence:
+`ios/validation/evidence/dynamic-public-api-smoke-1791154976`
+
+Receipt:
+- status: `PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE`
+- profile: `ios18-dynamic-n1-n479-candidate`
+- bounds: N=1...479
+- source commit: `3267547f6436444e72889d443a030fd9be41e2af`
+- default lane: N=134, PCM=128640 samples, 5.36 s at 24 kHz, WAV SHA256 `5ef55fa0efb9b0e2b0919c5d7f4cd86ddfecddebf25389e527768d5b8544a21e`
+- custom-reference lane: N=260, PCM=249600 samples, 10.40 s at 24 kHz, WAV SHA256 `24a20a7aca6d6810d54184c20feccba506552b98d47b2292bb02cf99a59b6f1b`
+- requested placement: LLM prefill/decode `CPU_ONLY`, dynamic acoustic `CPU_AND_NE`, reference encoders `CPU_ONLY`
+- dynamic acoustic execution hint: `reshapeFrequency=INFREQUENT`
+- placement/hint meaning: requested Core ML configuration only; no accelerator-residency claim
+- production promotion: false
+
+This closes the earlier N145/T592 DeviceSmoke stall as an SDK execution-configuration mismatch rather than a widened-family shape failure: the exact N145 family shape passed the focused physical probe, and the corrected SDK then completed the full default/reference public-API smoke on the N1 candidate.
+
 ## Remaining gates before dynamic promotion
 
-1. Build a fresh `ios18-dynamic-n1-n479-candidate` cryptographically bound to the PASS lower-bound extension receipt.
-2. Run physical default + custom-reference public-API smoke against that exact N1 candidate.
-3. Perform explicit human listening acceptance on both exact smoke WAVs using `ios/validation/record_dynamic_listening_acceptance.py`.
-4. Record/quantify the theoretical native-RAS N0 case without changing EOS=6562 suppression semantics; N0 remains fail-closed unless a separately justified zero-token policy is adopted.
-5. Only after those gates may release/clean-room/reproducibility/license/public-identity work be evaluated for dynamic promotion.
+1. Perform explicit human listening acceptance on both exact N1-candidate smoke WAVs using `ios/validation/record_dynamic_listening_acceptance.py`.
+2. Record/quantify the theoretical native-RAS N0 case without changing EOS=6562 suppression semantics; N0 remains fail-closed unless a separately justified zero-token policy is adopted.
+3. After those dynamic-specific gates pass, evaluate release/clean-room/reproducibility/license/public-identity requirements for dynamic promotion.
 
 N0 remains an explicit fail-closed case. Actual EOS token semantics remain unchanged: EOS=6562; 6561 is SOS. The global LLM per-request capacity policy remains `min(targetTextTokens*20, 512-logicalPrefixLength)`; the active acoustic manifest provides only the downstream profile cap.
