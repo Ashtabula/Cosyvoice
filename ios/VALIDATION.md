@@ -47,9 +47,11 @@ PRODUCTION TOOLING READY / NOT YET PASS: `validation/ProductionCleanRoom`, `run_
 
 PASS / NOT PROMOTED: the isolated `experiment/ios-dynamic-acoustic` candidate has a complete physical N3...479 integer shape sweep (477/477, no missing/duplicates), then passed real `CosyVoice3Engine.synthesize()` on a physical iPhone for both default and custom-reference lanes after replacing simultaneous acoustic-model residency with the same one-model-per-prediction/autoreleasepool lifecycle used by the accepted shape sweep. The public-API PASS is bound to source commit `6cb25b4dba7e7540914dd3807a186767d6290110`: default N140 -> 134400 samples and reference N260 -> 249600 samples, profile `ios18-dynamic-n3-n479-candidate`, `productionPromotion=false`.
 
-DYNAMIC BLOCKER: N1/N2 are not yet physically promoted into the candidate envelope. The focused lower-bound extension must pass N1/N2 plus overlapping N3/N225/N479 on a fresh N1...479 package, prove N0/N480 rejection, and prove graph/state/CoreML-weight carry-forward equivalence before an N1 candidate may be assembled.
+PASS / NOT PROMOTED: focused physical lower-bound extension now proves N1/N2 plus overlapping N3/N225/N479 on a fresh N1...479 package, with N0/N480 rejection and exact graph/state/CoreML-weight carry-forward equivalence. Receipt status is `PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED`; evidence is `experiments/dynamic-acoustic/evidence/lower-bound-n1-extension-20261004-173341-20292`.
 
-DYNAMIC BLOCKER: human listening acceptance is not yet recorded for the final dynamic candidate. Numerical PCM/shape PASS is not treated as audible-quality acceptance.
+DYNAMIC BLOCKER: the exact N1...479 integrated SDK candidate has not yet completed default + custom-reference physical public-API smoke and human listening acceptance.
+
+DYNAMIC RISK / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope and remains fail-closed; do not change EOS semantics merely to hide this case.
 
 The fixed225 release status and its existing production blockers above are unchanged by this experiment.
 
