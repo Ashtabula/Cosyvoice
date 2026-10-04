@@ -10,5 +10,10 @@
     "ios/Sources"
   ],
   "assetIdentity": "ios-fixed225-reference/0.1.0-rc1@2fb4251057a5c627e76e392c04b0e778f530d0e0#a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
-  "publicRedistributionApproved": false
+  "publicRedistributionApproved": false,
+  "candidateBenchmarkWorkload": {
+    "text": "This is a CosyVoice3 public API reference voice validation.",
+    "textSha256": "c0219ad18aff345aa5196a07c72d13728abf56632faaf805559559e62c7b90ed",
+    "fixed225ExpectedSpeechTokens": 225
+  }
 }

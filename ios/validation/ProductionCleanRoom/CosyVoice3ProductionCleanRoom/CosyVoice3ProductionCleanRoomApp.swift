@@ -18,6 +18,8 @@ private struct Binding: Codable {
     let payloadTreeSha256: String
     let testedRuntimeTreeSha256: String
     let referenceTranscriptCharacters: Int
+    let workloadText: String
+    let workloadTextSha256: String
 }
 
 @main
@@ -58,10 +60,10 @@ final class CleanRoomModel: ObservableObject {
             let capabilities = try await engine.capabilities()
             guard capabilities.outputSampleRate == 24_000, capabilities.defaultFlowSteps == .steps6, capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else { throw NSError(domain:"CleanRoom",code:4,userInfo:[NSLocalizedDescriptionKey:"public capabilities mismatch"]) }
             phase = "synthesize"
-            let audio = try await engine.synthesize("This is a CosyVoice3 production clean-room public API validation.", parameters: CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>",flowSteps:.steps6))
+            let audio = try await engine.synthesize(binding.workloadText, parameters: CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>",flowSteps:.steps6))
             phase = "pcm-validation"
             guard audio.sampleRate == 24_000, audio.channels == 1, !audio.samples.isEmpty, audio.samples.allSatisfy({ $0.isFinite }) else { throw NSError(domain:"CleanRoom",code:5,userInfo:[NSLocalizedDescriptionKey:"PCM contract failed"]) }
-            let receipt:[String:Any] = ["schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM","releaseHead":binding.releaseHead,"candidateReleaseHead":binding.candidateReleaseHead,"validatedSourceCommit":binding.validatedSourceCommit,"assetIdentity":binding.assetIdentity,"profile":binding.profile,"version":binding.version,"revision":binding.revision,"payloadTreeSha256":binding.payloadTreeSha256,"testedRuntimeTreeSha256":binding.testedRuntimeTreeSha256,"publicApiOnly":true,"flowSteps":6,"sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"finite":true,"referenceTranscriptCharacters":transcript.count,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"recordedAtUnix":Int(Date().timeIntervalSince1970)]
+            let receipt:[String:Any] = ["schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM","releaseHead":binding.releaseHead,"candidateReleaseHead":binding.candidateReleaseHead,"validatedSourceCommit":binding.validatedSourceCommit,"assetIdentity":binding.assetIdentity,"profile":binding.profile,"version":binding.version,"revision":binding.revision,"payloadTreeSha256":binding.payloadTreeSha256,"testedRuntimeTreeSha256":binding.testedRuntimeTreeSha256,"publicApiOnly":true,"flowSteps":6,"sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"finite":true,"referenceTranscriptCharacters":transcript.count,"workloadTextCharacters":binding.workloadText.count,"workloadTextSha256":binding.workloadTextSha256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"recordedAtUnix":Int(Date().timeIntervalSince1970)]
             phase = "write-pass-receipt"
             let data = try JSONSerialization.data(withJSONObject: receipt, options:[.prettyPrinted,.sortedKeys]); let url = try Self.documents().appendingPathComponent("production-clean-room-receipt.json"); try data.write(to:url,options:.atomic)
             status = "PASS samples=\(audio.samples.count) receipt=\(url.path)"
@@ -82,3 +84,5 @@ final class CleanRoomModel: ObservableObject {
 // Generated time: 2026-10-03 America/New_York.
 
 // Changes 2026-10-03: every clean-room failure now writes the same Documents receipt with FAIL_PRODUCTION_CLEAN_ROOM plus the exact phase/error, so host polling cannot time out silently on app-side validation/runtime errors.
+
+// Changes 2026-10-03: Production clean-room now consumes the exact Candidate-frozen public-API workload from its staged binding. The fixed225 acoustic bucket requires 225 generated speech tokens; inventing a new sentence can legitimately hit EOS early and is outside this validated fixed bucket.
