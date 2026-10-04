@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import gc
 import json
 import math
 import subprocess
@@ -334,15 +335,29 @@ def export_package(shard, index: int, example, output_dir: Path, precision):
     }
 
 
+def to_coreml_case(case):
+    return {
+        "N": int(case["N"]),
+        "G": int(case["G"]),
+        "P": int(case["P"]),
+        "T": int(case["T"]),
+        "noise": case["noise"].detach().cpu().numpy().astype(np.float32, copy=True),
+        "mask": case["mask"].detach().cpu().numpy().astype(np.float32, copy=True),
+        "mu": case["mu"].detach().cpu().numpy().astype(np.float32, copy=True),
+        "spks": case["spks"].detach().cpu().numpy().astype(np.float32, copy=True),
+        "cond": case["cond"].detach().cpu().numpy().astype(np.float32, copy=True),
+    }
+
+
 def coreml_first_call(models, case):
     t = np.zeros((2,), dtype=np.float32)
     feed = {
-        "x": case["noise"].repeat(2, 1, 1).cpu().numpy(),
-        "mask": case["mask"].cpu().numpy(),
-        "mu": case["mu"].cpu().numpy(),
+        "x": np.concatenate((case["noise"], case["noise"]), axis=0),
+        "mask": case["mask"],
+        "mu": case["mu"],
         "t": t,
-        "spks": case["spks"].cpu().numpy(),
-        "cond": case["cond"].cpu().numpy(),
+        "spks": case["spks"],
+        "cond": case["cond"],
     }
 
     boundaries = []
@@ -402,11 +417,11 @@ def source_rollout(full_graph, case, steps: int = 6):
 
 def coreml_rollout(models, case, steps: int = 6):
     span = cosine_span(steps)
-    state = case["noise"].cpu().numpy().astype(np.float32, copy=True)
-    mask = case["mask"].cpu().numpy()
-    mu = case["mu"].cpu().numpy()
-    spks = case["spks"].cpu().numpy()
-    cond = case["cond"].cpu().numpy()
+    state = np.asarray(case["noise"], dtype=np.float32).copy()
+    mask = np.asarray(case["mask"], dtype=np.float32)
+    mu = np.asarray(case["mu"], dtype=np.float32)
+    spks = np.asarray(case["spks"], dtype=np.float32)
+    cond = np.asarray(case["cond"], dtype=np.float32)
     cfg = np.float32(0.7)
 
     for index in range(steps):
@@ -452,19 +467,17 @@ def fixed_conditions_feed(flow_fixture):
 def frozen_rollout(
     fixed_conditions_model,
     fixed_models,
-    flow_fixture,
+    condition_feed,
     noise,
     steps: int = 6,
 ):
-    conditions = fixed_conditions_model.predict(
-        fixed_conditions_feed(flow_fixture)
-    )
+    conditions = fixed_conditions_model.predict(condition_feed)
     case = {
-        "noise": noise,
-        "mask": torch.ones(2, 1, 752),
-        "mu": torch.from_numpy(conditions["mu"]),
-        "spks": torch.from_numpy(conditions["spks"]),
-        "cond": torch.from_numpy(conditions["cond"]),
+        "noise": np.asarray(noise, dtype=np.float32),
+        "mask": np.ones((2, 1, 752), dtype=np.float32),
+        "mu": np.asarray(conditions["mu"], dtype=np.float32),
+        "spks": np.asarray(conditions["spks"], dtype=np.float32),
+        "cond": np.asarray(conditions["cond"], dtype=np.float32),
     }
     return coreml_rollout(fixed_models, case, steps=steps)
 
@@ -548,7 +561,7 @@ def main() -> int:
         source_examples = {}
         source_first = {}
 
-        for n, case in cases.items():
+        for n, case in coreml_cases.items():
             args0, official, sharded, boundaries = source_first_call(
                 full_graph,
                 shards,
@@ -598,6 +611,49 @@ def main() -> int:
                         source_examples[index][2],
                     )
 
+        source_rollouts = {}
+        source_reference = {}
+        coreml_cases = {}
+        for n, case in cases.items():
+            receipt["phase"] = f"precompute_source_rollout_N{n}"
+            save()
+            source_state = source_rollout(
+                full_graph,
+                case,
+                steps=6,
+            )
+            source_state_np = (
+                source_state.detach().cpu().numpy().astype(np.float32, copy=True)
+            )
+            source_rollouts[n] = {
+                "state": source_state_np,
+                "mel": source_state_np[:, :, 302:].copy(),
+            }
+            source_reference[n] = {
+                "official": (
+                    source_first[n]["official"]
+                    .detach()
+                    .cpu()
+                    .numpy()
+                    .astype(np.float32, copy=True)
+                ),
+                "boundaries": [
+                    {
+                        "h": boundary["h"]
+                        .detach()
+                        .cpu()
+                        .numpy()
+                        .astype(np.float32, copy=True)
+                    }
+                    for boundary in source_first[n]["boundaries"]
+                ],
+            }
+            coreml_cases[n] = to_coreml_case(case)
+
+        fixed_condition_feed = fixed_conditions_feed(flow_fixture)
+        receipt["sourceRolloutPrecomputedBeforeCoreMLPrediction"] = True
+        receipt["postCoreMLPyTorchModuleExecutionAllowed"] = False
+
         precision = (
             ct.precision.FLOAT16
             if args.precision == "fp16"
@@ -622,6 +678,17 @@ def main() -> int:
                 }
             )
             save()
+
+        del full_graph
+        del estimator
+        del shards
+        del conditioning
+        del source_first
+        del cases
+        gc.collect()
+        receipt["torchModelGraphsReleasedBeforeCoreMLPrediction"] = True
+        receipt["phase"] = "load_coreml_models"
+        save()
 
         models = [
             ct.models.MLModel(
@@ -664,11 +731,11 @@ def main() -> int:
                 models,
                 case,
             )
-            official_velocity = source_first[n]["official"].cpu().numpy()
+            official_velocity = source_reference[n]["official"]
 
             boundary_rows = []
             for index in range(5):
-                expected = source_first[n]["boundaries"][index]["h"].cpu().numpy()
+                expected = source_reference[n]["boundaries"][index]["h"]
                 actual = coreml_boundaries[index]["h"]
                 boundary_rows.append(
                     {
@@ -682,22 +749,12 @@ def main() -> int:
                 coreml_velocity,
             )
 
-            source_state = source_rollout(
-                full_graph,
-                case,
-                steps=6,
-            )
+            source_state = source_rollouts[n]["state"]
+            source_mel = source_rollouts[n]["mel"]
             coreml_state = coreml_rollout(
                 models,
                 case,
                 steps=6,
-            )
-
-            source_mel = (
-                source_state[:, :, 302:]
-                .detach()
-                .cpu()
-                .numpy()
             )
             coreml_mel = coreml_state[:, :, 302:]
 
@@ -709,7 +766,7 @@ def main() -> int:
                 "firstCallVelocityVsOfficial": first_call,
                 "boundaryMetrics": boundary_rows,
                 "sixStepStateVsOfficial": metrics(
-                    source_state.detach().cpu().numpy(),
+                    source_state,
                     coreml_state,
                 ),
                 "sixStepMelVsOfficial": metrics(
@@ -724,7 +781,7 @@ def main() -> int:
                 frozen_state = frozen_rollout(
                     fixed_conditions_model,
                     fixed_models,
-                    flow_fixture,
+                    fixed_condition_feed,
                     case["noise"],
                     steps=6,
                 )
@@ -780,3 +837,4 @@ if __name__ == "__main__":
 # Generated time: 2026-10-03 America/New_York.
 # Changes: new experiment-only complete dynamic Flow exporter/host validator; no HiFT, Swift shipping runtime, LLM EOS/cap, Candidate evidence, or public asset changes.
 # Changes 2026-10-03: canonicalize every cross-shard export fixture to contiguous external-input layout, record pre/post strides, and require exact PyTorch output equivalence before conversion; this fixes Core ML EXIR non-contiguous dim-order rejection without changing Flow math.
+# Changes 2026-10-03: precompute every PyTorch full-graph first-call/6-step oracle and convert all validation inputs to NumPy before loading any Core ML runtime model; release PyTorch model graphs before prediction so host validation never re-enters PyTorch modules after Core ML execution begins.
