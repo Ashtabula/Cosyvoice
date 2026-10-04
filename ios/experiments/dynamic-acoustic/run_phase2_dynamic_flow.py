@@ -561,7 +561,7 @@ def main() -> int:
         source_examples = {}
         source_first = {}
 
-        for n, case in coreml_cases.items():
+        for n, case in cases.items():
             args0, official, sharded, boundaries = source_first_call(
                 full_graph,
                 shards,
@@ -723,7 +723,7 @@ def main() -> int:
             for path in fixed_shard_paths
         ]
 
-        for n, case in cases.items():
+        for n, case in coreml_cases.items():
             receipt["phase"] = f"host_validate_N{n}"
             save()
 
