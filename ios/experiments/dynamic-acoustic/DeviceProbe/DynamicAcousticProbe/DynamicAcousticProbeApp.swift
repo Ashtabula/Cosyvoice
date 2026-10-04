@@ -23,6 +23,7 @@ struct ProbeView: View {
 }
 struct Probe {
     static func run(backend: String) async throws {
+        if ProcessInfo.processInfo.arguments.contains("LLM_CAPACITY_WALK") { try await LLMCapacityWalkProbe.run(); return }
         if ProcessInfo.processInfo.arguments.contains("LLM_SWEEP") { try await LLMLengthSweepProbe.run(); return }
         if ProcessInfo.processInfo.arguments.contains("ACOUSTIC_SWEEP") { try await AcousticShapeSweepProbe.run(backend: backend); return }
         if ProcessInfo.processInfo.arguments.contains("ACOUSTIC") || ProcessInfo.processInfo.arguments.contains("TEXT") { try await AcousticProbe.run(backend: backend); return }
@@ -143,6 +144,20 @@ struct Probe {
 
 // Changes 2026-10-03: async compute-plan preferred placement hints, wall-clock receipt timestamp, exact output-shape guards; physical execution still does not establish residency.
 
+
+enum LLMCapacityWalkProbe {
+    static func run() async throws {
+        let root=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/text-runtime")
+        let docs=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
+        let runID=(ProcessInfo.processInfo.arguments.first { $0.hasPrefix("RUN_ID=") }.map { String($0.dropFirst(7)) } ?? String(Int(Date().timeIntervalSince1970))).replacingOccurrences(of:"/",with:"_")
+        let path=docs.appendingPathComponent("llm-capacity-walk-\(runID).json")
+        let engine=try CosyVoice3Engine(assetRoot:root)
+        try await engine.experimentCapacityWalk(output:path)
+        print("LLM_CAPACITY_WALK_RECEIPT \(path.path)")
+    }
+}
+// Purpose: execute one deterministic state-capacity walk through every decode position up to the maximum existing 20x/512 policy capacity.
+// This is capacity-only validation, not natural-RAS/EOS quality evidence.
 
 enum LLMLengthSweepProbe {
     static let corpus=[
@@ -496,3 +511,5 @@ enum AcousticShapeSweepProbe {
 // Runtime: signed Release on physical iPhone; NMIN/NMAX arguments permit chunked execution, full range is default.
 // Generated: 2026-10-04 America/New_York.
 // Changes: experiment-only validation mode; shipping SDK, release assets and productionPromotion remain unchanged.\n// Changes 2026-10-04: make JSON summary values explicitly [String:Any] and keep MLMultiArray token assignments NSNumber-typed for Swift 6 compilation.
+
+// 2026-10-04: add LLM_CAPACITY_WALK mode; isolated deterministic state traversal only, no acoustic execution or production promotion.
