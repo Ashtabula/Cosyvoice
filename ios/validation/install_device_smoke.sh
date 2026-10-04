@@ -283,9 +283,12 @@ assert placement.get("llmPrefill")=="CPU_ONLY",placement
 assert placement.get("llmDecode")=="CPU_ONLY",placement
 assert placement.get("dynamicAcoustic")=="CPU_AND_NE",placement
 assert placement.get("referenceEncoders")=="CPU_ONLY",placement
+hints=r.get("dynamicAcousticExecutionHints") or {}
+assert hints.get("reshapeFrequency")=="INFREQUENT",hints
 assert r.get("productionPromotion") is False,r.get("productionPromotion")
 print("DYNAMIC_PUBLIC_API_STATUS",r["status"])
 print("REQUESTED_COMPUTE_PLACEMENT",placement)
+print("DYNAMIC_ACOUSTIC_EXECUTION_HINTS",hints)
 print("PROFILE",r["profile"])
 print("N_BOUNDS",r["speechTokenBounds"])
 print("DEFAULT_N",r["default"]["inferredSpeechTokensFromPCM"],"SAMPLES",r["default"]["samples"])
@@ -327,3 +330,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: suppress repetitive successful devicectl copy chatter into a retained log file, print only progress transitions, and fail closed after 600 seconds without a phase change while preserving the latest receipt for diagnosis.
 
 # Changes 2026-10-04: dynamic smoke host gate now requires the receipt to declare the validated mixed requested placement (LLM CPU_ONLY, acoustic CPU_AND_NE, reference encoders CPU_ONLY); no residency claim is inferred.
+
+# Changes 2026-10-04: dynamic smoke host gate now requires reshapeFrequency=INFREQUENT evidence for dynamic acoustic models, matching the accepted physical sweep configuration.
