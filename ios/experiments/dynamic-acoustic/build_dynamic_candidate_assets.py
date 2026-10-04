@@ -59,6 +59,7 @@ def main():
         require(lower_bound_receipt.get('newNBounds')==[1,nmax],'lower-bound extension bounds mismatch')
         require(lower_bound_receipt.get('physicalCheckpointN')==[1,2,3,225,479],'lower-bound physical checkpoint set mismatch')
         require(lower_bound_receipt.get('negativeBoundaryN')==[0,480],'lower-bound negative boundary proof mismatch')
+        require(lower_bound_receipt.get('newFamilyReceiptSha256')==sha(a.family/'receipt.json'),'lower-bound extension receipt is not bound to this exact N1 family receipt')
 
     fixed_manifest_path=a.fixed_runtime/'cosyvoice3_fixed225.json'
     fixed=json.loads(fixed_manifest_path.read_text())
@@ -178,3 +179,5 @@ if __name__=='__main__':main()
 # 2026-10-04: --fixture can now materialize exact default prompt/reference tensors directly from the pinned flow fixture when staged probe assets are unavailable.
 
 # Changes 2026-10-04: N1-family candidate assembly now fail-closes unless supplied a PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED receipt proving N1/N2 execution, overlapping N3/N225/N479 execution and N0/N480 rejection. N3 candidate behavior remains unchanged.
+
+# Changes 2026-10-04: N1 physical extension receipt must cryptographically bind the exact selected family receipt, preventing cross-family evidence reuse.
