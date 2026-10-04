@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # build_dynamic_candidate_assets.py
-# Requirement: construct an isolated dynamic-acoustic candidate asset root from the accepted fixed225 runtime plus a validated symbolic family and externally generated production stochastic buffers. Fail closed unless the N225 prefixes are exact.
+# Requirement: construct an isolated dynamic-acoustic candidate asset root from the accepted fixed225 runtime plus a validated symbolic family and provenance-bound production stochastic buffers. Fail closed unless the Flow N225 prefix is exact and HiFT excitation is hash-bound to the pinned-upstream buffer receipt.
 from __future__ import annotations
 import argparse,hashlib,json,shutil
 from pathlib import Path
@@ -40,7 +40,7 @@ def main():
     p.add_argument('--fixture',type=Path)
     p.add_argument('--flow-noise-max',type=Path,required=True)
     p.add_argument('--hift-excitation-max',type=Path,required=True)
-    p.add_argument('--hift-excitation-n225-reference',type=Path,required=True)
+    p.add_argument('--buffer-receipt',type=Path,required=True)
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
 
@@ -101,9 +101,17 @@ def main():
     require(np.array_equal(flow_max[:,:752],fixed_noise),'flowNoiseMaximum N225/T752 prefix is not exact fixed225 noise')
     copy_replace(a.flow_noise_max,model_root/'flow-noise-max.f32')
 
+    buffer_receipt=json.loads(a.buffer_receipt.read_text())
+    require(buffer_receipt.get('status')=='PASS_CANDIDATE_STOCHASTIC_BUFFERS_GENERATED_NOT_PROMOTED','buffer receipt is not PASS candidate provenance')
+    require(int(buffer_receipt.get('nmax',0))==nmax,'buffer receipt nmax mismatch')
+    require(buffer_receipt.get('flowPrefixT752Exact') is True,'buffer receipt has no exact fixed225 Flow prefix proof')
+    require(str(buffer_receipt.get('hiftExcitationPolicy','')).startswith('pinned upstream HiFT'),'HiFT excitation is not bound to pinned upstream source policy')
     excitation_max=floats(a.hift_excitation_max,max_samples*9).reshape(max_samples,9)
-    excitation225=floats(a.hift_excitation_n225_reference,216000*9).reshape(216000,9)
-    require(np.array_equal(excitation_max[:216000],excitation225),'HiFT excitation N225 prefix is not exact accepted source buffer')
+    hift_prefix=a.hift_excitation_max.parent/'hift-excitation-n225-prefix.f32'
+    excitation225=floats(hift_prefix,216000*9).reshape(216000,9)
+    require(np.array_equal(excitation_max[:216000],excitation225),'HiFT candidate prefix file does not match max buffer')
+    require(sha(a.hift_excitation_max)==buffer_receipt.get('hiftExcitationMaximumSha256'),'HiFT max buffer hash disagrees with provenance receipt')
+    require(sha(hift_prefix)==buffer_receipt.get('hiftN225PrefixSha256'),'HiFT N225 prefix hash disagrees with provenance receipt')
     copy_replace(a.hift_excitation_max,model_root/'hift-excitation-max.f32')
 
     manifest=dict(fixed)
@@ -139,7 +147,9 @@ def main():
         'flowNoiseMaximumSha256':sha(model_root/'flow-noise-max.f32'),
         'flowNoiseN225PrefixExact':True,
         'hiftExcitationMaximumSha256':sha(model_root/'hift-excitation-max.f32'),
-        'hiftExcitationN225PrefixExact':True,
+        'hiftExcitationSourcePolicy':buffer_receipt['hiftExcitationPolicy'],
+        'hiftExcitationN225PrefixSha256':buffer_receipt['hiftN225PrefixSha256'],
+        'hiftExcitationHistoricalExactClaim':False,
         'familyReceiptSha256':sha(a.family/'receipt.json'),
         'productionPromotion':False,
     }
@@ -152,6 +162,6 @@ if __name__=='__main__':main()
 # Upstream source: accepted fixed225 runtime, PASS symbolic family export, exact default conditioning tensors, and explicitly supplied max Flow/HiFT stochastic buffers.
 # Runtime environment: macOS/Linux Python3 with NumPy; no Core ML execution.
 # Generated time: 2026-10-04 America/New_York.
-# Changes: fail-closed N225 prefix identity gates; dynamic manifest schema2; generic custom/default conditioning; no invented zero-noise production fallback and no release promotion.
+# Changes: exact fixed225 Flow prefix gate; pinned-upstream HiFT max/prefix hash binding without circular historical-exact claims; dynamic manifest schema2; generic custom/default conditioning; no zero-noise production fallback and no release promotion.
 
 # 2026-10-04: --fixture can now materialize exact default prompt/reference tensors directly from the pinned flow fixture when staged probe assets are unavailable.
