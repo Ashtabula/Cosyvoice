@@ -104,9 +104,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // persistent markers. The reference tensors may already be cached on a later process
         // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
         let mainPlan: [CosyVoice3ModelWarmSpec] = [
-            .init(manifest.llmPrefill),
+            .llm(manifest.llmPrefill),
             .init(manifest.flowShards[0]),
-            .init(manifest.llmDecode),
+            .llm(manifest.llmDecode),
             .init(manifest.flowShards[1]),
             .init(flowConditionsPath),
             .init(manifest.flowShards[2]),
@@ -254,8 +254,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         var llmGenerationMilliseconds = 0.0
         let speechTokens: [Int] = try {
             let loadStart = DispatchTime.now().uptimeNanoseconds
-            let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
-            let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
+            let prefill = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmPrefill)
+            let decode = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmDecode)
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
@@ -398,8 +398,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         var llmGenerationMilliseconds = 0.0
         let speechTokens: [Int] = try {
             let loadStart = DispatchTime.now().uptimeNanoseconds
-            let prefill = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmPrefill)
-            let decode = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.llmDecode)
+            let prefill = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmPrefill)
+            let decode = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmDecode)
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
@@ -788,3 +788,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: validation observer is forwarded into request-scoped LLM runtime for prefill/decode liveness without changing default execution.
 
 // Changes 2026-10-04: production dynamic synthesis no longer constructs a resident Conditions+6 Flow+HiFT model set. It instantiates the stage-scoped dynamic runtime from asset paths, reports aggregate per-stage model-load time, keeps fixed225 resident behavior unchanged, clamps per-request LLM maxN to the active dynamic acoustic envelope, and fail-closes the legacy same-instance Flow head-to-head on dynamic profiles.
+
+// Changes 2026-10-04: enforce the accepted mixed placement contract at every Engine LLM call site: prefill/decode warm and request-scoped loads use CPU_ONLY; Flow/Conditions/HiFT remain CPU_AND_NE requested placement. This fixes cold-plan Core ML -14 observed on the N1 candidate smoke.
