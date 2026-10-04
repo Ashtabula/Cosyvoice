@@ -53,9 +53,15 @@ PASS / NOT PROMOTED: focused physical interior-shape replay of the exact widened
 
 PASS / NOT PROMOTED: the exact lower-bound-gated `ios18-dynamic-n1-n479-candidate` completed physical default + custom-reference public-API smoke on source commit `3267547f6436444e72889d443a030fd9be41e2af`. Evidence: `validation/evidence/dynamic-public-api-smoke-1791154976`. Default N134 -> 128640 samples; reference N260 -> 249600 samples. The receipt fail-closed verifies LLM prefill/decode requested `CPU_ONLY`, dynamic acoustic requested `CPU_AND_NE`, reference encoders requested `CPU_ONLY`, and dynamic acoustic `reshapeFrequency=INFREQUENT`. These are requested Core ML configurations, not accelerator-residency claims.
 
-DYNAMIC BLOCKER: human listening acceptance is not yet recorded for the exact N1-candidate default/reference WAVs. Numerical/shape/public-API PASS is not treated as audible-quality acceptance.
+PASS / NOT PROMOTED: human listening acceptance is recorded in `validation/evidence/dynamic_n1_listening_acceptance.json` for the exact N1-candidate smoke WAVs. The default lane was judged natural/good; the reference lane was judged natural/good and matching the intended Lei Jun validation reference. The Lei Jun validation reference/audio is validation-only and is not authorized for public runtime/example redistribution by this acceptance.
 
-DYNAMIC RISK / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope and remains fail-closed; do not change EOS semantics merely to hide this case.
+RELEASE-PROMOTION ENTRY / NOT PRODUCTION: `validation/dynamic_n1_release_entry_2026-10-04.json` records that the dynamic N1...479 engineering evidence is accepted to enter release engineering. This does not overwrite the existing fixed225 manifest/releases/release receipt and does not authorize public distribution.
+
+DYNAMIC PRE-CANDIDATE BLOCKER / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope. Quantify and resolve or explicitly accept this edge case without changing EOS semantics merely to hide it.
+
+DYNAMIC RELEASE-ENGINEERING PENDING: freeze an immutable private dynamic asset profile, regenerate exact-current-source standalone/full-runtime rebuild evidence, run controlled cold/warm public-API benchmark on that exact dynamic profile, and generate a dynamic-specific candidate release receipt before labeling the dynamic profile Candidate.
+
+DYNAMIC PRODUCTION PENDING: clean-room consumer integration, release-tree reproducibility, redistribution/license review, public release identity/fresh snapshot, and immutable public runtime asset publication remain required before Production/public redistribution.
 
 The fixed225 release status and its existing production blockers above are unchanged by this experiment.
 
