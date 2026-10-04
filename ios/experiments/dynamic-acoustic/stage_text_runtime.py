@@ -1,15 +1,24 @@
 # stage_text_runtime.py
 # Requirement: stage immutable LLM/tokenizer/embedding controls for physical real-text proof; bind every copied payload without modifying release assets.
-import argparse,json,shutil,subprocess
+import argparse,hashlib,json,shutil,subprocess
 from pathlib import Path
-from probe_symbolic_conditions import ROOT,sha
+ROOT=Path(__file__).resolve().parents[3]
+
+def sha(path):
+    h=hashlib.sha256()
+    files=sorted(path.rglob('*')) if path.is_dir() else [path]
+    for f in files:
+        if f.is_file():
+            h.update(f.relative_to(path).as_posix().encode() if path.is_dir() else f.name.encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--library',type=Path,required=True);a=p.parse_args()
     source=ROOT/'ios/.work/production-clean-room/fetched-runtime'
     dest=Path(__file__).parent/'DeviceProbe/GeneratedAssets/text-runtime';dest.mkdir(parents=True,exist_ok=False)
     manifest=json.loads((source/'cosyvoice3_fixed225.json').read_text())
-    identity={'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+    identity={'sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
        'libraryIdentity':json.loads((a.library/'identity.json').read_text()),'payloads':{},'productionPromotion':False,
        'flowReferenceProvenance':'Pinned enrollment fixture Q151/P302; native LLM default assistant prompt, no reference transcript supplied to frontend.'}
     for relative in ('cosyvoice3_fixed225.json',manifest['tokenizerFolder'],'embeddings',manifest['llmPrefill'],manifest['llmDecode']):
@@ -25,3 +34,5 @@ if __name__=='__main__':main()
 # Purpose: isolated physical text inputs/control model provenance. Upstream: frozen release assets read-only.
 # Environment: local macOS Python3.11. Generated: 2026-10-04 America/New_York.
 # New file, all lines; copied large artifacts ignored under GeneratedAssets, source release unchanged.
+
+# 2026-10-04: keep text-runtime staging stdlib-only; it no longer imports the Core ML export probe just to reuse ROOT/sha.
