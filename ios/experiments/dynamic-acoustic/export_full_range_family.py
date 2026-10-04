@@ -1,5 +1,5 @@
 # export_full_range_family.py
-# Requirement: export one experiment-only true-symbolic acoustic family covering the current fixed512 LLM global envelope N=3...479, while preserving frozen fixed225 assets and all prior evidence.
+# Requirement: export one experiment-only true-symbolic acoustic family for a caller-selected lower bound through the fixed512-derived N=479 upper envelope, while preserving frozen fixed225 assets and all prior evidence.
 from __future__ import annotations
 import argparse,gc,json,subprocess,traceback
 from pathlib import Path
@@ -13,9 +13,8 @@ from run_phase3_dynamic_hift import load_hift,DynamicHiFTBody,host_phase,export_
 from run_shard0_attribution import metrics
 
 BASE=ROOT/'ios/.work/rebuild/ios-fixed225-reference'
-N_MIN=3
-N_MAX=479
-CHECKPOINTS=(3,225,256,320,384,448,479)
+DEFAULT_N_MIN=3
+DEFAULT_N_MAX=479
 P=302
 UPSAMPLE=480
 
@@ -53,15 +52,26 @@ def hift_example(body,frames:int):
     return (mel,f0,phase,noise,norm),pcm
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser()
+    p.add_argument('--output',type=Path,required=True)
+    p.add_argument('--n-min',type=int,default=DEFAULT_N_MIN)
+    p.add_argument('--n-max',type=int,default=DEFAULT_N_MAX)
+    a=p.parse_args()
+    if not (1 <= a.n_min <= a.n_max <= 479):
+        raise SystemExit(f'invalid bounds N={a.n_min}...{a.n_max}; expected 1 <= min <= max <= 479')
+    n_min,n_max=a.n_min,a.n_max
+    checkpoint_candidates=[n_min,2,3,225,256,320,384,448,n_max]
+    checkpoints=[]
+    for value in checkpoint_candidates:
+        if n_min <= value <= n_max and value not in checkpoints: checkpoints.append(value)
     a.output.mkdir(parents=True,exist_ok=False)
     source=BASE/'source';model=BASE/'model-cache/Fun-CosyVoice3-0.5B-2512';fixture_root=BASE/'fixture'
     r={'schemaVersion':1,'status':'RUNNING','sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
        'pinnedUpstream':PIN,'productionPromotion':False,
        'generationContract':'per request maxN=min(targetTextTokens*20,512-logicalPrefixLength); reference/prompt/target all contribute to logicalPrefixLength',
-       'globalAcousticEnvelope':[N_MIN,N_MAX],'NBounds':[N_MIN,N_MAX],
-       'TBounds':[P+2*N_MIN,P+2*N_MAX],'GBounds':[2*N_MIN,2*N_MAX],
-       'checkpoints':list(CHECKPOINTS),'syntheticShapeInputs':True,'packages':[]}
+       'globalAcousticEnvelope':[n_min,n_max],'NBounds':[n_min,n_max],
+       'TBounds':[P+2*n_min,P+2*n_max],'GBounds':[2*n_min,2*n_max],
+       'checkpoints':list(checkpoints),'syntheticShapeInputs':True,'packages':[]}
     rp=a.output/'receipt.json'
     def save():save_json(rp,r)
     save()
@@ -71,15 +81,15 @@ def main():
         conditioning=SymbolicConditions(load_reference_flow_conditioning(model/'flow.pt')).eval()
 
         r['phase']='conditions_source';save()
-        example=(target_tokens(N_MAX),fixture['prompt_token'].int(),fixture['prompt_feat'].float(),fixture['embedding'].float())
-        n=torch.export.Dim('speech_tokens',min=N_MIN,max=N_MAX)
+        example=(target_tokens(n_max),fixture['prompt_token'].int(),fixture['prompt_feat'].float(),fixture['embedding'].float())
+        n=torch.export.Dim('speech_tokens',min=n_min,max=n_max)
         ep=torch.export.export(conditioning,example,dynamic_shapes=({1:n},{},{},{}),strict=False)
         if ep.dialect=='TRAINING':ep=ep.run_decompositions({})
         node=next(v for v in ep.graph.nodes if v.op=='placeholder' and v.name=='tokens')
         if not isinstance(node.meta['val'].shape[1],torch.SymInt):raise RuntimeError('conditions N materialized')
         folder=a.output/'conditions';folder.mkdir()
         torch.export.save(ep,folder/'source.pt2')
-        rd=ct.RangeDim(N_MIN,N_MAX,default=N_MAX,symbol='speech_tokens')
+        rd=ct.RangeDim(n_min,n_max,default=n_max,symbol='speech_tokens')
         names=('tokens','prompt_tokens','prompt_feat','speaker')
         converted=ct.convert(ep,source='pytorch',
             inputs=[ct.TensorType(name=k,shape=(1,rd) if k=='tokens' else tuple(v.shape),dtype=np.int32 if k in ('tokens','prompt_tokens') else np.float32) for k,v in zip(names,example)],
@@ -87,13 +97,13 @@ def main():
             convert_to='mlprogram',minimum_deployment_target=ct.target.iOS18,compute_precision=ct.precision.FLOAT32,skip_model_load=True)
         package=folder/'conditions.mlpackage';converted.save(str(package))
         compiled=folder/'compiled';compiled.mkdir();subprocess.run(['xcrun','coremlcompiler','compile',str(package),str(compiled)],check=True)
-        r['conditions']={'path':str(package),'sha256':sha(package),'range':[N_MIN,N_MAX]};save()
+        r['conditions']={'path':str(package),'sha256':sha(package),'range':[n_min,n_max]};save()
 
         r['phase']='flow_source';save()
         estimator=load_estimator(source,model);full=load_full_graph(source,estimator);shards=load_shards(source,estimator)
-        case=flow_case(N_MAX,conditioning,fixture)
+        case=flow_case(n_max,conditioning,fixture)
         arguments,official,sharded,boundaries=source_first_call(full,shards,case)
-        r['sourceSixShardVsFullAtN479']=metrics(official.numpy(),sharded.numpy());save()
+        r[f'sourceSixShardVsFullAtN{n_max}']=metrics(official.numpy(),sharded.numpy());save()
         h,te=shards[0](*arguments);examples=[arguments]
         for i in range(1,6):
             examples.append((h.detach().contiguous(),te.detach().contiguous(),case['mask'].detach().contiguous()))
@@ -108,8 +118,8 @@ def main():
         r['phase']='hift_source';save()
         hift_folder=a.output/'hift';hift_folder.mkdir()
         hift,_=load_hift(source,model,hift_folder);body=DynamicHiFTBody(hift).eval()
-        example,pcm=hift_example(body,2*N_MAX)
-        r['sourceHiFTAtG958']={'pcmShape':list(pcm.shape),'finite':bool(torch.isfinite(pcm).all())};save()
+        example,pcm=hift_example(body,2*n_max)
+        r[f'sourceHiFTAtG{2*n_max}']={'pcmShape':list(pcm.shape),'finite':bool(torch.isfinite(pcm).all())};save()
         result=export_dynamic_body(body,example,hift_folder,r,save,frames=tuple(r['GBounds']))
         r['hift']={k:v for k,v in result.items() if k!='package'}
         r['status']='PASS_FULL_RANGE_SYMBOLIC_FAMILY_EXPORT_NOT_PROMOTED';r['phase']='complete'
@@ -120,8 +130,10 @@ def main():
 
 if __name__=='__main__':raise SystemExit(main())
 
-# Code purpose: export true symbolic Conditions N3..479, Flow T308..1260 and HiFT G6..958 / PCM2880..459840 for the full current fixed512 LLM envelope.
+# Code purpose: export true symbolic Conditions/Flow/HiFT for caller-selected Nmin...Nmax within the fixed512-derived N<=479 envelope; default remains N3...479 and lower-bound extension can request N1...479.
 # Upstream source: pinned CosyVoice3 acoustic math plus previously accepted dynamic exporters; fixed225 release assets remain read-only controls.
 # Runtime environment: macOS arm64 Python3.11/torch2.7/coremltools9 and Xcode coremlcompiler.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new full-envelope experiment; synthetic deterministic shape inputs remove all N225 fixture-length assumptions; no production promotion.
+
+# Changes 2026-10-04: add --n-min/--n-max; default remains 3...479. N1 lower-bound experiments reuse the exact exporter/math and only widen the declared symbolic lower ranges. Checkpoints are generated from bounds.
