@@ -1,13 +1,19 @@
 # prepare_text_probe.py
-# Requirement: create an isolated SDK copy for real-text LLM stop/token provenance without changing shipping code, sampler, cap or model bytes.
+# Requirement: create an isolated SDK copy for real-text LLM stop/token provenance; optionally remove only the fixed225 generation cap while preserving shipping code, native RAS, EOS semantics, upstream 20x policy and model bytes.
 import argparse,hashlib,json,shutil,subprocess
 from pathlib import Path
 from probe_symbolic_conditions import ROOT,sha
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');p.add_argument('--llm-backend',choices=('CPU_ONLY','CPU_AND_NE'),default='CPU_AND_NE');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');p.add_argument('--llm-backend',choices=('CPU_ONLY','CPU_AND_NE'),default='CPU_AND_NE');p.add_argument('--remove-fixed225-cap',action='store_true');a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     dest=a.output/'Sources/Probe';shutil.copytree(ROOT/'ios/Sources/CosyVoice3Core',dest)
+    if a.remove_fixed225_cap:
+        contracts=dest/'CosyVoice3RuntimeContracts.swift';c=contracts.read_text()
+        needle='    static let speechTokenCapacity = 225'
+        replacement='    static let speechTokenCapacity = CosyVoice3FP16StatefulLLMSession.capacity'
+        if needle not in c:raise RuntimeError('fixed225 generation-cap anchor not found')
+        contracts.write_text(c.replace(needle,replacement,1))
     llm=dest/'CosyVoice3LLMRuntime.swift';s=llm.read_text()
     s=s.replace('    private let prefillModel:MLModel','    var experimentStopToken: Int?\n    var experimentStopReason = "RUNNING"\n    private let prefillModel:MLModel',1)
     s=s.replace('                return decoded\n','                experimentStopToken=token; experimentStopReason="STOP_REGION"\n                return decoded\n',1)
@@ -78,7 +84,10 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
         (a.output/'Package.swift').write_text(package)
     identity={'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
-              'instrumentation':'stop token/reason only; unchanged cap225/native RAS; no shipping edits',
+              'experimentSourceHashes':{f.name:sha(f) for f in dest.glob('*.swift')},
+              'instrumentation':'stop token/reason only; native RAS/EOS unchanged; shipping source/assets untouched',
+              'fixed225CapRemoved':a.remove_fixed225_cap,
+              'generationPolicy':('min(targetTextTokens*20,512-logicalPrefixLength)' if a.remove_fixed225_cap else 'min(targetTextTokens*20,225,512-logicalPrefixLength)'),
               'llmBackend':a.llm_backend,'generatorSha256':sha(Path(__file__))}
     (a.output/'identity.json').write_text(json.dumps(identity,indent=2)+'\n');print(json.dumps(identity,indent=2))
 if __name__=='__main__':main()
@@ -91,3 +100,5 @@ if __name__=='__main__':main()
 
 # 2026-10-04: explicit experiment-only LLM backend selection; no hidden fallback
 # after physical CPU_AND_NE prefill execution-plan -14. RAS and cap unchanged.
+
+# 2026-10-04: --remove-fixed225-cap changes only the isolated probe copy from cap225 to the existing 512-context/20x generation policy; production SDK source and release assets remain byte-identical.
