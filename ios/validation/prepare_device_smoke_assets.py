@@ -34,9 +34,11 @@ def main() -> None:
     parser.add_argument("--reference-transcript", type=Path, required=True)
     parser.add_argument("--candidate-benchmark", action="store_true")
     parser.add_argument("--flow-steps-head-to-head", action="store_true")
+    parser.add_argument("--dynamic-public-api-smoke", action="store_true")
     args = parser.parse_args()
-    if args.candidate_benchmark and args.flow_steps_head_to_head:
-        raise RuntimeError("Candidate benchmark and Flow head-to-head modes are mutually exclusive")
+    selected_modes = sum(bool(v) for v in (args.candidate_benchmark, args.flow_steps_head_to_head, args.dynamic_public_api_smoke))
+    if selected_modes > 1:
+        raise RuntimeError("Candidate benchmark, Flow head-to-head and dynamic public-API smoke modes are mutually exclusive")
 
     asset_root = args.asset_root.resolve()
     host_receipt_path = args.host_receipt.resolve()
@@ -67,10 +69,14 @@ def main() -> None:
     shutil.copy2(reference_wav, OUTPUT / "reference.wav")
     shutil.copy2(transcript, OUTPUT / "reference.txt")
     shutil.copy2(host_receipt_path, OUTPUT / "reference_host_parity_receipt.json")
-    if args.candidate_benchmark or args.flow_steps_head_to_head:
+    if args.candidate_benchmark or args.flow_steps_head_to_head or args.dynamic_public_api_smoke:
         source_commit = subprocess.check_output(["git", "-C", str(ROOT.parent), "rev-parse", "HEAD"], text=True).strip()
-        marker_name = "candidate-benchmark-mode.json" if args.candidate_benchmark else "flow-step-head-to-head-mode.json"
-        benchmark_name = "public-api-candidate-v1" if args.candidate_benchmark else "flow-steps-head-to-head-v1"
+        if args.candidate_benchmark:
+            marker_name, benchmark_name = "candidate-benchmark-mode.json", "public-api-candidate-v1"
+        elif args.flow_steps_head_to_head:
+            marker_name, benchmark_name = "flow-step-head-to-head-mode.json", "flow-steps-head-to-head-v1"
+        else:
+            marker_name, benchmark_name = "dynamic-public-api-smoke-mode.json", "dynamic-public-api-default-and-reference-v1"
         (OUTPUT / marker_name).write_text(json.dumps({"schemaVersion": 1, "benchmark": benchmark_name, "hostReceiptSha256": sha256(host_receipt_path), "sourceCommit": source_commit}, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
     dynamic_manifest_path = runtime / "cosyvoice3_dynamic.json"
@@ -149,3 +155,5 @@ if __name__ == "__main__":
 # Changes 2026-10-02: add mutually exclusive Flow 10/8/6 head-to-head marker staging with the same host/source identity binding used by Candidate diagnostics.
 
 # Changes 2026-10-04: active-manifest staging is dynamic-first. For dynamic candidates, stage reference encoder/frontend assets but preserve referenceEnrollment.flowConditionsDynamic == manifest.flowConditions so custom reference uses the validated symbolic Conditions package; fixed225 oracle manifest is not mutated.
+
+# Changes 2026-10-04: add --dynamic-public-api-smoke marker mode for one physical launch that exercises both default/no-reference and custom-reference public synthesis against the active dynamic manifest.
