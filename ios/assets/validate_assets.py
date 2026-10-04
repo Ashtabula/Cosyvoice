@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #@title validate_assets.py
-# Requirement: fail closed on the fixed225 SDK asset ABI; optionally require generic reference files or full device-promoted reference status.
+# Requirement: fail closed on the frozen fixed225 SDK asset ABI and, when present, the schema-2 dynamic acoustic candidate ABI; optionally require generic reference files or full device-promoted reference status.
 import argparse,json,sys
 from pathlib import Path
 
@@ -50,15 +50,50 @@ def main():
         expected={ref["whisperMel128"]:128*201*4,ref["kaldiMel80"]:80*256*4,ref["matchaMel80"]:80*961*4}
         for rel,size in expected.items():
             if (root/rel).stat().st_size!=size: fail(f"reference table byte count mismatch: {rel}")
-    print(f"[COSYVOICE3-ASSETS] PASS root={root} profile={m['profile']} textRows={rows} referenceStatus={status} referenceFilesChecked={must_check_reference}",flush=True)
+    dynamic_path=root/"cosyvoice3_dynamic.json"
+    active_profile=m["profile"]
+    if dynamic_path.exists():
+        nonempty(dynamic_path); d=json.loads(dynamic_path.read_text())
+        if d.get("schemaVersion")!=2 or not str(d.get("profile","")).startswith("ios18-dynamic-"): fail("dynamic manifest identity mismatch")
+        if len(d.get("flowShards",[]))!=6: fail("dynamic manifest expected six Flow shards")
+        if int(d.get("textEmbeddingRows",0))!=rows: fail("dynamic manifest textEmbeddingRows mismatch")
+        for key in ("tokenizerFolder","textEmbedding","speechEmbedding","llmPrefill","llmDecode","f0Folder"):
+            if d.get(key)!=m.get(key): fail(f"dynamic manifest unexpectedly changed shared asset path: {key}")
+        contract=d.get("dynamicAcoustic")
+        if not isinstance(contract,dict): fail("dynamic manifest has no dynamicAcoustic contract")
+        if contract.get("status") not in ("CANDIDATE","PASS_DEVICE_VALIDATION"): fail(f"unsupported dynamic acoustic status: {contract.get('status')!r}")
+        nmin=int(contract.get("speechTokenMinimum",0));nmax=int(contract.get("speechTokenMaximum",0));pframes=int(contract.get("promptFrameCount",0))
+        if nmin<1 or nmax<nmin or nmax>512 or pframes!=302: fail(f"invalid dynamic bounds N={nmin}...{nmax} P={pframes}")
+        dynamic_required=[
+            d["flowConditions"],d["hift"],*d["flowShards"],
+            contract["defaultPromptTokens"],contract["defaultPromptFeat"],contract["defaultSpeaker"],
+            contract["flowNoiseMaximum"],contract["hiftExcitationMaximum"],
+        ]
+        for rel in dynamic_required: nonempty(root/rel)
+        expected_dynamic={
+            contract["defaultPromptTokens"]:1*151*4,
+            contract["defaultPromptFeat"]:1*302*80*4,
+            contract["defaultSpeaker"]:1*192*4,
+            contract["flowNoiseMaximum"]:1*80*(302+2*nmax)*4,
+            contract["hiftExcitationMaximum"]:1*(960*nmax)*9*4,
+        }
+        for rel,size in expected_dynamic.items():
+            if (root/rel).stat().st_size!=size: fail(f"dynamic asset byte count mismatch: {rel} expected={size} actual={(root/rel).stat().st_size}")
+        dref=d.get("referenceEnrollment")
+        if isinstance(dref,dict) and dref.get("status")=="PASS_DEVICE_PARITY":
+            if dref.get("flowConditionsDynamic")!=d.get("flowConditions"): fail("dynamic reference flowConditionsDynamic must match generic dynamic conditions package")
+        active_profile=d["profile"]
+    print(f"[COSYVOICE3-ASSETS] PASS root={root} fixedProfile={m['profile']} activeProfile={active_profile} textRows={rows} referenceStatus={status} referenceFilesChecked={must_check_reference}",flush=True)
 
 if __name__=="__main__":
     try: main()
     except Exception as exc:
         print(f"[COSYVOICE3-ASSETS] FAIL {type(exc).__name__}: {exc}",file=sys.stderr); raise
 
-# Code purpose: fail-closed structural validator for base fixed225 assets, exact tokenizer contract, host-parity rebuilt reference assets, and device-promoted reference assets.
+# Code purpose: fail-closed structural validator for frozen fixed225 assets plus optional schema-2 dynamic acoustic candidate assets, exact tokenizer contract, host-parity rebuilt reference assets, and device-promoted reference assets.
 # Upstream source: CosyVoice3 iOS canonical fixed225 asset contract.
 # Runtime environment: Python 3 standard library.
 # Generated: 2026-10-02 America/New_York.
 # Changes: adds --require-reference-files for supported rebuilds; validates PASS_HOST_PARITY_REBUILT files without falsely treating them as device-promoted; preserves --require-reference as the stricter PASS_DEVICE_PARITY gate.
+
+# Changes 2026-10-04: when cosyvoice3_dynamic.json exists, validate its shared-asset identity, N/P bounds, six symbolic Flow packages, dynamic Conditions/HiFT packages, exact default-conditioning byte sizes, and max Flow/HiFT stochastic-buffer byte sizes while preserving fixed-only behavior.
