@@ -6,11 +6,11 @@ ROOT=Path(__file__).resolve().parents[3]
 
 def sha(path):
     h=hashlib.sha256()
-    files=sorted(path.rglob('*')) if path.is_dir() else [path]
-    for f in files:
+    for f in sorted(path.rglob('*')) if path.is_dir() else [path]:
         if f.is_file():
-            h.update(f.relative_to(path).as_posix().encode() if path.is_dir() else f.name.encode())
-            h.update(f.read_bytes())
+            if path.is_dir():h.update(str(f.relative_to(path)).encode())
+            with f.open('rb') as stream:
+                for b in iter(lambda:stream.read(8*1024*1024),b''):h.update(b)
     return h.hexdigest()
 
 def main():
