@@ -52,6 +52,85 @@ extension CosyVoice3Engine {
             receipt["status"]="PASS_REAL_TEXT_LLM_TRACE_ACOUSTIC_PENDING";try save()
         } catch { receipt["status"]="FAIL";receipt["error"]=String(reflecting:error);try save();throw error }
     }
+
+    public func experimentCapacityWalk(output: URL) async throws {
+        let frontend=try await reusableBaseFrontend()
+        var bestText="",bestPrepared:CosyVoice3PreparedRequest?
+        for words in 1...64 {
+            let candidate=Array(repeating:"test",count:words).joined(separator:" ")
+            if let prepared=try? await frontend.prepare(text:candidate,reference:nil,instruction:nil) {
+                if bestPrepared == nil || prepared.maximumSpeechTokenCount > bestPrepared!.maximumSpeechTokenCount {
+                    bestText=candidate;bestPrepared=prepared
+                }
+            }
+        }
+        guard let prepared=bestPrepared else { throw NSError(domain:"LLMCapacityWalk",code:1) }
+        var receipt:[String:Any]=[
+            "schemaVersion":1,"status":"RUNNING","phase":"PREPARE_DONE",
+            "text":bestText,"logicalPrefixLength":prepared.logicalPrefixLength,
+            "targetTextTokenCount":prepared.minimumSpeechTokenCount/2,
+            "minimumSpeechTokenCount":prepared.minimumSpeechTokenCount,
+            "targetSpeechTokenCapacity":prepared.maximumSpeechTokenCount,
+            "contextCapacity":CosyVoice3FP16StatefulLLMSession.capacity,
+            "policy":"min(targetTextTokens*20,512-logicalPrefixLength)",
+            "forcedSpeechToken":0,"forcedTokenMeaning":"capacity-only state walk; not semantic generation",
+            "completedSpeechTokenCapacity":0,"productionPromotion":false,
+            "progressUnix":Date().timeIntervalSince1970
+        ]
+        func save() throws {
+            receipt["progressUnix"]=Date().timeIntervalSince1970
+            try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:output,options:.atomic)
+        }
+        try save()
+        do {
+            receipt["phase"]="MODEL_LOAD_START";try save()
+            let prefill=try CosyVoice3AssetLoader.model(root:assetRoot,path:manifest.llmPrefill)
+            let decode=try CosyVoice3AssetLoader.model(root:assetRoot,path:manifest.llmDecode)
+            let conditioner=try reusableConditioner()
+            receipt["phase"]="MODEL_LOAD_DONE";try save()
+
+            receipt["phase"]="SESSION_INIT_START";try save()
+            let session=try CosyVoice3FP16StatefulLLMSession(
+                prefillModel:prefill,decodeModel:decode,prefixLength:224,
+                diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
+            receipt["phase"]="SESSION_INIT_DONE";try save()
+
+            receipt["phase"]="PREFILL_START";try save()
+            _=try session.prefill(prepared.prefillInput)
+            receipt["phase"]="PREFILL_DONE"
+            receipt["completedSpeechTokenCapacity"]=1
+            try save()
+
+            let token=0
+            let embedding=try conditioner.embeddingFP16(token:token)
+            if prepared.maximumSpeechTokenCount > 1 {
+                for step in 0..<(prepared.maximumSpeechTokenCount-1) {
+                    let absolutePosition=prepared.logicalPrefixLength+step
+                    let rope=try conditioner.ropeFP16(position:absolutePosition)
+                    receipt["phase"]="DECODE_START"
+                    receipt["decodeStep"]=step
+                    receipt["absolutePosition"]=absolutePosition
+                    try save()
+                    _=try autoreleasepool {
+                        try session.decode(
+                            embedding:embedding,cos:rope.cos,sin:rope.sin,
+                            absolutePosition:absolutePosition)
+                    }
+                    receipt["phase"]="DECODE_DONE"
+                    receipt["completedSpeechTokenCapacity"]=step+2
+                    try save()
+                }
+            }
+            receipt["phase"]="COMPLETE"
+            receipt["status"]="PASS_LLM_STATE_CAPACITY_WALK_NOT_PROMOTED"
+            try save()
+        } catch {
+            receipt["status"]="FAIL"
+            receipt["error"]=String(reflecting:error)
+            try save()
+            throw error
+        }
+    }
 }
 ''')
     (dest/'Entry.swift').write_text('''// Entry.swift
@@ -94,7 +173,7 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
     identity={'sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
               'experimentSourceHashes':{f.name:sha(f) for f in dest.glob('*.swift')},
-              'instrumentation':'stop token/reason only; native RAS/EOS unchanged; shipping source/assets untouched',
+              'instrumentation':'stop token/reason plus experiment-only deterministic state-capacity walk; native RAS/EOS and shipping source/assets unchanged',
               'fixed225CapRemoved':a.remove_fixed225_cap,
               'generationPolicy':('min(targetTextTokens*20,512-logicalPrefixLength)' if a.remove_fixed225_cap else 'min(targetTextTokens*20,225,512-logicalPrefixLength)'),
               'llmBackend':a.llm_backend,'generatorSha256':sha(Path(__file__))}
@@ -113,3 +192,5 @@ if __name__=='__main__':main()
 # 2026-10-04: --remove-fixed225-cap changes only the isolated probe copy from cap225 to the existing 512-context/20x generation policy; production SDK source and release assets remain byte-identical.
 
 # 2026-10-04: remove accidental coremltools dependency from this lightweight generator; ROOT/sha are now local and require only Python stdlib.
+
+# 2026-10-04: add deterministic experiment-only LLM state capacity walk targeting the maximum existing 20x/512 policy capacity; no sampler/model/shipping edits.
