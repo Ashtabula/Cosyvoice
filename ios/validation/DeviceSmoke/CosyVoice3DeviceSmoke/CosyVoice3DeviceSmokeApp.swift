@@ -158,15 +158,18 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
             let clock = ContinuousClock()
             let defaultText = "This is a CosyVoice3 dynamic default voice validation."
+            let boundSourceCommit = fixture.sourceCommit
+            let boundHostReceiptSHA256 = fixture.hostReceiptSHA256
+            let boundSpeechTokenBounds = [nmin,nmax]
             await engine.setValidationProgressObserver { stage in
                 writeDynamicEngineProgress(
                     url: progressURL,
                     lane: "DEFAULT",
                     stage: stage,
-                    sourceCommit: fixture.sourceCommit,
-                    hostReceiptSHA256: fixture.hostReceiptSHA256,
+                    sourceCommit: boundSourceCommit,
+                    hostReceiptSHA256: boundHostReceiptSHA256,
                     profile: profile,
-                    speechTokenBounds: [nmin,nmax],
+                    speechTokenBounds: boundSpeechTokenBounds,
                     recordedAtUnix: smokeRecordedAtUnix
                 )
             }
@@ -198,18 +201,19 @@ final class CosyVoice3SmokeModel: ObservableObject {
             progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
             _ = try Self.write(progress, to: progressURL)
 
+            let boundDefaultSamples = defaultAudio.samples.count
             await engine.setValidationProgressObserver { stage in
                 writeDynamicEngineProgress(
                     url: progressURL,
                     lane: "REFERENCE",
                     stage: stage,
-                    sourceCommit: fixture.sourceCommit,
-                    hostReceiptSHA256: fixture.hostReceiptSHA256,
+                    sourceCommit: boundSourceCommit,
+                    hostReceiptSHA256: boundHostReceiptSHA256,
                     profile: profile,
-                    speechTokenBounds: [nmin,nmax],
+                    speechTokenBounds: boundSpeechTokenBounds,
                     recordedAtUnix: smokeRecordedAtUnix,
                     defaultN: defaultN,
-                    defaultSamples: defaultAudio.samples.count
+                    defaultSamples: boundDefaultSamples
                 )
             }
             let referenceParameters = CosyVoice3Parameters(
@@ -559,3 +563,5 @@ private extension Data {
 // Changes 2026-10-04: dynamic public-API smoke now creates its receipt immediately with RUNNING/START and atomically updates DEFAULT_SYNTHESIS then REFERENCE_SYNTHESIS progress before final PASS/FAIL, eliminating the normal no-file polling window and exposing durable device progress.
 
 // Changes 2026-10-04: dynamic smoke installs the validation-only engine observer while continuing to call the public synthesize() API. Durable receipt phase now identifies prepare/model warming, frontend, LLM prefill/decode progress, acoustic model load, Conditions/Flow/F0/HiFT, separately for DEFAULT and REFERENCE lanes.
+
+// Changes 2026-10-04: validation observer closures capture only Sendable scalar/value bindings rather than the non-Sendable Fixture aggregate, keeping Swift 6 concurrency checking explicit.
