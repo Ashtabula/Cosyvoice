@@ -1,0 +1,1428 @@
+{
+  "cfgRate": 0.7,
+  "fixedAssetManifestSha256": "e74925c008145bffc3aafbd5edfe29b7d3f176db73c10158a74bf1c5b58b4075",
+  "fixedShardSha256": [
+    "2b1218ee3df3fc663b7ea9c95976e5705e3e310f828cc9ebeb22a28e86ddb5ec",
+    "1e5b13ec1a2d8b740f39ba5bd6a66ee06e515a5e88a2e424d3045c7e216b7508",
+    "58295aace161ff740b31bfd1eb7b60ea6322d159f657680606872955a191b394",
+    "23016ec2ac9e0c5fc57b8da78b9c84df0ffbd3458794a6486aa031a988bb8f63",
+    "0adecd1264dbd1dfc31f41e208a9cabcd108039ed9e7fa029040b0fed8ea0c26",
+    "5a7eba7e2e80ee85c35f8098ff9538586aa8b27e375397345e50f5279b227891"
+  ],
+  "flowSteps": 6,
+  "modelRevision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+  "packages": [
+    {
+      "blocks": [
+        0,
+        4
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              60160,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              60160,
+              752,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              80,
+              752
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              60160,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              60160,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              80,
+              752
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1
+            ],
+            "position": 3,
+            "shape": [
+              2
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              80,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              80,
+              1
+            ],
+            "position": 4,
+            "shape": [
+              2,
+              80
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              60160,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              60160,
+              752,
+              1
+            ],
+            "position": 5,
+            "shape": [
+              2,
+              80,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999999039,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          {
+            "cosineSimilarity": 1.0,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 1,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 0,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 695,
+                "operationTypeCounts": {
+                  "add": 33,
+                  "cast": 11,
+                  "concat": 12,
+                  "const": 376,
+                  "conv": 2,
+                  "cos": 2,
+                  "equal": 1,
+                  "expand_dims": 28,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 31,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 45,
+                  "pad": 2,
+                  "range_1d": 1,
+                  "real_div": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 5,
+                  "shape": 1,
+                  "silu": 2,
+                  "sin": 2,
+                  "slice_by_index": 22,
+                  "softplus": 2,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "tanh": 2,
+                  "tile": 1,
+                  "transpose": 21
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 695,
+        "operationTypeCounts": {
+          "add": 33,
+          "cast": 11,
+          "concat": 12,
+          "const": 376,
+          "conv": 2,
+          "cos": 2,
+          "equal": 1,
+          "expand_dims": 28,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 31,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 45,
+          "pad": 2,
+          "range_1d": 1,
+          "real_div": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 5,
+          "shape": 1,
+          "silu": 2,
+          "sin": 2,
+          "slice_by_index": 22,
+          "softplus": 2,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "tanh": 2,
+          "tile": 1,
+          "transpose": 21
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-00/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "f9a7d96922522bfcd0659abfdc21775c53c161f7559c3b22263e5d8e0f65fb3f",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    },
+    {
+      "blocks": [
+        4,
+        8
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              770048,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              770048,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              752,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998505,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 1,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 609,
+                "operationTypeCounts": {
+                  "add": 32,
+                  "cast": 7,
+                  "concat": 9,
+                  "const": 327,
+                  "cos": 1,
+                  "expand_dims": 26,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 28,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 41,
+                  "range_1d": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "shape": 1,
+                  "silu": 1,
+                  "sin": 1,
+                  "slice_by_index": 22,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "transpose": 16
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 609,
+        "operationTypeCounts": {
+          "add": 32,
+          "cast": 7,
+          "concat": 9,
+          "const": 327,
+          "cos": 1,
+          "expand_dims": 26,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 28,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 41,
+          "range_1d": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "shape": 1,
+          "silu": 1,
+          "sin": 1,
+          "slice_by_index": 22,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "transpose": 16
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-01/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "52b96a3bd6266769b291a06260a876c77900b0cf8997a792a2477462579be32c",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    },
+    {
+      "blocks": [
+        8,
+        12
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              770048,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              770048,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              752,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998922,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 2,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 609,
+                "operationTypeCounts": {
+                  "add": 32,
+                  "cast": 7,
+                  "concat": 9,
+                  "const": 327,
+                  "cos": 1,
+                  "expand_dims": 26,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 28,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 41,
+                  "range_1d": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "shape": 1,
+                  "silu": 1,
+                  "sin": 1,
+                  "slice_by_index": 22,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "transpose": 16
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 609,
+        "operationTypeCounts": {
+          "add": 32,
+          "cast": 7,
+          "concat": 9,
+          "const": 327,
+          "cos": 1,
+          "expand_dims": 26,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 28,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 41,
+          "range_1d": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "shape": 1,
+          "silu": 1,
+          "sin": 1,
+          "slice_by_index": 22,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "transpose": 16
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-02/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "c34fc48e4e10036840d57e8dce28222025cbe660ea08b7f1099a11b5fb9be4a9",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    },
+    {
+      "blocks": [
+        12,
+        16
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              770048,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              770048,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              752,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998549,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 3,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 609,
+                "operationTypeCounts": {
+                  "add": 32,
+                  "cast": 7,
+                  "concat": 9,
+                  "const": 327,
+                  "cos": 1,
+                  "expand_dims": 26,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 28,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 41,
+                  "range_1d": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "shape": 1,
+                  "silu": 1,
+                  "sin": 1,
+                  "slice_by_index": 22,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "transpose": 16
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 609,
+        "operationTypeCounts": {
+          "add": 32,
+          "cast": 7,
+          "concat": 9,
+          "const": 327,
+          "cos": 1,
+          "expand_dims": 26,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 28,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 41,
+          "range_1d": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "shape": 1,
+          "silu": 1,
+          "sin": 1,
+          "slice_by_index": 22,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "transpose": 16
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-03/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "16ad56d770dfa08d7f6f04d2157882a49dab4bbcc5acfb0e14506a102b87fdbc",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    },
+    {
+      "blocks": [
+        16,
+        20
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              770048,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              770048,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              752,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999997603,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 4,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 609,
+                "operationTypeCounts": {
+                  "add": 32,
+                  "cast": 7,
+                  "concat": 9,
+                  "const": 327,
+                  "cos": 1,
+                  "expand_dims": 26,
+                  "gather": 1,
+                  "gelu": 4,
+                  "layer_norm": 8,
+                  "linear": 28,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 41,
+                  "range_1d": 1,
+                  "reshape": 36,
+                  "scaled_dot_product_attention": 4,
+                  "select": 4,
+                  "shape": 1,
+                  "silu": 1,
+                  "sin": 1,
+                  "slice_by_index": 22,
+                  "split": 12,
+                  "squeeze": 16,
+                  "stack": 9,
+                  "transpose": 16
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 609,
+        "operationTypeCounts": {
+          "add": 32,
+          "cast": 7,
+          "concat": 9,
+          "const": 327,
+          "cos": 1,
+          "expand_dims": 26,
+          "gather": 1,
+          "gelu": 4,
+          "layer_norm": 8,
+          "linear": 28,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 41,
+          "range_1d": 1,
+          "reshape": 36,
+          "scaled_dot_product_attention": 4,
+          "select": 4,
+          "shape": 1,
+          "silu": 1,
+          "sin": 1,
+          "slice_by_index": 22,
+          "split": 12,
+          "squeeze": 16,
+          "stack": 9,
+          "transpose": 16
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-04/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "1460ae4045d105d0410df72bde6f35869aa8fb93fffd4c88367efb7496797ef1",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    },
+    {
+      "blocks": [
+        20,
+        22
+      ],
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              770048,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              770048,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              752,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              752,
+              752,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              752,
+              752,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              752
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999999485,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              752
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "index": 5,
+      "operationInventory": {
+        "functions": [
+          {
+            "name": "main",
+            "specializations": [
+              {
+                "maxNestedBlockDepth": 0,
+                "operationCount": 365,
+                "operationTypeCounts": {
+                  "add": 18,
+                  "cast": 7,
+                  "concat": 5,
+                  "const": 199,
+                  "cos": 1,
+                  "expand_dims": 16,
+                  "gather": 1,
+                  "gelu": 2,
+                  "layer_norm": 5,
+                  "linear": 16,
+                  "logical_not": 1,
+                  "matmul": 1,
+                  "mul": 22,
+                  "range_1d": 1,
+                  "reshape": 20,
+                  "scaled_dot_product_attention": 2,
+                  "select": 2,
+                  "shape": 1,
+                  "silu": 1,
+                  "sin": 1,
+                  "slice_by_index": 14,
+                  "split": 7,
+                  "squeeze": 8,
+                  "stack": 5,
+                  "transpose": 9
+                },
+                "specialization": "CoreML8"
+              }
+            ]
+          }
+        ],
+        "maxNestedBlockDepth": 0,
+        "operationCount": 365,
+        "operationTypeCounts": {
+          "add": 18,
+          "cast": 7,
+          "concat": 5,
+          "const": 199,
+          "cos": 1,
+          "expand_dims": 16,
+          "gather": 1,
+          "gelu": 2,
+          "layer_norm": 5,
+          "linear": 16,
+          "logical_not": 1,
+          "matmul": 1,
+          "mul": 22,
+          "range_1d": 1,
+          "reshape": 20,
+          "scaled_dot_product_attention": 2,
+          "select": 2,
+          "shape": 1,
+          "silu": 1,
+          "sin": 1,
+          "slice_by_index": 14,
+          "split": 7,
+          "squeeze": 8,
+          "stack": 5,
+          "transpose": 9
+        },
+        "package": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-05/flow-shard.mlpackage",
+        "status": "PASS"
+      },
+      "packageSha256": "24afff7ca3e3a07e360c18fe5283fa6cda26e02846fb91a724e552ba3489a48c",
+      "rangeConstraints": {
+        "s0": "VR[674, 752]"
+      },
+      "sourceSymbolic": true
+    }
+  ],
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "postCoreMLPyTorchModuleExecutionAllowed": false,
+  "precision": "fp16",
+  "productionPromotion": false,
+  "schemaVersion": 1,
+  "sourceCommit": "4b117b0429586aaa3a0bc726aed7ec616b984492",
+  "sourceRolloutPrecomputedBeforeCoreMLPrediction": true,
+  "sourceSixShardVsFull": {
+    "186": {
+      "cosineSimilarity": 0.999999999999949,
+      "finite": true,
+      "maxAbsError": 0.0,
+      "meanAbsError": 0.0,
+      "relativeL2": 0.0,
+      "rmse": 0.0,
+      "shape": [
+        2,
+        80,
+        674
+      ]
+    },
+    "225": {
+      "cosineSimilarity": 0.9999999999999485,
+      "finite": true,
+      "maxAbsError": 0.0,
+      "meanAbsError": 0.0,
+      "relativeL2": 0.0,
+      "rmse": 0.0,
+      "shape": [
+        2,
+        80,
+        752
+      ]
+    }
+  },
+  "status": "PASS_PHASE2_HOST_DYNAMIC_FLOW_EXECUTION_NUMERICS_RECORDED_NOT_PROMOTED",
+  "tests": [
+    {
+      "G": 372,
+      "N": 186,
+      "P": 302,
+      "T": 674,
+      "boundaryMetrics": [
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9997092718614908,
+            "finite": true,
+            "maxAbsError": 2.958733558654785,
+            "meanAbsError": 0.035554372937373416,
+            "relativeL2": 0.024301783003916107,
+            "rmse": 0.06536986168838063,
+            "shape": [
+              2,
+              674,
+              1024
+            ]
+          },
+          "index": 0
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9986710777821919,
+            "finite": true,
+            "maxAbsError": 6.055641174316406,
+            "meanAbsError": 0.07168528162878089,
+            "relativeL2": 0.05153718157533854,
+            "rmse": 0.12642760310957,
+            "shape": [
+              2,
+              674,
+              1024
+            ]
+          },
+          "index": 1
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9991335793945543,
+            "finite": true,
+            "maxAbsError": 7.27330207824707,
+            "meanAbsError": 0.08589910501062571,
+            "relativeL2": 0.04169688548014338,
+            "rmse": 0.1394719426726723,
+            "shape": [
+              2,
+              674,
+              1024
+            ]
+          },
+          "index": 2
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9993202288665872,
+            "finite": true,
+            "maxAbsError": 7.193916320800781,
+            "meanAbsError": 0.1137780962079833,
+            "relativeL2": 0.03691852186415903,
+            "rmse": 0.17427273463020404,
+            "shape": [
+              2,
+              674,
+              1024
+            ]
+          },
+          "index": 3
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9832854835363951,
+            "finite": true,
+            "maxAbsError": 23.657936096191406,
+            "meanAbsError": 0.6817149329006301,
+            "relativeL2": 0.18329789501982102,
+            "rmse": 1.0179041274565024,
+            "shape": [
+              2,
+              674,
+              1024
+            ]
+          },
+          "index": 4
+        }
+      ],
+      "finite": true,
+      "firstCallVelocityVsOfficial": {
+        "cosineSimilarity": 0.9998899791300128,
+        "finite": true,
+        "maxAbsError": 0.808842658996582,
+        "meanAbsError": 0.04520488981569561,
+        "relativeL2": 0.014850741340149793,
+        "rmse": 0.0705054204500974,
+        "shape": [
+          2,
+          80,
+          674
+        ]
+      },
+      "generatedMelShape": [
+        1,
+        80,
+        372
+      ],
+      "sixStepMelVsOfficial": {
+        "cosineSimilarity": 0.9983805692387763,
+        "finite": true,
+        "maxAbsError": 2.223047971725464,
+        "meanAbsError": 0.10778310177654671,
+        "relativeL2": 0.0587279328490076,
+        "rmse": 0.1649572361204081,
+        "shape": [
+          1,
+          80,
+          372
+        ]
+      },
+      "sixStepStateVsOfficial": {
+        "cosineSimilarity": 0.9991949491970133,
+        "finite": true,
+        "maxAbsError": 2.223047971725464,
+        "meanAbsError": 0.09806003435864294,
+        "relativeL2": 0.040403434877104766,
+        "rmse": 0.145647941788808,
+        "shape": [
+          1,
+          80,
+          674
+        ]
+      }
+    },
+    {
+      "G": 450,
+      "N": 225,
+      "P": 302,
+      "T": 752,
+      "boundaryMetrics": [
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9996838154437762,
+            "finite": true,
+            "maxAbsError": 2.9914278984069824,
+            "meanAbsError": 0.03608260116058753,
+            "relativeL2": 0.025257509332309046,
+            "rmse": 0.06733853473780024,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          "index": 0
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9986242515405307,
+            "finite": true,
+            "maxAbsError": 7.729104042053223,
+            "meanAbsError": 0.07268529629005817,
+            "relativeL2": 0.05243673023191606,
+            "rmse": 0.12730650111726827,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          "index": 1
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9990536307720908,
+            "finite": true,
+            "maxAbsError": 9.860030174255371,
+            "meanAbsError": 0.09026516620970897,
+            "relativeL2": 0.04355631095146818,
+            "rmse": 0.14528273630648691,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          "index": 2
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9992329762805195,
+            "finite": true,
+            "maxAbsError": 7.363039016723633,
+            "meanAbsError": 0.12134712366333346,
+            "relativeL2": 0.03917861765266261,
+            "rmse": 0.18478259338498026,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          "index": 3
+        },
+        {
+          "hVsSource": {
+            "cosineSimilarity": 0.9855000079693782,
+            "finite": true,
+            "maxAbsError": 17.073089599609375,
+            "meanAbsError": 0.6392912687772195,
+            "relativeL2": 0.17010314104266994,
+            "rmse": 0.9440476902927711,
+            "shape": [
+              2,
+              752,
+              1024
+            ]
+          },
+          "index": 4
+        }
+      ],
+      "dynamicSixStepMelVsFrozen": {
+        "cosineSimilarity": 0.9990116617913958,
+        "finite": true,
+        "maxAbsError": 1.5608514547348022,
+        "meanAbsError": 0.08340874017180047,
+        "relativeL2": 0.04470017026950026,
+        "rmse": 0.11631014022643277,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "finite": true,
+      "firstCallVelocityVsOfficial": {
+        "cosineSimilarity": 0.99988256912246,
+        "finite": true,
+        "maxAbsError": 1.3249387741088867,
+        "meanAbsError": 0.046156351755311374,
+        "relativeL2": 0.015333751109871662,
+        "rmse": 0.07184185406459591,
+        "shape": [
+          2,
+          80,
+          752
+        ]
+      },
+      "frozenSixStepMelVsOfficial": {
+        "cosineSimilarity": 0.9972777139359172,
+        "finite": true,
+        "maxAbsError": 2.1522863507270813,
+        "meanAbsError": 0.15269420196867498,
+        "relativeL2": 0.079331817973869,
+        "rmse": 0.2132427405513315,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "generatedMelShape": [
+        1,
+        80,
+        450
+      ],
+      "sixStepMelVsOfficial": {
+        "cosineSimilarity": 0.9969783797459084,
+        "finite": true,
+        "maxAbsError": 2.38064306974411,
+        "meanAbsError": 0.1646815523624084,
+        "relativeL2": 0.08499759547218297,
+        "rmse": 0.2284722657525861,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "sixStepStateVsOfficial": {
+        "cosineSimilarity": 0.9985461294103942,
+        "finite": true,
+        "maxAbsError": 2.38064306974411,
+        "meanAbsError": 0.13197887147462678,
+        "relativeL2": 0.05488850435901972,
+        "rmse": 0.19075185219775992,
+        "shape": [
+          1,
+          80,
+          752
+        ]
+      }
+    }
+  ],
+  "torchModelGraphsReleasedBeforeCoreMLPrediction": true
+}
