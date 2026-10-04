@@ -253,6 +253,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
                 ],
+                "dynamicAcousticExecutionHints": [
+                    "reshapeFrequency": "INFREQUENT",
+                    "meaning": "MLModelConfiguration optimization hint matching the accepted physical shape-sweep probe"
+                ],
                 "default": [
                     "text": defaultText,
                     "samples": defaultAudio.samples.count,
@@ -574,3 +578,5 @@ private extension Data {
 // Changes 2026-10-04: validation observer closures capture only Sendable scalar/value bindings rather than the non-Sendable Fixture aggregate, keeping Swift 6 concurrency checking explicit.
 
 // Changes 2026-10-04: dynamic public-API PASS receipt records the validated requested mixed placement: LLM CPU_ONLY, dynamic acoustic CPU_AND_NE, reference encoders CPU_ONLY; this is not a residency claim.
+
+// Changes 2026-10-04: dynamic public-API receipt now binds reshapeFrequency=INFREQUENT for dynamic acoustic MLModel loads, matching the physical shape-sweep execution configuration.
