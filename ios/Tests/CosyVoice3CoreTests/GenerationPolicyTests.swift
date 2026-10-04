@@ -1,22 +1,12 @@
 // GenerationPolicyTests.swift
-// Requirement: lock the publication fixed225 max-length contract to upstream max_len semantics plus the current downstream bucket capacity.
+// Requirement: lock request-dynamic fixed512 generation capacity to upstream 20x text-token semantics and the remaining logical context; acoustic-profile compatibility is handled by CosyVoice3Engine.
 import XCTest
 @testable import CosyVoice3Core
 
 final class GenerationPolicyTests: XCTestCase {
-    func testPhase0LikeTargetIsCappedAtFixed225Bucket() {
+    func testTwentyTimesRuleWinsForShortTarget() {
         XCTAssertEqual(
-            CosyVoice3Fixed225GenerationPolicy.maximumSpeechTokenCount(
-                targetTextTokenCount: 32,
-                logicalPrefixLength: 73
-            ),
-            225
-        )
-    }
-
-    func testShortTargetStillPreservesUpstreamTwentyTimesMaximum() {
-        XCTAssertEqual(
-            CosyVoice3Fixed225GenerationPolicy.maximumSpeechTokenCount(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
                 targetTextTokenCount: 8,
                 logicalPrefixLength: 50
             ),
@@ -24,18 +14,56 @@ final class GenerationPolicyTests: XCTestCase {
         )
     }
 
+    func testRemainingContextWinsForLongerTarget() {
+        XCTAssertEqual(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
+                targetTextTokenCount: 32,
+                logicalPrefixLength: 73
+            ),
+            439
+        )
+    }
+
+    func testObservedCapacityWalkContractReaches479() {
+        XCTAssertEqual(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
+                targetTextTokenCount: 24,
+                logicalPrefixLength: 33
+            ),
+            479
+        )
+    }
+
+    func testReferenceOrPromptGrowthReducesCapacityThroughLogicalPrefix() {
+        XCTAssertEqual(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
+                targetTextTokenCount: 24,
+                logicalPrefixLength: 53
+            ),
+            459
+        )
+    }
+
     func testContextCapacityRemainsFailClosed() {
         XCTAssertEqual(
-            CosyVoice3Fixed225GenerationPolicy.maximumSpeechTokenCount(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
                 targetTextTokenCount: 32,
                 logicalPrefixLength: 500
             ),
             12
         )
+        XCTAssertEqual(
+            CosyVoice3GenerationPolicy.maximumSpeechTokenCount(
+                targetTextTokenCount: 32,
+                logicalPrefixLength: 512
+            ),
+            0
+        )
     }
 }
 
-// Code purpose: prevent reintroducing decodeLimit-at-max behavior or allowing the fixed225 public lane to request more speech tokens than its acoustic bucket can consume.
-// Upstream: Qwen2LM/CosyVoice3LM inference_wrapper max_len semantics at CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6.
+// Code purpose: prevent reintroducing a global N225 LLM cap while proving reference/prompt growth dynamically reduces the per-request speech-token budget.
+// Upstream: Qwen2LM/CosyVoice3LM 20x max_len semantics plus the physically proven fixed512 stateful session.
 // Runtime: SwiftPM XCTest.
-// Generated: 2026-10-02 America/New_York.
+// Generated time: 2026-10-04 America/New_York.
+// Changes: replace fixed225 assertions with dynamic 20x/context tests, including the physically proven textTokens24/logicalPrefix33 -> N479 case.
