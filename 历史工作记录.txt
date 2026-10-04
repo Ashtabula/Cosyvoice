@@ -62,3 +62,10 @@ Prompt：继续 true-natural-length dynamic acoustic；修复 Phase3 noise contr
 修改文件：ios/experiments/dynamic-acoustic/run_phase3_dynamic_hift.py；历史工作记录.txt。
 验证：venv Python 语法检查、git diff --check；真实新转换待执行。默认 Python py_compile 的系统缓存路径被沙盒阻止，改用 /private/tmp 缓存。
 GitHub Timeline：即将 commit/push experiment/ios-dynamic-acoustic；冻结 release 不变。
+
+时间：2026-10-04 00:32 EDT (America/New_York)
+Prompt：Phase3 成功后继续完整 dynamic acoustic host 集成，不停止。
+动作：Phase3 v7 同一 symbolic HiFT package 通过 G372/G450；新增实验 host 集成脚本，动态 conditions + 六步六 shard Flow 的实际 mel -> FP64 F0 -> host phase -> dynamic HiFT；独立 subprocess 隔离 PyTorch 与 CoreML，保留 source/frozen endpoint 和 identical-mel HiFT controls。
+修改文件：ios/experiments/dynamic-acoustic/run_dynamic_acoustic_host.py；历史工作记录.txt；Phase3 evidence/index 已由 runner 提交。
+验证：Phase3 source parity maxAbs/relativeL2 均0；body relativeL2 G372=0.0138676031、G450=0.0133951638；G450 dynamic/frozen CoreML relativeL2=4.72876867e-7；samples178560/216000 finite。新增脚本语法检查通过，完整 host 待运行。productionPromotion=false。
+GitHub Timeline：Phase3 evidence 已 push，HEAD ab187566a7c5b0fc403dfd1970c855545c415422 本地远端一致；本次脚本即将 commit/push 实验分支。
