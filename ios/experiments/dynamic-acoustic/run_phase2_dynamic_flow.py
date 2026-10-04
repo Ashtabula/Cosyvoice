@@ -71,6 +71,17 @@ def load_estimator(source_root: Path, model_dir: Path):
     return estimator
 
 
+def load_full_graph(source_root: Path, estimator):
+    namespace = {"torch": torch, "math": math}
+    extract(
+        source_root,
+        "iOS/tools/flow_graphs.py",
+        ["BroadcastMaskDiTGraph"],
+        namespace,
+    )
+    return namespace["BroadcastMaskDiTGraph"](estimator).eval()
+
+
 def load_shards(source_root: Path, estimator):
     namespace = {"nn": nn}
     extract(
@@ -130,7 +141,7 @@ def natural_inputs(
     }
 
 
-def source_first_call(estimator, shards, case):
+def source_first_call(full_graph, shards, case):
     t = torch.zeros(2, dtype=case["mu"].dtype)
     batch_x = case["noise"].repeat(2, 1, 1)
     args = (
@@ -142,7 +153,7 @@ def source_first_call(estimator, shards, case):
         case["cond"],
     )
     with torch.no_grad():
-        official = estimator(*args, streaming=False)
+        official = full_graph(*args)
         h, te = shards[0](*args)
         boundaries = [{"h": h.detach().clone(), "te": te.detach().clone()}]
         for shard in shards[1:-1]:
@@ -292,7 +303,7 @@ def cosine_span(steps: int) -> np.ndarray:
     return np.float32(1.0) - np.cos(values * np.float32(math.pi / 2.0)).astype(np.float32)
 
 
-def source_rollout(estimator, case, steps: int = 6):
+def source_rollout(full_graph, case, steps: int = 6):
     span = cosine_span(steps)
     state = case["noise"].clone()
     cfg = np.float32(0.7)
@@ -307,14 +318,13 @@ def source_rollout(estimator, case, steps: int = 6):
                 dtype=case["mu"].dtype,
             )
             batch_x = state.repeat(2, 1, 1)
-            velocity = estimator(
+            velocity = full_graph(
                 batch_x,
                 case["mask"],
                 case["mu"],
                 t,
                 case["spks"],
                 case["cond"],
-                streaming=False,
             )
             guided = (
                 (1.0 + float(cfg)) * velocity[0:1]
@@ -445,6 +455,7 @@ def main() -> int:
             raise RuntimeError(f"upstream pin mismatch: {upstream_head}")
 
         estimator = load_estimator(args.source_root, args.model_dir)
+        full_graph = load_full_graph(args.source_root, estimator)
         shards = load_shards(args.source_root, estimator)
         conditioning = SymbolicConditions(
             load_reference_flow_conditioning(args.model_dir / "flow.pt")
@@ -474,7 +485,7 @@ def main() -> int:
 
         for n, case in cases.items():
             args0, official, sharded, boundaries = source_first_call(
-                estimator,
+                full_graph,
                 shards,
                 case,
             )
@@ -603,7 +614,7 @@ def main() -> int:
             )
 
             source_state = source_rollout(
-                estimator,
+                full_graph,
                 case,
                 steps=6,
             )
