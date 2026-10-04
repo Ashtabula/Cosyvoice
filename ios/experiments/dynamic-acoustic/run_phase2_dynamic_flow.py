@@ -222,7 +222,7 @@ def canonicalize_export_example(shard, index: int, example):
     }
 
 
-def export_package(shard, index: int, example, output_dir: Path, precision):
+def export_package(shard, index: int, example, output_dir: Path, precision, frame_bounds=(674, 752)):
     example, boundary_layout = canonicalize_export_example(
         shard,
         index,
@@ -230,12 +230,12 @@ def export_package(shard, index: int, example, output_dir: Path, precision):
     )
 
     if index == 0:
-        frame = torch.export.Dim("flow_frames", min=674, max=752)
+        frame = torch.export.Dim("flow_frames", min=frame_bounds[0], max=frame_bounds[1])
         dynamic_shapes = ({2: frame}, {2: frame}, {2: frame}, {}, {}, {2: frame})
         input_names = ("x", "mask", "mu", "t", "spks", "cond")
         output_names = ("h", "te")
     else:
-        frame = torch.export.Dim("flow_frames", min=674, max=752)
+        frame = torch.export.Dim("flow_frames", min=frame_bounds[0], max=frame_bounds[1])
         dynamic_shapes = ({1: frame}, {}, {2: frame})
         input_names = ("h", "te", "mask")
         output_names = ("velocity",) if index == 5 else ("h_out",)
@@ -275,9 +275,9 @@ def export_package(shard, index: int, example, output_dir: Path, precision):
     )
 
     rd = ct.RangeDim(
-        lower_bound=674,
-        upper_bound=752,
-        default=752,
+        lower_bound=frame_bounds[0],
+        upper_bound=frame_bounds[1],
+        default=frame_bounds[1],
         symbol="flow_frames",
     )
     types = []
@@ -838,3 +838,6 @@ if __name__ == "__main__":
 # Changes: new experiment-only complete dynamic Flow exporter/host validator; no HiFT, Swift shipping runtime, LLM EOS/cap, Candidate evidence, or public asset changes.
 # Changes 2026-10-03: canonicalize every cross-shard export fixture to contiguous external-input layout, record pre/post strides, and require exact PyTorch output equivalence before conversion; this fixes Core ML EXIR non-contiguous dim-order rejection without changing Flow math.
 # Changes 2026-10-03: precompute every PyTorch full-graph first-call/6-step oracle and convert all validation inputs to NumPy before loading any Core ML runtime model; release PyTorch model graphs before prediction so host validation never re-enters PyTorch modules after Core ML execution begins.
+
+# 2026-10-04: export_package accepts explicit symbolic frame bounds; original
+# Phase2 bounds/default remain unchanged; re-export, never metadata-only widening.

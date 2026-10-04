@@ -97,3 +97,10 @@ Prompt：继续完整 device 后 real text natural PCM。
 修改文件：evidence/full-device-CPU_ONLY-v2.json、full-device-CPU_AND_NE-v2.json、evidence-index.json；历史工作记录.txt。
 验证：两backend均同6Flowpackages T674/T752、同HiFT G372/G450、samples178560/216000 finite；无E5RT/BNNS错误。CPU_AND_NE compute-plan所有op preferredCPU：conditions39、Flow319/282/282/282/282/166、HiFT632；不是ANE residency。两backend数值metrics完全相同；endpoint parity/quality仍未accepted。隔离text probe build通过；cap225未改。
 GitHub Timeline：a91d3c3664e09929c53e41e10856c0a1702228a1 已push；成功device evidence即将commit/push。
+
+时间：2026-10-04 00:47 EDT (America/New_York；精确时间以commit/log为准)
+Prompt：真实文本actual EOS/count，不padding，并自主修复范围问题。
+动作：两句原始文本 native LLM stopToken6562、实际N164/N151、actualEarlyEOS=true；建立新统一symbolic family exporter，N151..225 T604..752 G302..450，完整re-export而非改metadata。原Phase2/3 exporter新增可选bounds且default不变；host集成接受真实speechTokens和family并同时保留N186/N225。
+修改文件：export_observed_text_family.py、run_dynamic_acoustic_host.py、run_phase2_dynamic_flow.py、run_phase3_dynamic_hift.py；历史工作记录.txt。
+验证：四脚本语法/git diff --check通过；LLM cap225和RAS未改变。新family转换待执行。原device两个backend execution通过，endpoint质量未accepted，promotion=false。
+GitHub Timeline：7072a48已push；新family代码即将commit/push。

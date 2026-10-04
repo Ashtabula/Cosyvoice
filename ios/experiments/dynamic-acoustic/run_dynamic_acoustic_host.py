@@ -23,6 +23,8 @@ FIXED = ROOT / 'ios/.work/production-clean-room/fetched-runtime'
 FLOW = ROOT / 'ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages'
 HIFT = ROOT / 'ios/.work/dynamic-acoustic/phase3-dynamic-hift-v7/hift-dynamic-body-fp32.mlpackage'
 COND = ROOT / 'ios/.work/dynamic-acoustic/conditions-final/conditions.mlpackage'
+COUNTS = (186,225)
+TRACES = {}
 
 
 def save_json(path, value):
@@ -36,11 +38,13 @@ def source_flow(work):
     conditioning = SymbolicConditions(load_reference_flow_conditioning(MODEL/'flow.pt')).eval()
     fixture = torch.load(FIXTURE/'flow_input.pt', weights_only=True)['kwargs']
     args0 = torch.load(FIXTURE/'estimator_00.pt', weights_only=True)['args']
-    for n in (186,225):
-        case = natural_inputs(n, conditioning, fixture, args0)
+    for n in COUNTS:
+        current=dict(fixture)
+        if n in TRACES: current["token"]=torch.tensor([TRACES[n]["speechTokens"]],dtype=torch.int32)
+        case = natural_inputs(n, conditioning, current, args0)
         state = source_rollout(full, case)
         values = to_coreml_case(case)
-        feed = fixed_conditions_feed(fixture)
+        feed = fixed_conditions_feed(current)
         feed['tokens'] = feed['tokens'][:,:n].copy()
         values.update({f'input_{k}':v for k,v in feed.items()})
         values['source_mel'] = state.detach().numpy()[:,:,302:].copy()
@@ -55,7 +59,7 @@ def flow_host(work):
     fixed_conditions = ct.models.MLModel(str(fixed_cond), compute_units=ct.ComputeUnit.CPU_ONLY)
     fixed_models = [ct.models.MLModel(str(p), compute_units=ct.ComputeUnit.CPU_ONLY) for p in fixed_shards]
     rows=[]
-    for n in (186,225):
+    for n in COUNTS:
         values = dict(np.load(work/f'flow-N{n}.npz'))
         feed={k:values[f'input_{k}'] for k in ('tokens','prompt_tokens','prompt_feat','speaker')}
         result = conditions.predict(feed)
@@ -85,7 +89,7 @@ def source_hift(work):
     fixed_class=load_fixed_oracle_class(SOURCE)
     hift.f0_predictor.double()
     rows=[]
-    for n in (186,225):
+    for n in COUNTS:
         g=2*n
         noise,norm=frame_buffers(hift,g)
         for variant in ('dynamic','source','frozen'):
@@ -117,7 +121,7 @@ def hift_host(work):
     _,fixed_path=fixed_asset_hift(FIXED)
     fixed=ct.models.MLModel(str(fixed_path),compute_units=ct.ComputeUnit.CPU_ONLY)
     rows=[]
-    for n in (186,225):
+    for n in COUNTS:
         values=dict(np.load(work/f'hift-dynamic-N{n}.npz'))
         feed={k:values[k] for k in ('mel','f0','phase','noise','norm')}
         pcm=model.predict(feed)['pcm']
@@ -147,7 +151,16 @@ def hift_host(work):
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True)
     p.add_argument('--phase',choices=('source_flow','flow_host','source_hift','hift_host'))
+    p.add_argument('--family',type=Path)
+    p.add_argument('--text-traces',type=Path)
     a=p.parse_args()
+    global FLOW,HIFT,COND,COUNTS,TRACES
+    if a.family:
+        FLOW=a.family/'packages';HIFT=a.family/'hift/hift-dynamic-body-fp32.mlpackage';COND=a.family/'conditions/conditions.mlpackage'
+    if a.text_traces:
+        TRACES={r['N']:r for r in (json.loads(f.read_text()) for f in sorted(a.text_traces.glob('text-*.json')))}
+        if not all(r.get('actualEarlyEOS') and r.get('stopToken')==6562 and len(r['speechTokens'])==r['N'] for r in TRACES.values()): raise RuntimeError('Real EOS/count not proven')
+        COUNTS=tuple(sorted(set((186,225))|set(TRACES)))
     if a.phase:
         globals()[a.phase](a.output);return 0
     a.output.mkdir(parents=True,exist_ok=False)
@@ -155,11 +168,15 @@ def main():
        'pinnedUpstream':PIN,'productionPromotion':False,'actualDynamicFlowMel':True,
        'numericalPolicy':'Existing same-mel HiFT relativeL2<=0.02; full endpoint and FP16 Flow errors recorded against source/frozen controls; no new endpoint threshold invented.',
        'packages':{'flow':[{'path':str(FLOW/f'shard-{i:02d}/flow-shard.mlpackage'),'sha256':sha(FLOW/f'shard-{i:02d}/flow-shard.mlpackage')} for i in range(6)],
-                   'conditions':{'path':str(COND),'sha256':sha(COND)},'hift':{'path':str(HIFT),'sha256':sha(HIFT)}}}
+                   'conditions':{'path':str(COND),'sha256':sha(COND)},'hift':{'path':str(HIFT),'sha256':sha(HIFT)}},
+       'realTextTraces':list(TRACES.values())}
     try:
         for phase in ('source_flow','flow_host','source_hift','hift_host'):
             r['phase']=phase;save_json(a.output/'receipt.json',r)
-            subprocess.run([sys.executable,__file__,'--output',str(a.output),'--phase',phase],check=True)
+            command=[sys.executable,__file__,'--output',str(a.output),'--phase',phase]
+            if a.family:command+=['--family',str(a.family)]
+            if a.text_traces:command+=['--text-traces',str(a.text_traces)]
+            subprocess.run(command,check=True)
         r['flowTests']=json.loads((a.output/'flow-results.json').read_text())
         r['sourceTests']=json.loads((a.output/'source-hift-results.json').read_text())
         r['tests']=json.loads((a.output/'hift-results.json').read_text())
@@ -177,3 +194,6 @@ if __name__=='__main__':raise SystemExit(main())
 # Upstream: pinned CosyVoice3 Flow and HiFT, existing Phase2/3 symbolic packages, frozen fixed225 control.
 # Environment: macOS arm64 Python3.11/CoreML CPU_ONLY; isolated subprocesses prevent PyTorch/CoreML runtime interference.
 # Generated: 2026-10-04 America/New_York. New file, all lines. No LLM/cap/assets/Candidate change.
+
+# 2026-10-04: accept an explicitly re-exported family and hash-preserved real
+# early-EOS token traces; test observed counts alongside original186/225 controls.

@@ -395,6 +395,7 @@ def export_dynamic_body(
     output: Path,
     receipt,
     save,
+    frames=FRAMES,
 ):
     example, export_input_records = canonicalize_export_example(
         example
@@ -402,8 +403,8 @@ def export_dynamic_body(
 
     frame = torch.export.Dim(
         "mel_frames",
-        min=min(FRAMES),
-        max=max(FRAMES),
+        min=min(frames),
+        max=max(frames),
     )
     samples = UPSAMPLE * frame
     dynamic_shapes = (
@@ -479,15 +480,15 @@ def export_dynamic_body(
     )
 
     frame_rd = ct.RangeDim(
-        lower_bound=min(FRAMES),
-        upper_bound=max(FRAMES),
-        default=max(FRAMES),
+        lower_bound=min(frames),
+        upper_bound=max(frames),
+        default=max(frames),
         symbol="mel_frames",
     )
     sample_rd = ct.RangeDim(
-        lower_bound=min(FRAMES) * UPSAMPLE,
-        upper_bound=max(FRAMES) * UPSAMPLE,
-        default=max(FRAMES) * UPSAMPLE,
+        lower_bound=min(frames) * UPSAMPLE,
+        upper_bound=max(frames) * UPSAMPLE,
+        default=max(frames) * UPSAMPLE,
         symbol="pcm_samples",
     )
 
@@ -865,3 +866,6 @@ if __name__ == "__main__":
 # 2026-10-04 America/New_York: export_dynamic_body derives static input dimensions
 # from EXIR USER_INPUT placeholders and persists shape/stride/dtype/dim_order before
 # conversion; noise preserves the official harmonic channel dimension (9).
+
+# 2026-10-04: optional explicit frames bounds permit re-export of the same math
+# for actual early-EOS lengths; default Phase3 G372..450 remains unchanged.
