@@ -1,0 +1,471 @@
+{
+  "actualDynamicFlowMel": true,
+  "componentGatesPass": true,
+  "flowTests": [
+    {
+      "G": 372,
+      "N": 186,
+      "T": 674,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            674
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.9999999999996413,
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.295914520951712e-07,
+          "relativeL2": 8.179827210837397e-07,
+          "rmse": 4.364227733587155e-07,
+          "shape": [
+            2,
+            80,
+            674
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9984553103271555,
+        "finite": true,
+        "maxAbsError": 2.1361474990844727,
+        "meanAbsError": 0.10530540667609149,
+        "relativeL2": 0.05560577522888692,
+        "rmse": 0.15618760186354594,
+        "shape": [
+          1,
+          80,
+          372
+        ]
+      },
+      "samples": 178560
+    },
+    {
+      "G": 450,
+      "N": 225,
+      "T": 752,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            752
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.9999999999996408,
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.3003266157521718e-07,
+          "relativeL2": 8.150559008240192e-07,
+          "rmse": 4.3628556318755427e-07,
+          "shape": [
+            2,
+            80,
+            752
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsFrozen": {
+        "cosineSimilarity": 0.9991971080017068,
+        "finite": true,
+        "maxAbsError": 1.2693704068660736,
+        "meanAbsError": 0.07468525586457044,
+        "relativeL2": 0.0419246564180201,
+        "rmse": 0.10908823473212025,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9972217402050115,
+        "finite": true,
+        "maxAbsError": 2.368066728115082,
+        "meanAbsError": 0.13986982621661284,
+        "relativeL2": 0.07664115575282054,
+        "rmse": 0.20601028073170072,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "frozenMelVsSource": {
+        "cosineSimilarity": 0.9972777139359172,
+        "finite": true,
+        "maxAbsError": 2.1522863507270813,
+        "meanAbsError": 0.15269420196867498,
+        "relativeL2": 0.079331817973869,
+        "rmse": 0.2132427405513315,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "samples": 216000
+    }
+  ],
+  "numericalPolicy": "Existing same-mel HiFT relativeL2<=0.02; full endpoint and FP16 Flow errors recorded against source/frozen controls; no new endpoint threshold invented.",
+  "packages": {
+    "conditions": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/conditions-final/conditions.mlpackage",
+      "sha256": "5b2501804b97922fca9d7c7a6cfee20cc95764a59919a529f5a9d5ba23ff9275"
+    },
+    "flow": [
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-00/flow-shard.mlpackage",
+        "sha256": "4a4675be21ac50669b5bf0a6ca8ed9ec28f5a7e68a0d93c40c268d5df2ef49f0"
+      },
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-01/flow-shard.mlpackage",
+        "sha256": "6d097267c4d96508e9c6b6b7821a98ef36faad5017e798d7d310f93265769ef2"
+      },
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-02/flow-shard.mlpackage",
+        "sha256": "9731c91a698666869d9be80e4baa194490d91621676249dab2960d2ab6ef5968"
+      },
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-03/flow-shard.mlpackage",
+        "sha256": "a62333a35fc540179460fc2a0e0e855a619433b6382cb0eaf3beac98216d22b3"
+      },
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-04/flow-shard.mlpackage",
+        "sha256": "eef38eb82811dd56d7bca5eba434af16e7e191e46457c2159d4ec46667decf3e"
+      },
+      {
+        "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-05/flow-shard.mlpackage",
+        "sha256": "c592dd7e79fc2950280e0b19eaeae783589dbc6e551177462776c22b1f9ecffc"
+      }
+    ],
+    "hift": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase3-dynamic-hift-v7/hift-dynamic-body-fp32.mlpackage",
+      "sha256": "d1c3cc8ea111fbcb71007cfb30b7fa6f95d8e12fc77d8f5c7796909fcae95dfc"
+    }
+  },
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "productionPromotion": false,
+  "schemaVersion": 1,
+  "sourceCommit": "0567da55538b3ae243161f95e6582b01bd4f6e81",
+  "sourceTests": [
+    {
+      "N": 186,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999847818,
+        "finite": true,
+        "maxAbsError": 9.685754776000977e-06,
+        "meanAbsError": 4.368898251971524e-07,
+        "relativeL2": 5.515974725597368e-06,
+        "rmse": 8.014771169736409e-07,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999901,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 186,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999777969,
+        "finite": true,
+        "maxAbsError": 1.7210841178894043e-05,
+        "meanAbsError": 5.248963006131341e-07,
+        "relativeL2": 6.663544595169122e-06,
+        "rmse": 1.0244778031089523e-06,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999954,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999805893,
+        "finite": true,
+        "maxAbsError": 2.5480985641479492e-05,
+        "meanAbsError": 6.717563944541717e-07,
+        "relativeL2": 6.2297361590273924e-06,
+        "rmse": 1.25202143060141e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999933,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999848279,
+        "finite": true,
+        "maxAbsError": 1.3984739780426025e-05,
+        "meanAbsError": 6.882785512001277e-07,
+        "relativeL2": 5.5094562399736005e-06,
+        "rmse": 1.2266831815966739e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999998,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999832969,
+        "finite": true,
+        "maxAbsError": 2.446770668029785e-05,
+        "meanAbsError": 6.804659211807289e-07,
+        "relativeL2": 5.7797778299574785e-06,
+        "rmse": 1.261871269387355e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999984,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "frozen"
+    }
+  ],
+  "status": "PASS_HOST_DYNAMIC_ACOUSTIC_EXECUTION_COMPONENT_GATES_ENDPOINT_NUMERICS_RECORDED_NOT_PROMOTED",
+  "tests": [
+    {
+      "G": 372,
+      "N": 186,
+      "T": 674,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 178560,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.2888467684024759,
+        "finite": true,
+        "maxAbsError": 1.9551000595092773,
+        "meanAbsError": 0.0980844412828241,
+        "relativeL2": 1.159451457611192,
+        "rmse": 0.1782583225999747,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "pcmShape": [
+        1,
+        178560
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999589489312414,
+        "finite": true,
+        "maxAbsError": 0.024364054203033447,
+        "meanAbsError": 0.0006379237022102771,
+        "relativeL2": 0.009346611046737925,
+        "rmse": 0.0013580726536374249,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999589501987959,
+        "finite": true,
+        "maxAbsError": 0.02436661720275879,
+        "meanAbsError": 0.0006379234601812867,
+        "relativeL2": 0.009346490196549654,
+        "rmse": 0.0013580551741454903,
+        "shape": [
+          1,
+          178560
+        ]
+      }
+    },
+    {
+      "G": 450,
+      "N": 225,
+      "T": 752,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 216000,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsFrozenFixed225": {
+        "cosineSimilarity": 0.15979603925503186,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.15350297211225175,
+        "relativeL2": 1.2469569377645868,
+        "rmse": 0.2704071659949059,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.14951308921059822,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.15659970887503133,
+        "relativeL2": 1.2399093980076026,
+        "rmse": 0.2760664463044825,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "fullFrozenEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.03449072638617866,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.17739316113832215,
+        "relativeL2": 1.371649047212485,
+        "rmse": 0.3053983449511369,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "identicalMelDynamicHiFTVsFrozenHiFT": {
+        "cosineSimilarity": 0.9999999999998324,
+        "finite": true,
+        "maxAbsError": 1.5944242477416992e-06,
+        "meanAbsError": 5.883379364375659e-08,
+        "relativeL2": 5.482575169864715e-07,
+        "rmse": 1.0957765215090004e-07,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "pcmShape": [
+        1,
+        216000
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999459204566687,
+        "finite": true,
+        "maxAbsError": 0.04229283332824707,
+        "meanAbsError": 0.0011774131218409475,
+        "relativeL2": 0.011749549829189493,
+        "rmse": 0.0023613661549458584,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999459165932639,
+        "finite": true,
+        "maxAbsError": 0.04228389263153076,
+        "meanAbsError": 0.0011774469723222114,
+        "relativeL2": 0.011749878895007178,
+        "rmse": 0.0023614322995369357,
+        "shape": [
+          1,
+          216000
+        ]
+      }
+    }
+  ]
+}

@@ -69,3 +69,10 @@ Prompt：Phase3 成功后继续完整 dynamic acoustic host 集成，不停止�
 修改文件：ios/experiments/dynamic-acoustic/run_dynamic_acoustic_host.py；历史工作记录.txt；Phase3 evidence/index 已由 runner 提交。
 验证：Phase3 source parity maxAbs/relativeL2 均0；body relativeL2 G372=0.0138676031、G450=0.0133951638；G450 dynamic/frozen CoreML relativeL2=4.72876867e-7；samples178560/216000 finite。新增脚本语法检查通过，完整 host 待运行。productionPromotion=false。
 GitHub Timeline：Phase3 evidence 已 push，HEAD ab187566a7c5b0fc403dfd1970c855545c415422 本地远端一致；本次脚本即将 commit/push 实验分支。
+
+时间：2026-10-04 00:36 EDT (America/New_York)
+Prompt：继续 actual dynamic Flow mel -> FP64 F0/phase/dynamic HiFT host/device。
+动作：full-acoustic-host-v1 完成；保存 host evidence；扩展独立 DeviceProbe 的 ACOUSTIC 模式，完整六步 Flow 两种 T -> FP64 F0/phase -> 同一 HiFT，增加 per-shard durable phase 和 preferred compute plan；新增 hash-bound staging helper，原 Phase1 staging 保留。
+修改文件：ios/experiments/dynamic-acoustic/DeviceProbe/DynamicAcousticProbe/DynamicAcousticProbeApp.swift；stage_acoustic_probe.py；evidence/full-acoustic-host-v1.json；evidence/evidence-index.json；历史工作记录.txt。
+验证：N186 T674 G372 samples178560、N225 T752 G450 samples216000 finite；actual dynamic mel source body vs fixed body exact；same-mel upstream FP64 HiFT relativeL2=0.00934649/0.011749879。Full endpoint/source relativeL2=1.15945/1.23991，frozen endpoint/source=1.37165；这是 execution/component-gate PASS，非 full endpoint parity/quality acceptance。N225 identical-input dynamic/frozen HiFT relativeL2=5.482575e-7。物理 Air 当前 connected；未执行新 device probe；LLM cap和production assets未改。
+GitHub Timeline：host 脚本已 push 0567da55538b3ae243161f95e6582b01bd4f6e81；本次 evidence/device code 即将 commit/push 实验分支。

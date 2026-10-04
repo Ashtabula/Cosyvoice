@@ -1,5 +1,6 @@
 // DynamicAcousticProbeApp.swift
 // Requirement: physically test the same symbolic conditioning/shard0 family at N186 and N225, independently for CPU_ONLY and CPU_AND_NE, with phase-specific durable receipts.
+import Accelerate
 import CoreML
 import Foundation
 import SwiftUI
@@ -21,6 +22,7 @@ struct ProbeView: View {
 }
 struct Probe {
     static func run(backend: String) async throws {
+        if ProcessInfo.processInfo.arguments.contains("ACOUSTIC") { try await AcousticProbe.run(backend: backend); return }
         let root = Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets")
         let document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let path = document.appendingPathComponent("dynamic-probe-\(backend).json")
@@ -137,3 +139,152 @@ struct Probe {
 // Changes 2026-10-03: line45 sets reshapeFrequency through optimizationHints; lines85-92 split metrics for reliable Swift type checking.
 
 // Changes 2026-10-03: async compute-plan preferred placement hints, wall-clock receipt timestamp, exact output-shape guards; physical execution still does not establish residency.
+
+enum CosyVoice3HiFTError: Error { case sizeMismatch(String,Int,Int); case invalidMelShape([Int]) }
+
+final class CosyVoice3HiFTDoubleF0 {
+    private struct Layer { let inputs:Int; let outputs:Int; let kernel:Int; let right:Bool; let weights:[Double]; let bias:[Double] }
+    private var layers:[Layer]=[]
+    private let classifier:[Double]
+    private let classifierBias:Double
+    init(folder:URL) throws {
+        func read(_ name:String,count:Int) throws -> [Double] { let data=try Data(contentsOf:folder.appendingPathComponent(name+".bin")); guard data.count==count*8 else { throw CosyVoice3HiFTError.sizeMismatch(name,count*8,data.count) }; return data.withUnsafeBytes { Array($0.bindMemory(to:Double.self)) } }
+        classifier=try read("f0-classifier-weight",count:512); classifierBias=try read("f0-classifier-bias",count:1)[0]
+        for i in 0..<5 { let inputs=i==0 ? 80:512, kernel=i==0 ? 4:3; layers.append(.init(inputs:inputs,outputs:512,kernel:kernel,right:i==0,weights:try read("f0-\(i)-weight",count:512*inputs*kernel),bias:try read("f0-\(i)-bias",count:512))) }
+    }
+    func prediction(mel:MLMultiArray) throws -> MLMultiArray {
+        let frames=mel.shape[2].intValue, shape=mel.shape.map(\.intValue); guard shape == [1,80,frames] else { throw CosyVoice3HiFTError.invalidMelShape(shape) }
+        var x=(0..<mel.count).map { mel[$0].doubleValue }
+        for layer in layers {
+            let k=layer.inputs*layer.kernel; var columns=[Double](repeating:0,count:k*frames)
+            for c in 0..<layer.inputs { for tap in 0..<layer.kernel { let offset=layer.right ? tap:tap-(layer.kernel-1), row=(c*layer.kernel+tap)*frames; for t in 0..<frames { let source=t+offset; if source>=0 && source<frames { columns[row+t]=x[c*frames+source] } } } }
+            var y=[Double](repeating:0,count:layer.outputs*frames)
+            layer.weights.withUnsafeBufferPointer { w in columns.withUnsafeBufferPointer { input in y.withUnsafeMutableBufferPointer { out in cblas_dgemm(CblasRowMajor,CblasNoTrans,CblasNoTrans,Int32(layer.outputs),Int32(frames),Int32(k),1,w.baseAddress!,Int32(k),input.baseAddress!,Int32(frames),0,out.baseAddress!,Int32(frames)) } } }
+            for c in 0..<layer.outputs { for t in 0..<frames { let v=y[c*frames+t]+layer.bias[c]; y[c*frames+t]=v>0 ? v:expm1(v) } }; x=y
+        }
+        let result=try MLMultiArray(shape:[1,NSNumber(value:frames)],dataType:.float32), ptr=result.dataPointer.assumingMemoryBound(to:Float.self)
+        for t in 0..<frames { var value=classifierBias; for c in 0..<512 { value += x[c*frames+t]*classifier[c] }; ptr[t]=Float(abs(value)) }
+        return result
+    }
+}
+
+// Purpose: exact validated Double convolution/ELU/linear F0 math extracted from StatefulLLMBench without benchmark dependencies.
+// Upstream: HiFTDoubleF0.swift at CosyVoice3_NPU@8789402; only BenchmarkError was replaced by SDK-local typed errors.
+// Runtime: iOS Accelerate + CoreML.
+// Generated: 2026-10-02 America/New_York.
+
+// Experiment-only complete acoustic probe; existing Phase1 probe remains selectable.
+enum AcousticProbe {
+    static func array(_ values: [Float], _ shape: [Int]) throws -> MLMultiArray {
+        let a = try MLMultiArray(shape: shape.map(NSNumber.init), dataType: .float32)
+        guard a.count == values.count else { throw NSError(domain:"AcousticInputShape",code:1) }
+        values.withUnsafeBufferPointer { a.dataPointer.assumingMemoryBound(to:Float.self).update(from:$0.baseAddress!,count:values.count) }
+        return a
+    }
+    static func values(_ a: MLMultiArray) -> [Float] {
+        var contiguous=true, stride=1
+        for axis in a.shape.indices.reversed() { if a.shape[axis].intValue>1 && a.strides[axis].intValue != stride { contiguous=false }; stride *= a.shape[axis].intValue }
+        if contiguous && a.dataType == .float32 { return Array(UnsafeBufferPointer(start:a.dataPointer.assumingMemoryBound(to:Float.self),count:a.count)) }
+        return (0..<a.count).map { a[$0].floatValue }
+    }
+    static func floats(_ path: URL) throws -> [Float] {
+        try Data(contentsOf:path).withUnsafeBytes { Array($0.bindMemory(to:Float.self)) }
+    }
+    static func read(_ folder: URL, _ name: String, _ shape: [Int], integer: Bool=false) throws -> MLMultiArray {
+        let data=try Data(contentsOf:folder.appendingPathComponent(name+".bin"))
+        let a=try MLMultiArray(shape:shape.map(NSNumber.init),dataType:integer ? .int32:.float32)
+        guard a.count*4==data.count else { throw NSError(domain:"AcousticInputBytes",code:data.count) }
+        data.withUnsafeBytes { a.dataPointer.copyMemory(from:$0.baseAddress!,byteCount:data.count) }
+        return a
+    }
+    static func output(_ result: MLFeatureProvider, _ name: String) throws -> MLMultiArray {
+        guard let a=result.featureValue(for:name)?.multiArrayValue else { throw NSError(domain:"AcousticOutput",code:1,userInfo:[NSLocalizedDescriptionKey:name]) }; return a
+    }
+    static func metric(_ expected: [Float], _ actual: [Float]) throws -> [String:Any] {
+        guard expected.count==actual.count else { throw NSError(domain:"AcousticMetricShape",code:actual.count) }
+        var aa=0.0,bb=0.0,ab=0.0,ss=0.0,maximum=0.0
+        for i in actual.indices { let a=Double(expected[i]),b=Double(actual[i]),d=a-b; aa+=a*a;bb+=b*b;ab+=a*b;ss+=d*d;maximum=max(maximum,abs(d)) }
+        guard actual.allSatisfy(\.isFinite) else { return ["finite":false] }
+        return ["finite":true,"maxAbsError":maximum,"rmse":sqrt(ss/Double(actual.count)),"relativeL2":sqrt(ss/max(aa,1e-30)),"cosineSimilarity":ab/sqrt(max(aa*bb,1e-30))]
+    }
+    static func run(backend: String) async throws {
+        let root=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/acoustic")
+        let docs=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
+        let path=docs.appendingPathComponent("dynamic-acoustic-\(backend).json")
+        let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json")))
+        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
+        func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
+        try save()
+        do {
+            let config=MLModelConfiguration(); config.computeUnits=backend=="CPU_ONLY" ? .cpuOnly:.cpuAndNeuralEngine; config.optimizationHints.reshapeFrequency = .infrequent
+            var models=[MLModel](), placements=[String:Any]()
+            for role in ["conditions"]+(0..<6).map({"flow-\($0)"})+["hift"] {
+                receipt["phase"]="\(role)_compile";try save()
+                let compiled=try await MLModel.compileModel(at:root.appendingPathComponent("\(role).mlpackage"))
+                receipt["phase"]="\(role)_load";try save()
+                let model=try await MLModel(contentsOf:compiled,configuration:config)
+                models.append(model)
+                do {
+                    let plan=try await MLComputePlan.load(contentsOf:compiled,configuration:config)
+                    var counts=[String:Int]()
+                    if case let .program(program)=plan.modelStructure {
+                        func visit(_ block:MLModelStructure.Program.Block) { for op in block.operations { if let use=plan.deviceUsage(for:op) { counts[use.preferred.description,default:0]+=1 }; for child in op.blocks { visit(child) } } }
+                        for function in program.functions.values { visit(function.block) }
+                    }
+                    placements[role]=counts
+                } catch { placements[role]=Probe.errorRecord(error) }
+                receipt["computePlanPreferredCounts"]=placements;try save()
+            }
+            let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
+            var rows=[[String:Any]]()
+            for n in [186,225] {
+                let t=302+2*n,g=2*n,samples=g*480,folder=root.appendingPathComponent("N\(n)")
+                receipt["phase"]="conditions_N\(n)";try save()
+                let feed=["tokens":try read(folder,"tokens",[1,n],integer:true),"prompt_tokens":try read(folder,"prompt_tokens",[1,151],integer:true),"prompt_feat":try read(folder,"prompt_feat",[1,302,80]),"speaker":try read(folder,"speaker",[1,192])]
+                let conditions=try await models[0].prediction(from:MLDictionaryFeatureProvider(dictionary:feed))
+                let mu=try output(conditions,"mu"),spks=try output(conditions,"spks"),cond=try output(conditions,"cond")
+                let mask=try array([Float](repeating:1,count:2*t),[2,1,t])
+                var x=try floats(folder.appendingPathComponent("noise.bin"))
+                let span=(0...6).map { 1-cos(Float($0)/6*Float.pi/2) }
+                for step in 0..<6 {
+                    receipt["phase"]="flow_N\(n)_step\(step)";try save()
+                    var shardFeed=["x":try array(x+x,[2,80,t]),"mask":mask,"mu":mu,"spks":spks,"cond":cond,"t":try array([span[step],span[step]],[2])]
+                    var velocity:[Float]=[]
+                    for shard in 0..<6 {
+                        receipt["phase"]="flow_N\(n)_step\(step)_shard\(shard)";try save()
+                        let result=try await models[shard+1].prediction(from:MLDictionaryFeatureProvider(dictionary:shardFeed))
+                        if shard==0 { shardFeed=["h":try output(result,"h"),"te":try output(result,"te"),"mask":mask] }
+                        else if shard<5 { shardFeed["h"]=try output(result,"h_out") }
+                        else { velocity=values(try output(result,"velocity")) }
+                    }
+                    guard velocity.count==x.count*2 else { throw NSError(domain:"AcousticVelocityShape",code:velocity.count) }
+                    let dt=span[step+1]-span[step]
+                    for i in x.indices { x[i]+=dt*(1.7*velocity[i]-0.7*velocity[i+x.count]) }
+                    print("DYNAMIC_ACOUSTIC_FLOW N\(n) step\(step) complete")
+                }
+                var melValues=[Float](repeating:0,count:80*g)
+                for c in 0..<80 { for j in 0..<g { melValues[c*g+j]=x[c*t+302+j] } }
+                let mel=try array(melValues,[1,80,g])
+                receipt["phase"]="f0_N\(n)";try save()
+                let f0Values=try f0.prediction(mel:mel)
+                var phase=[Float](repeating:0,count:g*9),sums=[Double](repeating:0,count:9)
+                for j in 0..<g { for h in 0..<9 { let rad=(f0Values[j].floatValue*Float(h+1)/24000).truncatingRemainder(dividingBy:1);sums[h]+=Double(rad);phase[j*9+h]=Float(sums[h])*Float(2*Double.pi) } }
+                receipt["phase"]="hift_N\(n)";try save()
+                let hiftFeed=["mel":mel,"f0":f0Values,"phase":try array(phase,[1,g,9]),"noise":try read(folder,"hift-noise",[1,samples,9]),"norm":try read(folder,"norm",[1,1,samples])]
+                let result=try await models[7].prediction(from:MLDictionaryFeatureProvider(dictionary:hiftFeed))
+                let pcmArray=try output(result,"pcm"),pcm=values(pcmArray)
+                guard pcmArray.shape.map(\.intValue)==[1,samples],pcm.allSatisfy(\.isFinite),melValues.allSatisfy(\.isFinite) else { throw NSError(domain:"AcousticPCMShapeOrFinite",code:pcm.count) }
+                let hostMel=try floats(folder.appendingPathComponent("expected-mel.bin")),hostPCM=try floats(folder.appendingPathComponent("expected-pcm.bin"))
+                let row:[String:Any]=["N":n,"T":t,"G":g,"samples":pcm.count,"finite":true,"pcmShape":pcmArray.shape.map(\.intValue),"melVsHost":try metric(hostMel,melValues),"pcmVsHost":try metric(hostPCM,pcm),"status":"PASS_PHYSICAL_EXECUTION_NUMERICS_RECORDED_NOT_PROMOTED"]
+                pcm.withUnsafeBytes { try? Data($0).write(to:docs.appendingPathComponent("dynamic-acoustic-\(backend)-N\(n).f32")) }
+                rows.append(row);receipt["tests"]=rows;try save()
+                print("DYNAMIC_ACOUSTIC_PCM N\(n) samples=\(pcm.count)")
+            }
+            receipt["phase"]="complete";receipt["status"]="PASS_PHYSICAL_DYNAMIC_ACOUSTIC_EXECUTION_NOT_PROMOTED";try save()
+        } catch { receipt["status"]="FAIL";receipt["error"]=Probe.errorRecord(error);try save();throw error }
+        print("DYNAMIC_ACOUSTIC_RECEIPT \(path.path)")
+    }
+}
+// 2026-10-04 America/New_York: adds isolated full six-step dynamic Flow -> FP64 F0
+// -> host phase -> HiFT physical probe; copies unchanged SDK F0 math above. Same
+// packages serve both lengths, durable per-shard phases and preferred-plan hints.

@@ -24,6 +24,10 @@
       "bytes": 1590,
       "sha256": "59a6a65b3015ee02e30609a60f421b3cde700bd1f5672bee49bc7740e1edcac8"
     },
+    "full-acoustic-host-v1.json": {
+      "bytes": 13343,
+      "sha256": "546cc2ae994864d5481a5531098c7f7fc675d2583e3fec48a1a8e49e71e870b9"
+    },
     "hybrid-downstream-v1.json": {
       "bytes": 7835,
       "sha256": "56c17ef3d414782092e9a5d6373585e3105e9912c6c6471d0ce5edad8124b33e"
