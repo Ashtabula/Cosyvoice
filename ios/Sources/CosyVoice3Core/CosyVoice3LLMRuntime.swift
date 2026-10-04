@@ -10,25 +10,44 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     private let decodeModel:MLModel
     private let conditioner:CosyVoice3TokenConditioner
     private let sampler:CosyVoice3RASampler
-    init(prefillModel:MLModel, decodeModel:MLModel, conditioner:CosyVoice3TokenConditioner, sampler: CosyVoice3RASampler = .init()) {
-        self.prefillModel=prefillModel; self.decodeModel=decodeModel; self.conditioner=conditioner; self.sampler=sampler
+    private let progress:(@Sendable (String)->Void)?
+    init(
+        prefillModel:MLModel,
+        decodeModel:MLModel,
+        conditioner:CosyVoice3TokenConditioner,
+        sampler: CosyVoice3RASampler = .init(),
+        progress: (@Sendable (String)->Void)? = nil
+    ) {
+        self.prefillModel=prefillModel
+        self.decodeModel=decodeModel
+        self.conditioner=conditioner
+        self.sampler=sampler
+        self.progress=progress
     }
     func generate(_ prepared:CosyVoice3PreparedRequest) throws -> [Int] {
+        progress?("llm.session.begin:logicalPrefix=\(prepared.logicalPrefixLength):maxN=\(prepared.maximumSpeechTokenCount)")
         let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
+        progress?("llm.prefill.begin")
         var output=try session.prefill(prepared.prefillInput), decoded:[Int]=[]
+        progress?("llm.prefill.end")
         for step in 0..<prepared.maximumSpeechTokenCount {
             let logits=try Self.logits(output), token=try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount)
             if CosyVoice3TokenSemantics.isStop(token) {
                 guard token<CosyVoice3TokenSemantics.logitsCount else { throw RuntimeError.unexpectedStop(token) }
+                progress?("llm.stop:step=\(step):token=\(token):N=\(decoded.count)")
                 return decoded
             }
             decoded.append(token)
+            if decoded.count == 1 || decoded.count % 16 == 0 {
+                progress?("llm.decode.progress:N=\(decoded.count):maxN=\(prepared.maximumSpeechTokenCount)")
+            }
 
             // Upstream inference_wrapper treats max_len exhaustion as normal completion:
             // the last yielded speech token is returned without running another decode
             // step. The fixed225 publication lane uses the same behavior at its
             // downstream bucket capacity.
             if decoded.count == prepared.maximumSpeechTokenCount {
+                progress?("llm.max_length:N=\(decoded.count)")
                 return decoded
             }
 
@@ -61,3 +80,5 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
 // Generated: 2026-10-02 America/New_York.
 
 // Changes 2026-10-02: restore the accepted physical-benchmark per-step autoreleasepool around each Core ML decode call so 225-step temporary Core ML/provider objects do not accumulate until utterance completion; model/state/token math is unchanged.
+
+// Changes 2026-10-04: optional nil-default validation progress emits session/prefill boundaries, every 16 decoded speech tokens, stop token and max-length completion; sampling/model/state behavior is unchanged.
