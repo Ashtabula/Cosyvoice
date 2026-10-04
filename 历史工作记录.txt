@@ -125,3 +125,10 @@ Prompt：中间build错误自主修复继续。
 修改文件：实验DeviceProbe Swift；历史工作记录.txt。
 验证：源语法修复、git diff --check；isolated SDK library已编译，probe重新build待执行。没有device推理结果受影响。
 GitHub Timeline：cb1bbd97b28293d53841aea1e02b40f7ec66725b已push；本次parser fix即将commit/push。
+
+时间：2026-10-04 00:58 EDT (America/New_York)
+Prompt：native设备text->PCM并验证原数值gate。
+动作：扩展统一family Air CPU_AND_NE四长度执行完成；新增physical text source validator，读取actual device mel/PCM对sourcebody/upstreamFP64同输入gate，记录whole source endpoint，生成保持原Float32 PCM的WAV预览并readback exact。
+修改文件：ios/experiments/dynamic-acoustic/validate_physical_text.py；历史工作记录.txt。
+验证：设备N151/164/186/225 samples144960/157440/178560/216000；无shape resolution错误。新validator语法检查/git diff --check通过；nativeTEXT运行中；原cap225和frozenassets不变。
+GitHub Timeline：dda42fb已push；新validator即将commit/push。
