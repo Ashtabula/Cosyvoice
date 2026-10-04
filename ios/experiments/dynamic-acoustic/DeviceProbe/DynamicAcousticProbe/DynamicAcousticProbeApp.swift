@@ -272,7 +272,7 @@ enum AcousticProbe {
         let prefix=textMode ? "dynamic-text-acoustic":"dynamic-acoustic"
         let path=docs.appendingPathComponent("\(prefix)-\(backend).json")
         let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json")))
-        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"runID":runID,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
+        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
         do {
