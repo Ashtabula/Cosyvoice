@@ -27,6 +27,8 @@ Ashtabula/VoxCPM_NPU/HTP/SDK_RELEASE.md
 
 A compatibility mirror may also exist at `Ashtabula/Zipvoice/SDK_RELEASE.md`; when present it must be identical too.
 
+Any non-main repository ref explicitly selected by `SDK_CLEANROOM_MATRIX.json` for release validation must carry the same platform-local `SDK_RELEASE.md`/`检查单.md` mirror bytes as the canonical checklist. The synchronization tool must update those validation refs as well as `main`.
+
 `检查单.md` is an alias of the local `SDK_RELEASE.md`. Do not maintain a second checklist body under the alias.
 
 Only the canonical Demo copy is edited directly. Use the synchronization tooling in `NPU_engines_Demo/tools/` to update mirrors. Engine-specific implementation notes, current blockers, benchmark numbers, model names, runtime profiles, optimization experiments, device notes and release status belong in that engine's `README.md`, `API.md`, `ASSETS.md`, `VALIDATION.md`, `BENCHMARK.md`, manifest and committed receipts; they must not fork this checklist.
