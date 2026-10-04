@@ -99,6 +99,6 @@ if __name__=='__main__':main()
 # in physical probe; no production target or SDK edits.
 
 # 2026-10-04: explicit experiment-only LLM backend selection; no hidden fallback
-# after physical CPU_AND_NE prefill execution-plan -14. RAS and cap unchanged.
+# after physical CPU_AND_NE prefill execution-plan -14. Native RAS/EOS remain unchanged; cap225 removal is explicit opt-in only.
 
 # 2026-10-04: --remove-fixed225-cap changes only the isolated probe copy from cap225 to the existing 512-context/20x generation policy; production SDK source and release assets remain byte-identical.
