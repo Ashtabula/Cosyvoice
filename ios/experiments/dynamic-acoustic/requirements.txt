@@ -7,5 +7,11 @@ numpy==1.26.4
 PyYAML==6.0.3
 einops==0.8.2
 x-transformers==2.11.24
-# Purpose: initial dynamic experiment only. Upstream: official checkpoint and pinned DiT.
+# Phase3 HiFT runtime-prefix construction dependencies pinned to the accepted upstream environment.
+HyperPyYAML==1.2.3
+omegaconf==2.3.0
+scipy==1.13.1
+transformers==4.51.3
+# Purpose: isolated dynamic acoustic experiment environment through Phase3 HiFT; Phase3 additions match the accepted upstream package versions.
+# Upstream: official checkpoint, CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6 and its frozen iOS provenance environment.
 # Environment: macOS arm64 Python 3.11. Generated: 2026-10-03 America/New_York.
