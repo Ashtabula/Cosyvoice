@@ -10,6 +10,7 @@ x-transformers==2.11.24
 # Phase3 HiFT runtime-prefix construction dependencies pinned to the accepted upstream environment.
 HyperPyYAML==1.2.3
 omegaconf==2.3.0
+onnxruntime==1.18.0
 scipy==1.13.1
 transformers==4.51.3
 # Purpose: isolated dynamic acoustic experiment environment through Phase3 HiFT; Phase3 additions match the accepted upstream package versions.
