@@ -41,6 +41,7 @@ def main():
     p.add_argument('--flow-noise-max',type=Path,required=True)
     p.add_argument('--hift-excitation-max',type=Path,required=True)
     p.add_argument('--buffer-receipt',type=Path,required=True)
+    p.add_argument('--lower-bound-extension-receipt',type=Path)
     p.add_argument('--output',type=Path,required=True)
     a=p.parse_args()
 
@@ -50,6 +51,14 @@ def main():
     require(1<=nmin<=nmax<=479,f'unsupported family bounds {nmin}...{nmax}')
     require(family['TBounds']==[302+2*nmin,302+2*nmax],'family T bounds mismatch')
     require(family['GBounds']==[2*nmin,2*nmax],'family G bounds mismatch')
+    lower_bound_receipt=None
+    if nmin == 1:
+        require(a.lower_bound_extension_receipt is not None,'N1 candidate requires --lower-bound-extension-receipt')
+        lower_bound_receipt=json.loads(a.lower_bound_extension_receipt.read_text())
+        require(lower_bound_receipt.get('status')=='PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED','N1/N2 physical extension receipt is not PASS')
+        require(lower_bound_receipt.get('newNBounds')==[1,nmax],'lower-bound extension bounds mismatch')
+        require(lower_bound_receipt.get('physicalCheckpointN')==[1,2,3,225,479],'lower-bound physical checkpoint set mismatch')
+        require(lower_bound_receipt.get('negativeBoundaryN')==[0,480],'lower-bound negative boundary proof mismatch')
 
     fixed_manifest_path=a.fixed_runtime/'cosyvoice3_fixed225.json'
     fixed=json.loads(fixed_manifest_path.read_text())
@@ -151,6 +160,8 @@ def main():
         'hiftExcitationN225PrefixSha256':buffer_receipt['hiftN225PrefixSha256'],
         'hiftExcitationHistoricalExactClaim':False,
         'familyReceiptSha256':sha(a.family/'receipt.json'),
+        'lowerBoundExtensionReceiptSha256':sha(a.lower_bound_extension_receipt) if lower_bound_receipt is not None else None,
+        'lowerBoundPhysicalExtensionStatus':lower_bound_receipt.get('status') if lower_bound_receipt is not None else None,
         'productionPromotion':False,
     }
     (a.output/'dynamic-candidate-receipt.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
@@ -165,3 +176,5 @@ if __name__=='__main__':main()
 # Changes: exact fixed225 Flow prefix gate; pinned-upstream HiFT max/prefix hash binding without circular historical-exact claims; dynamic manifest schema2; generic custom/default conditioning; no zero-noise production fallback and no release promotion.
 
 # 2026-10-04: --fixture can now materialize exact default prompt/reference tensors directly from the pinned flow fixture when staged probe assets are unavailable.
+
+# Changes 2026-10-04: N1-family candidate assembly now fail-closes unless supplied a PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED receipt proving N1/N2 execution, overlapping N3/N225/N479 execution and N0/N480 rejection. N3 candidate behavior remains unchanged.
