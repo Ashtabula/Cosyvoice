@@ -176,8 +176,8 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
               'experimentSourceHashes':{f.name:sha(f) for f in dest.glob('*.swift')},
               'instrumentation':'stop token/reason plus experiment-only deterministic state-capacity walk; native RAS/EOS and shipping source/assets unchanged',
-              'fixed225CapRemoved':a.remove_fixed225_cap,
-              'generationPolicy':('min(targetTextTokens*20,512-logicalPrefixLength)' if a.remove_fixed225_cap else 'min(targetTextTokens*20,225,512-logicalPrefixLength)'),
+              'fixed225CapRemoved':a.remove_fixed225_cap or 'enum CosyVoice3GenerationPolicy' in (dest/'CosyVoice3RuntimeContracts.swift').read_text(),
+              'generationPolicy':('min(targetTextTokens*20,512-logicalPrefixLength)' if ('enum CosyVoice3GenerationPolicy' in (dest/'CosyVoice3RuntimeContracts.swift').read_text() or a.remove_fixed225_cap) else 'min(targetTextTokens*20,225,512-logicalPrefixLength)'),
               'llmBackend':a.llm_backend,'generatorSha256':sha(Path(__file__))}
     (a.output/'identity.json').write_text(json.dumps(identity,indent=2)+'\n');print(json.dumps(identity,indent=2))
 if __name__=='__main__':main()
