@@ -114,7 +114,7 @@ main() {
   "$PYTHON" "$EXP/generate_dynamic_candidate_buffers.py"     --fixed-runtime "$fixed"     --source-root "$SOURCE"     --model-dir "$MODEL"     --output "$WORK/buffers"     --nmax 479 | tee "$WORK/buffers.log"
 
   echo "===== BUILD DUAL-ORACLE DYNAMIC CANDIDATE ROOT ====="
-  "$PYTHON" "$EXP/build_dynamic_candidate_assets.py"     --family "$FAMILY"     --fixed-runtime "$fixed"     --fixture "$FIXTURE"     --flow-noise-max "$WORK/buffers/flow-noise-max.f32"     --hift-excitation-max "$WORK/buffers/hift-excitation-max.f32"     --hift-excitation-n225-reference "$WORK/buffers/hift-excitation-n225-reference.f32"     --output "$WORK/runtime" | tee "$WORK/candidate-assets.log"
+  "$PYTHON" "$EXP/build_dynamic_candidate_assets.py"     --family "$FAMILY"     --fixed-runtime "$fixed"     --fixture "$FIXTURE"     --flow-noise-max "$WORK/buffers/flow-noise-max.f32"     --hift-excitation-max "$WORK/buffers/hift-excitation-max.f32"     --buffer-receipt "$WORK/buffers/receipt.json"     --output "$WORK/runtime" | tee "$WORK/candidate-assets.log"
 
   echo "===== CANDIDATE SUMMARY ====="
   "$PYTHON" - "$WORK/runtime/cosyvoice3_dynamic.json" "$WORK/runtime/dynamic-candidate-receipt.json" <<'PY'
