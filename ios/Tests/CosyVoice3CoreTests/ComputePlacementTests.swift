@@ -14,6 +14,13 @@ final class ComputePlacementTests: XCTestCase {
     func testAcousticDefaultPlacementRemainsCPUAndNE() {
         XCTAssertEqual(CosyVoice3ModelComputePlacement.acoustic, .cpuAndNeuralEngine)
         XCTAssertEqual(CosyVoice3ModelWarmSpec("flow.mlpackage").computeUnits, .cpuAndNeuralEngine)
+        XCTAssertFalse(CosyVoice3ModelWarmSpec("flow.mlpackage").reshapeFrequencyInfrequent)
+    }
+
+    func testDynamicAcousticProfilePinsInfrequentReshapeHint() {
+        let spec = CosyVoice3ModelWarmSpec.dynamicAcoustic("flow.mlpackage")
+        XCTAssertEqual(spec.computeUnits, .cpuAndNeuralEngine)
+        XCTAssertTrue(spec.reshapeFrequencyInfrequent)
     }
 
     func testReferenceEncoderPlacementRemainsCPUOnly() {
@@ -26,3 +33,5 @@ final class ComputePlacementTests: XCTestCase {
 // Runtime environment: SwiftPM XCTest with CoreML.
 // Generated time: 2026-10-04 America/New_York.
 // Changes: new placement regression test; requested compute units are not an accelerator residency claim.
+
+// Changes 2026-10-04: dynamic-acoustic warm specs must pin reshapeFrequencyInfrequent=true, matching the physical sweep configuration; generic/fixed acoustic default remains unchanged.
