@@ -39,7 +39,7 @@ def main():
     require(np.array_equal(flow[:,:752],fixed),'fixed flow prefix changed')
     flow_path=a.output/'flow-noise-max.f32';flow.tofile(flow_path)
 
-    work=a.output/'hift-load'
+    work=a.output/'hift-load';work.mkdir()
     hift,_=load_hift(a.source_root,a.model_dir,work)
     excitation,norm=frame_buffers(hift,2*a.nmax)
     expected_samples=960*a.nmax
