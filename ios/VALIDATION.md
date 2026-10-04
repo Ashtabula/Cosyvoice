@@ -51,7 +51,9 @@ PASS / NOT PROMOTED: focused physical lower-bound extension now proves N1/N2 plu
 
 PASS / NOT PROMOTED: focused physical interior-shape replay of the exact widened N1 family at N145/T592 completed `PASS_SHAPE_EXECUTION` using requested CPU_AND_NE plus `reshapeFrequency=.infrequent`, the same configuration as the accepted shape-sweep probe. Evidence: `experiments/dynamic-acoustic/evidence/interior-n1-interior-20261004-184558-32925`. This rules out the N145 family package/shape itself as the cause of the prior DeviceSmoke stall.
 
-DYNAMIC BLOCKER: the exact N1...479 integrated SDK candidate has not yet completed default + custom-reference physical public-API smoke on the corrected dynamic acoustic execution configuration, nor human listening acceptance.
+PASS / NOT PROMOTED: the exact lower-bound-gated `ios18-dynamic-n1-n479-candidate` completed physical default + custom-reference public-API smoke on source commit `3267547f6436444e72889d443a030fd9be41e2af`. Evidence: `validation/evidence/dynamic-public-api-smoke-1791154976`. Default N134 -> 128640 samples; reference N260 -> 249600 samples. The receipt fail-closed verifies LLM prefill/decode requested `CPU_ONLY`, dynamic acoustic requested `CPU_AND_NE`, reference encoders requested `CPU_ONLY`, and dynamic acoustic `reshapeFrequency=INFREQUENT`. These are requested Core ML configurations, not accelerator-residency claims.
+
+DYNAMIC BLOCKER: human listening acceptance is not yet recorded for the exact N1-candidate default/reference WAVs. Numerical/shape/public-API PASS is not treated as audible-quality acceptance.
 
 DYNAMIC RISK / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope and remains fail-closed; do not change EOS semantics merely to hide this case.
 
