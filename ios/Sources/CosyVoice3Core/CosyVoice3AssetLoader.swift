@@ -170,17 +170,24 @@ enum CosyVoice3AssetLoader {
         }
     }
 
-    static func warmModels(root: URL, specs: [CosyVoice3ModelWarmSpec], maximumConcurrent: Int = 1) async throws {
+    static func warmModels(
+        root: URL,
+        specs: [CosyVoice3ModelWarmSpec],
+        maximumConcurrent: Int = 1,
+        progress: (@Sendable (String) -> Void)? = nil
+    ) async throws {
         guard maximumConcurrent == 1 else {
             throw CosyVoice3AssetError.compiledCache(
                 "parallel Core ML execution-plan construction is disabled on the validated iPhone path; maximumConcurrent must be 1"
             )
         }
-        for spec in specs {
+        for (index, spec) in specs.enumerated() {
+            progress?("prepare.model.\(index + 1).\(specs.count).begin:\(spec.path)")
             try autoreleasepool {
                 let warmed = try model(root: root, path: spec.path, computeUnits: spec.computeUnits)
                 _ = warmed.modelDescription
             }
+            progress?("prepare.model.\(index + 1).\(specs.count).end:\(spec.path)")
             // Yield between large constructors so Core ML can tear down temporary
             // execution-plan resources before the next model is specialized.
             await Task.yield()
@@ -345,3 +352,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-02: disable concurrent Core ML execution-plan constructors after physical iPhone18,4 returned Core ML -14 during two-model cold prewarm; first-use specialization is serialized with an autoreleasepool/yield boundary, and model-load errors now identify the exact asset path/computeUnits/compiled cache entry.
 
 // Changes 2026-10-04: add schemaVersion2 ios18-dynamic-* manifests with exact dynamic acoustic bounds/default conditioning/max noise/excitation assets. Loader prefers cosyvoice3_dynamic.json when present and otherwise preserves the frozen cosyvoice3_fixed225.json path.
+
+// Changes 2026-10-04: optional validation-only progress callback around each serialized model warm; nil default leaves production compilation/loading/lifetime behavior unchanged.
