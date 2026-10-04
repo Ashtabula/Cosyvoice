@@ -3,16 +3,15 @@
 import CoreML
 import Foundation
 
-enum CosyVoice3Fixed225GenerationPolicy {
-    static let speechTokenCapacity = 225
+enum CosyVoice3GenerationPolicy {
     static let upstreamMaximumTokenTextRatio = 20
+    static let contextCapacity = CosyVoice3FP16StatefulLLMSession.capacity
 
     static func maximumSpeechTokenCount(targetTextTokenCount: Int, logicalPrefixLength: Int) -> Int {
-        guard targetTextTokenCount > 0, logicalPrefixLength > 0 else { return 0 }
+        guard targetTextTokenCount > 0, logicalPrefixLength > 0, logicalPrefixLength < contextCapacity else { return 0 }
         return min(
             targetTextTokenCount * upstreamMaximumTokenTextRatio,
-            speechTokenCapacity,
-            CosyVoice3FP16StatefulLLMSession.capacity - logicalPrefixLength
+            contextCapacity - logicalPrefixLength
         )
     }
 }
@@ -64,7 +63,9 @@ struct CosyVoice3RuntimeAssetContract: Codable, Sendable {
     }
 }
 
-// Purpose: isolate frontend, autoregressive LLM and acoustic runtime behind engine-private contracts; fixed225 generation explicitly caps the upstream max-length policy at the current acoustic bucket capacity.
+// Purpose: isolate frontend, autoregressive LLM and acoustic runtime behind engine-private contracts; generation capacity is request-dynamic from the upstream 20x rule and remaining fixed512 logical context. Legacy fixed225 compatibility is applied by the Engine only when loading a fixed225 asset profile.
 // Upstream pattern: OmniVoice RuntimeContracts/SpeechEngine and ZipVoice SpeechContracts.
 // Runtime: iOS18+.
 // Generated: 2026-10-02 America/New_York.
+
+// Changes 2026-10-04: remove the acoustic N225 limit from the frontend/LLM policy. Per-request maxN is min(20*targetTextTokens,512-logicalPrefixLength); legacy fixed225 manifests are capped by CosyVoice3Engine before LLM generation.
