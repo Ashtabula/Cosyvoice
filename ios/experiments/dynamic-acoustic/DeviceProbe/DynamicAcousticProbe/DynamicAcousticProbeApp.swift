@@ -186,7 +186,8 @@ enum LLMLengthSweepProbe {
         var histogram=[String:Int]();for n in ns { histogram[String(n),default:0]+=1 }
         let earlyEOS=successful.filter { $0["actualEarlyEOS"] as? Bool == true }.count
         let capHits=successful.filter { $0["stopReason"] as? String == "MAX_LENGTH" }.count
-        receipt["summary"]=["successfulRuns":successful.count,"failedRuns":rows.count-successful.count,"minN":ns.min() as Any? ?? NSNull(),"maxN":ns.max() as Any? ?? NSNull(),"uniqueN":Array(Set(ns)).sorted(),"histogram":histogram,"earlyEOSRuns":earlyEOS,"maxLengthRuns":capHits]
+        var summary:[String:Any]=["successfulRuns":successful.count,"failedRuns":rows.count-successful.count,"uniqueN":Array(Set(ns)).sorted(),"histogram":histogram,"earlyEOSRuns":earlyEOS,"maxLengthRuns":capHits]
+        summary["minN"]=ns.min() ?? NSNull();summary["maxN"]=ns.max() ?? NSNull();receipt["summary"]=summary
         receipt["phase"]="complete";receipt["status"]=successful.count==rows.count ? "PASS_LLM_LENGTH_SWEEP_RECORDED_NOT_PROMOTED":"COMPLETE_LLM_LENGTH_SWEEP_WITH_FAILURES_NOT_PROMOTED";try save()
         print("LLM_LENGTH_SWEEP_RECEIPT \(path.path)")
     }
@@ -432,7 +433,7 @@ enum AcousticShapeSweepProbe {
         }
         let base=root.appendingPathComponent("N225"),baseTokens=try AcousticProbe.read(base,"tokens",[1,225],integer:true),promptTokens=try AcousticProbe.read(base,"prompt_tokens",[1,151],integer:true),promptFeat=try AcousticProbe.read(base,"prompt_feat",[1,302,80]),speaker=try AcousticProbe.read(base,"speaker",[1,192]),baseNoise=try AcousticProbe.floats(base.appendingPathComponent("noise.bin")),baseExcitation=try AcousticProbe.floats(base.appendingPathComponent("hift-noise.bin"))
         let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
-        func tokens(_ n:Int) throws -> MLMultiArray { let a=try MLMultiArray(shape:[1,NSNumber(value:n)],dataType:.int32);for i in 0..<n { a[i]=i<225 ? baseTokens[i]:0 };return a }
+        func tokens(_ n:Int) throws -> MLMultiArray { let a=try MLMultiArray(shape:[1,NSNumber(value:n)],dataType:.int32);for i in 0..<n { a[i]=i<225 ? baseTokens[i]:NSNumber(value:0) };return a }
         func conditioningFeed(_ n:Int) throws -> [String:MLMultiArray] { ["tokens":try tokens(n),"prompt_tokens":promptTokens,"prompt_feat":promptFeat,"speaker":speaker] }
         func norm(_ samples:Int) throws -> MLMultiArray {
             let window=(0..<16).map { Float(0.5-0.5*cos(2*Double.pi*Double($0)/16)) };var weights=[Float](repeating:0,count:samples)
@@ -492,4 +493,4 @@ enum AcousticShapeSweepProbe {
 // Upstream: unchanged observed-family Core ML packages and N225 fixture only as deterministic input material; no padding or bucket substitution.
 // Runtime: signed Release on physical iPhone; NMIN/NMAX arguments permit chunked execution, full range is default.
 // Generated: 2026-10-04 America/New_York.
-// Changes: experiment-only validation mode; shipping SDK, release assets and productionPromotion remain unchanged.
+// Changes: experiment-only validation mode; shipping SDK, release assets and productionPromotion remain unchanged.\n// Changes 2026-10-04: make JSON summary values explicitly [String:Any] and keep MLMultiArray token assignments NSNumber-typed for Swift 6 compilation.
