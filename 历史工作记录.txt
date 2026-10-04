@@ -83,3 +83,10 @@ Prompt：设备中间失败继续定位修复并保留 receipts。
 修改文件：实验 DeviceProbe Swift；evidence/full-device-CPU_ONLY-v1-incomplete.json；历史工作记录.txt。
 验证：首次设备加载conditions和Flow0..3 compute-plan preferred均CPU；没有PCM或推理结果；SIGKILL原因尚需对应系统日志佐证。修复待重建/重跑。
 GitHub Timeline：53074002a0e88f30f40e377e45999284cb0c7240 已 push；本次fix即将commit/push。
+
+时间：2026-10-04 00:42 EDT (America/New_York)
+Prompt：host/device acoustic 执行通过后建立真实文本早EOS证明。
+动作：修复后的物理 Air CPU_ONLY 同6Flow/HiFT完成两长度；准备隔离 SDK copy 的真实文本 LLM trace generator，仅instrument stopReason/stopToken/count，不改变 RAS、max225、模型或shipping代码。CPU_AND_NE正在执行。
+修改文件：ios/experiments/dynamic-acoustic/prepare_text_probe.py；历史工作记录.txt。
+验证：CPU_ONLY status PASS_PHYSICAL_DYNAMIC_ACOUSTIC_EXECUTION_NOT_PROMOTED，samples178560/216000 finite，无shapefailure；mel/host relativeL2 0.030744/0.040011；PCM/host1.24485/1.34808，为execution非parity PASS。首次取得JetsamEvent-002603属于更早时间，不能归因本次00:38 SIGKILL。新generator语法通过。productionPromotion=false。
+GitHub Timeline：b2a1b98 已 push；新generator即将commit/push。
