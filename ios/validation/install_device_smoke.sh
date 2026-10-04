@@ -213,16 +213,26 @@ PY
         DYNAMIC_TMP="$DYNAMIC_RECEIPT.tmp"
         DYNAMIC_DEADLINE=$((DYNAMIC_LAUNCH_UNIX+1800))
         printf '[COSYVOICE3-INSTALL] polling dynamic public-API smoke receipt into %s\n' "$DYNAMIC_EVIDENCE"
+        DYNAMIC_LAST_PROGRESS=""
         while true; do
             rm -f "$DYNAMIC_TMP"
             if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/dynamic-public-api-smoke-receipt.json" --destination "$DYNAMIC_TMP"; then
                 if [ -s "$DYNAMIC_TMP" ]; then
-                    DYNAMIC_STATUS="$("$PYTHON_BIN" - "$DYNAMIC_TMP" <<'PY'
+                    DYNAMIC_ROW="$("$PYTHON_BIN" - "$DYNAMIC_TMP" <<'PY'
 import json,sys
-try: print(json.load(open(sys.argv[1])).get("status",""))
-except Exception: print("")
+try:
+    r=json.load(open(sys.argv[1]))
+    print("|".join(str(r.get(k,"")) for k in ("status","phase","defaultInferredSpeechTokensFromPCM","defaultSamples")))
+except Exception:
+    print("|||")
 PY
 )"
+                    IFS='|' read -r DYNAMIC_STATUS DYNAMIC_PHASE DYNAMIC_DEFAULT_N DYNAMIC_DEFAULT_SAMPLES <<<"$DYNAMIC_ROW"
+                    DYNAMIC_PROGRESS="$DYNAMIC_STATUS|$DYNAMIC_PHASE|$DYNAMIC_DEFAULT_N|$DYNAMIC_DEFAULT_SAMPLES"
+                    if [ "$DYNAMIC_PROGRESS" != "$DYNAMIC_LAST_PROGRESS" ]; then
+                        printf '[COSYVOICE3-INSTALL] dynamic progress status=%s phase=%s defaultN=%s defaultSamples=%s\n' "$DYNAMIC_STATUS" "$DYNAMIC_PHASE" "${DYNAMIC_DEFAULT_N:-NA}" "${DYNAMIC_DEFAULT_SAMPLES:-NA}"
+                        DYNAMIC_LAST_PROGRESS="$DYNAMIC_PROGRESS"
+                    fi
                     if [ "$DYNAMIC_STATUS" = "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE" ]; then
                         mv "$DYNAMIC_TMP" "$DYNAMIC_RECEIPT"
                         break
@@ -294,3 +304,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: if explicit reference WAV/transcript or default host receipt is unavailable, safely copy prior DeviceSmoke staged inputs into ios/.work before staging replaces GeneratedAssets; explicit environment values remain authoritative.
 
 # Changes 2026-10-04: dynamic smoke now polls the physical app receipt in foreground, retrieves both WAVs, and fail-closed verifies PASS status, exact Git HEAD binding, dynamic profile, N bounds, PCM=960*N, Flow6 and non-promotion before returning success.
+
+# Changes 2026-10-04: host poller now reports durable RUNNING phase transitions and the completed default-lane N/samples when available; final PASS/FAIL semantics are unchanged.
