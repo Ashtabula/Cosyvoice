@@ -133,7 +133,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             ]
             var velocity: MLMultiArray?
             for index in flowShardPaths.indices {
-                let stage = try predictFlowShard(index: index, feed: feed, tFrames: tFrames)
+                let stage = try predictFlowShard(index: index, flowStep: step, feed: feed, tFrames: tFrames)
                 switch stage {
                 case .first(let h, let te):
                     feed = ["h":h, "te":te, "mask":mask]
@@ -209,7 +209,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     private func loadModel(path: String, stage: String) throws -> MLModel {
         progress?("\(stage).load.begin:\(path)")
         let started = DispatchTime.now().uptimeNanoseconds
-        let model = try CosyVoice3AssetLoader.model(root: assetRoot, path: path)
+        let model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path)
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000
         modelLoadMilliseconds += elapsed
         progress?("\(stage).load.end:\(path):ms=\(String(format: "%.3f", elapsed))")
@@ -245,12 +245,13 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
     private func predictFlowShard(
         index: Int,
+        flowStep: Int,
         feed: [String: MLMultiArray],
         tFrames: Int
     ) throws -> FlowShardStage {
         try autoreleasepool {
             let path = flowShardPaths[index]
-            let label = "acoustic.flow.shard.\(index + 1).6"
+            let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).6"
             let model = try loadModel(path: path, stage: label)
             progress?("\(label).prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
@@ -401,3 +402,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-04: replace resident Conditions+6 Flow+HiFT model set with stage-scoped loading. Conditions/Flow outputs are copied into owned Float32 arrays before the producing model leaves scope; each Flow shard is loaded/predicted/released for each Euler step; HiFT loads only after Flow/F0. This trades model-instantiation time for bounded memory while preserving exact dynamic tensors and scheduler math.
 
 // Changes 2026-10-04: align production dynamic model lifetime exactly with the physically accepted shape-sweep pattern: synchronous MLModel.prediction inside a throwing autoreleasepool, one request-scoped model per prediction. Owned outputs escape the pool; MLModel/provider temporaries do not.
+
+// Changes 2026-10-04: every dynamic Conditions/Flow/HiFT prediction load now uses the exact physical-probe MLModel configuration (CPU_AND_NE requested units plus reshapeFrequency=.infrequent). Flow shard progress also includes the outer Euler step so a stall is uniquely attributable.
