@@ -118,8 +118,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         let referencePlan: [CosyVoice3ModelWarmSpec]
         if let assets = referenceAssets, !referenceCacheHit {
             referencePlan = [
-                .init(assets.speechTokenizer, computeUnits: .cpuOnly),
-                .init(assets.campPlus, computeUnits: .cpuOnly)
+                .init(assets.speechTokenizer, computeUnits: CosyVoice3ModelComputePlacement.referenceEncoder),
+                .init(assets.campPlus, computeUnits: CosyVoice3ModelComputePlacement.referenceEncoder)
             ]
         } else {
             referencePlan = []
@@ -725,10 +725,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
     private func makeReferenceEncoder(assets: CosyVoice3ReferenceEnrollmentAssets) throws -> CosyVoice3CoreMLReferenceEncoder {
         let speechTokenizer = try CosyVoice3AssetLoader.model(
-            root: assetRoot, path: assets.speechTokenizer, computeUnits: .cpuOnly
+            root: assetRoot, path: assets.speechTokenizer, computeUnits: CosyVoice3ModelComputePlacement.referenceEncoder
         )
         let campPlus = try CosyVoice3AssetLoader.model(
-            root: assetRoot, path: assets.campPlus, computeUnits: .cpuOnly
+            root: assetRoot, path: assets.campPlus, computeUnits: CosyVoice3ModelComputePlacement.referenceEncoder
         )
         let dsp = try CosyVoice3ReferenceDSP(
             whisper128: CosyVoice3MelBank(
