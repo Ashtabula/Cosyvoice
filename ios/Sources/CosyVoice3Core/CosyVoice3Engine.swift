@@ -1,5 +1,5 @@
 // CosyVoice3Engine.swift
-// Requirement: public SDK facade owns the complete on-device fixed225 lane; first-use Core ML execution-plan preparation is serialized and may be invoked early, small immutable/reference state is reused, and large inference MLModel objects retain the validated sequential stage lifetime.
+// Requirement: public SDK facade owns either the frozen fixed225 oracle or the manifest-selected exact-shape dynamic acoustic lane; first-use Core ML preparation remains serialized and large inference models retain the validated sequential stage lifetime.
 import CoreML
 import CryptoKit
 import Foundation
@@ -7,7 +7,7 @@ import Tokenizers
 
 public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public let assetRoot: URL
-    private let manifest: CosyVoice3Fixed225AssetManifest
+    private let manifest: CosyVoice3AssetManifest
     private let capabilitiesValue: CosyVoice3Capabilities
     private let rope: CosyVoice3RoPEConfiguration
 
@@ -21,6 +21,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var f0Cache: CosyVoice3HiFTDoubleF0?
     private var flowMaskCache: MLMultiArray?
     private var flowNoiseCache: MLMultiArray?
+    private var dynamicDefaultPromptTokensCache: MLMultiArray?
+    private var dynamicDefaultPromptFeatCache: MLMultiArray?
+    private var dynamicDefaultSpeakerCache: MLMultiArray?
+    private var dynamicFlowNoiseMaximumCache: MLMultiArray?
+    private var dynamicHiFTExcitationMaximumCache: MLMultiArray?
     private var referenceConditioningCache: [String: CosyVoice3ReferenceConditioning] = [:]
     private var referenceAssetIdentityCache: String?
     private var referenceDiskCache: CosyVoice3ReferenceConditioningDiskCache?
@@ -219,16 +224,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 )
             }
             let conditioning = try await referenceConditioning(for: reference, assets: referenceAssets)
-            prepared = CosyVoice3PreparedRequest(
-                prefillInput: basePrepared.prefillInput,
-                minimumSpeechTokenCount: basePrepared.minimumSpeechTokenCount,
-                maximumSpeechTokenCount: basePrepared.maximumSpeechTokenCount,
-                logicalPrefixLength: basePrepared.logicalPrefixLength,
-                referenceConditioning: conditioning
-            )
+            prepared = preparedForManifest(basePrepared, referenceConditioning: conditioning)
             flowConditionsPath = referenceAssets.flowConditionsDynamic
         } else {
-            prepared = basePrepared
+            prepared = preparedForManifest(basePrepared, referenceConditioning: nil)
             flowConditionsPath = manifest.flowConditions
         }
         let frontendMilliseconds = Self.milliseconds(since: frontendStart)
@@ -257,13 +256,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         let conditions = try CosyVoice3AssetLoader.model(root: assetRoot, path: flowConditionsPath)
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
         let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
-        let acoustic = try CosyVoice3Fixed225AcousticRuntime(
+        let acoustic = try makeAcousticRuntime(
             conditions: conditions,
             shards: shards,
             hift: hift,
             f0: try reusableF0(),
-            flowMask: try reusableFlowMask(),
-            initialNoise: try reusableFlowNoise(),
             flowStepCount: parameters.flowSteps.rawValue
         )
         let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
@@ -326,16 +323,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 )
             }
             let conditioning = try await referenceConditioning(for: reference, assets: referenceAssets)
-            prepared = CosyVoice3PreparedRequest(
-                prefillInput: basePrepared.prefillInput,
-                minimumSpeechTokenCount: basePrepared.minimumSpeechTokenCount,
-                maximumSpeechTokenCount: basePrepared.maximumSpeechTokenCount,
-                logicalPrefixLength: basePrepared.logicalPrefixLength,
-                referenceConditioning: conditioning
-            )
+            prepared = preparedForManifest(basePrepared, referenceConditioning: conditioning)
             flowConditionsPath = referenceAssets.flowConditionsDynamic
         } else {
-            prepared = basePrepared
+            prepared = preparedForManifest(basePrepared, referenceConditioning: nil)
             flowConditionsPath = manifest.flowConditions
         }
         let frontendMilliseconds = Self.milliseconds(since: frontendStart)
@@ -370,19 +361,15 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         let shards = try manifest.flowShards.map { try CosyVoice3AssetLoader.model(root: assetRoot, path: $0) }
         let hift = try CosyVoice3AssetLoader.model(root: assetRoot, path: manifest.hift)
         let f0 = try reusableF0()
-        let flowMask = try reusableFlowMask()
-        let flowNoise = try reusableFlowNoise()
         let acousticModelLoadMilliseconds = Self.milliseconds(since: acousticLoadStart)
 
         // One untimed-for-comparison 10-step acoustic warm-up removes first-prediction
         // effects from the measured 10/8/6 sequence while preserving the same model set.
-        let warmup = try CosyVoice3Fixed225AcousticRuntime(
+        let warmup = try makeAcousticRuntime(
             conditions: conditions,
             shards: shards,
             hift: hift,
             f0: f0,
-            flowMask: flowMask,
-            initialNoise: flowNoise,
             flowStepCount: 10
         )
         let warmupStart = DispatchTime.now().uptimeNanoseconds
@@ -392,13 +379,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         var variants: [CosyVoice3FlowStepValidationResult] = []
         variants.reserveCapacity(flowSteps.count)
         for stepCount in flowSteps {
-            let acoustic = try CosyVoice3Fixed225AcousticRuntime(
+            let acoustic = try makeAcousticRuntime(
                 conditions: conditions,
                 shards: shards,
                 hift: hift,
                 f0: f0,
-                flowMask: flowMask,
-                initialNoise: flowNoise,
                 flowStepCount: stepCount
             )
             let started = DispatchTime.now().uptimeNanoseconds
@@ -497,7 +482,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         if let cached = flowMaskCache { return cached }
         let loaded = try CosyVoice3AssetLoader.array(
             root: assetRoot,
-            path: manifest.flowMask,
+            path: try requiredFixedAsset(manifest.flowMask, name: "flowMask"),
             shape: [2,1,752],
             type: .float32
         )
@@ -509,12 +494,101 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         if let cached = flowNoiseCache { return cached }
         let loaded = try CosyVoice3AssetLoader.array(
             root: assetRoot,
-            path: manifest.flowNoise,
+            path: try requiredFixedAsset(manifest.flowNoise, name: "flowNoise"),
             shape: [1,80,752],
             type: .float32
         )
         flowNoiseCache = loaded
         return loaded
+    }
+
+    private func preparedForManifest(
+        _ base: CosyVoice3PreparedRequest,
+        referenceConditioning: CosyVoice3ReferenceConditioning?
+    ) -> CosyVoice3PreparedRequest {
+        let maximum = manifest.isDynamicAcoustic ? base.maximumSpeechTokenCount : min(base.maximumSpeechTokenCount, 225)
+        return CosyVoice3PreparedRequest(
+            prefillInput: base.prefillInput,
+            minimumSpeechTokenCount: base.minimumSpeechTokenCount,
+            maximumSpeechTokenCount: maximum,
+            logicalPrefixLength: base.logicalPrefixLength,
+            referenceConditioning: referenceConditioning
+        )
+    }
+
+    private func makeAcousticRuntime(
+        conditions: MLModel,
+        shards: [MLModel],
+        hift: MLModel,
+        f0: CosyVoice3HiFTDoubleF0,
+        flowStepCount: Int
+    ) throws -> any CosyVoice3AcousticRuntime {
+        if let dynamic = manifest.dynamicAcoustic {
+            return try CosyVoice3DynamicAcousticRuntime(
+                conditions: conditions,
+                shards: shards,
+                hift: hift,
+                f0: f0,
+                contract: dynamic,
+                defaultPromptTokens: try reusableDynamicDefaultPromptTokens(dynamic),
+                defaultPromptFeat: try reusableDynamicDefaultPromptFeat(dynamic),
+                defaultSpeaker: try reusableDynamicDefaultSpeaker(dynamic),
+                flowNoiseMaximum: try reusableDynamicFlowNoiseMaximum(dynamic),
+                hiftExcitationMaximum: try reusableDynamicHiFTExcitationMaximum(dynamic),
+                flowStepCount: flowStepCount
+            )
+        }
+        return try CosyVoice3Fixed225AcousticRuntime(
+            conditions: conditions,
+            shards: shards,
+            hift: hift,
+            f0: f0,
+            flowMask: try reusableFlowMask(),
+            initialNoise: try reusableFlowNoise(),
+            flowStepCount: flowStepCount
+        )
+    }
+
+    private func reusableDynamicDefaultPromptTokens(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultPromptTokensCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.defaultPromptTokens, shape: [1,151], type: .int32)
+        dynamicDefaultPromptTokensCache = loaded
+        return loaded
+    }
+
+    private func reusableDynamicDefaultPromptFeat(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultPromptFeatCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.defaultPromptFeat, shape: [1,dynamic.promptFrameCount,80], type: .float32)
+        dynamicDefaultPromptFeatCache = loaded
+        return loaded
+    }
+
+    private func reusableDynamicDefaultSpeaker(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultSpeakerCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.defaultSpeaker, shape: [1,192], type: .float32)
+        dynamicDefaultSpeakerCache = loaded
+        return loaded
+    }
+
+    private func reusableDynamicFlowNoiseMaximum(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicFlowNoiseMaximumCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.flowNoiseMaximum, shape: [1,80,dynamic.maximumFlowFrames], type: .float32)
+        dynamicFlowNoiseMaximumCache = loaded
+        return loaded
+    }
+
+    private func reusableDynamicHiFTExcitationMaximum(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicHiFTExcitationMaximumCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.hiftExcitationMaximum, shape: [1,dynamic.maximumPCMSamples,9], type: .float32)
+        dynamicHiFTExcitationMaximumCache = loaded
+        return loaded
+    }
+
+    private func requiredFixedAsset(_ path: String?, name: String) throws -> String {
+        guard let path, !path.isEmpty else {
+            throw CosyVoice3EngineError.developmentRuntimeIncomplete("fixed225 manifest missing \(name)")
+        }
+        return path
     }
 
     private func referenceConditioning(
@@ -627,7 +701,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 }
 
-// Purpose: default baked-reference and separately parity-gated custom-reference fixed225 paths share one public text->PCM API with bounded first-use preparation and no all-model persistent residency.
+// Purpose: frozen fixed225 oracle and manifest-selected exact-shape dynamic acoustic candidate share one public text->PCM API with bounded first-use preparation and no all-model persistent residency.
 // Upstream: CosyVoice3_NPU@8789402; request-scoped large-model lifetime follows the accepted StatefulLLMBench full-pipeline memory behavior.
 // Runtime: iOS18+/macOS15+, no Python/host bridge.
 // Generated: 2026-10-02 America/New_York.
@@ -647,3 +721,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-02: add validation-SPI 10/8/6 Flow head-to-head synthesis that generates one shared 225-token trajectory, reuses one acoustic model set and identical initial noise/reference conditioning, performs a 10-step warm-up, then measures only the three acoustic variants.
 
 // Changes 2026-10-02: production synthesis forwards the public 6/8/10 Flow-step choice into the acoustic runtime; the selected setting is recorded in synthesis telemetry and the public default is 6.
+
+// Changes 2026-10-04: manifest-selected dynamic acoustic runtime uses request-dynamic LLM capacity and exact N/T/G/PCM shapes; fixed225 manifests retain a 225 LLM cap and the original mask/noise runtime for regression compatibility.
