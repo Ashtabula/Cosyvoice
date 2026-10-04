@@ -44,6 +44,10 @@
       "bytes": 36634,
       "sha256": "58c3b8867dba1c8d2ae21da097a4a36241d237d55293e8c2842a07a90af1bbaf"
     },
+    "phase3-dynamic-hift-host-v1.json": {
+      "bytes": 13507,
+      "sha256": "b10a856554c3a96d71a78641e126355d04590d988fc901558378c2d711482af6"
+    },
     "shard0-exported-graph.txt": {
       "bytes": 41020,
       "sha256": "2fb7dbaab10c4f1c765a9432c2afa9c4f64ec9286db6d6e461a0ef589dbba135"

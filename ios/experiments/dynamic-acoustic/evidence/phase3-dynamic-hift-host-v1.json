@@ -1,0 +1,608 @@
+{
+  "acousticConfig": {
+    "constructionPrefixByteExact": true,
+    "excluded": [
+      "gan wrapper/discriminators",
+      "dataset processors",
+      "training config"
+    ],
+    "output": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase3-dynamic-hift-v7/cosyvoice3.acoustic.yaml",
+    "outputSha256": "6f0288840c227d4241dcc11579803c0a905e27f1ad6bd5157e8430e16bb58f43",
+    "qwenPretrainPathPresent": true,
+    "reason": "CausalHiFTGenerator.SineGen2 creates rand_ini and sine_waves during construction; preserving the original YAML prefix preserves their RNG trajectory without instantiating post-HiFT training objects.",
+    "rngConstructionOrder": [
+      "seed",
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "rngSeed": 1986,
+    "runtimeMathChanged": false,
+    "schemaVersion": 2,
+    "sections": [
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "source": "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512/cosyvoice3.yaml",
+    "sourceSha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965",
+    "status": "PASS_RUNTIME_PREFIX_CONFIG_DERIVATION"
+  },
+  "coreMLInputContracts": [
+    {
+      "exampleShape": [
+        1,
+        80,
+        450
+      ],
+      "name": "mel",
+      "shape": [
+        "1",
+        "80",
+        "RangeDim(lower_bound=372, upper_bound=450, default=450, symbol=\"mel_frames\")"
+      ],
+      "symbolicAxis": 2
+    },
+    {
+      "exampleShape": [
+        1,
+        450
+      ],
+      "name": "f0",
+      "shape": [
+        "1",
+        "RangeDim(lower_bound=372, upper_bound=450, default=450, symbol=\"mel_frames\")"
+      ],
+      "symbolicAxis": 1
+    },
+    {
+      "exampleShape": [
+        1,
+        450,
+        9
+      ],
+      "name": "phase",
+      "shape": [
+        "1",
+        "RangeDim(lower_bound=372, upper_bound=450, default=450, symbol=\"mel_frames\")",
+        "9"
+      ],
+      "symbolicAxis": 1
+    },
+    {
+      "exampleShape": [
+        1,
+        216000,
+        9
+      ],
+      "name": "noise",
+      "shape": [
+        "1",
+        "RangeDim(lower_bound=178560, upper_bound=216000, default=216000, symbol=\"pcm_samples\")",
+        "9"
+      ],
+      "symbolicAxis": 1
+    },
+    {
+      "exampleShape": [
+        1,
+        1,
+        216000
+      ],
+      "name": "norm",
+      "shape": [
+        "1",
+        "1",
+        "RangeDim(lower_bound=178560, upper_bound=216000, default=216000, symbol=\"pcm_samples\")"
+      ],
+      "symbolicAxis": 2
+    }
+  ],
+  "dynamicHiFTBodyHostPass": true,
+  "dynamicPackage": {
+    "exportInputCanonicalization": [
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          36000,
+          450,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          36000,
+          450,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 0,
+        "shape": [
+          1,
+          80,
+          450
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          450,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          450,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 1,
+        "shape": [
+          1,
+          450
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          4050,
+          9,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          4050,
+          9,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 2,
+        "shape": [
+          1,
+          450,
+          9
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          1944000,
+          9,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          1944000,
+          9,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 3,
+        "shape": [
+          1,
+          216000,
+          9
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          216000,
+          216000,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          216000,
+          216000,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 4,
+        "shape": [
+          1,
+          1,
+          216000
+        ],
+        "valuesExact": true
+      }
+    ],
+    "melFramesSymbolic": true,
+    "packageSha256": "d1c3cc8ea111fbcb71007cfb30b7fa6f95d8e12fc77d8f5c7796909fcae95dfc",
+    "rangeConstraints": {
+      "480*s0": "VR[178560, 216000]",
+      "s0": "VR[372, 450]"
+    },
+    "sampleCountSymbolic": true,
+    "sourcePt2Sha256": "3a76ef88ccfb45f42352a792cac8b4afd142501208380d1f234abd83c2c6762b"
+  },
+  "exportInputCanonicalization": [
+    {
+      "afterInferenceTensor": false,
+      "afterStride": [
+        36000,
+        450,
+        1
+      ],
+      "beforeInferenceTensor": false,
+      "beforeStride": [
+        36000,
+        450,
+        1
+      ],
+      "dtype": "torch.float32",
+      "index": 0,
+      "shape": [
+        1,
+        80,
+        450
+      ],
+      "valuesExact": true
+    },
+    {
+      "afterInferenceTensor": false,
+      "afterStride": [
+        450,
+        1
+      ],
+      "beforeInferenceTensor": false,
+      "beforeStride": [
+        450,
+        1
+      ],
+      "dtype": "torch.float32",
+      "index": 1,
+      "shape": [
+        1,
+        450
+      ],
+      "valuesExact": true
+    },
+    {
+      "afterInferenceTensor": false,
+      "afterStride": [
+        4050,
+        9,
+        1
+      ],
+      "beforeInferenceTensor": false,
+      "beforeStride": [
+        4050,
+        9,
+        1
+      ],
+      "dtype": "torch.float32",
+      "index": 2,
+      "shape": [
+        1,
+        450,
+        9
+      ],
+      "valuesExact": true
+    },
+    {
+      "afterInferenceTensor": false,
+      "afterStride": [
+        1944000,
+        9,
+        1
+      ],
+      "beforeInferenceTensor": false,
+      "beforeStride": [
+        64800000,
+        9,
+        1
+      ],
+      "dtype": "torch.float32",
+      "index": 3,
+      "shape": [
+        1,
+        216000,
+        9
+      ],
+      "valuesExact": true
+    },
+    {
+      "afterInferenceTensor": false,
+      "afterStride": [
+        216000,
+        216000,
+        1
+      ],
+      "beforeInferenceTensor": false,
+      "beforeStride": [
+        216016,
+        216016,
+        1
+      ],
+      "dtype": "torch.float32",
+      "index": 4,
+      "shape": [
+        1,
+        1,
+        216000
+      ],
+      "valuesExact": true
+    }
+  ],
+  "exportInputsAllNormalTensors": true,
+  "exportedUserInputs": [
+    {
+      "dimOrder": [
+        0,
+        1,
+        2
+      ],
+      "dtype": "torch.float32",
+      "inputSpec": "InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='mel'), target=None, persistent=None)",
+      "name": "mel",
+      "shape": [
+        1,
+        80,
+        "s0"
+      ],
+      "stride": [
+        "80*s0",
+        "s0",
+        1
+      ]
+    },
+    {
+      "dimOrder": [
+        0,
+        1
+      ],
+      "dtype": "torch.float32",
+      "inputSpec": "InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='f0'), target=None, persistent=None)",
+      "name": "f0",
+      "shape": [
+        1,
+        "s0"
+      ],
+      "stride": [
+        "s0",
+        1
+      ]
+    },
+    {
+      "dimOrder": [
+        0,
+        1,
+        2
+      ],
+      "dtype": "torch.float32",
+      "inputSpec": "InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='phase'), target=None, persistent=None)",
+      "name": "phase",
+      "shape": [
+        1,
+        "s0",
+        9
+      ],
+      "stride": [
+        "9*s0",
+        9,
+        1
+      ]
+    },
+    {
+      "dimOrder": [
+        0,
+        1,
+        2
+      ],
+      "dtype": "torch.float32",
+      "inputSpec": "InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='noise'), target=None, persistent=None)",
+      "name": "noise",
+      "shape": [
+        1,
+        "480*s0",
+        9
+      ],
+      "stride": [
+        "4320*s0",
+        9,
+        1
+      ]
+    },
+    {
+      "dimOrder": [
+        0,
+        1,
+        2
+      ],
+      "dtype": "torch.float32",
+      "inputSpec": "InputSpec(kind=<InputKind.USER_INPUT: 1>, arg=TensorArgument(name='norm'), target=None, persistent=None)",
+      "name": "norm",
+      "shape": [
+        1,
+        1,
+        "480*s0"
+      ],
+      "stride": [
+        "480*s0",
+        "480*s0",
+        1
+      ]
+    }
+  ],
+  "fixedAssetManifestSha256": "e74925c008145bffc3aafbd5edfe29b7d3f176db73c10158a74bf1c5b58b4075",
+  "fixedHiFTSha256": "7f87f7d5d8259a5cc6deb6784ba30c8c23863700af605ce1484d114dcb49fb53",
+  "frames": [
+    372,
+    450
+  ],
+  "hostBodyAcceptanceThreshold": {
+    "relativeL2Max": 0.02,
+    "source": "existing shipping HiFT host gate"
+  },
+  "modelRevision": "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "precision": "FLOAT32 HiFT body; existing dynamic CPU FP64 F0 remains separate",
+  "productionPromotion": false,
+  "rangeConstraints": {
+    "480*s0": "VR[178560, 216000]",
+    "s0": "VR[372, 450]"
+  },
+  "sampleRate": 24000,
+  "samplesPerMelFrame": 480,
+  "schemaVersion": 1,
+  "sourceCommit": "950f75f41ab7933505a38da619c08c34f4e6c182",
+  "sourceTests": {
+    "372": {
+      "pcmShape": [
+        1,
+        178560
+      ],
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999877,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sourceShippingPathVsUpstream": {
+        "cosineSimilarity": 0.9993322752623426,
+        "finite": true,
+        "maxAbsError": 0.20737045258283615,
+        "meanAbsError": 0.0008800327765847519,
+        "relativeL2": 0.036544546202336936,
+        "rmse": 0.005559759802840746,
+        "shape": [
+          1,
+          178560
+        ]
+      }
+    },
+    "450": {
+      "pcmShape": [
+        1,
+        216000
+      ],
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999961,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceShippingPathVsUpstream": {
+        "cosineSimilarity": 0.9996600294253938,
+        "finite": true,
+        "maxAbsError": 0.20737045258283615,
+        "meanAbsError": 0.0011928600250477404,
+        "relativeL2": 0.026076327395604008,
+        "rmse": 0.005425817208802263,
+        "shape": [
+          1,
+          216000
+        ]
+      }
+    }
+  },
+  "status": "PASS_PHASE3_HOST_DYNAMIC_HIFT_BODY_NOT_PROMOTED",
+  "tests": [
+    {
+      "G": 372,
+      "dynamicCoreMLShippingPathVsUpstream": {
+        "cosineSimilarity": 0.9993802212213941,
+        "finite": true,
+        "maxAbsError": 0.20775357633829117,
+        "meanAbsError": 0.001278762756585083,
+        "relativeL2": 0.035368816244684576,
+        "rmse": 0.005380888347675998,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "dynamicCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.999911853641346,
+        "finite": true,
+        "maxAbsError": 0.06642323732376099,
+        "meanAbsError": 0.0007602189495619093,
+        "relativeL2": 0.013867603117335986,
+        "rmse": 0.0021098522145085634,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "expectedSamples": 178560,
+      "finite": true,
+      "pcmShape": [
+        1,
+        178560
+      ]
+    },
+    {
+      "G": 450,
+      "dynamicCoreMLShippingPathVsUpstream": {
+        "cosineSimilarity": 0.999628275764468,
+        "finite": true,
+        "maxAbsError": 0.20775357633829117,
+        "meanAbsError": 0.001956210975201945,
+        "relativeL2": 0.02794362755778492,
+        "rmse": 0.0058143546435510795,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "dynamicCoreMLVsFrozenCoreML": {
+        "cosineSimilarity": 0.999999999999867,
+        "finite": true,
+        "maxAbsError": 1.2516975402832031e-06,
+        "meanAbsError": 5.02746297403302e-08,
+        "relativeL2": 4.7287686695264996e-07,
+        "rmse": 9.775419177748549e-08,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "dynamicCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999312499994281,
+        "finite": true,
+        "maxAbsError": 0.06842529773712158,
+        "meanAbsError": 0.0012545530013267732,
+        "relativeL2": 0.013395163847235261,
+        "rmse": 0.00278732053252512,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "expectedSamples": 216000,
+      "finite": true,
+      "frozenCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999312500320631,
+        "finite": true,
+        "maxAbsError": 0.06842535734176636,
+        "meanAbsError": 0.001254551679513291,
+        "relativeL2": 0.013395148741761075,
+        "rmse": 0.0027873173893162256,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "pcmShape": [
+        1,
+        216000
+      ]
+    }
+  ]
+}
