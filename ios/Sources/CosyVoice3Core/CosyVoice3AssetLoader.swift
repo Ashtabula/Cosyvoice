@@ -6,10 +6,27 @@ import Foundation
 
 enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalidJSON(String); case unsupportedProfile(String); case compiledCache(String) }
 
+enum CosyVoice3ModelComputePlacement {
+    // Physical iPhone validation: stateful LLM prefill/decode must remain CPU_ONLY.
+    // CPU_AND_NE previously failed execution-plan construction with Core ML error -14.
+    static let llm: MLComputeUnits = .cpuOnly
+    // Dynamic/fixed acoustic Core ML graphs use the accepted CPU_AND_NE request policy.
+    // This is a requested compute-unit policy, not a residency claim.
+    static let acoustic: MLComputeUnits = .cpuAndNeuralEngine
+    static let referenceEncoder: MLComputeUnits = .cpuOnly
+}
+
 struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
     let path: String
     let computeUnits: MLComputeUnits
-    init(_ path: String, computeUnits: MLComputeUnits = .cpuAndNeuralEngine) { self.path = path; self.computeUnits = computeUnits }
+    init(_ path: String, computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic) {
+        self.path = path
+        self.computeUnits = computeUnits
+    }
+
+    static func llm(_ path: String) -> Self {
+        .init(path, computeUnits: CosyVoice3ModelComputePlacement.llm)
+    }
 }
 
 struct CosyVoice3ReferenceEnrollmentAssets: Codable, Sendable {
@@ -155,7 +172,11 @@ enum CosyVoice3AssetLoader {
         }
     }
 
-    static func model(root: URL, path: String, computeUnits: MLComputeUnits = .cpuAndNeuralEngine) throws -> MLModel {
+    static func model(
+        root: URL,
+        path: String,
+        computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic
+    ) throws -> MLModel {
         let source = root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let compiled = try compiledModelURL(source: source)
@@ -168,6 +189,10 @@ enum CosyVoice3AssetLoader {
                 "MLModel load failed path=\(path) computeUnits=\(String(describing: computeUnits)) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
             )
         }
+    }
+
+    static func llmModel(root: URL, path: String) throws -> MLModel {
+        try model(root: root, path: path, computeUnits: CosyVoice3ModelComputePlacement.llm)
     }
 
     static func warmModels(
@@ -354,3 +379,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-04: add schemaVersion2 ios18-dynamic-* manifests with exact dynamic acoustic bounds/default conditioning/max noise/excitation assets. Loader prefers cosyvoice3_dynamic.json when present and otherwise preserves the frozen cosyvoice3_fixed225.json path.
 
 // Changes 2026-10-04: optional validation-only progress callback around each serialized model warm; nil default leaves production compilation/loading/lifetime behavior unchanged.
+
+// Changes 2026-10-04: centralize validated mixed compute placement. Stateful LLM warm/load is CPU_ONLY to avoid physical iPhone Core ML -14; acoustic defaults remain CPU_AND_NE; reference encoders remain CPU_ONLY. Added llmModel()/WarmSpec.llm so call sites cannot silently inherit acoustic placement.
