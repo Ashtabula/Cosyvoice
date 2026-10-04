@@ -1,5 +1,5 @@
 #@title install_device_smoke.sh
-# Requirement: stage a host-parity-approved fixed225 custom-reference candidate, build/sign/install/launch the clean public-API smoke app on one explicitly selected physical iPhone.
+# Requirement: stage a host-parity-approved fixed225 or dynamic custom-reference candidate, build/sign/install/launch the clean public-API smoke app on a selected or auto-detected physical iPhone.
 #!/usr/bin/env bash
 set -u
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -17,11 +17,15 @@ PROMOTED_RUNTIME_MODE="${COSYVOICE3_PROMOTED_RUNTIME_MODE:-0}"
 FRESH_INSTALL="${COSYVOICE3_FRESH_INSTALL:-0}"
 CANDIDATE_BENCHMARK="${COSYVOICE3_CANDIDATE_BENCHMARK:-0}"
 FLOW_STEPS_HEAD_TO_HEAD="${COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD:-0}"
+DYNAMIC_PUBLIC_API_SMOKE="${COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE:-0}"
 
 main() {
-    if [ "$CANDIDATE_BENCHMARK" = "1" ] && [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then printf '[COSYVOICE3-INSTALL] ERROR Candidate benchmark and Flow head-to-head modes are mutually exclusive\n'; return 2; fi
+    MODE_COUNT=0
+    [ "$CANDIDATE_BENCHMARK" = "1" ] && MODE_COUNT=$((MODE_COUNT+1))
+    [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ] && MODE_COUNT=$((MODE_COUNT+1))
+    [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ] && MODE_COUNT=$((MODE_COUNT+1))
+    if [ "$MODE_COUNT" -gt 1 ]; then printf '[COSYVOICE3-INSTALL] ERROR Candidate benchmark, Flow head-to-head and dynamic public-API smoke modes are mutually exclusive\n'; return 2; fi
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
-    if [ -z "${DEVICE_ID:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVICE_ID\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2; fi
     if [ -z "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_TRANSCRIPT\n'; return 2; fi
 
@@ -30,6 +34,14 @@ main() {
     command -v xcrun || return $?
     command -v swift || return $?
     cd "$ROOT" || return $?
+
+    if [ -z "${DEVICE_ID:-}" ]; then
+        DESTINATIONS="$(xcodebuild -project "$PROJECT" -scheme "$SCHEME" -showdestinations 2>&1)"
+        printf '%s\n' "$DESTINATIONS"
+        DEVICE_ID="$(printf '%s\n' "$DESTINATIONS" | sed -n 's/.*{ platform:iOS, arch:arm64, id:\([^,}]*\), name:.*/\1/p' | head -n 1 | xargs)"
+        if [ -z "$DEVICE_ID" ]; then printf '[COSYVOICE3-INSTALL] ERROR no available physical iPhone destination\n'; return 2; fi
+        printf '[COSYVOICE3-INSTALL] auto-selected physical iPhone device=%s\n' "$DEVICE_ID"
+    fi
 
     printf '[COSYVOICE3-INSTALL] root=%s\n' "$ROOT"
     printf '[COSYVOICE3-INSTALL] team=%s device=%s bundle=%s configuration=%s\n' "$DEVELOPMENT_TEAM" "$DEVICE_ID" "$BUNDLE_ID" "$CONFIGURATION"
@@ -72,6 +84,7 @@ main() {
     STAGING_ARGS=()
     if [ "$CANDIDATE_BENCHMARK" = "1" ]; then STAGING_ARGS+=(--candidate-benchmark); fi
     if [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then STAGING_ARGS+=(--flow-steps-head-to-head); fi
+    if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ]; then STAGING_ARGS+=(--dynamic-public-api-smoke); fi
     if [ "$PROMOTED_RUNTIME_MODE" = "1" ]; then
         "$PYTHON_BIN" validation/prepare_promoted_device_smoke_assets.py \
             --asset-root "$ASSET_ROOT" \
@@ -147,7 +160,9 @@ main() {
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
-    if [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then
+    if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ]; then
+        printf '[COSYVOICE3-INSTALL] App auto-runs dynamic default+reference public API smoke. Retrieve Documents/dynamic-public-api-smoke-receipt.json and dynamic-{default,reference}.wav.\n'
+    elif [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then
         printf '[COSYVOICE3-INSTALL] App auto-runs Flow 10/8/6 head-to-head. Retrieve Documents/flow-steps-head-to-head-receipt.json and flow-steps-{10,8,6}.wav.\n'
     elif [ "$CANDIDATE_BENCHMARK" = "1" ]; then
         printf '[COSYVOICE3-INSTALL] App auto-runs Candidate benchmark. Retrieve Documents/candidate-benchmark-receipt.json.\n'
@@ -166,3 +181,5 @@ test "$RC" -eq 0
 # Generated: 2026-10-02 America/New_York.\n# Changes 2026-10-02: COSYVOICE3_CANDIDATE_BENCHMARK=1 stages the benchmark marker and makes DeviceSmoke auto-run the cold/warm public-API benchmark without changing the normal smoke path.
 
 # Changes 2026-10-02: COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD=1 stages and auto-runs the validation-only 10/8/6 Flow comparison; it is mutually exclusive with Candidate benchmark mode.
+
+# Changes 2026-10-04: add COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE=1 and auto-detect the first available physical iPhone when DEVICE_ID is unset; existing explicit DEVICE_ID remains authoritative.
