@@ -46,7 +46,12 @@ echo "===== INSTALL ====="
 xcrun devicectl device install app --device "$DEVICE_ID" "$APP" | tee "$OUT/install.log"
 
 wait_receipt() {
-  local remote="$1" local_path="$2" label="$3" attempt=0 tmp="$local_path.tmp" copy_log="$OUT/$label-copy.log"
+  local remote="$1"
+  local local_path="$2"
+  local label="$3"
+  local attempt=0
+  local tmp="$local_path.tmp"
+  local copy_log="$OUT/$label-copy.log"
   while true; do
     attempt=$((attempt+1))
     rm -f "$tmp"
@@ -102,4 +107,4 @@ echo "PASS receipts=$OUT"
 # Upstream purpose: prove native stochastic EOS-length distribution and every integer flexible-shape execution inside the exported N interval without production promotion.
 # Runtime environment: macOS with Xcode/xcrun, signed physical iPhone, staged DeviceProbe assets.
 # Generated time: 2026-10-04 America/New_York.
-# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; avoid app-console attachment; keep the runner in the foreground; unique RUN_ID receipts prevent stale-result reuse.
+# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; avoid app-console attachment; keep the runner in the foreground; unique RUN_ID receipts prevent stale-result reuse; initialize wait_receipt locals sequentially for set -u safety.
