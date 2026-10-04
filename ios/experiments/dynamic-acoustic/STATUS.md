@@ -48,6 +48,20 @@ The final extension receipt reports:
 
 The carry-forward basis is exact torch.export graph code/state tensors plus exact Core ML weight payloads, with overlapping physical execution at N3/N225/N479 on the widened-range packages. The N3...479 package itself was not rewritten.
 
+## Interior-shape clearance after public-API stall
+
+PASS / NOT PROMOTED: after the N1 candidate public-API smoke stalled at `T=592` (`N=145`) during a Flow shard prediction, the exact widened N1...479 family was re-staged into the existing physical `AcousticShapeSweepProbe` and executed only at N145 using the accepted acoustic configuration: requested `CPU_AND_NE` plus `optimizationHints.reshapeFrequency=.infrequent`, one request-scoped MLModel per prediction, autoreleasepool lifetime.
+
+Evidence:
+`ios/experiments/dynamic-acoustic/evidence/interior-n1-interior-20261004-184558-32925`
+
+Result:
+- N145 / T592 / G290 / PCM139200: `PASS_SHAPE_EXECUTION`
+- backend: requested `CPU_AND_NE`; no residency claim
+- probe app uninstalled after host evidence retention
+
+This clears the widened Core ML package and the N145 interior shape itself. The remaining hypothesis for the earlier DeviceSmoke stall is the SDK execution-configuration mismatch; current source now applies the same `reshapeFrequency=.infrequent` hint to dynamic acoustic warm and per-prediction loads. Public-API replay on the current source is still required before that diagnosis is closed.
+
 ## Remaining gates before dynamic promotion
 
 1. Build a fresh `ios18-dynamic-n1-n479-candidate` cryptographically bound to the PASS lower-bound extension receipt.
