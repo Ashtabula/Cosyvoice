@@ -2,7 +2,16 @@
 # Requirement: create an isolated SDK copy for real-text LLM stop/token provenance; optionally remove only the fixed225 generation cap while preserving shipping code, native RAS, EOS semantics, upstream 20x policy and model bytes.
 import argparse,hashlib,json,shutil,subprocess
 from pathlib import Path
-from probe_symbolic_conditions import ROOT,sha
+ROOT=Path(__file__).resolve().parents[3]
+
+def sha(path):
+    h=hashlib.sha256()
+    files=sorted(path.rglob('*')) if path.is_dir() else [path]
+    for f in files:
+        if f.is_file():
+            h.update(f.relative_to(path).as_posix().encode() if path.is_dir() else f.name.encode())
+            h.update(f.read_bytes())
+    return h.hexdigest()
 
 def main():
     p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');p.add_argument('--llm-backend',choices=('CPU_ONLY','CPU_AND_NE'),default='CPU_AND_NE');p.add_argument('--remove-fixed225-cap',action='store_true');a=p.parse_args()
@@ -82,7 +91,7 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
         package=package.replace('platforms:[.macOS(.v15)],','platforms:[.iOS(.v18),.macOS(.v15)],products:[.library(name:"TextProbeRuntime",targets:["Probe"])],')
         package=package.replace('.executableTarget(name:"Probe"','.target(name:"Probe"')
         (a.output/'Package.swift').write_text(package)
-    identity={'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
+    identity={'sourceCommit':subprocess.check_output(['git','-C',str(ROOT),'rev-parse','HEAD'],text=True).strip(),
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
               'experimentSourceHashes':{f.name:sha(f) for f in dest.glob('*.swift')},
               'instrumentation':'stop token/reason only; native RAS/EOS unchanged; shipping source/assets untouched',
@@ -102,3 +111,5 @@ if __name__=='__main__':main()
 # after physical CPU_AND_NE prefill execution-plan -14. Native RAS/EOS remain unchanged; cap225 removal is explicit opt-in only.
 
 # 2026-10-04: --remove-fixed225-cap changes only the isolated probe copy from cap225 to the existing 512-context/20x generation policy; production SDK source and release assets remain byte-identical.
+
+# 2026-10-04: remove accidental coremltools dependency from this lightweight generator; ROOT/sha are now local and require only Python stdlib.
