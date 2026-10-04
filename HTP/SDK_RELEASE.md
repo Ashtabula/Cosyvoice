@@ -1,6 +1,6 @@
 # SDK Release Checklist
 
-Updated: 2026-10-03.
+Updated: 2026-10-04.
 
 This is the canonical cross-engine release checklist for the mobile speech engines consumed by the Demo applications. The project shorthand **检查单** means this file.
 
@@ -113,6 +113,40 @@ asset receipt referenced by release_receipt.json
 - [ ] Rebuild tooling uses project-local environments and does not silently mutate unrelated global developer state.
 - [ ] Canonical release rebuilds record the exact environment used for the published asset.
 
+## Development, build, validation and consumer environment
+
+Environment metadata is part of the release contract. **Validated Environment is not the same thing as Required Environment.** A platform may have been converted, optimized or validated on one host while the Candidate/consumer build requires only a smaller runtime SDK closure on another host. Release documentation must distinguish these roles explicitly instead of copying historical maintainer requirements into the public SDK requirements.
+
+**Development / Build Environment**
+
+- [ ] Host OS, host architecture and relevant OS build/version are recorded for every conversion, compilation or packaging step that can affect released assets.
+- [ ] Primary toolchain versions and build identifiers are recorded, including Xcode/Swift for Apple builds and Android/JDK/Gradle/NDK/CMake or equivalent for Android builds when applicable.
+- [ ] External accelerator/compiler/runtime SDK identity is exact, including product name, version and vendor build number when available.
+- [ ] Host-specific limitations are explicit; a tool validated only on Ubuntu x86_64, macOS arm64 or another host is not described as portable without evidence.
+- [ ] Maintainer-only Python environments, converters, AOT compilers, model exporters and optimization tools are identified as maintainer dependencies rather than runtime/consumer dependencies.
+- [ ] Source archives, installers or SDK packages used to reproduce a release are pinned to an official source/release identity and SHA-256 when a stable downloadable archive is available.
+- [ ] Generated assets/graphs retain enough provenance to recover the source revision, compiler/runtime SDK identity and exact build environment that produced them.
+
+**Validation Environment**
+
+- [ ] Physical validation device model, SoC, OS version/build and relevant accelerator/runtime/driver identity are recorded.
+- [ ] Validation records the exact public package/library source commit and immutable asset identity used on the device.
+- [ ] Validation commands or committed scripts are sufficient to distinguish host preparation from device execution.
+- [ ] A PASS names the environment actually tested; it does not imply compatibility with untested host, OS, SoC or runtime versions.
+- [ ] If multiple validation hosts are supported, each supported path is either independently validated or clearly labeled as equivalent packaging around the same immutable assets/runtime closure.
+
+**Consumer / Runtime Requirements**
+
+- [ ] Public documentation states the minimum consumer host/toolchain requirements separately from maintainer conversion requirements.
+- [ ] Required vendor SDK closure is enumerated by logical component and, when material, exact subdirectory/ABI/accelerator architecture; consumers are not told to install an entire historical development stack when only headers/runtime libraries are required.
+- [ ] Documentation explicitly states which heavyweight tools are **not** required for normal Candidate/Production consumption, such as converter/AOT/Python environments, when they are maintainer-only.
+- [ ] A supported bootstrap path first accepts an existing explicit SDK root when provided and otherwise may obtain a pinned official archive, verify SHA-256, and extract only the required closure.
+- [ ] Bootstrap/rebuild code fails closed on version/hash mismatch and never silently substitutes a newer vendor SDK or runtime.
+- [ ] Consumer build/run paths contain no developer-specific absolute path and do not depend on the original maintainer workstation.
+- [ ] The release documents unsupported consumer hosts or runtime combinations rather than leaving them ambiguous.
+
+Recommended environment metadata belongs in `README.md`, `ASSETS.md`, `VALIDATION.md`, `BENCHMARK.md` and the machine-readable release receipt as applicable. Engine-specific version numbers, archive URLs and closure paths remain in engine-owned documentation/receipts rather than this engine-independent checklist.
+
 ## Correctness
 
 - [ ] Host/source-model parity is validated where applicable.
@@ -215,6 +249,8 @@ A multi-engine Demo may provide consumer evidence only when each engine is invok
 - [ ] Physical iPhone smoke executes the same public API used by external consumers.
 - [ ] Returned PCM is finite, non-empty and matches documented native sample-rate/channel semantics.
 - [ ] Core ML/ANE claims are phrased at the evidence level actually proven.
+- [ ] Release evidence records the exact Xcode version/build, Apple SDK version, Swift language mode and deployment target used for the validated package/device build.
+- [ ] Consumer requirements distinguish ordinary Swift-package/app integration from maintainer-only model conversion or Core ML generation steps.
 - [ ] Large assets can be staged/downloaded outside the base app bundle without changing the public synthesis API.
 
 Acceptance sequence:
@@ -236,9 +272,13 @@ clean checkout
 - [ ] Standalone Android library/module entry exists when HTP support is claimed.
 - [ ] Public engine facade owns frontend/reference preparation, planning, bucket/model selection, QNN lifetime, decoder lifetime and PCM assembly.
 - [ ] App developer does not call low-level graph/tensor/delegate methods to perform normal synthesis.
-- [ ] QNN/QAIRT/runtime identity is recorded.
+- [ ] QNN/QAIRT/runtime identity is recorded with exact vendor version/build identifier.
 - [ ] SoC-specific asset identity is recorded and incompatible assets fail closed.
 - [ ] Host compilation/conversion path is reproducible for each supported SoC/runtime family.
+- [ ] Maintainer converter/AOT host requirements are documented separately from Candidate packaging/build requirements; a Linux-only converter path does not make Linux a consumer requirement when the released build needs only a portable runtime SDK closure.
+- [ ] The minimum QNN/QAIRT closure needed by the supported build is documented, including required headers, Android target libraries and DSP/HTP libraries/architecture when applicable.
+- [ ] When an official QAIRT/QNN archive is acquired automatically, its release identity and SHA-256 are pinned and only the required closure is extracted; hash/version mismatch fails closed.
+- [ ] `QNN_SDK_ROOT` or equivalent explicit SDK-root override is supported when documented; fallback acquisition must not silently select a different SDK version.
 - [ ] Physical Qualcomm device execution is preserved as committed evidence.
 - [ ] QNN/HTP execution claims are distinct from residency claims when tooling cannot prove both.
 - [ ] Large assets are external to the base application package and consumed through the same public engine facade.
@@ -291,6 +331,12 @@ Minimum structure:
   "releaseStatus": "candidate",
   "sourceCommit": "abcdef1234567890",
   "assetIdentity": "immutable-profile-or-tree-hash",
+  "environment": {
+    "buildHost": "host OS / architecture / version used for the release build",
+    "toolchain": "exact Xcode, QAIRT/QNN, Android/NDK or equivalent identity",
+    "validationTarget": "physical device / SoC / OS / runtime identity",
+    "consumerRequirements": "minimum supported consumer host/toolchain/runtime closure"
+  },
   "device": {
     "model": "physical device model",
     "soc": "required when material",
@@ -299,6 +345,7 @@ Minimum structure:
   "checks": {
     "sourceIsolation": {"status": "PASS", "evidence": ["..."]},
     "standaloneBuild": {"status": "PASS", "evidence": ["..."]},
+    "environmentRecorded": {"status": "PASS", "evidence": ["..."]},
     "assetValidation": {"status": "PASS", "evidence": ["..."]},
     "hostParity": {"status": "PASS", "evidence": ["..."]},
     "targetRuntimeExecution": {"status": "PASS", "evidence": ["..."]},
@@ -313,7 +360,9 @@ Minimum structure:
 }
 ~~~
 
-HTP Candidate receipts should additionally record SoC asset validation when SoC-specific assets are required.
+Candidate/Production receipts created or refreshed under this checklist should record the environment block above. Historical receipts need not be rewritten solely for format, but the next release promotion/refresh must capture the current Development/Build, Validation and Consumer/Runtime environment boundaries.
+
+HTP Candidate receipts should additionally record SoC asset validation when SoC-specific assets are required, plus exact QNN/QAIRT version/build identity and the runtime SDK closure actually required by the supported build path.
 
 Production receipts additionally require evidence for:
 
@@ -350,5 +399,5 @@ This checklist is intentionally engine-independent. Engine-specific implementati
 # Code purpose: canonical cross-engine iOS/HTP release checklist and synchronization authority for all mobile speech-engine repositories and both Demo consumers.
 # Upstream source: the ZipVoice release checklist/SDK release architecture, generalized to the public-interface-only multi-engine model.
 # Runtime environment: repository/release engineering; no runtime dependency.
-# Generated time: 2026-10-03 America/New_York.
-# Changed lines: restore Demo SDK_RELEASE.md as the comprehensive canonical cross-engine checklist authority; keep DEMO_RELEASE_CHECKLIST.md subordinate; retain the public-interface-only multi-engine registry boundary.
+# Generated time: 2026-10-04 America/New_York.
+# Changed lines: add mandatory Development/Build, Validation and Consumer/Runtime environment boundaries; require reproducible vendor-SDK provenance and minimal runtime closure; strengthen iOS Xcode metadata and HTP QAIRT/QNN host/closure rules; extend release receipts with environment evidence.
