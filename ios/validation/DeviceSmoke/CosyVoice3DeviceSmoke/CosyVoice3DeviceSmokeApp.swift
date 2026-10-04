@@ -91,6 +91,17 @@ final class CosyVoice3SmokeModel: ObservableObject {
         }
 
         do {
+            let progressURL = try Self.receiptURL("dynamic-public-api-smoke-receipt.json")
+            var progress: [String: Any] = [
+                "schemaVersion": 1,
+                "status": "RUNNING",
+                "phase": "START",
+                "recordedAtUnix": Int(Date().timeIntervalSince1970),
+                "productionPromotion": false
+            ]
+            if let sourceCommit = Self.validationSourceCommit() { progress["sourceCommit"] = sourceCommit }
+            _ = try Self.write(progress, to: progressURL)
+
             let fixture = try Self.fixture()
             let manifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_dynamic.json")
             guard FileManager.default.fileExists(atPath: manifestURL.path) else {
@@ -116,6 +127,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
             let clock = ContinuousClock()
             let defaultText = "This is a CosyVoice3 dynamic default voice validation."
+            progress["phase"] = "DEFAULT_SYNTHESIS"
+            progress["profile"] = profile
+            progress["speechTokenBounds"] = [nmin,nmax]
+            progress["hostReceiptSha256"] = fixture.hostReceiptSHA256
+            progress["text"] = defaultText
+            progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
+            _ = try Self.write(progress, to: progressURL)
             let defaultStart = clock.now
             let defaultAudio = try await engine.synthesize(
                 defaultText,
@@ -129,6 +147,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let defaultReport = await engine.lastSynthesisReport()
             let defaultWAV = Self.wavData(defaultAudio)
             try defaultWAV.write(to: Self.receiptURL("dynamic-default.wav"), options: .atomic)
+
+            progress["phase"] = "REFERENCE_SYNTHESIS"
+            progress["defaultSamples"] = defaultAudio.samples.count
+            progress["defaultInferredSpeechTokensFromPCM"] = defaultN
+            progress["defaultSynthesisMilliseconds"] = defaultMilliseconds
+            progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
+            _ = try Self.write(progress, to: progressURL)
 
             let referenceParameters = CosyVoice3Parameters(
                 reference: fixture.reference,
@@ -472,3 +497,5 @@ private extension Data {
 // Changes 2026-10-03: smoke and Candidate modes fail closed unless capabilities expose exactly default 6 and supported 6/8/10.
 
 // Changes 2026-10-04: dynamic-public-api-smoke mode runs two real public syntheses in one physical process: default/no-reference and custom reference with instruction=nil so reference transcript contributes to logicalPrefixLength. Receipt records active profile, manifest N bounds, PCM-derived N, stage timings, WAV hashes, source commit and device identity.
+
+// Changes 2026-10-04: dynamic public-API smoke now creates its receipt immediately with RUNNING/START and atomically updates DEFAULT_SYNTHESIS then REFERENCE_SYNTHESIS progress before final PASS/FAIL, eliminating the normal no-file polling window and exposing durable device progress.
