@@ -8,9 +8,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     static let sampleRate = 24_000
     static let validatedFlowStepCounts = CosyVoice3FlowSteps.allCases.map(\.rawValue)
 
-    private let conditions: MLModel
-    private let shards: [MLModel]
-    private let hift: MLModel
+    private let assetRoot: URL
+    private let conditionsPath: String
+    private let flowShardPaths: [String]
+    private let hiftPath: String
     private let f0: CosyVoice3HiFTDoubleF0
     private let contract: CosyVoice3DynamicAcousticAssets
     private let defaultPromptTokens: MLMultiArray
@@ -20,11 +21,13 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     private let hiftExcitationMaximum: MLMultiArray
     private let flowStepCount: Int
     private let progress: (@Sendable (String) -> Void)?
+    private(set) var modelLoadMilliseconds: Double = 0
 
     init(
-        conditions: MLModel,
-        shards: [MLModel],
-        hift: MLModel,
+        assetRoot: URL,
+        conditionsPath: String,
+        flowShardPaths: [String],
+        hiftPath: String,
         f0: CosyVoice3HiFTDoubleF0,
         contract: CosyVoice3DynamicAcousticAssets,
         defaultPromptTokens: MLMultiArray,
@@ -36,7 +39,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         progress: (@Sendable (String) -> Void)? = nil
     ) throws {
         try contract.validate()
-        guard shards.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [shards.count]) }
+        guard flowShardPaths.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [flowShardPaths.count]) }
+        guard !conditionsPath.isEmpty, !hiftPath.isEmpty, flowShardPaths.allSatisfy({ !$0.isEmpty }) else {
+            throw CosyVoice3AcousticError.invalidShape("dynamic_model_paths", [])
+        }
         guard Self.validatedFlowStepCounts.contains(flowStepCount) else { throw CosyVoice3AcousticError.invalidFlowStepCount(flowStepCount) }
         guard defaultPromptTokens.shape.map(\.intValue) == [1,151] else { throw CosyVoice3AcousticError.invalidShape("default_prompt_tokens", defaultPromptTokens.shape.map(\.intValue)) }
         guard defaultPromptFeat.shape.map(\.intValue) == [1,contract.promptFrameCount,80] else { throw CosyVoice3AcousticError.invalidShape("default_prompt_feat", defaultPromptFeat.shape.map(\.intValue)) }
@@ -48,9 +54,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             throw CosyVoice3AcousticError.invalidShape("dynamic_stochastic_buffers", [])
         }
 
-        self.conditions = conditions
-        self.shards = shards
-        self.hift = hift
+        self.assetRoot = assetRoot
+        self.conditionsPath = conditionsPath
+        self.flowShardPaths = flowShardPaths
+        self.hiftPath = hiftPath
         self.f0 = f0
         self.contract = contract
         self.defaultPromptTokens = defaultPromptTokens
@@ -93,18 +100,14 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         }
 
         progress?("acoustic.conditions.begin:N=\(n):T=\(tFrames)")
-        let conditionResult = try await conditions.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
-            "tokens": tokens,
-            "prompt_tokens": promptTokens,
-            "prompt_feat": promptFeat,
-            "speaker": speaker
-        ]))
-        let mu = try output(conditionResult, "mu")
-        let spks = try output(conditionResult, "spks")
-        let cond = try output(conditionResult, "cond")
-        guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
-        guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
-        guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
+        let (mu,spks,cond) = try await predictConditions(
+            tokens: tokens,
+            promptTokens: promptTokens,
+            promptFeat: promptFeat,
+            speaker: speaker,
+            tFrames: tFrames
+        )
+        await Task.yield()
         progress?("acoustic.conditions.end:N=\(n):T=\(tFrames)")
 
         var x = flowNoisePrefix(frameCount: tFrames)
@@ -129,21 +132,17 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                 "x": batchX, "mask": mask, "mu": mu, "t": time, "spks": spks, "cond": cond
             ]
             var velocity: MLMultiArray?
-            for index in shards.indices {
-                let result = try await shards[index].prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
-                if index == 0 {
-                    let h = try output(result, "h")
-                    let te = try output(result, "te")
-                    guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
-                    guard te.shape.map(\.intValue) == [2,1024] else { throw CosyVoice3AcousticError.invalidShape("te", te.shape.map(\.intValue)) }
+            for index in flowShardPaths.indices {
+                let stage = try await predictFlowShard(index: index, feed: feed, tFrames: tFrames)
+                switch stage {
+                case .first(let h, let te):
                     feed = ["h":h, "te":te, "mask":mask]
-                } else if index == shards.count - 1 {
-                    velocity = try output(result, "velocity")
-                } else {
-                    let h = try output(result, "h_out")
-                    guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h_out", h.shape.map(\.intValue)) }
+                case .hidden(let h):
                     feed["h"] = h
+                case .velocity(let value):
+                    velocity = value
                 }
+                await Task.yield()
             }
 
             guard let velocity, velocity.count == x.count * 2 else {
@@ -188,16 +187,123 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let excitation = try hiftExcitationPrefix(sampleCount: samplesCount)
         let norm = try overlapAddNorm(sampleCount: samplesCount)
         progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
-        let hiftResult = try await hift.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
-            "mel": mel, "f0": f0Values, "phase": phase, "noise": excitation, "norm": norm
+        let samples = try await predictHiFT(
+            mel: mel,
+            f0: f0Values,
+            phase: phase,
+            excitation: excitation,
+            norm: norm,
+            samplesCount: samplesCount
+        )
+        await Task.yield()
+        progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
+        return .init(samples: samples, sampleRate: Self.sampleRate, channels: 1)
+    }
+
+    private enum FlowShardStage {
+        case first(MLMultiArray, MLMultiArray)
+        case hidden(MLMultiArray)
+        case velocity(MLMultiArray)
+    }
+
+    private func loadModel(path: String, stage: String) throws -> MLModel {
+        progress?("\(stage).load.begin:\(path)")
+        let started = DispatchTime.now().uptimeNanoseconds
+        let model = try CosyVoice3AssetLoader.model(root: assetRoot, path: path)
+        let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000
+        modelLoadMilliseconds += elapsed
+        progress?("\(stage).load.end:\(path):ms=\(String(format: "%.3f", elapsed))")
+        return model
+    }
+
+    private func predictConditions(
+        tokens: MLMultiArray,
+        promptTokens: MLMultiArray,
+        promptFeat: MLMultiArray,
+        speaker: MLMultiArray,
+        tFrames: Int
+    ) async throws -> (MLMultiArray, MLMultiArray, MLMultiArray) {
+        let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model")
+        progress?("acoustic.conditions.prediction.begin:T=\(tFrames)")
+        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
+            "tokens": tokens,
+            "prompt_tokens": promptTokens,
+            "prompt_feat": promptFeat,
+            "speaker": speaker
         ]))
-        let pcm = try output(hiftResult, "pcm")
+        let mu = try ownedFloat32Output(result, "mu")
+        let spks = try ownedFloat32Output(result, "spks")
+        let cond = try ownedFloat32Output(result, "cond")
+        guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
+        guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
+        guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
+        progress?("acoustic.conditions.prediction.end:T=\(tFrames)")
+        return (mu,spks,cond)
+    }
+
+    private func predictFlowShard(
+        index: Int,
+        feed: [String: MLMultiArray],
+        tFrames: Int
+    ) async throws -> FlowShardStage {
+        let path = flowShardPaths[index]
+        let label = "acoustic.flow.shard.\(index + 1).6"
+        let model = try loadModel(path: path, stage: label)
+        progress?("\(label).prediction.begin:T=\(tFrames)")
+        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
+        let stage: FlowShardStage
+        if index == 0 {
+            let h = try ownedFloat32Output(result, "h")
+            let te = try ownedFloat32Output(result, "te")
+            guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
+            guard te.shape.map(\.intValue) == [2,1024] else { throw CosyVoice3AcousticError.invalidShape("te", te.shape.map(\.intValue)) }
+            stage = .first(h,te)
+        } else if index == flowShardPaths.count - 1 {
+            let velocity = try ownedFloat32Output(result, "velocity")
+            stage = .velocity(velocity)
+        } else {
+            let h = try ownedFloat32Output(result, "h_out")
+            guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h_out", h.shape.map(\.intValue)) }
+            stage = .hidden(h)
+        }
+        progress?("\(label).prediction.end:T=\(tFrames)")
+        return stage
+    }
+
+    private func predictHiFT(
+        mel: MLMultiArray,
+        f0: MLMultiArray,
+        phase: MLMultiArray,
+        excitation: MLMultiArray,
+        norm: MLMultiArray,
+        samplesCount: Int
+    ) async throws -> [Float] {
+        let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model")
+        progress?("acoustic.hift.prediction.begin:samples=\(samplesCount)")
+        let result = try await model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
+            "mel": mel, "f0": f0, "phase": phase, "noise": excitation, "norm": norm
+        ]))
+        let pcm = try output(result, "pcm")
         guard pcm.shape.map(\.intValue) == [1,samplesCount] else { throw CosyVoice3AcousticError.invalidShape("pcm", pcm.shape.map(\.intValue)) }
         let samples = Self.floatValues(pcm)
         guard samples.count == samplesCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
         guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
-        progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
-        return .init(samples: samples, sampleRate: Self.sampleRate, channels: 1)
+        progress?("acoustic.hift.prediction.end:samples=\(samplesCount)")
+        return samples
+    }
+
+    private func ownedFloat32Output(_ provider: MLFeatureProvider, _ name: String) throws -> MLMultiArray {
+        let source = try output(provider, name)
+        guard source.dataType == .float32 else {
+            throw CosyVoice3AcousticError.invalidShape("\(name)_dtype", source.shape.map(\.intValue))
+        }
+        let owned = try MLMultiArray(shape: source.shape, dataType: .float32)
+        if Self.isContiguous(source), Self.isContiguous(owned) {
+            memcpy(owned.dataPointer, source.dataPointer, source.count * MemoryLayout<Float>.size)
+        } else {
+            for index in 0..<source.count { owned[index] = source[index] }
+        }
+        return owned
     }
 
     private func flowNoisePrefix(frameCount: Int) -> [Float] {
@@ -280,8 +386,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
 // Code purpose: production-candidate exact-shape dynamic acoustic runtime for the full manifest-declared speech-token envelope.
 // Upstream source: validated CosyVoice3 fixed225 acoustic math plus experiment/ios-dynamic-acoustic symbolic Conditions/Flow/HiFT execution contract.
-// Runtime environment: iOS18+/macOS15+ CoreML; request-scoped model lifetime is owned by CosyVoice3Engine.
+// Runtime environment: iOS18+/macOS15+ CoreML; dynamic acoustic MLModel lifetime is stage-scoped inside this runtime, with at most one Conditions/Flow/HiFT MLModel intentionally retained at a time.
 // Generated time: 2026-10-04 America/New_York.
 // Changes: variable N/T/G/PCM shapes; generic default/custom reference conditioning; manifest-bound max Flow noise and HiFT excitation prefixes; no zero-buffer fallback, padding, bucket substitution, or production promotion claim.
 
 // Changes 2026-10-04: optional nil-default validation progress marks Conditions, each Euler Flow step, F0 and HiFT boundaries; tensor math, model inputs and production behavior are unchanged.
+
+// Changes 2026-10-04: replace resident Conditions+6 Flow+HiFT model set with stage-scoped loading. Conditions/Flow outputs are copied into owned Float32 arrays before the producing model leaves scope; each Flow shard is loaded/predicted/released for each Euler step; HiFT loads only after Flow/F0. This trades model-instantiation time for bounded memory while preserving exact dynamic tensors and scheduler math.
