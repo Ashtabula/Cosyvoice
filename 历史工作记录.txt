@@ -153,3 +153,10 @@ Prompt：自主继续直到完整natural-length text-to-PCM通过，并保存所
 修改文件：ios/experiments/dynamic-acoustic/evidence/observed-family-device-CPU_AND_NE-v1.json；physical-real-text-v2.json；physical-real-text-validation-v1.json；evidence-index.json；README.md；历史工作记录.txt。
 验证：Air原句0actualEOS6562 N167 T636 G334 samples160320/6.68s、句1EOS6562 N178 T658 G356 samples170880/7.12s，finite，无padding/truncation/假EOS；same统一symbolic family；source dynamic/fixed HiFT maxAbs/relativeL2均0；actual-device-mel CoreML/upstreamFP64 relativeL2=.008859934628/.008727899948，原.02 gate通过；full endpoint/source1.193424/1.082897不是parity/quality PASS；WAV逐sample与rawPCM exact。Native frontend/RAS/cap225未改；实验guard明确exported N151..225而非exact225；>225/<151未验证。冻结release仍4ab288d39b92d68b448c2d4b5fa011dddc29e202；productionPromotion=false。实际执行local macOS+物理iPhone，非Colab；LLM CPU_ONLY，acoustic请求CPU_AND_NE且preferredCPU，非ANE residency。
 GitHub Timeline：validator代码已push d585144；本次最终evidence/docs即将commit/push实验分支；之后检查local/remote HEAD与tracked clean。
+
+时间：2026-10-04 01:09 EDT (America/New_York)
+Prompt：收尾审计并确认所有实验code/evidence推送及冻结状态。
+动作：核对evidence-index每条bytes/SHA256、physical EOS几何、source bit-exact/原HiFT .02 gates、实验-only Git diff、冻结ref；正常结束已完成独立probe。
+修改文件：历史工作记录.txt（仅append）。
+验证：全部检查PASS；最初作用域检查因git quotePath将中文历史文件转义误报，改用git diff --name-only -z正确读取后PASS；不是代码/数值失败。release/ios-fixed225-sdk-ready仍4ab288d39b92d68b448c2d4b5fa011dddc29e202。Shipping SDK/catalog/releases/Candidate证据未改；所有large artifacts留.work。native真实EOS167/178证明已完成；whole endpoint parity/listening未accepted，>225未验证，cap225仍保留，productionPromotion=false。
+GitHub Timeline：所有实验code/evidence/docs已commit且已push；验证6e3cec3c305330db49132d842a23654750281590 local=remote、tracked/untracked clean。本条日志在写入时未commit未push，由随后独立审计提交同步。
