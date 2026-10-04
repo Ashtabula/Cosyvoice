@@ -1,6 +1,6 @@
 # CosyVoice3 iOS dynamic-acoustic status
 
-Status: **PHYSICAL N1...479 ACOUSTIC ENVELOPE + EXACT N1 CANDIDATE PUBLIC-API PASS / NOT PROMOTED**.
+Status: **DYNAMIC N1...479 RELEASE-PROMOTION ENTRY / ENGINEERING ACCEPTED / NOT PRODUCTION**.
 
 The frozen fixed225 release remains unchanged. This experiment branch is `experiment/ios-dynamic-acoustic`; production promotion remains false.
 
@@ -86,10 +86,33 @@ Receipt:
 
 This closes the earlier N145/T592 DeviceSmoke stall as an SDK execution-configuration mismatch rather than a widened-family shape failure: the exact N145 family shape passed the focused physical probe, and the corrected SDK then completed the full default/reference public-API smoke on the N1 candidate.
 
+## Human listening acceptance
+
+PASS / NOT PROMOTED: the user explicitly accepted both exact N1-candidate smoke WAVs. The default lane was judged natural/good; it intentionally uses baked default conditioning and is not expected to sound like Lei Jun. The reference lane was judged natural/good and matching the intended Lei Jun validation reference.
+
+Evidence:
+`ios/validation/evidence/dynamic_n1_listening_acceptance.json`
+
+The acceptance is bound to the exact smoke WAV hashes:
+- default: `5ef55fa0efb9b0e2b0919c5d7f4cd86ddfecddebf25389e527768d5b8544a21e`
+- reference: `24a20a7aca6d6810d54184c20feccba506552b98d47b2292bb02cf99a59b6f1b`
+
+The Lei Jun validation reference is validation-only. Its audio/identity is not authorized by this acceptance for public runtime/example redistribution.
+
+## Release-promotion entry
+
+PASS / NOT PRODUCTION: dynamic N1...479 engineering evidence is accepted strongly enough to enter release engineering. Entry receipt:
+`ios/validation/dynamic_n1_release_entry_2026-10-04.json`
+
+This state deliberately does not overwrite the existing fixed225 `manifest.json`, `assets/releases.json`, or `validation/release_receipt.json`. A dynamic-specific immutable asset profile, benchmark and candidate release receipt must be generated before the dynamic profile can replace or join the fixed225 release authority.
+
 ## Remaining gates before dynamic promotion
 
-1. Perform explicit human listening acceptance on both exact N1-candidate smoke WAVs using `ios/validation/record_dynamic_listening_acceptance.py`.
-2. Record/quantify the theoretical native-RAS N0 case without changing EOS=6562 suppression semantics; N0 remains fail-closed unless a separately justified zero-token policy is adopted.
-3. After those dynamic-specific gates pass, evaluate release/clean-room/reproducibility/license/public-identity requirements for dynamic promotion.
+1. Quantify and resolve or explicitly accept the native-RAS N0 fail-closed edge case without changing EOS=6562 semantics.
+2. Freeze an immutable private dynamic runtime asset profile and bind its exact asset identity.
+3. Regenerate exact-current-source standalone/full-runtime rebuild evidence and run the controlled physical-device cold/warm public-API benchmark for the dynamic profile.
+4. Generate a dynamic-specific candidate release receipt.
+5. Before Production/public redistribution: pass clean-room consumer integration, release-tree reproducibility, redistribution/license review, public identity/fresh snapshot, and immutable public runtime asset publication.
+6. Keep the user-identified Lei Jun validation reference/audio out of the public runtime/example asset set unless separate redistribution authorization exists.
 
 N0 remains an explicit fail-closed case. Actual EOS token semantics remain unchanged: EOS=6562; 6561 is SOS. The global LLM per-request capacity policy remains `min(targetTextTokens*20, 512-logicalPrefixLength)`; the active acoustic manifest provides only the downstream profile cap.
