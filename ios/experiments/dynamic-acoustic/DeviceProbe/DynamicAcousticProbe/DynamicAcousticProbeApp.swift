@@ -159,10 +159,11 @@ enum LLMLengthSweepProbe {
         let root=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/text-runtime")
         let docs=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
         let repeats=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("RUNS=") ? Int($0.dropFirst(5)) : nil }.first ?? 32
+        let runID=(ProcessInfo.processInfo.arguments.first { $0.hasPrefix("RUN_ID=") }.map { String($0.dropFirst(7)) } ?? String(Int(Date().timeIntervalSince1970))).replacingOccurrences(of:"/",with:"_")
         guard repeats>0 else { throw NSError(domain:"LLMLengthSweepRuns",code:repeats) }
-        let path=docs.appendingPathComponent("llm-length-sweep.json")
+        let path=docs.appendingPathComponent("llm-length-sweep-\(runID).json")
         let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json")))
-        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"runtimeIdentity":identity,"sampling":"unchanged native SystemRandomNumberGenerator RAS","repeatsPerText":repeats,"productionPromotion":false,"runs":[[String:Any]]()]
+        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"runID":runID,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"runtimeIdentity":identity,"sampling":"unchanged native SystemRandomNumberGenerator RAS","repeatsPerText":repeats,"productionPromotion":false,"runs":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
         let engine=try CosyVoice3Engine(assetRoot:root)
@@ -170,7 +171,7 @@ enum LLMLengthSweepProbe {
         for (textIndex,text) in corpus.enumerated() {
             for runIndex in 0..<repeats {
                 receipt["phase"]="text\(textIndex)_run\(runIndex)";try save()
-                let one=docs.appendingPathComponent("llm-length-sweep-t\(textIndex)-r\(runIndex).json")
+                let one=docs.appendingPathComponent("llm-length-sweep-\(runID)-t\(textIndex)-r\(runIndex).json")
                 var row:[String:Any]=["textIndex":textIndex,"runIndex":runIndex,"text":text,"status":"RUNNING"]
                 do {
                     try await engine.experimentGenerate(text:text,output:one)
@@ -271,7 +272,7 @@ enum AcousticProbe {
         let prefix=textMode ? "dynamic-text-acoustic":"dynamic-acoustic"
         let path=docs.appendingPathComponent("\(prefix)-\(backend).json")
         let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json")))
-        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
+        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"runID":runID,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
         do {
@@ -417,8 +418,9 @@ enum AcousticShapeSweepProbe {
         let exported=identity["supportedNBounds"] as? [Int] ?? [151,225]
         let requestedMin=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMIN=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[0]
         let requestedMax=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMAX=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[1]
+        let runID=(ProcessInfo.processInfo.arguments.first { $0.hasPrefix("RUN_ID=") }.map { String($0.dropFirst(7)) } ?? String(Int(Date().timeIntervalSince1970))).replacingOccurrences(of:"/",with:"_")
         guard requestedMin>=exported[0],requestedMax<=exported[1],requestedMin<=requestedMax else { throw NSError(domain:"AcousticShapeSweepBounds",code:1,userInfo:[NSLocalizedDescriptionKey:"requested \(requestedMin)...\(requestedMax), exported \(exported)"]) }
-        let path=docs.appendingPathComponent("dynamic-acoustic-shape-sweep-\(backend)-N\(requestedMin)-\(requestedMax).json")
+        let path=docs.appendingPathComponent("dynamic-acoustic-shape-sweep-\(backend)-N\(requestedMin)-\(requestedMax)-\(runID).json")
         var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"exportedNBounds":exported,"requestedNBounds":[requestedMin,requestedMax],"productionPromotion":false,"tests":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
