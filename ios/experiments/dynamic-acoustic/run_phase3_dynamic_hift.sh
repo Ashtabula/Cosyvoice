@@ -59,6 +59,7 @@ import importlib.metadata as md
 
 required = {
     "conformer": "0.3.2",
+    "diffusers": "0.29.0",
     "HyperPyYAML": "1.2.3",
     "omegaconf": "2.3.0",
     "onnxruntime": "1.18.0",
@@ -68,6 +69,7 @@ required = {
 
 modules = {
     "conformer": "conformer",
+    "diffusers": "diffusers",
     "HyperPyYAML": "hyperpyyaml",
     "omegaconf": "omegaconf",
     "onnxruntime": "onnxruntime",
@@ -97,11 +99,11 @@ for distribution, expected in required.items():
 PY
     then
         echo "[COSYVOICE3-DYNAMIC-PHASE3] installing pinned Phase3 dependencies from experiment requirements"
-        "$PYTHON" -m pip install             --disable-pip-version-check             "conformer==0.3.2"             "HyperPyYAML==1.2.3"             "omegaconf==2.3.0"             "onnxruntime==1.18.0"             "scipy==1.13.1"             "transformers==4.51.3"
+        "$PYTHON" -m pip install             --disable-pip-version-check             "conformer==0.3.2"             "diffusers==0.29.0"             "HyperPyYAML==1.2.3"             "omegaconf==2.3.0"             "onnxruntime==1.18.0"             "scipy==1.13.1"             "transformers==4.51.3"
 
         "$PYTHON" - <<'PY'
 import importlib.metadata as md
-for name in ("conformer", "HyperPyYAML", "omegaconf", "onnxruntime", "scipy", "transformers"):
+for name in ("conformer", "diffusers", "HyperPyYAML", "omegaconf", "onnxruntime", "scipy", "transformers"):
     print(f"[COSYVOICE3-DYNAMIC-PHASE3] installed {name}={md.version(name)}")
 PY
     fi
@@ -261,4 +263,4 @@ main "$@"
 # Runtime environment: macOS arm64, isolated Python3.11/torch2.7/coremltools9, Core ML CPU_ONLY host validation.
 # Generated time: 2026-10-03 America/New_York.
 # Changes: experiment-only Phase3 runner; no shipping runtime, LLM cap/EOS, Candidate evidence, or public asset changes.
-# Changes 2026-10-03: add exact Phase3 dependency preflight/bootstrap for conformer 0.3.2, HyperPyYAML 1.2.3, omegaconf 2.3.0, onnxruntime 1.18.0, scipy 1.13.1, and transformers 4.51.3, matching the accepted upstream environment before HiFT construction.
+# Changes 2026-10-03: add exact Phase3 dependency preflight/bootstrap for conformer 0.3.2, diffusers 0.29.0, HyperPyYAML 1.2.3, omegaconf 2.3.0, onnxruntime 1.18.0, scipy 1.13.1, and transformers 4.51.3, matching the accepted upstream environment before HiFT construction.
