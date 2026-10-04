@@ -304,6 +304,35 @@ clean macOS Apple-Silicon checkout
 -> committed receipts
 ```
 
+## All-SDK clean-room rebuild gate
+
+The canonical batch release check is repository-driven and fail closed. `SDK_CLEANROOM_MATRIX.json` must enumerate every engine/platform pair represented by the synchronized checklist mirrors. The one-command entrypoint is `bash scripts/rebuild_validate_all_sdks.sh`.
+
+- [ ] Before every batch run, delete the entire tool-owned `.work/all-sdk-cleanroom` workspace and recreate it empty. The batch must never delete developer working trees, committed evidence or unrelated caches.
+- [ ] Fresh clone every selected engine repository from its configured remote/ref into the disposable workspace; do not consume sibling `/Volumes/...` developer checkouts or previously staged clean-room source trees.
+- [ ] Record the exact resolved Git commit for every fresh clone and require its platform `SDK_RELEASE.md` mirror to be byte-identical to the canonical Demo checklist before build/validation.
+- [ ] Rebuild every available SDK from that fresh clone on the canonical macOS Apple-Silicon host before running device validation.
+- [ ] Full validation must use only immutable/pinned asset acquisition or a release-documented Mac rebuild path. A local historical model/output directory may not silently satisfy a Candidate/Production clean-room gate.
+- [ ] Each engine/platform entry is evaluated independently. A missing implementation, missing immutable asset path, missing clean-room entrypoint, missing device gate or incomplete release contract is reported as explicit `BLOCKED`; it is never silently skipped or counted as PASS.
+- [ ] The batch must continue through every SDK after an individual FAIL/BLOCKED result so one broken engine cannot hide the state of later engines.
+- [ ] iOS full gates use a physical iPhone and a real Apple Developer Team ID derived from certificate `subject.OU`; certificate display-name suffixes/Team Member IDs are not valid `DEVELOPMENT_TEAM` substitutes.
+- [ ] HTP full gates use a physical compatible Qualcomm device and the exact pinned QNN/QAIRT runtime closure required by the Mac-hosted Candidate path.
+- [ ] The batch writes per-SDK logs plus one aggregate `all_sdk_cleanroom_receipt.json` containing host identity, canonical checklist hash, source SHAs, build status, clean-room status and exact blocker/failure reason.
+- [ ] Aggregate full validation returns nonzero unless every selected SDK is PASS. Host-only diagnostic mode must be labeled as such and must not be promoted to Candidate/Production evidence.
+- [ ] The batch validator does not commit, push, publish, upload or promote evidence automatically. Publication remains a separate explicit release action after review of the aggregate and engine-owned receipts.
+
+Current repository readiness is allowed to be mixed. The all-SDK batch is therefore both a release gate and a top-down gap detector: Development or not-yet-migrated platforms remain visible as `BLOCKED` until their engine-owned build/asset/device clean-room path is implemented.
+
+Acceptance evidence:
+
+```text
+SDK_CLEANROOM_MATRIX.json
+scripts/rebuild_validate_all_sdks.sh
+scripts/rebuild_validate_all_sdks.py
+.work/all-sdk-cleanroom-results/<run>/all_sdk_cleanroom_receipt.json
+per-SDK logs referenced by that aggregate receipt
+```
+
 ## Demo consumer integration gate
 
 The two Demo applications are independent consumers, not engine implementation repositories.
@@ -407,4 +436,4 @@ This checklist is intentionally engine-independent. Engine-specific implementati
 # Upstream source: the ZipVoice release checklist/SDK release architecture, generalized to the public-interface-only multi-engine model.
 # Runtime environment: repository/release engineering; no runtime dependency.
 # Generated time: 2026-10-04 America/New_York.
-# Changed lines: make macOS Apple Silicon the canonical release/clean-room host, with Mac mini (M4) as the current reference machine; require all Candidate/Production build/bootstrap/stage/validation paths to pass from that Mac environment; demote Linux-only tooling to historical frozen-asset provenance only; update HTP and release-receipt gates accordingly.
+# Changed lines: add the canonical all-SDK clean-room batch gate: destructive reset is limited to the Demo-owned disposable workspace, every engine/platform is fresh-cloned and rebuilt, missing/incomplete paths are explicit BLOCKED, validation continues across failures, and one aggregate fail-closed receipt records all eight SDK outcomes.
