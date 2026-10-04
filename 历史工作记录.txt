@@ -111,3 +111,10 @@ Prompt：actual EOS N164/N151继续自然长度host/device，无padding。
 修改文件：DeviceProbe Swift；stage_acoustic_probe.py；历史工作记录.txt。
 验证：统一N151..225/T604..752/G302..450真实re-export；HiFT USER_INPUT noise[1,480*s0,9]；range s0[302,450]、480*s0[144960,216000]；source parity exact。新四长度完整host待执行。
 GitHub Timeline：380ed8f 已push；本次小修正即将commit/push，冻结release不变。
+
+时间：2026-10-04 00:52 EDT (America/New_York)
+Prompt：继续直到完整真实natural text-to-PCM；隔离实验不改shipping。
+动作：四长度host集成完成并记录evidence；新增physical TEXT模式，isolated SDK library 运行native Tokenizers/frontend/LLM actualEOS，再实际tokens进入same dynamic family；增加LLM/tokenizer/embedding逐payloadSHA staging。
+修改文件：实验DeviceProbe Swift/project；prepare_text_probe.py；stage_acoustic_probe.py；stage_text_runtime.py；evidence/observed-text-family-v1.json/full-text-acoustic-host-v1.json/index；历史工作记录.txt。
+验证：N151 T604 G302 samples144960 HiFTsame-mel upstreamrelativeL2=.01244961；N164 T630 G328 samples157440 relativeL2=.01047791；N186/N225原gate通过。source HiFT exact；endpoint/source错误仍记录，不宣称质量接受。Native LLM host traces实际EOS6562、cap225不变。TEXT设备build/执行待验证。
+GitHub Timeline：9209197已push；本次code/evidence即将commit/push实验分支。

@@ -1,0 +1,1146 @@
+{
+  "actualDynamicFlowMel": true,
+  "componentGatesPass": true,
+  "flowTests": [
+    {
+      "G": 302,
+      "N": 151,
+      "T": 604,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            604
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.999999999999657,
+          "finite": true,
+          "maxAbsError": 5.7220458984375e-06,
+          "meanAbsError": 2.2348663723404638e-07,
+          "relativeL2": 8.034606236270293e-07,
+          "rmse": 4.26749544619933e-07,
+          "shape": [
+            2,
+            80,
+            604
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9989896680882341,
+        "finite": true,
+        "maxAbsError": 2.4558802247047424,
+        "meanAbsError": 0.08947255269110446,
+        "relativeL2": 0.045084150403796854,
+        "rmse": 0.1408223249776064,
+        "shape": [
+          1,
+          80,
+          302
+        ]
+      },
+      "samples": 144960
+    },
+    {
+      "G": 328,
+      "N": 164,
+      "T": 630,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            630
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.999999999999657,
+          "finite": true,
+          "maxAbsError": 5.0067901611328125e-06,
+          "meanAbsError": 2.2353307854029395e-07,
+          "relativeL2": 7.995698531327384e-07,
+          "rmse": 4.2590414150284736e-07,
+          "shape": [
+            2,
+            80,
+            630
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9964766854347358,
+        "finite": true,
+        "maxAbsError": 3.7195498943328857,
+        "meanAbsError": 0.13277841082166472,
+        "relativeL2": 0.08435453635740568,
+        "rmse": 0.26044627040536894,
+        "shape": [
+          1,
+          80,
+          328
+        ]
+      },
+      "samples": 157440
+    },
+    {
+      "G": 372,
+      "N": 186,
+      "T": 674,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            674
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.9999999999996413,
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.295914520951712e-07,
+          "relativeL2": 8.179827210837397e-07,
+          "rmse": 4.364227733587155e-07,
+          "shape": [
+            2,
+            80,
+            674
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9984553103271555,
+        "finite": true,
+        "maxAbsError": 2.1361474990844727,
+        "meanAbsError": 0.10530540667609149,
+        "relativeL2": 0.05560577522888692,
+        "rmse": 0.15618760186354594,
+        "shape": [
+          1,
+          80,
+          372
+        ]
+      },
+      "samples": 178560
+    },
+    {
+      "G": 450,
+      "N": 225,
+      "T": 752,
+      "conditionsVsSource": {
+        "cond": {
+          "cosineSimilarity": 0.9999999999999802,
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "relativeL2": 0.0,
+          "rmse": 0.0,
+          "shape": [
+            2,
+            80,
+            752
+          ]
+        },
+        "mu": {
+          "cosineSimilarity": 0.9999999999996408,
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.3003266157521718e-07,
+          "relativeL2": 8.150559008240192e-07,
+          "rmse": 4.3628556318755427e-07,
+          "shape": [
+            2,
+            80,
+            752
+          ]
+        },
+        "spks": {
+          "cosineSimilarity": 0.9999999999999659,
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "relativeL2": 2.792930971309976e-07,
+          "rmse": 3.0262610183170014e-08,
+          "shape": [
+            2,
+            80
+          ]
+        }
+      },
+      "dynamicMelVsFrozen": {
+        "cosineSimilarity": 0.9991971080017068,
+        "finite": true,
+        "maxAbsError": 1.2693704068660736,
+        "meanAbsError": 0.07468525586457044,
+        "relativeL2": 0.0419246564180201,
+        "rmse": 0.10908823473212025,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "dynamicMelVsSource": {
+        "cosineSimilarity": 0.9972217402050115,
+        "finite": true,
+        "maxAbsError": 2.368066728115082,
+        "meanAbsError": 0.13986982621661284,
+        "relativeL2": 0.07664115575282054,
+        "rmse": 0.20601028073170072,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "frozenMelVsSource": {
+        "cosineSimilarity": 0.9972777139359172,
+        "finite": true,
+        "maxAbsError": 2.1522863507270813,
+        "meanAbsError": 0.15269420196867498,
+        "relativeL2": 0.079331817973869,
+        "rmse": 0.2132427405513315,
+        "shape": [
+          1,
+          80,
+          450
+        ]
+      },
+      "samples": 216000
+    }
+  ],
+  "numericalPolicy": "Existing same-mel HiFT relativeL2<=0.02; full endpoint and FP16 Flow errors recorded against source/frozen controls; no new endpoint threshold invented.",
+  "packages": {
+    "conditions": {
+      "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/conditions/conditions.mlpackage",
+      "sha256": "dc1a0819f2a32901b888ac4ace9fdb92603d5b0e4352fc042b2abc35620c21a0"
+    },
+    "flow": [
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-00/flow-shard.mlpackage",
+        "sha256": "e6618a21c77414fc15ac0136dfc396d2405e87f5f52d0cc6b02f735bef38cc7c"
+      },
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-01/flow-shard.mlpackage",
+        "sha256": "f3520323d35f1a4332e6b6e1b835eddb0c386117c551b3ff4b461b8d7625af6c"
+      },
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-02/flow-shard.mlpackage",
+        "sha256": "e68874af0616bcc7cdcc7c669d6babfa3e6b264b2ddcd2d8e672e3ea43b67334"
+      },
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-03/flow-shard.mlpackage",
+        "sha256": "08e63b253e696dd72a3624df7a187a81bc6ba59bfe354f2c814d4cdaa30d3d2d"
+      },
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-04/flow-shard.mlpackage",
+        "sha256": "889b38eecf8ac52aaa9b9fbf07feb10b011b7611e44a29d1272abc75c3c58f03"
+      },
+      {
+        "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-05/flow-shard.mlpackage",
+        "sha256": "5b13d9b98af31e4b2c40462065c8822bada24fb48067304d64a176caf0f47da6"
+      }
+    ],
+    "hift": {
+      "path": "ios/.work/dynamic-acoustic/observed-text-family-v1/hift/hift-dynamic-body-fp32.mlpackage",
+      "sha256": "60e3dd6c9a1140b48a63063155d140931f0825a8561ee0a87b61a0b6c048d356"
+    }
+  },
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "productionPromotion": false,
+  "realTextTraces": [
+    {
+      "N": 164,
+      "actualEarlyEOS": true,
+      "logicalPrefixLength": 23,
+      "maximumSpeechTokenCount": 225,
+      "minimumSpeechTokenCount": 28,
+      "productionPromotion": false,
+      "sampling": "unchanged native SystemRandomNumberGenerator RAS",
+      "speechTokens": [
+        0,
+        1,
+        3,
+        492,
+        501,
+        1302,
+        5995,
+        6534,
+        3621,
+        5724,
+        4860,
+        4941,
+        2268,
+        2269,
+        1919,
+        6049,
+        5589,
+        6402,
+        5235,
+        3732,
+        89,
+        2357,
+        4517,
+        4435,
+        6115,
+        5644,
+        3457,
+        2001,
+        4212,
+        4296,
+        3836,
+        1624,
+        497,
+        6080,
+        6122,
+        5852,
+        5127,
+        6007,
+        6023,
+        6535,
+        5700,
+        4863,
+        4860,
+        4971,
+        81,
+        0,
+        27,
+        2214,
+        2295,
+        0,
+        111,
+        4887,
+        4887,
+        4974,
+        3680,
+        4031,
+        2162,
+        1442,
+        1433,
+        260,
+        494,
+        2492,
+        3221,
+        6299,
+        663,
+        6495,
+        2825,
+        2743,
+        170,
+        4598,
+        5057,
+        5054,
+        6009,
+        3828,
+        240,
+        102,
+        0,
+        1,
+        4,
+        89,
+        4544,
+        4434,
+        3411,
+        6111,
+        4106,
+        2180,
+        1450,
+        645,
+        1862,
+        1502,
+        1466,
+        3761,
+        3705,
+        1759,
+        1768,
+        566,
+        563,
+        260,
+        494,
+        521,
+        4429,
+        4511,
+        4958,
+        4904,
+        503,
+        4147,
+        4149,
+        6303,
+        197,
+        2411,
+        2268,
+        4536,
+        6275,
+        4106,
+        2171,
+        1150,
+        494,
+        2573,
+        4592,
+        1406,
+        1433,
+        2144,
+        1640,
+        1631,
+        902,
+        164,
+        82,
+        0,
+        1,
+        20,
+        1721,
+        1487,
+        4640,
+        2888,
+        5824,
+        4106,
+        2729,
+        515,
+        3406,
+        5580,
+        4825,
+        4913,
+        3924,
+        6357,
+        6549,
+        582,
+        1383,
+        6283,
+        6536,
+        1433,
+        5567,
+        5030,
+        5054,
+        6244,
+        6009,
+        942,
+        132,
+        39,
+        0,
+        1,
+        0,
+        0,
+        1,
+        244
+      ],
+      "status": "PASS_REAL_TEXT_LLM_TRACE_ACOUSTIC_PENDING",
+      "stopReason": "STOP_REGION",
+      "stopToken": 6562,
+      "text": "This is a CosyVoice3 production clean-room public API validation."
+    },
+    {
+      "N": 151,
+      "actualEarlyEOS": true,
+      "logicalPrefixLength": 22,
+      "maximumSpeechTokenCount": 225,
+      "minimumSpeechTokenCount": 26,
+      "productionPromotion": false,
+      "sampling": "unchanged native SystemRandomNumberGenerator RAS",
+      "speechTokens": [
+        1,
+        2187,
+        2214,
+        2295,
+        2322,
+        4482,
+        4485,
+        4509,
+        4509,
+        2214,
+        264,
+        993,
+        1959,
+        6021,
+        6535,
+        5808,
+        6456,
+        4863,
+        4941,
+        2268,
+        2187,
+        5994,
+        6048,
+        6294,
+        6054,
+        6399,
+        3975,
+        6012,
+        3809,
+        175,
+        4571,
+        4431,
+        6368,
+        4187,
+        2000,
+        5457,
+        4941,
+        1433,
+        2144,
+        1226,
+        1217,
+        6140,
+        6356,
+        6125,
+        3863,
+        3835,
+        4944,
+        489,
+        570,
+        1709,
+        1466,
+        3761,
+        5995,
+        3809,
+        893,
+        163,
+        1,
+        0,
+        2322,
+        4509,
+        4512,
+        251,
+        494,
+        2492,
+        4429,
+        4751,
+        4931,
+        4175,
+        503,
+        2070,
+        6441,
+        4105,
+        2357,
+        3079,
+        2268,
+        5265,
+        6256,
+        6293,
+        1433,
+        2162,
+        494,
+        2330,
+        1442,
+        2171,
+        1622,
+        4467,
+        4724,
+        4778,
+        4508,
+        4562,
+        4554,
+        5996,
+        3809,
+        3106,
+        81,
+        2322,
+        4509,
+        4512,
+        2214,
+        2,
+        1481,
+        1466,
+        3761,
+        5070,
+        5094,
+        4676,
+        4916,
+        4139,
+        3788,
+        6316,
+        1452,
+        372,
+        4860,
+        4941,
+        2268,
+        0,
+        1955,
+        1217,
+        5846,
+        5861,
+        6365,
+        6293,
+        3863,
+        4860,
+        2754,
+        1235,
+        1948,
+        4581,
+        5072,
+        5640,
+        1956,
+        5478,
+        582,
+        6276,
+        6302,
+        1919,
+        3107,
+        5054,
+        5759,
+        6000,
+        3093,
+        132,
+        129,
+        0,
+        1,
+        82,
+        1,
+        0,
+        2187,
+        2188,
+        1
+      ],
+      "status": "PASS_REAL_TEXT_LLM_TRACE_ACOUSTIC_PENDING",
+      "stopReason": "STOP_REGION",
+      "stopToken": 6562,
+      "text": "This is a CosyVoice3 public API reference voice validation."
+    }
+  ],
+  "schemaVersion": 1,
+  "sourceCommit": "9209197daa433fd4121a1cee8f798e8b00f48bc1",
+  "sourceTests": [
+    {
+      "N": 151,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999791309,
+        "finite": true,
+        "maxAbsError": 3.3035874366760254e-05,
+        "meanAbsError": 7.395837884946351e-07,
+        "relativeL2": 6.458909102797224e-06,
+        "rmse": 1.5879612709041496e-06,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999897,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 151,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999772351,
+        "finite": true,
+        "maxAbsError": 5.1647424697875977e-05,
+        "meanAbsError": 7.834575158978211e-07,
+        "relativeL2": 6.746012999248474e-06,
+        "rmse": 1.6785026442486926e-06,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999895,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 164,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999833333,
+        "finite": true,
+        "maxAbsError": 2.6881694793701172e-05,
+        "meanAbsError": 7.352502306964044e-07,
+        "relativeL2": 5.772986076628992e-06,
+        "rmse": 1.374087637513266e-06,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 1.0,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 164,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.999999999983127,
+        "finite": true,
+        "maxAbsError": 3.0159950256347656e-05,
+        "meanAbsError": 7.868064119439689e-07,
+        "relativeL2": 5.807894168568021e-06,
+        "rmse": 1.460176324496369e-06,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999929,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 186,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999847818,
+        "finite": true,
+        "maxAbsError": 9.685754776000977e-06,
+        "meanAbsError": 4.368898251971524e-07,
+        "relativeL2": 5.515974725597368e-06,
+        "rmse": 8.014771169736409e-07,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999901,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 186,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999777969,
+        "finite": true,
+        "maxAbsError": 1.7210841178894043e-05,
+        "meanAbsError": 5.248963006131341e-07,
+        "relativeL2": 6.663544595169122e-06,
+        "rmse": 1.0244778031089523e-06,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999954,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999805893,
+        "finite": true,
+        "maxAbsError": 2.5480985641479492e-05,
+        "meanAbsError": 6.717563944541717e-07,
+        "relativeL2": 6.2297361590273924e-06,
+        "rmse": 1.25202143060141e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999933,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "dynamic"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999848279,
+        "finite": true,
+        "maxAbsError": 1.3984739780426025e-05,
+        "meanAbsError": 6.882785512001277e-07,
+        "relativeL2": 5.5094562399736005e-06,
+        "rmse": 1.2266831815966739e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999998,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "source"
+    },
+    {
+      "N": 225,
+      "sourceBodyVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999999999832969,
+        "finite": true,
+        "maxAbsError": 2.446770668029785e-05,
+        "meanAbsError": 6.804659211807289e-07,
+        "relativeL2": 5.7797778299574785e-06,
+        "rmse": 1.261871269387355e-06,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sourceDynamicVsFixed": {
+        "cosineSimilarity": 0.9999999999999984,
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "relativeL2": 0.0,
+        "rmse": 0.0,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "variant": "frozen"
+    }
+  ],
+  "status": "PASS_HOST_DYNAMIC_ACOUSTIC_EXECUTION_COMPONENT_GATES_ENDPOINT_NUMERICS_RECORDED_NOT_PROMOTED",
+  "tests": [
+    {
+      "G": 302,
+      "N": 151,
+      "T": 604,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 144960,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.10700487605354396,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.1839234369998366,
+        "relativeL2": 1.3234078619945266,
+        "rmse": 0.329282436310864,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "pcmShape": [
+        1,
+        144960
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999523984932494,
+        "finite": true,
+        "maxAbsError": 0.04010447859764099,
+        "meanAbsError": 0.001501707169862616,
+        "relativeL2": 0.0124503499090269,
+        "rmse": 0.003060992759994304,
+        "shape": [
+          1,
+          144960
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999524075483537,
+        "finite": true,
+        "maxAbsError": 0.040093302726745605,
+        "meanAbsError": 0.0015016752850600505,
+        "relativeL2": 0.012449611528032672,
+        "rmse": 0.0030608111415837904,
+        "shape": [
+          1,
+          144960
+        ]
+      }
+    },
+    {
+      "G": 328,
+      "N": 164,
+      "T": 630,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 157440,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.17730126658670506,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.17056132151743583,
+        "relativeL2": 1.2457867206986026,
+        "rmse": 0.3132061676985686,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "pcmShape": [
+        1,
+        157440
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.999962452289935,
+        "finite": true,
+        "maxAbsError": 0.02642625756561756,
+        "meanAbsError": 0.0013211610801945846,
+        "relativeL2": 0.010477885690800036,
+        "rmse": 0.0024939491880599457,
+        "shape": [
+          1,
+          157440
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999624516893754,
+        "finite": true,
+        "maxAbsError": 0.026417119428515434,
+        "meanAbsError": 0.0013211587346770972,
+        "relativeL2": 0.010477913811059664,
+        "rmse": 0.0024939557524645854,
+        "shape": [
+          1,
+          157440
+        ]
+      }
+    },
+    {
+      "G": 372,
+      "N": 186,
+      "T": 674,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 178560,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.2888467684024759,
+        "finite": true,
+        "maxAbsError": 1.9551000595092773,
+        "meanAbsError": 0.0980844412828241,
+        "relativeL2": 1.159451457611192,
+        "rmse": 0.1782583225999747,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "pcmShape": [
+        1,
+        178560
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999589489312414,
+        "finite": true,
+        "maxAbsError": 0.024364054203033447,
+        "meanAbsError": 0.0006379237022102771,
+        "relativeL2": 0.009346611046737925,
+        "rmse": 0.0013580726536374249,
+        "shape": [
+          1,
+          178560
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999589501987959,
+        "finite": true,
+        "maxAbsError": 0.02436661720275879,
+        "meanAbsError": 0.0006379234601812867,
+        "relativeL2": 0.009346490196549654,
+        "rmse": 0.0013580551741454903,
+        "shape": [
+          1,
+          178560
+        ]
+      }
+    },
+    {
+      "G": 450,
+      "N": 225,
+      "T": 752,
+      "componentHiFTGatePass": true,
+      "expectedSamples": 216000,
+      "f0Dtype": "float64 then float32 output",
+      "finite": true,
+      "fullDynamicEndpointVsFrozenFixed225": {
+        "cosineSimilarity": 0.15979603925503186,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.15350297211225175,
+        "relativeL2": 1.2469569377645868,
+        "rmse": 0.2704071659949059,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "fullDynamicEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.14951308921059822,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.15659970887503133,
+        "relativeL2": 1.2399093980076026,
+        "rmse": 0.2760664463044825,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "fullFrozenEndpointVsSourceNatural": {
+        "cosineSimilarity": 0.03449072638617866,
+        "finite": true,
+        "maxAbsError": 1.9800000190734863,
+        "meanAbsError": 0.17739316113832215,
+        "relativeL2": 1.371649047212485,
+        "rmse": 0.3053983449511369,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "identicalMelDynamicHiFTVsFrozenHiFT": {
+        "cosineSimilarity": 0.9999999999998324,
+        "finite": true,
+        "maxAbsError": 1.5944242477416992e-06,
+        "meanAbsError": 5.883379364375659e-08,
+        "relativeL2": 5.482575169864715e-07,
+        "rmse": 1.0957765215090004e-07,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "pcmShape": [
+        1,
+        216000
+      ],
+      "sameMelCoreMLVsSourceBody": {
+        "cosineSimilarity": 0.9999459204566687,
+        "finite": true,
+        "maxAbsError": 0.04229283332824707,
+        "meanAbsError": 0.0011774131218409475,
+        "relativeL2": 0.011749549829189493,
+        "rmse": 0.0023613661549458584,
+        "shape": [
+          1,
+          216000
+        ]
+      },
+      "sameMelCoreMLVsUpstreamFP64": {
+        "cosineSimilarity": 0.9999459165932639,
+        "finite": true,
+        "maxAbsError": 0.04228389263153076,
+        "meanAbsError": 0.0011774469723222114,
+        "relativeL2": 0.011749878895007178,
+        "rmse": 0.0023614322995369357,
+        "shape": [
+          1,
+          216000
+        ]
+      }
+    }
+  ]
+}

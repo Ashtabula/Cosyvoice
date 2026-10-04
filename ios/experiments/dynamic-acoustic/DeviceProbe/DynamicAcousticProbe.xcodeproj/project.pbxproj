@@ -7,6 +7,7 @@
   objects = {
 
 /* Begin PBXBuildFile section */
+    A20000000000000000000009 /* TextProbeRuntime in Frameworks */ = {isa = PBXBuildFile; productRef = D20000000000000000000009; };
     A20000000000000000000001 /* DynamicAcousticProbeApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000001 /* DynamicAcousticProbeApp.swift */; };
     A20000000000000000000002 /* GeneratedAssets in Resources */ = {isa = PBXBuildFile; fileRef = B20000000000000000000002 /* GeneratedAssets */; };
 /* End PBXBuildFile section */
@@ -22,6 +23,7 @@
       isa = PBXFrameworksBuildPhase;
       buildActionMask = 2147483647;
       files = (
+        A20000000000000000000009 /* TextProbeRuntime in Frameworks */,
       );
       runOnlyForDeploymentPostprocessing = 0;
     };
@@ -70,6 +72,7 @@
       );
       name = DynamicAcousticProbe;
       packageProductDependencies = (
+        D20000000000000000000009 /* TextProbeRuntime */,
       );
       productName = DynamicAcousticProbe;
       productReference = B20000000000000000000003 /* DynamicAcousticProbe.app */;
@@ -100,6 +103,7 @@
       );
       mainGroup = C20000000000000000000002;
       packageReferences = (
+        D20000000000000000000008 /* TextProbeRuntime copy */,
       );
       productRefGroup = C20000000000000000000004 /* Products */;
       projectDirPath = "";
@@ -131,6 +135,13 @@
       runOnlyForDeploymentPostprocessing = 0;
     };
 /* End PBXSourcesBuildPhase section */
+
+/* Begin XCLocalSwiftPackageReference section */
+    D20000000000000000000008 = {isa = XCLocalSwiftPackageReference; relativePath = "../../../.work/dynamic-acoustic/text-device-library-v1"; };
+/* End XCLocalSwiftPackageReference section */
+/* Begin XCSwiftPackageProductDependency section */
+    D20000000000000000000009 = {isa = XCSwiftPackageProductDependency; productName = TextProbeRuntime; };
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCBuildConfiguration section */
     F20000000000000000000001 /* Debug */ = {

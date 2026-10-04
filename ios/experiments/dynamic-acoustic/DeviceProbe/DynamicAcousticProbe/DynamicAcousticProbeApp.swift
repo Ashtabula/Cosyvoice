@@ -4,6 +4,7 @@ import Accelerate
 import CoreML
 import Foundation
 import SwiftUI
+import Probe
 
 @main
 struct DynamicAcousticProbeApp: App {
@@ -22,7 +23,7 @@ struct ProbeView: View {
 }
 struct Probe {
     static func run(backend: String) async throws {
-        if ProcessInfo.processInfo.arguments.contains("ACOUSTIC") { try await AcousticProbe.run(backend: backend); return }
+        if ProcessInfo.processInfo.arguments.contains("ACOUSTIC") || ProcessInfo.processInfo.arguments.contains("TEXT") { try await AcousticProbe.run(backend: backend); return }
         let root = Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets")
         let document = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
         let path = document.appendingPathComponent("dynamic-probe-\(backend).json")
@@ -210,12 +211,30 @@ enum AcousticProbe {
     static func run(backend: String) async throws {
         let root=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/acoustic")
         let docs=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
-        let path=docs.appendingPathComponent("dynamic-acoustic-\(backend).json")
+        let textMode=ProcessInfo.processInfo.arguments.contains("TEXT")
+        let prefix=textMode ? "dynamic-text-acoustic":"dynamic-acoustic"
+        let path=docs.appendingPathComponent("\(prefix)-\(backend).json")
         let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json")))
         var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"productionPromotion":false,"tests":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
         do {
+            var traces=[[String:Any]]()
+            if textMode {
+                let textRoot=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/text-runtime")
+                receipt["textRuntimeIdentity"]=try JSONSerialization.jsonObject(with:Data(contentsOf:textRoot.appendingPathComponent("identity.json")));try save()
+                func trace(_ text: String, _ index: Int) async throws -> [String:Any] {
+                    let engine=try CosyVoice3Engine(assetRoot:textRoot)
+                    let output=docs.appendingPathComponent("device-text-\(index).json")
+                    try await engine.experimentGenerate(text:text,output:output)
+                    return try JSONSerialization.jsonObject(with:Data(contentsOf:output)) as! [String:Any]
+                }
+                for (index,text) in ["This is a CosyVoice3 production clean-room public API validation.","This is a CosyVoice3 public API reference voice validation."].enumerated() {
+                    receipt["phase"]="real_text_llm_\(index)";try save()
+                    traces.append(try await trace(text,index));receipt["realTextTraces"]=traces;try save()
+                    print("DYNAMIC_REAL_TEXT_LLM \(index) N=\(traces.last!["N"]!) stop=\(traces.last!["stopToken"]!)")
+                }
+            }
             let config=MLModelConfiguration(); config.computeUnits=backend=="CPU_ONLY" ? .cpuOnly:.cpuAndNeuralEngine; config.optimizationHints.reshapeFrequency = .infrequent
             var compiledModels=[URL](), placements=[String:Any]()
             for role in ["conditions"]+(0..<6).map({"flow-\($0)"})+["hift"] {
@@ -243,15 +262,25 @@ enum AcousticProbe {
             }
             let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
             var rows=[[String:Any]]()
-            let counts=(identity as? [String:Any])?["counts"] as? [Int] ?? [186,225]
-            for n in counts {
-                let t=302+2*n,g=2*n,samples=g*480,folder=root.appendingPathComponent("N\(n)")
+            let counts=textMode ? traces.map { $0["N"] as! Int } : ((identity as? [String:Any])?["counts"] as? [Int] ?? [186,225])
+            let supported=(identity as? [String:Any])?["supportedNBounds"] as? [Int] ?? [151,225]
+            for n in counts { guard n>=supported[0] && n<=supported[1] else { throw NSError(domain:"ObservedTextOutsideExportedRange",code:n) } }
+            let baseFolder=root.appendingPathComponent("N225")
+            for (testIndex,n) in counts.enumerated() {
+                let t=302+2*n,g=2*n,samples=g*480,folder=textMode ? baseFolder:root.appendingPathComponent("N\(n)")
                 receipt["phase"]="conditions_N\(n)";try save()
-                let feed=["tokens":try read(folder,"tokens",[1,n],integer:true),"prompt_tokens":try read(folder,"prompt_tokens",[1,151],integer:true),"prompt_feat":try read(folder,"prompt_feat",[1,302,80]),"speaker":try read(folder,"speaker",[1,192])]
+                let tokenArray: MLMultiArray
+                if textMode {
+                    tokenArray=try MLMultiArray(shape:[1,NSNumber(value:n)],dataType:.int32)
+                    let tokens=traces[testIndex]["speechTokens"] as! [Int]
+                    for i in 0..<n { tokenArray[i]=NSNumber(value:tokens[i]) }
+                } else { tokenArray=try read(folder,"tokens",[1,n],integer:true) }
+                let feed=["tokens":tokenArray,"prompt_tokens":try read(folder,"prompt_tokens",[1,151],integer:true),"prompt_feat":try read(folder,"prompt_feat",[1,302,80]),"speaker":try read(folder,"speaker",[1,192])]
                 let conditions=try predict(0,feed)
                 let mu=try output(conditions,"mu"),spks=try output(conditions,"spks"),cond=try output(conditions,"cond")
                 let mask=try array([Float](repeating:1,count:2*t),[2,1,t])
                 var x=try floats(folder.appendingPathComponent("noise.bin"))
+                if textMode { let original=x; x=[Float](repeating:0,count:80*t); for c in 0..<80 { for j in 0..<t { x[c*t+j]=original[c*752+j] } } }
                 let span=(0...6).map { 1-cos(Float($0)/6*Float.pi/2) }
                 for step in 0..<6 {
                     receipt["phase"]="flow_N\(n)_step\(step)";try save()
@@ -277,17 +306,29 @@ enum AcousticProbe {
                 var phase=[Float](repeating:0,count:g*9),sums=[Double](repeating:0,count:9)
                 for j in 0..<g { for h in 0..<9 { let rad=(f0Values[j].floatValue*Float(h+1)/24000).truncatingRemainder(dividingBy:1);sums[h]+=Double(rad);phase[j*9+h]=Float(sums[h])*Float(2*Double.pi) } }
                 receipt["phase"]="hift_N\(n)";try save()
-                let hiftFeed=["mel":mel,"f0":f0Values,"phase":try array(phase,[1,g,9]),"noise":try read(folder,"hift-noise",[1,samples,9]),"norm":try read(folder,"norm",[1,1,samples])]
+                let excitation: MLMultiArray, norm: MLMultiArray
+                if textMode {
+                    excitation=try array(Array(try floats(baseFolder.appendingPathComponent("hift-noise.bin")).prefix(samples*9)),[1,samples,9])
+                    let window=(0..<16).map { Float(0.5-0.5*cos(2*Double.pi*Double($0)/16)) }
+                    var weights=[Float](repeating:0,count:samples)
+                    for j in 0..<samples { let pos=j+8; let low=max(0,(pos-15+3)/4),high=min(samples/4,pos/4); if low<=high { for k in low...high { weights[j]+=window[pos-4*k]*window[pos-4*k] } } }
+                    norm=try array(weights,[1,1,samples])
+                } else { excitation=try read(folder,"hift-noise",[1,samples,9]);norm=try read(folder,"norm",[1,1,samples]) }
+                let hiftFeed=["mel":mel,"f0":f0Values,"phase":try array(phase,[1,g,9]),"noise":excitation,"norm":norm]
                 let result=try predict(7,hiftFeed)
                 let pcmArray=try output(result,"pcm"),pcm=values(pcmArray)
                 guard pcmArray.shape.map(\.intValue)==[1,samples],pcm.allSatisfy(\.isFinite),melValues.allSatisfy(\.isFinite) else { throw NSError(domain:"AcousticPCMShapeOrFinite",code:pcm.count) }
-                let hostMel=try floats(folder.appendingPathComponent("expected-mel.bin")),hostPCM=try floats(folder.appendingPathComponent("expected-pcm.bin"))
-                let row:[String:Any]=["N":n,"T":t,"G":g,"samples":pcm.count,"finite":true,"pcmShape":pcmArray.shape.map(\.intValue),"melVsHost":try metric(hostMel,melValues),"pcmVsHost":try metric(hostPCM,pcm),"status":"PASS_PHYSICAL_EXECUTION_NUMERICS_RECORDED_NOT_PROMOTED"]
-                try pcm.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("dynamic-acoustic-\(backend)-N\(n).f32")) }
+                var row:[String:Any]=["N":n,"T":t,"G":g,"samples":pcm.count,"finite":true,"pcmShape":pcmArray.shape.map(\.intValue),"status":"PASS_PHYSICAL_EXECUTION_NUMERICS_RECORDED_NOT_PROMOTED"]
+                if !textMode {
+                    row["melVsHost"]=try metric(floats(folder.appendingPathComponent("expected-mel.bin")),melValues)
+                    row["pcmVsHost"]=try metric(floats(folder.appendingPathComponent("expected-pcm.bin")),pcm)
+                } else { row["textIndex"]=testIndex;row["actualEarlyEOS"]=traces[testIndex]["actualEarlyEOS"] }
+                try pcm.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("\(prefix)-\(backend)-N\(n).f32")) }
+                if textMode { try melValues.withUnsafeBytes { try Data($0).write(to:docs.appendingPathComponent("device-text-\(testIndex)-mel.f32")) }
                 rows.append(row);receipt["tests"]=rows;try save()
                 print("DYNAMIC_ACOUSTIC_PCM N\(n) samples=\(pcm.count)")
             }
-            receipt["phase"]="complete";receipt["status"]="PASS_PHYSICAL_DYNAMIC_ACOUSTIC_EXECUTION_NOT_PROMOTED";try save()
+            receipt["phase"]="complete";receipt["status"]=textMode ? (traces.allSatisfy { $0["actualEarlyEOS"] as? Bool == true } ? "PASS_PHYSICAL_REAL_TEXT_NATURAL_PCM_EXECUTION_NOT_PROMOTED":"FAIL_REAL_TEXT_EARLY_EOS_NOT_OBSERVED") : "PASS_PHYSICAL_DYNAMIC_ACOUSTIC_EXECUTION_NOT_PROMOTED";try save()
         } catch { receipt["status"]="FAIL";receipt["error"]=Probe.errorRecord(error);try save();throw error }
         print("DYNAMIC_ACOUSTIC_RECEIPT \(path.path)")
     }
@@ -301,3 +342,7 @@ enum AcousticProbe {
 
 // 2026-10-04: host-bound identity supplies observed EOS counts; PCM write errors
 // propagate into durable failure receipt instead of being discarded.
+
+// 2026-10-04: TEXT mode runs unchanged native frontend/LLM in isolated SDK
+// library, releases LLM scope, feeds actual tokens into the dynamic acoustic
+// family; validates exported bounds, records EOS/count and natural PCM.

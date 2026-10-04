@@ -40,6 +40,10 @@
       "bytes": 5414,
       "sha256": "575a80855adf2ebc84cb09587ce9243c69d8519ce76a4336b754bf8ffa853e71"
     },
+    "full-text-acoustic-host-v1.json": {
+      "bytes": 26799,
+      "sha256": "7bb7ae1c4632ba9808894f8044531ee92322deadbe61d5c0070be1831e2c5dcc"
+    },
     "hybrid-downstream-v1.json": {
       "bytes": 7835,
       "sha256": "56c17ef3d414782092e9a5d6373585e3105e9912c6c6471d0ce5edad8124b33e"
@@ -51,6 +55,10 @@
     "numerical-attribution-v1.json": {
       "bytes": 41659,
       "sha256": "bbec02375dc82d91ba8502339c4f8235aa22c5ebc36c3bc292d703d502417f87"
+    },
+    "observed-text-family-v1.json": {
+      "bytes": 34240,
+      "sha256": "af077d8c5aba0f20599fc97f01224f727b8b522db2ae4187eae578cb0e0c1325"
     },
     "phase1-gate.json": {
       "bytes": 1329,

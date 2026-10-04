@@ -24,6 +24,7 @@ def main():
     shutil.copytree(ROOT/'ios/.work/production-clean-room/fetched-runtime/f0-double',dest/'f0-double')
     identity['f0WeightsSha256']=sha(dest/'f0-double')
     identity['counts']=[row['N'] for row in r['tests']]
+    identity['supportedNBounds']=[min(identity['counts']),max(identity['counts'])]
     for n in identity['counts']:
         folder=dest/f'N{n}';folder.mkdir()
         flow=dict(np.load(work/f'flow-N{n}.npz'));hift=dict(np.load(work/f'hift-dynamic-N{n}.npz'))

@@ -5,7 +5,7 @@ from pathlib import Path
 from probe_symbolic_conditions import ROOT,sha
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     dest=a.output/'Sources/Probe';shutil.copytree(ROOT/'ios/Sources/CosyVoice3Core',dest)
     llm=dest/'CosyVoice3LLMRuntime.swift';s=llm.read_text()
@@ -63,6 +63,12 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
  dependencies:[.package(url:"https://github.com/huggingface/swift-transformers.git",exact:"1.3.4")],
  targets:[.executableTarget(name:"Probe",dependencies:[.product(name:"Tokenizers",package:"swift-transformers")],linkerSettings:[.linkedFramework("CoreML"),.linkedFramework("AVFoundation"),.linkedFramework("Accelerate")])])
 ''')
+    if a.library:
+        (dest/'Entry.swift').unlink()
+        package=(a.output/'Package.swift').read_text()
+        package=package.replace('platforms:[.macOS(.v15)],','platforms:[.iOS(.v18),.macOS(.v15)],products:[.library(name:"TextProbeRuntime",targets:["Probe"])],')
+        package=package.replace('.executableTarget(name:"Probe"','.target(name:"Probe"')
+        (a.output/'Package.swift').write_text(package)
     identity={'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
               'instrumentation':'stop token/reason only; unchanged cap225/native RAS; no shipping edits',
@@ -72,3 +78,6 @@ if __name__=='__main__':main()
 # Purpose: make reviewable real-text provenance using an isolated instrumented copy.
 # Upstream: current CosyVoice3 SDK. Environment: local macOS Python3.11 + Swift6.
 # Generated: 2026-10-04 America/New_York. New file, all lines; cap unchanged.
+
+# 2026-10-04: optional isolated iOS library for same native real-text generation
+# in physical probe; no production target or SDK edits.
