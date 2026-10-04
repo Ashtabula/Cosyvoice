@@ -9,7 +9,7 @@ PYTHON="${COSYVOICE3_DYNAMIC_PYTHON:-$ROOT/ios/.work/dynamic-acoustic/venv/bin/p
 SOURCE="${COSYVOICE3_DYNAMIC_SOURCE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/source}"
 MODEL="${COSYVOICE3_DYNAMIC_MODEL:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512}"
 FIXTURE="${COSYVOICE3_DYNAMIC_FIXTURE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/fixture}"
-WORK="${COSYVOICE3_PHASE2_WORK:-$ROOT/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v1}"
+WORK="${COSYVOICE3_PHASE2_WORK:-}"
 BRANCH="experiment/ios-dynamic-acoustic"
 EVIDENCE="$EXP/evidence/phase2-dynamic-flow-host-v1.json"
 
@@ -48,6 +48,22 @@ main(){
     [ -z "$(git -C "$ROOT" status --porcelain --untracked-files=no)" ] || {
         echo "[COSYVOICE3-DYNAMIC-PHASE2] ERROR tracked worktree must be clean"
         git -C "$ROOT" status --short
+        return 2
+    }
+
+    if [ -z "$WORK" ]; then
+        local candidate_index
+        for candidate_index in $(seq 1 99); do
+            local candidate="$ROOT/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v$candidate_index"
+            if [ ! -e "$candidate" ]; then
+                WORK="$candidate"
+                break
+            fi
+        done
+    fi
+
+    [ -n "$WORK" ] || {
+        echo "[COSYVOICE3-DYNAMIC-PHASE2] ERROR could not allocate evidence-preserving work directory"
         return 2
     }
 
@@ -154,3 +170,4 @@ main "$@"
 # Runtime environment: macOS arm64, isolated dynamic Python3.11/torch2.7/coremltools9, Xcode coremlcompiler.
 # Generated time: 2026-10-03 America/New_York.
 # Changes: experiment-only Phase2 runner; production numerical acceptance remains closed and no shipping runtime/HiFT/LLM/Candidate files are modified.
+# Changes 2026-10-03: auto-select the first unused phase2-dynamic-flow-vN work directory when COSYVOICE3_PHASE2_WORK is unset, preserving failed receipts instead of requiring manual renaming.
