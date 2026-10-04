@@ -1,5 +1,5 @@
 // CosyVoice3DeviceSmokeApp.swift
-// Requirement: physical-device smoke/Candidate paths use the stable public CosyVoice3Core API; Flow-step head-to-head uses only the explicit Validation SPI.
+// Requirement: physical-device smoke/Candidate paths use the stable public CosyVoice3Core API; dynamic validation must cover both default/no-reference and custom-reference lanes; Flow-step head-to-head uses only the explicit Validation SPI.
 
 import AVFoundation
 import Combine
@@ -18,6 +18,7 @@ struct CosyVoice3DeviceSmokeApp: App {
                 Text("CosyVoice3 Device Smoke").font(.title2.bold())
                 Text(model.status).font(.system(.body, design: .monospaced)).textSelection(.enabled)
                 Button("Run public API reference smoke") { Task { await model.runSmoke() } }.disabled(model.running)
+                Button("Run dynamic default + reference smoke") { Task { await model.runDynamicPublicAPISmoke() } }.disabled(model.running)
                 Button("Run Candidate cold/warm benchmark") { Task { await model.runCandidateBenchmark() } }.disabled(model.running)
                 Button("Run Flow 10 / 8 / 6 head-to-head") { Task { await model.runFlowStepHeadToHead() } }.disabled(model.running)
                 HStack {
@@ -47,7 +48,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
     func runAutoMode() async {
         do {
             let resources = try Self.generatedAssets()
-            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("flow-step-head-to-head-mode.json").path) { await runFlowStepHeadToHead() }
+            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) { await runDynamicPublicAPISmoke() }
+            else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("flow-step-head-to-head-mode.json").path) { await runFlowStepHeadToHead() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
             else { await runSmoke() }
         } catch { status = "FAIL \(String(describing: error))" }
@@ -75,6 +77,121 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let url = try Self.receiptURL("reference-smoke-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(audio)
             status = String(format:"PASS samples=%d duration=%.3fs elapsed=%.3fs rtf=%.3f receipt=%@",audio.samples.count,duration,elapsedSeconds,elapsedSeconds/duration,url.path)
         } catch { Self.recordFailure(error, filename:"reference-smoke-receipt.json", into:self) }
+    }
+
+    func runDynamicPublicAPISmoke() async {
+        guard !running else { return }
+        running = true
+        status = "RUNNING dynamic public API default + reference smoke..."
+        receiptJSON = ""
+        defer { running = false }
+
+        for name in ["dynamic-public-api-smoke-receipt.json","dynamic-default.wav","dynamic-reference.wav"] {
+            if let stale = try? Self.receiptURL(name) { try? FileManager.default.removeItem(at: stale) }
+        }
+
+        do {
+            let fixture = try Self.fixture()
+            let manifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_dynamic.json")
+            guard FileManager.default.fileExists(atPath: manifestURL.path) else {
+                throw SmokeError("cosyvoice3_dynamic.json missing")
+            }
+            let manifestValue = try JSONSerialization.jsonObject(with: Data(contentsOf: manifestURL)) as? [String: Any]
+            guard let profile = manifestValue?["profile"] as? String,
+                  let dynamic = manifestValue?["dynamicAcoustic"] as? [String: Any],
+                  let nmin = dynamic["speechTokenMinimum"] as? Int,
+                  let nmax = dynamic["speechTokenMaximum"] as? Int else {
+                throw SmokeError("dynamic manifest contract missing")
+            }
+
+            let engine = try CosyVoice3Engine(assetRoot: fixture.runtime)
+            let capabilities = try await engine.capabilities()
+            guard capabilities.supportsReferenceAudio,
+                  capabilities.supportsInstruction,
+                  capabilities.outputSampleRate == 24_000,
+                  capabilities.defaultFlowSteps == .steps6,
+                  capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else {
+                throw SmokeError("unexpected capabilities")
+            }
+
+            let clock = ContinuousClock()
+            let defaultText = "This is a CosyVoice3 dynamic default voice validation."
+            let defaultStart = clock.now
+            let defaultAudio = try await engine.synthesize(
+                defaultText,
+                parameters: CosyVoice3Parameters(flowSteps: .steps6)
+            )
+            let defaultMilliseconds = Self.seconds(defaultStart.duration(to: clock.now)) * 1000
+            try Self.validate(defaultAudio)
+            guard defaultAudio.samples.count % 960 == 0 else { throw SmokeError("default PCM sample count is not divisible by 960") }
+            let defaultN = defaultAudio.samples.count / 960
+            guard (nmin...nmax).contains(defaultN) else { throw SmokeError("default inferred N out of manifest bounds: \(defaultN)") }
+            let defaultReport = await engine.lastSynthesisReport()
+            let defaultWAV = Self.wavData(defaultAudio)
+            try defaultWAV.write(to: Self.receiptURL("dynamic-default.wav"), options: .atomic)
+
+            let referenceParameters = CosyVoice3Parameters(
+                reference: fixture.reference,
+                instruction: nil,
+                flowSteps: .steps6
+            )
+            let referenceStart = clock.now
+            let referenceAudio = try await engine.synthesize(
+                fixture.text,
+                parameters: referenceParameters
+            )
+            let referenceMilliseconds = Self.seconds(referenceStart.duration(to: clock.now)) * 1000
+            try Self.validate(referenceAudio)
+            guard referenceAudio.samples.count % 960 == 0 else { throw SmokeError("reference PCM sample count is not divisible by 960") }
+            let referenceN = referenceAudio.samples.count / 960
+            guard (nmin...nmax).contains(referenceN) else { throw SmokeError("reference inferred N out of manifest bounds: \(referenceN)") }
+            let referenceReport = await engine.lastSynthesisReport()
+            let referenceWAV = Self.wavData(referenceAudio)
+            try referenceWAV.write(to: Self.receiptURL("dynamic-reference.wav"), options: .atomic)
+
+            var receipt: [String: Any] = [
+                "schemaVersion": 1,
+                "status": "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
+                "benchmark": "dynamic-public-api-default-and-reference-v1",
+                "sourceCommit": fixture.sourceCommit,
+                "recordedAtUnix": Int(Date().timeIntervalSince1970),
+                "profile": profile,
+                "speechTokenBounds": [nmin,nmax],
+                "flowSteps": CosyVoice3FlowSteps.productionDefault.rawValue,
+                "generationContract": "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)",
+                "default": [
+                    "text": defaultText,
+                    "samples": defaultAudio.samples.count,
+                    "inferredSpeechTokensFromPCM": defaultN,
+                    "durationSeconds": Self.audioDuration(defaultAudio),
+                    "synthesisMilliseconds": defaultMilliseconds,
+                    "wavSha256": SHA256.hash(data: defaultWAV).map { String(format:"%02x",$0) }.joined()
+                ],
+                "reference": [
+                    "text": fixture.text,
+                    "referenceTranscriptCharacters": fixture.transcript.count,
+                    "samples": referenceAudio.samples.count,
+                    "inferredSpeechTokensFromPCM": referenceN,
+                    "durationSeconds": Self.audioDuration(referenceAudio),
+                    "synthesisMilliseconds": referenceMilliseconds,
+                    "wavSha256": SHA256.hash(data: referenceWAV).map { String(format:"%02x",$0) }.joined()
+                ],
+                "hostReceiptSha256": fixture.hostReceiptSHA256,
+                "device": UIDevice.current.model,
+                "deviceModelIdentifier": Self.machineIdentifier(),
+                "systemName": UIDevice.current.systemName,
+                "systemVersion": UIDevice.current.systemVersion,
+                "productionPromotion": false
+            ]
+            if let defaultReport { receipt["defaultReport"] = Self.reportDictionary(defaultReport) }
+            if let referenceReport { receipt["referenceReport"] = Self.reportDictionary(referenceReport) }
+            let url = try Self.receiptURL("dynamic-public-api-smoke-receipt.json")
+            receiptJSON = try Self.write(receipt, to: url)
+            try play(referenceAudio)
+            status = "PASS dynamic default N=\(defaultN) reference N=\(referenceN) receipt=\(url.path)"
+        } catch {
+            Self.recordFailure(error, filename:"dynamic-public-api-smoke-receipt.json", into:self)
+        }
     }
 
     func runCandidateBenchmark() async {
@@ -239,7 +356,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript)
         let candidateMarker=resources.appendingPathComponent("candidate-benchmark-mode.json")
         let flowMarker=resources.appendingPathComponent("flow-step-head-to-head-mode.json")
-        let marker:URL? = FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil)
+        let dynamicMarker=resources.appendingPathComponent("dynamic-public-api-smoke-mode.json")
+        let marker:URL? = FileManager.default.fileExists(atPath:dynamicMarker.path) ? dynamicMarker : (FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil))
         let hostSHA:String; let sourceCommit:String
         if let marker {
             let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
@@ -274,7 +392,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     private static func validationSourceCommit() -> String? {
         guard let resources = try? generatedAssets() else { return nil }
-        for name in ["flow-step-head-to-head-mode.json","candidate-benchmark-mode.json"] {
+        for name in ["dynamic-public-api-smoke-mode.json","flow-step-head-to-head-mode.json","candidate-benchmark-mode.json"] {
             let marker = resources.appendingPathComponent(name)
             guard let data = try? Data(contentsOf: marker),
                   let value = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
@@ -352,3 +470,5 @@ private extension Data {
 // Changes 2026-10-02: smoke/Candidate receipts record the selected public Flow-step value; head-to-head metadata and automatic playback derive the production default from CosyVoice3FlowSteps.productionDefault (6).
 
 // Changes 2026-10-03: smoke and Candidate modes fail closed unless capabilities expose exactly default 6 and supported 6/8/10.
+
+// Changes 2026-10-04: dynamic-public-api-smoke mode runs two real public syntheses in one physical process: default/no-reference and custom reference with instruction=nil so reference transcript contributes to logicalPrefixLength. Receipt records active profile, manifest N bounds, PCM-derived N, stage timings, WAV hashes, source commit and device identity.
