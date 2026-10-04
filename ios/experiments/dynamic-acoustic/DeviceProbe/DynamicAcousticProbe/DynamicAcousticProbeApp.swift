@@ -430,7 +430,7 @@ enum AcousticShapeSweepProbe {
         let root=Bundle.main.resourceURL!.appendingPathComponent("GeneratedAssets/acoustic")
         let docs=FileManager.default.urls(for:.documentDirectory,in:.userDomainMask)[0]
         let identity=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("identity.json"))) as! [String:Any]
-        let exported=identity["supportedNBounds"] as? [Int] ?? [151,225]
+        let exported=identity["supportedNBounds"] as? [Int] ?? [3,479]
         let requestedMin=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMIN=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[0]
         let requestedMax=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMAX=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[1]
         let runID=(ProcessInfo.processInfo.arguments.first { $0.hasPrefix("RUN_ID=") }.map { String($0.dropFirst(7)) } ?? String(Int(Date().timeIntervalSince1970))).replacingOccurrences(of:"/",with:"_")
@@ -448,9 +448,9 @@ enum AcousticShapeSweepProbe {
         func predict(_ index:Int,_ feed:[String:MLMultiArray]) throws -> MLFeatureProvider {
             try autoreleasepool { let model=try MLModel(contentsOf:compiled[index],configuration:config);return try model.prediction(from:MLDictionaryFeatureProvider(dictionary:feed)) }
         }
-        let base=root.appendingPathComponent("N225"),baseTokens=try AcousticProbe.read(base,"tokens",[1,225],integer:true),promptTokens=try AcousticProbe.read(base,"prompt_tokens",[1,151],integer:true),promptFeat=try AcousticProbe.read(base,"prompt_feat",[1,302,80]),speaker=try AcousticProbe.read(base,"speaker",[1,192]),baseNoise=try AcousticProbe.floats(base.appendingPathComponent("noise.bin")),baseExcitation=try AcousticProbe.floats(base.appendingPathComponent("hift-noise.bin"))
+        let base=root.appendingPathComponent("base"),promptTokens=try AcousticProbe.read(base,"prompt_tokens",[1,151],integer:true),promptFeat=try AcousticProbe.read(base,"prompt_feat",[1,302,80]),speaker=try AcousticProbe.read(base,"speaker",[1,192])
         let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
-        func tokens(_ n:Int) throws -> MLMultiArray { let a=try MLMultiArray(shape:[1,NSNumber(value:n)],dataType:.int32);for i in 0..<n { a[i]=i<225 ? baseTokens[i]:NSNumber(value:0) };return a }
+        func tokens(_ n:Int) throws -> MLMultiArray { let a=try MLMultiArray(shape:[1,NSNumber(value:n)],dataType:.int32);for i in 0..<n { a[i]=NSNumber(value:0) };return a }
         func conditioningFeed(_ n:Int) throws -> [String:MLMultiArray] { ["tokens":try tokens(n),"prompt_tokens":promptTokens,"prompt_feat":promptFeat,"speaker":speaker] }
         func norm(_ samples:Int) throws -> MLMultiArray {
             let window=(0..<16).map { Float(0.5-0.5*cos(2*Double.pi*Double($0)/16)) };var weights=[Float](repeating:0,count:samples)
@@ -475,7 +475,6 @@ enum AcousticShapeSweepProbe {
                 let conditions=try predict(0,try conditioningFeed(n)),mu=try AcousticProbe.output(conditions,"mu"),spks=try AcousticProbe.output(conditions,"spks"),cond=try AcousticProbe.output(conditions,"cond")
                 guard mu.shape.map(\.intValue)==[2,80,t],spks.shape.map(\.intValue)==[2,80],cond.shape.map(\.intValue)==[2,80,t] else { throw NSError(domain:"AcousticShapeSweepConditionsShape",code:n) }
                 let mask=try AcousticProbe.array([Float](repeating:1,count:2*t),[2,1,t]);var x=[Float](repeating:0,count:80*t)
-                for c in 0..<80 { for j in 0..<t { x[c*t+j]=baseNoise[c*752+j] } }
                 let span=(0...6).map { 1-cos(Float($0)/6*Float.pi/2) }
                 for step in 0..<6 {
                     receipt["phase"]="N\(n)_flow_step\(step)";try save()
@@ -494,7 +493,7 @@ enum AcousticShapeSweepProbe {
                 var phase=[Float](repeating:0,count:g*9),sums=[Double](repeating:0,count:9)
                 for j in 0..<g { for h in 0..<9 { let rad=(f0Values[j].floatValue*Float(h+1)/24000).truncatingRemainder(dividingBy:1);sums[h]+=Double(rad);phase[j*9+h]=Float(sums[h])*Float(2*Double.pi) } }
                 receipt["phase"]="N\(n)_hift";try save()
-                let excitation=try AcousticProbe.array(Array(baseExcitation.prefix(samples*9)),[1,samples,9]),result=try predict(7,["mel":mel,"f0":f0Values,"phase":try AcousticProbe.array(phase,[1,g,9]),"noise":excitation,"norm":try norm(samples)]),pcm=try AcousticProbe.output(result,"pcm"),values=AcousticProbe.values(pcm)
+                let excitation=try AcousticProbe.array([Float](repeating:0,count:samples*9),[1,samples,9]),result=try predict(7,["mel":mel,"f0":f0Values,"phase":try AcousticProbe.array(phase,[1,g,9]),"noise":excitation,"norm":try norm(samples)]),pcm=try AcousticProbe.output(result,"pcm"),values=AcousticProbe.values(pcm)
                 guard pcm.shape.map(\.intValue)==[1,samples],values.allSatisfy(\.isFinite),melValues.allSatisfy(\.isFinite) else { throw NSError(domain:"AcousticShapeSweepPCM",code:n) }
                 row["pcmShape"]=pcm.shape.map(\.intValue);row["finite"]=true;row["milliseconds"]=Date().timeIntervalSince(start)*1000;row["status"]="PASS_SHAPE_EXECUTION"
             } catch { row["milliseconds"]=Date().timeIntervalSince(start)*1000;row["status"]="FAIL";row["error"]=Probe.errorRecord(error) }
@@ -507,9 +506,11 @@ enum AcousticShapeSweepProbe {
     }
 }
 // Purpose: exhaustively execute every integer N in the exported dynamic acoustic interval and prove fail-closed boundary behavior.
-// Upstream: unchanged observed-family Core ML packages and N225 fixture only as deterministic input material; no padding or bucket substitution.
+// Upstream: full-range N3...479 symbolic Core ML family; fixed prompt/reference conditioning only. Target tokens, Flow state and HiFT excitation are generated at exact requested shape with no N225-length dependency.
 // Runtime: signed Release on physical iPhone; NMIN/NMAX arguments permit chunked execution, full range is default.
 // Generated: 2026-10-04 America/New_York.
 // Changes: experiment-only validation mode; shipping SDK, release assets and productionPromotion remain unchanged.\n// Changes 2026-10-04: make JSON summary values explicitly [String:Any] and keep MLMultiArray token assignments NSNumber-typed for Swift 6 compilation.
 
 // 2026-10-04: add LLM_CAPACITY_WALK mode; isolated deterministic state traversal only, no acoustic execution or production promotion.
+
+// 2026-10-04: full-range sweep removes N225 target/noise/excitation fixture dependencies; exported bounds default to N3...479 and all synthetic buffers are allocated at exact requested shape.
