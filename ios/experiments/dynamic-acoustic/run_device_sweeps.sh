@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Requirement: build/install DynamicAcousticProbe, auto-select an available physical iPhone, launch detached native-RAS/acoustic sweeps without --console, and retrieve unique durable receipts without modifying shipping SDK/assets.
+# Requirement: build/install DynamicAcousticProbe, auto-select an available physical iPhone, run native-RAS/acoustic sweeps in the foreground without --console, then return the shell prompt normally after completion.
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 EXP="$ROOT/ios/experiments/dynamic-acoustic"
 PROJECT="$EXP/DeviceProbe/DynamicAcousticProbe.xcodeproj"
@@ -11,17 +11,14 @@ CONFIGURATION="Release"
 RUNS="${RUNS:-32}"
 NMIN="${NMIN:-151}"
 NMAX="${NMAX:-225}"
-DETACH="${DETACH:-1}"
 RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}"
 OUT="${OUT:-$EXP/evidence/device-sweeps-$RUN_ID}"
 : "${DEVELOPMENT_TEAM:?export DEVELOPMENT_TEAM=<Apple-development-team-id>}"
 
-if [[ "${1:-}" != "--worker" && "$DETACH" == "1" ]]; then
-  mkdir -p "$OUT"
+mkdir -p "$OUT"
   LOG="$OUT/runner.log"
   echo "===== START DETACHED SWEEP ====="
-  nohup env OUT="$OUT" RUN_ID="$RUN_ID" RUNS="$RUNS" NMIN="$NMIN" NMAX="$NMAX" DETACH=0 DEVICE_ID="${DEVICE_ID:-}" DEVELOPMENT_TEAM="$DEVELOPMENT_TEAM" bash "$0" --worker >"$LOG" 2>&1 &
-  PID=$!
+    PID=$!
   echo "$PID" > "$OUT/runner.pid"
   echo "RUNNER_PID=$PID"
   echo "RUNNER_LOG=$LOG"
@@ -29,8 +26,6 @@ if [[ "${1:-}" != "--worker" && "$DETACH" == "1" ]]; then
   echo "TERMINAL_RETURNED=YES"
   exit 0
 fi
-[[ "${1:-}" == "--worker" ]] && shift
-
 mkdir -p "$OUT"
 echo "===== VERIFY SOURCE ====="
 git -C "$ROOT" rev-parse HEAD
@@ -113,9 +108,9 @@ PY
 
 echo "PASS receipts=$OUT"
 
-# Code purpose: reproducibly run physical-iPhone LLM output-length and exhaustive dynamic-acoustic shape sweeps while immediately returning the invoking Terminal prompt.
+# Code purpose: reproducibly run physical-iPhone LLM output-length and exhaustive dynamic-acoustic shape sweeps in the foreground; the Terminal remains usable after normal script completion.
 # Upstream code/source: ios/experiments/dynamic-acoustic/DeviceProbe on experiment/ios-dynamic-acoustic; existing staged text-runtime and acoustic dynamic-family assets.
 # Upstream purpose: prove native stochastic EOS-length distribution and every integer flexible-shape execution inside the exported N interval without production promotion.
 # Runtime environment: macOS with Xcode/xcrun, signed physical iPhone, staged DeviceProbe assets.
 # Generated time: 2026-10-04 America/New_York.
-# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; remove --console; detached coordinator is default; unique RUN_ID receipts prevent stale-result reuse.
+# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; remove --console; keep the runner in the foreground; unique RUN_ID receipts prevent stale-result reuse.
