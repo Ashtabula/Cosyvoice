@@ -217,13 +217,12 @@ enum AcousticProbe {
         try save()
         do {
             let config=MLModelConfiguration(); config.computeUnits=backend=="CPU_ONLY" ? .cpuOnly:.cpuAndNeuralEngine; config.optimizationHints.reshapeFrequency = .infrequent
-            var models=[MLModel](), placements=[String:Any]()
+            var compiledModels=[URL](), placements=[String:Any]()
             for role in ["conditions"]+(0..<6).map({"flow-\($0)"})+["hift"] {
                 receipt["phase"]="\(role)_compile";try save()
                 let compiled=try await MLModel.compileModel(at:root.appendingPathComponent("\(role).mlpackage"))
                 receipt["phase"]="\(role)_load";try save()
-                let model=try await MLModel(contentsOf:compiled,configuration:config)
-                models.append(model)
+                compiledModels.append(compiled)
                 do {
                     let plan=try await MLComputePlan.load(contentsOf:compiled,configuration:config)
                     var counts=[String:Int]()
@@ -235,13 +234,20 @@ enum AcousticProbe {
                 } catch { placements[role]=Probe.errorRecord(error) }
                 receipt["computePlanPreferredCounts"]=placements;try save()
             }
+            receipt["modelLifecycle"]="One request-scoped MLModel per prediction, released through autoreleasepool; compiled URLs shared across lengths"
+            func predict(_ index: Int, _ feed: [String:MLMultiArray]) throws -> MLFeatureProvider {
+                try autoreleasepool {
+                    let model=try MLModel(contentsOf:compiledModels[index],configuration:config)
+                    return try model.prediction(from:MLDictionaryFeatureProvider(dictionary:feed))
+                }
+            }
             let f0=try CosyVoice3HiFTDoubleF0(folder:root.appendingPathComponent("f0-double"))
             var rows=[[String:Any]]()
             for n in [186,225] {
                 let t=302+2*n,g=2*n,samples=g*480,folder=root.appendingPathComponent("N\(n)")
                 receipt["phase"]="conditions_N\(n)";try save()
                 let feed=["tokens":try read(folder,"tokens",[1,n],integer:true),"prompt_tokens":try read(folder,"prompt_tokens",[1,151],integer:true),"prompt_feat":try read(folder,"prompt_feat",[1,302,80]),"speaker":try read(folder,"speaker",[1,192])]
-                let conditions=try await models[0].prediction(from:MLDictionaryFeatureProvider(dictionary:feed))
+                let conditions=try predict(0,feed)
                 let mu=try output(conditions,"mu"),spks=try output(conditions,"spks"),cond=try output(conditions,"cond")
                 let mask=try array([Float](repeating:1,count:2*t),[2,1,t])
                 var x=try floats(folder.appendingPathComponent("noise.bin"))
@@ -252,7 +258,7 @@ enum AcousticProbe {
                     var velocity:[Float]=[]
                     for shard in 0..<6 {
                         receipt["phase"]="flow_N\(n)_step\(step)_shard\(shard)";try save()
-                        let result=try await models[shard+1].prediction(from:MLDictionaryFeatureProvider(dictionary:shardFeed))
+                        let result=try predict(shard+1,shardFeed)
                         if shard==0 { shardFeed=["h":try output(result,"h"),"te":try output(result,"te"),"mask":mask] }
                         else if shard<5 { shardFeed["h"]=try output(result,"h_out") }
                         else { velocity=values(try output(result,"velocity")) }
@@ -271,7 +277,7 @@ enum AcousticProbe {
                 for j in 0..<g { for h in 0..<9 { let rad=(f0Values[j].floatValue*Float(h+1)/24000).truncatingRemainder(dividingBy:1);sums[h]+=Double(rad);phase[j*9+h]=Float(sums[h])*Float(2*Double.pi) } }
                 receipt["phase"]="hift_N\(n)";try save()
                 let hiftFeed=["mel":mel,"f0":f0Values,"phase":try array(phase,[1,g,9]),"noise":try read(folder,"hift-noise",[1,samples,9]),"norm":try read(folder,"norm",[1,1,samples])]
-                let result=try await models[7].prediction(from:MLDictionaryFeatureProvider(dictionary:hiftFeed))
+                let result=try predict(7,hiftFeed)
                 let pcmArray=try output(result,"pcm"),pcm=values(pcmArray)
                 guard pcmArray.shape.map(\.intValue)==[1,samples],pcm.allSatisfy(\.isFinite),melValues.allSatisfy(\.isFinite) else { throw NSError(domain:"AcousticPCMShapeOrFinite",code:pcm.count) }
                 let hostMel=try floats(folder.appendingPathComponent("expected-mel.bin")),hostPCM=try floats(folder.appendingPathComponent("expected-pcm.bin"))
@@ -288,3 +294,6 @@ enum AcousticProbe {
 // 2026-10-04 America/New_York: adds isolated full six-step dynamic Flow -> FP64 F0
 // -> host phase -> HiFT physical probe; copies unchanged SDK F0 math above. Same
 // packages serve both lengths, durable per-shard phases and preferred-plan hints.
+
+// 2026-10-04: replace simultaneous MLModel retention with per-prediction
+// autoreleasepool lifetime after SIGKILL at flow-4_load; model math/bytes unchanged.

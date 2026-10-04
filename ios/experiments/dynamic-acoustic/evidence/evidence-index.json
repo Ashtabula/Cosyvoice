@@ -28,6 +28,10 @@
       "bytes": 13343,
       "sha256": "546cc2ae994864d5481a5531098c7f7fc675d2583e3fec48a1a8e49e71e870b9"
     },
+    "full-device-CPU_ONLY-v1-incomplete.json": {
+      "bytes": 3614,
+      "sha256": "7c14861ad50d96ff24553f31cdb8cdd1685328c7f132d7f49ea43044d65187a6"
+    },
     "hybrid-downstream-v1.json": {
       "bytes": 7835,
       "sha256": "56c17ef3d414782092e9a5d6373585e3105e9912c6c6471d0ce5edad8124b33e"

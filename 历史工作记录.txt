@@ -76,3 +76,10 @@ Prompt：继续 actual dynamic Flow mel -> FP64 F0/phase/dynamic HiFT host/devic
 修改文件：ios/experiments/dynamic-acoustic/DeviceProbe/DynamicAcousticProbe/DynamicAcousticProbeApp.swift；stage_acoustic_probe.py；evidence/full-acoustic-host-v1.json；evidence/evidence-index.json；历史工作记录.txt。
 验证：N186 T674 G372 samples178560、N225 T752 G450 samples216000 finite；actual dynamic mel source body vs fixed body exact；same-mel upstream FP64 HiFT relativeL2=0.00934649/0.011749879。Full endpoint/source relativeL2=1.15945/1.23991，frozen endpoint/source=1.37165；这是 execution/component-gate PASS，非 full endpoint parity/quality acceptance。N225 identical-input dynamic/frozen HiFT relativeL2=5.482575e-7。物理 Air 当前 connected；未执行新 device probe；LLM cap和production assets未改。
 GitHub Timeline：host 脚本已 push 0567da55538b3ae243161f95e6582b01bd4f6e81；本次 evidence/device code 即将 commit/push 实验分支。
+
+时间：2026-10-04 00:39 EDT (America/New_York)
+Prompt：设备中间失败继续定位修复并保留 receipts。
+动作：首次完整 acoustic probe signed build/install通过；launch被signal9结束。读取durable receipt，phase=flow-4_load、tests=[]，不是推理阶段；保留incomplete evidence和console log。将实验probe改为每次prediction加载一个模型、autoreleasepool释放，compiled URLs两种长度共用；不改变权重/计算/compute policy。
+修改文件：实验 DeviceProbe Swift；evidence/full-device-CPU_ONLY-v1-incomplete.json；历史工作记录.txt。
+验证：首次设备加载conditions和Flow0..3 compute-plan preferred均CPU；没有PCM或推理结果；SIGKILL原因尚需对应系统日志佐证。修复待重建/重跑。
+GitHub Timeline：53074002a0e88f30f40e377e45999284cb0c7240 已 push；本次fix即将commit/push。
