@@ -26,8 +26,33 @@ main() {
     [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ] && MODE_COUNT=$((MODE_COUNT+1))
     if [ "$MODE_COUNT" -gt 1 ]; then printf '[COSYVOICE3-INSTALL] ERROR Candidate benchmark, Flow head-to-head and dynamic public-API smoke modes are mutually exclusive\n'; return 2; fi
     if [ -z "${DEVELOPMENT_TEAM:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set DEVELOPMENT_TEAM\n'; return 2; fi
-    if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2; fi
-    if [ -z "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ]; then printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_TRANSCRIPT\n'; return 2; fi
+    REUSE_INPUT_DIR="$ROOT/.work/device-smoke-reused-input"
+    if [ -z "${COSYVOICE3_REFERENCE_WAV:-}" ]; then
+        if [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then
+            mkdir -p "$REUSE_INPUT_DIR"
+            cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$REUSE_INPUT_DIR/reference.wav"
+            COSYVOICE3_REFERENCE_WAV="$REUSE_INPUT_DIR/reference.wav"
+            printf '[COSYVOICE3-INSTALL] reusing previously staged reference WAV via %s\n' "$COSYVOICE3_REFERENCE_WAV"
+        else
+            printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_WAV\n'; return 2
+        fi
+    fi
+    if [ -z "${COSYVOICE3_REFERENCE_TRANSCRIPT:-}" ]; then
+        if [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then
+            mkdir -p "$REUSE_INPUT_DIR"
+            cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$REUSE_INPUT_DIR/reference.txt"
+            COSYVOICE3_REFERENCE_TRANSCRIPT="$REUSE_INPUT_DIR/reference.txt"
+            printf '[COSYVOICE3-INSTALL] reusing previously staged reference transcript via %s\n' "$COSYVOICE3_REFERENCE_TRANSCRIPT"
+        else
+            printf '[COSYVOICE3-INSTALL] ERROR set COSYVOICE3_REFERENCE_TRANSCRIPT\n'; return 2
+        fi
+    fi
+    if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then
+        mkdir -p "$REUSE_INPUT_DIR"
+        cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" "$REUSE_INPUT_DIR/reference_host_parity_receipt.json"
+        HOST_RECEIPT="$REUSE_INPUT_DIR/reference_host_parity_receipt.json"
+        printf '[COSYVOICE3-INSTALL] reusing previously staged host parity receipt via %s\n' "$HOST_RECEIPT"
+    fi
 
     if [ ! -x "$PYTHON_BIN" ]; then printf '[COSYVOICE3-INSTALL] ERROR Python environment missing: %s\n' "$PYTHON_BIN"; return 2; fi
     command -v xcodebuild || return $?
@@ -205,3 +230,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: add COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE=1 and auto-detect the first available physical iPhone when DEVICE_ID is unset; existing explicit DEVICE_ID remains authoritative.
 
 # Changes 2026-10-04: dynamic smoke exact-stages candidate runtime bytes automatically when the active manifest already carries PASS_DEVICE_PARITY reference enrollment; otherwise it falls back to host-approved local reference staging.
+
+# Changes 2026-10-04: if explicit reference WAV/transcript or default host receipt is unavailable, safely copy prior DeviceSmoke staged inputs into ios/.work before staging replaces GeneratedAssets; explicit environment values remain authoritative.
