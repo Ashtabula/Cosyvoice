@@ -281,7 +281,9 @@ def source_cases(
             hift,
             frames,
         ).eval()
-        with torch.inference_mode():
+        # Use no_grad, not inference_mode: these tensors become torch.export
+        # examples later, and AOTAutograd cannot save inference tensors.
+        with torch.no_grad():
             f0 = fixed.m.f0_predictor(mel)
             phase = host_phase(f0)
             noise, norm = frame_buffers(hift, frames)
@@ -342,11 +344,60 @@ def source_cases(
     return cases
 
 
+def canonicalize_export_example(example):
+    canonical = []
+    records = []
+    for index, tensor in enumerate(example):
+        before = tensor.detach()
+        array = np.array(
+            before.cpu().numpy(),
+            copy=True,
+        )
+        after = torch.from_numpy(array).to(
+            dtype=before.dtype,
+        ).contiguous()
+
+        exact = bool(torch.equal(before.cpu(), after))
+        is_inference = bool(
+            getattr(after, "is_inference", lambda: False)()
+        )
+        record = {
+            "index": index,
+            "shape": list(before.shape),
+            "dtype": str(before.dtype),
+            "beforeStride": list(before.stride()),
+            "afterStride": list(after.stride()),
+            "beforeInferenceTensor": bool(
+                getattr(before, "is_inference", lambda: False)()
+            ),
+            "afterInferenceTensor": is_inference,
+            "valuesExact": exact,
+        }
+        records.append(record)
+
+        if not exact:
+            raise RuntimeError(
+                f"export input canonicalization changed values at position {index}"
+            )
+        if is_inference:
+            raise RuntimeError(
+                f"export input {index} is still an inference tensor after canonicalization"
+            )
+
+        canonical.append(after)
+
+    return tuple(canonical), records
+
+
 def export_dynamic_body(
     body,
     example,
     output: Path,
 ):
+    example, export_input_records = canonicalize_export_example(
+        example
+    )
+
     frame = torch.export.Dim(
         "mel_frames",
         min=min(FRAMES),
@@ -466,6 +517,7 @@ def export_dynamic_body(
 
     return {
         "package": package,
+        "exportInputCanonicalization": export_input_records,
         "packageSha256": sha(package),
         "sourcePt2Sha256": sha(source_path),
         "melFramesSymbolic": mel_symbolic,
@@ -769,3 +821,4 @@ if __name__ == "__main__":
 # Runtime environment: macOS arm64, Python3.11, torch2.7, coremltools9, Core ML CPU_ONLY host validation.
 # Generated time: 2026-10-03 America/New_York.
 # Changes: experiment-only externalization of frame-dependent official noise-prefix and iSTFT normalization tensors; source parity must be bit-exact before Core ML conversion; no shipping runtime/assets/Candidate changes.
+# Changes 2026-10-04: generate source-parity intermediates under torch.no_grad instead of torch.inference_mode, then rebuild every torch.export example input as a normal CPU tensor with exact-value/stride/inference-state receipts before AOTAutograd export.
