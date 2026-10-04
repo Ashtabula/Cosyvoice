@@ -1,0 +1,42 @@
+
+
+
+def forward(self, p_input_embedding_weight, p_pre_lookahead_layer_conv1_weight, p_pre_lookahead_layer_conv1_bias, p_pre_lookahead_layer_conv2_weight, p_pre_lookahead_layer_conv2_bias, p_spk_embed_affine_layer_weight, p_spk_embed_affine_layer_bias, tokens, prompt_tokens, prompt_feat, speaker):
+    _to_copy = torch.ops.aten._to_copy.default(prompt_tokens, dtype = torch.int64)
+    _assert_tensor_metadata = torch.ops.aten._assert_tensor_metadata.default(prompt_tokens, None, None, torch.int32);  prompt_tokens = _assert_tensor_metadata = None
+    _to_copy_1 = torch.ops.aten._to_copy.default(tokens, dtype = torch.int64)
+    _assert_tensor_metadata_1 = torch.ops.aten._assert_tensor_metadata.default(tokens, None, None, torch.int32);  tokens = _assert_tensor_metadata_1 = None
+    cat = torch.ops.aten.cat.default([_to_copy, _to_copy_1], 1);  _to_copy = _to_copy_1 = None
+    clamp = torch.ops.aten.clamp.default(cat, 0);  cat = None
+    embedding = torch.ops.aten.embedding.default(p_input_embedding_weight, clamp);  p_input_embedding_weight = clamp = None
+    transpose = torch.ops.aten.transpose.int(embedding, 1, 2)
+    clone = torch.ops.aten.clone.default(transpose, memory_format = torch.contiguous_format);  transpose = None
+    pad = torch.ops.aten.pad.default(clone, [0, 3], 'constant', 0.0);  clone = None
+    conv1d = torch.ops.aten.conv1d.default(pad, p_pre_lookahead_layer_conv1_weight, p_pre_lookahead_layer_conv1_bias);  pad = p_pre_lookahead_layer_conv1_weight = p_pre_lookahead_layer_conv1_bias = None
+    leaky_relu = torch.ops.aten.leaky_relu.default(conv1d);  conv1d = None
+    pad_1 = torch.ops.aten.pad.default(leaky_relu, [2, 0], 'constant', 0.0);  leaky_relu = None
+    conv1d_1 = torch.ops.aten.conv1d.default(pad_1, p_pre_lookahead_layer_conv2_weight, p_pre_lookahead_layer_conv2_bias);  pad_1 = p_pre_lookahead_layer_conv2_weight = p_pre_lookahead_layer_conv2_bias = None
+    transpose_1 = torch.ops.aten.transpose.int(conv1d_1, 1, 2);  conv1d_1 = None
+    clone_1 = torch.ops.aten.clone.default(transpose_1, memory_format = torch.contiguous_format);  transpose_1 = None
+    add_35 = torch.ops.aten.add.Tensor(clone_1, embedding);  clone_1 = embedding = None
+    repeat_interleave = torch.ops.aten.repeat_interleave.self_int(add_35, 2, 1);  add_35 = None
+    transpose_2 = torch.ops.aten.transpose.int(repeat_interleave, 1, 2);  repeat_interleave = None
+    linalg_vector_norm = torch.ops.aten.linalg_vector_norm.default(speaker, 2.0, [1], True)
+    clamp_min = torch.ops.aten.clamp_min.default(linalg_vector_norm, 1e-12);  linalg_vector_norm = None
+    expand = torch.ops.aten.expand.default(clamp_min, [1, 192]);  clamp_min = None
+    div = torch.ops.aten.div.Tensor(speaker, expand);  speaker = expand = None
+    linear = torch.ops.aten.linear.default(div, p_spk_embed_affine_layer_weight, p_spk_embed_affine_layer_bias);  div = p_spk_embed_affine_layer_weight = p_spk_embed_affine_layer_bias = None
+    transpose_3 = torch.ops.aten.transpose.int(prompt_feat, 1, 2);  prompt_feat = None
+    slice_1 = torch.ops.aten.slice.Tensor(transpose_2, 0, 0, 9223372036854775807)
+    slice_2 = torch.ops.aten.slice.Tensor(slice_1, 1, 0, 9223372036854775807);  slice_1 = None
+    slice_3 = torch.ops.aten.slice.Tensor(slice_2, 2, 302, 9223372036854775807);  slice_2 = None
+    zeros_like = torch.ops.aten.zeros_like.default(slice_3, pin_memory = False);  slice_3 = None
+    cat_1 = torch.ops.aten.cat.default([transpose_3, zeros_like], 2);  transpose_3 = zeros_like = None
+    mul_62 = torch.ops.aten.mul.Tensor(transpose_2, 0)
+    cat_2 = torch.ops.aten.cat.default([transpose_2, mul_62]);  transpose_2 = mul_62 = None
+    mul_68 = torch.ops.aten.mul.Tensor(linear, 0)
+    cat_3 = torch.ops.aten.cat.default([linear, mul_68]);  linear = mul_68 = None
+    mul_69 = torch.ops.aten.mul.Tensor(cat_1, 0)
+    cat_4 = torch.ops.aten.cat.default([cat_1, mul_69]);  cat_1 = mul_69 = None
+    return (cat_2, cat_3, cat_4)
+    

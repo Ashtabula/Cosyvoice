@@ -1,0 +1,23 @@
+# Phase 0 / Phase 1 results
+
+Execution: local macOS and physical iPhone Air (`00008150-000A05CA1440401C`, iOS27.2), America/New_York 2026-10-03. No Colab/Drive execution. Release base is4ab288d3; experiment source/physical probe commit is48ff5e0. Model is the original pinned checkpoint revision29e01c4, flow.pt SHA256 `a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b`. All stages preserve the existing fixed225 source/assets/Candidate evidence and original EOS/cap/scheduler math.
+
+1: Source audit completed in `SOURCE_SHAPE_AUDIT.md`. With Q151/P302, upstream natural T=302+2N and G=2N. A full N186 route would produce372 mel frames and178560 PCM samples/7.44s. That full route has NOT been run.
+
+2: Conditioning is genuinely symbolic at source: reloaded `.pt2` outputs mu/cond `[2,80,2*s1+302]`, constraint s1=186..225. Shard0 is genuinely symbolic: h `[2,s3,1024]`, constraint s3=674..752. Snapshot source graphs and serialized-program hashes are in evidence. Eager and ExportedProgram outputs match the intercepted **actual pinned official source** at both lengths exactly. The conditioning oracle intercepts the decoder input only; it does not pretend to execute Flow. The shard oracle captures the actual official DiT output after block3, using official nonstreaming attention.
+
+3: First conditioning attempt failed at Core ML dynamic pad conversion, before compilation/loading/prediction. The independent wrapper's equivalent natural-T zero-conditioning concatenation passed. Same serialized conditioning package accepts both N186/N225 on macOS CPU_ONLY and physical CPU_ONLY/CPU_AND_NE policies. mu maxAbs5.24520874e-6, speaker maxAbs1.49011612e-7, cond exact; all finite. No token padding was used.
+
+4: Same serialized symbolic FP16 shard0 accepts T674/T752 on macOS and physical Air for both policies, with exact output shapes and finite values. macOS vs official h RMSE0.0653699/0.0673385, maxAbs2.95873/2.99143. Physical h RMSE0.0658558/0.0654457, maxAbs4.01782/3.96701. Full max/mean/RMSE/cosine metrics are retained. None of the physical tests failed E5RT/BNNS shape resolution.
+
+5: Requested CPU_AND_NE is not ANE evidence. Physical MLComputePlan preferred counts are entirely CPU: conditioning39, shard0319, for both policies. This is a placement plan, not measured residency. This model family has demonstrated CPU dynamic execution; NE execution is unproven.
+
+6: Numerical promotion is on hold. At N225 identical inputs, dynamic FP16 h vs accepted frozen fixed shard0 has maxAbs1.8125, RMSE0.0344312; te is exact. The frozen release's rebuild acceptance checks full-vs-sharded FP16 bit identity. That check does not define a general new dynamic h tolerance; this experiment conservatively records failure of the exact frozen control and does not invent/relax a new tolerance. A separate FP32 symbolic control reduces official h error to maxAbs0.03378/0.03386, RMSE0.001008/0.001012, but is not a promoted replacement.
+
+7: Same-source lowering control: static specialization of the already-symbolic ExportedProgram (diagnostic only, no RangeDim and no multibucket route) also differs from frozen JIT FP16: maxAbs1.6875/RMSE0.0348902. Symbolic-vs-static ExportedProgram at N225 differs by maxAbs1.6875/RMSE0.0317602. Therefore both conversion frontend/specialization and dynamic backend lowering remain numerical factors; the experiment has NOT identified a sole root cause or changed Flow math to hide them.
+
+8: `evidence/phase1-gate.json` records source/host/device execution PASS checks but holds Phase2 because frozen numerical regression acceptance is unresolved. Shards1-5, length-aware shipping runtime, dynamic HiFT, full real-text DeviceSmoke, cap removal and listening comparison were not started. The inputs are deterministic fixture prefixes with **the same natural lengths as the user-observed N186/N225 cases**, not newly generated real workload trajectories. No PCM/audio acceptance claim is made.
+
+9: All earlier failed attempts, environment, model packages, fixtures and complete conversion/build/device stdout/stderr remain under `ios/.work/dynamic-acoustic`; small receipts and graph snapshots are committed in this experiment only. The attachment terminates after Phase5 “Then find”; follow-on text is missing. An existing local clean-room receipt says invalidTokenCount(135), so the old local receipt cannot authenticate the user's observed186-token trajectory; Phase4 must freshly measure the exact required text and actual N.
+
+Next technical work remains at Phase1B: identify the numeric changes from source export/precision/backend lowering, establish an accepted N225 regression, then extend the six-shard family under the prescribed gates. The dynamic approach itself has not failed.

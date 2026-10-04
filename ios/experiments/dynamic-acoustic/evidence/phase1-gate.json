@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL_PHASE1_GATE",
+  "checks": {
+    "conditionsSourceSymbolic": true,
+    "shard0SourceSymbolic": true,
+    "conditionsHostMultiLength": true,
+    "shard0HostExecution": true,
+    "frozen225BitExactRegression": false,
+    "physicalCPUOnly": true,
+    "physicalCPUAndNEPolicy": true,
+    "sameAssetFamilyAcrossBackends": true
+  },
+  "phase2Allowed": false,
+  "phase3Allowed": false,
+  "phase4Allowed": false,
+  "phase5Allowed": false,
+  "gateReason": "Frozen225 numerical regression is not bit exact; do not interpret dynamic execution as numerical acceptance.",
+  "acceptanceSource": "ios/validation/record_full_runtime_rebuild.py:98-101 (frozen Flow sharded vs monolithic FP16 max_abs=0, relative_l2=0)",
+  "acceptanceBoundaryNote": "The release bit-exact comparison covers full vs sharded FP16, not a declared dynamic h tolerance; no looser boundary tolerance is inferred in this conservative hold.",
+  "residency": "NOT_MEASURED",
+  "realLLM186Workload": "NOT_RUN",
+  "fullDynamicPCM": "NOT_RUN"
+}

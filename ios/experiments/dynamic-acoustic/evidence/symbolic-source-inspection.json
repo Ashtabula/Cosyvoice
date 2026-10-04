@@ -1,0 +1,52 @@
+{
+  "conditions": {
+    "rangeConstraints": {
+      "s1": "VR[186, 225]"
+    },
+    "outputShapes": [
+      [
+        "2",
+        "80",
+        "2*s1 + 302"
+      ],
+      [
+        "2",
+        "80"
+      ],
+      [
+        "2",
+        "80",
+        "2*s1 + 302"
+      ]
+    ],
+    "outputContainsSymbolicDimension": [
+      true,
+      false,
+      true
+    ],
+    "exportedProgramSha256": "f5ce97495cd03bc8561d061682d8fb029060e1f546f657a2f67215cc0545bdd1",
+    "graphTextSha256": "86dce335ade87b93fd836073d365a0a30078082b1bacc0ae6310ecb978eda37d"
+  },
+  "shard0": {
+    "rangeConstraints": {
+      "s3": "VR[674, 752]"
+    },
+    "outputShapes": [
+      [
+        "2",
+        "s3",
+        "1024"
+      ],
+      [
+        "2",
+        "1024"
+      ]
+    ],
+    "outputContainsSymbolicDimension": [
+      true,
+      false
+    ],
+    "exportedProgramSha256": "7923f528daa483e79b2134cc1780f197510025f059c597666c8d468376bdab73",
+    "graphTextSha256": "2fb7dbaab10c4f1c765a9432c2afa9c4f64ec9286db6d6e461a0ef589dbba135"
+  }
+}

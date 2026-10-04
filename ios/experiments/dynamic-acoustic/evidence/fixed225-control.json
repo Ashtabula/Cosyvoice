@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "N": 225,
+  "T": 752,
+  "baselinePackageSha256": "6b36e2c913f4e83f657de1b813883118956133a5c6e4d05fab40c65325e7ebe9",
+  "dynamicPackageSha256": "35dd963ea5d46fa375c662d4d81dd0c10ccf1101e6db644374f01fbabd21508a",
+  "outputs": {
+    "h": {
+      "dynamicVsFixed": {
+        "shape": [
+          2,
+          752,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 1.8125,
+        "meanAbsError": 0.017872111193045905,
+        "rmse": 0.034431209161462265,
+        "cosineSimilarity": 0.9999162613042681,
+        "passTolerance": false
+      },
+      "fixedVsOfficial": {
+        "shape": [
+          2,
+          752,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 3.85723876953125,
+        "meanAbsError": 0.035890356636318475,
+        "rmse": 0.06766581085220749,
+        "cosineSimilarity": 0.9996821630067858,
+        "passTolerance": false
+      }
+    },
+    "te": {
+      "dynamicVsFixed": {
+        "shape": [
+          2,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "rmse": 0.0,
+        "cosineSimilarity": 1.0,
+        "passTolerance": true
+      },
+      "fixedVsOfficial": {
+        "shape": [
+          2,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 0.018059730529785156,
+        "meanAbsError": 0.00031752631007719856,
+        "rmse": 0.0008930273515102765,
+        "cosineSimilarity": 0.9999951789234258,
+        "passTolerance": false
+      }
+    }
+  },
+  "status": "FAIL_BIT_EXACT_REGRESSION_CONTROL"
+}

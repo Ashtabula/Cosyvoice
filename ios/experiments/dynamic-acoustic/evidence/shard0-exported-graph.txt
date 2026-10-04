@@ -1,0 +1,442 @@
+
+
+
+def forward(self, p_time_embed_time_mlp_0_weight, p_time_embed_time_mlp_0_bias, p_time_embed_time_mlp_2_weight, p_time_embed_time_mlp_2_bias, p_input_embed_proj_weight, p_input_embed_proj_bias, p_input_embed_conv_pos_embed_conv1_0_weight, p_input_embed_conv_pos_embed_conv1_0_bias, p_input_embed_conv_pos_embed_conv2_0_weight, p_input_embed_conv_pos_embed_conv2_0_bias, p_blocks_0_attn_norm_linear_weight, p_blocks_0_attn_norm_linear_bias, p_blocks_0_attn_to_q_weight, p_blocks_0_attn_to_q_bias, p_blocks_0_attn_to_k_weight, p_blocks_0_attn_to_k_bias, p_blocks_0_attn_to_v_weight, p_blocks_0_attn_to_v_bias, p_blocks_0_attn_to_out_0_weight, p_blocks_0_attn_to_out_0_bias, p_blocks_0_ff_ff_0_0_weight, p_blocks_0_ff_ff_0_0_bias, p_blocks_0_ff_ff_2_weight, p_blocks_0_ff_ff_2_bias, p_blocks_1_attn_norm_linear_weight, p_blocks_1_attn_norm_linear_bias, p_blocks_1_attn_to_q_weight, p_blocks_1_attn_to_q_bias, p_blocks_1_attn_to_k_weight, p_blocks_1_attn_to_k_bias, p_blocks_1_attn_to_v_weight, p_blocks_1_attn_to_v_bias, p_blocks_1_attn_to_out_0_weight, p_blocks_1_attn_to_out_0_bias, p_blocks_1_ff_ff_0_0_weight, p_blocks_1_ff_ff_0_0_bias, p_blocks_1_ff_ff_2_weight, p_blocks_1_ff_ff_2_bias, p_blocks_2_attn_norm_linear_weight, p_blocks_2_attn_norm_linear_bias, p_blocks_2_attn_to_q_weight, p_blocks_2_attn_to_q_bias, p_blocks_2_attn_to_k_weight, p_blocks_2_attn_to_k_bias, p_blocks_2_attn_to_v_weight, p_blocks_2_attn_to_v_bias, p_blocks_2_attn_to_out_0_weight, p_blocks_2_attn_to_out_0_bias, p_blocks_2_ff_ff_0_0_weight, p_blocks_2_ff_ff_0_0_bias, p_blocks_2_ff_ff_2_weight, p_blocks_2_ff_ff_2_bias, p_blocks_3_attn_norm_linear_weight, p_blocks_3_attn_norm_linear_bias, p_blocks_3_attn_to_q_weight, p_blocks_3_attn_to_q_bias, p_blocks_3_attn_to_k_weight, p_blocks_3_attn_to_k_bias, p_blocks_3_attn_to_v_weight, p_blocks_3_attn_to_v_bias, p_blocks_3_attn_to_out_0_weight, p_blocks_3_attn_to_out_0_bias, p_blocks_3_ff_ff_0_0_weight, p_blocks_3_ff_ff_0_0_bias, p_blocks_3_ff_ff_2_weight, p_blocks_3_ff_ff_2_bias, b_rotary_embed_inv_freq, x, mask, mu, t, spks, cond):
+    sym_size_int_42 = torch.ops.aten.sym_size.int(x, 2)
+    transpose = torch.ops.aten.transpose.int(x, 1, 2);  x = None
+    transpose_1 = torch.ops.aten.transpose.int(mu, 1, 2);  mu = None
+    transpose_2 = torch.ops.aten.transpose.int(cond, 1, 2);  cond = None
+    arange = torch.ops.aten.arange.default(128, device = device(type='cpu'), pin_memory = False)
+    _to_copy = torch.ops.aten._to_copy.default(arange, dtype = torch.float32)
+    _assert_tensor_metadata = torch.ops.aten._assert_tensor_metadata.default(arange, None, None, torch.int64);  arange = _assert_tensor_metadata = None
+    mul_6 = torch.ops.aten.mul.Tensor(_to_copy, -0.07252236513367073);  _to_copy = None
+    exp = torch.ops.aten.exp.default(mul_6);  mul_6 = None
+    unsqueeze = torch.ops.aten.unsqueeze.default(t, 1);  t = None
+    mul_7 = torch.ops.aten.mul.Tensor(unsqueeze, 1000);  unsqueeze = None
+    unsqueeze_1 = torch.ops.aten.unsqueeze.default(exp, 0);  exp = None
+    mul_8 = torch.ops.aten.mul.Tensor(mul_7, unsqueeze_1);  mul_7 = unsqueeze_1 = None
+    sin = torch.ops.aten.sin.default(mul_8)
+    cos = torch.ops.aten.cos.default(mul_8);  mul_8 = None
+    cat = torch.ops.aten.cat.default([sin, cos], -1);  sin = cos = None
+    _to_copy_1 = torch.ops.aten._to_copy.default(cat, dtype = torch.float32);  cat = None
+    linear = torch.ops.aten.linear.default(_to_copy_1, p_time_embed_time_mlp_0_weight, p_time_embed_time_mlp_0_bias);  _to_copy_1 = p_time_embed_time_mlp_0_weight = p_time_embed_time_mlp_0_bias = None
+    silu = torch.ops.aten.silu.default(linear);  linear = None
+    linear_1 = torch.ops.aten.linear.default(silu, p_time_embed_time_mlp_2_weight, p_time_embed_time_mlp_2_bias);  silu = p_time_embed_time_mlp_2_weight = p_time_embed_time_mlp_2_bias = None
+    unsqueeze_2 = torch.ops.aten.unsqueeze.default(spks, 1);  spks = None
+    expand = torch.ops.aten.expand.default(unsqueeze_2, [-1, sym_size_int_42, -1]);  unsqueeze_2 = None
+    cat_1 = torch.ops.aten.cat.default([transpose, transpose_2, transpose_1, expand], -1);  transpose = transpose_2 = transpose_1 = expand = None
+    linear_2 = torch.ops.aten.linear.default(cat_1, p_input_embed_proj_weight, p_input_embed_proj_bias);  cat_1 = p_input_embed_proj_weight = p_input_embed_proj_bias = None
+    permute = torch.ops.aten.permute.default(linear_2, [0, 2, 1])
+    pad = torch.ops.aten.pad.default(permute, [30, 0, 0, 0]);  permute = None
+    conv1d = torch.ops.aten.conv1d.default(pad, p_input_embed_conv_pos_embed_conv1_0_weight, p_input_embed_conv_pos_embed_conv1_0_bias, [1], [0], [1], 16);  pad = p_input_embed_conv_pos_embed_conv1_0_weight = p_input_embed_conv_pos_embed_conv1_0_bias = None
+    mish = torch.ops.aten.mish.default(conv1d);  conv1d = None
+    pad_1 = torch.ops.aten.pad.default(mish, [30, 0, 0, 0]);  mish = None
+    conv1d_1 = torch.ops.aten.conv1d.default(pad_1, p_input_embed_conv_pos_embed_conv2_0_weight, p_input_embed_conv_pos_embed_conv2_0_bias, [1], [0], [1], 16);  pad_1 = p_input_embed_conv_pos_embed_conv2_0_weight = p_input_embed_conv_pos_embed_conv2_0_bias = None
+    mish_1 = torch.ops.aten.mish.default(conv1d_1);  conv1d_1 = None
+    permute_1 = torch.ops.aten.permute.default(mish_1, [0, 2, 1]);  mish_1 = None
+    add_52 = torch.ops.aten.add.Tensor(permute_1, linear_2);  permute_1 = linear_2 = None
+    arange_1 = torch.ops.aten.arange.default(sym_size_int_42, device = device(type='cpu'), pin_memory = False)
+    view = torch.ops.aten.view.default(arange_1, [1, sym_size_int_42]);  arange_1 = None
+    type_as = torch.ops.aten.type_as.default(view, b_rotary_embed_inv_freq);  view = None
+    einsum = torch.ops.aten.einsum.default('b i , j -> b i j', [type_as, b_rotary_embed_inv_freq]);  type_as = b_rotary_embed_inv_freq = None
+    div = torch.ops.aten.div.Tensor(einsum, 1.0);  einsum = None
+    stack = torch.ops.aten.stack.default([div, div], -1);  div = None
+    view_1 = torch.ops.aten.view.default(stack, [1, sym_size_int_42, 64]);  stack = None
+    _to_copy_2 = torch.ops.aten._to_copy.default(mask, dtype = torch.bool)
+    _assert_tensor_metadata_1 = torch.ops.aten._assert_tensor_metadata.default(mask, None, None, torch.float32);  mask = _assert_tensor_metadata_1 = None
+    unsqueeze_3 = torch.ops.aten.unsqueeze.default(_to_copy_2, 1);  _to_copy_2 = None
+    silu_1 = torch.ops.aten.silu.default(linear_1)
+    linear_3 = torch.ops.aten.linear.default(silu_1, p_blocks_0_attn_norm_linear_weight, p_blocks_0_attn_norm_linear_bias);  silu_1 = p_blocks_0_attn_norm_linear_weight = p_blocks_0_attn_norm_linear_bias = None
+    split = torch.ops.aten.split.Tensor(linear_3, 1024, 1);  linear_3 = None
+    getitem = split[0]
+    getitem_1 = split[1]
+    getitem_2 = split[2]
+    getitem_3 = split[3]
+    getitem_4 = split[4]
+    getitem_5 = split[5];  split = None
+    layer_norm = torch.ops.aten.layer_norm.default(add_52, [1024], None, None, 1e-06)
+    slice_1 = torch.ops.aten.slice.Tensor(getitem_1, 0, 0, 9223372036854775807);  getitem_1 = None
+    unsqueeze_4 = torch.ops.aten.unsqueeze.default(slice_1, 1);  slice_1 = None
+    add_90 = torch.ops.aten.add.Tensor(unsqueeze_4, 1);  unsqueeze_4 = None
+    mul_57 = torch.ops.aten.mul.Tensor(layer_norm, add_90);  layer_norm = add_90 = None
+    slice_2 = torch.ops.aten.slice.Tensor(getitem, 0, 0, 9223372036854775807);  getitem = None
+    unsqueeze_5 = torch.ops.aten.unsqueeze.default(slice_2, 1);  slice_2 = None
+    add_95 = torch.ops.aten.add.Tensor(mul_57, unsqueeze_5);  mul_57 = unsqueeze_5 = None
+    linear_4 = torch.ops.aten.linear.default(add_95, p_blocks_0_attn_to_q_weight, p_blocks_0_attn_to_q_bias);  p_blocks_0_attn_to_q_weight = p_blocks_0_attn_to_q_bias = None
+    linear_5 = torch.ops.aten.linear.default(add_95, p_blocks_0_attn_to_k_weight, p_blocks_0_attn_to_k_bias);  p_blocks_0_attn_to_k_weight = p_blocks_0_attn_to_k_bias = None
+    linear_6 = torch.ops.aten.linear.default(add_95, p_blocks_0_attn_to_v_weight, p_blocks_0_attn_to_v_bias);  add_95 = p_blocks_0_attn_to_v_weight = p_blocks_0_attn_to_v_bias = None
+    neg = -sym_size_int_42
+    slice_3 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_4 = torch.ops.aten.slice.Tensor(slice_3, 1, neg, 9223372036854775807);  slice_3 = None
+    slice_5 = torch.ops.aten.slice.Tensor(slice_4, 2, 0, 9223372036854775807);  slice_4 = None
+    slice_6 = torch.ops.aten.slice.Tensor(linear_4, 2, 0, 64)
+    slice_7 = torch.ops.aten.slice.Tensor(linear_4, 2, 64, 9223372036854775807);  linear_4 = None
+    cos_1 = torch.ops.aten.cos.default(slice_5)
+    mul_84 = torch.ops.aten.mul.Tensor(slice_6, cos_1);  cos_1 = None
+    mul_87 = torch.ops.aten.mul.Tensor(mul_84, 1.0);  mul_84 = None
+    view_2 = torch.ops.aten.view.default(slice_6, [2, sym_size_int_42, 32, 2]);  slice_6 = None
+    unbind = torch.ops.aten.unbind.int(view_2, -1);  view_2 = None
+    getitem_6 = unbind[0]
+    getitem_7 = unbind[1];  unbind = None
+    neg_1 = torch.ops.aten.neg.default(getitem_7);  getitem_7 = None
+    stack_1 = torch.ops.aten.stack.default([neg_1, getitem_6], -1);  neg_1 = getitem_6 = None
+    view_3 = torch.ops.aten.view.default(stack_1, [2, sym_size_int_42, 64]);  stack_1 = None
+    sin_1 = torch.ops.aten.sin.default(slice_5);  slice_5 = None
+    mul_121 = torch.ops.aten.mul.Tensor(view_3, sin_1);  view_3 = sin_1 = None
+    mul_124 = torch.ops.aten.mul.Tensor(mul_121, 1.0);  mul_121 = None
+    add_177 = torch.ops.aten.add.Tensor(mul_87, mul_124);  mul_87 = mul_124 = None
+    cat_2 = torch.ops.aten.cat.default([add_177, slice_7], -1);  add_177 = slice_7 = None
+    _to_copy_3 = torch.ops.aten._to_copy.default(cat_2, dtype = torch.float32);  cat_2 = None
+    slice_8 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_9 = torch.ops.aten.slice.Tensor(slice_8, 1, neg, 9223372036854775807);  slice_8 = None
+    slice_10 = torch.ops.aten.slice.Tensor(slice_9, 2, 0, 9223372036854775807);  slice_9 = None
+    slice_11 = torch.ops.aten.slice.Tensor(linear_5, 2, 0, 64)
+    slice_12 = torch.ops.aten.slice.Tensor(linear_5, 2, 64, 9223372036854775807);  linear_5 = None
+    cos_2 = torch.ops.aten.cos.default(slice_10)
+    mul_149 = torch.ops.aten.mul.Tensor(slice_11, cos_2);  cos_2 = None
+    mul_152 = torch.ops.aten.mul.Tensor(mul_149, 1.0);  mul_149 = None
+    view_4 = torch.ops.aten.view.default(slice_11, [2, sym_size_int_42, 32, 2]);  slice_11 = None
+    unbind_1 = torch.ops.aten.unbind.int(view_4, -1);  view_4 = None
+    getitem_8 = unbind_1[0]
+    getitem_9 = unbind_1[1];  unbind_1 = None
+    neg_2 = torch.ops.aten.neg.default(getitem_9);  getitem_9 = None
+    stack_2 = torch.ops.aten.stack.default([neg_2, getitem_8], -1);  neg_2 = getitem_8 = None
+    view_5 = torch.ops.aten.view.default(stack_2, [2, sym_size_int_42, 64]);  stack_2 = None
+    sin_2 = torch.ops.aten.sin.default(slice_10);  slice_10 = None
+    mul_186 = torch.ops.aten.mul.Tensor(view_5, sin_2);  view_5 = sin_2 = None
+    mul_189 = torch.ops.aten.mul.Tensor(mul_186, 1.0);  mul_186 = None
+    add_255 = torch.ops.aten.add.Tensor(mul_152, mul_189);  mul_152 = mul_189 = None
+    cat_3 = torch.ops.aten.cat.default([add_255, slice_12], -1);  add_255 = slice_12 = None
+    _to_copy_4 = torch.ops.aten._to_copy.default(cat_3, dtype = torch.float32);  cat_3 = None
+    view_6 = torch.ops.aten.view.default(_to_copy_3, [2, -1, 16, 64]);  _to_copy_3 = None
+    transpose_3 = torch.ops.aten.transpose.int(view_6, 1, 2);  view_6 = None
+    view_7 = torch.ops.aten.view.default(_to_copy_4, [2, -1, 16, 64]);  _to_copy_4 = None
+    transpose_4 = torch.ops.aten.transpose.int(view_7, 1, 2);  view_7 = None
+    view_8 = torch.ops.aten.view.default(linear_6, [2, -1, 16, 64]);  linear_6 = None
+    transpose_5 = torch.ops.aten.transpose.int(view_8, 1, 2);  view_8 = None
+    scaled_dot_product_attention = torch.ops.aten.scaled_dot_product_attention.default(transpose_3, transpose_4, transpose_5, unsqueeze_3);  transpose_3 = transpose_4 = transpose_5 = None
+    transpose_6 = torch.ops.aten.transpose.int(scaled_dot_product_attention, 1, 2);  scaled_dot_product_attention = None
+    view_9 = torch.ops.aten.view.default(transpose_6, [2, -1, 1024]);  transpose_6 = None
+    _to_copy_5 = torch.ops.aten._to_copy.default(view_9, dtype = torch.float32);  view_9 = None
+    linear_7 = torch.ops.aten.linear.default(_to_copy_5, p_blocks_0_attn_to_out_0_weight, p_blocks_0_attn_to_out_0_bias);  _to_copy_5 = p_blocks_0_attn_to_out_0_weight = p_blocks_0_attn_to_out_0_bias = None
+    clone_1 = torch.ops.aten.clone.default(linear_7);  linear_7 = None
+    slice_13 = torch.ops.aten.slice.Tensor(unsqueeze_3, 0, 0, 9223372036854775807)
+    select = torch.ops.aten.select.int(slice_13, 1, 0);  slice_13 = None
+    select_1 = torch.ops.aten.select.int(select, 1, -1);  select = None
+    unsqueeze_6 = torch.ops.aten.unsqueeze.default(select_1, -1);  select_1 = None
+    bitwise_not = torch.ops.aten.bitwise_not.default(unsqueeze_6);  unsqueeze_6 = None
+    masked_fill = torch.ops.aten.masked_fill.Scalar(clone_1, bitwise_not, 0.0);  clone_1 = bitwise_not = None
+    unsqueeze_7 = torch.ops.aten.unsqueeze.default(getitem_2, 1);  getitem_2 = None
+    mul_232 = torch.ops.aten.mul.Tensor(unsqueeze_7, masked_fill);  unsqueeze_7 = masked_fill = None
+    add_352 = torch.ops.aten.add.Tensor(add_52, mul_232);  add_52 = mul_232 = None
+    layer_norm_1 = torch.ops.aten.layer_norm.default(add_352, [1024], None, None, 1e-06)
+    slice_14 = torch.ops.aten.slice.Tensor(getitem_4, 0, 0, 9223372036854775807);  getitem_4 = None
+    unsqueeze_8 = torch.ops.aten.unsqueeze.default(slice_14, 1);  slice_14 = None
+    add_361 = torch.ops.aten.add.Tensor(unsqueeze_8, 1);  unsqueeze_8 = None
+    mul_239 = torch.ops.aten.mul.Tensor(layer_norm_1, add_361);  layer_norm_1 = add_361 = None
+    slice_15 = torch.ops.aten.slice.Tensor(getitem_3, 0, 0, 9223372036854775807);  getitem_3 = None
+    unsqueeze_9 = torch.ops.aten.unsqueeze.default(slice_15, 1);  slice_15 = None
+    add_366 = torch.ops.aten.add.Tensor(mul_239, unsqueeze_9);  mul_239 = unsqueeze_9 = None
+    linear_8 = torch.ops.aten.linear.default(add_366, p_blocks_0_ff_ff_0_0_weight, p_blocks_0_ff_ff_0_0_bias);  add_366 = p_blocks_0_ff_ff_0_0_weight = p_blocks_0_ff_ff_0_0_bias = None
+    gelu = torch.ops.aten.gelu.default(linear_8, approximate = 'tanh');  linear_8 = None
+    clone_2 = torch.ops.aten.clone.default(gelu);  gelu = None
+    linear_9 = torch.ops.aten.linear.default(clone_2, p_blocks_0_ff_ff_2_weight, p_blocks_0_ff_ff_2_bias);  clone_2 = p_blocks_0_ff_ff_2_weight = p_blocks_0_ff_ff_2_bias = None
+    unsqueeze_10 = torch.ops.aten.unsqueeze.default(getitem_5, 1);  getitem_5 = None
+    mul_252 = torch.ops.aten.mul.Tensor(unsqueeze_10, linear_9);  unsqueeze_10 = linear_9 = None
+    add_391 = torch.ops.aten.add.Tensor(add_352, mul_252);  add_352 = mul_252 = None
+    silu_2 = torch.ops.aten.silu.default(linear_1)
+    linear_10 = torch.ops.aten.linear.default(silu_2, p_blocks_1_attn_norm_linear_weight, p_blocks_1_attn_norm_linear_bias);  silu_2 = p_blocks_1_attn_norm_linear_weight = p_blocks_1_attn_norm_linear_bias = None
+    split_1 = torch.ops.aten.split.Tensor(linear_10, 1024, 1);  linear_10 = None
+    getitem_10 = split_1[0]
+    getitem_11 = split_1[1]
+    getitem_12 = split_1[2]
+    getitem_13 = split_1[3]
+    getitem_14 = split_1[4]
+    getitem_15 = split_1[5];  split_1 = None
+    layer_norm_2 = torch.ops.aten.layer_norm.default(add_391, [1024], None, None, 1e-06)
+    slice_16 = torch.ops.aten.slice.Tensor(getitem_11, 0, 0, 9223372036854775807);  getitem_11 = None
+    unsqueeze_11 = torch.ops.aten.unsqueeze.default(slice_16, 1);  slice_16 = None
+    add_400 = torch.ops.aten.add.Tensor(unsqueeze_11, 1);  unsqueeze_11 = None
+    mul_259 = torch.ops.aten.mul.Tensor(layer_norm_2, add_400);  layer_norm_2 = add_400 = None
+    slice_17 = torch.ops.aten.slice.Tensor(getitem_10, 0, 0, 9223372036854775807);  getitem_10 = None
+    unsqueeze_12 = torch.ops.aten.unsqueeze.default(slice_17, 1);  slice_17 = None
+    add_405 = torch.ops.aten.add.Tensor(mul_259, unsqueeze_12);  mul_259 = unsqueeze_12 = None
+    linear_11 = torch.ops.aten.linear.default(add_405, p_blocks_1_attn_to_q_weight, p_blocks_1_attn_to_q_bias);  p_blocks_1_attn_to_q_weight = p_blocks_1_attn_to_q_bias = None
+    linear_12 = torch.ops.aten.linear.default(add_405, p_blocks_1_attn_to_k_weight, p_blocks_1_attn_to_k_bias);  p_blocks_1_attn_to_k_weight = p_blocks_1_attn_to_k_bias = None
+    linear_13 = torch.ops.aten.linear.default(add_405, p_blocks_1_attn_to_v_weight, p_blocks_1_attn_to_v_bias);  add_405 = p_blocks_1_attn_to_v_weight = p_blocks_1_attn_to_v_bias = None
+    slice_18 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_19 = torch.ops.aten.slice.Tensor(slice_18, 1, neg, 9223372036854775807);  slice_18 = None
+    slice_20 = torch.ops.aten.slice.Tensor(slice_19, 2, 0, 9223372036854775807);  slice_19 = None
+    slice_21 = torch.ops.aten.slice.Tensor(linear_11, 2, 0, 64)
+    slice_22 = torch.ops.aten.slice.Tensor(linear_11, 2, 64, 9223372036854775807);  linear_11 = None
+    cos_3 = torch.ops.aten.cos.default(slice_20)
+    mul_286 = torch.ops.aten.mul.Tensor(slice_21, cos_3);  cos_3 = None
+    mul_289 = torch.ops.aten.mul.Tensor(mul_286, 1.0);  mul_286 = None
+    view_10 = torch.ops.aten.view.default(slice_21, [2, sym_size_int_42, 32, 2]);  slice_21 = None
+    unbind_2 = torch.ops.aten.unbind.int(view_10, -1);  view_10 = None
+    getitem_16 = unbind_2[0]
+    getitem_17 = unbind_2[1];  unbind_2 = None
+    neg_3 = torch.ops.aten.neg.default(getitem_17);  getitem_17 = None
+    stack_3 = torch.ops.aten.stack.default([neg_3, getitem_16], -1);  neg_3 = getitem_16 = None
+    view_11 = torch.ops.aten.view.default(stack_3, [2, sym_size_int_42, 64]);  stack_3 = None
+    sin_3 = torch.ops.aten.sin.default(slice_20);  slice_20 = None
+    mul_323 = torch.ops.aten.mul.Tensor(view_11, sin_3);  view_11 = sin_3 = None
+    mul_326 = torch.ops.aten.mul.Tensor(mul_323, 1.0);  mul_323 = None
+    add_487 = torch.ops.aten.add.Tensor(mul_289, mul_326);  mul_289 = mul_326 = None
+    cat_4 = torch.ops.aten.cat.default([add_487, slice_22], -1);  add_487 = slice_22 = None
+    _to_copy_6 = torch.ops.aten._to_copy.default(cat_4, dtype = torch.float32);  cat_4 = None
+    slice_23 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_24 = torch.ops.aten.slice.Tensor(slice_23, 1, neg, 9223372036854775807);  slice_23 = None
+    slice_25 = torch.ops.aten.slice.Tensor(slice_24, 2, 0, 9223372036854775807);  slice_24 = None
+    slice_26 = torch.ops.aten.slice.Tensor(linear_12, 2, 0, 64)
+    slice_27 = torch.ops.aten.slice.Tensor(linear_12, 2, 64, 9223372036854775807);  linear_12 = None
+    cos_4 = torch.ops.aten.cos.default(slice_25)
+    mul_351 = torch.ops.aten.mul.Tensor(slice_26, cos_4);  cos_4 = None
+    mul_354 = torch.ops.aten.mul.Tensor(mul_351, 1.0);  mul_351 = None
+    view_12 = torch.ops.aten.view.default(slice_26, [2, sym_size_int_42, 32, 2]);  slice_26 = None
+    unbind_3 = torch.ops.aten.unbind.int(view_12, -1);  view_12 = None
+    getitem_18 = unbind_3[0]
+    getitem_19 = unbind_3[1];  unbind_3 = None
+    neg_4 = torch.ops.aten.neg.default(getitem_19);  getitem_19 = None
+    stack_4 = torch.ops.aten.stack.default([neg_4, getitem_18], -1);  neg_4 = getitem_18 = None
+    view_13 = torch.ops.aten.view.default(stack_4, [2, sym_size_int_42, 64]);  stack_4 = None
+    sin_4 = torch.ops.aten.sin.default(slice_25);  slice_25 = None
+    mul_388 = torch.ops.aten.mul.Tensor(view_13, sin_4);  view_13 = sin_4 = None
+    mul_391 = torch.ops.aten.mul.Tensor(mul_388, 1.0);  mul_388 = None
+    add_565 = torch.ops.aten.add.Tensor(mul_354, mul_391);  mul_354 = mul_391 = None
+    cat_5 = torch.ops.aten.cat.default([add_565, slice_27], -1);  add_565 = slice_27 = None
+    _to_copy_7 = torch.ops.aten._to_copy.default(cat_5, dtype = torch.float32);  cat_5 = None
+    view_14 = torch.ops.aten.view.default(_to_copy_6, [2, -1, 16, 64]);  _to_copy_6 = None
+    transpose_7 = torch.ops.aten.transpose.int(view_14, 1, 2);  view_14 = None
+    view_15 = torch.ops.aten.view.default(_to_copy_7, [2, -1, 16, 64]);  _to_copy_7 = None
+    transpose_8 = torch.ops.aten.transpose.int(view_15, 1, 2);  view_15 = None
+    view_16 = torch.ops.aten.view.default(linear_13, [2, -1, 16, 64]);  linear_13 = None
+    transpose_9 = torch.ops.aten.transpose.int(view_16, 1, 2);  view_16 = None
+    scaled_dot_product_attention_1 = torch.ops.aten.scaled_dot_product_attention.default(transpose_7, transpose_8, transpose_9, unsqueeze_3);  transpose_7 = transpose_8 = transpose_9 = None
+    transpose_10 = torch.ops.aten.transpose.int(scaled_dot_product_attention_1, 1, 2);  scaled_dot_product_attention_1 = None
+    view_17 = torch.ops.aten.view.default(transpose_10, [2, -1, 1024]);  transpose_10 = None
+    _to_copy_8 = torch.ops.aten._to_copy.default(view_17, dtype = torch.float32);  view_17 = None
+    linear_14 = torch.ops.aten.linear.default(_to_copy_8, p_blocks_1_attn_to_out_0_weight, p_blocks_1_attn_to_out_0_bias);  _to_copy_8 = p_blocks_1_attn_to_out_0_weight = p_blocks_1_attn_to_out_0_bias = None
+    clone_3 = torch.ops.aten.clone.default(linear_14);  linear_14 = None
+    slice_28 = torch.ops.aten.slice.Tensor(unsqueeze_3, 0, 0, 9223372036854775807)
+    select_2 = torch.ops.aten.select.int(slice_28, 1, 0);  slice_28 = None
+    select_3 = torch.ops.aten.select.int(select_2, 1, -1);  select_2 = None
+    unsqueeze_13 = torch.ops.aten.unsqueeze.default(select_3, -1);  select_3 = None
+    bitwise_not_1 = torch.ops.aten.bitwise_not.default(unsqueeze_13);  unsqueeze_13 = None
+    masked_fill_1 = torch.ops.aten.masked_fill.Scalar(clone_3, bitwise_not_1, 0.0);  clone_3 = bitwise_not_1 = None
+    unsqueeze_14 = torch.ops.aten.unsqueeze.default(getitem_12, 1);  getitem_12 = None
+    mul_434 = torch.ops.aten.mul.Tensor(unsqueeze_14, masked_fill_1);  unsqueeze_14 = masked_fill_1 = None
+    add_662 = torch.ops.aten.add.Tensor(add_391, mul_434);  add_391 = mul_434 = None
+    layer_norm_3 = torch.ops.aten.layer_norm.default(add_662, [1024], None, None, 1e-06)
+    slice_29 = torch.ops.aten.slice.Tensor(getitem_14, 0, 0, 9223372036854775807);  getitem_14 = None
+    unsqueeze_15 = torch.ops.aten.unsqueeze.default(slice_29, 1);  slice_29 = None
+    add_671 = torch.ops.aten.add.Tensor(unsqueeze_15, 1);  unsqueeze_15 = None
+    mul_441 = torch.ops.aten.mul.Tensor(layer_norm_3, add_671);  layer_norm_3 = add_671 = None
+    slice_30 = torch.ops.aten.slice.Tensor(getitem_13, 0, 0, 9223372036854775807);  getitem_13 = None
+    unsqueeze_16 = torch.ops.aten.unsqueeze.default(slice_30, 1);  slice_30 = None
+    add_676 = torch.ops.aten.add.Tensor(mul_441, unsqueeze_16);  mul_441 = unsqueeze_16 = None
+    linear_15 = torch.ops.aten.linear.default(add_676, p_blocks_1_ff_ff_0_0_weight, p_blocks_1_ff_ff_0_0_bias);  add_676 = p_blocks_1_ff_ff_0_0_weight = p_blocks_1_ff_ff_0_0_bias = None
+    gelu_1 = torch.ops.aten.gelu.default(linear_15, approximate = 'tanh');  linear_15 = None
+    clone_4 = torch.ops.aten.clone.default(gelu_1);  gelu_1 = None
+    linear_16 = torch.ops.aten.linear.default(clone_4, p_blocks_1_ff_ff_2_weight, p_blocks_1_ff_ff_2_bias);  clone_4 = p_blocks_1_ff_ff_2_weight = p_blocks_1_ff_ff_2_bias = None
+    unsqueeze_17 = torch.ops.aten.unsqueeze.default(getitem_15, 1);  getitem_15 = None
+    mul_454 = torch.ops.aten.mul.Tensor(unsqueeze_17, linear_16);  unsqueeze_17 = linear_16 = None
+    add_701 = torch.ops.aten.add.Tensor(add_662, mul_454);  add_662 = mul_454 = None
+    silu_3 = torch.ops.aten.silu.default(linear_1)
+    linear_17 = torch.ops.aten.linear.default(silu_3, p_blocks_2_attn_norm_linear_weight, p_blocks_2_attn_norm_linear_bias);  silu_3 = p_blocks_2_attn_norm_linear_weight = p_blocks_2_attn_norm_linear_bias = None
+    split_2 = torch.ops.aten.split.Tensor(linear_17, 1024, 1);  linear_17 = None
+    getitem_20 = split_2[0]
+    getitem_21 = split_2[1]
+    getitem_22 = split_2[2]
+    getitem_23 = split_2[3]
+    getitem_24 = split_2[4]
+    getitem_25 = split_2[5];  split_2 = None
+    layer_norm_4 = torch.ops.aten.layer_norm.default(add_701, [1024], None, None, 1e-06)
+    slice_31 = torch.ops.aten.slice.Tensor(getitem_21, 0, 0, 9223372036854775807);  getitem_21 = None
+    unsqueeze_18 = torch.ops.aten.unsqueeze.default(slice_31, 1);  slice_31 = None
+    add_710 = torch.ops.aten.add.Tensor(unsqueeze_18, 1);  unsqueeze_18 = None
+    mul_461 = torch.ops.aten.mul.Tensor(layer_norm_4, add_710);  layer_norm_4 = add_710 = None
+    slice_32 = torch.ops.aten.slice.Tensor(getitem_20, 0, 0, 9223372036854775807);  getitem_20 = None
+    unsqueeze_19 = torch.ops.aten.unsqueeze.default(slice_32, 1);  slice_32 = None
+    add_715 = torch.ops.aten.add.Tensor(mul_461, unsqueeze_19);  mul_461 = unsqueeze_19 = None
+    linear_18 = torch.ops.aten.linear.default(add_715, p_blocks_2_attn_to_q_weight, p_blocks_2_attn_to_q_bias);  p_blocks_2_attn_to_q_weight = p_blocks_2_attn_to_q_bias = None
+    linear_19 = torch.ops.aten.linear.default(add_715, p_blocks_2_attn_to_k_weight, p_blocks_2_attn_to_k_bias);  p_blocks_2_attn_to_k_weight = p_blocks_2_attn_to_k_bias = None
+    linear_20 = torch.ops.aten.linear.default(add_715, p_blocks_2_attn_to_v_weight, p_blocks_2_attn_to_v_bias);  add_715 = p_blocks_2_attn_to_v_weight = p_blocks_2_attn_to_v_bias = None
+    slice_33 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_34 = torch.ops.aten.slice.Tensor(slice_33, 1, neg, 9223372036854775807);  slice_33 = None
+    slice_35 = torch.ops.aten.slice.Tensor(slice_34, 2, 0, 9223372036854775807);  slice_34 = None
+    slice_36 = torch.ops.aten.slice.Tensor(linear_18, 2, 0, 64)
+    slice_37 = torch.ops.aten.slice.Tensor(linear_18, 2, 64, 9223372036854775807);  linear_18 = None
+    cos_5 = torch.ops.aten.cos.default(slice_35)
+    mul_488 = torch.ops.aten.mul.Tensor(slice_36, cos_5);  cos_5 = None
+    mul_491 = torch.ops.aten.mul.Tensor(mul_488, 1.0);  mul_488 = None
+    view_18 = torch.ops.aten.view.default(slice_36, [2, sym_size_int_42, 32, 2]);  slice_36 = None
+    unbind_4 = torch.ops.aten.unbind.int(view_18, -1);  view_18 = None
+    getitem_26 = unbind_4[0]
+    getitem_27 = unbind_4[1];  unbind_4 = None
+    neg_5 = torch.ops.aten.neg.default(getitem_27);  getitem_27 = None
+    stack_5 = torch.ops.aten.stack.default([neg_5, getitem_26], -1);  neg_5 = getitem_26 = None
+    view_19 = torch.ops.aten.view.default(stack_5, [2, sym_size_int_42, 64]);  stack_5 = None
+    sin_5 = torch.ops.aten.sin.default(slice_35);  slice_35 = None
+    mul_525 = torch.ops.aten.mul.Tensor(view_19, sin_5);  view_19 = sin_5 = None
+    mul_528 = torch.ops.aten.mul.Tensor(mul_525, 1.0);  mul_525 = None
+    add_797 = torch.ops.aten.add.Tensor(mul_491, mul_528);  mul_491 = mul_528 = None
+    cat_6 = torch.ops.aten.cat.default([add_797, slice_37], -1);  add_797 = slice_37 = None
+    _to_copy_9 = torch.ops.aten._to_copy.default(cat_6, dtype = torch.float32);  cat_6 = None
+    slice_38 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_39 = torch.ops.aten.slice.Tensor(slice_38, 1, neg, 9223372036854775807);  slice_38 = None
+    slice_40 = torch.ops.aten.slice.Tensor(slice_39, 2, 0, 9223372036854775807);  slice_39 = None
+    slice_41 = torch.ops.aten.slice.Tensor(linear_19, 2, 0, 64)
+    slice_42 = torch.ops.aten.slice.Tensor(linear_19, 2, 64, 9223372036854775807);  linear_19 = None
+    cos_6 = torch.ops.aten.cos.default(slice_40)
+    mul_553 = torch.ops.aten.mul.Tensor(slice_41, cos_6);  cos_6 = None
+    mul_556 = torch.ops.aten.mul.Tensor(mul_553, 1.0);  mul_553 = None
+    view_20 = torch.ops.aten.view.default(slice_41, [2, sym_size_int_42, 32, 2]);  slice_41 = None
+    unbind_5 = torch.ops.aten.unbind.int(view_20, -1);  view_20 = None
+    getitem_28 = unbind_5[0]
+    getitem_29 = unbind_5[1];  unbind_5 = None
+    neg_6 = torch.ops.aten.neg.default(getitem_29);  getitem_29 = None
+    stack_6 = torch.ops.aten.stack.default([neg_6, getitem_28], -1);  neg_6 = getitem_28 = None
+    view_21 = torch.ops.aten.view.default(stack_6, [2, sym_size_int_42, 64]);  stack_6 = None
+    sin_6 = torch.ops.aten.sin.default(slice_40);  slice_40 = None
+    mul_590 = torch.ops.aten.mul.Tensor(view_21, sin_6);  view_21 = sin_6 = None
+    mul_593 = torch.ops.aten.mul.Tensor(mul_590, 1.0);  mul_590 = None
+    add_875 = torch.ops.aten.add.Tensor(mul_556, mul_593);  mul_556 = mul_593 = None
+    cat_7 = torch.ops.aten.cat.default([add_875, slice_42], -1);  add_875 = slice_42 = None
+    _to_copy_10 = torch.ops.aten._to_copy.default(cat_7, dtype = torch.float32);  cat_7 = None
+    view_22 = torch.ops.aten.view.default(_to_copy_9, [2, -1, 16, 64]);  _to_copy_9 = None
+    transpose_11 = torch.ops.aten.transpose.int(view_22, 1, 2);  view_22 = None
+    view_23 = torch.ops.aten.view.default(_to_copy_10, [2, -1, 16, 64]);  _to_copy_10 = None
+    transpose_12 = torch.ops.aten.transpose.int(view_23, 1, 2);  view_23 = None
+    view_24 = torch.ops.aten.view.default(linear_20, [2, -1, 16, 64]);  linear_20 = None
+    transpose_13 = torch.ops.aten.transpose.int(view_24, 1, 2);  view_24 = None
+    scaled_dot_product_attention_2 = torch.ops.aten.scaled_dot_product_attention.default(transpose_11, transpose_12, transpose_13, unsqueeze_3);  transpose_11 = transpose_12 = transpose_13 = None
+    transpose_14 = torch.ops.aten.transpose.int(scaled_dot_product_attention_2, 1, 2);  scaled_dot_product_attention_2 = None
+    view_25 = torch.ops.aten.view.default(transpose_14, [2, -1, 1024]);  transpose_14 = None
+    _to_copy_11 = torch.ops.aten._to_copy.default(view_25, dtype = torch.float32);  view_25 = None
+    linear_21 = torch.ops.aten.linear.default(_to_copy_11, p_blocks_2_attn_to_out_0_weight, p_blocks_2_attn_to_out_0_bias);  _to_copy_11 = p_blocks_2_attn_to_out_0_weight = p_blocks_2_attn_to_out_0_bias = None
+    clone_5 = torch.ops.aten.clone.default(linear_21);  linear_21 = None
+    slice_43 = torch.ops.aten.slice.Tensor(unsqueeze_3, 0, 0, 9223372036854775807)
+    select_4 = torch.ops.aten.select.int(slice_43, 1, 0);  slice_43 = None
+    select_5 = torch.ops.aten.select.int(select_4, 1, -1);  select_4 = None
+    unsqueeze_20 = torch.ops.aten.unsqueeze.default(select_5, -1);  select_5 = None
+    bitwise_not_2 = torch.ops.aten.bitwise_not.default(unsqueeze_20);  unsqueeze_20 = None
+    masked_fill_2 = torch.ops.aten.masked_fill.Scalar(clone_5, bitwise_not_2, 0.0);  clone_5 = bitwise_not_2 = None
+    unsqueeze_21 = torch.ops.aten.unsqueeze.default(getitem_22, 1);  getitem_22 = None
+    mul_636 = torch.ops.aten.mul.Tensor(unsqueeze_21, masked_fill_2);  unsqueeze_21 = masked_fill_2 = None
+    add_972 = torch.ops.aten.add.Tensor(add_701, mul_636);  add_701 = mul_636 = None
+    layer_norm_5 = torch.ops.aten.layer_norm.default(add_972, [1024], None, None, 1e-06)
+    slice_44 = torch.ops.aten.slice.Tensor(getitem_24, 0, 0, 9223372036854775807);  getitem_24 = None
+    unsqueeze_22 = torch.ops.aten.unsqueeze.default(slice_44, 1);  slice_44 = None
+    add_981 = torch.ops.aten.add.Tensor(unsqueeze_22, 1);  unsqueeze_22 = None
+    mul_643 = torch.ops.aten.mul.Tensor(layer_norm_5, add_981);  layer_norm_5 = add_981 = None
+    slice_45 = torch.ops.aten.slice.Tensor(getitem_23, 0, 0, 9223372036854775807);  getitem_23 = None
+    unsqueeze_23 = torch.ops.aten.unsqueeze.default(slice_45, 1);  slice_45 = None
+    add_986 = torch.ops.aten.add.Tensor(mul_643, unsqueeze_23);  mul_643 = unsqueeze_23 = None
+    linear_22 = torch.ops.aten.linear.default(add_986, p_blocks_2_ff_ff_0_0_weight, p_blocks_2_ff_ff_0_0_bias);  add_986 = p_blocks_2_ff_ff_0_0_weight = p_blocks_2_ff_ff_0_0_bias = None
+    gelu_2 = torch.ops.aten.gelu.default(linear_22, approximate = 'tanh');  linear_22 = None
+    clone_6 = torch.ops.aten.clone.default(gelu_2);  gelu_2 = None
+    linear_23 = torch.ops.aten.linear.default(clone_6, p_blocks_2_ff_ff_2_weight, p_blocks_2_ff_ff_2_bias);  clone_6 = p_blocks_2_ff_ff_2_weight = p_blocks_2_ff_ff_2_bias = None
+    unsqueeze_24 = torch.ops.aten.unsqueeze.default(getitem_25, 1);  getitem_25 = None
+    mul_656 = torch.ops.aten.mul.Tensor(unsqueeze_24, linear_23);  unsqueeze_24 = linear_23 = None
+    add_1011 = torch.ops.aten.add.Tensor(add_972, mul_656);  add_972 = mul_656 = None
+    silu_4 = torch.ops.aten.silu.default(linear_1)
+    linear_24 = torch.ops.aten.linear.default(silu_4, p_blocks_3_attn_norm_linear_weight, p_blocks_3_attn_norm_linear_bias);  silu_4 = p_blocks_3_attn_norm_linear_weight = p_blocks_3_attn_norm_linear_bias = None
+    split_3 = torch.ops.aten.split.Tensor(linear_24, 1024, 1);  linear_24 = None
+    getitem_30 = split_3[0]
+    getitem_31 = split_3[1]
+    getitem_32 = split_3[2]
+    getitem_33 = split_3[3]
+    getitem_34 = split_3[4]
+    getitem_35 = split_3[5];  split_3 = None
+    layer_norm_6 = torch.ops.aten.layer_norm.default(add_1011, [1024], None, None, 1e-06)
+    slice_46 = torch.ops.aten.slice.Tensor(getitem_31, 0, 0, 9223372036854775807);  getitem_31 = None
+    unsqueeze_25 = torch.ops.aten.unsqueeze.default(slice_46, 1);  slice_46 = None
+    add_1020 = torch.ops.aten.add.Tensor(unsqueeze_25, 1);  unsqueeze_25 = None
+    mul_663 = torch.ops.aten.mul.Tensor(layer_norm_6, add_1020);  layer_norm_6 = add_1020 = None
+    slice_47 = torch.ops.aten.slice.Tensor(getitem_30, 0, 0, 9223372036854775807);  getitem_30 = None
+    unsqueeze_26 = torch.ops.aten.unsqueeze.default(slice_47, 1);  slice_47 = None
+    add_1025 = torch.ops.aten.add.Tensor(mul_663, unsqueeze_26);  mul_663 = unsqueeze_26 = None
+    linear_25 = torch.ops.aten.linear.default(add_1025, p_blocks_3_attn_to_q_weight, p_blocks_3_attn_to_q_bias);  p_blocks_3_attn_to_q_weight = p_blocks_3_attn_to_q_bias = None
+    linear_26 = torch.ops.aten.linear.default(add_1025, p_blocks_3_attn_to_k_weight, p_blocks_3_attn_to_k_bias);  p_blocks_3_attn_to_k_weight = p_blocks_3_attn_to_k_bias = None
+    linear_27 = torch.ops.aten.linear.default(add_1025, p_blocks_3_attn_to_v_weight, p_blocks_3_attn_to_v_bias);  add_1025 = p_blocks_3_attn_to_v_weight = p_blocks_3_attn_to_v_bias = None
+    slice_48 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807)
+    slice_49 = torch.ops.aten.slice.Tensor(slice_48, 1, neg, 9223372036854775807);  slice_48 = None
+    slice_50 = torch.ops.aten.slice.Tensor(slice_49, 2, 0, 9223372036854775807);  slice_49 = None
+    slice_51 = torch.ops.aten.slice.Tensor(linear_25, 2, 0, 64)
+    slice_52 = torch.ops.aten.slice.Tensor(linear_25, 2, 64, 9223372036854775807);  linear_25 = None
+    cos_7 = torch.ops.aten.cos.default(slice_50)
+    mul_690 = torch.ops.aten.mul.Tensor(slice_51, cos_7);  cos_7 = None
+    mul_693 = torch.ops.aten.mul.Tensor(mul_690, 1.0);  mul_690 = None
+    view_26 = torch.ops.aten.view.default(slice_51, [2, sym_size_int_42, 32, 2]);  slice_51 = None
+    unbind_6 = torch.ops.aten.unbind.int(view_26, -1);  view_26 = None
+    getitem_36 = unbind_6[0]
+    getitem_37 = unbind_6[1];  unbind_6 = None
+    neg_7 = torch.ops.aten.neg.default(getitem_37);  getitem_37 = None
+    stack_7 = torch.ops.aten.stack.default([neg_7, getitem_36], -1);  neg_7 = getitem_36 = None
+    view_27 = torch.ops.aten.view.default(stack_7, [2, sym_size_int_42, 64]);  stack_7 = None
+    sin_7 = torch.ops.aten.sin.default(slice_50);  slice_50 = None
+    mul_727 = torch.ops.aten.mul.Tensor(view_27, sin_7);  view_27 = sin_7 = None
+    mul_730 = torch.ops.aten.mul.Tensor(mul_727, 1.0);  mul_727 = None
+    add_1107 = torch.ops.aten.add.Tensor(mul_693, mul_730);  mul_693 = mul_730 = None
+    cat_8 = torch.ops.aten.cat.default([add_1107, slice_52], -1);  add_1107 = slice_52 = None
+    _to_copy_12 = torch.ops.aten._to_copy.default(cat_8, dtype = torch.float32);  cat_8 = None
+    slice_53 = torch.ops.aten.slice.Tensor(view_1, 0, 0, 9223372036854775807);  view_1 = None
+    slice_54 = torch.ops.aten.slice.Tensor(slice_53, 1, neg, 9223372036854775807);  slice_53 = neg = None
+    slice_55 = torch.ops.aten.slice.Tensor(slice_54, 2, 0, 9223372036854775807);  slice_54 = None
+    slice_56 = torch.ops.aten.slice.Tensor(linear_26, 2, 0, 64)
+    slice_57 = torch.ops.aten.slice.Tensor(linear_26, 2, 64, 9223372036854775807);  linear_26 = None
+    cos_8 = torch.ops.aten.cos.default(slice_55)
+    mul_755 = torch.ops.aten.mul.Tensor(slice_56, cos_8);  cos_8 = None
+    mul_758 = torch.ops.aten.mul.Tensor(mul_755, 1.0);  mul_755 = None
+    view_28 = torch.ops.aten.view.default(slice_56, [2, sym_size_int_42, 32, 2]);  slice_56 = None
+    unbind_7 = torch.ops.aten.unbind.int(view_28, -1);  view_28 = None
+    getitem_38 = unbind_7[0]
+    getitem_39 = unbind_7[1];  unbind_7 = None
+    neg_8 = torch.ops.aten.neg.default(getitem_39);  getitem_39 = None
+    stack_8 = torch.ops.aten.stack.default([neg_8, getitem_38], -1);  neg_8 = getitem_38 = None
+    view_29 = torch.ops.aten.view.default(stack_8, [2, sym_size_int_42, 64]);  stack_8 = sym_size_int_42 = None
+    sin_8 = torch.ops.aten.sin.default(slice_55);  slice_55 = None
+    mul_792 = torch.ops.aten.mul.Tensor(view_29, sin_8);  view_29 = sin_8 = None
+    mul_795 = torch.ops.aten.mul.Tensor(mul_792, 1.0);  mul_792 = None
+    add_1185 = torch.ops.aten.add.Tensor(mul_758, mul_795);  mul_758 = mul_795 = None
+    cat_9 = torch.ops.aten.cat.default([add_1185, slice_57], -1);  add_1185 = slice_57 = None
+    _to_copy_13 = torch.ops.aten._to_copy.default(cat_9, dtype = torch.float32);  cat_9 = None
+    view_30 = torch.ops.aten.view.default(_to_copy_12, [2, -1, 16, 64]);  _to_copy_12 = None
+    transpose_15 = torch.ops.aten.transpose.int(view_30, 1, 2);  view_30 = None
+    view_31 = torch.ops.aten.view.default(_to_copy_13, [2, -1, 16, 64]);  _to_copy_13 = None
+    transpose_16 = torch.ops.aten.transpose.int(view_31, 1, 2);  view_31 = None
+    view_32 = torch.ops.aten.view.default(linear_27, [2, -1, 16, 64]);  linear_27 = None
+    transpose_17 = torch.ops.aten.transpose.int(view_32, 1, 2);  view_32 = None
+    scaled_dot_product_attention_3 = torch.ops.aten.scaled_dot_product_attention.default(transpose_15, transpose_16, transpose_17, unsqueeze_3);  transpose_15 = transpose_16 = transpose_17 = None
+    transpose_18 = torch.ops.aten.transpose.int(scaled_dot_product_attention_3, 1, 2);  scaled_dot_product_attention_3 = None
+    view_33 = torch.ops.aten.view.default(transpose_18, [2, -1, 1024]);  transpose_18 = None
+    _to_copy_14 = torch.ops.aten._to_copy.default(view_33, dtype = torch.float32);  view_33 = None
+    linear_28 = torch.ops.aten.linear.default(_to_copy_14, p_blocks_3_attn_to_out_0_weight, p_blocks_3_attn_to_out_0_bias);  _to_copy_14 = p_blocks_3_attn_to_out_0_weight = p_blocks_3_attn_to_out_0_bias = None
+    clone_7 = torch.ops.aten.clone.default(linear_28);  linear_28 = None
+    slice_58 = torch.ops.aten.slice.Tensor(unsqueeze_3, 0, 0, 9223372036854775807);  unsqueeze_3 = None
+    select_6 = torch.ops.aten.select.int(slice_58, 1, 0);  slice_58 = None
+    select_7 = torch.ops.aten.select.int(select_6, 1, -1);  select_6 = None
+    unsqueeze_27 = torch.ops.aten.unsqueeze.default(select_7, -1);  select_7 = None
+    bitwise_not_3 = torch.ops.aten.bitwise_not.default(unsqueeze_27);  unsqueeze_27 = None
+    masked_fill_3 = torch.ops.aten.masked_fill.Scalar(clone_7, bitwise_not_3, 0.0);  clone_7 = bitwise_not_3 = None
+    unsqueeze_28 = torch.ops.aten.unsqueeze.default(getitem_32, 1);  getitem_32 = None
+    mul_838 = torch.ops.aten.mul.Tensor(unsqueeze_28, masked_fill_3);  unsqueeze_28 = masked_fill_3 = None
+    add_1282 = torch.ops.aten.add.Tensor(add_1011, mul_838);  add_1011 = mul_838 = None
+    layer_norm_7 = torch.ops.aten.layer_norm.default(add_1282, [1024], None, None, 1e-06)
+    slice_59 = torch.ops.aten.slice.Tensor(getitem_34, 0, 0, 9223372036854775807);  getitem_34 = None
+    unsqueeze_29 = torch.ops.aten.unsqueeze.default(slice_59, 1);  slice_59 = None
+    add_1291 = torch.ops.aten.add.Tensor(unsqueeze_29, 1);  unsqueeze_29 = None
+    mul_845 = torch.ops.aten.mul.Tensor(layer_norm_7, add_1291);  layer_norm_7 = add_1291 = None
+    slice_60 = torch.ops.aten.slice.Tensor(getitem_33, 0, 0, 9223372036854775807);  getitem_33 = None
+    unsqueeze_30 = torch.ops.aten.unsqueeze.default(slice_60, 1);  slice_60 = None
+    add_1296 = torch.ops.aten.add.Tensor(mul_845, unsqueeze_30);  mul_845 = unsqueeze_30 = None
+    linear_29 = torch.ops.aten.linear.default(add_1296, p_blocks_3_ff_ff_0_0_weight, p_blocks_3_ff_ff_0_0_bias);  add_1296 = p_blocks_3_ff_ff_0_0_weight = p_blocks_3_ff_ff_0_0_bias = None
+    gelu_3 = torch.ops.aten.gelu.default(linear_29, approximate = 'tanh');  linear_29 = None
+    clone_8 = torch.ops.aten.clone.default(gelu_3);  gelu_3 = None
+    linear_30 = torch.ops.aten.linear.default(clone_8, p_blocks_3_ff_ff_2_weight, p_blocks_3_ff_ff_2_bias);  clone_8 = p_blocks_3_ff_ff_2_weight = p_blocks_3_ff_ff_2_bias = None
+    unsqueeze_31 = torch.ops.aten.unsqueeze.default(getitem_35, 1);  getitem_35 = None
+    mul_858 = torch.ops.aten.mul.Tensor(unsqueeze_31, linear_30);  unsqueeze_31 = linear_30 = None
+    add_1321 = torch.ops.aten.add.Tensor(add_1282, mul_858);  add_1282 = mul_858 = None
+    return (add_1321, linear_1)
+    

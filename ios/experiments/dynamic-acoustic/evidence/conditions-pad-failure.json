@@ -1,0 +1,280 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL",
+  "phase": "conversion",
+  "sourceCommit": "4ab288d39b92d68b448c2d4b5fa011dddc29e202",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "physicalDevice": "NOT_RUN",
+  "tests": [
+    {
+      "N": 186,
+      "G": 372,
+      "P": 302,
+      "T": 674,
+      "inputShapes": {
+        "tokens": [
+          1,
+          186
+        ],
+        "prompt_tokens": [
+          1,
+          151
+        ],
+        "prompt_feat": [
+          1,
+          302,
+          80
+        ],
+        "speaker": [
+          1,
+          192
+        ]
+      },
+      "eagerVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999714,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0000000000000002,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999714,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0000000000000002,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      }
+    },
+    {
+      "N": 225,
+      "G": 450,
+      "P": 302,
+      "T": 752,
+      "inputShapes": {
+        "tokens": [
+          1,
+          225
+        ],
+        "prompt_tokens": [
+          1,
+          151
+        ],
+        "prompt_feat": [
+          1,
+          302,
+          80
+        ],
+        "speaker": [
+          1,
+          192
+        ]
+      },
+      "eagerVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999696,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0000000000000002,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999696,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0000000000000002,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      }
+    }
+  ],
+  "environment": {
+    "torch": "2.7.0",
+    "coremltools": "9.0"
+  },
+  "workloadProvenance": "deterministic rebuild fixture target prefix; NOT real LLM workload tokens",
+  "productionDefaultFlowSteps": 6,
+  "flowPtSha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+  "symbolicDimensionRetained": true,
+  "rangeConstraints": {
+    "s1": "VR[186, 225]",
+    "s0": "VR[2, int_oo]"
+  },
+  "exportedShapes": {
+    "p_input_embedding_weight": [
+      "6561",
+      "80"
+    ],
+    "p_pre_lookahead_layer_conv1_weight": [
+      "1024",
+      "80",
+      "4"
+    ],
+    "p_pre_lookahead_layer_conv1_bias": [
+      "1024"
+    ],
+    "p_pre_lookahead_layer_conv2_weight": [
+      "80",
+      "1024",
+      "3"
+    ],
+    "p_pre_lookahead_layer_conv2_bias": [
+      "80"
+    ],
+    "p_spk_embed_affine_layer_weight": [
+      "80",
+      "192"
+    ],
+    "p_spk_embed_affine_layer_bias": [
+      "80"
+    ],
+    "tokens": [
+      "1",
+      "s1"
+    ],
+    "prompt_tokens": [
+      "1",
+      "151"
+    ],
+    "prompt_feat": [
+      "1",
+      "302",
+      "80"
+    ],
+    "speaker": [
+      "1",
+      "192"
+    ]
+  },
+  "error": "Dynamic padding for n-dimensional tensors is not supported. Received 2 padding values. Only 1D dynamic padding (2 values) is supported.",
+  "exceptionType": "NotImplementedError"
+}

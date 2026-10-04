@@ -1,0 +1,342 @@
+{
+  "assetIdentity" : {
+    "modelRevision" : "29e01c4e8d000f4bcd70751be16fa94bf3d85a18",
+    "models" : {
+      "conditions" : {
+        "fixtures" : {
+          "N186\/expected-cond.bin" : "2ce3afd1b4a297f4e7e7f79a322bbb652c8d6845b25c1f9920dd741644fbf349",
+          "N186\/expected-mu.bin" : "1479e5de13f869d174ef591ffe66b2036c12162ee29881e7c402d10cf6bab16d",
+          "N186\/expected-spks.bin" : "3d3473bdb932b9fe4b1481dcc6ee45be74d3dd7982a5cff71e13b038626b9a49",
+          "N186\/prompt_feat.bin" : "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2",
+          "N186\/prompt_tokens.bin" : "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365",
+          "N186\/speaker.bin" : "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c",
+          "N186\/tokens.bin" : "66c1c1113a036c7558e606f12d02588adc04b6cb0aba353257c1ef5672e3136b",
+          "N225\/expected-cond.bin" : "b58da7a9e3f16fdb79f70e5750c9be17281d1ba8c654a873308df674f6fb480c",
+          "N225\/expected-mu.bin" : "2657ac9d5392bad4942c850a1460c8caeca5838a1356296e3746d1f2ce341c16",
+          "N225\/expected-spks.bin" : "3d3473bdb932b9fe4b1481dcc6ee45be74d3dd7982a5cff71e13b038626b9a49",
+          "N225\/prompt_feat.bin" : "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2",
+          "N225\/prompt_tokens.bin" : "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365",
+          "N225\/speaker.bin" : "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c",
+          "N225\/tokens.bin" : "fb5ab8962f15a34d9652891a5ebe7322c829cdf63a89ed5712b317a8f2c1086c"
+        },
+        "flowPtSha256" : "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+        "packageSha256" : "5b2501804b97922fca9d7c7a6cfee20cc95764a59919a529f5a9d5ba23ff9275",
+        "sourceReceiptSha256" : "b17eb405be53fcef0fe82f1d34d5b515a93858e2bf3cb7985c73561fccac5248",
+        "symbolicDimensionRetained" : true
+      },
+      "shard0" : {
+        "fixtures" : {
+          "N186\/cond.bin" : "2ce3afd1b4a297f4e7e7f79a322bbb652c8d6845b25c1f9920dd741644fbf349",
+          "N186\/expected-h.bin" : "85a45b3ed9f3aa99d1879391547c3c7a4cab24406a44b7e9fd8dc5cb8f8ca039",
+          "N186\/expected-te.bin" : "fb5aff0468f143dccef1d967d1b9e074d7aa544f43272281b67a0c0e6c83a36b",
+          "N186\/mask.bin" : "e3ab085eb665bdacadf27fe43053cf665520a0802ffc629d41685f6250680b8a",
+          "N186\/mu.bin" : "1479e5de13f869d174ef591ffe66b2036c12162ee29881e7c402d10cf6bab16d",
+          "N186\/spks.bin" : "3d3473bdb932b9fe4b1481dcc6ee45be74d3dd7982a5cff71e13b038626b9a49",
+          "N186\/t.bin" : "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "N186\/x.bin" : "63870154e4183ddc7b44870bbe0b8d7e67c4e81a8e42018b2bf44b63e5eead0c",
+          "N225\/cond.bin" : "b58da7a9e3f16fdb79f70e5750c9be17281d1ba8c654a873308df674f6fb480c",
+          "N225\/expected-h.bin" : "d98534b1cb17b7446274904dc09464bb463d3a93e11c88fa3bab999effa4ba84",
+          "N225\/expected-te.bin" : "fb5aff0468f143dccef1d967d1b9e074d7aa544f43272281b67a0c0e6c83a36b",
+          "N225\/mask.bin" : "2a751c9be54424eb9513e1f2476a7c9b6fda58ebd51679594b37670eeea0a77c",
+          "N225\/mu.bin" : "2657ac9d5392bad4942c850a1460c8caeca5838a1356296e3746d1f2ce341c16",
+          "N225\/spks.bin" : "3d3473bdb932b9fe4b1481dcc6ee45be74d3dd7982a5cff71e13b038626b9a49",
+          "N225\/t.bin" : "af5570f5a1810b7af78caf4bc70a660f0df51e42baf91d4de5b2328de0e83dfc",
+          "N225\/x.bin" : "e905ca33a2b353738c8138268ebae9f33b71c0758518339cf51f4e0d53a4ff71"
+        },
+        "flowPtSha256" : "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+        "packageSha256" : "35dd963ea5d46fa375c662d4d81dd0c10ccf1101e6db644374f01fbabd21508a",
+        "sourceReceiptSha256" : "bf7f2021731523ec991ac6ac3ff579f6a3ae684e71999a939c728e51c88ea7b2",
+        "symbolicDimensionRetained" : true
+      }
+    },
+    "probeSwiftSha256" : "267e5c06c9e4db863b525d5feda0d715feadc63298bdf4e8506d07400b669b70",
+    "profile" : "experimental-symbolic-natural-N186-225",
+    "scope" : "conditioning and shard0 only; synthetic fixture prefixes, no full synthesis",
+    "sourceCommit" : "48ff5e03af63189e4aa41d9e65f07943298acbd7"
+  },
+  "backend" : "CPU_AND_NE",
+  "backendMeaning" : "requested MLComputeUnits; not ANE residency",
+  "computePlanMeaning" : "preferred placement hints; not measured execution residency",
+  "conditionsCompilation" : "PASS",
+  "conditionsComputePlanPreferredCounts" : {
+    "<MLCPUComputeDevice: 0x138562b20>" : 39
+  },
+  "conditionsLoading" : "PASS",
+  "deviceOS" : "Version 27.2 (Build 24B5089g)",
+  "phase" : "complete",
+  "physicalDevice" : true,
+  "recordedAtUnix" : 1791078749.831986,
+  "schemaVersion" : 1,
+  "shard0Compilation" : "PASS",
+  "shard0ComputePlanPreferredCounts" : {
+    "<MLCPUComputeDevice: 0x138562b20>" : 319
+  },
+  "shard0Loading" : "PASS",
+  "status" : "EXECUTED_ALL_NUMERICS_RECORDED_NOT_ACCEPTED",
+  "tests" : [
+    {
+      "backend" : "CPU_AND_NE",
+      "G" : 372,
+      "inputShapes" : {
+        "prompt_feat" : [
+          1,
+          302,
+          80
+        ],
+        "prompt_tokens" : [
+          1,
+          151
+        ],
+        "speaker" : [
+          1,
+          192
+        ],
+        "tokens" : [
+          1,
+          186
+        ]
+      },
+      "milliseconds" : 1.131892204284668,
+      "N" : 186,
+      "outputs" : {
+        "cond" : {
+          "cosineSimilarity" : 1,
+          "finite" : true,
+          "maxAbsError" : 0,
+          "meanAbsError" : 0,
+          "outputShape" : [
+            2,
+            80,
+            674
+          ],
+          "rmse" : 0
+        },
+        "mu" : {
+          "cosineSimilarity" : 0.99999999999965727,
+          "finite" : true,
+          "maxAbsError" : 5.245208740234375e-06,
+          "meanAbsError" : 2.295914520951712e-07,
+          "outputShape" : [
+            2,
+            80,
+            674
+          ],
+          "rmse" : 4.3642277335871548e-07
+        },
+        "spks" : {
+          "cosineSimilarity" : 0.99999999999996581,
+          "finite" : true,
+          "maxAbsError" : 1.4901161193847656e-07,
+          "meanAbsError" : 1.5308614820241928e-08,
+          "outputShape" : [
+            2,
+            80
+          ],
+          "rmse" : 3.0262610183170014e-08
+        }
+      },
+      "P" : 302,
+      "role" : "conditions",
+      "status" : "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED",
+      "symbolicSourceGraph" : true,
+      "T" : 674
+    },
+    {
+      "backend" : "CPU_AND_NE",
+      "G" : 450,
+      "inputShapes" : {
+        "prompt_feat" : [
+          1,
+          302,
+          80
+        ],
+        "prompt_tokens" : [
+          1,
+          151
+        ],
+        "speaker" : [
+          1,
+          192
+        ],
+        "tokens" : [
+          1,
+          225
+        ]
+      },
+      "milliseconds" : 1.0091066360473633,
+      "N" : 225,
+      "outputs" : {
+        "cond" : {
+          "cosineSimilarity" : 1,
+          "finite" : true,
+          "maxAbsError" : 0,
+          "meanAbsError" : 0,
+          "outputShape" : [
+            2,
+            80,
+            752
+          ],
+          "rmse" : 0
+        },
+        "mu" : {
+          "cosineSimilarity" : 0.99999999999966338,
+          "finite" : true,
+          "maxAbsError" : 5.245208740234375e-06,
+          "meanAbsError" : 2.3003266157521718e-07,
+          "outputShape" : [
+            2,
+            80,
+            752
+          ],
+          "rmse" : 4.3628556318755427e-07
+        },
+        "spks" : {
+          "cosineSimilarity" : 0.99999999999996581,
+          "finite" : true,
+          "maxAbsError" : 1.4901161193847656e-07,
+          "meanAbsError" : 1.5308614820241928e-08,
+          "outputShape" : [
+            2,
+            80
+          ],
+          "rmse" : 3.0262610183170014e-08
+        }
+      },
+      "P" : 302,
+      "role" : "conditions",
+      "status" : "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED",
+      "symbolicSourceGraph" : true,
+      "T" : 752
+    },
+    {
+      "backend" : "CPU_AND_NE",
+      "G" : 372,
+      "inputShapes" : {
+        "cond" : [
+          2,
+          80,
+          674
+        ],
+        "mask" : [
+          2,
+          1,
+          674
+        ],
+        "mu" : [
+          2,
+          80,
+          674
+        ],
+        "spks" : [
+          2,
+          80
+        ],
+        "t" : [
+          2
+        ],
+        "x" : [
+          2,
+          80,
+          674
+        ]
+      },
+      "milliseconds" : 220.33405303955078,
+      "N" : 186,
+      "outputs" : {
+        "h" : {
+          "cosineSimilarity" : 0.99970191736233671,
+          "finite" : true,
+          "maxAbsError" : 4.0178155899047852,
+          "meanAbsError" : 0.036552416408518799,
+          "outputShape" : [
+            2,
+            674,
+            1024
+          ],
+          "rmse" : 0.065855813297464122
+        },
+        "te" : {
+          "cosineSimilarity" : 0.99999517892342482,
+          "finite" : true,
+          "maxAbsError" : 0.018059730529785156,
+          "meanAbsError" : 0.00031752631007719856,
+          "outputShape" : [
+            2,
+            1024
+          ],
+          "rmse" : 0.0008930273515102762
+        }
+      },
+      "P" : 302,
+      "role" : "shard0",
+      "status" : "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED",
+      "symbolicSourceGraph" : true,
+      "T" : 674
+    },
+    {
+      "backend" : "CPU_AND_NE",
+      "G" : 450,
+      "inputShapes" : {
+        "cond" : [
+          2,
+          80,
+          752
+        ],
+        "mask" : [
+          2,
+          1,
+          752
+        ],
+        "mu" : [
+          2,
+          80,
+          752
+        ],
+        "spks" : [
+          2,
+          80
+        ],
+        "t" : [
+          2
+        ],
+        "x" : [
+          2,
+          80,
+          752
+        ]
+      },
+      "milliseconds" : 239.10295963287354,
+      "N" : 225,
+      "outputs" : {
+        "h" : {
+          "cosineSimilarity" : 0.99970249650620535,
+          "finite" : true,
+          "maxAbsError" : 3.9670138359069824,
+          "meanAbsError" : 0.034911451946930953,
+          "outputShape" : [
+            2,
+            752,
+            1024
+          ],
+          "rmse" : 0.065445665939787789
+        },
+        "te" : {
+          "cosineSimilarity" : 0.99999517892342482,
+          "finite" : true,
+          "maxAbsError" : 0.018059730529785156,
+          "meanAbsError" : 0.00031752631007719856,
+          "outputShape" : [
+            2,
+            1024
+          ],
+          "rmse" : 0.0008930273515102762
+        }
+      },
+      "P" : 302,
+      "role" : "shard0",
+      "status" : "EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED",
+      "symbolicSourceGraph" : true,
+      "T" : 752
+    }
+  ]
+}

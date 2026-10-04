@@ -1,0 +1,263 @@
+{
+  "schemaVersion": 1,
+  "status": "HOST_SYMBOLIC_SHARD0_NUMERICS_RECORDED_NOT_ACCEPTED",
+  "phase": "complete",
+  "sourceCommit": "c18f48cc16b271f99d1f4f50fd1f2ae87d0f540f",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "physicalDevice": "NOT_RUN",
+  "tests": [
+    {
+      "N": 186,
+      "G": 372,
+      "P": 302,
+      "T": 674,
+      "inputShapes": {
+        "x": [
+          2,
+          80,
+          674
+        ],
+        "mask": [
+          2,
+          1,
+          674
+        ],
+        "mu": [
+          2,
+          80,
+          674
+        ],
+        "t": [
+          2
+        ],
+        "spks": [
+          2,
+          80
+        ],
+        "cond": [
+          2,
+          80,
+          674
+        ]
+      },
+      "eagerVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            674,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999092,
+          "passTolerance": true
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            674,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999092,
+          "passTolerance": true
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        }
+      },
+      "coremlCPUOnlyVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            674,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.033782958984375,
+          "meanAbsError": 0.0005755672131113194,
+          "rmse": 0.0010080200591387153,
+          "cosineSimilarity": 0.9999999300459937,
+          "passTolerance": false
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 2.0265579223632812e-06,
+          "meanAbsError": 3.8276532166037214e-08,
+          "rmse": 1.2818606662424249e-07,
+          "cosineSimilarity": 0.9999999999999029,
+          "passTolerance": true
+        }
+      },
+      "finite": true
+    },
+    {
+      "N": 225,
+      "G": 450,
+      "P": 302,
+      "T": 752,
+      "inputShapes": {
+        "x": [
+          2,
+          80,
+          752
+        ],
+        "mask": [
+          2,
+          1,
+          752
+        ],
+        "mu": [
+          2,
+          80,
+          752
+        ],
+        "t": [
+          2
+        ],
+        "spks": [
+          2,
+          80
+        ],
+        "cond": [
+          2,
+          80,
+          752
+        ]
+      },
+      "eagerVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            752,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999039,
+          "passTolerance": true
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            752,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999039,
+          "passTolerance": true
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        }
+      },
+      "coremlCPUOnlyVsOfficial": {
+        "h": {
+          "shape": [
+            2,
+            752,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 0.0338592529296875,
+          "meanAbsError": 0.0005789135841842306,
+          "rmse": 0.001012458439357632,
+          "cosineSimilarity": 0.9999999281647884,
+          "passTolerance": false
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "finite": true,
+          "maxAbsError": 2.0265579223632812e-06,
+          "meanAbsError": 3.8276532166037214e-08,
+          "rmse": 1.2818606662424249e-07,
+          "cosineSimilarity": 0.9999999999999029,
+          "passTolerance": true
+        }
+      },
+      "finite": true
+    }
+  ],
+  "precision": "fp32 internal, FP32 boundaries",
+  "workloadProvenance": "deterministic rebuild fixture target prefix; NOT real LLM workload tokens",
+  "environment": {
+    "torch": "2.7.0",
+    "coremltools": "9.0"
+  },
+  "flowPtSha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+  "staticReshapeRewrites": [],
+  "symbolicDimensionRetained": true,
+  "rangeConstraints": {
+    "s3": "VR[674, 752]",
+    "s0": "VR[2, int_oo]",
+    "s1": "VR[2, int_oo]",
+    "s2": "VR[2, int_oo]"
+  },
+  "conversion": "PASS",
+  "packageSha256": "559c8356b2f957776bebe7b6ae6138521430e0450a00fa26696c58e5a562006a",
+  "compilation": "PASS",
+  "loading": "PASS"
+}

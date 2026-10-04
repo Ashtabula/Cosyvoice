@@ -1,0 +1,60 @@
+{
+  "scope": "static exported-program lowering control only; not a multibucket route or dynamic asset",
+  "controlPackageSha256": "030b482e78e6a92a7793a18d1be4b194bf966925cd9a4519d6b676204b0b4fc7",
+  "outputs": {
+    "h": {
+      "symbolicVsStaticExport": {
+        "shape": [
+          2,
+          752,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 1.6875,
+        "meanAbsError": 0.01609786082023694,
+        "rmse": 0.03176021010171164,
+        "cosineSimilarity": 0.9999295447662492,
+        "passTolerance": false
+      },
+      "staticExportVsFrozenJIT": {
+        "shape": [
+          2,
+          752,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 1.6875,
+        "meanAbsError": 0.01788152242505098,
+        "rmse": 0.03489015894117377,
+        "cosineSimilarity": 0.9999141001679276,
+        "passTolerance": false
+      }
+    },
+    "te": {
+      "symbolicVsStaticExport": {
+        "shape": [
+          2,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "rmse": 0.0,
+        "cosineSimilarity": 1.0,
+        "passTolerance": true
+      },
+      "staticExportVsFrozenJIT": {
+        "shape": [
+          2,
+          1024
+        ],
+        "finite": true,
+        "maxAbsError": 0.0,
+        "meanAbsError": 0.0,
+        "rmse": 0.0,
+        "cosineSimilarity": 1.0,
+        "passTolerance": true
+      }
+    }
+  }
+}

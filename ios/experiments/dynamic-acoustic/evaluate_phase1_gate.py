@@ -13,11 +13,11 @@ def main():
     checks['shard0HostExecution']=s.get('conversion')==s.get('compilation')==s.get('loading')=='PASS' and all(x.get('finite') for x in s['tests'])
     # The frozen release validates Core ML sharded vs monolithic FP16 at max_abs=0, relative_l2=0.
     # Exact comparison to its accepted shard0 is the strict regression control at this probe boundary.
-    checks['frozen225BitExactRegression']=all(x['dynamicVsFixed']['finite'] and x['dynamicVsFixed']['maxAbsError']==0 for x in f.values())
+    checks['frozen225BitExactRegression']=all(x['dynamicVsFixed']['finite'] and x['dynamicVsFixed']['maxAbsError']==0 for x in f.get('outputs',f).values())
     for label,r in [('physicalCPUOnly',cpu),('physicalCPUAndNEPolicy',ne)]:
         checks[label]=r.get('physicalDevice') is True and {(x['role'],x['N']) for x in r.get('tests',[])}=={(role,n) for role in ('conditions','shard0') for n in (186,225)} and all(x.get('status')=='EXECUTED_NUMERICS_RECORDED_NOT_ACCEPTED' and all(m.get('finite') for m in x.get('outputs',{}).values()) for x in r.get('tests',[]))
     checks['sameAssetFamilyAcrossBackends']=cpu.get('assetIdentity',{}).get('models')==ne.get('assetIdentity',{}).get('models')
-    result=dict(schemaVersion=1,status='PASS_PHASE1_GATE' if all(checks.values()) else 'FAIL_PHASE1_GATE',checks=checks,phase2Allowed=all(checks.values()),phase3Allowed=False,phase4Allowed=False,phase5Allowed=False,gateReason='Frozen225 numerical regression is not bit exact; do not interpret dynamic execution as numerical acceptance.',acceptanceSource='ios/validation/record_full_runtime_rebuild.py:98-101 (frozen Flow sharded vs monolithic FP16 max_abs=0, relative_l2=0)',residency='NOT_MEASURED',realLLM186Workload='NOT_RUN',fullDynamicPCM='NOT_RUN')
+    result=dict(schemaVersion=1,status='PASS_PHASE1_GATE' if all(checks.values()) else 'FAIL_PHASE1_GATE',checks=checks,phase2Allowed=all(checks.values()),phase3Allowed=False,phase4Allowed=False,phase5Allowed=False,gateReason='Frozen225 numerical regression is not bit exact; do not interpret dynamic execution as numerical acceptance.',acceptanceSource='ios/validation/record_full_runtime_rebuild.py:98-101 (frozen Flow sharded vs monolithic FP16 max_abs=0, relative_l2=0)',acceptanceBoundaryNote='The release bit-exact comparison covers full vs sharded FP16, not a declared dynamic h tolerance; no looser boundary tolerance is inferred in this conservative hold.',residency='NOT_MEASURED',realLLM186Workload='NOT_RUN',fullDynamicPCM='NOT_RUN')
     a.output.parent.mkdir(parents=True,exist_ok=True);a.output.write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result,indent=2))
     return 0 if result['phase2Allowed'] else 1
 if __name__=='__main__':raise SystemExit(main())

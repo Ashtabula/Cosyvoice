@@ -1,0 +1,366 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_HOST_SYMBOLIC_CONDITIONS",
+  "phase": "complete",
+  "sourceCommit": "48ff5e03af63189e4aa41d9e65f07943298acbd7",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "physicalDevice": "NOT_RUN",
+  "tests": [
+    {
+      "N": 186,
+      "G": 372,
+      "P": 302,
+      "T": 674,
+      "inputShapes": {
+        "tokens": [
+          1,
+          186
+        ],
+        "prompt_tokens": [
+          1,
+          151
+        ],
+        "prompt_feat": [
+          1,
+          302,
+          80
+        ],
+        "speaker": [
+          1,
+          192
+        ]
+      },
+      "eagerVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999714,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999714,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "coremlCPUOnlyVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.295914520951712e-07,
+          "rmse": 4.364227733587155e-07,
+          "cosineSimilarity": 0.9999999999996413,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "rmse": 3.0262610183170014e-08,
+          "cosineSimilarity": 0.9999999999999659,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            674
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      }
+    },
+    {
+      "N": 225,
+      "G": 450,
+      "P": 302,
+      "T": 752,
+      "inputShapes": {
+        "tokens": [
+          1,
+          225
+        ],
+        "prompt_tokens": [
+          1,
+          151
+        ],
+        "prompt_feat": [
+          1,
+          302,
+          80
+        ],
+        "speaker": [
+          1,
+          192
+        ]
+      },
+      "eagerVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999696,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "exportVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999696,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 1.0,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      },
+      "coremlCPUOnlyVsOfficial": {
+        "mu": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 5.245208740234375e-06,
+          "meanAbsError": 2.3003266157521718e-07,
+          "rmse": 4.3628556318755427e-07,
+          "cosineSimilarity": 0.9999999999996408,
+          "passTolerance": true
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "finite": true,
+          "maxAbsError": 1.4901161193847656e-07,
+          "meanAbsError": 1.5308614820241928e-08,
+          "rmse": 3.0262610183170014e-08,
+          "cosineSimilarity": 0.9999999999999659,
+          "passTolerance": true
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            752
+          ],
+          "finite": true,
+          "maxAbsError": 0.0,
+          "meanAbsError": 0.0,
+          "rmse": 0.0,
+          "cosineSimilarity": 0.9999999999999802,
+          "passTolerance": true
+        }
+      }
+    }
+  ],
+  "environment": {
+    "torch": "2.7.0",
+    "coremltools": "9.0"
+  },
+  "workloadProvenance": "deterministic rebuild fixture target prefix; NOT real LLM workload tokens",
+  "productionDefaultFlowSteps": 6,
+  "exporterSha256": "e1b3653d5e56ca31066c28cdd1566abcab9fb41b9a07ce2420c2dda8482711d4",
+  "oracleHelperSha256": "e1b3653d5e56ca31066c28cdd1566abcab9fb41b9a07ce2420c2dda8482711d4",
+  "sourceDirty": false,
+  "fixtureFlowInputSha256": "c4ea1c46452a1e81e05cba79737a0713fdc7a0ec0fd6a484403ba479213487a1",
+  "flowPtSha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+  "symbolicDimensionRetained": true,
+  "rangeConstraints": {
+    "s1": "VR[186, 225]",
+    "s0": "VR[2, int_oo]"
+  },
+  "exportedShapes": {
+    "p_input_embedding_weight": [
+      "6561",
+      "80"
+    ],
+    "p_pre_lookahead_layer_conv1_weight": [
+      "1024",
+      "80",
+      "4"
+    ],
+    "p_pre_lookahead_layer_conv1_bias": [
+      "1024"
+    ],
+    "p_pre_lookahead_layer_conv2_weight": [
+      "80",
+      "1024",
+      "3"
+    ],
+    "p_pre_lookahead_layer_conv2_bias": [
+      "80"
+    ],
+    "p_spk_embed_affine_layer_weight": [
+      "80",
+      "192"
+    ],
+    "p_spk_embed_affine_layer_bias": [
+      "80"
+    ],
+    "tokens": [
+      "1",
+      "s1"
+    ],
+    "prompt_tokens": [
+      "1",
+      "151"
+    ],
+    "prompt_feat": [
+      "1",
+      "302",
+      "80"
+    ],
+    "speaker": [
+      "1",
+      "192"
+    ]
+  },
+  "conversion": "PASS",
+  "packageSha256": "5b2501804b97922fca9d7c7a6cfee20cc95764a59919a529f5a9d5ba23ff9275",
+  "compilation": "PASS",
+  "loading": "PASS"
+}

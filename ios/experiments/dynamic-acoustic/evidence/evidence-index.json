@@ -1,0 +1,55 @@
+{
+  "scope": "independent phase0/phase1 only",
+  "files": {
+    "conditions-exported-graph.txt": {
+      "bytes": 3939,
+      "sha256": "86dce335ade87b93fd836073d365a0a30078082b1bacc0ae6310ecb978eda37d"
+    },
+    "conditions-host.json": {
+      "bytes": 8306,
+      "sha256": "b17eb405be53fcef0fe82f1d34d5b515a93858e2bf3cb7985c73561fccac5248"
+    },
+    "conditions-pad-failure.json": {
+      "bytes": 5994,
+      "sha256": "1e90015ea134dc167896f3f560f941d5ff365436cf94bda867202704f202010c"
+    },
+    "device-CPU_AND_NE.json": {
+      "bytes": 10725,
+      "sha256": "0be83e188835392f3558616bf9a5e7707ade5a2143c4f8e354f609ca8ab66048"
+    },
+    "device-CPU_ONLY.json": {
+      "bytes": 10715,
+      "sha256": "fba01cb0061b765a9321339845e1af630a3c7234873e200f6d56c612c92f4b8d"
+    },
+    "fixed225-control.json": {
+      "bytes": 1590,
+      "sha256": "59a6a65b3015ee02e30609a60f421b3cde700bd1f5672bee49bc7740e1edcac8"
+    },
+    "lowering-control.json": {
+      "bytes": 1451,
+      "sha256": "6be3fb453d1d067431b57e60d9cd5a574e9fbb145516a2046a5c60adff65cd22"
+    },
+    "phase1-gate.json": {
+      "bytes": 1039,
+      "sha256": "66380b78dd7b6c543ef2741e1606a8522d07b44f13bd71d566da7adc4a7c8c87"
+    },
+    "shard0-exported-graph.txt": {
+      "bytes": 41020,
+      "sha256": "2fb7dbaab10c4f1c765a9432c2afa9c4f64ec9286db6d6e461a0ef589dbba135"
+    },
+    "shard0-fp32-control.json": {
+      "bytes": 5848,
+      "sha256": "8008080c43cfa866c0c3909217d09340c562104c6b7971b127b523416bc7114e"
+    },
+    "shard0-host.json": {
+      "bytes": 6138,
+      "sha256": "bf7f2021731523ec991ac6ac3ff579f6a3ae684e71999a939c728e51c88ea7b2"
+    },
+    "symbolic-source-inspection.json": {
+      "bytes": 1028,
+      "sha256": "a61ddb619de1c1cf8a47b569e64ce18b7933dfe168709c98788cee92e5549284"
+    }
+  },
+  "largeArtifacts": "preserved locally under ios/.work/dynamic-acoustic; not committed",
+  "frozenReleaseAssetsAndReceipts": "untouched"
+}
