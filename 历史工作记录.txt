@@ -90,3 +90,10 @@ Prompt：host/device acoustic 执行通过后建立真实文本早EOS证明。
 修改文件：ios/experiments/dynamic-acoustic/prepare_text_probe.py；历史工作记录.txt。
 验证：CPU_ONLY status PASS_PHYSICAL_DYNAMIC_ACOUSTIC_EXECUTION_NOT_PROMOTED，samples178560/216000 finite，无shapefailure；mel/host relativeL2 0.030744/0.040011；PCM/host1.24485/1.34808，为execution非parity PASS。首次取得JetsamEvent-002603属于更早时间，不能归因本次00:38 SIGKILL。新generator语法通过。productionPromotion=false。
 GitHub Timeline：b2a1b98 已 push；新generator即将commit/push。
+
+时间：2026-10-04 00:43 EDT (America/New_York)
+Prompt：继续完整 device 后 real text natural PCM。
+动作：保存物理 Air CPU_ONLY/CPU_AND_NE 完整成功 receipts，刷新index；isolated real-text Swift package Release build完成，开始两句真实文本 native LLM trace。
+修改文件：evidence/full-device-CPU_ONLY-v2.json、full-device-CPU_AND_NE-v2.json、evidence-index.json；历史工作记录.txt。
+验证：两backend均同6Flowpackages T674/T752、同HiFT G372/G450、samples178560/216000 finite；无E5RT/BNNS错误。CPU_AND_NE compute-plan所有op preferredCPU：conditions39、Flow319/282/282/282/282/166、HiFT632；不是ANE residency。两backend数值metrics完全相同；endpoint parity/quality仍未accepted。隔离text probe build通过；cap225未改。
+GitHub Timeline：a91d3c3664e09929c53e41e10856c0a1702228a1 已push；成功device evidence即将commit/push。
