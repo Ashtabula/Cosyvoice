@@ -5,15 +5,15 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 EXP="$ROOT/ios/experiments/dynamic-acoustic"
-WORK="\${COSYVOICE3_ATTRIBUTION_WORK:-$ROOT/ios/.work/dynamic-acoustic/phase1-attribution-v1}"
-PYTHON="\${COSYVOICE3_DYNAMIC_PYTHON:-$ROOT/ios/.work/dynamic-acoustic/venv/bin/python}"
-SOURCE="\${COSYVOICE3_DYNAMIC_SOURCE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/source}"
-MODEL="\${COSYVOICE3_DYNAMIC_MODEL:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512}"
-FIXTURE="\${COSYVOICE3_DYNAMIC_FIXTURE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/fixture}"
+WORK="${COSYVOICE3_ATTRIBUTION_WORK:-$ROOT/ios/.work/dynamic-acoustic/phase1-attribution-v1}"
+PYTHON="${COSYVOICE3_DYNAMIC_PYTHON:-$ROOT/ios/.work/dynamic-acoustic/venv/bin/python}"
+SOURCE="${COSYVOICE3_DYNAMIC_SOURCE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/source}"
+MODEL="${COSYVOICE3_DYNAMIC_MODEL:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512}"
+FIXTURE="${COSYVOICE3_DYNAMIC_FIXTURE:-$ROOT/ios/.work/rebuild/ios-fixed225-reference/fixture}"
 BRANCH="experiment/ios-dynamic-acoustic"
 
 find_fixed_asset_root(){
-    if [ -n "\${COSYVOICE3_FIXED_ASSET_ROOT:-}" ]; then
+    if [ -n "${COSYVOICE3_FIXED_ASSET_ROOT:-}" ]; then
         printf '%s\n' "$COSYVOICE3_FIXED_ASSET_ROOT"
         return 0
     fi
