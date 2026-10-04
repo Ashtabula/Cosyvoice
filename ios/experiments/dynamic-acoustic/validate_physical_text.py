@@ -8,7 +8,7 @@ from scipy.io import wavfile
 from probe_symbolic_conditions import ROOT,PIN,SymbolicConditions,sha
 from run_shard0_attribution import metrics
 from run_phase2_dynamic_flow import load_estimator,load_full_graph,natural_inputs,source_rollout,load_reference_flow_conditioning
-from run_phase3_dynamic_hift import load_hift,DynamicHiFTBody,frame_buffers,host_phase
+from run_phase3_dynamic_hift import load_hift,DynamicHiFTBody,frame_buffers,host_phase,load_fixed_oracle_class
 BASE=ROOT/'ios/.work/rebuild/ios-fixed225-reference'
 
 def main():
@@ -36,6 +36,7 @@ def main():
             natural_mels.append(source_rollout(full,case).detach()[:,:,302:].contiguous())
         hift,config=load_hift(source,model,a.output);body=DynamicHiFTBody(hift).eval();hift.f0_predictor.double()
         report['acousticConfig']=config
+        fixed_class=load_fixed_oracle_class(source)
         for index,(trace,row,source_mel) in enumerate(zip(traces,device['tests'],natural_mels)):
             n=trace['N'];g=2*n;samples=g*480
             if (row['N'],row['T'],row['G'],row['samples'])!=(n,302+2*n,g,samples):raise RuntimeError('Device natural geometry mismatch')
@@ -45,6 +46,9 @@ def main():
             with torch.no_grad():
                 f0=hift.f0_predictor(device_mel.double(),finalize=True).float().contiguous();phase=host_phase(f0);noise,norm=frame_buffers(hift,g)
                 same_body=body(device_mel,f0,phase,noise,norm).numpy()
+                fixed_body=fixed_class(hift,g).eval()(device_mel,f0,phase).numpy()
+                exact=metrics(fixed_body,same_body)
+                if exact["maxAbsError"]!=0:raise RuntimeError("Physical same-mel source body math changed")
                 upstream,_=hift.inference(device_mel,finalize=True);upstream=upstream.numpy()
                 source_pcm,_=hift.inference(source_mel,finalize=True);source_pcm=source_pcm.numpy()
             body_metric=metrics(same_body,pcm);upstream_metric=metrics(upstream,pcm)
@@ -53,7 +57,7 @@ def main():
             if check_rate!=24000 or not np.array_equal(check_pcm,pcm[0]):raise RuntimeError('WAV preview modified PCM')
             test={'textIndex':index,'text':trace['text'],'N':n,'T':302+2*n,'G':g,'samples':samples,'seconds':samples/24000,
                   'stopToken':trace['stopToken'],'actualEarlyEOS':True,'pcmSha256':sha(pcm_path),'melSha256':sha(mel_path),
-                  'sameDeviceMelPCMVsSourceBody':body_metric,'sameDeviceMelPCMVsUpstreamFP64':upstream_metric,
+                  'sourceDynamicVsFixedBody':exact,'sameDeviceMelPCMVsSourceBody':body_metric,'sameDeviceMelPCMVsUpstreamFP64':upstream_metric,
                   'deviceMelVsSourceNatural':metrics(source_mel.numpy(),device_mel.numpy()),
                   'fullDeviceEndpointVsSourceNatural':metrics(source_pcm,pcm),'wavPath':str(preview),'wavSha256':sha(preview),
                   'sameMelHiFTGatePass':body_metric['finite'] and upstream_metric['finite'] and body_metric['relativeL2']<=.02 and upstream_metric['relativeL2']<=.02}
@@ -66,3 +70,5 @@ if __name__=='__main__':raise SystemExit(main())
 # Upstream: pinned official Flow/HiFT and experiment physical receipts, no CoreML execution in this validator.
 # Environment: macOS arm64 Python3.11/torch2.7/SciPy1.13.1; WAV stores identical Float32 PCM.
 # Generated: 2026-10-04 America/New_York. New file, all lines; no cap/public assets/Candidate changes.
+
+# 2026-10-04: require dynamic/fixed source HiFT bit-exact at each actual physical EOS length.

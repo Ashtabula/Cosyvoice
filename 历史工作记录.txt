@@ -139,3 +139,10 @@ Prompt：中间runtime失败自主修复，不改模型语义。
 修改文件：prepare_text_probe.py；实验Xcodeproject；evidence/physical-real-text-v1-failed.json/physical-llm-prefill-v1-failed.json/index；历史工作记录.txt。
 验证：旧扩展acoustic四长度device已PASS；本次错误不是acousticshape failure，不修改权重/RAS/cap/tokenizer。CPU_ONLY修复待build/device验证。
 GitHub Timeline：6be80a9已push；本次明确backend实验即将commit/push。
+
+时间：2026-10-04 01:04 EDT (America/New_York)
+Prompt：真实native text-to-PCM完整证明及原numericalgate。
+动作：CPU_ONLY LLM + CPU_AND_NE acoustic物理Air完成两句actual EOS6562；取回rawPCM/mel/receipt到新physical-real-text-v2目录。source validator增加每个actual G动态body/fixedHiFTPortable bit-exact检查。
+修改文件：validate_physical_text.py；历史工作记录.txt。
+验证：原句0N167 T636 G334 samples160320；句1N178 T658 G356 samples170880；native tokenizer/frontend/LLM真实执行，cap225未改，无padding/假EOS。same family所有shards/HiFT执行完成；source/HiFTgate后处理待运行。
+GitHub Timeline：e791bccce1500fa255495d451f4069a30f7aa95c已push；本次数值validator补充即将commit/push。
