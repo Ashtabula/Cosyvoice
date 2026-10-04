@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-# Requirement: build/install DynamicAcousticProbe, auto-select an available physical iPhone, run native-RAS/acoustic sweeps in the foreground without --console, then return the shell prompt normally after completion.
+# Requirement: build/install DynamicAcousticProbe, auto-select an available physical iPhone, run native-RAS/acoustic sweeps in the foreground without attaching the app console, then return the shell prompt normally after completion.
 ROOT="$(cd "$(dirname "$0")/../../.." && pwd)"
 EXP="$ROOT/ios/experiments/dynamic-acoustic"
 PROJECT="$EXP/DeviceProbe/DynamicAcousticProbe.xcodeproj"
@@ -15,17 +15,6 @@ RUN_ID="${RUN_ID:-$(date +%Y%m%d-%H%M%S)-$$}"
 OUT="${OUT:-$EXP/evidence/device-sweeps-$RUN_ID}"
 : "${DEVELOPMENT_TEAM:?export DEVELOPMENT_TEAM=<Apple-development-team-id>}"
 
-mkdir -p "$OUT"
-  LOG="$OUT/runner.log"
-  echo "===== START DETACHED SWEEP ====="
-    PID=$!
-  echo "$PID" > "$OUT/runner.pid"
-  echo "RUNNER_PID=$PID"
-  echo "RUNNER_LOG=$LOG"
-  echo "RECEIPTS_DIR=$OUT"
-  echo "TERMINAL_RETURNED=YES"
-  exit 0
-fi
 mkdir -p "$OUT"
 echo "===== VERIFY SOURCE ====="
 git -C "$ROOT" rev-parse HEAD
@@ -113,4 +102,4 @@ echo "PASS receipts=$OUT"
 # Upstream purpose: prove native stochastic EOS-length distribution and every integer flexible-shape execution inside the exported N interval without production promotion.
 # Runtime environment: macOS with Xcode/xcrun, signed physical iPhone, staged DeviceProbe assets.
 # Generated time: 2026-10-04 America/New_York.
-# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; remove --console; keep the runner in the foreground; unique RUN_ID receipts prevent stale-result reuse.
+# Changes: auto-detect physical iPhone; treat placeholder DEVICE_ID as unset; avoid app-console attachment; keep the runner in the foreground; unique RUN_ID receipts prevent stale-result reuse.
