@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 # generate_dynamic_candidate_buffers.py
-# Requirement: generate candidate maximum Flow-noise and HiFT-excitation buffers for the dynamic runtime while preserving the accepted fixed225 Flow prefix exactly. HiFT excitation must come from the pinned upstream HiFT source buffer; no zero/noise placeholder is permitted.
+# Requirement: generate candidate maximum Flow-noise and HiFT-excitation buffers for the dynamic runtime while preserving the accepted fixed225 Flow prefix exactly. HiFT excitation must come from the pinned upstream HiFT source buffer and records its own N225 prefix identity without claiming a nonexistent historical external-noise asset.
 from __future__ import annotations
-import argparse,json,shutil
+import argparse,hashlib,json,shutil
 from pathlib import Path
 import numpy as np
 import torch
@@ -10,6 +10,12 @@ from run_phase3_dynamic_hift import load_hift,frame_buffers
 
 def require(v,msg):
     if not v:raise RuntimeError(msg)
+
+def sha(path:Path)->str:
+    h=hashlib.sha256()
+    with path.open('rb') as stream:
+        for b in iter(lambda:stream.read(8*1024*1024),b''):h.update(b)
+    return h.hexdigest()
 
 def main():
     p=argparse.ArgumentParser()
@@ -47,7 +53,7 @@ def main():
     require(bool(torch.isfinite(excitation).all()),'HiFT excitation non-finite')
     excitation_np=excitation.detach().cpu().numpy().astype(np.float32,copy=False)
     excitation_path=a.output/'hift-excitation-max.f32';excitation_np.tofile(excitation_path)
-    prefix_path=a.output/'hift-excitation-n225-reference.f32';excitation_np[:,:216000,:].tofile(prefix_path)
+    prefix_path=a.output/'hift-excitation-n225-prefix.f32';excitation_np[:,:216000,:].tofile(prefix_path)
 
     receipt={
         'schemaVersion':1,'status':'PASS_CANDIDATE_STOCHASTIC_BUFFERS_GENERATED_NOT_PROMOTED',
@@ -55,8 +61,12 @@ def main():
         'flowPrefixT752Exact':bool(np.array_equal(flow[:,:752],fixed)),
         'flowExtensionPolicy':f'accepted fixed225 prefix + torch.randn CPU continuation seed={a.flow_extension_seed}',
         'flowExtensionSemanticClaim':'Gaussian candidate continuation only; N>225 audible/parity quality requires device validation',
-        'hiftExcitationPolicy':'pinned upstream HiFT m_source.l_sin_gen.sine_waves prefix through requested maximum samples',
-        'hiftN225ReferenceSamples':216000,'productionPromotion':False,
+        'hiftExcitationPolicy':'pinned upstream HiFT m_source.l_sin_gen.sine_waves through requested maximum samples',
+        'hiftExcitationMaximumSha256':sha(excitation_path),
+        'hiftN225PrefixSamples':216000,
+        'hiftN225PrefixSha256':sha(prefix_path),
+        'hiftN225PrefixMeaning':'prefix of this pinned-upstream candidate buffer; not claimed identical to a historical external-noise asset',
+        'productionPromotion':False,
     }
     (a.output/'receipt.json').write_text(json.dumps(receipt,indent=2,sort_keys=True)+'\n')
     shutil.rmtree(work,ignore_errors=True)
@@ -69,3 +79,5 @@ if __name__=='__main__':main()
 # Runtime environment: macOS arm64 dynamic Python3.11/torch2.7 environment used by the existing dynamic-acoustic experiments.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: exact fixed225 Flow prefix preservation; explicit Gaussian continuation policy above T752; upstream HiFT excitation extraction to Nmax; no promotion claim.
+
+# 2026-10-04: correct HiFT evidence semantics: record pinned-upstream max/prefix hashes, but do not label a self-sliced N225 prefix as historical exact parity evidence.
