@@ -1,0 +1,57 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_DYNAMIC_N1_RELEASE_PROMOTION_ENTRY_NOT_PRODUCTION",
+  "engine": "CosyVoice3",
+  "platform": "iOS",
+  "enteredAt": "2026-10-04T19:19:49-04:00",
+  "runtimeValidatedSourceCommit": "3267547f6436444e72889d443a030fd9be41e2af",
+  "profile": "ios18-dynamic-n1-n479-candidate",
+  "speechTokenBounds": [
+    1,
+    479
+  ],
+  "productionPromotion": false,
+  "publicRedistributionApproved": false,
+  "engineeringEvidence": {
+    "lowerBoundExtension": "experiments/dynamic-acoustic/evidence/lower-bound-n1-extension-20261004-173341-20292",
+    "interiorN145": "experiments/dynamic-acoustic/evidence/interior-n1-interior-20261004-184558-32925",
+    "publicApiSmoke": "validation/evidence/dynamic-public-api-smoke-1791154976",
+    "listeningAcceptance": "validation/evidence/dynamic_n1_listening_acceptance.json"
+  },
+  "acceptedRuntimeContract": {
+    "output": "mono Float32 PCM 24000 Hz",
+    "flowStepsDefault": 6,
+    "flowStepsSupported": [
+      6,
+      8,
+      10
+    ],
+    "requestedComputePlacement": {
+      "llmPrefill": "CPU_ONLY",
+      "llmDecode": "CPU_ONLY",
+      "dynamicAcoustic": "CPU_AND_NE",
+      "referenceEncoders": "CPU_ONLY",
+      "meaning": "requested MLComputeUnits; not accelerator residency"
+    },
+    "dynamicAcousticExecutionHints": {
+      "reshapeFrequency": "INFREQUENT"
+    },
+    "generationContract": "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)"
+  },
+  "releaseEntryMeaning": "Dynamic engineering validation is accepted strongly enough to enter release engineering. This is not Candidate/Production publication authority and does not replace the fixed225 manifest/releases/release_receipt.",
+  "remainingBeforeDynamicCandidateFreeze": [
+    "quantify and resolve or explicitly accept the native stochastic N0 fail-closed edge case without changing EOS=6562 semantics",
+    "freeze and publish an immutable private dynamic runtime asset profile and asset identity",
+    "regenerate exact-current-source standalone/full-runtime rebuild evidence for the dynamic profile",
+    "run controlled physical-device cold/warm public-API benchmark on the exact dynamic profile",
+    "generate a dynamic-specific candidate release receipt"
+  ],
+  "remainingBeforeProduction": [
+    "clean-room independent consumer integration",
+    "release-tree reproducibility",
+    "asset redistribution and license review",
+    "public release identity review and fresh public snapshot",
+    "immutable public runtime asset publication"
+  ],
+  "validationReferenceDistributionRule": "The user-identified Lei Jun validation reference and any validation-only audio/identity evidence must not be included in public runtime/example assets absent separate redistribution authorization."
+}
