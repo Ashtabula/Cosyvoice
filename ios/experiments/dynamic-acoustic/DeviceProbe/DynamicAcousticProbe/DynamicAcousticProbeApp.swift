@@ -433,10 +433,17 @@ enum AcousticShapeSweepProbe {
         let exported=identity["supportedNBounds"] as? [Int] ?? [3,479]
         let requestedMin=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMIN=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[0]
         let requestedMax=ProcessInfo.processInfo.arguments.compactMap { $0.hasPrefix("NMAX=") ? Int($0.dropFirst(5)) : nil }.first ?? exported[1]
+        let explicitValues=ProcessInfo.processInfo.arguments.first { $0.hasPrefix("NVALUES=") }.map { raw in
+            String(raw.dropFirst(8)).split(separator:",").compactMap { Int($0) }
+        }
+        let sweepValues=explicitValues ?? Array(requestedMin...requestedMax)
         let runID=(ProcessInfo.processInfo.arguments.first { $0.hasPrefix("RUN_ID=") }.map { String($0.dropFirst(7)) } ?? String(Int(Date().timeIntervalSince1970))).replacingOccurrences(of:"/",with:"_")
-        guard requestedMin>=exported[0],requestedMax<=exported[1],requestedMin<=requestedMax else { throw NSError(domain:"AcousticShapeSweepBounds",code:1,userInfo:[NSLocalizedDescriptionKey:"requested \(requestedMin)...\(requestedMax), exported \(exported)"]) }
-        let path=docs.appendingPathComponent("dynamic-acoustic-shape-sweep-\(backend)-N\(requestedMin)-\(requestedMax)-\(runID).json")
-        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"exportedNBounds":exported,"requestedNBounds":[requestedMin,requestedMax],"productionPromotion":false,"tests":[[String:Any]]()]
+        guard requestedMin>=exported[0],requestedMax<=exported[1],requestedMin<=requestedMax,
+              !sweepValues.isEmpty,sweepValues.allSatisfy({$0>=exported[0] && $0<=exported[1]})
+        else { throw NSError(domain:"AcousticShapeSweepBounds",code:1,userInfo:[NSLocalizedDescriptionKey:"requested \(requestedMin)...\(requestedMax) values=\(sweepValues), exported \(exported)"]) }
+        let valueTag=explicitValues == nil ? "N\(requestedMin)-\(requestedMax)" : "values"
+        let path=docs.appendingPathComponent("dynamic-acoustic-shape-sweep-\(backend)-\(valueTag)-\(runID).json")
+        var receipt:[String:Any]=["schemaVersion":1,"status":"RUNNING","recordedAtUnix":Date().timeIntervalSince1970,"physicalDevice":true,"deviceOS":ProcessInfo.processInfo.operatingSystemVersionString,"backend":backend,"backendMeaning":"requested compute units; no residency claim","assetIdentity":identity,"exportedNBounds":exported,"requestedNBounds":[requestedMin,requestedMax],"requestedNValues":sweepValues,"productionPromotion":false,"tests":[[String:Any]]()]
         func save() throws { try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:path,options:.atomic) }
         try save()
         let config=MLModelConfiguration();config.computeUnits=backend=="CPU_ONLY" ? .cpuOnly:.cpuAndNeuralEngine;config.optimizationHints.reshapeFrequency = .infrequent
@@ -458,7 +465,7 @@ enum AcousticShapeSweepProbe {
             return try AcousticProbe.array(weights,[1,1,samples])
         }
         var boundary=[[String:Any]]()
-        if requestedMin==exported[0] && requestedMax==exported[1] {
+        if sweepValues.contains(exported[0]) && sweepValues.contains(exported[1]) {
             for n in [exported[0]-1,exported[1]+1] {
                 var row:[String:Any]=["N":n,"expected":"REJECT_OUT_OF_RANGE"]
                 do { _=try predict(0,try conditioningFeed(n));row["status"]="FAIL_ACCEPTED_OUT_OF_RANGE" }
@@ -467,7 +474,7 @@ enum AcousticShapeSweepProbe {
             }
         }
         var rows=[[String:Any]]()
-        for n in requestedMin...requestedMax {
+        for n in sweepValues {
             let start=Date(),t=302+2*n,g=2*n,samples=960*n
             var row:[String:Any]=["N":n,"T":t,"G":g,"expectedSamples":samples,"status":"RUNNING"]
             do {
@@ -499,7 +506,7 @@ enum AcousticShapeSweepProbe {
             } catch { row["milliseconds"]=Date().timeIntervalSince(start)*1000;row["status"]="FAIL";row["error"]=Probe.errorRecord(error) }
             rows.append(row);receipt["tests"]=rows;try save();print("ACOUSTIC_SHAPE_SWEEP N\(n) \(row["status"]!)")
         }
-        let shapePass=rows.count==requestedMax-requestedMin+1 && rows.allSatisfy { $0["status"] as? String == "PASS_SHAPE_EXECUTION" }
+        let shapePass=rows.count==sweepValues.count && rows.allSatisfy { $0["status"] as? String == "PASS_SHAPE_EXECUTION" }
         let boundaryPass=boundary.isEmpty || boundary.allSatisfy { $0["status"] as? String == "PASS_REJECTED_OUT_OF_RANGE" }
         receipt["phase"]="complete";receipt["status"]=shapePass && boundaryPass ? "PASS_EXHAUSTIVE_INTEGER_DYNAMIC_SHAPE_SWEEP_NOT_PROMOTED":"FAIL_DYNAMIC_SHAPE_SWEEP";try save()
         print("ACOUSTIC_SHAPE_SWEEP_RECEIPT \(path.path)")
@@ -514,3 +521,5 @@ enum AcousticShapeSweepProbe {
 // 2026-10-04: add LLM_CAPACITY_WALK mode; isolated deterministic state traversal only, no acoustic execution or production promotion.
 
 // 2026-10-04: full-range sweep removes N225 target/noise/excitation fixture dependencies; exported bounds default to N3...479 and all synthetic buffers are allocated at exact requested shape.
+
+// 2026-10-04: NVALUES accepts comma-separated non-contiguous checkpoint shapes in one model-compilation session before the exhaustive integer sweep.
