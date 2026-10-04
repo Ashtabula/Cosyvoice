@@ -203,10 +203,70 @@ PY
         fi
     fi
     xcrun devicectl device install app --device "$DEVICE_ID" "$APP" || return $?
+    DYNAMIC_LAUNCH_UNIX="$(date +%s)"
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
     if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ]; then
-        printf '[COSYVOICE3-INSTALL] App auto-runs dynamic default+reference public API smoke. Retrieve Documents/dynamic-public-api-smoke-receipt.json and dynamic-{default,reference}.wav.\n'
+        DYNAMIC_EVIDENCE="$ROOT/validation/evidence/dynamic-public-api-smoke-$DYNAMIC_LAUNCH_UNIX"
+        mkdir -p "$DYNAMIC_EVIDENCE"
+        DYNAMIC_RECEIPT="$DYNAMIC_EVIDENCE/dynamic-public-api-smoke-receipt.json"
+        DYNAMIC_TMP="$DYNAMIC_RECEIPT.tmp"
+        DYNAMIC_DEADLINE=$((DYNAMIC_LAUNCH_UNIX+1800))
+        printf '[COSYVOICE3-INSTALL] polling dynamic public-API smoke receipt into %s\n' "$DYNAMIC_EVIDENCE"
+        while true; do
+            rm -f "$DYNAMIC_TMP"
+            if xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/dynamic-public-api-smoke-receipt.json" --destination "$DYNAMIC_TMP"; then
+                if [ -s "$DYNAMIC_TMP" ]; then
+                    DYNAMIC_STATUS="$("$PYTHON_BIN" - "$DYNAMIC_TMP" <<'PY'
+import json,sys
+try: print(json.load(open(sys.argv[1])).get("status",""))
+except Exception: print("")
+PY
+)"
+                    if [ "$DYNAMIC_STATUS" = "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE" ]; then
+                        mv "$DYNAMIC_TMP" "$DYNAMIC_RECEIPT"
+                        break
+                    fi
+                    if [ "$DYNAMIC_STATUS" = "FAIL" ]; then
+                        mv "$DYNAMIC_TMP" "$DYNAMIC_RECEIPT"
+                        "$PYTHON_BIN" -m json.tool "$DYNAMIC_RECEIPT"
+                        printf '[COSYVOICE3-INSTALL] ERROR dynamic public-API smoke failed\n'
+                        return 4
+                    fi
+                fi
+            fi
+            if [ "$(date +%s)" -ge "$DYNAMIC_DEADLINE" ]; then
+                printf '[COSYVOICE3-INSTALL] ERROR dynamic public-API smoke receipt timeout\n'
+                return 5
+            fi
+            sleep 5
+        done
+        for WAV_NAME in dynamic-default.wav dynamic-reference.wav; do
+            xcrun devicectl device copy from --device "$DEVICE_ID" --domain-type appDataContainer --domain-identifier "$BUNDLE_ID" --source "Documents/$WAV_NAME" --destination "$DYNAMIC_EVIDENCE/$WAV_NAME" || return $?
+        done
+        EXPECTED_SOURCE_COMMIT="$(git -C "$ROOT/.." rev-parse HEAD)"
+        "$PYTHON_BIN" - "$DYNAMIC_RECEIPT" "$EXPECTED_SOURCE_COMMIT" <<'PY'
+import json,sys
+r=json.load(open(sys.argv[1]));expected=sys.argv[2]
+assert r["status"]=="PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",r.get("status")
+assert r.get("sourceCommit")==expected,(r.get("sourceCommit"),expected)
+assert str(r.get("profile","")).startswith("ios18-dynamic-"),r.get("profile")
+lo,hi=map(int,r["speechTokenBounds"])
+for lane in ("default","reference"):
+    n=int(r[lane]["inferredSpeechTokensFromPCM"])
+    assert lo<=n<=hi,(lane,n,lo,hi)
+    assert int(r[lane]["samples"])==960*n,(lane,r[lane]["samples"],n)
+assert r.get("flowSteps")==6,r.get("flowSteps")
+assert r.get("productionPromotion") is False,r.get("productionPromotion")
+print("DYNAMIC_PUBLIC_API_STATUS",r["status"])
+print("PROFILE",r["profile"])
+print("N_BOUNDS",r["speechTokenBounds"])
+print("DEFAULT_N",r["default"]["inferredSpeechTokensFromPCM"],"SAMPLES",r["default"]["samples"])
+print("REFERENCE_N",r["reference"]["inferredSpeechTokensFromPCM"],"SAMPLES",r["reference"]["samples"])
+print("SOURCE_COMMIT",r["sourceCommit"])
+PY
+        printf '[COSYVOICE3-INSTALL] PASS dynamic evidence=%s\n' "$DYNAMIC_EVIDENCE"
+        printf '[COSYVOICE3-INSTALL] WAV default=%s reference=%s\n' "$DYNAMIC_EVIDENCE/dynamic-default.wav" "$DYNAMIC_EVIDENCE/dynamic-reference.wav"
     elif [ "$FLOW_STEPS_HEAD_TO_HEAD" = "1" ]; then
         printf '[COSYVOICE3-INSTALL] App auto-runs Flow 10/8/6 head-to-head. Retrieve Documents/flow-steps-head-to-head-receipt.json and flow-steps-{10,8,6}.wav.\n'
     elif [ "$CANDIDATE_BENCHMARK" = "1" ]; then
@@ -232,3 +292,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: dynamic smoke exact-stages candidate runtime bytes automatically when the active manifest already carries PASS_DEVICE_PARITY reference enrollment; otherwise it falls back to host-approved local reference staging.
 
 # Changes 2026-10-04: if explicit reference WAV/transcript or default host receipt is unavailable, safely copy prior DeviceSmoke staged inputs into ios/.work before staging replaces GeneratedAssets; explicit environment values remain authoritative.
+
+# Changes 2026-10-04: dynamic smoke now polls the physical app receipt in foreground, retrieves both WAVs, and fail-closed verifies PASS status, exact Git HEAD binding, dynamic profile, N bounds, PCM=960*N, Flow6 and non-promotion before returning success.
