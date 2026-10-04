@@ -132,3 +132,10 @@ Prompt：native设备text->PCM并验证原数值gate。
 修改文件：ios/experiments/dynamic-acoustic/validate_physical_text.py；历史工作记录.txt。
 验证：设备N151/164/186/225 samples144960/157440/178560/216000；无shape resolution错误。新validator语法检查/git diff --check通过；nativeTEXT运行中；原cap225和frozenassets不变。
 GitHub Timeline：dda42fb已push；新validator即将commit/push。
+
+时间：2026-10-04 01:00 EDT (America/New_York)
+Prompt：中间runtime失败自主修复，不改模型语义。
+动作：读取nativeTEXT durable receipt，失败在real_text_llm_0/prefill execution-plan -14，尚无token；保存失败machine evidence。isolated text generator增加明确LLM CPU_ONLY/CPU_AND_NE选项；下一次LLM CPU_ONLY，acoustic仍CPU_AND_NE，无hidden fallback。旧library/cache/log保留，生成新v2copy。
+修改文件：prepare_text_probe.py；实验Xcodeproject；evidence/physical-real-text-v1-failed.json/physical-llm-prefill-v1-failed.json/index；历史工作记录.txt。
+验证：旧扩展acoustic四长度device已PASS；本次错误不是acousticshape failure，不修改权重/RAS/cap/tokenizer。CPU_ONLY修复待build/device验证。
+GitHub Timeline：6be80a9已push；本次明确backend实验即将commit/push。

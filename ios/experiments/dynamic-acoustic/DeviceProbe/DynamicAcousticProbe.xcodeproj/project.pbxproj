@@ -137,7 +137,7 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCLocalSwiftPackageReference section */
-    D20000000000000000000008 = {isa = XCLocalSwiftPackageReference; relativePath = "../../../.work/dynamic-acoustic/text-device-library-v1"; };
+    D20000000000000000000008 = {isa = XCLocalSwiftPackageReference; relativePath = "../../../.work/dynamic-acoustic/text-device-library-v2"; };
 /* End XCLocalSwiftPackageReference section */
 /* Begin XCSwiftPackageProductDependency section */
     D20000000000000000000009 = {isa = XCSwiftPackageProductDependency; productName = TextProbeRuntime; };

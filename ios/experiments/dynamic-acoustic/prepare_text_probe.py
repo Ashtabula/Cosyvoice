@@ -5,7 +5,7 @@ from pathlib import Path
 from probe_symbolic_conditions import ROOT,sha
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--library',action='store_true');p.add_argument('--llm-backend',choices=('CPU_ONLY','CPU_AND_NE'),default='CPU_AND_NE');a=p.parse_args()
     a.output.mkdir(parents=True,exist_ok=False)
     dest=a.output/'Sources/Probe';shutil.copytree(ROOT/'ios/Sources/CosyVoice3Core',dest)
     llm=dest/'CosyVoice3LLMRuntime.swift';s=llm.read_text()
@@ -63,6 +63,13 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
  dependencies:[.package(url:"https://github.com/huggingface/swift-transformers.git",exact:"1.3.4")],
  targets:[.executableTarget(name:"Probe",dependencies:[.product(name:"Tokenizers",package:"swift-transformers")],linkerSettings:[.linkedFramework("CoreML"),.linkedFramework("AVFoundation"),.linkedFramework("Accelerate")])])
 ''')
+    engine_source=engine.read_text()
+    marker='// Experiment-only diagnostics in this isolated copy; production code remains unchanged.'
+    before,diagnostics=engine_source.split(marker,1)
+    if a.llm_backend=='CPU_ONLY':
+        diagnostics=diagnostics.replace('path:manifest.llmPrefill)','path:manifest.llmPrefill,computeUnits:.cpuOnly)').replace('path:manifest.llmDecode)','path:manifest.llmDecode,computeUnits:.cpuOnly)')
+    diagnostics=diagnostics.replace('"sampling":"unchanged native SystemRandomNumberGenerator RAS"','"llmBackend":"'+a.llm_backend+'", "sampling":"unchanged native SystemRandomNumberGenerator RAS"')
+    engine.write_text(before+marker+diagnostics)
     if a.library:
         (dest/'Entry.swift').unlink()
         package=(a.output/'Package.swift').read_text()
@@ -72,7 +79,7 @@ let package=Package(name:"DynamicTextProbe",platforms:[.macOS(.v15)],
     identity={'sourceCommit':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),
               'sdkSourceHashes':{f.name:sha(f) for f in (ROOT/'ios/Sources/CosyVoice3Core').glob('*.swift')},
               'instrumentation':'stop token/reason only; unchanged cap225/native RAS; no shipping edits',
-              'generatorSha256':sha(Path(__file__))}
+              'llmBackend':a.llm_backend,'generatorSha256':sha(Path(__file__))}
     (a.output/'identity.json').write_text(json.dumps(identity,indent=2)+'\n');print(json.dumps(identity,indent=2))
 if __name__=='__main__':main()
 # Purpose: make reviewable real-text provenance using an isolated instrumented copy.
@@ -81,3 +88,6 @@ if __name__=='__main__':main()
 
 # 2026-10-04: optional isolated iOS library for same native real-text generation
 # in physical probe; no production target or SDK edits.
+
+# 2026-10-04: explicit experiment-only LLM backend selection; no hidden fallback
+# after physical CPU_AND_NE prefill execution-plan -14. RAS and cap unchanged.

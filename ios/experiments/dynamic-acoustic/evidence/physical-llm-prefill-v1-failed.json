@@ -1,0 +1,10 @@
+{
+  "error" : "Probe.CosyVoice3AssetError.compiledCache(\"MLModel load failed path=models\/llm-opt-perlayer-prefill.mlpackage computeUnits=MLComputeUnits(rawValue: 3) compiled=c067255eb290c75380c210ddb6c556d0d9d3169d3a57b3321d217c8c3429f4d0.mlmodelc error=Error Domain=com.apple.CoreML Code=0 \\\"Failed to build the model execution plan using a model architecture file \\'\/private\/var\/mobile\/Containers\/Data\/Application\/ED33AFE1-EB85-4430-BECF-F1AFE8CFA8D7\/Library\/Caches\/CosyVoice3Core\/CompiledModels-v1\/c067255eb290c75380c210ddb6c556d0d9d3169d3a57b3321d217c8c3429f4d0.mlmodelc\/model.mil\\' with error code: -14.\\\" UserInfo={NSLocalizedDescription=Failed to build the model execution plan using a model architecture file \\'\/private\/var\/mobile\/Containers\/Data\/Application\/ED33AFE1-EB85-4430-BECF-F1AFE8CFA8D7\/Library\/Caches\/CosyVoice3Core\/CompiledModels-v1\/c067255eb290c75380c210ddb6c556d0d9d3169d3a57b3321d217c8c3429f4d0.mlmodelc\/model.mil\\' with error code: -14.}\")",
+  "logicalPrefixLength" : 23,
+  "maximumSpeechTokenCount" : 225,
+  "minimumSpeechTokenCount" : 28,
+  "productionPromotion" : false,
+  "sampling" : "unchanged native SystemRandomNumberGenerator RAS",
+  "status" : "FAIL",
+  "text" : "This is a CosyVoice3 production clean-room public API validation."
+}

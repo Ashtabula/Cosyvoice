@@ -72,6 +72,14 @@
       "bytes": 13507,
       "sha256": "b10a856554c3a96d71a78641e126355d04590d988fc901558378c2d711482af6"
     },
+    "physical-llm-prefill-v1-failed.json": {
+      "bytes": 1302,
+      "sha256": "964ec2b35e4befd3be72dcd8ea701179557fb67641c8a4b69cc8c7253176bdad"
+    },
+    "physical-real-text-v1-failed.json": {
+      "bytes": 9684,
+      "sha256": "675848ca9932c383671af058b0c92361b3afc531d6df919b9030a2922b155b83"
+    },
     "shard0-exported-graph.txt": {
       "bytes": 41020,
       "sha256": "2fb7dbaab10c4f1c765a9432c2afa9c4f64ec9286db6d6e461a0ef589dbba135"
