@@ -19,6 +19,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     private let flowNoiseMaximum: MLMultiArray
     private let hiftExcitationMaximum: MLMultiArray
     private let flowStepCount: Int
+    private let progress: (@Sendable (String) -> Void)?
 
     init(
         conditions: MLModel,
@@ -31,7 +32,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         defaultSpeaker: MLMultiArray,
         flowNoiseMaximum: MLMultiArray,
         hiftExcitationMaximum: MLMultiArray,
-        flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue
+        flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue,
+        progress: (@Sendable (String) -> Void)? = nil
     ) throws {
         try contract.validate()
         guard shards.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [shards.count]) }
@@ -57,6 +59,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         self.flowNoiseMaximum = flowNoiseMaximum
         self.hiftExcitationMaximum = hiftExcitationMaximum
         self.flowStepCount = flowStepCount
+        self.progress = progress
     }
 
     func synthesize(speechTokens: [Int], prepared: CosyVoice3PreparedRequest) async throws -> CosyVoice3Audio {
@@ -89,6 +92,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             speaker = defaultSpeaker
         }
 
+        progress?("acoustic.conditions.begin:N=\(n):T=\(tFrames)")
         let conditionResult = try await conditions.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
             "tokens": tokens,
             "prompt_tokens": promptTokens,
@@ -101,6 +105,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
         guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
         guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
+        progress?("acoustic.conditions.end:N=\(n):T=\(tFrames)")
 
         var x = flowNoisePrefix(frameCount: tFrames)
         let mask = try ones(shape: [2,1,tFrames])
@@ -111,6 +116,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         var dt = span[1] - span[0]
 
         for step in 0..<flowStepCount {
+            progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).begin:N=\(n):T=\(tFrames)")
             let batchPointer = batchX.dataPointer.assumingMemoryBound(to: Float.self)
             x.withUnsafeBufferPointer {
                 batchPointer.update(from: $0.baseAddress!, count: x.count)
@@ -151,6 +157,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             }
             currentT += dt
             if step < flowStepCount - 1 { dt = span[step + 2] - currentT }
+            progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).end:N=\(n):T=\(tFrames)")
         }
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
 
@@ -162,8 +169,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             }
         }
 
+        progress?("acoustic.f0.begin:G=\(g)")
         let f0Values = try f0.prediction(mel: mel)
         guard f0Values.shape.map(\.intValue) == [1,g] else { throw CosyVoice3AcousticError.invalidShape("f0", f0Values.shape.map(\.intValue)) }
+        progress?("acoustic.f0.end:G=\(g)")
 
         let phase = try MLMultiArray(shape: [1,NSNumber(value:g),9], dataType: .float32)
         let phasePointer = phase.dataPointer.assumingMemoryBound(to: Float.self)
@@ -178,6 +187,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
         let excitation = try hiftExcitationPrefix(sampleCount: samplesCount)
         let norm = try overlapAddNorm(sampleCount: samplesCount)
+        progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
         let hiftResult = try await hift.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
             "mel": mel, "f0": f0Values, "phase": phase, "noise": excitation, "norm": norm
         ]))
@@ -186,6 +196,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let samples = Self.floatValues(pcm)
         guard samples.count == samplesCount else { throw CosyVoice3AcousticError.invalidPCMCount(samples.count) }
         guard samples.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("pcm") }
+        progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
         return .init(samples: samples, sampleRate: Self.sampleRate, channels: 1)
     }
 
@@ -272,3 +283,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Runtime environment: iOS18+/macOS15+ CoreML; request-scoped model lifetime is owned by CosyVoice3Engine.
 // Generated time: 2026-10-04 America/New_York.
 // Changes: variable N/T/G/PCM shapes; generic default/custom reference conditioning; manifest-bound max Flow noise and HiFT excitation prefixes; no zero-buffer fallback, padding, bucket substitution, or production promotion claim.
+
+// Changes 2026-10-04: optional nil-default validation progress marks Conditions, each Euler Flow step, F0 and HiFT boundaries; tensor math, model inputs and production behavior are unchanged.
