@@ -124,11 +124,13 @@ print("PROFILE =",m["profile"])
 print("DYNAMIC =",m["dynamicAcoustic"])
 print("RECEIPT_STATUS =",r["status"])
 print("FLOW_PREFIX_EXACT =",r["flowNoiseN225PrefixExact"])
-print("HIFT_PREFIX_EXACT =",r["hiftExcitationN225PrefixExact"])
+print("HIFT_SOURCE_POLICY =",r["hiftExcitationSourcePolicy"])
+print("HIFT_N225_PREFIX_SHA256 =",r["hiftExcitationN225PrefixSha256"])
 print("PRODUCTION_PROMOTION =",r["productionPromotion"])
 assert r["status"]=="PASS_DYNAMIC_CANDIDATE_ASSET_ROOT_BUILT_NOT_PROMOTED"
 assert r["flowNoiseN225PrefixExact"] is True
-assert r["hiftExcitationN225PrefixExact"] is True
+assert r["hiftExcitationHistoricalExactClaim"] is False
+assert str(r["hiftExcitationSourcePolicy"]).startswith("pinned upstream HiFT")
 assert r["productionPromotion"] is False
 PY
 
