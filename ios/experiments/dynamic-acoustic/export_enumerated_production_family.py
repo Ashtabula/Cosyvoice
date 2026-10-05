@@ -594,8 +594,15 @@ def verify_multifunction_load(packages: list[Path], receipt: dict) -> None:
                 compute_units=ct.ComputeUnit.CPU_ONLY,
             )
             spec = model.get_spec()
-            actual_inputs = sorted(feature.name for feature in spec.description.input)
-            actual_outputs = sorted(feature.name for feature in spec.description.output)
+            descriptions = [description for description in spec.description.functions if description.name == function_name]
+            if len(descriptions) != 1:
+                raise RuntimeError(
+                    f"multifunction description mismatch package={package.name} function={function_name} "
+                    f"availableFunctions={[description.name for description in spec.description.functions]}"
+                )
+            description = descriptions[0]
+            actual_inputs = sorted(feature.name for feature in description.input)
+            actual_outputs = sorted(feature.name for feature in description.output)
             if actual_inputs != expected_inputs or actual_outputs != expected_outputs:
                 raise RuntimeError(
                     f"multifunction ABI mismatch package={package.name} function={function_name} "
@@ -1189,7 +1196,7 @@ if __name__ == "__main__":
 
 # Changes 2026-10-05: N225 enumerated HiFT now runs an independent same-input Core ML oracle against the exact immutable accepted schema-2 dynamic HiFT package. relativeL2 must remain <=0.02, so an incorrect local hift.pt cannot pass merely by agreeing with its own PyTorch source body.
 
-# Changes 2026-10-05: host multifunction ABI validation reads selected-function feature names from MLModel.get_spec().description.input/output; coremltools 9 input_description/output_description are _FeatureDescription objects, not mappings, so .keys() is invalid.
+# Changes 2026-10-05: host multifunction ABI validation reads the selected FunctionDescription from MLModel.get_spec().description.functions. Multifunction model-level description.input/output are intentionally empty; each named function owns its input/output ABI.
 
 # Changes 2026-10-05: pinned upstream validation accepts only the canonical exact-blob-gated rebuild sanitation recorded by source-hygiene.json, verifies the sanitized source/Matcha file SHA256 values and exact Matcha commit, rejects any additional tracked modification, and still rejects recursive submodule commit drift marked +, -, or U.
 
