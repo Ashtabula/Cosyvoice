@@ -203,3 +203,10 @@ Actions: replace hundreds of fixed-width per-prefix LLM mask/providers with one 
 Files: CosyVoice3FP16StatefulLLMSession.swift; FixedDecodeMaskTests.swift.
 Validation: 45 Release tests, 2 skipped, zero failures; all positions for width449/512 and logical32/151/224 match original FP16 masks bit for bit; overflow rejects. Physical benchmark pending.
 GitHub Timeline: uncommitted at write; commit/push performance revision next; frozen asset unchanged.
+
+Time: 2026-10-05 America/New_York
+Prompt: frozen Cosy speed optimization after Vox skip.
+Actions: independent opt-in COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION=1 changes only Flow shard specialization hint; default accepted route unchanged, no new retention, no CPU/GPU/NE policy change. Add fixed-input complete acoustic PCM parity at N186/N225 with identical default conditioning/noise.
+Files: AssetLoader, DynamicAcousticRuntime, FlowSpecializationParityTests.
+Validation: host complete PCM maxAbs0 both lengths; N186 wall12.5781->10.4248s, N2259.99089->9.35474s; cold/cache ordering confounded, host only. Physical hint not yet run; no production promotion.
+GitHub Timeline: commit/push isolated experimental code next; baseline unchanged, no asset upload.

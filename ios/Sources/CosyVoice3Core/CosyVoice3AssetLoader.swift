@@ -191,13 +191,15 @@ enum CosyVoice3AssetLoader {
         root: URL,
         path: String,
         computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
-        reshapeFrequencyInfrequent: Bool = false
+        reshapeFrequencyInfrequent: Bool = false,
+        preferFastPrediction: Bool = false
     ) throws -> MLModel {
         let source = root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
+        if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
         }
@@ -214,12 +216,13 @@ enum CosyVoice3AssetLoader {
         try model(root: root, path: path, computeUnits: CosyVoice3ModelComputePlacement.llm)
     }
 
-    static func dynamicAcousticModel(root: URL, path: String) throws -> MLModel {
+    static func dynamicAcousticModel(root: URL, path: String, preferFastPrediction: Bool = false) throws -> MLModel {
         try model(
             root: root,
             path: path,
             computeUnits: CosyVoice3ModelComputePlacement.acoustic,
-            reshapeFrequencyInfrequent: true
+            reshapeFrequencyInfrequent: true,
+            preferFastPrediction: preferFastPrediction
         )
     }
 
@@ -416,3 +419,7 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-04: centralize validated mixed compute placement. Stateful LLM warm/load is CPU_ONLY to avoid physical iPhone Core ML -14; acoustic defaults remain CPU_AND_NE; reference encoders remain CPU_ONLY. Added llmModel()/WarmSpec.llm so call sites cannot silently inherit acoustic placement.
 
 // Changes 2026-10-04: dynamic acoustic model configuration now matches the physically accepted shape-sweep probe by setting optimizationHints.reshapeFrequency=.infrequent for both warm and prediction loads. The hint participates in warm-marker identity; fixed225/LLM/reference behavior is unchanged unless explicitly selected.
+
+// Purpose: explicit specialization hint for independent validation; default remains accepted behavior.
+// Upstream: existing CoreML loader; environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York.
+// Changed model/dynamicAcousticModel optional hint arguments only; compute units unchanged.
