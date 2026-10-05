@@ -240,33 +240,6 @@ def main() -> None:
     evidence_path = output / "enumerated-production-device-evidence.json"
     json_write(evidence_path, evidence)
 
-    if not args.skip_variable_smoke:
-        started = time.time()
-        process = launch_with_console(
-            args.device,
-            args.bundle,
-            output / "variable-public-api-console.log",
-            ["--no-playback"],
-        )
-        receipt = wait_receipt(
-            device=args.device,
-            bundle=args.bundle,
-            filename="variable-public-api-smoke-receipt.json",
-            output=output,
-            process=process,
-            started=started,
-            timeout=args.timeout,
-        )
-        for name in ("variable-default.wav", "variable-reference.wav"):
-            copy_from(args.device, args.bundle, "Documents/" + name, output / name)
-        evidence["runs"]["variablePublicAPI"] = {
-            "status": receipt["status"],
-            "receiptSha256": sha256(output / "variable-public-api-smoke-receipt.json"),
-            "defaultWavSha256": sha256(output / "variable-default.wav"),
-            "referenceWavSha256": sha256(output / "variable-reference.wav"),
-        }
-        json_write(evidence_path, evidence)
-
     if not args.skip_candidate_benchmark:
         started = time.time()
         process = launch_with_console(
@@ -296,6 +269,35 @@ def main() -> None:
         }
         json_write(evidence_path, evidence)
 
+
+    if not args.skip_variable_smoke:
+        started = time.time()
+        process = launch_with_console(
+            args.device,
+            args.bundle,
+            output / "variable-public-api-console.log",
+            ["--no-playback"],
+        )
+        receipt = wait_receipt(
+            device=args.device,
+            bundle=args.bundle,
+            filename="variable-public-api-smoke-receipt.json",
+            output=output,
+            process=process,
+            started=started,
+            timeout=args.timeout,
+        )
+        for name in ("variable-default.wav", "variable-reference.wav"):
+            copy_from(args.device, args.bundle, "Documents/" + name, output / name)
+        evidence["runs"]["variablePublicAPI"] = {
+            "status": receipt["status"],
+            "receiptSha256": sha256(output / "variable-public-api-smoke-receipt.json"),
+            "defaultWavSha256": sha256(output / "variable-default.wav"),
+            "referenceWavSha256": sha256(output / "variable-reference.wav"),
+        }
+        json_write(evidence_path, evidence)
+
+
     evidence["status"] = "PASS_ENUMERATED_PRODUCTION_DEVICE_VALIDATION"
     evidence["completedAtUnix"] = int(time.time())
     json_write(evidence_path, evidence)
@@ -314,3 +316,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: match the already validated devicectl copy grammar exactly: copy to/from subcommand precedes appDataContainer domain flags.
 
 # Changes 2026-10-05: automated variable smoke and Candidate benchmark now pass --no-playback. Candidate app itself requires nominal thermal start, so validation cannot silently accept a smoke-heated performance run.
+
+# Changes 2026-10-05: run the strict nominal-start Candidate benchmark before any full synthesis smoke. Correctness default/reference smoke runs afterward, so its compute heat cannot contaminate cold/warm performance evidence.
