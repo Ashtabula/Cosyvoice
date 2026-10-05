@@ -274,12 +274,13 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     progress: validationProgressObserver
                 )
                 let tokens = try llm.generate(prepared)
-                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
                 validationProgress("llm.generate.end:N=\(tokens.count)")
                 return tokens
             } catch {
-                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits)
+                guard CosyVoice3AssetLoader.isRetryableCoreMLFailure(error) else { throw error }
+                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 guard models.computeUnits != .cpuOnly else { throw error }
                 validationProgress("llm.accelerator.failed:fallback=CPU_ONLY:error=\(String(describing: error))")
                 let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
@@ -297,7 +298,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     progress: validationProgressObserver
                 )
                 let tokens = try fallback.generate(prepared)
-                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly, routeKey: models.routeKey)
                 llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
                 validationProgress("llm.generate.end:N=\(tokens.count):fallback=CPU_ONLY")
                 return tokens
@@ -446,11 +447,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     progress: validationProgressObserver
                 )
                 let tokens = try llm.generate(prepared)
-                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
                 return tokens
             } catch {
-                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits)
+                guard CosyVoice3AssetLoader.isRetryableCoreMLFailure(error) else { throw error }
+                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 guard models.computeUnits != .cpuOnly else { throw error }
                 let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
                 let prefill = try CosyVoice3AssetLoader.model(
@@ -467,7 +469,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     progress: validationProgressObserver
                 )
                 let tokens = try fallback.generate(prepared)
-                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly, routeKey: models.routeKey)
                 llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
                 return tokens
             }
@@ -860,3 +862,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04 performance candidate: both production and validation LLM call sites use one process-cached common compute route selected by llmModelPair(); model/state/RAS/public API remain unchanged.
 
 // Changes 2026-10-04 performance candidate follow-up: accelerator-route LLM generation is fail-closed with a fresh CPU_ONLY state/session retry on prediction/execution-plan failure; CPU fallback is cached only after successful generation. Public stochastic sampling semantics and model bytes remain unchanged.
+
+// Changes 2026-10-05: only retry LLM generation on classified Core ML load/execution failures; sampler, contract and engine logic errors now propagate directly. Confirm/reject calls are scoped to the exact asset route key.
