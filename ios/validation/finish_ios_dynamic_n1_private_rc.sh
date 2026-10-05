@@ -170,7 +170,7 @@ out={
  "schemaVersion":1,"status":"PASS_DYNAMIC_PRIVATE_RC_IMMUTABLE_REPLAY",
  "profile":m["profile"],"version":m["assetVersion"],"repoId":u["repoId"],"revision":u["commit"],"tag":u["tag"],
  "visibility":"private","payloadTreeSha256":m["payloadTreeSha256"],"testedRuntimeTreeSha256":m["testedRuntimeTreeSha256"],
- "validatedRuntimeSourceCommit":m["validatedRuntimeSourceCommit"],"ordinaryDeveloperFetchPass":True,
+ "validatedRuntimeSourceCommit":m["validatedRuntimeSourceCommit"],"conversionProvenance":m.get("conversionProvenance"),"ordinaryDeveloperFetchPass":True,
  "publicApiDefaultReplayPass":True,"publicApiReferenceReplayPass":True,
  "device":{"model":d.get("device"),"modelIdentifier":d.get("deviceModelIdentifier"),"systemVersion":d.get("systemVersion")},
  "default":{"N":d["default"]["inferredSpeechTokensFromPCM"],"samples":d["default"]["samples"]},
@@ -200,3 +200,5 @@ test "$RC" -eq 0
 # Changes: new dynamic RC closure; raw validation reference files are never uploaded and license/public redistribution remain pending.
 
 # Changes 2026-10-04: private-RC closure is rerun-safe after partial failures: stage first, reuse an existing private upload receipt only when exact payload/runtime-tree/profile/version/repo hashes match, otherwise upload a new RC.
+
+# Changes 2026-10-04: immutable private-RC evidence carries the asset manifest's historical conversion provenance so Candidate environment receipts can distinguish it from clean-room build/consumer requirements.
