@@ -38,9 +38,8 @@ def json_write(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
 
 
-def device_copy_base(device: str, bundle: str) -> list[str]:
+def device_copy_domain(device: str, bundle: str) -> list[str]:
     return [
-        "xcrun", "devicectl", "device", "copy",
         "--device", device,
         "--domain-type", "appDataContainer",
         "--domain-identifier", bundle,
@@ -48,16 +47,22 @@ def device_copy_base(device: str, bundle: str) -> list[str]:
 
 
 def copy_to(device: str, bundle: str, source: Path, destination: str) -> None:
-    run(device_copy_base(device, bundle) + [
-        "to", "--source", source.resolve(), "--destination", destination
+    run([
+        "xcrun", "devicectl", "device", "copy", "to",
+        *device_copy_domain(device, bundle),
+        "--source", source.resolve(),
+        "--destination", destination,
     ])
 
 
 def copy_from(device: str, bundle: str, source: str, destination: Path) -> None:
     if destination.exists():
         destination.unlink()
-    run(device_copy_base(device, bundle) + [
-        "from", "--source", source, "--destination", destination
+    run([
+        "xcrun", "devicectl", "device", "copy", "from",
+        *device_copy_domain(device, bundle),
+        "--source", source,
+        "--destination", destination,
     ])
 
 
@@ -305,3 +310,5 @@ if __name__ == "__main__":
 # Runtime environment: macOS Apple Silicon, Xcode 27+, Python 3, connected physical iPhone, valid Apple development team.
 # Generated time: 2026-10-05 America/New_York.
 # Changed lines: new file; exact Git/manifest/host-receipt binding, external asset staging, variable public API default/reference run, Candidate cold/warm run, durable evidence JSON and console logs.
+
+# Changes 2026-10-05: match the already validated devicectl copy grammar exactly: copy to/from subcommand precedes appDataContainer domain flags.
