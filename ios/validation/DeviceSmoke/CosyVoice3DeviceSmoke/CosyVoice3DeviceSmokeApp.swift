@@ -75,6 +75,20 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private var player: AVAudioPlayer?
     private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
 
+    private var automatedNoPlayback: Bool {
+        ProcessInfo.processInfo.arguments.contains("--no-playback")
+    }
+
+    private static func thermalName(_ state: ProcessInfo.ThermalState) -> String {
+        switch state {
+        case .nominal: return "nominal"
+        case .fair: return "fair"
+        case .serious: return "serious"
+        case .critical: return "critical"
+        @unknown default: return "unknown"
+        }
+    }
+
     func runAutoMode() async {
         let idleSetting = UIApplication.shared.isIdleTimerDisabled
         UIApplication.shared.isIdleTimerDisabled = true
@@ -302,7 +316,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             if let referenceReport { receipt["referenceReport"] = Self.reportDictionary(referenceReport) }
             let url = try Self.receiptURL("variable-public-api-smoke-receipt.json")
             receiptJSON = try Self.write(receipt, to: url)
-            try play(referenceAudio)
+            if !automatedNoPlayback { try play(referenceAudio) }
             status = "PASS variable default N=\(defaultN) reference N=\(referenceN) receipt=\(url.path)"
         } catch {
             Self.recordFailure(error, filename:"variable-public-api-smoke-receipt.json", into:self)
@@ -313,6 +327,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
         if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
         do {
+            let thermalStart = ProcessInfo.processInfo.thermalState
+            guard thermalStart == .nominal else {
+                throw SmokeError("Candidate benchmark requires thermal nominal at start; actual=\(Self.thermalName(thermalStart))")
+            }
             let fixture = try Self.fixture()
             let activeManifest = try Self.activeManifest(runtime: fixture.runtime)
             let activeProfile = activeManifest.profile
@@ -333,7 +351,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
             let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
-            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
+            let thermalEnd = ProcessInfo.processInfo.thermalState
+            var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false]
             if let speechTokenBounds, let variable {
                 receipt["speechTokenBounds"] = speechTokenBounds
                 receipt["acousticShapeMode"] = variable.acousticShapeMode
@@ -365,7 +384,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
-            let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url); try play(repeatAudio)
+            let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url)
+            if !automatedNoPlayback { try play(repeatAudio) }
             status = String(format:"PASS Candidate first=%.3fs RTF=%.3f repeat=%.3fs RTF=%.3f receipt=%@",firstMilliseconds/1000,firstMilliseconds/1000/firstDuration,repeatMilliseconds/1000,repeatMilliseconds/1000/repeatDuration,url.path)
         } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
     }
@@ -750,3 +770,5 @@ private extension Data {
 // Changes 2026-10-05: generalize physical public-API validation and Candidate benchmark to schema-3 exact EnumeratedShapes. Active manifest precedence matches the SDK; receipts record exact EOS-derived N and selected multifunction name, no padding/crop, N450/62-prefix production contract, while schema-2 RangeDim remains a comparison path.
 
 // Changes 2026-10-05: external Documents staging now accepts either immutable hosted asset-manifest binding or an exact local schema-3 cosyvoice3_enumerated.json SHA binding, enabling multi-GB production-candidate device validation without bundling assets into the app.
+
+// Changes 2026-10-05: automated enumerated validation supports --no-playback; Candidate benchmark now fail-closes unless thermalStart is nominal and records thermalStart/thermalEnd plus playbackDuringBenchmark=false so smoke playback cannot contaminate performance evidence.
