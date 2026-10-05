@@ -52,12 +52,33 @@ print("[COSYVOICE3-DYNAMIC-RC] HF identity="+repr(name),flush=True)
 if name!="actacomes": raise SystemExit("Hugging Face login must be actacomes")
 PY
 
-    printf '[COSYVOICE3-DYNAMIC-RC] STEP 1/7 stage and upload private RC\n'
+    printf '[COSYVOICE3-DYNAMIC-RC] STEP 1/7 stage and upload/reuse private RC\n'
     rm -rf "$RELEASE_ROOT"
     "$PYTHON" "$ROOT/tools/publish_huggingface_ios_dynamic_n1.py" \
         --version "$VERSION" --repo-id "$REPO_ID" --source-assets "$SOURCE_ASSETS" \
         --lower-bound-receipt "$LOWER_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
-        --listening-receipt "$LISTENING_RECEIPT" --upload || return $?
+        --listening-receipt "$LISTENING_RECEIPT" || return $?
+    local reuse_upload=0
+    if [ -s "$UPLOAD_RECEIPT" ]; then
+        if "$PYTHON" - "$UPLOAD_RECEIPT" "$RELEASE_ROOT/asset-manifest.json" "$VERSION" "$REPO_ID" <<'PY'
+import json,re,sys
+from pathlib import Path
+r=json.loads(Path(sys.argv[1]).read_text());m=json.loads(Path(sys.argv[2]).read_text())
+ok=(r.get("status")=="PASS" and r.get("version")==sys.argv[3] and r.get("repoId")==sys.argv[4]
+    and r.get("profile")==m.get("profile") and r.get("payloadTreeSha256")==m.get("payloadTreeSha256")
+    and r.get("testedRuntimeTreeSha256")==m.get("testedRuntimeTreeSha256")
+    and r.get("visibility")=="private" and re.fullmatch(r"[0-9a-f]{40}",str(r.get("commit") or "")))
+print("[COSYVOICE3-DYNAMIC-RC] existing upload receipt "+("REUSE_PASS" if ok else "STALE"),flush=True)
+raise SystemExit(0 if ok else 1)
+PY
+        then reuse_upload=1; fi
+    fi
+    if [ "$reuse_upload" -ne 1 ]; then
+        "$PYTHON" "$ROOT/tools/publish_huggingface_ios_dynamic_n1.py" \
+            --version "$VERSION" --repo-id "$REPO_ID" --source-assets "$SOURCE_ASSETS" \
+            --lower-bound-receipt "$LOWER_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
+            --listening-receipt "$LISTENING_RECEIPT" --upload || return $?
+    fi
     [ -s "$UPLOAD_RECEIPT" ] || { fail "upload receipt missing: $UPLOAD_RECEIPT"; return 3; }
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 2/7 download exact immutable revision and verify payload\n'
@@ -177,3 +198,5 @@ test "$RC" -eq 0
 # Runtime environment: canonical macOS Apple-Silicon release host, authenticated actacomes Hugging Face, Xcode, connected physical iPhone.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new dynamic RC closure; raw validation reference files are never uploaded and license/public redistribution remain pending.
+
+# Changes 2026-10-04: private-RC closure is rerun-safe after partial failures: stage first, reuse an existing private upload receipt only when exact payload/runtime-tree/profile/version/repo hashes match, otherwise upload a new RC.
