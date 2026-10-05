@@ -162,7 +162,7 @@ def main() -> None:
     parser.add_argument("--host-receipt", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--team", required=True)
-    parser.add_argument("--bundle", default="com.actacomes.cosyvoice3.enumerated")
+    parser.add_argument("--bundle", default="com.actacomes.cosyvoice3.candidatebenchmark")
     parser.add_argument("--reuse-staging", action="store_true")
     parser.add_argument("--skip-variable-smoke", action="store_true")
     parser.add_argument("--skip-candidate-benchmark", action="store_true")
@@ -269,6 +269,7 @@ def main() -> None:
         "DEVELOPMENT_TEAM=" + args.team,
         "PRODUCT_BUNDLE_IDENTIFIER=" + args.bundle,
         "-allowProvisioningUpdates",
+        "-allowProvisioningDeviceRegistration",
         "build",
     ])
     app = derived / "Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app"
@@ -404,6 +405,8 @@ if __name__ == "__main__":
 # Changed lines: new file; exact Git/manifest/host-receipt binding, external asset staging, variable public API default/reference run, Candidate cold/warm run, durable evidence JSON and console logs.
 
 # Changes 2026-10-05: match the already validated devicectl copy grammar exactly: copy to/from subcommand precedes appDataContainer domain flags.
+
+# Changes 2026-10-05: enumerated physical benchmark reuses the already-provisioned candidate benchmark bundle ID instead of inventing a new App ID/profile; Xcode build also allows device registration consistently with the existing DeviceSmoke installer. Explicit --bundle override remains supported.
 
 # Changes 2026-10-05: automated variable smoke and Candidate benchmark now pass --no-playback. Candidate app itself requires nominal thermal start, so validation cannot silently accept a smoke-heated performance run.
 
