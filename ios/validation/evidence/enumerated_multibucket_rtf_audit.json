@@ -1,0 +1,1552 @@
+{
+  "G": 520,
+  "T": 822,
+  "acceleratorResidency": "requested placement only, residency not proven",
+  "actualLaunch": "[COSY-ENUMERATED-DEVICE] RUN xcrun devicectl device process launch --device 00008150-000A05CA1440401C --terminate-existing --console com.actacomes.cosyvoice3.candidatebenchmark -- --candidate-benchmark --no-playback --reset-cosy-cache --validation-enumerated-cpu-gpu --validation-placement=llmPrefill:CPU_AND_NE --validation-placement=llmDecode:CPU_AND_NE --reset-reference-conditioning",
+  "actualN": 260,
+  "actualRuntimeRoot": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime",
+  "architectureChecks": {
+    "allEightAcousticPackagesMultifunction": true,
+    "frozenPayloadVerified": true,
+    "noChangedShippingAssetFound": true,
+    "noExtractedSingleFunctionInRun": true,
+    "schema3MultiBucketVerified": true,
+    "selectedFunctionVerifiedAllEight": true
+  },
+  "artifacts": {
+    "baselineConsole": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/iphone-rtf-cpu-gpu/candidate-benchmark-console.log",
+      "sha256": "12a09b32f75ea860fa193409eec27d37f366d0204c1f27898c4f4ff227aa8e0d"
+    },
+    "baselineReceipt": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/iphone-rtf-cpu-gpu/candidate-benchmark-receipt.json",
+      "sha256": "7585bf698b65a7ad65e7a2b4aeceef5ad7247ab47133484bd67fca20ce33388f"
+    },
+    "baselineStaging": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/iphone-rtf-cpu-gpu/staging-complete.json",
+      "sha256": "2283edf800bed70604b067b618d6ffdfc1c09261f18e86eb0b6b0c8922216206"
+    },
+    "deviceReadbackExportReceipt": {
+      "path": "/private/tmp/cosy-multibucket-audit-20261005/Runtime/enumerated-production-export-receipt.json",
+      "sha256": "0eccfc865857e7240916d433e9e777ab04ff52848191c92a35faa052add8c49a"
+    },
+    "deviceReadbackManifest": {
+      "path": "/private/tmp/cosy-multibucket-audit-20261005/Runtime/cosyvoice3_enumerated.json",
+      "sha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee"
+    },
+    "runConsole": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-optimization/D-llm-ne/candidate-benchmark-console.log",
+      "sha256": "c039b720c7e3db208d645194e227c434755ae96965beb936e3ca51f753720450"
+    },
+    "runHostLog": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-optimization/D-llm-ne/host-run.log",
+      "sha256": "46806dc4ef31ed53f12be6d1b19a40950407307097c84381050a47c6e8f5cf26"
+    },
+    "runReceipt": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-optimization/D-llm-ne/candidate-benchmark-receipt.json",
+      "sha256": "5aa137b31e52e92b850078fdc81777c3177a0d4654b5eb4bed999675c7fa2361"
+    },
+    "runStaging": {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-optimization/D-llm-ne/staging-complete.json",
+      "sha256": "443efb3c794fcf9ba94abaded83dfd4de3a50cdb487c729f9942845ec2151881"
+    }
+  },
+  "auditGitHead": "0bae3df51b27b0f5089330ff529739220b71b030",
+  "auditedAt": "2026-10-05T19:50:37.109887-04:00",
+  "baselineGitHead": "782e79cdd455f71c5430f1256bd69253a0b0a2c2",
+  "benchmarkOrModelOrAssetCodeChangedDuringAudit": false,
+  "conclusion": "INVALID_COMPARISON",
+  "conclusionReason": "Strict whole-workload comparison cannot be certified from historical device evidence: exact input text is unrecorded, and historical reference bytes lack per-run hashes. Frozen schema-3 multifunction architecture and asset identity are verified; no changed acoustic asset or extracted package was found.",
+  "consoleGeometry": [
+    {
+      "line": 56,
+      "text": "[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384"
+    },
+    {
+      "line": 242,
+      "text": "[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384"
+    }
+  ],
+  "currentDeviceStaging": {
+    "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+    "diagnosticEnumeratedCompute": "cpu-gpu",
+    "diagnosticRuntimeChangedFiles": [
+      "ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"
+    ],
+    "experimentalSingleFunctionRoles": [],
+    "exportReceiptSha256": "0eccfc865857e7240916d433e9e777ab04ff52848191c92a35faa052add8c49a",
+    "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+    "logicalPrefixMaximumForFullSpeechWindow": 62,
+    "payloadBytes": 3530215890,
+    "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "productionPromotion": false,
+    "profile": "ios18-enumerated-n1-n450",
+    "recordedAtUnix": 1791243674,
+    "requestedRoleOverrides": [
+      "flow2:CPU_AND_NE"
+    ],
+    "runtimeManifestName": "cosyvoice3_enumerated.json",
+    "runtimeManifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "schemaVersion": 1,
+    "sourceCommit": "0bae3df51b27b0f5089330ff529739220b71b030",
+    "speechTokenBounds": [
+      1,
+      450
+    ],
+    "status": "LOCAL_ENUMERATED_VALIDATION_STAGING"
+  },
+  "currentDeviceStagingMeaning": "Later Flow placement marker, not the historical D placement. Frozen asset fields match; historical D placement is taken only from D receipt and its exact launch/console.",
+  "devicePayloadFiles": [
+    {
+      "bytes": 2824,
+      "path": "cosyvoice3_enumerated.json",
+      "sha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee"
+    },
+    {
+      "bytes": 96640,
+      "path": "dynamic-acoustic/default-prompt-feat.bin",
+      "sha256": "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2"
+    },
+    {
+      "bytes": 604,
+      "path": "dynamic-acoustic/default-prompt-tokens.bin",
+      "sha256": "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365"
+    },
+    {
+      "bytes": 768,
+      "path": "dynamic-acoustic/default-speaker.bin",
+      "sha256": "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c"
+    },
+    {
+      "bytes": 12115712,
+      "path": "embeddings/speech_embedding_fp16.bin",
+      "sha256": "bba6211cae2c3d500b2bcd9ded49403cc5dcf7f7415758e949f8140ffe4e034a"
+    },
+    {
+      "bytes": 272269312,
+      "path": "embeddings/text_embedding_fp16.bin",
+      "sha256": "a25aa22be223a26845be0e4c6309d159264263c922f9238b856d81391338323b"
+    },
+    {
+      "bytes": 384640,
+      "path": "enumerated-acoustic/buffers/flow-noise-max.f32",
+      "sha256": "a6af002bea580407dd769872146e6cae8df122fc5cfa788837426a270514e244"
+    },
+    {
+      "bytes": 15552000,
+      "path": "enumerated-acoustic/buffers/hift-excitation-max.f32",
+      "sha256": "faf69ec2eebcb9f9272b7371458670b65a2e28224bc0c442af3a81ec70cf16aa"
+    },
+    {
+      "bytes": 60069,
+      "path": "enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "2593af39a8074730ad08908e33144bd6c1ebb09c1789b0b6e1f3ba6990f9c1ce"
+    },
+    {
+      "bytes": 4459968,
+      "path": "enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/conditions.mlpackage/Manifest.json",
+      "sha256": "588d0f5e5396b6701d744e896f3b36eb6175badff8aaf95297b03f7ba9bcbc97"
+    },
+    {
+      "bytes": 440751,
+      "path": "enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "05339c2fb395a217029c93a49d7c60c0ea97bd198caaa6105a5b5638d5bfcb24"
+    },
+    {
+      "bytes": 128965248,
+      "path": "enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-0.mlpackage/Manifest.json",
+      "sha256": "92e4f842814a8a02b94117ab87c230c1da315200871ff154b97a463066677de5"
+    },
+    {
+      "bytes": 382605,
+      "path": "enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+    },
+    {
+      "bytes": 117550784,
+      "path": "enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-1.mlpackage/Manifest.json",
+      "sha256": "b195ba197830e53de4506d8d3c82a3c571957eb4d8a97c2f204ab36053d3e6b8"
+    },
+    {
+      "bytes": 382605,
+      "path": "enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+    },
+    {
+      "bytes": 117550784,
+      "path": "enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-2.mlpackage/Manifest.json",
+      "sha256": "ad52f8881c3a5021ae509b73a520747ff6c34ec1eb784fe0c91be9a244f9f260"
+    },
+    {
+      "bytes": 382605,
+      "path": "enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+    },
+    {
+      "bytes": 117550784,
+      "path": "enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-3.mlpackage/Manifest.json",
+      "sha256": "635736f2f2f580fcb70990425c95d9ab448c0f2b8dd4f6e803acd4afda5533f4"
+    },
+    {
+      "bytes": 382605,
+      "path": "enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+    },
+    {
+      "bytes": 117550784,
+      "path": "enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-4.mlpackage/Manifest.json",
+      "sha256": "5733618d53d7fa4524af23ff484cde0bb722e03cdc32a500f356130def6c905b"
+    },
+    {
+      "bytes": 229557,
+      "path": "enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "6540761c469d0e19d455ff2bd364ac23d27ccad12e4aa94d0e13ad35ee1653df"
+    },
+    {
+      "bytes": 63138144,
+      "path": "enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/flow-shard-5.mlpackage/Manifest.json",
+      "sha256": "d48584d4549317e5594cd10c5b489f7b500b90b441374227fe66fd95dc6a5e2b"
+    },
+    {
+      "bytes": 948674,
+      "path": "enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "47703a646b50ae92e4b8c203440ec8ddcb742cc8a1b964627038a3e219bc3499"
+    },
+    {
+      "bytes": 70087168,
+      "path": "enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2"
+    },
+    {
+      "bytes": 617,
+      "path": "enumerated-acoustic/hift.mlpackage/Manifest.json",
+      "sha256": "f59af892e05ef7ff86a712ebf71ad90f0309173bce98f9294341abbfcba040c1"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-0-bias.bin",
+      "sha256": "f2f04948183ffd666bd0cdae06e288889b97f3711a48556f4568886241fa6398"
+    },
+    {
+      "bytes": 1310720,
+      "path": "f0-double/f0-0-weight.bin",
+      "sha256": "c79c050c686aed35b78418ba5276b301e5fc06595cde70b4c7684fa934b2b3d4"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-1-bias.bin",
+      "sha256": "193d259f0e60b7b34365059dacda00825c4c2e4f8dfa2e1a6e3bc77b5b4165ab"
+    },
+    {
+      "bytes": 6291456,
+      "path": "f0-double/f0-1-weight.bin",
+      "sha256": "fc486b2a4148ed151d3e552bb3860046a51849acabc17c28fed31d93db9fdea0"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-2-bias.bin",
+      "sha256": "0304426c4427a9954aabdc03691f9741a95c7379b14cfc57282bb08fb3c6782e"
+    },
+    {
+      "bytes": 6291456,
+      "path": "f0-double/f0-2-weight.bin",
+      "sha256": "730c540cdb0423cda4a484e4c475563876e904f1b854f37fbd14ec1cc304ce57"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-3-bias.bin",
+      "sha256": "1d4a00044f3c1c3605b2e870aabef6c7707b9bfc7fba14f6dbb28cc094bb4e29"
+    },
+    {
+      "bytes": 6291456,
+      "path": "f0-double/f0-3-weight.bin",
+      "sha256": "2fb0e654d632b8f9625c1cd1a588f8612814679055b72c4796b17b7b12fe2e14"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-4-bias.bin",
+      "sha256": "ec884970bf7560e95028b7228ce27cb6b55b4375a7278db9cc54997846a053f0"
+    },
+    {
+      "bytes": 6291456,
+      "path": "f0-double/f0-4-weight.bin",
+      "sha256": "be97e7d547f6b8d8925c5c97daca4280da08033acbe78f01374513ce4aabcfb4"
+    },
+    {
+      "bytes": 8,
+      "path": "f0-double/f0-classifier-bias.bin",
+      "sha256": "6f02405f7bfee38ac0c84044d5a4423e67517e14235f5fa472e2c7f2a312c177"
+    },
+    {
+      "bytes": 4096,
+      "path": "f0-double/f0-classifier-weight.bin",
+      "sha256": "56fb75b37a0f03cde2479442498ef32b726a2d85d9ab07ed1404b4a3ebafa104"
+    },
+    {
+      "bytes": 585840,
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "f9e9a6b08e31c2578462e79fbfcd398a626c511b03384242c98d86ce1739d3f3"
+    },
+    {
+      "bytes": 727955794,
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "3310540b0f6ae95eb0319fe953cb51a74d01a6f279d3322b1a8dfb4ffb76e9a5"
+    },
+    {
+      "bytes": 617,
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Manifest.json",
+      "sha256": "4dc83d7a463ec567e0df065e24099ea15b82a0e68ec32999ae520c5738d446c8"
+    },
+    {
+      "bytes": 652886,
+      "path": "models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "e571823e0a7bb6ed3c0fa92cdc6b5c6fc0eb0323433ea70f035891d956555e5c"
+    },
+    {
+      "bytes": 727955794,
+      "path": "models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "957378ee364c6bd72436efd2100dc53a80ece28e503f87c78cf1bb8fc0b52e0d"
+    },
+    {
+      "bytes": 617,
+      "path": "models/llm-opt-perlayer-prefill.mlpackage/Manifest.json",
+      "sha256": "c762276679e3807dd561111b4c46d97cd1cf6221fd5b28f80b924c8d29a77f65"
+    },
+    {
+      "bytes": 601204,
+      "path": "reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "e3a106397744597f38bfa786a31c39f8cf4cd9955344c678b3dfa73a1c2ed6e7"
+    },
+    {
+      "bytes": 27876800,
+      "path": "reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0"
+    },
+    {
+      "bytes": 617,
+      "path": "reference/campplus-fixed604.mlpackage/Manifest.json",
+      "sha256": "4dbe911b2a70eff9d7b20c04305583020535198658962f05fd13e15192529cd2"
+    },
+    {
+      "bytes": 81920,
+      "path": "reference/kaldi_mel_80.f32",
+      "sha256": "93362b4a8f1179b6f78dde8644c1df8bbdbfe344db5d0d045f36a4c0194a0b0d"
+    },
+    {
+      "bytes": 307520,
+      "path": "reference/matcha_mel_80.f32",
+      "sha256": "d39ccbb8b0f93630070f570c301857bcdfda261ba95834ab82e0e43262b10a58"
+    },
+    {
+      "bytes": 251327,
+      "path": "reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+      "sha256": "915e7aff03b7bd1002db405adacac308580ea59c62d87ce72e04f8b65b62d9d1"
+    },
+    {
+      "bytes": 968134912,
+      "path": "reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b"
+    },
+    {
+      "bytes": 617,
+      "path": "reference/speech-tokenizer-fixed605.mlpackage/Manifest.json",
+      "sha256": "7bb46dc3ae254d2bffa662bed9baf0b79cbeca1966478f49d1a97b104e51c2f5"
+    },
+    {
+      "bytes": 102912,
+      "path": "reference/whisper_mel_128.f32",
+      "sha256": "2a5f9822897750e047c85dea37cc268d3be0ecfd23c28a5f10da129d99d05afe"
+    },
+    {
+      "bytes": 659,
+      "path": "tokenizer/config.json",
+      "sha256": "168aa1bd401abc3bc262ba15ba4e499627a8b4e006e9d050b47c22de20660185"
+    },
+    {
+      "bytes": 1402109,
+      "path": "tokenizer/merges.txt",
+      "sha256": "ac8ff86a72bee70828fbc1119bc4398c6f3a9a6e490d7b0dbe917be025478bd0"
+    },
+    {
+      "bytes": 4482475,
+      "path": "tokenizer/tokenizer.json",
+      "sha256": "606341ffc3871e8440d1474135b1dc468d1621fa9d291aab7818682a05aed43c"
+    },
+    {
+      "bytes": 52738,
+      "path": "tokenizer/tokenizer_config.json",
+      "sha256": "19dc99180dd436cbd5f26a937e858fb107da4ed9d4796df74b439b56049cf691"
+    },
+    {
+      "bytes": 2776833,
+      "path": "tokenizer/vocab.json",
+      "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+    }
+  ],
+  "deviceRelativeRuntimeRoot": "Documents/GeneratedAssets/Runtime",
+  "fullManifest": {
+    "dynamicAcoustic": null,
+    "enumeratedAcoustic": {
+      "defaultPromptFeat": "dynamic-acoustic/default-prompt-feat.bin",
+      "defaultPromptTokens": "dynamic-acoustic/default-prompt-tokens.bin",
+      "defaultSpeaker": "dynamic-acoustic/default-speaker.bin",
+      "families": [
+        {
+          "functionName": "n001_128",
+          "speechTokenMaximum": 128,
+          "speechTokenMinimum": 1
+        },
+        {
+          "functionName": "n129_256",
+          "speechTokenMaximum": 256,
+          "speechTokenMinimum": 129
+        },
+        {
+          "functionName": "n257_384",
+          "speechTokenMaximum": 384,
+          "speechTokenMinimum": 257
+        },
+        {
+          "functionName": "n385_450",
+          "speechTokenMaximum": 450,
+          "speechTokenMinimum": 385
+        }
+      ],
+      "flowNoiseMaximum": "enumerated-acoustic/buffers/flow-noise-max.f32",
+      "hiftExcitationMaximum": "enumerated-acoustic/buffers/hift-excitation-max.f32",
+      "logicalPrefixMaximumForFullSpeechWindow": 62,
+      "promptFrameCount": 302,
+      "speechTokenMaximum": 450,
+      "speechTokenMinimum": 1,
+      "status": "CANDIDATE"
+    },
+    "f0Folder": "f0-double",
+    "flowConditions": "enumerated-acoustic/conditions.mlpackage",
+    "flowMask": null,
+    "flowNoise": null,
+    "flowShards": [
+      "enumerated-acoustic/flow-shard-0.mlpackage",
+      "enumerated-acoustic/flow-shard-1.mlpackage",
+      "enumerated-acoustic/flow-shard-2.mlpackage",
+      "enumerated-acoustic/flow-shard-3.mlpackage",
+      "enumerated-acoustic/flow-shard-4.mlpackage",
+      "enumerated-acoustic/flow-shard-5.mlpackage"
+    ],
+    "hift": "enumerated-acoustic/hift.mlpackage",
+    "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage",
+    "profile": "ios18-enumerated-n1-n450",
+    "referenceEnrollment": {
+      "campPlus": "reference/campplus-fixed604.mlpackage",
+      "flowConditionsDynamic": "enumerated-acoustic/conditions.mlpackage",
+      "kaldiMel80": "reference/kaldi_mel_80.f32",
+      "matchaMel80": "reference/matcha_mel_80.f32",
+      "promotionEvidence": {
+        "deviceReceipt": "reference-smoke-receipt.json",
+        "deviceReceiptSha256": "8fdc0309c94811fda6645809a327f5afe3bcffb7e672c466187d755a076da114",
+        "hostReceipt": "reference_host_parity_receipt.json",
+        "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106"
+      },
+      "promptFrameCount": 302,
+      "promptTokenCount": 151,
+      "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage",
+      "status": "PASS_DEVICE_PARITY",
+      "whisperMel128": "reference/whisper_mel_128.f32"
+    },
+    "ropeTheta": 1000000.0,
+    "schemaVersion": 3,
+    "speechEmbedding": "embeddings/speech_embedding_fp16.bin",
+    "textEmbedding": "embeddings/text_embedding_fp16.bin",
+    "textEmbeddingRows": 151936,
+    "tokenizerFolder": "tokenizer"
+  },
+  "generationTermination": "llm.max_length:N=260 observed twice; not an EOS claim",
+  "manifestIdentity": {
+    "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+    "dynamicAcoustic": null,
+    "enumeratedAcoustic": {
+      "defaultPromptFeat": "dynamic-acoustic/default-prompt-feat.bin",
+      "defaultPromptTokens": "dynamic-acoustic/default-prompt-tokens.bin",
+      "defaultSpeaker": "dynamic-acoustic/default-speaker.bin",
+      "families": [
+        {
+          "functionName": "n001_128",
+          "speechTokenMaximum": 128,
+          "speechTokenMinimum": 1
+        },
+        {
+          "functionName": "n129_256",
+          "speechTokenMaximum": 256,
+          "speechTokenMinimum": 129
+        },
+        {
+          "functionName": "n257_384",
+          "speechTokenMaximum": 384,
+          "speechTokenMinimum": 257
+        },
+        {
+          "functionName": "n385_450",
+          "speechTokenMaximum": 450,
+          "speechTokenMinimum": 385
+        }
+      ],
+      "flowNoiseMaximum": "enumerated-acoustic/buffers/flow-noise-max.f32",
+      "hiftExcitationMaximum": "enumerated-acoustic/buffers/hift-excitation-max.f32",
+      "logicalPrefixMaximumForFullSpeechWindow": 62,
+      "promptFrameCount": 302,
+      "speechTokenMaximum": 450,
+      "speechTokenMinimum": 1,
+      "status": "CANDIDATE"
+    },
+    "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "profile": "ios18-enumerated-n1-n450",
+    "schemaVersion": 3
+  },
+  "manifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "observedTimingDifferences": {
+    "baselineWarmRTF": 0.9138605928846154,
+    "meaning": "Arithmetic differences between recorded runs only; not a certified same-text causal performance comparison",
+    "rtfReductionPercent": 35.81007707743746,
+    "runWarmRTF": 0.5866064101923076,
+    "stageDeltas": {
+      "acousticModelLoadMilliseconds": {
+        "baselineMilliseconds": 668.432335,
+        "percentOfObservedTotalDifference": 3.652530003803498,
+        "runMilliseconds": 544.12054,
+        "savedMilliseconds": 124.31179499999996
+      },
+      "acousticSynthesisMilliseconds": {
+        "baselineMilliseconds": 2026.1432490000002,
+        "percentOfObservedTotalDifference": 0.09344694571835634,
+        "runMilliseconds": 2022.9628350000003,
+        "savedMilliseconds": 3.180413999999928
+      },
+      "frontendMilliseconds": {
+        "baselineMilliseconds": 0.589459,
+        "percentOfObservedTotalDifference": -0.010805203612165146,
+        "runMilliseconds": 0.957208,
+        "savedMilliseconds": -0.367749
+      },
+      "llmGenerationMilliseconds": {
+        "baselineMilliseconds": 6793.793,
+        "percentOfObservedTotalDifference": 100.81496137661749,
+        "runMilliseconds": 3362.61275,
+        "savedMilliseconds": 3431.18025
+      },
+      "llmModelLoadMilliseconds": {
+        "baselineMilliseconds": 3.167875,
+        "percentOfObservedTotalDifference": -4.484885410908097,
+        "runMilliseconds": 155.808416,
+        "savedMilliseconds": -152.64054099999998
+      },
+      "preparationMilliseconds": {
+        "baselineMilliseconds": 2.040083,
+        "percentOfObservedTotalDifference": 0.0006512815623353201,
+        "runMilliseconds": 2.017917,
+        "savedMilliseconds": 0.022165999999999908
+      }
+    },
+    "totalMillisecondsSaved": 3403.443500000001
+  },
+  "optimizationStopped": true,
+  "packages": [
+    {
+      "actualDiagnosticVariant": "PLACEMENT_ONLY_FROZEN_MODEL",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 6,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        },
+        {
+          "line": 25,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        },
+        {
+          "line": 211,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [],
+      "defaultFunctionName": "",
+      "descriptionFunctions": [],
+      "fileManifestTreeSha256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+      "files": [
+        {
+          "bytes": 652886,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "e571823e0a7bb6ed3c0fa92cdc6b5c6fc0eb0323433ea70f035891d956555e5c"
+        },
+        {
+          "bytes": 727955794,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "957378ee364c6bd72436efd2100dc53a80ece28e503f87c78cf1bb8fc0b52e0d"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "c762276679e3807dd561111b4c46d97cd1cf6221fd5b28f80b924c8d29a77f65"
+        }
+      ],
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": false,
+      "modelType": "mlProgram",
+      "packageSha256": "f4e9d75214f10d2b5556c0f8b3f106793cc6d6c3c9fc8c69a10f997630238ed7",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "main"
+      ],
+      "relativePath": "models/llm-opt-perlayer-prefill.mlpackage",
+      "requestedComputeUnits": "CPU_AND_NE",
+      "role": "llmPrefill",
+      "selectedFunctionName": "main",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "PLACEMENT_ONLY_FROZEN_MODEL",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 13,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        },
+        {
+          "line": 27,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        },
+        {
+          "line": 213,
+          "text": "[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [],
+      "defaultFunctionName": "",
+      "descriptionFunctions": [],
+      "fileManifestTreeSha256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+      "files": [
+        {
+          "bytes": 585840,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "f9e9a6b08e31c2578462e79fbfcd398a626c511b03384242c98d86ce1739d3f3"
+        },
+        {
+          "bytes": 727955794,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "3310540b0f6ae95eb0319fe953cb51a74d01a6f279d3322b1a8dfb4ffb76e9a5"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "4dc83d7a463ec567e0df065e24099ea15b82a0e68ec32999ae520c5738d446c8"
+        }
+      ],
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": false,
+      "modelType": "mlProgram",
+      "packageSha256": "599069f23c692d228cbf0012d34ad68dcf2517be9754b752386ad1af8daed987",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "main"
+      ],
+      "relativePath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "requestedComputeUnits": "CPU_AND_NE",
+      "role": "llmDecode",
+      "selectedFunctionName": "main",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 59,
+          "text": "[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 245,
+          "text": "[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 61,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 247,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+      "files": [
+        {
+          "bytes": 60069,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "2593af39a8074730ad08908e33144bd6c1ebb09c1789b0b6e1f3ba6990f9c1ce"
+        },
+        {
+          "bytes": 4459968,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "588d0f5e5396b6701d744e896f3b36eb6175badff8aaf95297b03f7ba9bcbc97"
+        }
+      ],
+      "frozenExportPackageSha256": "c88d2fcd91b1ebfeff289f096c9e5b019a23e3943163096630b0031d6f7502ad",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "c88d2fcd91b1ebfeff289f096c9e5b019a23e3943163096630b0031d6f7502ad",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/conditions.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "conditions",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 193,
+          "text": "[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 379,
+          "text": "[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 195,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 381,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+      "files": [
+        {
+          "bytes": 948674,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "47703a646b50ae92e4b8c203440ec8ddcb742cc8a1b964627038a3e219bc3499"
+        },
+        {
+          "bytes": 70087168,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "f59af892e05ef7ff86a712ebf71ad90f0309173bce98f9294341abbfcba040c1"
+        }
+      ],
+      "frozenExportPackageSha256": "2f1bd8284d2d6a3728c30a39c47d5b22d880756367def3e5d1fa1a4762674651",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "2f1bd8284d2d6a3728c30a39c47d5b22d880756367def3e5d1fa1a4762674651",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/hift.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "hift",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-0.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 68,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow0 path=enumerated-acoustic/flow-shard-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 254,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow0 path=enumerated-acoustic/flow-shard-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 70,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 256,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+      "files": [
+        {
+          "bytes": 440751,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "05339c2fb395a217029c93a49d7c60c0ea97bd198caaa6105a5b5638d5bfcb24"
+        },
+        {
+          "bytes": 128965248,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "92e4f842814a8a02b94117ab87c230c1da315200871ff154b97a463066677de5"
+        }
+      ],
+      "frozenExportPackageSha256": "3cb95670d74c36612ca03eb975a471a64ac208f92ea9aab65df56b52fa651b40",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "3cb95670d74c36612ca03eb975a471a64ac208f92ea9aab65df56b52fa651b40",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-0.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow0",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-1.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 74,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow1 path=enumerated-acoustic/flow-shard-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 260,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow1 path=enumerated-acoustic/flow-shard-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 76,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 262,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "b195ba197830e53de4506d8d3c82a3c571957eb4d8a97c2f204ab36053d3e6b8"
+        }
+      ],
+      "frozenExportPackageSha256": "8dd8dc5f272dfd1f1dca7e39fef3f9f707810d7fa040e76e7d55a91a5e50483a",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "8dd8dc5f272dfd1f1dca7e39fef3f9f707810d7fa040e76e7d55a91a5e50483a",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-1.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow1",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-2.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 80,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow2 path=enumerated-acoustic/flow-shard-2.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 266,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow2 path=enumerated-acoustic/flow-shard-2.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 82,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.3.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 268,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.3.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "ad52f8881c3a5021ae509b73a520747ff6c34ec1eb784fe0c91be9a244f9f260"
+        }
+      ],
+      "frozenExportPackageSha256": "ce58a5a0f2167e42f5af62aeb4bfd0160aabeee3409b6a6194dd613d43e47602",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "ce58a5a0f2167e42f5af62aeb4bfd0160aabeee3409b6a6194dd613d43e47602",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-2.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow2",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-3.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 86,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow3 path=enumerated-acoustic/flow-shard-3.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 272,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow3 path=enumerated-acoustic/flow-shard-3.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 88,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.4.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 274,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.4.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "635736f2f2f580fcb70990425c95d9ab448c0f2b8dd4f6e803acd4afda5533f4"
+        }
+      ],
+      "frozenExportPackageSha256": "9b91c000ba38acafefadd2a0dd5e5952a46a05a6e7ab3a399c7586ba5f25f095",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "9b91c000ba38acafefadd2a0dd5e5952a46a05a6e7ab3a399c7586ba5f25f095",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-3.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow3",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-4.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 92,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow4 path=enumerated-acoustic/flow-shard-4.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 278,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow4 path=enumerated-acoustic/flow-shard-4.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 94,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.5.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 280,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.5.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "5733618d53d7fa4524af23ff484cde0bb722e03cdc32a500f356130def6c905b"
+        }
+      ],
+      "frozenExportPackageSha256": "017bcf6228313be0345b3b28fabdce91fbf6ef69bd0672bda6ed79193d3ba965",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "017bcf6228313be0345b3b28fabdce91fbf6ef69bd0672bda6ed79193d3ba965",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-4.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow4",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "FROZEN_MULTIFUNCTION_ACOUSTIC_CPU_AND_GPU",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-5.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 98,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow5 path=enumerated-acoustic/flow-shard-5.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        },
+        {
+          "line": 284,
+          "text": "[COSY-ROLE-PLACEMENT] role=flow5 path=enumerated-acoustic/flow-shard-5.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [
+        {
+          "line": 100,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.6.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        },
+        {
+          "line": 286,
+          "text": "[COSY-SPECIALIZATION] stage=acoustic.flow.shard.6.6.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES"
+        }
+      ],
+      "defaultFunctionName": "n129_256",
+      "descriptionFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "fileManifestTreeSha256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+      "files": [
+        {
+          "bytes": 229557,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "6540761c469d0e19d455ff2bd364ac23d27ccad12e4aa94d0e13ad35ee1653df"
+        },
+        {
+          "bytes": 63138144,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "d48584d4549317e5594cd10c5b489f7b500b90b441374227fe66fd95dc6a5e2b"
+        }
+      ],
+      "frozenExportPackageSha256": "e139704987c6209867c965bbe08f7984e9954546596f2676751f590b2f1bf98c",
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": true,
+      "modelType": "mlProgram",
+      "packageSha256": "e139704987c6209867c965bbe08f7984e9954546596f2676751f590b2f1bf98c",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "relativePath": "enumerated-acoustic/flow-shard-5.mlpackage",
+      "requestedComputeUnits": "CPU_AND_GPU",
+      "role": "flow5",
+      "selectedFunctionName": "n257_384",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "PLACEMENT_ONLY_FROZEN_MODEL",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/reference/speech-tokenizer-fixed605.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 10,
+          "text": "[COSY-ROLE-PLACEMENT] role=speechTokenizer path=reference/speech-tokenizer-fixed605.mlpackage requested=MLComputeUnits(rawValue: 0) evidence=requested-only"
+        },
+        {
+          "line": 19,
+          "text": "[COSY-ROLE-PLACEMENT] role=speechTokenizer path=reference/speech-tokenizer-fixed605.mlpackage requested=MLComputeUnits(rawValue: 0) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [],
+      "defaultFunctionName": "",
+      "descriptionFunctions": [],
+      "fileManifestTreeSha256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+      "files": [
+        {
+          "bytes": 251327,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "915e7aff03b7bd1002db405adacac308580ea59c62d87ce72e04f8b65b62d9d1"
+        },
+        {
+          "bytes": 968134912,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "7bb46dc3ae254d2bffa662bed9baf0b79cbeca1966478f49d1a97b104e51c2f5"
+        }
+      ],
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": false,
+      "modelType": "mlProgram",
+      "packageSha256": "8056b4ce7ead5b6a876162177fa6e8b37bd78e68bbc65a079b7a7a76196353f7",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "main"
+      ],
+      "relativePath": "reference/speech-tokenizer-fixed605.mlpackage",
+      "requestedComputeUnits": "CPU_ONLY",
+      "role": "speechTokenizer",
+      "selectedFunctionName": "main",
+      "specificationVersion": 9
+    },
+    {
+      "actualDiagnosticVariant": "PLACEMENT_ONLY_FROZEN_MODEL",
+      "actualPackagePath": "/private/var/mobile/Containers/Data/Application/95FBD2B0-80F5-46DB-80C4-C3C17FAD789C/Documents/GeneratedAssets/Runtime/reference/campplus-fixed604.mlpackage",
+      "consolePlacementEvidence": [
+        {
+          "line": 17,
+          "text": "[COSY-ROLE-PLACEMENT] role=campPlus path=reference/campplus-fixed604.mlpackage requested=MLComputeUnits(rawValue: 0) evidence=requested-only"
+        },
+        {
+          "line": 20,
+          "text": "[COSY-ROLE-PLACEMENT] role=campPlus path=reference/campplus-fixed604.mlpackage requested=MLComputeUnits(rawValue: 0) evidence=requested-only"
+        }
+      ],
+      "consoleSelectedFunctionEvidence": [],
+      "defaultFunctionName": "",
+      "descriptionFunctions": [],
+      "fileManifestTreeSha256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+      "files": [
+        {
+          "bytes": 601204,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "e3a106397744597f38bfa786a31c39f8cf4cd9955344c678b3dfa73a1c2ed6e7"
+        },
+        {
+          "bytes": 27876800,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "4dbe911b2a70eff9d7b20c04305583020535198658962f05fd13e15192529cd2"
+        }
+      ],
+      "isExtractedSingleFunctionPackage": false,
+      "isMultifunctionPackage": false,
+      "modelType": "mlProgram",
+      "packageSha256": "541fe53c8c1f667745cda20b3f31f1ede6b6f18132d8eda7aa08acd5bba7385d",
+      "packageSha256Definition": "SHA256 of sorted relative file paths followed by their actual file bytes, exporter convention",
+      "programFunctions": [
+        "main"
+      ],
+      "relativePath": "reference/campplus-fixed604.mlpackage",
+      "requestedComputeUnits": "CPU_ONLY",
+      "role": "campPlus",
+      "selectedFunctionName": "main",
+      "specificationVersion": 9
+    }
+  ],
+  "payload": {
+    "bytes": 3530215890,
+    "changedFiles": [],
+    "extraShippingFiles": [],
+    "fileCount": 64,
+    "frozenSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "identityDefinition": "sorted path NUL byte-count NUL per-file-SHA256 newline; excludes exporter receipt",
+    "missingFiles": [],
+    "readbackSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa"
+  },
+  "postRunReadbackLimitation": "Actual Runtime bytes were read back at audit time and match the historical run/export identities. No contemporaneous per-package device hash was recorded during D; unchanged device file mtimes and original run console/marker are retained.",
+  "preservedReadbackMetadata": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-optimization/multibucket-audit-20261005",
+  "productionPromotion": false,
+  "reference": {
+    "actualDeviceReadbackTranscriptSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "actualDeviceReadbackWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "baselineHistoricalInputHashesRecorded": false,
+    "localSourceTranscriptSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "localSourceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "meaning": "Current device bytes equal designated reference. Historical exact-byte equality at both run times was not hashed into their receipts.",
+    "runCopyCommands": [
+      "[COSY-ENUMERATED-DEVICE] RUN xcrun devicectl device copy to --device 00008150-000A05CA1440401C --domain-type appDataContainer --domain-identifier com.actacomes.cosyvoice3.candidatebenchmark --source /Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.wav --destination Documents/GeneratedAssets/reference.wav",
+      "[COSY-ENUMERATED-DEVICE] RUN xcrun devicectl device copy to --device 00008150-000A05CA1440401C --domain-type appDataContainer --domain-identifier com.actacomes.cosyvoice3.candidatebenchmark --source /Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.txt --destination Documents/GeneratedAssets/reference.txt",
+      "[COSY-ENUMERATED-DEVICE] RUN xcrun devicectl device copy to --device 00008150-000A05CA1440401C --domain-type appDataContainer --domain-identifier com.actacomes.cosyvoice3.candidatebenchmark --source /Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.wav --destination Documents/GeneratedAssets/reference.wav",
+      "[COSY-ENUMERATED-DEVICE] RUN xcrun devicectl device copy to --device 00008150-000A05CA1440401C --domain-type appDataContainer --domain-identifier com.actacomes.cosyvoice3.candidatebenchmark --source /Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.txt --destination Documents/GeneratedAssets/reference.txt"
+    ],
+    "runHistoricalInputHashesRecorded": false
+  },
+  "runGitHead": "0bae3df51b27b0f5089330ff529739220b71b030",
+  "runMetrics": {
+    "audioSeconds": 10.4,
+    "coldStages": {
+      "acousticModelLoadMilliseconds": 10332.599792,
+      "acousticSynthesisMilliseconds": 2105.4519169999985,
+      "flowSteps": 6,
+      "frontendMilliseconds": 365.4995,
+      "llmGenerationMilliseconds": 3433.088875,
+      "llmModelLoadMilliseconds": 178.883333,
+      "modelPreparationCacheHit": false,
+      "preparationMilliseconds": 23246.05425,
+      "referenceCacheHit": false,
+      "totalMilliseconds": 39671.2135,
+      "warmedModelCount": 4
+    },
+    "finite": true,
+    "firstTotalSynthesisMilliseconds": 39671.395791999996,
+    "nonSilent": true,
+    "requestedComputePlacement": {
+      "campPlus": "CPU_ONLY",
+      "conditions": "CPU_AND_GPU",
+      "flow0": "CPU_AND_GPU",
+      "flow1": "CPU_AND_GPU",
+      "flow2": "CPU_AND_GPU",
+      "flow3": "CPU_AND_GPU",
+      "flow4": "CPU_AND_GPU",
+      "flow5": "CPU_AND_GPU",
+      "hift": "CPU_AND_GPU",
+      "llmDecode": "CPU_AND_NE",
+      "llmPrefill": "CPU_AND_NE",
+      "speechTokenizer": "CPU_ONLY"
+    },
+    "sampleRate": 24000,
+    "samples": 249600,
+    "thermalEnd": "fair",
+    "thermalPeak": "fair",
+    "thermalStart": "nominal",
+    "warmRTF": 0.5866064101923076,
+    "warmStages": {
+      "acousticModelLoadMilliseconds": 544.12054,
+      "acousticSynthesisMilliseconds": 2022.9628350000003,
+      "flowSteps": 6,
+      "frontendMilliseconds": 0.957208,
+      "llmGenerationMilliseconds": 3362.61275,
+      "llmModelLoadMilliseconds": 155.808416,
+      "modelPreparationCacheHit": true,
+      "preparationMilliseconds": 2.017917,
+      "referenceCacheHit": true,
+      "totalMilliseconds": 6100.587208,
+      "warmedModelCount": 0
+    },
+    "warmTotalSynthesisMilliseconds": 6100.706666
+  },
+  "runRecordedAtUnix": 1791242895,
+  "runStaging": {
+    "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+    "diagnosticEnumeratedCompute": "cpu-gpu",
+    "diagnosticRuntimeChangedFiles": [
+      "ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"
+    ],
+    "experimentalSingleFunctionRoles": [],
+    "exportReceiptSha256": "0eccfc865857e7240916d433e9e777ab04ff52848191c92a35faa052add8c49a",
+    "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+    "logicalPrefixMaximumForFullSpeechWindow": 62,
+    "payloadBytes": 3530215890,
+    "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "productionPromotion": false,
+    "profile": "ios18-enumerated-n1-n450",
+    "recordedAtUnix": 1791242848,
+    "requestedRoleOverrides": [
+      "llmPrefill:CPU_AND_NE",
+      "llmDecode:CPU_AND_NE"
+    ],
+    "runtimeManifestName": "cosyvoice3_enumerated.json",
+    "runtimeManifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "schemaVersion": 1,
+    "sourceCommit": "0bae3df51b27b0f5089330ff529739220b71b030",
+    "speechTokenBounds": [
+      1,
+      450
+    ],
+    "status": "LOCAL_ENUMERATED_VALIDATION_STAGING"
+  },
+  "runtimeRootEvidence": "Specific run host devicectl copy output supplies GeneratedAssets container; receipt binds its staged manifest/export identity. Device full Runtime readback verifies actual bytes. Absolute Runtime root itself was not printed by the synthesis console.",
+  "schemaVersion": 1,
+  "selectedFunction": "n257_384",
+  "signedHostBuildSourceCommit": "0bae3df51b27b0f5089330ff529739220b71b030",
+  "singleFunctionExperiments": {
+    "deviceGeneratedAssetsHasANEExperimental": false,
+    "localOnly": true,
+    "shippingAssetModified": false,
+    "usedInAuditedRun": false
+  },
+  "workingTreeAtAuditStart": " M ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift\n M ios/validation/evidence/enumerated_ane_single_function_export.json\n M ios/validation/export_ane_single_function.py\n M ios/validation/run_enumerated_ane_matrix.py\n M ios/validation/run_enumerated_production_device.py\n?? ios/validation/evidence/enumerated_ane_optimization.json\n?? ios/validation/evidence/enumerated_ane_single_function_host_parity.json\n?? ios/validation/evidence/enumerated_ane_single_function_host_sandbox_failure.json\n?? ios/validation/evidence/enumerated_ane_single_function_v8_export.json\n?? ios/validation/evidence/enumerated_ane_single_function_v8_host_failure.json\n?? ios/validation/evidence/enumerated_ane_single_function_v9_host_parity.json\n?? ios/validation/validate_ane_single_function_host.py\n",
+  "workloadChecks": {
+    "assetExportSourceCommit": {
+      "baseline": "ac31e117938ed50132365973a103cc8425942700",
+      "equal": true,
+      "run": "ac31e117938ed50132365973a103cc8425942700"
+    },
+    "benchmark": {
+      "baseline": "public-api-candidate-v1",
+      "equal": true,
+      "run": "public-api-candidate-v1"
+    },
+    "deviceModelIdentifier": {
+      "baseline": "iPhone18,4",
+      "equal": true,
+      "run": "iPhone18,4"
+    },
+    "firstAudioSeconds": {
+      "baseline": 10.4,
+      "equal": true,
+      "run": 10.4
+    },
+    "firstSamples": {
+      "baseline": 249600,
+      "equal": true,
+      "run": 249600
+    },
+    "flowSteps": {
+      "baseline": 6,
+      "equal": true,
+      "run": 6
+    },
+    "hostReceiptSha256": {
+      "baseline": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+      "equal": true,
+      "run": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106"
+    },
+    "payloadTreeSha256": {
+      "baseline": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "equal": true,
+      "run": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa"
+    },
+    "playbackDuringBenchmark": {
+      "baseline": false,
+      "equal": true,
+      "run": false
+    },
+    "publicAPI": {
+      "benchmark": "public-api-candidate-v1",
+      "notMicrobenchmark": true,
+      "stages": [
+        "reference preparation",
+        "frontend",
+        "LLM load/generation",
+        "8 acoustic loads + 36 Flow predictions + HiFT/F0",
+        "final PCM"
+      ],
+      "status": "RUN_RECEIPT_AND_FULL_PIPELINE_OBSERVED",
+      "warmDefinition": "second identical public synthesize call on the same engine instance after automatic preparation"
+    },
+    "referenceTranscriptCharacters": {
+      "baseline": 32,
+      "equal": true,
+      "run": 32
+    },
+    "repeatAudioSeconds": {
+      "baseline": 10.4,
+      "equal": true,
+      "run": 10.4
+    },
+    "repeatSamples": {
+      "baseline": 249600,
+      "equal": true,
+      "run": 249600
+    },
+    "sameReference": {
+      "status": "CURRENT_DEVICE_AND_COPY_PATH_VERIFIED_HISTORICAL_BYTE_IDENTITY_NOT_RECORDED"
+    },
+    "sameText": {
+      "baselineRecordedFields": [],
+      "reason": "Neither historical receipt/console records exact input text or its hash. Same benchmark name, prefix length and N are insufficient to prove text bytes; no source-code inference used.",
+      "runRecordedFields": [],
+      "status": "NOT_PROVEN_FROM_DEVICE_RUN_EVIDENCE"
+    },
+    "sampleRate": {
+      "baseline": 24000,
+      "equal": true,
+      "run": 24000
+    },
+    "systemVersion": {
+      "baseline": "27.2",
+      "equal": true,
+      "run": "27.2"
+    },
+    "thermalNominalStart": {
+      "baseline": "nominal",
+      "baselineEnd": "nominal",
+      "passGate": true,
+      "run": "nominal",
+      "runEnd": "fair",
+      "runPeak": "fair"
+    },
+    "validationSamplerSeed": {
+      "baseline": 42,
+      "equal": true,
+      "run": 42
+    },
+    "warmDefinition": {
+      "baseline": "second identical public synthesize call on the same engine instance after automatic preparation",
+      "equal": true,
+      "run": "second identical public synthesize call on the same engine instance after automatic preparation"
+    }
+  }
+}
