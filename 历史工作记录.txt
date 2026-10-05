@@ -180,3 +180,11 @@ Action: default N137/131520 samples; reference N260/249600 samples; WAV hashes m
 Validation: release generator PASS on actual validated source b6f07f95c70af3e6fee5fd27c6bbb8a279de198b; shipping SDK unchanged versus3267547f6436444e72889d443a030fd9be41e2af. Model rebuild NOT_RUN immutable path; prior human listening acceptance preserved.
 Files: ios/assets/releases.json; dynamic validation/evidence JSON; dynamic_release_receipt.json; iOS docs.
 GitHub Timeline: catalog/docs7f96b09 committed/pushed first; relative-path error prevented evidence from joining that commit. This follow-up commits/pushes the missing exact evidence, without rewriting history. No new upload/media/public snapshot; private asset visibility unchanged; license IGNORED: LICENSE for this run.
+
+
+时间：2026-10-04T22:57:22-04:00
+用户 Prompt：删除旧文件后从头完成四引擎 immutable HF clean-room 和 physical iPhone Runner；补录用户听审。
+具体动作：保留最终 public API 两分钟 benchmark SHA-bound receipt；OmniVoice/VoxCPM 用户明确回答“通过人类听审”，仅绑定所展示的最终运行首段 WAV；所有音频逐段独立核验 Float32/mono/finite/sample count。
+修改文件：validation/cleanroom_20261004_runner_receipt.json（Demo 为 validation/cleanroom_ios_four_engine_20261004.json）；OmniVoice/VoxCPM 加 cleanroom_20261004_listening_review.json；本历史记录。
+测试或验证结果：四引擎 PASS；Zip 125.706667s、Omni 125.4s、Cosy dynamic 124.88s、Vox1.5 126.08s；全部完成 playback drain。Cosy 继续使用 HF 8a1f25460a157f35fe79c42a79946c40a59da08e，未上传模型，未使用 fixed225。许可证 IGNORED: LICENSE；不声明 accelerator residency 或 public redistribution。
+GitHub Timeline：此前源码修复已 push；本条新增仅证据与记录，当前未 commit，随后 commit/push；实际测试 source SHA 保持 receipt 中原值。
