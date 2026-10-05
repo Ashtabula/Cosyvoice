@@ -333,23 +333,50 @@ def export_hift(body, work: Path, receipt: dict) -> Path:
     return merged
 
 
+def multifunction_expected_abi(package_name: str) -> tuple[list[str], list[str]]:
+    if package_name == "conditions.mlpackage":
+        return sorted(("tokens", "prompt_tokens", "prompt_feat", "speaker")), sorted(("mu", "spks", "cond"))
+    if package_name == "flow-shard-0.mlpackage":
+        return sorted(("x", "mask", "mu", "t", "spks", "cond")), sorted(("h", "te"))
+    if package_name in {f"flow-shard-{index}.mlpackage" for index in range(1, 5)}:
+        return sorted(("h", "te", "mask")), ["h_out"]
+    if package_name == "flow-shard-5.mlpackage":
+        return sorted(("h", "te", "mask")), ["velocity"]
+    if package_name == "hift.mlpackage":
+        return sorted(("mel", "f0", "phase", "noise", "norm")), ["pcm"]
+    raise RuntimeError(f"no expected ABI declared for multifunction package: {package_name}")
+
+
 def verify_multifunction_load(packages: list[Path], receipt: dict) -> None:
     result = []
     for package in packages:
+        expected_inputs, expected_outputs = multifunction_expected_abi(package.name)
         for _, _, function_name in FAMILIES:
             model = ct.models.MLModel(
                 str(package),
                 function_name=function_name,
                 compute_units=ct.ComputeUnit.CPU_ONLY,
             )
+            actual_inputs = sorted(model.input_description.keys())
+            actual_outputs = sorted(model.output_description.keys())
+            if actual_inputs != expected_inputs or actual_outputs != expected_outputs:
+                raise RuntimeError(
+                    f"multifunction ABI mismatch package={package.name} function={function_name} "
+                    f"inputs={actual_inputs} expectedInputs={expected_inputs} "
+                    f"outputs={actual_outputs} expectedOutputs={expected_outputs}"
+                )
             result.append({
                 "package": package.name,
                 "function": function_name,
-                "inputNames": sorted(model.input_description.keys()),
+                "inputNames": actual_inputs,
+                "outputNames": actual_outputs,
             })
             del model
             gc.collect()
-    receipt["hostMultifunctionLoad"] = {"status": "PASS", "functions": result}
+    receipt["hostMultifunctionLoad"] = {
+        "status": "PASS_FUNCTION_LOAD_AND_ABI",
+        "functions": result,
+    }
 
 
 def copy_path(source: Path, destination: Path) -> None:
@@ -626,3 +653,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: fix production exporter Flow shard-0 ABI: the first shard has two outputs (h, te), while shards 1...5 have one output. Swift CI cannot catch this conversion-only mismatch; exporter now preserves the validated six-shard ABI exactly.
 
 # Changes 2026-10-05: final standaloneRootBytes is measured only after transient .family-build removal (unless --keep-intermediates is explicit), so production size evidence no longer counts conversion/compiled validation artifacts that are not shipped.
+
+# Changes 2026-10-05: multifunction host gate now validates complete selected-function input/output ABI for Conditions, all six Flow shards, and HiFT across all four families. Conversion succeeds only if shard0 exposes both h and te and every other stage matches the Swift runtime contract.
