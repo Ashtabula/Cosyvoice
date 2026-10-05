@@ -30,6 +30,7 @@ def main()->int:
     p=argparse.ArgumentParser()
     p.add_argument("--build-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_standalone_build.json")
     p.add_argument("--private-rc-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_private_rc.json")
+    p.add_argument("--conversion-provenance-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_conversion_provenance.json")
     p.add_argument("--rebuild-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_runtime_rebuild.json")
     p.add_argument("--benchmark-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
     p.add_argument("--environment-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_release_environment.json")
@@ -44,6 +45,7 @@ def main()->int:
 
     build=load(a.build_receipt)
     private=load(a.private_rc_receipt)
+    conversion=load(a.conversion_provenance_receipt)
     rebuild=load(a.rebuild_receipt)
     benchmark=load(a.benchmark_receipt)
     env=load(a.environment_receipt)
@@ -58,6 +60,8 @@ def main()->int:
     require(private.get("profile")==PROFILE and private.get("version")==VERSION,"dynamic private RC profile/version mismatch")
     require(private.get("ordinaryDeveloperFetchPass") is True and private.get("publicApiDefaultReplayPass") is True and private.get("publicApiReferenceReplayPass") is True,"dynamic private RC fetch/device replay incomplete")
     require(private.get("publicRedistributionApproved") is False,"dynamic Candidate must remain private before license approval")
+    require(conversion.get("status")=="PASS_DYNAMIC_CONVERSION_PROVENANCE_RECORDED","dynamic conversion provenance is not PASS")
+    require((private.get("conversionProvenance") or {}).get("familyReceiptSha256")==conversion.get("familyReceiptSha256"),"private RC/conversion provenance family receipt mismatch")
     require(rebuild.get("status")=="PASS_SUPPORTED_DYNAMIC_RUNTIME_REBUILD_CONTRACT","dynamic runtime rebuild convergence is not PASS")
     require(rebuild.get("sourceCommit")==current,"dynamic runtime rebuild convergence is not current HEAD")
     require(rebuild.get("profile")==PROFILE and rebuild.get("NBounds")==[1,479],"dynamic rebuild profile/bounds mismatch")
@@ -134,6 +138,7 @@ def main()->int:
             "standaloneBuild":{"status":"PASS","evidence":["validation/evidence/dynamic_standalone_build.json"]},
             "environmentRecorded":{"status":"PASS","evidence":["validation/evidence/dynamic_release_environment.json"]},
             "assetValidation":{"status":"PASS","evidence":["assets/releases.json","validation/evidence/dynamic_private_rc.json"]},
+            "conversionProvenance":{"status":"PASS","evidence":["validation/evidence/dynamic_conversion_provenance.json","validation/evidence/dynamic_private_rc.json"]},
             "immutableFetchReplay":{"status":"PASS","evidence":["validation/evidence/dynamic_private_rc.json"]},
             "fullRuntimeRebuild":{"status":"PASS","evidence":["validation/evidence/dynamic_runtime_rebuild.json"]},
             "hostParity":{"status":"PASS","evidence":["validation/dynamic_n1_release_entry_2026-10-04.json"]},
@@ -183,3 +188,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: Candidate environment.historicalAssetBuildProvenance is populated from the immutable RC's hash-bound dynamic conversion provenance, while the Mac clean-room toolchain remains separately recorded.
 
 # Changes 2026-10-04: Candidate receipt records validatedSourceCommit=current checklist closure HEAD for Production baseline compatibility, while validatedRuntimeSourceCommit separately preserves the earlier physical public-API runtime source proof.
+
+# Changes 2026-10-04: Candidate ledger requires the committed exact conversion-provenance receipt and cross-binds its familyReceiptSha256 to the immutable private RC; the PASS check references both evidence files.
