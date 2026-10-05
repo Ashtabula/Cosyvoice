@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #@title validate_assets.py
-# Requirement: fail closed on the frozen fixed225 SDK asset ABI and, when present, the schema-2 dynamic acoustic candidate ABI; optionally require generic reference files or full device-promoted reference status.
+# Requirement: fail closed on fixed225, schema-2 RangeDim dynamic, and schema-3 production enumerated N1...450 asset ABIs; the active manifest precedence matches the Swift loader.
 import argparse,json,sys
 from pathlib import Path
 
@@ -38,9 +38,11 @@ def main():
     f0=root/m["f0Folder"]
     for i in range(5): nonempty(f0/f"f0-{i}-weight.bin"); nonempty(f0/f"f0-{i}-bias.bin")
     nonempty(f0/"f0-classifier-weight.bin"); nonempty(f0/"f0-classifier-bias.bin")
+    enumerated_path=root/"cosyvoice3_enumerated.json"
     dynamic_path=root/"cosyvoice3_dynamic.json"
+    e=json.loads(enumerated_path.read_text()) if enumerated_path.exists() else None
     d=json.loads(dynamic_path.read_text()) if dynamic_path.exists() else None
-    active=d if isinstance(d,dict) else m
+    active=e if isinstance(e,dict) else (d if isinstance(d,dict) else m)
     ref=active.get("referenceEnrollment"); status=ref.get("status") if isinstance(ref,dict) else None; promoted=status=="PASS_DEVICE_PARITY"; rebuilt=status=="PASS_HOST_PARITY_REBUILT"
     if args.require_reference and not promoted: fail("active reference enrollment is not PASS_DEVICE_PARITY")
     must_check_reference=promoted or rebuilt or args.require_reference or args.require_reference_files
@@ -85,6 +87,47 @@ def main():
         if isinstance(dref,dict) and dref.get("status")=="PASS_DEVICE_PARITY":
             if dref.get("flowConditionsDynamic")!=d.get("flowConditions"): fail("dynamic reference flowConditionsDynamic must match generic dynamic conditions package")
         active_profile=d["profile"]
+    if e is not None:
+        nonempty(enumerated_path)
+        if e.get("schemaVersion")!=3 or e.get("profile")!="ios18-enumerated-n1-n450": fail("enumerated manifest identity mismatch")
+        if len(e.get("flowShards",[]))!=6: fail("enumerated manifest expected six Flow shards")
+        if int(e.get("textEmbeddingRows",0))!=rows: fail("enumerated manifest textEmbeddingRows mismatch")
+        for key in ("tokenizerFolder","textEmbedding","speechEmbedding","llmPrefill","llmDecode","f0Folder"):
+            if e.get(key)!=m.get(key): fail(f"enumerated manifest unexpectedly changed shared asset path: {key}")
+        contract=e.get("enumeratedAcoustic")
+        if not isinstance(contract,dict): fail("enumerated manifest has no enumeratedAcoustic contract")
+        if contract.get("status") not in ("CANDIDATE","PASS_DEVICE_VALIDATION"): fail(f"unsupported enumerated acoustic status: {contract.get('status')!r}")
+        nmin=int(contract.get("speechTokenMinimum",0));nmax=int(contract.get("speechTokenMaximum",0));pframes=int(contract.get("promptFrameCount",0))
+        prefix_full=int(contract.get("logicalPrefixMaximumForFullSpeechWindow",-1))
+        if (nmin,nmax,pframes,prefix_full)!=(1,450,302,62): fail(f"invalid enumerated production bounds N={nmin}...{nmax} P={pframes} prefix450={prefix_full}")
+        families=contract.get("families")
+        expected_families=[
+            {"speechTokenMinimum":1,"speechTokenMaximum":128,"functionName":"n001_128"},
+            {"speechTokenMinimum":129,"speechTokenMaximum":256,"functionName":"n129_256"},
+            {"speechTokenMinimum":257,"speechTokenMaximum":384,"functionName":"n257_384"},
+            {"speechTokenMinimum":385,"speechTokenMaximum":450,"functionName":"n385_450"},
+        ]
+        if families!=expected_families: fail(f"enumerated family partition mismatch: {families!r}")
+        if any(int(row["speechTokenMaximum"])-int(row["speechTokenMinimum"])+1>128 for row in families): fail("enumerated family exceeds Core ML 128-shape limit")
+        enum_required=[
+            e["flowConditions"],e["hift"],*e["flowShards"],
+            contract["defaultPromptTokens"],contract["defaultPromptFeat"],contract["defaultSpeaker"],
+            contract["flowNoiseMaximum"],contract["hiftExcitationMaximum"],
+        ]
+        for rel in enum_required: nonempty(root/rel)
+        expected_enum={
+            contract["defaultPromptTokens"]:1*151*4,
+            contract["defaultPromptFeat"]:1*302*80*4,
+            contract["defaultSpeaker"]:1*192*4,
+            contract["flowNoiseMaximum"]:1*80*(302+2*nmax)*4,
+            contract["hiftExcitationMaximum"]:1*(960*nmax)*9*4,
+        }
+        for rel,size in expected_enum.items():
+            if (root/rel).stat().st_size!=size: fail(f"enumerated asset byte count mismatch: {rel} expected={size} actual={(root/rel).stat().st_size}")
+        eref=e.get("referenceEnrollment")
+        if isinstance(eref,dict) and eref.get("status")=="PASS_DEVICE_PARITY":
+            if eref.get("flowConditionsDynamic")!=e.get("flowConditions"): fail("enumerated reference flowConditionsDynamic must match generic enumerated conditions package")
+        active_profile=e["profile"]
     print(f"[COSYVOICE3-ASSETS] PASS root={root} fixedProfile={m['profile']} activeProfile={active_profile} textRows={rows} referenceStatus={status} referenceFilesChecked={must_check_reference}",flush=True)
 
 if __name__=="__main__":
@@ -101,3 +144,5 @@ if __name__=="__main__":
 # Changes 2026-10-04: when cosyvoice3_dynamic.json exists, validate its shared-asset identity, N/P bounds, six symbolic Flow packages, dynamic Conditions/HiFT packages, exact default-conditioning byte sizes, and max Flow/HiFT stochastic-buffer byte sizes while preserving fixed-only behavior.
 
 # Changes 2026-10-04: reference validation now follows the same dynamic-first active-manifest rule as CosyVoice3AssetLoader. --require-reference checks dynamic referenceEnrollment when cosyvoice3_dynamic.json exists, while fixed-only roots retain prior behavior.
+
+# Changes 2026-10-05: schema-3 production enumerated validator requires exact N1...450 bounds, 62-position full-window prefix budget, canonical four-family partition, <=128 shapes/function, six Flow packages, multifunction Conditions/HiFT paths, and exact max stochastic-buffer sizes.
