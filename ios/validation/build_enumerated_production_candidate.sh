@@ -7,9 +7,10 @@ ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
 PYTHON="${PYTHON:-python3}"
 SHARED_ROOT="${1:-}"
 OUTPUT="${2:-}"
+REBUILD_ROOT="${COSYVOICE3_REBUILD_ROOT:-$ROOT/ios/.work/rebuild/ios-fixed225-reference}"
 
 if [ -z "$SHARED_ROOT" ] || [ -z "$OUTPUT" ]; then
-    printf 'Usage: PYTHON=/path/to/python bash ios/validation/build_enumerated_production_candidate.sh /path/to/immutable-dynamic-root /path/to/output\n'
+    printf 'Usage: PYTHON=/path/to/python COSYVOICE3_REBUILD_ROOT=/path/to/pinned-rebuild bash ios/validation/build_enumerated_production_candidate.sh /path/to/immutable-dynamic-root /path/to/output\n'
     exit 2
 fi
 
@@ -34,7 +35,12 @@ printf '[COSY-ENUMERATED-BUILD] sourceTree=clean\n'
 printf '[COSY-ENUMERATED-BUILD] python=%s\n' "$PYTHON"
 "$PYTHON" --version
 printf '[COSY-ENUMERATED-BUILD] sharedRoot=%s\n' "$SHARED_ROOT"
+printf '[COSY-ENUMERATED-BUILD] rebuildRoot=%s\n' "$REBUILD_ROOT"
 printf '[COSY-ENUMERATED-BUILD] output=%s\n' "$OUTPUT"
+if [ ! -d "$REBUILD_ROOT/source" ] || [ ! -f "$REBUILD_ROOT/model-cache/Fun-CosyVoice3-0.5B-2512/flow.pt" ] || [ ! -f "$REBUILD_ROOT/fixture/flow_input.pt" ]; then
+    printf '[COSY-ENUMERATED-BUILD] ERROR pinned rebuild prerequisites missing under %s\n' "$REBUILD_ROOT"
+    exit 5
+fi
 
 if [ -e "$OUTPUT" ]; then
     printf '[COSY-ENUMERATED-BUILD] ERROR output already exists: %s\n' "$OUTPUT"
@@ -44,6 +50,7 @@ fi
 "$PYTHON" ios/assets/validate_assets.py --root "$SHARED_ROOT" --require-reference
 "$PYTHON" ios/experiments/dynamic-acoustic/export_enumerated_production_family.py \
     --shared-root "$SHARED_ROOT" \
+    --rebuild-root "$REBUILD_ROOT" \
     --output "$OUTPUT"
 "$PYTHON" ios/assets/validate_assets.py --root "$OUTPUT" --require-reference
 
@@ -67,3 +74,5 @@ printf '[COSY-ENUMERATED-BUILD] PASS output=%s\n' "$OUTPUT"
 # Changed lines: new file; no upload, no hidden output, no source mutation, no model parameter or inference-math change.
 
 # Changes 2026-10-05: production asset build now fails closed on any non-clean Git worktree before conversion, so sourceCommit in the export receipt is a complete provenance identity rather than a potentially dirty approximation.
+
+# Changes 2026-10-05: one-command build now surfaces the pinned rebuild prerequisite via COSYVOICE3_REBUILD_ROOT (canonical .work path by default), validates source/checkpoint/fixture presence before conversion, and passes the root explicitly to the exporter for receipt binding.
