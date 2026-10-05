@@ -33,7 +33,8 @@ def main()->int:
     token_source=(ROOT/"Sources/CosyVoice3Core/CosyVoice3TokenSemantics.swift").read_text(encoding="utf-8")
     llm_source=(ROOT/"Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift").read_text(encoding="utf-8")
     acoustic_source=(ROOT/"Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift").read_text(encoding="utf-8")
-    if "static let eos = 6562" not in token_source or "static let sos = 6561" not in token_source:
+    compact="".join(token_source.split())
+    if "staticleteos=6562" not in compact or "staticletsos=6561" not in compact:
         raise RuntimeError("EOS/SOS source semantics drifted")
     if "return decoded" not in llm_source or "CosyVoice3TokenSemantics.isStop(token)" not in llm_source:
         raise RuntimeError("LLM immediate-stop behavior not found")
