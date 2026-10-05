@@ -54,8 +54,6 @@ import json,sys
 from pathlib import Path
 release=json.loads(Path(sys.argv[1]).read_text()); base=json.loads(Path(sys.argv[2]).read_text()); bench=json.loads(Path(sys.argv[3]).read_text()); transcript=Path(sys.argv[6]).read_text().strip(); workload=bench["workload"]; text=workload["text"]
 if bench.get("sourceCommit")!=base["validatedSourceCommit"] or bench.get("status")!="PASS": raise SystemExit("Candidate benchmark/baseline mismatch")
-reference_wav=Path(sys.argv[6]).with_name("reference.wav") if Path(sys.argv[6]).name=="reference.txt" else None
-# The staged host copies are authoritative; derive the WAV path beside the binding input only when appropriate.
 reference_wav=Path(sys.argv[7])
 a=release["asset"]; out={"schemaVersion":1,"releaseHead":sys.argv[5],"candidateReleaseHead":base["candidateReleaseHead"],"validatedSourceCommit":base["validatedSourceCommit"],"assetIdentity":release["assetIdentity"],"profile":a["profile"],"version":a["version"],"revision":a["revision"],"payloadTreeSha256":a["payloadTreeSha256"],"testedRuntimeTreeSha256":a["testedRuntimeTreeSha256"],"referenceTranscriptCharacters":len(transcript),"referenceWavSha256":__import__("hashlib").sha256(reference_wav.read_bytes()).hexdigest(),"workloadText":text,"workloadTextSha256":__import__("hashlib").sha256(text.encode()).hexdigest()}
 Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
@@ -88,7 +86,7 @@ if raw.get("candidateReleaseHead")!=base["candidateReleaseHead"] or raw.get("val
 profile=(release.get("asset") or {}).get("profile","")
 bench_name="dynamic_candidate_benchmark.json" if str(profile).startswith("ios-dynamic-") else "candidate_benchmark.json"
 bench=json.loads((Path(sys.argv[3]).parent/"evidence"/bench_name).read_text()); expected=__import__("hashlib").sha256(bench["workload"]["text"].encode()).hexdigest()
-if raw.get("workloadTextSha256")!=expected: raise SystemExit("clean-room workload differs from Candidate-frozen fixed225 workload")
+if raw.get("workloadTextSha256")!=expected: raise SystemExit("clean-room workload differs from Candidate-frozen workload")
 if raw.get("sampleRate")!=24000 or raw.get("channels")!=1 or int(raw.get("samples",0))<=0 or raw.get("finite") is not True or raw.get("flowSteps")!=6: raise SystemExit("clean-room PCM/public-default contract mismatch")
 profile=(release.get("asset") or {}).get("profile","")
 if str(profile).startswith("ios-dynamic-"):
@@ -122,3 +120,5 @@ main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; tes
 # Changes 2026-10-04: when no explicit custom-reference fixture is supplied, generate a transient macOS say/afconvert speech reference under .work; hash-bind it into host/device receipts. No generated reference is committed, uploaded or included in public assets.
 
 # Changes 2026-10-04: export sanitized clean-room/Candidate/environment receipts to ALL_SDK_ENTRY_RESULT_DIR before disposable all-SDK clone cleanup.
+
+# Changes 2026-10-04: simplify reference-hash binding to the explicit WAV argument and remove the obsolete fixed225-only workload wording.
