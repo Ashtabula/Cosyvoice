@@ -1,0 +1,29 @@
+{
+  "info" : {
+    "arguments" : [
+      "devicectl",
+      "device",
+      "info",
+      "processes",
+      "--device",
+      "00008150-000A05CA1440401C",
+      "--search",
+      "VoiceBenchmark",
+      "--json-output",
+      "results/omni-cosy-performance-20261005/final-device-processes.json"
+    ],
+    "commandType" : "devicectl.device.info.processes",
+    "environment" : {
+      "TERM" : "dumb"
+    },
+    "jsonVersion" : 5,
+    "outcome" : "success",
+    "version" : "651.13.2"
+  },
+  "result" : {
+    "deviceIdentifier" : "FD701839-6A88-59F5-9AFF-A3362B91B2A5",
+    "runningProcesses" : [
+
+    ]
+  }
+}

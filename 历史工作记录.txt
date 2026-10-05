@@ -224,3 +224,9 @@ Actions: independent validation-only acoustic CPU_AND_GPU switch, default CPU_AN
 Files: AssetLoader.swift, FlowSpecializationParityTests.swift; root GPU rejection JSON/full log.
 Validation: GPU maxAbs1.695045/1.275717; N225 host9.703->5.080s but output gate failed. Default Release47 tests/4 skips/zero failures. Three full physical CPU-route16 segment benchmarks PASS: baseline2.870326, mask3.109059, fast-hint3.099898; targetRTF<1 not reached.
 GitHub Timeline: publishing failed experiment proof on existing experiment branch, not main; no model/precision/steps/sampling or assets changed.
+
+Time: 2026-10-05T08:56:37.113909-04:00
+Prompt: 跳过VoxCPM，优化/验证OmniVoice与CosyVoice3；导出分项/资源结果。
+Action/files: 保存 ios/validation/performance-20261005 独立MD+JSON结果、冻结asset检查与最终无测试进程证据；原始全日志/WAV仍在workspace results/omni-cosy-performance-20261005。
+Validation: 物理tested766e735：baseline/candidate/fastHint RTF2.870326/3.109059/3.099898，目标<1未达成；128step realCoreML logits maxAbs0；GPU host output差异拒绝；final866e89f default47tests4skips0fails，人类听审PENDING。
+GitHub Timeline: 源代码已push各自实验分支；本次report未commit，下一步选择性commit/push并readback；main未合并。

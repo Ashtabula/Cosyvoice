@@ -1,0 +1,16 @@
+[
+  {
+    "engine": "omnivoice",
+    "status": "PASS",
+    "fileCount": 44,
+    "tree": "32062ead305ccec276d8c9d70d8e7a0e675e6c740352b31bff3ce3ed5d0937d4",
+    "assetVersion": "0.1.0-rc1"
+  },
+  {
+    "engine": "cosyvoice3",
+    "status": "PASS",
+    "fileCount": 103,
+    "tree": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "assetVersion": "0.2.0-rc1"
+  }
+]

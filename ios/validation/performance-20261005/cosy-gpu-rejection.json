@@ -1,0 +1,23 @@
+{
+  "status": "REJECT_NUMERICAL_OUTPUT_CHANGE",
+  "scope": "HOST_COMPONENT_ONLY_NO_PHYSICAL_GPU_RUN",
+  "gpuRequestedOnlyFor": "dynamic-acoustic; LLM and reference remain CPU_ONLY",
+  "frozenModelBytesChanged": false,
+  "defaultPolicyChanged": false,
+  "criteria": "zero PCM delta to same frozen CPU_AND_NE control; existing same-mel HiFT acceptance is not whole-endpoint acceptance",
+  "cases": [
+    {
+      "N": 186,
+      "maxAbs": 1.6950450539588928,
+      "beforeSeconds": 9.464010458,
+      "afterSeconds": 11.80575875
+    },
+    {
+      "N": 225,
+      "maxAbs": 1.2757167518138885,
+      "beforeSeconds": 9.703235459,
+      "afterSeconds": 5.08028375
+    }
+  ],
+  "log": "/Volumes/WD/Codes/Demo/clean/results/omni-cosy-performance-20261005/cosy-gpu-acoustic-host-parity.log"
+}

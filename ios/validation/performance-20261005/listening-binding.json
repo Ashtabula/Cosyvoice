@@ -1,0 +1,9 @@
+{
+  "engine": "cosyvoice3",
+  "testedSHA": "766e73596b804a1d857e5ed07e02b7afd6767bf0",
+  "wav": "/Volumes/WD/Codes/Demo/clean/results/omni-cosy-performance-20261005/cosy-candidate-workload.wav",
+  "sha256": "07ab52c7bf4b962347a3b0b13d438539c968fc193aeac279a975f6c8505b296e",
+  "durationSeconds": 234.48,
+  "humanReview": "PENDING",
+  "notBoundToOldOmniOrVoxVerdicts": true
+}
