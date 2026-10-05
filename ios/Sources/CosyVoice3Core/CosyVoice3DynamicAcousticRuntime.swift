@@ -8,12 +8,42 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     static let sampleRate = 24_000
     static let validatedFlowStepCounts = CosyVoice3FlowSteps.allCases.map(\.rawValue)
 
+    private enum AcousticContract: Sendable {
+        case dynamic(CosyVoice3DynamicAcousticAssets)
+        case enumerated(CosyVoice3EnumeratedAcousticAssets)
+
+        var speechTokenMinimum: Int {
+            switch self { case .dynamic(let v): return v.speechTokenMinimum; case .enumerated(let v): return v.speechTokenMinimum }
+        }
+        var speechTokenMaximum: Int {
+            switch self { case .dynamic(let v): return v.speechTokenMaximum; case .enumerated(let v): return v.speechTokenMaximum }
+        }
+        var promptFrameCount: Int {
+            switch self { case .dynamic(let v): return v.promptFrameCount; case .enumerated(let v): return v.promptFrameCount }
+        }
+        var maximumFlowFrames: Int {
+            switch self { case .dynamic(let v): return v.maximumFlowFrames; case .enumerated(let v): return v.maximumFlowFrames }
+        }
+        var maximumPCMSamples: Int {
+            switch self { case .dynamic(let v): return v.maximumPCMSamples; case .enumerated(let v): return v.maximumPCMSamples }
+        }
+        func functionName(forSpeechTokenCount n: Int) throws -> String? {
+            switch self {
+            case .dynamic: return nil
+            case .enumerated(let value): return try value.functionName(forSpeechTokenCount: n)
+            }
+        }
+        func validate() throws {
+            switch self { case .dynamic(let v): try v.validate(); case .enumerated(let v): try v.validate() }
+        }
+    }
+
     private let assetRoot: URL
     private let conditionsPath: String
     private let flowShardPaths: [String]
     private let hiftPath: String
     private let f0: CosyVoice3HiFTDoubleF0
-    private let contract: CosyVoice3DynamicAcousticAssets
+    private let contract: AcousticContract
     private let defaultPromptTokens: MLMultiArray
     private let defaultPromptFeat: MLMultiArray
     private let defaultSpeaker: MLMultiArray
@@ -32,7 +62,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     }
     private(set) var modelLoadMilliseconds: Double = 0
 
-    init(
+    convenience init(
         assetRoot: URL,
         conditionsPath: String,
         flowShardPaths: [String],
@@ -46,6 +76,70 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         hiftExcitationMaximum: MLMultiArray,
         flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue,
         progress: (@Sendable (String) -> Void)? = nil
+    ) throws {
+        try self.init(
+            assetRoot: assetRoot,
+            conditionsPath: conditionsPath,
+            flowShardPaths: flowShardPaths,
+            hiftPath: hiftPath,
+            f0: f0,
+            contract: .dynamic(contract),
+            defaultPromptTokens: defaultPromptTokens,
+            defaultPromptFeat: defaultPromptFeat,
+            defaultSpeaker: defaultSpeaker,
+            flowNoiseMaximum: flowNoiseMaximum,
+            hiftExcitationMaximum: hiftExcitationMaximum,
+            flowStepCount: flowStepCount,
+            progress: progress
+        )
+    }
+
+    convenience init(
+        assetRoot: URL,
+        conditionsPath: String,
+        flowShardPaths: [String],
+        hiftPath: String,
+        f0: CosyVoice3HiFTDoubleF0,
+        contract: CosyVoice3EnumeratedAcousticAssets,
+        defaultPromptTokens: MLMultiArray,
+        defaultPromptFeat: MLMultiArray,
+        defaultSpeaker: MLMultiArray,
+        flowNoiseMaximum: MLMultiArray,
+        hiftExcitationMaximum: MLMultiArray,
+        flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue,
+        progress: (@Sendable (String) -> Void)? = nil
+    ) throws {
+        try self.init(
+            assetRoot: assetRoot,
+            conditionsPath: conditionsPath,
+            flowShardPaths: flowShardPaths,
+            hiftPath: hiftPath,
+            f0: f0,
+            contract: .enumerated(contract),
+            defaultPromptTokens: defaultPromptTokens,
+            defaultPromptFeat: defaultPromptFeat,
+            defaultSpeaker: defaultSpeaker,
+            flowNoiseMaximum: flowNoiseMaximum,
+            hiftExcitationMaximum: hiftExcitationMaximum,
+            flowStepCount: flowStepCount,
+            progress: progress
+        )
+    }
+
+    private init(
+        assetRoot: URL,
+        conditionsPath: String,
+        flowShardPaths: [String],
+        hiftPath: String,
+        f0: CosyVoice3HiFTDoubleF0,
+        contract: AcousticContract,
+        defaultPromptTokens: MLMultiArray,
+        defaultPromptFeat: MLMultiArray,
+        defaultSpeaker: MLMultiArray,
+        flowNoiseMaximum: MLMultiArray,
+        hiftExcitationMaximum: MLMultiArray,
+        flowStepCount: Int,
+        progress: (@Sendable (String) -> Void)?
     ) throws {
         try contract.validate()
         guard flowShardPaths.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [flowShardPaths.count]) }
@@ -91,6 +185,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let tFrames = p + 2 * n
         let g = 2 * n
         let samplesCount = 960 * n
+        let functionName = try contract.functionName(forSpeechTokenCount: n)
+        if let functionName {
+            print("[COSY-ENUMERATED] N=\(n) T=\(tFrames) G=\(g) function=\(functionName)")
+        }
 
         let tokens = try MLMultiArray(shape: [1,NSNumber(value:n)], dataType: .int32)
         let tokenPointer = tokens.dataPointer.assumingMemoryBound(to: Int32.self)
@@ -118,7 +216,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             promptTokens: promptTokens,
             promptFeat: promptFeat,
             speaker: speaker,
-            tFrames: tFrames
+            tFrames: tFrames,
+            functionName: functionName
         )
         await Task.yield()
         progress?("acoustic.conditions.end:N=\(n):T=\(tFrames)")
@@ -146,7 +245,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             ]
             var velocity: MLMultiArray?
             for index in flowShardPaths.indices {
-                let stage = try predictFlowShard(index: index, flowStep: step, feed: feed, tFrames: tFrames)
+                let stage = try predictFlowShard(index: index, flowStep: step, feed: feed, tFrames: tFrames, functionName: functionName)
                 switch stage {
                 case .first(let h, let te):
                     feed = ["h":h, "te":te, "mask":mask]
@@ -208,7 +307,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             phase: phase,
             excitation: excitation,
             norm: norm,
-            samplesCount: samplesCount
+            samplesCount: samplesCount,
+            functionName: functionName
         )
         await Task.yield()
         progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
@@ -221,12 +321,18 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         case velocity(MLMultiArray)
     }
 
-    private func loadModel(path: String, stage: String) throws -> MLModel {
-        progress?("\(stage).load.begin:\(path)")
+    private func loadModel(path: String, stage: String, functionName: String?) throws -> MLModel {
+        progress?("\(stage).load.begin:\(path):function=\(functionName ?? "<range>")")
         let started = DispatchTime.now().uptimeNanoseconds
-        let fast = stage.contains(".shard.") && ProcessInfo.processInfo.environment["COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION"] == "1"
-        let model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path, preferFastPrediction: fast)
-        print("[COSY-SPECIALIZATION] stage=\(stage) strategy=\(fast ? "FAST_PREDICTION" : "DEFAULT") validationOnly=YES")
+        let model: MLModel
+        if let functionName {
+            model = try CosyVoice3AssetLoader.enumeratedAcousticModel(root: assetRoot, path: path, functionName: functionName)
+            print("[COSY-SPECIALIZATION] stage=\(stage) strategy=ENUMERATED_EXACT function=\(functionName) productionPath=YES")
+        } else {
+            let fast = stage.contains(".shard.") && ProcessInfo.processInfo.environment["COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION"] == "1"
+            model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path, preferFastPrediction: fast)
+            print("[COSY-SPECIALIZATION] stage=\(stage) strategy=\(fast ? "FAST_PREDICTION" : "DEFAULT") validationOnly=YES")
+        }
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000
         modelLoadMilliseconds += elapsed
         print("[COSY-MODEL-LOAD] stage=\(stage) ms=\(elapsed)")
@@ -239,13 +345,14 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         promptTokens: MLMultiArray,
         promptFeat: MLMultiArray,
         speaker: MLMultiArray,
-        tFrames: Int
+        tFrames: Int,
+        functionName: String?
     ) throws -> (MLMultiArray, MLMultiArray, MLMultiArray) {
         let phaseStarted = DispatchTime.now().uptimeNanoseconds
         let loadBefore = modelLoadMilliseconds
         defer { recordPhase("conditions", since: phaseStarted, loadBefore: loadBefore) }
         return try autoreleasepool {
-            let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model")
+            let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model", functionName: functionName)
             progress?("acoustic.conditions.prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
                 "tokens": tokens,
@@ -268,7 +375,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         index: Int,
         flowStep: Int,
         feed: [String: MLMultiArray],
-        tFrames: Int
+        tFrames: Int,
+        functionName: String?
     ) throws -> FlowShardStage {
         let phaseStarted = DispatchTime.now().uptimeNanoseconds
         let loadBefore = modelLoadMilliseconds
@@ -279,7 +387,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         return try autoreleasepool {
             let path = flowShardPaths[index]
             let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).6"
-            let model = try loadModel(path: path, stage: label)
+            let model = try loadModel(path: path, stage: label, functionName: functionName)
             progress?("\(label).prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
             let stage: FlowShardStage
@@ -308,13 +416,14 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         phase: MLMultiArray,
         excitation: MLMultiArray,
         norm: MLMultiArray,
-        samplesCount: Int
+        samplesCount: Int,
+        functionName: String?
     ) throws -> [Float] {
         let phaseStarted = DispatchTime.now().uptimeNanoseconds
         let loadBefore = modelLoadMilliseconds
         defer { recordPhase("decoder", since: phaseStarted, loadBefore: loadBefore) }
         return try autoreleasepool {
-            let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model")
+            let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model", functionName: functionName)
             progress?("acoustic.hift.prediction.begin:samples=\(samplesCount)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
                 "mel": mel, "f0": f0, "phase": phase, "noise": excitation, "norm": norm
@@ -439,3 +548,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
 // Purpose: opt-in single-variable Flow specialization experiment, default unchanged; upstream: sequential dynamic runtime.
 // Environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York; changed loadModel validation hint only.
+
+// Changes 2026-10-05: production enumerated lane selects one exact-shape multifunction family after real EOS determines N. N/T/G/PCM stay exact; no bucket padding or crop is introduced. Schema-2 RangeDim remains available only as the frozen comparison path.
