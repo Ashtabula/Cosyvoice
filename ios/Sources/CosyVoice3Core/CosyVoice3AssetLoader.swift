@@ -82,7 +82,7 @@ struct CosyVoice3DynamicAcousticAssets: Codable, Sendable {
     let hiftExcitationMaximum: String
 
     func validate() throws {
-        guard status == "CANDIDATE",
+        guard ["CANDIDATE", "PASS_DEVICE_VALIDATION"].contains(status),
               speechTokenMinimum >= 1,
               speechTokenMaximum >= speechTokenMinimum,
               speechTokenMaximum <= CosyVoice3FP16StatefulLLMSession.capacity,
@@ -127,7 +127,7 @@ struct CosyVoice3EnumeratedAcousticAssets: Codable, Sendable {
     let hiftExcitationMaximum: String
 
     func validate() throws {
-        guard status == "CANDIDATE",
+        guard ["CANDIDATE", "PASS_DEVICE_VALIDATION"].contains(status),
               speechTokenMinimum == 1,
               speechTokenMaximum == 450,
               promptFrameCount == 302,
@@ -526,3 +526,5 @@ enum CosyVoice3AssetLoader {
 // Changed model configuration: one opt-in validation env key; failures propagate without fallback.
 
 // Changes 2026-10-05: add schema-3 ios18-enumerated-N1...450 acoustic contract with four <=128 exact-shape families, multifunction function selection, and function-bound warm-marker identity. The fixed225 and schema-2 RangeDim contracts remain readable controls.
+
+// Changes 2026-10-05: align Swift variable-acoustic status gates with the standalone validator: both schema-2 and schema-3 accept CANDIDATE and PASS_DEVICE_VALIDATION, preventing a physically promoted manifest from becoming unreadable by the SDK.
