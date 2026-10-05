@@ -19,6 +19,7 @@ private struct Binding: Codable {
     let payloadTreeSha256: String
     let testedRuntimeTreeSha256: String
     let referenceTranscriptCharacters: Int
+    let referenceWavSha256: String
     let workloadText: String
     let workloadTextSha256: String
 }
@@ -52,9 +53,13 @@ final class CleanRoomModel: ObservableObject {
             let assetManifest = try JSONSerialization.jsonObject(with: Data(contentsOf: runtime.appendingPathComponent("asset-manifest.json"))) as? [String:Any]
             guard assetManifest?["profile"] as? String == binding.profile, assetManifest?["assetVersion"] as? String == binding.version, assetManifest?["payloadTreeSha256"] as? String == binding.payloadTreeSha256 else { throw NSError(domain:"CleanRoom",code:2,userInfo:[NSLocalizedDescriptionKey:"asset identity mismatch"]) }
             phase = "reference"
+            let referenceURL = root.appendingPathComponent("reference.wav")
             let transcript = try String(contentsOf: root.appendingPathComponent("reference.txt"), encoding:.utf8).trimmingCharacters(in:.whitespacesAndNewlines)
             guard transcript.count == binding.referenceTranscriptCharacters else { throw NSError(domain:"CleanRoom",code:3,userInfo:[NSLocalizedDescriptionKey:"reference transcript mismatch"]) }
-            let reference = CosyVoice3VoiceReference(audioURL: root.appendingPathComponent("reference.wav"), transcript: transcript)
+            let referenceData = try Data(contentsOf: referenceURL)
+            let referenceSHA256 = SHA256.hash(data: referenceData).map { String(format:"%02x",$0) }.joined()
+            guard referenceSHA256 == binding.referenceWavSha256 else { throw NSError(domain:"CleanRoom",code:7,userInfo:[NSLocalizedDescriptionKey:"reference WAV hash mismatch"]) }
+            let reference = CosyVoice3VoiceReference(audioURL: referenceURL, transcript: transcript)
             phase = "engine-init"
             let engine = try CosyVoice3Engine(assetRoot: runtime)
             phase = "capabilities"
@@ -67,7 +72,7 @@ final class CleanRoomModel: ObservableObject {
             let audio = try await engine.synthesize(binding.workloadText, parameters: CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>",flowSteps:.steps6))
             phase = "pcm-validation"
             guard audio.sampleRate == 24_000, audio.channels == 1, !audio.samples.isEmpty, audio.samples.allSatisfy({ $0.isFinite }) else { throw NSError(domain:"CleanRoom",code:5,userInfo:[NSLocalizedDescriptionKey:"PCM contract failed"]) }
-            let receipt:[String:Any] = ["schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM","releaseHead":binding.releaseHead,"candidateReleaseHead":binding.candidateReleaseHead,"validatedSourceCommit":binding.validatedSourceCommit,"assetIdentity":binding.assetIdentity,"profile":binding.profile,"version":binding.version,"revision":binding.revision,"payloadTreeSha256":binding.payloadTreeSha256,"testedRuntimeTreeSha256":binding.testedRuntimeTreeSha256,"publicApiOnly":true,"flowSteps":6,"sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"finite":true,"referenceTranscriptCharacters":transcript.count,"workloadTextCharacters":binding.workloadText.count,"workloadTextSha256":binding.workloadTextSha256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"recordedAtUnix":Int(Date().timeIntervalSince1970)]
+            let receipt:[String:Any] = ["schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM","releaseHead":binding.releaseHead,"candidateReleaseHead":binding.candidateReleaseHead,"validatedSourceCommit":binding.validatedSourceCommit,"assetIdentity":binding.assetIdentity,"profile":binding.profile,"version":binding.version,"revision":binding.revision,"payloadTreeSha256":binding.payloadTreeSha256,"testedRuntimeTreeSha256":binding.testedRuntimeTreeSha256,"publicApiOnly":true,"flowSteps":6,"sampleRate":audio.sampleRate,"channels":audio.channels,"samples":audio.samples.count,"finite":true,"referenceTranscriptCharacters":transcript.count,"referenceWavSha256":binding.referenceWavSha256,"workloadTextCharacters":binding.workloadText.count,"workloadTextSha256":binding.workloadTextSha256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"recordedAtUnix":Int(Date().timeIntervalSince1970)]
             phase = "write-pass-receipt"
             let data = try JSONSerialization.data(withJSONObject: receipt, options:[.prettyPrinted,.sortedKeys]); let url = try Self.documents().appendingPathComponent("production-clean-room-receipt.json"); try data.write(to:url,options:.atomic)
             status = "PASS samples=\(audio.samples.count) receipt=\(url.path)"
@@ -92,3 +97,5 @@ final class CleanRoomModel: ObservableObject {
 // Changes 2026-10-03: Production clean-room now consumes the exact Candidate-frozen public-API workload from its staged binding. The fixed225 acoustic bucket requires 225 generated speech tokens; inventing a new sentence can legitimately hit EOS early and is outside this validated fixed bucket.
 
 // Changes 2026-10-03: recompute SHA256 of the staged workload on device before synthesis; the receipt now proves the exact Candidate-frozen text rather than merely echoing a host-provided digest.
+
+// Changes 2026-10-04: bind the clean-room reference WAV by SHA256 and verify it independently on device before public synthesis; transient host-generated fixtures are therefore evidence-bound without being release assets.
