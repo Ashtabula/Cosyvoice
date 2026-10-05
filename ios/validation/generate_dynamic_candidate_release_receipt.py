@@ -69,7 +69,7 @@ def main()->int:
     require(env.get("status")=="PASS_RELEASE_ENVIRONMENT_RECORDED","release environment is not PASS")
     require(env.get("sourceCommit")==current,"release environment is not current HEAD")
     environment=env.get("environment") or {}
-    for key in ("cleanRoomHost","releaseHost","toolchain","consumerRequirements","historicalAssetBuildProvenance"):
+    for key in ("cleanRoomHost","releaseHost","toolchain","validationTarget","consumerRequirements","historicalAssetBuildProvenance"):
         require(bool(environment.get(key)),f"release environment missing {key}")
     require(listening.get("status")=="PASS_DYNAMIC_LISTENING_ACCEPTANCE","dynamic human listening is not PASS")
     require(n0.get("status")=="PASS_N0_FAIL_CLOSED_RELEASE_POLICY","N0 release policy is not PASS")
@@ -94,7 +94,7 @@ def main()->int:
     runtime_unchanged(validated,current)
 
     device=benchmark.get("device") or {}
-    target=env.get("validationTarget") or {}
+    target=environment.get("validationTarget") or env.get("validationTarget") or {}
     require(device.get("modelIdentifier") and device.get("systemVersion"),"benchmark physical device identity incomplete")
     if target:
         require(target.get("modelIdentifier")==device.get("modelIdentifier"),"environment/benchmark physical device mismatch")
@@ -171,3 +171,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: require rebuild-convergence and N0-policy receipts to bind the exact current Candidate source HEAD, matching build/benchmark/environment source closure.
 
 # Changes 2026-10-04: accelerator claim remains explicitly not-claimed; Candidate evidence records only requested Core ML compute policy and never infers ANE residency.
+
+# Changes 2026-10-04: dynamic Candidate receipt now requires canonical environment.validationTarget rather than accepting device identity only outside the environment block.
