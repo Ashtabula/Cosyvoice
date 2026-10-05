@@ -7,6 +7,7 @@ import gc
 import json
 import shutil
 import subprocess
+import sys
 import traceback
 from pathlib import Path
 
@@ -560,13 +561,13 @@ def main() -> int:
         packages = [conditions_package, *flow_packages, hift_package]
         compiled = []
         for package in packages:
-            compiled_dir = acoustic / f"compiled-{package.stem}"
+            compiled_dir = work / f"compiled-{package.stem}"
             compiled_url = compile_package(package, compiled_dir)
             compiled.append({
                 "package": package.name,
-                "compiled": str(compiled_url),
                 "compiledBytes": tree_bytes(compiled_url),
                 "compiledSha256": sha(compiled_url),
+                "transientCompileValidation": True,
             })
         receipt["compiled"] = compiled
         save()
@@ -586,8 +587,16 @@ def main() -> int:
         save()
         stage_shared_assets(args.output, args.shared_root, shared_manifest, receipt)
         write_manifest(args.output, shared_manifest, receipt)
+        receipt["phase"] = "validate_standalone_root"
+        save()
+        validator = ROOT / "ios/assets/validate_assets.py"
+        subprocess.run(
+            [sys.executable, str(validator), "--root", str(args.output), "--require-reference-files"],
+            check=True,
+        )
 
         receipt["assetPackageBytes"] = sum(tree_bytes(p) for p in packages)
+        receipt["standaloneRootBytes"] = tree_bytes(args.output)
         receipt["status"] = "PASS_ENUMERATED_N1_N450_EXPORT_NOT_PROMOTED"
         receipt["phase"] = "complete"
         if not args.keep_intermediates:
@@ -609,3 +618,5 @@ if __name__ == "__main__":
 # Changed lines: new production exporter; four exact-shape function families 1-128/129-256/257-384/385-450, schema-3 manifest emission, multifunction weight dedup accounting, compile/load gates, and no-padding/no-crop invariants.
 
 # Changes 2026-10-05: assemble a standalone production asset root from the immutable schema-2 shared assets instead of requiring the frozen fixed225 profile. Unchanged tokenizer/LLM/reference/F0/default-conditioning files are copied byte-for-byte; N479 stochastic buffers are deterministically narrowed to the N450 production maximum with channel-correct slicing.
+
+# Changes 2026-10-05: compiled mlmodelc artifacts are transient validation products under .family-build and are removed from the shipping root; the exporter now runs the standalone schema-3 asset validator before declaring PASS.
