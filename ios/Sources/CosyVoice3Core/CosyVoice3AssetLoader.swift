@@ -219,11 +219,27 @@ struct CosyVoice3AssetManifest: Codable, Sendable {
                 throw CosyVoice3AssetError.unsupportedProfile(profile)
             }
             try dynamicAcoustic.validate()
+            if referenceEnrollment?.isPromoted == true,
+               referenceEnrollment?.flowConditionsDynamic != flowConditions {
+                throw CosyVoice3AssetError.invalidJSON(
+                    "dynamic promoted reference Conditions path must match active flowConditions"
+                )
+            }
         } else if isEnumeratedAcoustic {
-            guard schemaVersion == 3, dynamicAcoustic == nil, let enumeratedAcoustic else {
+            guard schemaVersion == 3,
+                  dynamicAcoustic == nil,
+                  let enumeratedAcoustic,
+                  flowMask == nil,
+                  flowNoise == nil else {
                 throw CosyVoice3AssetError.unsupportedProfile(profile)
             }
             try enumeratedAcoustic.validate()
+            if referenceEnrollment?.isPromoted == true,
+               referenceEnrollment?.flowConditionsDynamic != flowConditions {
+                throw CosyVoice3AssetError.invalidJSON(
+                    "enumerated promoted reference Conditions path must match active flowConditions"
+                )
+            }
         } else {
             throw CosyVoice3AssetError.unsupportedProfile(profile)
         }
@@ -530,3 +546,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: align Swift variable-acoustic status gates with the standalone validator: both schema-2 and schema-3 accept CANDIDATE and PASS_DEVICE_VALIDATION, preventing a physically promoted manifest from becoming unreadable by the SDK.
 
 // Changes 2026-10-05: schema-3 production profile identity is exact (ios18-enumerated-n1-n450), matching validate_assets.py; arbitrary ios18-enumerated-* prefixes no longer enter the production loader contract.
+
+// Changes 2026-10-05: align runtime fail-closed validation with validate_assets.py: promoted schema-2/3 reference Conditions must bind to the active flowConditions package, and schema-3 must not carry legacy fixed flowMask/flowNoise paths.
