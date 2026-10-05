@@ -337,6 +337,11 @@ def main() -> None:
                 "repeatSamples": receipt.get("repeatSamples"),
                 "acousticShapeMode": receipt.get("acousticShapeMode"),
                 "enumeratedAcousticExecution": receipt.get("enumeratedAcousticExecution"),
+                "thermalStart": receipt.get("thermalStart"),
+                "thermalEnd": receipt.get("thermalEnd"),
+                "validationSamplerSeed": receipt.get("validationSamplerSeed"),
+                "matchedDeterministicSpeechLength": receipt.get("matchedDeterministicSpeechLength"),
+                "validationCacheReset": receipt.get("validationCacheReset"),
             }
             json_write(evidence_path, evidence)
     except Exception as exc:
@@ -408,3 +413,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: non-reuse validation now best-effort uninstalls the prior validation bundle before install, forcing a fresh app data container and preventing stale Runtime/Documents/Library cache files from contaminating clean-room evidence. --reuse-staging intentionally preserves the existing container.
 
 # Changes 2026-10-05: host physical-validation evidence now closes fail-stop as FAIL_CANDIDATE_BENCHMARK or FAIL_VARIABLE_PUBLIC_API_SMOKE with exact error/completion time before rethrowing. A failed run no longer leaves the top-level evidence permanently RUNNING.
+
+# Changes 2026-10-05: top-level device evidence now surfaces Candidate thermal start/end, deterministic seed/matched-length gate, and cache-reset status instead of requiring later readers to reopen the raw receipt for benchmark comparability.
