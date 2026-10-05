@@ -1,5 +1,5 @@
 // CosyVoice3DeviceSmokeApp.swift
-// Requirement: physical-device smoke/Candidate paths use the stable public CosyVoice3Core API; dynamic validation must cover both default/no-reference and custom-reference lanes; Flow-step head-to-head uses only the explicit Validation SPI.
+// Requirement: physical-device smoke/Candidate paths use the stable public CosyVoice3Core API; variable-length validation covers schema-2 RangeDim and schema-3 exact-enumerated profiles, default/no-reference and custom-reference lanes.
 
 import AVFoundation
 import Combine
@@ -9,7 +9,7 @@ import SwiftUI
 import UIKit
 @_spi(Validation) import CosyVoice3Core
 
-private func writeDynamicEngineProgress(
+private func writeVariableEngineProgress(
     url: URL,
     lane: String,
     stage: String,
@@ -48,7 +48,7 @@ struct CosyVoice3DeviceSmokeApp: App {
                 Text("CosyVoice3 Device Smoke").font(.title2.bold())
                 Text(model.status).font(.system(.body, design: .monospaced)).textSelection(.enabled)
                 Button("Run public API reference smoke") { Task { await model.runSmoke() } }.disabled(model.running)
-                Button("Run dynamic default + reference smoke") { Task { await model.runDynamicPublicAPISmoke() } }.disabled(model.running)
+                Button("Run variable default + reference smoke") { Task { await model.runVariablePublicAPISmoke() } }.disabled(model.running)
                 Button("Run Candidate cold/warm benchmark") { Task { await model.runCandidateBenchmark() } }.disabled(model.running)
                 Button("Run Flow 10 / 8 / 6 head-to-head") { Task { await model.runFlowStepHeadToHead() } }.disabled(model.running)
                 HStack {
@@ -82,7 +82,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
-            else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) { await runDynamicPublicAPISmoke() }
+            else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("variable-public-api-smoke-mode.json").path)
+                 || FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) {
+                await runVariablePublicAPISmoke()
+            }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("flow-step-head-to-head-mode.json").path) { await runFlowStepHeadToHead() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
             else { await runSmoke() }
@@ -113,19 +116,19 @@ final class CosyVoice3SmokeModel: ObservableObject {
         } catch { Self.recordFailure(error, filename:"reference-smoke-receipt.json", into:self) }
     }
 
-    func runDynamicPublicAPISmoke() async {
+    func runVariablePublicAPISmoke() async {
         guard !running else { return }
         running = true
-        status = "RUNNING dynamic public API default + reference smoke..."
+        status = "RUNNING variable public API default + reference smoke..."
         receiptJSON = ""
         defer { running = false }
 
-        for name in ["dynamic-public-api-smoke-receipt.json","dynamic-default.wav","dynamic-reference.wav"] {
+        for name in ["variable-public-api-smoke-receipt.json","variable-default.wav","variable-reference.wav"] {
             if let stale = try? Self.receiptURL(name) { try? FileManager.default.removeItem(at: stale) }
         }
 
         do {
-            let progressURL = try Self.receiptURL("dynamic-public-api-smoke-receipt.json")
+            let progressURL = try Self.receiptURL("variable-public-api-smoke-receipt.json")
             let smokeRecordedAtUnix = Int(Date().timeIntervalSince1970)
             var progress: [String: Any] = [
                 "schemaVersion": 1,
@@ -138,17 +141,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
             _ = try Self.write(progress, to: progressURL)
 
             let fixture = try Self.fixture()
-            let manifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_dynamic.json")
-            guard FileManager.default.fileExists(atPath: manifestURL.path) else {
-                throw SmokeError("cosyvoice3_dynamic.json missing")
-            }
-            let manifestValue = try JSONSerialization.jsonObject(with: Data(contentsOf: manifestURL)) as? [String: Any]
-            guard let profile = manifestValue?["profile"] as? String,
-                  let dynamic = manifestValue?["dynamicAcoustic"] as? [String: Any],
-                  let nmin = dynamic["speechTokenMinimum"] as? Int,
-                  let nmax = dynamic["speechTokenMaximum"] as? Int else {
-                throw SmokeError("dynamic manifest contract missing")
-            }
+            let variable = try Self.variableManifestInfo(runtime: fixture.runtime)
+            let profile = variable.profile
+            let nmin = variable.speechTokenMinimum
+            let nmax = variable.speechTokenMaximum
 
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime)
             let capabilities = try await engine.capabilities()
@@ -161,12 +157,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
 
             let clock = ContinuousClock()
-            let defaultText = "This is a CosyVoice3 dynamic default voice validation."
+            let defaultText = "This is a CosyVoice3 variable-length default voice validation."
             let boundSourceCommit = fixture.sourceCommit
             let boundHostReceiptSHA256 = fixture.hostReceiptSHA256
             let boundSpeechTokenBounds = [nmin,nmax]
             await engine.setValidationProgressObserver { stage in
-                writeDynamicEngineProgress(
+                writeVariableEngineProgress(
                     url: progressURL,
                     lane: "DEFAULT",
                     stage: stage,
@@ -179,11 +175,14 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             progress["phase"] = "DEFAULT_SYNTHESIS"
             progress["profile"] = profile
+            progress["schemaVersion"] = variable.schemaVersion
+            progress["acousticShapeMode"] = variable.acousticShapeMode
             progress["speechTokenBounds"] = [nmin,nmax]
             progress["hostReceiptSha256"] = fixture.hostReceiptSHA256
             progress["text"] = defaultText
             progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
             _ = try Self.write(progress, to: progressURL)
+
             let defaultStart = clock.now
             let defaultAudio = try await engine.synthesize(
                 defaultText,
@@ -196,18 +195,19 @@ final class CosyVoice3SmokeModel: ObservableObject {
             guard (nmin...nmax).contains(defaultN) else { throw SmokeError("default inferred N out of manifest bounds: \(defaultN)") }
             let defaultReport = await engine.lastSynthesisReport()
             let defaultWAV = Self.wavData(defaultAudio)
-            try defaultWAV.write(to: Self.receiptURL("dynamic-default.wav"), options: .atomic)
+            try defaultWAV.write(to: Self.receiptURL("variable-default.wav"), options: .atomic)
 
             progress["phase"] = "REFERENCE_SYNTHESIS"
             progress["defaultSamples"] = defaultAudio.samples.count
             progress["defaultInferredSpeechTokensFromPCM"] = defaultN
             progress["defaultSynthesisMilliseconds"] = defaultMilliseconds
+            if let function = variable.functionName(for: defaultN) { progress["defaultFunctionName"] = function }
             progress["updatedAtUnix"] = Int(Date().timeIntervalSince1970)
             _ = try Self.write(progress, to: progressURL)
 
             let boundDefaultSamples = defaultAudio.samples.count
             await engine.setValidationProgressObserver { stage in
-                writeDynamicEngineProgress(
+                writeVariableEngineProgress(
                     url: progressURL,
                     lane: "REFERENCE",
                     stage: stage,
@@ -237,29 +237,28 @@ final class CosyVoice3SmokeModel: ObservableObject {
             guard (nmin...nmax).contains(referenceN) else { throw SmokeError("reference inferred N out of manifest bounds: \(referenceN)") }
             let referenceReport = await engine.lastSynthesisReport()
             let referenceWAV = Self.wavData(referenceAudio)
-            try referenceWAV.write(to: Self.receiptURL("dynamic-reference.wav"), options: .atomic)
+            try referenceWAV.write(to: Self.receiptURL("variable-reference.wav"), options: .atomic)
 
             await engine.setValidationProgressObserver(nil)
             var receipt: [String: Any] = [
                 "schemaVersion": 1,
-                "status": "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
-                "benchmark": "dynamic-public-api-default-and-reference-v1",
+                "status": "PASS_VARIABLE_PUBLIC_API_DEFAULT_AND_REFERENCE",
+                "benchmark": "variable-public-api-default-and-reference-v1",
                 "sourceCommit": fixture.sourceCommit,
                 "recordedAtUnix": Int(Date().timeIntervalSince1970),
                 "profile": profile,
+                "assetSchemaVersion": variable.schemaVersion,
+                "acousticShapeMode": variable.acousticShapeMode,
                 "speechTokenBounds": [nmin,nmax],
                 "flowSteps": CosyVoice3FlowSteps.productionDefault.rawValue,
-                "generationContract": "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)",
+                "generationContract": "maxN=min(targetTextTokens*20,450,512-logicalPrefixLength)",
+                "logicalPrefixMaximumForFullN450Window": 62,
                 "requestedComputePlacement": [
                     "llmPrefill": "CPU_ONLY",
                     "llmDecode": "CPU_ONLY",
-                    "dynamicAcoustic": "CPU_AND_NE",
+                    "acoustic": "CPU_AND_NE",
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
-                ],
-                "dynamicAcousticExecutionHints": [
-                    "reshapeFrequency": "INFREQUENT",
-                    "meaning": "MLModelConfiguration optimization hint matching the accepted physical shape-sweep probe"
                 ],
                 "default": [
                     "text": defaultText,
@@ -285,14 +284,28 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "systemVersion": UIDevice.current.systemVersion,
                 "productionPromotion": false
             ]
+            if variable.schemaVersion == 2 {
+                receipt["dynamicAcousticExecutionHints"] = [
+                    "reshapeFrequency": "INFREQUENT",
+                    "meaning": "schema-2 RangeDim comparison path"
+                ]
+            } else {
+                receipt["enumeratedAcousticExecution"] = [
+                    "padding": false,
+                    "crop": false,
+                    "defaultFunctionName": variable.functionName(for: defaultN) ?? "",
+                    "referenceFunctionName": variable.functionName(for: referenceN) ?? "",
+                    "familyCount": variable.families.count
+                ]
+            }
             if let defaultReport { receipt["defaultReport"] = Self.reportDictionary(defaultReport) }
             if let referenceReport { receipt["referenceReport"] = Self.reportDictionary(referenceReport) }
-            let url = try Self.receiptURL("dynamic-public-api-smoke-receipt.json")
+            let url = try Self.receiptURL("variable-public-api-smoke-receipt.json")
             receiptJSON = try Self.write(receipt, to: url)
             try play(referenceAudio)
-            status = "PASS dynamic default N=\(defaultN) reference N=\(referenceN) receipt=\(url.path)"
+            status = "PASS variable default N=\(defaultN) reference N=\(referenceN) receipt=\(url.path)"
         } catch {
-            Self.recordFailure(error, filename:"dynamic-public-api-smoke-receipt.json", into:self)
+            Self.recordFailure(error, filename:"variable-public-api-smoke-receipt.json", into:self)
         }
     }
 
@@ -301,18 +314,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
         do {
             let fixture = try Self.fixture()
-            let dynamicManifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_dynamic.json")
-            let fixedManifestURL = fixture.runtime.appendingPathComponent("cosyvoice3_fixed225.json")
-            let activeManifestURL = FileManager.default.fileExists(atPath: dynamicManifestURL.path) ? dynamicManifestURL : fixedManifestURL
-            let activeManifest = try JSONSerialization.jsonObject(with: Data(contentsOf: activeManifestURL)) as? [String: Any]
-            guard let activeProfile = activeManifest?["profile"] as? String else { throw SmokeError("active manifest profile missing") }
-            let dynamicContract = activeManifest?["dynamicAcoustic"] as? [String: Any]
-            let speechTokenBounds: [Int]? = {
-                guard let d = dynamicContract,
-                      let lo = d["speechTokenMinimum"] as? Int,
-                      let hi = d["speechTokenMaximum"] as? Int else { return nil }
-                return [lo, hi]
-            }()
+            let activeManifest = try Self.activeManifest(runtime: fixture.runtime)
+            let activeProfile = activeManifest.profile
+            let variable = try? Self.variableManifestInfo(runtime: fixture.runtime)
+            let speechTokenBounds = variable.map { [$0.speechTokenMinimum, $0.speechTokenMaximum] }
             let clock = ContinuousClock(); let initStart = clock.now
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
             let capabilities = try await engine.capabilities()
@@ -329,19 +334,34 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let repeatStages = await engine.lastSynthesisReport()
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion]
-            if let speechTokenBounds {
+            if let speechTokenBounds, let variable {
                 receipt["speechTokenBounds"] = speechTokenBounds
+                receipt["acousticShapeMode"] = variable.acousticShapeMode
                 receipt["requestedComputePlacement"] = [
                     "llmPrefill": "CPU_ONLY",
                     "llmDecode": "CPU_ONLY",
-                    "dynamicAcoustic": "CPU_AND_NE",
+                    "acoustic": "CPU_AND_NE",
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
                 ]
-                receipt["dynamicAcousticExecutionHints"] = [
-                    "reshapeFrequency": "INFREQUENT",
-                    "meaning": "MLModelConfiguration optimization hint matching physical validation"
-                ]
+                if variable.schemaVersion == 2 {
+                    receipt["dynamicAcousticExecutionHints"] = [
+                        "reshapeFrequency": "INFREQUENT",
+                        "meaning": "schema-2 RangeDim comparison path"
+                    ]
+                } else {
+                    let firstN = first.samples.count % 960 == 0 ? first.samples.count / 960 : -1
+                    let repeatN = repeatAudio.samples.count % 960 == 0 ? repeatAudio.samples.count / 960 : -1
+                    receipt["enumeratedAcousticExecution"] = [
+                        "padding": false,
+                        "crop": false,
+                        "firstN": firstN,
+                        "repeatN": repeatN,
+                        "firstFunctionName": variable.functionName(for: firstN) ?? "",
+                        "repeatFunctionName": variable.functionName(for: repeatN) ?? "",
+                        "familyCount": variable.families.count
+                    ]
+                }
             }
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
@@ -470,6 +490,89 @@ final class CosyVoice3SmokeModel: ObservableObject {
         }
     }
 
+    private struct ShapeFamily {
+        let minimum: Int
+        let maximum: Int
+        let functionName: String
+        func contains(_ n: Int) -> Bool { n >= minimum && n <= maximum }
+    }
+
+    private struct ActiveManifestInfo {
+        let url: URL
+        let profile: String
+        let schemaVersion: Int
+    }
+
+    private struct VariableManifestInfo {
+        let profile: String
+        let schemaVersion: Int
+        let acousticShapeMode: String
+        let speechTokenMinimum: Int
+        let speechTokenMaximum: Int
+        let families: [ShapeFamily]
+
+        func functionName(for n: Int) -> String? {
+            families.first(where: { $0.contains(n) })?.functionName
+        }
+    }
+
+    private static func activeManifest(runtime: URL) throws -> ActiveManifestInfo {
+        for name in ["cosyvoice3_enumerated.json","cosyvoice3_dynamic.json","cosyvoice3_fixed225.json"] {
+            let url = runtime.appendingPathComponent(name)
+            guard FileManager.default.fileExists(atPath: url.path) else { continue }
+            guard let value = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any],
+                  let profile = value["profile"] as? String,
+                  let schema = value["schemaVersion"] as? Int else {
+                throw SmokeError("active manifest identity missing")
+            }
+            return ActiveManifestInfo(url: url, profile: profile, schemaVersion: schema)
+        }
+        throw SmokeError("no supported CosyVoice3 manifest")
+    }
+
+    private static func variableManifestInfo(runtime: URL) throws -> VariableManifestInfo {
+        let active = try activeManifest(runtime: runtime)
+        let value = try JSONSerialization.jsonObject(with: Data(contentsOf: active.url)) as? [String: Any]
+        let key: String
+        let mode: String
+        if active.schemaVersion == 3 {
+            key = "enumeratedAcoustic"
+            mode = "ENUMERATED_EXACT"
+        } else if active.schemaVersion == 2 {
+            key = "dynamicAcoustic"
+            mode = "RANGEDIM"
+        } else {
+            throw SmokeError("active profile is fixed-length, not variable")
+        }
+        guard let contract = value?[key] as? [String: Any],
+              let nmin = contract["speechTokenMinimum"] as? Int,
+              let nmax = contract["speechTokenMaximum"] as? Int else {
+            throw SmokeError("variable manifest contract missing")
+        }
+        var families: [ShapeFamily] = []
+        if active.schemaVersion == 3 {
+            guard let rows = contract["families"] as? [[String: Any]] else {
+                throw SmokeError("enumerated family list missing")
+            }
+            for row in rows {
+                guard let lo = row["speechTokenMinimum"] as? Int,
+                      let hi = row["speechTokenMaximum"] as? Int,
+                      let function = row["functionName"] as? String else {
+                    throw SmokeError("enumerated family entry invalid")
+                }
+                families.append(ShapeFamily(minimum: lo, maximum: hi, functionName: function))
+            }
+        }
+        return VariableManifestInfo(
+            profile: active.profile,
+            schemaVersion: active.schemaVersion,
+            acousticShapeMode: mode,
+            speechTokenMinimum: nmin,
+            speechTokenMaximum: nmax,
+            families: families
+        )
+    }
+
     private struct Fixture {
         let runtime: URL
         let reference: CosyVoice3VoiceReference
@@ -485,8 +588,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let reference = CosyVoice3VoiceReference(audioURL:wav,transcript:transcript)
         let candidateMarker=resources.appendingPathComponent("candidate-benchmark-mode.json")
         let flowMarker=resources.appendingPathComponent("flow-step-head-to-head-mode.json")
+        let variableMarker=resources.appendingPathComponent("variable-public-api-smoke-mode.json")
         let dynamicMarker=resources.appendingPathComponent("dynamic-public-api-smoke-mode.json")
-        let marker:URL? = FileManager.default.fileExists(atPath:dynamicMarker.path) ? dynamicMarker : (FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil))
+        let variableBinding = FileManager.default.fileExists(atPath:variableMarker.path) ? variableMarker : (FileManager.default.fileExists(atPath:dynamicMarker.path) ? dynamicMarker : nil)
+        let marker:URL? = variableBinding ?? (FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil))
         let hostSHA:String; let sourceCommit:String
         if let marker {
             let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
@@ -535,7 +640,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     private static func validationSourceCommit() -> String? {
         guard let resources = try? generatedAssets() else { return nil }
-        for name in ["dynamic-public-api-smoke-mode.json","flow-step-head-to-head-mode.json","candidate-benchmark-mode.json"] {
+        for name in ["variable-public-api-smoke-mode.json","dynamic-public-api-smoke-mode.json","flow-step-head-to-head-mode.json","candidate-benchmark-mode.json"] {
             let marker = resources.appendingPathComponent(name)
             guard let data = try? Data(contentsOf: marker),
                   let value = try? JSONSerialization.jsonObject(with:data) as? [String:Any],
@@ -629,3 +734,5 @@ private extension Data {
 // Changes 2026-10-04: Candidate benchmark receipt records active runtime profile; dynamic profiles also record N bounds, validated requested mixed placement, and reshapeFrequency=INFREQUENT so host-side Candidate evidence can bind the exact dynamic execution contract.
 
 // Changes 2026-10-04: support receipt-last external Documents/GeneratedAssets for exact hosted dynamic replay without bundling/copying 4.28GB on the host. Bind immutable manifest SHA explicitly; do not fabricate a historical host receipt. Original bundle staging and matching-reference recovery remain available.
+
+// Changes 2026-10-05: generalize physical public-API validation and Candidate benchmark to schema-3 exact EnumeratedShapes. Active manifest precedence matches the SDK; receipts record exact EOS-derived N and selected multifunction name, no padding/crop, N450/62-prefix production contract, while schema-2 RangeDim remains a comparison path.
