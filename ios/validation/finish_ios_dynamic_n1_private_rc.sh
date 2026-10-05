@@ -1,6 +1,6 @@
+#!/usr/bin/env bash
 #@title finish_ios_dynamic_n1_private_rc.sh
 # Requirement: publish the exact accepted dynamic N1...479 runtime as an immutable private Hugging Face RC, verify exact downloaded bytes, ordinary-fetch it through the SDK catalog path, replay default+reference public APIs on a physical iPhone, then commit only accepted private-RC catalog/evidence. License/public redistribution remain pending.
-#!/usr/bin/env bash
 set -u -o pipefail
 
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -11,7 +11,7 @@ VERSION="${COSYVOICE3_ASSET_VERSION:-0.2.0-rc1}"
 REPO_ID="${COSYVOICE3_HF_REPO_ID:-actacomes/CosyVoice-assets}"
 SOURCE_ASSETS="${COSYVOICE3_ASSET_ROOT:-$ROOT/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime}"
 LOWER_RECEIPT="${COSYVOICE3_N1_EXTENSION_RECEIPT:-$ROOT/experiments/dynamic-acoustic/evidence/lower-bound-n1-extension-20261004-173341-20292/lower-bound-extension-receipt.json}"
-SMOKE_RECEIPT="${COSYVOICE3_DYNAMIC_SMOKE_RECEIPT:-$ROOT/validation/evidence/dynamic-public-api-smoke-1791154976/dynamic-public-api-smoke-receipt.json}"
+SMOKE_RECEIPT="${COSYVOICE3_DYNAMIC_SMOKE_RECEIPT:-$ROOT/validation/evidence/dynamic_n1_public_api_smoke.json}"
 LISTENING_RECEIPT="${COSYVOICE3_DYNAMIC_LISTENING_RECEIPT:-$ROOT/validation/evidence/dynamic_n1_listening_acceptance.json}"
 HOST_RECEIPT="${COSYVOICE3_HOST_PARITY_RECEIPT:-$ROOT/.work/reference-release/parity/reference_host_parity_receipt.json}"
 REFERENCE_WAV="${COSYVOICE3_REFERENCE_WAV:-}"
@@ -35,11 +35,21 @@ main(){
     command -v python3 || return $?
     command -v xcodebuild || return $?
     command -v xcrun || return $?
-    [ -n "${DEVICE_ID:-}" ] || { fail "set DEVICE_ID"; return 2; }
+    if [ -z "${DEVICE_ID:-}" ]; then
+        local destinations
+        destinations="$(xcodebuild -project "$ROOT/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj" -scheme CosyVoice3DeviceSmoke -showdestinations 2>&1)"
+        DEVICE_ID="$(printf '%s\n' "$destinations" | sed -n 's/.*{ platform:iOS, arch:arm64, id:\([^,}]*\), name:.*/\1/p' | head -n 1 | xargs)"
+        [ -n "$DEVICE_ID" ] || { printf '%s\n' "$destinations"; fail "no available physical iPhone destination"; return 2; }
+        export DEVICE_ID
+        printf '[COSYVOICE3-DYNAMIC-RC] auto-selected physical iPhone device=%s\n' "$DEVICE_ID"
+    fi
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { fail "set DEVELOPMENT_TEAM"; return 2; }
-    [ -f "$REFERENCE_WAV" ] || { fail "set COSYVOICE3_REFERENCE_WAV to the local validation reference"; return 2; }
-    [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "set COSYVOICE3_REFERENCE_TRANSCRIPT to the matching transcript"; return 2; }
-    [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt missing: $HOST_RECEIPT"; return 2; }
+    if [ -z "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then REFERENCE_WAV="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav"; fi
+    if [ -z "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then REFERENCE_TRANSCRIPT="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt"; fi
+    if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then HOST_RECEIPT="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json"; fi
+    [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain DeviceSmoke/GeneratedAssets/reference.wav"; return 2; }
+    [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "reference transcript unavailable; set COSYVOICE3_REFERENCE_TRANSCRIPT or retain DeviceSmoke/GeneratedAssets/reference.txt"; return 2; }
+    [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt unavailable at explicit/default or DeviceSmoke staged path"; return 2; }
     [ -x "$DYNAMIC_PYTHON" ] || { fail "dynamic conversion Python missing: $DYNAMIC_PYTHON"; return 2; }
     [ "$(git -C "$REPO" branch --show-current)" = "$BRANCH" ] || { fail "wrong branch; expected $BRANCH"; return 2; }
     [ -z "$(git -C "$REPO" status --porcelain --untracked-files=no)" ] || { git -C "$REPO" status --short; fail "tracked worktree must be clean"; return 2; }
@@ -208,3 +218,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: immutable private-RC evidence carries the asset manifest's historical conversion provenance so Candidate environment receipts can distinguish it from clean-room build/consumer requirements.
 
 # Changes 2026-10-04: private RC closure records exact package-metadata-derived conversion provenance with the dynamic coremltools/torch environment before staging, passes that receipt into the publisher, and commits the sanitized provenance evidence with the private RC receipt.
+
+# Changes 2026-10-04: use committed sanitized dynamic N1 public-API smoke evidence instead of an untracked timestamped smoke directory; auto-detect the physical iPhone and reuse staged reference/host inputs during preflight.
