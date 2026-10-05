@@ -280,7 +280,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "requestedComputePlacement": [
                     "llmPrefill": "CPU_ONLY",
                     "llmDecode": "CPU_ONLY",
-                    "acoustic": "CPU_AND_NE",
+                    "acoustic": Self.requestedAcousticPlacement(),
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
                 ],
@@ -386,7 +386,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 receipt["requestedComputePlacement"] = [
                     "llmPrefill": "CPU_ONLY",
                     "llmDecode": "CPU_ONLY",
-                    "acoustic": "CPU_AND_NE",
+                    "acoustic": Self.requestedAcousticPlacement(),
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
                 ]
@@ -717,8 +717,15 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private static func recordFailure(_ error: Error, filename: String, into model: CosyVoice3SmokeModel) {
         var receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","recordedAtUnix":Int(Date().timeIntervalSince1970),"error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
         if let sourceCommit = validationSourceCommit() { receipt["sourceCommit"] = sourceCommit }
+        receipt["requestedAcousticPlacement"] = requestedAcousticPlacement()
         if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
         model.status="FAIL \(String(describing:error))"
+    }
+
+    private static func requestedAcousticPlacement() -> String {
+        if CommandLine.arguments.contains("--validation-enumerated-cpu-gpu") { return "CPU_AND_GPU_VALIDATION_OVERRIDE" }
+        if CommandLine.arguments.contains("--validation-enumerated-cpu-only") { return "CPU_ONLY_VALIDATION_OVERRIDE" }
+        return "CPU_AND_NE"
     }
 
     private static func validationSourceCommit() -> String? {
@@ -831,3 +838,5 @@ private extension Data {
 // Changes 2026-10-05: Candidate cold/warm benchmark sets validation-only sampler seed 42 before both public synthesize calls and fail-closes unless PCM-derived speech length/sample count matches. Production/default-reference smoke remains unseeded System RNG.
 
 // Changes 2026-10-05: matched Candidate benchmark now also requires identical deterministic Int16 WAV SHA256 across cold/warm calls. Same duration alone is insufficient; a divergent seeded token/audio trajectory invalidates the performance comparison.
+
+// Changes 2026-10-05: Candidate/variable receipts and FAIL receipts report the effective validation acoustic placement; schema-3 diagnostic command-line overrides are never labeled as production placement.
