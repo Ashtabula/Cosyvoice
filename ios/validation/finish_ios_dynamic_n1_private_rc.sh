@@ -76,14 +76,29 @@ main(){
     fi
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { fail "set DEVELOPMENT_TEAM"; return 2; }
     local reuse_input_dir="$ROOT/.work/device-smoke-reused-input"
-    local canonical_reference_used=0
     mkdir -p "$reuse_input_dir" "$WORK_ROOT"
-    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$reuse_input_dir/reference.wav" ]; then REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
-    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -s "$reuse_input_dir/reference.txt" ]; then REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
-    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
-    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
-    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$REPO/asset/zero_shot_prompt.wav" ]; then cp "$REPO/asset/zero_shot_prompt.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; canonical_reference_used=1; printf '[COSYVOICE3-DYNAMIC-RC] using canonical repository zero-shot WAV for immutable-RC API replay\n'; fi
-    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ "$canonical_reference_used" -eq 1 ]; then printf '%s\n' '希望你以后能够做的比我还好呦。' > "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; printf '[COSYVOICE3-DYNAMIC-RC] using matching canonical zero-shot transcript for immutable-RC API replay\n'; fi
+    if [ -f "$REFERENCE_WAV" ] || [ -s "$REFERENCE_TRANSCRIPT" ]; then
+        [ -f "$REFERENCE_WAV" ] && [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "explicit reference WAV/transcript must be supplied as a matching pair"; return 2; }
+    elif [ -f "$reuse_input_dir/reference.wav" ] && [ -s "$reuse_input_dir/reference.txt" ]; then
+        REFERENCE_WAV="$reuse_input_dir/reference.wav"
+        REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"
+        printf '[COSYVOICE3-DYNAMIC-RC] reusing preserved reference WAV/transcript pair\n'
+    elif [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then
+        cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?
+        cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?
+        REFERENCE_WAV="$reuse_input_dir/reference.wav"
+        REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"
+        printf '[COSYVOICE3-DYNAMIC-RC] preserved staged reference WAV/transcript pair before replay\n'
+    elif [ -f "$REPO/asset/zero_shot_prompt.wav" ]; then
+        cp "$REPO/asset/zero_shot_prompt.wav" "$reuse_input_dir/reference.wav" || return $?
+        printf '%s\n' '希望你以后能够做的比我还好呦。' > "$reuse_input_dir/reference.txt" || return $?
+        REFERENCE_WAV="$reuse_input_dir/reference.wav"
+        REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"
+        printf '[COSYVOICE3-DYNAMIC-RC] using canonical repository zero-shot WAV/transcript pair for immutable-RC API replay\n'
+    else
+        fail "matching reference WAV/transcript pair unavailable"
+        return 2
+    fi
     if [ ! -f "$HOST_RECEIPT" ] && [ -f "$reuse_input_dir/reference_host_parity_receipt.json" ]; then HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
     if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" "$reuse_input_dir/reference_host_parity_receipt.json" || return $?; HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
     [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain a canonical replay reference"; return 2; }
@@ -211,10 +226,15 @@ PY
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 6/7 record immutable fetch/replay evidence\n'
     [ -s "$REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json" ] || { fail "deterministic replay receipt missing: $REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json"; return 3; }
-    "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" "$REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json" "$FINAL_RECEIPT" <<'PY' || return $?
-import json,sys,time
+    "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" "$REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json" "$FINAL_RECEIPT" "$REFERENCE_WAV" "$REFERENCE_TRANSCRIPT" <<'PY' || return $?
+import hashlib,json,sys,time
 from pathlib import Path
 u=json.loads(Path(sys.argv[1]).read_text());m=json.loads(Path(sys.argv[2]).read_text());d=json.loads(Path(sys.argv[3]).read_text())
+def sha256(path):
+ h=hashlib.sha256()
+ with Path(path).open("rb") as f:
+  for b in iter(lambda:f.read(8*1024*1024),b""): h.update(b)
+ return h.hexdigest()
 if d.get("status")!="PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE": raise SystemExit("RC replay is not PASS")
 if d.get("profile")!="ios18-dynamic-n1-n479-candidate" or d.get("speechTokenBounds")!=[1,479]: raise SystemExit("RC replay profile/bounds mismatch")
 out={
@@ -226,6 +246,7 @@ out={
  "device":{"model":d.get("device"),"modelIdentifier":d.get("deviceModelIdentifier"),"systemVersion":d.get("systemVersion")},
  "default":{"N":d["default"]["inferredSpeechTokensFromPCM"],"samples":d["default"]["samples"]},
  "reference":{"N":d["reference"]["inferredSpeechTokensFromPCM"],"samples":d["reference"]["samples"]},
+ "replayReference":{"wavSha256":sha256(sys.argv[5]),"transcriptSha256":sha256(sys.argv[6]),"mediaCommitted":False,"transcriptCommitted":False},
  "licenseGate":m["licenseGate"],"publicRedistributionApproved":False,"recordedAtUnix":int(time.time())
 }
 Path(sys.argv[4]).parent.mkdir(parents=True,exist_ok=True);Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
@@ -268,3 +289,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: if the prior staged validation reference was already deleted by the historical self-delete bug, immutable-RC API replay falls back to the repository canonical zero_shot_prompt.wav with its matching upstream transcript; prior human-listening acceptance remains separate evidence and is not replaced.
 
 # Changes 2026-10-04: make private-RC retries transaction-safe: conversion provenance stays under .work until Step 7, a historical partial-run provenance edit is restored automatically, exact downloaded/fetched immutable assets are rehashed and reused instead of redownloaded, physical replay writes to a deterministic .work evidence directory, and canonical fallback transcript is emitted only when the canonical fallback WAV is selected.
+
+# Changes 2026-10-04: resolve replay reference audio/transcript only as an inseparable matching pair and record only their SHA256 identities in dynamic_private_rc.json; never mix explicit/cache/canonical reference components or commit the media/text.
