@@ -34,6 +34,31 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
+def payload_rows(root: Path) -> list[dict]:
+    rows = []
+    for path in sorted(item for item in root.rglob("*") if item.is_file()):
+        if path.name == "enumerated-production-export-receipt.json" or ".family-build" in path.parts:
+            continue
+        rows.append({
+            "path": path.relative_to(root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha256(path),
+        })
+    return rows
+
+
+def payload_tree_identity(rows: list[dict]) -> str:
+    digest = hashlib.sha256()
+    for row in sorted(rows, key=lambda item: item["path"]):
+        digest.update(row["path"].encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(str(int(row["bytes"])).encode("ascii"))
+        digest.update(b"\0")
+        digest.update(row["sha256"].encode("ascii"))
+        digest.update(b"\n")
+    return digest.hexdigest()
+
+
 def json_write(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
 
@@ -153,7 +178,11 @@ def main() -> None:
 
     run(["python3", VALIDATOR, "--root", asset_root, "--require-reference"])
     manifest_path = asset_root / "cosyvoice3_enumerated.json"
+    export_receipt_path = asset_root / "enumerated-production-export-receipt.json"
+    if not export_receipt_path.is_file():
+        raise RuntimeError("enumerated production export receipt missing from asset root")
     manifest = json.loads(manifest_path.read_text())
+    export_receipt = json.loads(export_receipt_path.read_text())
     contract = manifest.get("enumeratedAcoustic") or {}
     if manifest.get("schemaVersion") != 3 or manifest.get("profile") != "ios18-enumerated-n1-n450":
         raise RuntimeError("asset root is not the production enumerated profile")
@@ -166,11 +195,32 @@ def main() -> None:
     host = json.loads(host_receipt.read_text())
     if host.get("schemaVersion") != 2 or host.get("status") != "PASS_HOST_PARITY":
         raise RuntimeError("host reference receipt is not schema-2 PASS_HOST_PARITY")
+    if export_receipt.get("profile") != "ios18-enumerated-n1-n450" or not str(export_receipt.get("status", "")).startswith("PASS_"):
+        raise RuntimeError("enumerated export receipt is not a completed PASS")
+    if export_receipt.get("manifest", {}).get("sha256") != sha256(manifest_path):
+        raise RuntimeError("enumerated export receipt manifest hash mismatch")
+    rows = payload_rows(asset_root)
+    local_payload_tree = payload_tree_identity(rows)
+    local_payload_bytes = sum(int(row["bytes"]) for row in rows)
+    if export_receipt.get("payloadTreeSha256") != local_payload_tree:
+        raise RuntimeError("enumerated payload tree hash mismatch")
+    if int(export_receipt.get("payloadBytes", -1)) != local_payload_bytes:
+        raise RuntimeError("enumerated payload byte count mismatch")
     if not reference_wav.is_file() or not reference_transcript.is_file():
         raise RuntimeError("reference WAV/transcript missing")
 
     source = run(["git", "-C", REPO, "rev-parse", "HEAD"], capture=True)
+    asset_export_source = str(export_receipt.get("sourceCommit", ""))
+    if len(asset_export_source) != 40:
+        raise RuntimeError("enumerated export receipt sourceCommit missing")
+    runtime_diff = subprocess.run(
+        ["git", "-C", str(REPO), "diff", "--quiet", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
+        check=False,
+    )
+    if runtime_diff.returncode != 0:
+        raise RuntimeError("shipping iOS runtime changed after enumerated asset export; rebuild assets before device validation")
     manifest_sha = sha256(manifest_path)
+    export_receipt_sha = sha256(export_receipt_path)
     host_sha = sha256(host_receipt)
     staging = {
         "schemaVersion": 1,
@@ -178,6 +228,10 @@ def main() -> None:
         "sourceCommit": source,
         "runtimeManifestName": manifest_path.name,
         "runtimeManifestSha256": manifest_sha,
+        "exportReceiptSha256": export_receipt_sha,
+        "payloadTreeSha256": local_payload_tree,
+        "payloadBytes": local_payload_bytes,
+        "assetExportSourceCommit": asset_export_source,
         "profile": manifest["profile"],
         "speechTokenBounds": [1, 450],
         "logicalPrefixMaximumForFullSpeechWindow": 62,
@@ -192,6 +246,10 @@ def main() -> None:
         "sourceCommit": source,
         "hostReceiptSha256": host_sha,
         "runtimeManifestSha256": manifest_sha,
+        "exportReceiptSha256": export_receipt_sha,
+        "payloadTreeSha256": local_payload_tree,
+        "payloadBytes": local_payload_bytes,
+        "assetExportSourceCommit": asset_export_source,
         "activeManifest": manifest_path.name,
         "activeProfile": manifest["profile"],
     }
@@ -231,6 +289,10 @@ def main() -> None:
         "status": "RUNNING",
         "sourceCommit": source,
         "runtimeManifestSha256": manifest_sha,
+        "exportReceiptSha256": export_receipt_sha,
+        "payloadTreeSha256": local_payload_tree,
+        "payloadBytes": local_payload_bytes,
+        "assetExportSourceCommit": asset_export_source,
         "profile": manifest["profile"],
         "device": args.device,
         "bundle": args.bundle,
@@ -320,3 +382,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: run the strict nominal-start Candidate benchmark before any full synthesis smoke. Correctness default/reference smoke runs afterward, so its compute heat cannot contaminate cold/warm performance evidence.
 
 # Changes 2026-10-05: Candidate launch resets only validation-app CosyVoice3 compiled/warm caches before the first measurement, preventing prior same-bundle runs from masquerading as a cold benchmark.
+
+# Changes 2026-10-05: physical schema-3 validation now re-hashes the complete shipping payload tree, verifies it against the exporter receipt, binds payload bytes/tree/export-receipt SHA into staging/evidence, and rejects runtime-source changes after asset export. Manifest-only identity is no longer sufficient.
