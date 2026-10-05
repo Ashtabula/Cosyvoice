@@ -76,9 +76,13 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
 
     func runAutoMode() async {
+        let idleSetting = UIApplication.shared.isIdleTimerDisabled
+        UIApplication.shared.isIdleTimerDisabled = true
+        defer { UIApplication.shared.isIdleTimerDisabled = idleSetting }
         do {
             let resources = try Self.generatedAssets()
-            if FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) { await runDynamicPublicAPISmoke() }
+            if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
+            else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) { await runDynamicPublicAPISmoke() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("flow-step-head-to-head-mode.json").path) { await runFlowStepHeadToHead() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
             else { await runSmoke() }

@@ -18,8 +18,8 @@ def load(path):
     return value
 
 def main():
-    p=argparse.ArgumentParser(); p.add_argument("--raw-receipt",type=Path,required=True); p.add_argument("--asset-root",type=Path,required=True); p.add_argument("--reference-wav",type=Path,required=True); p.add_argument("--reference-transcript",type=Path,required=True); p.add_argument("--output",type=Path,required=True); a=p.parse_args()
-    raw=load(a.raw_receipt.resolve()); asset=load(a.asset_root.resolve()/"asset-manifest.json"); catalog=load(ROOT/"assets/releases.json"); promotion=load(ROOT/"validation/reference-device/promotion-receipt.json")
+    p=argparse.ArgumentParser(); p.add_argument("--raw-receipt",type=Path,required=True); p.add_argument("--asset-root",type=Path,required=True); p.add_argument("--reference-wav",type=Path,required=True); p.add_argument("--reference-transcript",type=Path,required=True); p.add_argument("--output",type=Path,required=True); p.add_argument("--immutable-replay-binding",type=Path); a=p.parse_args()
+    raw=load(a.raw_receipt.resolve()); asset=load(a.asset_root.resolve()/"asset-manifest.json"); catalog=load(ROOT/"assets/releases.json")
     matches=[r for r in catalog.get("releases",[]) if r.get("profile")==asset.get("profile") and r.get("version")==asset.get("assetVersion")]
     if len(matches)!=1: raise RuntimeError("release catalog has no unique entry for the fetched asset manifest")
     release=matches[0]
@@ -48,7 +48,16 @@ def main():
     for key in ("engineInitMilliseconds","firstSynthesisMilliseconds","repeatSynthesisMilliseconds","firstRTF","repeatRTF"):
         if float(raw.get(key,0))<=0: raise RuntimeError(f"Candidate benchmark invalid {key}")
     if not raw.get("deviceModelIdentifier") or not raw.get("systemVersion"): raise RuntimeError("Candidate benchmark device identity incomplete")
-    if raw.get("hostReceiptSha256")!=promotion.get("hostReceipt",{}).get("sha256"): raise RuntimeError("Candidate benchmark host-parity binding mismatch")
+    if a.immutable_replay_binding:
+        binding=load(a.immutable_replay_binding)
+        for key in ("repoId","revision","payloadTreeSha256","testedRuntimeTreeSha256"):
+            if binding.get(key)!=release.get(key): raise RuntimeError("immutable replay binding mismatch: "+key)
+        if binding.get("physicalReceiptSha256")!=sha(a.raw_receipt) or binding.get("sourceCommit")!=raw.get("sourceCommit"): raise RuntimeError("physical raw/source binding mismatch")
+        if binding.get("immutableManifestSha256")!=sha(a.asset_root/"asset-manifest.json"): raise RuntimeError("immutable manifest binding mismatch")
+        if binding.get("referenceWavSha256")!=sha(a.reference_wav) or binding.get("referenceTranscriptSha256")!=sha(a.reference_transcript): raise RuntimeError("immutable replay reference binding mismatch")
+    else:
+        promotion=load(ROOT/"validation/reference-device/promotion-receipt.json")
+        if raw.get("hostReceiptSha256")!=promotion.get("hostReceipt",{}).get("sha256"): raise RuntimeError("Candidate benchmark host-parity binding mismatch")
     if asset.get("profile")!=release.get("profile") or asset.get("assetVersion")!=release.get("version") or asset.get("payloadTreeSha256")!=release.get("payloadTreeSha256") or asset.get("testedRuntimeTreeSha256")!=release.get("testedRuntimeTreeSha256"): raise RuntimeError("Candidate benchmark asset identity differs from committed release catalog")
     wav=a.reference_wav.resolve(); transcript_path=a.reference_transcript.resolve()
     if not wav.is_file(): raise RuntimeError("Candidate benchmark reference WAV missing")
@@ -58,6 +67,7 @@ def main():
     head=subprocess.check_output(["git","-C",str(ROOT.parent),"rev-parse","HEAD"],text=True).strip()
     if raw.get("sourceCommit")!=head: raise RuntimeError(f"raw Candidate benchmark sourceCommit {raw.get('sourceCommit')!r} != current HEAD {head}")
     receipt={"schemaVersion":1,"status":"PASS","benchmark":"public-api-candidate-v1","sourceCommit":head,"runtimeProfile":asset.get("runtimeProfile"),"runtimeManifestProfile":asset.get("runtimeManifestProfile"),"speechTokenBounds":asset.get("speechTokenBounds"),"asset":{"profile":release["profile"],"version":release["version"],"repoId":release["repoId"],"revision":release["revision"],"payloadTreeSha256":release["payloadTreeSha256"],"testedRuntimeTreeSha256":release["testedRuntimeTreeSha256"]},"device":{"model":raw.get("device"),"modelIdentifier":raw["deviceModelIdentifier"],"systemName":raw.get("systemName"),"systemVersion":raw["systemVersion"]},"workload":{"text":"This is a CosyVoice3 public API reference voice validation.","instructionPrefix":"You are a helpful assistant.<|endofprompt|>","referenceWavSha256":sha(wav),"referenceWavBytes":wav.stat().st_size,"referenceTranscriptSha256":hashlib.sha256(transcript.encode("utf-8")).hexdigest(),"referenceTranscriptCharacters":len(transcript)},"measurement":{"flowSteps":6,"coldDefinition":raw.get("coldDefinition"),"warmDefinition":raw.get("warmDefinition"),"referenceValidationPrewarm":False,"engineInitMilliseconds":raw["engineInitMilliseconds"],"firstSynthesisMilliseconds":raw["firstSynthesisMilliseconds"],"repeatSynthesisMilliseconds":raw["repeatSynthesisMilliseconds"],"firstAudioSeconds":raw["firstAudioSeconds"],"repeatAudioSeconds":raw["repeatAudioSeconds"],"firstRTF":raw["firstRTF"],"repeatRTF":raw["repeatRTF"],"firstSamples":raw["firstSamples"],"repeatSamples":raw["repeatSamples"],"sameSampleCount":raw.get("sameSampleCount"),"sampleRate":24000,"channels":1,"finite":True,"firstStages":raw.get("firstStages"),"repeatStages":raw.get("repeatStages")},"requestedComputePlacement":raw.get("requestedComputePlacement"),"dynamicAcousticExecutionHints":raw.get("dynamicAcousticExecutionHints"),"hostReceiptSha256":raw["hostReceiptSha256"],"recordedAtUnix":int(time.time()),"performanceThresholdApplied":False}
+    if a.immutable_replay_binding: receipt["immutableReplayBinding"]=binding
     a.output.parent.mkdir(parents=True,exist_ok=True); a.output.write_text(json.dumps(receipt,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-CANDIDATE-BENCHMARK] PASS "+json.dumps(receipt,sort_keys=True),flush=True)
 
 if __name__=="__main__": main()
@@ -65,6 +75,7 @@ if __name__=="__main__": main()
 # Code purpose: convert the DeviceSmoke raw benchmark into committed Candidate evidence bound to exact SDK/HF/runtime identities.
 # Upstream source: DeviceSmoke public CosyVoice3Engine benchmark, assets/releases.json, fetched asset-manifest.json, reference promotion receipt.
 # Runtime environment: macOS Python 3 standard library after physical iPhone benchmark retrieval.
+# Updated 2026-10-04 America/New_York: optional exact raw/source/manifest/reference/HF/tree binding replaces unavailable historical host receipt only for a verified immutable replay; all PCM, steps, timing and profile gates remain required.
 # Generated: 2026-10-02 America/New_York.
 # Changes: fixes malformed literal newline escapes; enforces no reference prewarm, fixed225 PCM, positive cold/warm measurements, device identity, host-parity binding, immutable asset identity, and workload hashes; no speed threshold is imposed.
 

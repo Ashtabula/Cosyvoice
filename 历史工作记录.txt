@@ -167,3 +167,9 @@ Actions: hidden atomic download candidate avoids Finder contamination; move vali
 Files: ios/assets/fetch_assets.py; DeviceSmokeApp.swift; generate_dynamic_candidate_release_receipt.py.
 Validation: exact immutable fetch and engine asset validator PASS; standalone package build/test and signed physical replay host build PASS; physical replay pending unified Runner batch completion.
 GitHub Timeline: preparing commit and push to experiment/ios-dynamic-acoustic; hosted bytes untouched; no audio/media committed.
+
+2026-10-04 22:17 EDT
+Action: reproducible replay_hosted_dynamic.py validates every immutable file/tree using ordinary fetch validator, signs tiny host, receipt-last stages runtime/reference, binds physical receipt to source/manifest/HF revision/reference hashes. Cold/warm recorder accepts this exact binding without fabricated historical host parity. Host keeps screen awake during validation and supports explicit candidate mode without deleting recovery inputs.
+Files: validation/replay_hosted_dynamic.py, record_candidate_benchmark.py, DeviceSmokeApp.swift.
+Validation: Python compile PASS; original immutable dynamic public API Runner generated finite 121.32 s PCM on iPhone18,4 iOS27.2. Separate default/reference closure still pending.
+GitHub Timeline: committing/pushing source tools to existing experimental branch; no replacement asset upload.
