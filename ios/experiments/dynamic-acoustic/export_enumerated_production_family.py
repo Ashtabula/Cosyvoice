@@ -852,6 +852,27 @@ def main() -> int:
         ).strip()
         if upstream_head != PIN:
             raise RuntimeError(f"upstream source pin mismatch: {upstream_head} != {PIN}")
+        upstream_status = subprocess.check_output(
+            ["git", "-C", str(source), "status", "--porcelain", "--untracked-files=no"],
+            text=True,
+        )
+        if upstream_status.strip():
+            raise RuntimeError(
+                "pinned upstream tracked worktree is dirty:\n" + upstream_status
+            )
+        submodules = subprocess.check_output(
+            ["git", "-C", str(source), "submodule", "status", "--recursive"],
+            text=True,
+        )
+        bad_submodules = [
+            line for line in submodules.splitlines()
+            if line and line[0] in {"+", "-", "U"}
+        ]
+        if bad_submodules:
+            raise RuntimeError(
+                "pinned upstream submodule checkout mismatch:\n"
+                + "\n".join(bad_submodules)
+            )
         flow_sha = sha(flow_checkpoint)
         config_sha = sha(acoustic_config)
         if flow_sha != EXPECTED_FLOW_PT_SHA256:
@@ -866,6 +887,8 @@ def main() -> int:
         receipt["rebuildInputs"] = {
             "rebuildRoot": str(rebuild_root),
             "upstreamSourceCommit": upstream_head,
+            "upstreamTrackedTreeClean": True,
+            "upstreamSubmoduleStatus": submodules.splitlines(),
             "flowCheckpointSha256": flow_sha,
             "hiftCheckpointSha256": sha(hift_checkpoint),
             "acousticConfigSha256": config_sha,
@@ -1022,3 +1045,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: Flow/Conditions export now hard-requires the accepted flow.pt SHA256 a6fab32a..., and HiFT construction hard-requires the accepted cosyvoice3.yaml SHA256 f5a6b2c6.... The exact local hift.pt SHA is recorded for independent output binding.
 
 # Changes 2026-10-05: N225 enumerated HiFT now runs an independent same-input Core ML oracle against the exact immutable accepted schema-2 dynamic HiFT package. relativeL2 must remain <=0.02, so an incorrect local hift.pt cannot pass merely by agreeing with its own PyTorch source body.
+
+# Changes 2026-10-05: pinned upstream validation now rejects tracked source modifications and any recursive submodule checkout marked +, -, or U. HiFT/Matcha code therefore comes from the exact parent-commit submodule state rather than merely sharing the same top-level HEAD.
