@@ -58,6 +58,24 @@ EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7
 EXPECTED_FLOW_PT_SHA256 = "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b"
 EXPECTED_ACOUSTIC_CONFIG_SHA256 = "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965"
 EXPECTED_FLOW_FIXTURE_SHA256 = "c4ea1c46452a1e81e05cba79737a0713fdc7a0ec0fd6a484403ba479213487a1"
+EXPECTED_REBUILD_SOURCE_HYGIENE_SHA256 = "d53c3adbed082c63128daf38de0152838bd6d1cdc0b92b2a80c8521c7474ffdb"
+EXPECTED_MATCHA_COMMIT = "dd9105b34bf2be2230f4aa1e4769fb586a3c824e"
+ALLOWED_REBUILD_TRACKED_DIRTY_PATHS = {
+    "iOS/tools/export_llm_mask_write512.py",
+    "iOS/tools/export_pipeline_acoustics.py",
+    "iOS/validation/full-pipeline/acoustics-export.json",
+    "iOS/validation/full-pipeline/host-hift-phase-host.json",
+    "iOS/validation/llm_fp16/ane-full24/export.json",
+    "iOS/validation/llm_fp16/ane-full24/torch225-math.json",
+    "iOS/validation/llm_fp16/decode-opt-perlayer/receipt.json",
+    "iOS/validation/llm_fp16/mask-write-probe/llm-opt-perlayer-decode-maskwrite449/export.json",
+    "iOS/validation/llm_fp16/mask-write512/export.json",
+    "iOS/validation/llm_fp16/phase2-stateful-export.json",
+    "iOS/validation/llm_fp16/phase2-stateful-prefill-export.json",
+    "iOS/validation/llm_fp16/shape-placement/llm-opt-perlayer-decode-fixed449/export.json",
+    "iOS/validation/provenance/checkpoint-lock.json",
+    "third_party/Matcha-TTS",
+}
 
 
 def save_json(path: Path, value) -> None:
@@ -179,6 +197,97 @@ def validate_immutable_shared_root(root: Path) -> dict:
         "payloadTreeSha256": actual_tree,
         "payloadBytes": sum(int(row["bytes"]) for row in rows),
         "fileCount": len(rows),
+    }
+
+
+def tracked_dirty_paths(repo: Path) -> list[str]:
+    status = subprocess.check_output(
+        ["git", "-C", str(repo), "status", "--porcelain", "--untracked-files=no"],
+        text=True,
+    )
+    paths = []
+    for line in status.splitlines():
+        if not line:
+            continue
+        path = line[3:]
+        if " -> " in path:
+            path = path.split(" -> ", 1)[1]
+        paths.append(path)
+    return sorted(set(paths))
+
+
+def validate_rebuild_source_workspace(rebuild_root: Path, source: Path) -> dict:
+    upstream_head = subprocess.check_output(["git", "-C", str(source), "rev-parse", "HEAD"], text=True).strip()
+    if upstream_head != PIN:
+        raise RuntimeError(f"upstream source pin mismatch: {upstream_head} != {PIN}")
+
+    hygiene_path = rebuild_root / "source-hygiene.json"
+    if not hygiene_path.is_file():
+        raise RuntimeError(f"pinned rebuild source hygiene receipt missing: {hygiene_path}")
+    hygiene_sha = sha(hygiene_path)
+    if hygiene_sha != EXPECTED_REBUILD_SOURCE_HYGIENE_SHA256:
+        raise RuntimeError(
+            f"pinned rebuild source hygiene receipt SHA mismatch: {hygiene_sha} "
+            f"!= {EXPECTED_REBUILD_SOURCE_HYGIENE_SHA256}"
+        )
+    hygiene = json.loads(hygiene_path.read_text())
+    required_hygiene = {
+        "schemaVersion": 6,
+        "status": "PASS_SOURCE_HYGIENE",
+        "sourceCommit": PIN,
+        "matchaSubmoduleCommit": EXPECTED_MATCHA_COMMIT,
+        "runtimeMathChanged": False,
+    }
+    for key, value in required_hygiene.items():
+        if hygiene.get(key) != value:
+            raise RuntimeError(f"pinned rebuild source hygiene mismatch {key}: {hygiene.get(key)!r} != {value!r}")
+
+    matcha = source / "third_party/Matcha-TTS"
+    matcha_head = subprocess.check_output(["git", "-C", str(matcha), "rev-parse", "HEAD"], text=True).strip()
+    if matcha_head != EXPECTED_MATCHA_COMMIT:
+        raise RuntimeError(f"Matcha submodule pin mismatch: {matcha_head} != {EXPECTED_MATCHA_COMMIT}")
+
+    verified_files = [
+        (source / str(hygiene["target"]), str(hygiene["sanitizedSha256"])),
+        (source / str(hygiene["maskwrite512Target"]), str(hygiene["maskwrite512SanitizedSha256"])),
+        (matcha / str(hygiene["matchaUtilsTarget"]), str(hygiene["matchaUtilsSanitizedSha256"])),
+        (matcha / str(hygiene["matchaPyloggerTarget"]), str(hygiene["matchaPyloggerSanitizedSha256"])),
+    ]
+    verified = []
+    for path, expected_sha in verified_files:
+        if not path.is_file():
+            raise RuntimeError(f"sanitized rebuild source file missing: {path}")
+        actual_sha = sha(path)
+        if actual_sha != expected_sha:
+            raise RuntimeError(f"sanitized rebuild source file SHA mismatch: {path} {actual_sha} != {expected_sha}")
+        verified.append({"path": str(path.relative_to(source)), "sha256": actual_sha})
+
+    matcha_dirty = tracked_dirty_paths(matcha)
+    expected_matcha_dirty = sorted((str(hygiene["matchaUtilsTarget"]), str(hygiene["matchaPyloggerTarget"])))
+    if matcha_dirty != expected_matcha_dirty:
+        raise RuntimeError(f"unexpected Matcha tracked modifications: {matcha_dirty} != {expected_matcha_dirty}")
+
+    dirty = tracked_dirty_paths(source)
+    unexpected = sorted(set(dirty) - ALLOWED_REBUILD_TRACKED_DIRTY_PATHS)
+    if unexpected:
+        raise RuntimeError(f"unexpected pinned rebuild tracked modifications: {unexpected}")
+
+    submodules = subprocess.check_output(["git", "-C", str(source), "submodule", "status", "--recursive"], text=True)
+    bad_submodules = [line for line in submodules.splitlines() if line and line[0] in {"+", "-", "U"}]
+    if bad_submodules:
+        raise RuntimeError("pinned upstream submodule checkout mismatch:\n" + "\n".join(bad_submodules))
+
+    return {
+        "sourceCommit": upstream_head,
+        "sourceHygieneStatus": hygiene["status"],
+        "sourceHygieneReceiptSha256": hygiene_sha,
+        "trackedDirtyPaths": dirty,
+        "unexpectedTrackedDirtyPaths": unexpected,
+        "matchaSubmoduleCommit": matcha_head,
+        "matchaTrackedDirtyPaths": matcha_dirty,
+        "verifiedSanitizedFiles": verified,
+        "submoduleStatus": submodules.splitlines(),
+        "runtimeMathChanged": False,
     }
 
 
@@ -894,33 +1003,8 @@ def main() -> int:
         for required in (source, model, flow_checkpoint, hift_checkpoint, acoustic_config, flow_fixture_path):
             if not required.exists():
                 raise RuntimeError(f"enumerated rebuild prerequisite missing: {required}")
-        upstream_head = subprocess.check_output(
-            ["git", "-C", str(source), "rev-parse", "HEAD"],
-            text=True,
-        ).strip()
-        if upstream_head != PIN:
-            raise RuntimeError(f"upstream source pin mismatch: {upstream_head} != {PIN}")
-        upstream_status = subprocess.check_output(
-            ["git", "-C", str(source), "status", "--porcelain", "--untracked-files=no"],
-            text=True,
-        )
-        if upstream_status.strip():
-            raise RuntimeError(
-                "pinned upstream tracked worktree is dirty:\n" + upstream_status
-            )
-        submodules = subprocess.check_output(
-            ["git", "-C", str(source), "submodule", "status", "--recursive"],
-            text=True,
-        )
-        bad_submodules = [
-            line for line in submodules.splitlines()
-            if line and line[0] in {"+", "-", "U"}
-        ]
-        if bad_submodules:
-            raise RuntimeError(
-                "pinned upstream submodule checkout mismatch:\n"
-                + "\n".join(bad_submodules)
-            )
+        source_workspace = validate_rebuild_source_workspace(rebuild_root, source)
+        upstream_head = source_workspace["sourceCommit"]
         flow_sha = sha(flow_checkpoint)
         config_sha = sha(acoustic_config)
         if flow_sha != EXPECTED_FLOW_PT_SHA256:
@@ -940,8 +1024,13 @@ def main() -> int:
         receipt["rebuildInputs"] = {
             "rebuildRoot": str(rebuild_root),
             "upstreamSourceCommit": upstream_head,
-            "upstreamTrackedTreeClean": True,
-            "upstreamSubmoduleStatus": submodules.splitlines(),
+            "upstreamTrackedTreeClean": len(source_workspace["trackedDirtyPaths"]) == 0,
+            "upstreamTrackedTreeAcceptedByHygiene": True,
+            "upstreamTrackedDirtyPaths": source_workspace["trackedDirtyPaths"],
+            "upstreamSubmoduleStatus": source_workspace["submoduleStatus"],
+            "sourceHygieneStatus": source_workspace["sourceHygieneStatus"],
+            "sourceHygieneReceiptSha256": source_workspace["sourceHygieneReceiptSha256"],
+            "verifiedSanitizedFiles": source_workspace["verifiedSanitizedFiles"],
             "flowCheckpointSha256": flow_sha,
             "hiftCheckpointSha256": sha(hift_checkpoint),
             "acousticConfigSha256": config_sha,
@@ -1099,7 +1188,7 @@ if __name__ == "__main__":
 
 # Changes 2026-10-05: N225 enumerated HiFT now runs an independent same-input Core ML oracle against the exact immutable accepted schema-2 dynamic HiFT package. relativeL2 must remain <=0.02, so an incorrect local hift.pt cannot pass merely by agreeing with its own PyTorch source body.
 
-# Changes 2026-10-05: pinned upstream validation now rejects tracked source modifications and any recursive submodule checkout marked +, -, or U. HiFT/Matcha code therefore comes from the exact parent-commit submodule state rather than merely sharing the same top-level HEAD.
+# Changes 2026-10-05: pinned upstream validation accepts only the canonical exact-blob-gated rebuild sanitation recorded by source-hygiene.json, verifies the sanitized source/Matcha file SHA256 values and exact Matcha commit, rejects any additional tracked modification, and still rejects recursive submodule commit drift marked +, -, or U.
 
 # Changes 2026-10-05: production conversion now fail-fast pins the previously accepted Python3.11/torch2.7.0/coremltools9.0/numpy1.26.4 and Phase3 dependency set (conformer/diffusers/HyperPyYAML/omegaconf/onnxruntime/scipy/transformers). Exact resolved versions and Xcode are recorded in the export receipt; no package auto-install occurs inside production conversion.
 
