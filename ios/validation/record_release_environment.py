@@ -2,7 +2,7 @@
 #@title record_release_environment.py
 # Requirement: record the canonical macOS Apple-Silicon release/build/validation environment required by the shared SDK checklist. Fail closed when the host is not Darwin arm64 or required Apple toolchain identity is unavailable. Optionally bind one physical-device receipt.
 from __future__ import annotations
-import argparse,json,platform,re,subprocess,time
+import argparse,json,os,platform,re,subprocess,time
 from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
@@ -35,6 +35,11 @@ def main()->int:
     model=re.search(r"^\s*Model Name:\s*(.+)$",hardware,re.M)
     chip=re.search(r"^\s*Chip:\s*(.+)$",hardware,re.M)
     if not model or not chip: raise RuntimeError("could not resolve Mac hardware model/chip")
+    host_model=model.group(1).strip(); host_chip=chip.group(1).strip()
+    canonical_host=(host_model=="Mac mini" and host_chip.startswith("Apple M4"))
+    compatible_override=os.environ.get("COSYVOICE3_ALLOW_COMPATIBLE_RELEASE_MAC")=="1"
+    if not canonical_host and not compatible_override:
+        raise RuntimeError(f"canonical release host must be Mac mini / Apple M4; observed {host_model} / {host_chip}")
 
     xcode=run("xcodebuild","-version")
     swift=run("swift","--version")
@@ -65,12 +70,15 @@ def main()->int:
         "status":"PASS_RELEASE_ENVIRONMENT_RECORDED",
         "sourceCommit":head,
         "environment":{
-            "cleanRoomHost":f"{model.group(1).strip()} ({chip.group(1).strip()}), {sw.replace(chr(10),' | ')}",
+            "cleanRoomHost":f"{host_model} ({host_chip}), {sw.replace(chr(10),' | ')}",
             "releaseHost":"macOS Apple Silicon",
+            "canonicalReferenceHost":"Mac mini / Apple M4",
+            "canonicalReferenceHostMatched":canonical_host,
+            "compatibleHostOverride":compatible_override,
             "hostSystem":system,
             "hostArchitecture":arch,
-            "hostModel":model.group(1).strip(),
-            "hostChip":chip.group(1).strip(),
+            "hostModel":host_model,
+            "hostChip":host_chip,
             "macOS":sw,
             "xcode":xcode,
             "appleSDK":sdk,
@@ -103,3 +111,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes: new fail-closed environment recorder; no hard-coded workstation-specific absolute paths.
 
 # Changes 2026-10-04: device binding accepts both raw DeviceSmoke receipts and sanitized Candidate benchmark receipts with nested device metadata.
+
+# Changes 2026-10-04: canonical Candidate environment now requires Mac mini with Apple M4 by default; a non-reference Apple-Silicon Mac requires explicit COSYVOICE3_ALLOW_COMPATIBLE_RELEASE_MAC=1 and the override is recorded rather than hidden.
