@@ -23,7 +23,14 @@ case "$OUTPUT" in
 esac
 
 cd "$ROOT"
-printf '[COSY-ENUMERATED-BUILD] sourceHead=%s\n' "$(git rev-parse HEAD)"
+SOURCE_HEAD="$(git rev-parse HEAD)"
+SOURCE_STATUS="$(git status --porcelain)"
+printf '[COSY-ENUMERATED-BUILD] sourceHead=%s\n' "$SOURCE_HEAD"
+if [ -n "$SOURCE_STATUS" ]; then
+    printf '[COSY-ENUMERATED-BUILD] ERROR tracked/untracked source tree is not clean:\n%s\n' "$SOURCE_STATUS"
+    exit 4
+fi
+printf '[COSY-ENUMERATED-BUILD] sourceTree=clean\n'
 printf '[COSY-ENUMERATED-BUILD] python=%s\n' "$PYTHON"
 "$PYTHON" --version
 printf '[COSY-ENUMERATED-BUILD] sharedRoot=%s\n' "$SHARED_ROOT"
@@ -58,3 +65,5 @@ printf '[COSY-ENUMERATED-BUILD] PASS output=%s\n' "$OUTPUT"
 # Runtime environment: macOS Apple Silicon with project conversion Python, torch/coremltools/Xcode coremlcompiler.
 # Generated time: 2026-10-05 America/New_York.
 # Changed lines: new file; no upload, no hidden output, no source mutation, no model parameter or inference-math change.
+
+# Changes 2026-10-05: production asset build now fails closed on any non-clean Git worktree before conversion, so sourceCommit in the export receipt is a complete provenance identity rather than a potentially dirty approximation.
