@@ -46,11 +46,13 @@ main(){
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { fail "set DEVELOPMENT_TEAM"; return 2; }
     local reuse_input_dir="$ROOT/.work/device-smoke-reused-input"
     mkdir -p "$reuse_input_dir"
-    if [ -z "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
-    if [ -z "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
+    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
+    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
+    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$REPO/asset/zero_shot_prompt.wav" ]; then cp "$REPO/asset/zero_shot_prompt.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; printf '[COSYVOICE3-DYNAMIC-RC] using canonical repository zero-shot WAV for immutable-RC API replay\n'; fi
+    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -f "$REFERENCE_WAV" ]; then printf '%s\n' '希望你以后能够做的比我还好呦。' > "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; printf '[COSYVOICE3-DYNAMIC-RC] using matching canonical zero-shot transcript for immutable-RC API replay\n'; fi
     if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" "$reuse_input_dir/reference_host_parity_receipt.json" || return $?; HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
-    [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain DeviceSmoke/GeneratedAssets/reference.wav"; return 2; }
-    [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "reference transcript unavailable; set COSYVOICE3_REFERENCE_TRANSCRIPT or retain DeviceSmoke/GeneratedAssets/reference.txt"; return 2; }
+    [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain a canonical replay reference"; return 2; }
+    [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "reference transcript unavailable; set COSYVOICE3_REFERENCE_TRANSCRIPT"; return 2; }
     [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt unavailable at explicit/default or DeviceSmoke staged path"; return 2; }
     [ -x "$DYNAMIC_PYTHON" ] || { fail "dynamic conversion Python missing: $DYNAMIC_PYTHON"; return 2; }
     [ "$(git -C "$REPO" branch --show-current)" = "$BRANCH" ] || { fail "wrong branch; expected $BRANCH"; return 2; }
@@ -224,3 +226,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: use committed sanitized dynamic N1 public-API smoke evidence instead of an untracked timestamped smoke directory; auto-detect the physical iPhone and reuse staged reference/host inputs during preflight.
 
 # Changes 2026-10-04: when falling back to previously staged reference/host inputs, copy them into ios/.work/device-smoke-reused-input before any GeneratedAssets replacement so physical RC replay cannot delete its own source files.
+
+# Changes 2026-10-04: if the prior staged validation reference was already deleted by the historical self-delete bug, immutable-RC API replay falls back to the repository canonical zero_shot_prompt.wav with its matching upstream transcript; prior human-listening acceptance remains separate evidence and is not replaced.
