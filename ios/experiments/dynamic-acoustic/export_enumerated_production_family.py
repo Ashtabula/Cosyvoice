@@ -350,6 +350,95 @@ def verify_multifunction_load(packages: list[Path], receipt: dict) -> None:
     receipt["hostMultifunctionLoad"] = {"status": "PASS", "functions": result}
 
 
+def copy_path(source: Path, destination: Path) -> None:
+    if destination.exists():
+        raise RuntimeError(f"refusing to overwrite staged shared asset: {destination}")
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    if source.is_dir():
+        shutil.copytree(source, destination)
+    else:
+        shutil.copy2(source, destination)
+
+
+def stage_shared_assets(output: Path, shared_root: Path, shared_manifest: dict, receipt: dict) -> None:
+    copied = []
+    shared_paths = [
+        shared_manifest["tokenizerFolder"],
+        shared_manifest["textEmbedding"],
+        shared_manifest["speechEmbedding"],
+        shared_manifest["llmPrefill"],
+        shared_manifest["llmDecode"],
+        shared_manifest["f0Folder"],
+    ]
+    reference = shared_manifest.get("referenceEnrollment")
+    if isinstance(reference, dict):
+        shared_paths.extend([
+            reference["speechTokenizer"],
+            reference["campPlus"],
+            reference["whisperMel128"],
+            reference["kaldiMel80"],
+            reference["matchaMel80"],
+        ])
+    dynamic = shared_manifest.get("dynamicAcoustic")
+    if not isinstance(dynamic, dict):
+        raise RuntimeError("shared manifest must be the validated schema-2 dynamic profile")
+    shared_paths.extend([
+        dynamic["defaultPromptTokens"],
+        dynamic["defaultPromptFeat"],
+        dynamic["defaultSpeaker"],
+    ])
+    for relative in dict.fromkeys(shared_paths):
+        source = shared_root / relative
+        if not source.exists():
+            raise RuntimeError(f"missing shared asset: {source}")
+        destination = output / relative
+        copy_path(source, destination)
+        copied.append({"path": relative, "bytes": tree_bytes(destination), "sha256": sha(destination)})
+
+    source_nmax = int(dynamic["speechTokenMaximum"])
+    if source_nmax < N_MAX:
+        raise RuntimeError(f"shared stochastic buffers stop at N={source_nmax}, need N={N_MAX}")
+    source_t = int(dynamic["promptFrameCount"]) + 2 * source_nmax
+    target_t = PROMPT_FRAMES + 2 * N_MAX
+    flow_source = shared_root / dynamic["flowNoiseMaximum"]
+    flow = np.fromfile(flow_source, dtype=np.float32)
+    if flow.size != 80 * source_t:
+        raise RuntimeError(f"shared Flow noise size mismatch: {flow.size} != {80 * source_t}")
+    flow = flow.reshape(1, 80, source_t)[:, :, :target_t].copy()
+    flow_destination = output / "enumerated-acoustic/buffers/flow-noise-max.f32"
+    flow_destination.parent.mkdir(parents=True, exist_ok=True)
+    flow.tofile(flow_destination)
+
+    source_samples = 960 * source_nmax
+    target_samples = 960 * N_MAX
+    hift_source = shared_root / dynamic["hiftExcitationMaximum"]
+    excitation = np.fromfile(hift_source, dtype=np.float32)
+    if excitation.size != source_samples * 9:
+        raise RuntimeError(f"shared HiFT excitation size mismatch: {excitation.size} != {source_samples * 9}")
+    excitation = excitation.reshape(1, source_samples, 9)[:, :target_samples, :].copy()
+    hift_destination = output / "enumerated-acoustic/buffers/hift-excitation-max.f32"
+    excitation.tofile(hift_destination)
+
+    receipt["sharedAssets"] = {
+        "sourceRoot": str(shared_root),
+        "copied": copied,
+        "flowNoiseMaximum": {
+            "path": str(flow_destination.relative_to(output)),
+            "bytes": flow_destination.stat().st_size,
+            "sha256": sha(flow_destination),
+            "sourceMaximumN": source_nmax,
+            "targetMaximumN": N_MAX,
+        },
+        "hiftExcitationMaximum": {
+            "path": str(hift_destination.relative_to(output)),
+            "bytes": hift_destination.stat().st_size,
+            "sha256": sha(hift_destination),
+            "sourceMaximumN": source_nmax,
+            "targetMaximumN": N_MAX,
+        },
+    }
+
+
 def write_manifest(output: Path, shared_manifest: dict, receipt: dict) -> Path:
     manifest = dict(shared_manifest)
     manifest["schemaVersion"] = 3
@@ -368,11 +457,11 @@ def write_manifest(output: Path, shared_manifest: dict, receipt: dict) -> Path:
             {"speechTokenMinimum": lo, "speechTokenMaximum": hi, "functionName": name}
             for lo, hi, name in FAMILIES
         ],
-        "defaultPromptTokens": "dynamic-acoustic/buffers/default-prompt-tokens.i32",
-        "defaultPromptFeat": "dynamic-acoustic/buffers/default-prompt-feat.f32",
-        "defaultSpeaker": "dynamic-acoustic/buffers/default-speaker.f32",
-        "flowNoiseMaximum": "dynamic-acoustic/buffers/flow-noise-max.f32",
-        "hiftExcitationMaximum": "dynamic-acoustic/buffers/hift-excitation-max.f32",
+        "defaultPromptTokens": shared_manifest["dynamicAcoustic"]["defaultPromptTokens"],
+        "defaultPromptFeat": shared_manifest["dynamicAcoustic"]["defaultPromptFeat"],
+        "defaultSpeaker": shared_manifest["dynamicAcoustic"]["defaultSpeaker"],
+        "flowNoiseMaximum": "enumerated-acoustic/buffers/flow-noise-max.f32",
+        "hiftExcitationMaximum": "enumerated-acoustic/buffers/hift-excitation-max.f32",
     }
     reference = manifest.get("referenceEnrollment")
     if isinstance(reference, dict) and reference.get("status") == "PASS_DEVICE_PARITY":
@@ -388,8 +477,8 @@ def write_manifest(output: Path, shared_manifest: dict, receipt: dict) -> Path:
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, required=True)
-    parser.add_argument("--shared-manifest", type=Path, required=True,
-                        help="Existing immutable dynamic manifest used only for shared tokenizer/LLM/reference/buffer paths.")
+    parser.add_argument("--shared-root", type=Path, required=True,
+                        help="Validated immutable schema-2 dynamic asset root used as the source of unchanged tokenizer/LLM/reference/F0 assets and stochastic buffers.")
     parser.add_argument("--keep-intermediates", action="store_true")
     args = parser.parse_args()
 
@@ -487,7 +576,15 @@ def main() -> int:
         verify_multifunction_load(packages, receipt)
         save()
 
-        shared_manifest = json.loads(args.shared_manifest.read_text())
+        shared_manifest_path = args.shared_root / "cosyvoice3_dynamic.json"
+        if not shared_manifest_path.exists():
+            raise RuntimeError(f"missing shared dynamic manifest: {shared_manifest_path}")
+        shared_manifest = json.loads(shared_manifest_path.read_text())
+        if shared_manifest.get("schemaVersion") != 2 or not str(shared_manifest.get("profile", "")).startswith("ios18-dynamic-"):
+            raise RuntimeError("shared root is not a schema-2 dynamic asset profile")
+        receipt["phase"] = "stage_shared_assets"
+        save()
+        stage_shared_assets(args.output, args.shared_root, shared_manifest, receipt)
         write_manifest(args.output, shared_manifest, receipt)
 
         receipt["assetPackageBytes"] = sum(tree_bytes(p) for p in packages)
@@ -510,3 +607,5 @@ if __name__ == "__main__":
 # Runtime environment: macOS arm64, Python 3.11, torch 2.7, coremltools 9, Xcode 27/coremlcompiler; target iOS 18+.
 # Generated time: 2026-10-05 America/New_York.
 # Changed lines: new production exporter; four exact-shape function families 1-128/129-256/257-384/385-450, schema-3 manifest emission, multifunction weight dedup accounting, compile/load gates, and no-padding/no-crop invariants.
+
+# Changes 2026-10-05: assemble a standalone production asset root from the immutable schema-2 shared assets instead of requiring the frozen fixed225 profile. Unchanged tokenizer/LLM/reference/F0/default-conditioning files are copied byte-for-byte; N479 stochastic buffers are deterministically narrowed to the N450 production maximum with channel-correct slicing.
