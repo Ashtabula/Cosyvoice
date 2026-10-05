@@ -282,7 +282,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 guard CosyVoice3AssetLoader.isRetryableCoreMLFailure(error) else { throw error }
                 CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 guard models.computeUnits != .cpuOnly else { throw error }
-                validationProgress("llm.accelerator.failed:fallback=CPU_ONLY:error=\(String(describing: error))")
+                let failedGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                validationProgress("llm.accelerator.failed:ms=\(String(format: "%.3f", failedGenerationMilliseconds)):fallback=CPU_ONLY:error=\(String(describing: error))")
                 let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
                 let prefill = try CosyVoice3AssetLoader.model(
                     root: assetRoot, path: manifest.llmPrefill, computeUnits: .cpuOnly
@@ -297,9 +298,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     conditioner: try reusableConditioner(),
                     progress: validationProgressObserver
                 )
+                let fallbackGenerationStart = DispatchTime.now().uptimeNanoseconds
                 let tokens = try fallback.generate(prepared)
                 CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly, routeKey: models.routeKey)
-                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                llmGenerationMilliseconds = failedGenerationMilliseconds + Self.milliseconds(since: fallbackGenerationStart)
                 validationProgress("llm.generate.end:N=\(tokens.count):fallback=CPU_ONLY")
                 return tokens
             }
@@ -454,6 +456,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 guard CosyVoice3AssetLoader.isRetryableCoreMLFailure(error) else { throw error }
                 CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits, routeKey: models.routeKey)
                 guard models.computeUnits != .cpuOnly else { throw error }
+                let failedGenerationMilliseconds = Self.milliseconds(since: generationStart)
                 let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
                 let prefill = try CosyVoice3AssetLoader.model(
                     root: assetRoot, path: manifest.llmPrefill, computeUnits: .cpuOnly
@@ -468,9 +471,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     conditioner: try reusableConditioner(),
                     progress: validationProgressObserver
                 )
+                let fallbackGenerationStart = DispatchTime.now().uptimeNanoseconds
                 let tokens = try fallback.generate(prepared)
                 CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly, routeKey: models.routeKey)
-                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                llmGenerationMilliseconds = failedGenerationMilliseconds + Self.milliseconds(since: fallbackGenerationStart)
                 return tokens
             }
         }()
@@ -864,3 +868,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04 performance candidate follow-up: accelerator-route LLM generation is fail-closed with a fresh CPU_ONLY state/session retry on prediction/execution-plan failure; CPU fallback is cached only after successful generation. Public stochastic sampling semantics and model bytes remain unchanged.
 
 // Changes 2026-10-05: only retry LLM generation on classified Core ML load/execution failures; sampler, contract and engine logic errors now propagate directly. Confirm/reject calls are scoped to the exact asset route key.
+
+// Changes 2026-10-05: fallback telemetry no longer double-counts CPU model construction inside llmGenerationMilliseconds; failed accelerator generation and fallback generation are summed, while fallback constructors remain exclusively in llmModelLoadMilliseconds.
