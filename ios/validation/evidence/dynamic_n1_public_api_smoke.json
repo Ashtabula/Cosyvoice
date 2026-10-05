@@ -1,0 +1,49 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
+  "evidenceType": "SANITIZED_CANONICAL_ACCEPTANCE",
+  "sourceCommit": "3267547f6436444e72889d443a030fd9be41e2af",
+  "profile": "ios18-dynamic-n1-n479-candidate",
+  "speechTokenBounds": [
+    1,
+    479
+  ],
+  "flowSteps": 6,
+  "generationContract": "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)",
+  "requestedComputePlacement": {
+    "llmPrefill": "CPU_ONLY",
+    "llmDecode": "CPU_ONLY",
+    "dynamicAcoustic": "CPU_AND_NE",
+    "referenceEncoders": "CPU_ONLY",
+    "meaning": "requested MLComputeUnits; not accelerator residency"
+  },
+  "dynamicAcousticExecutionHints": {
+    "reshapeFrequency": "INFREQUENT"
+  },
+  "default": {
+    "inferredSpeechTokensFromPCM": 134,
+    "samples": 128640,
+    "sampleRate": 24000,
+    "durationSeconds": 5.36,
+    "wavSha256": "5ef55fa0efb9b0e2b0919c5d7f4cd86ddfecddebf25389e527768d5b8544a21e"
+  },
+  "reference": {
+    "inferredSpeechTokensFromPCM": 260,
+    "samples": 249600,
+    "sampleRate": 24000,
+    "durationSeconds": 10.4,
+    "wavSha256": "24a20a7aca6d6810d54184c20feccba506552b98d47b2292bb02cf99a59b6f1b"
+  },
+  "productionPromotion": false,
+  "evidenceBasis": {
+    "listeningAcceptance": "validation/evidence/dynamic_n1_listening_acceptance.json",
+    "releaseEntry": "validation/dynamic_n1_release_entry_2026-10-04.json",
+    "historicalRawEvidenceDirectory": "validation/evidence/dynamic-public-api-smoke-1791154976",
+    "historicalRawEvidenceCommitted": false
+  },
+  "distributionBoundary": {
+    "rawValidationWavsIncluded": false,
+    "referenceTranscriptIncluded": false,
+    "referenceIdentityIncluded": false
+  }
+}
