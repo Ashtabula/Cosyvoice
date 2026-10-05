@@ -677,6 +677,20 @@ def main() -> int:
     parser.add_argument("--keep-intermediates", action="store_true")
     args = parser.parse_args()
 
+    source_commit = subprocess.check_output(
+        ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
+        text=True,
+    ).strip()
+    source_status = subprocess.check_output(
+        ["git", "-C", str(ROOT), "status", "--porcelain"],
+        text=True,
+    )
+    if source_status.strip():
+        raise SystemExit(
+            "refusing enumerated production export from a dirty source tree:\n"
+            + source_status
+        )
+
     if args.output.exists():
         raise SystemExit(f"output already exists: {args.output}")
     args.output.mkdir(parents=True)
@@ -688,7 +702,7 @@ def main() -> int:
     receipt = {
         "schemaVersion": 1,
         "status": "RUNNING",
-        "sourceCommit": subprocess.check_output(["git", "-C", str(ROOT), "rev-parse", "HEAD"], text=True).strip(),
+        "sourceCommit": source_commit,
         "pinnedUpstream": PIN,
         "profile": "ios18-enumerated-n1-n450",
         "productionPromotion": False,
@@ -870,3 +884,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: final schema-3 build records deterministic per-file payload identity (path/bytes/SHA256 -> payloadTreeSha256) after transient cleanup. The mutable export receipt is excluded from its own tree hash, eliminating circular identity while binding every shipping model/shared asset byte.
 
 # Changes 2026-10-05: production exporter exposes --rebuild-root instead of silently trusting one hidden .work path, fail-closes unless pinned upstream source HEAD equals 8789402..., and records exact flow checkpoint/fixture SHA256 in the export receipt before model conversion.
+
+# Changes 2026-10-05: Python exporter now independently refuses any dirty Git worktree before creating the output root and reuses that exact clean HEAD in the receipt. Direct exporter invocation has the same provenance gate as the shell wrapper.
