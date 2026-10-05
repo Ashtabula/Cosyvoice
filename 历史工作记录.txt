@@ -210,3 +210,10 @@ Actions: independent opt-in COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION=1 changes
 Files: AssetLoader, DynamicAcousticRuntime, FlowSpecializationParityTests.
 Validation: host complete PCM maxAbs0 both lengths; N186 wall12.5781->10.4248s, N2259.99089->9.35474s; cold/cache ordering confounded, host only. Physical hint not yet run; no production promotion.
 GitHub Timeline: commit/push isolated experimental code next; baseline unchanged, no asset upload.
+
+Time: 2026-10-05T08:08:21.898417-04:00
+Prompt: verify new Cosy provider actually preserves frozen CoreML stateful execution.
+Actions: independent original provider reconstruction vs reused provider, separate KV states, same CPU_ONLY frozen LLMs, zero-embedding numerical input, logical prefix32 and224,64 decode calls each.
+Files: DecodeProviderParityTests.swift.
+Validation: both controls maxAbs0 across every logits element and128 recurrent steps; synthetic control is not speech quality/physical evidence. Executable SDK unchanged versus766e735.
+GitHub Timeline: test/evidence commit/push next on experiment branch; physical full candidate766e735 in progress, no model bytes changed.
