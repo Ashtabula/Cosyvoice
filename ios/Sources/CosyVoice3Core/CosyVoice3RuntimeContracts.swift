@@ -6,11 +6,14 @@ import Foundation
 enum CosyVoice3GenerationPolicy {
     static let upstreamMaximumTokenTextRatio = 20
     static let contextCapacity = CosyVoice3FP16StatefulLLMSession.capacity
+    static let productionSpeechTokenMaximum = 450
+    static let logicalPrefixMaximumForFullSpeechWindow = contextCapacity - productionSpeechTokenMaximum
 
     static func maximumSpeechTokenCount(targetTextTokenCount: Int, logicalPrefixLength: Int) -> Int {
         guard targetTextTokenCount > 0, logicalPrefixLength > 0, logicalPrefixLength < contextCapacity else { return 0 }
         return min(
             targetTextTokenCount * upstreamMaximumTokenTextRatio,
+            productionSpeechTokenMaximum,
             contextCapacity - logicalPrefixLength
         )
     }
@@ -69,3 +72,5 @@ struct CosyVoice3RuntimeAssetContract: Codable, Sendable {
 // Generated: 2026-10-02 America/New_York.
 
 // Changes 2026-10-04: remove the acoustic N225 limit from the frontend/LLM policy. Per-request maxN is min(20*targetTextTokens,512-logicalPrefixLength); legacy fixed225 manifests are capped by CosyVoice3Engine before LLM generation.
+
+// Changes 2026-10-05: production generation hard-caps real speech at N=450. ctx512 therefore leaves a 62-position logical-prefix budget when the caller needs the full 450-token speech window; longer valid prefixes remain supported with a correspondingly smaller generation window.
