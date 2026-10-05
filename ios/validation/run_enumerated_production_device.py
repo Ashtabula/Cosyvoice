@@ -310,63 +310,75 @@ def main() -> None:
     evidence_path = output / "enumerated-production-device-evidence.json"
     json_write(evidence_path, evidence)
 
-    if not args.skip_candidate_benchmark:
-        started = time.time()
-        process = launch_with_console(
-            args.device,
-            args.bundle,
-            output / "candidate-benchmark-console.log",
-            ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"],
-        )
-        receipt = wait_receipt(
-            device=args.device,
-            bundle=args.bundle,
-            filename="candidate-benchmark-receipt.json",
-            output=output,
-            process=process,
-            started=started,
-            timeout=args.timeout,
-        )
-        evidence["runs"]["candidateBenchmark"] = {
-            "status": receipt["status"],
-            "receiptSha256": sha256(output / "candidate-benchmark-receipt.json"),
-            "firstRTF": receipt.get("firstRTF"),
-            "repeatRTF": receipt.get("repeatRTF"),
-            "firstSamples": receipt.get("firstSamples"),
-            "repeatSamples": receipt.get("repeatSamples"),
-            "acousticShapeMode": receipt.get("acousticShapeMode"),
-            "enumeratedAcousticExecution": receipt.get("enumeratedAcousticExecution"),
-        }
+    try:
+        if not args.skip_candidate_benchmark:
+            started = time.time()
+            process = launch_with_console(
+                args.device,
+                args.bundle,
+                output / "candidate-benchmark-console.log",
+                ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"],
+            )
+            receipt = wait_receipt(
+                device=args.device,
+                bundle=args.bundle,
+                filename="candidate-benchmark-receipt.json",
+                output=output,
+                process=process,
+                started=started,
+                timeout=args.timeout,
+            )
+            evidence["runs"]["candidateBenchmark"] = {
+                "status": receipt["status"],
+                "receiptSha256": sha256(output / "candidate-benchmark-receipt.json"),
+                "firstRTF": receipt.get("firstRTF"),
+                "repeatRTF": receipt.get("repeatRTF"),
+                "firstSamples": receipt.get("firstSamples"),
+                "repeatSamples": receipt.get("repeatSamples"),
+                "acousticShapeMode": receipt.get("acousticShapeMode"),
+                "enumeratedAcousticExecution": receipt.get("enumeratedAcousticExecution"),
+            }
+            json_write(evidence_path, evidence)
+    except Exception as exc:
+        evidence["status"] = "FAIL_CANDIDATE_BENCHMARK"
+        evidence["error"] = f"{type(exc).__name__}: {exc}"
+        evidence["completedAtUnix"] = int(time.time())
         json_write(evidence_path, evidence)
+        raise
 
-
-    if not args.skip_variable_smoke:
-        started = time.time()
-        process = launch_with_console(
-            args.device,
-            args.bundle,
-            output / "variable-public-api-console.log",
-            ["--no-playback"],
-        )
-        receipt = wait_receipt(
-            device=args.device,
-            bundle=args.bundle,
-            filename="variable-public-api-smoke-receipt.json",
-            output=output,
-            process=process,
-            started=started,
-            timeout=args.timeout,
-        )
-        for name in ("variable-default.wav", "variable-reference.wav"):
-            copy_from(args.device, args.bundle, "Documents/" + name, output / name)
-        evidence["runs"]["variablePublicAPI"] = {
-            "status": receipt["status"],
-            "receiptSha256": sha256(output / "variable-public-api-smoke-receipt.json"),
-            "defaultWavSha256": sha256(output / "variable-default.wav"),
-            "referenceWavSha256": sha256(output / "variable-reference.wav"),
-        }
+    try:
+        if not args.skip_variable_smoke:
+            started = time.time()
+            process = launch_with_console(
+                args.device,
+                args.bundle,
+                output / "variable-public-api-console.log",
+                ["--no-playback"],
+            )
+            receipt = wait_receipt(
+                device=args.device,
+                bundle=args.bundle,
+                filename="variable-public-api-smoke-receipt.json",
+                output=output,
+                process=process,
+                started=started,
+                timeout=args.timeout,
+            )
+            for name in ("variable-default.wav", "variable-reference.wav"):
+                copy_from(args.device, args.bundle, "Documents/" + name, output / name)
+            evidence["runs"]["variablePublicAPI"] = {
+                "status": receipt["status"],
+                "receiptSha256": sha256(output / "variable-public-api-smoke-receipt.json"),
+                "defaultWavSha256": sha256(output / "variable-default.wav"),
+                "referenceWavSha256": sha256(output / "variable-reference.wav"),
+            }
+            json_write(evidence_path, evidence)
+    except Exception as exc:
+        evidence["status"] = "FAIL_VARIABLE_PUBLIC_API_SMOKE"
+        evidence["error"] = f"{type(exc).__name__}: {exc}"
+        evidence["completedAtUnix"] = int(time.time())
         json_write(evidence_path, evidence)
-
+        raise
 
     evidence["status"] = "PASS_ENUMERATED_PRODUCTION_DEVICE_VALIDATION"
     evidence["completedAtUnix"] = int(time.time())
@@ -394,3 +406,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: physical schema-3 validation now re-hashes the complete shipping payload tree, verifies it against the exporter receipt, binds payload bytes/tree/export-receipt SHA into staging/evidence, and rejects runtime-source changes after asset export. Manifest-only identity is no longer sufficient.
 
 # Changes 2026-10-05: non-reuse validation now best-effort uninstalls the prior validation bundle before install, forcing a fresh app data container and preventing stale Runtime/Documents/Library cache files from contaminating clean-room evidence. --reuse-staging intentionally preserves the existing container.
+
+# Changes 2026-10-05: host physical-validation evidence now closes fail-stop as FAIL_CANDIDATE_BENCHMARK or FAIL_VARIABLE_PUBLIC_API_SMOKE with exact error/completion time before rethrowing. A failed run no longer leaves the top-level evidence permanently RUNNING.
