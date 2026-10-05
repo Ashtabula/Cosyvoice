@@ -140,7 +140,7 @@ def runtime_paths(fixed: dict, dynamic: dict) -> list[str]:
     return rows
 
 
-def validate_inputs(args: argparse.Namespace) -> tuple[Path, dict, dict, dict, dict, dict, dict]:
+def validate_inputs(args: argparse.Namespace) -> tuple[Path, dict, dict, dict, dict, dict, dict, dict]:
     source = args.source_assets.expanduser().resolve()
     if not source.is_dir():
         fail(f"dynamic source assets missing: {source}")
@@ -154,6 +154,7 @@ def validate_inputs(args: argparse.Namespace) -> tuple[Path, dict, dict, dict, d
     dynamic = load_json(source / "cosyvoice3_dynamic.json")
     candidate = load_json(source / "dynamic-candidate-receipt.json")
     lower = load_json(args.lower_bound_receipt.expanduser().resolve())
+    conversion = load_json(args.conversion_provenance_receipt.expanduser().resolve())
     smoke = load_json(args.smoke_receipt.expanduser().resolve())
     listening = load_json(args.listening_receipt.expanduser().resolve())
 
@@ -170,6 +171,10 @@ def validate_inputs(args: argparse.Namespace) -> tuple[Path, dict, dict, dict, d
         fail("dynamic candidate is not bound to lower-bound physical evidence")
     if lower.get("status") != "PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED" or lower.get("newNBounds") != [1, 479]:
         fail("lower-bound receipt is not accepted N1...479")
+    if conversion.get("status") != "PASS_DYNAMIC_CONVERSION_PROVENANCE_RECORDED" or conversion.get("NBounds") != [1, 479]:
+        fail("dynamic conversion provenance is not accepted N1...479")
+    if conversion.get("familyReceiptSha256") != candidate.get("familyReceiptSha256"):
+        fail("conversion provenance is not bound to candidate family receipt")
     if smoke.get("status") != "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE":
         fail("dynamic public-API smoke is not PASS")
     if smoke.get("profile") != "ios18-dynamic-n1-n479-candidate" or smoke.get("speechTokenBounds") != [1, 479]:
@@ -191,11 +196,11 @@ def validate_inputs(args: argparse.Namespace) -> tuple[Path, dict, dict, dict, d
         fail("listening acceptance is not bound to the physical smoke source")
     # The validation reference may identify a real person, but raw reference audio,
     # transcript and derived identity artifacts are deliberately not published.
-    return source, fixed, dynamic, candidate, lower, smoke, listening
+    return source, fixed, dynamic, candidate, lower, conversion, smoke, listening
 
 
 def stage(args: argparse.Namespace) -> tuple[Path, dict]:
-    source, fixed, dynamic, candidate_receipt, lower, smoke, listening = validate_inputs(args)
+    source, fixed, dynamic, candidate_receipt, lower, conversion, smoke, listening = validate_inputs(args)
 
     license_receipt = load_json(args.license_receipt.expanduser().resolve()) if args.license_receipt else None
     if args.public:
@@ -313,9 +318,21 @@ def stage(args: argparse.Namespace) -> tuple[Path, dict]:
         "conversionProvenance": {
             "role": "maintainer-only historical asset build provenance; not a clean-room consumer dependency",
             "exportTool": "ios/experiments/dynamic-acoustic/export_full_range_family.py",
-            "familyReceiptSha256": candidate_receipt.get("familyReceiptSha256"),
+            "receiptStatus": conversion.get("status"),
+            "familyReceiptSha256": conversion.get("familyReceiptSha256"),
+            "familySourceCommit": conversion.get("familySourceCommit"),
             "lowerBoundExtensionReceiptSha256": candidate_receipt.get("lowerBoundExtensionReceiptSha256"),
-            "documentedEnvironment": "macOS arm64; Python 3.11; torch 2.7 family; coremltools 9 family; Xcode coremlcompiler; iOS 18 mlprogram target",
+            "conversionEnvironment": conversion.get("conversionEnvironment"),
+            "packageMetadata": [
+                {
+                    "role": row.get("role"),
+                    "packageTreeSha256": row.get("packageTreeSha256"),
+                    "coremltoolsVersionMetadata": row.get("coremltoolsVersionMetadata"),
+                    "sourceMetadata": row.get("sourceMetadata"),
+                    "sourceDialectMetadata": row.get("sourceDialectMetadata")
+                }
+                for row in conversion.get("packages", [])
+            ],
             "exactReleasedPackageAuthority": "immutable per-file SHA256 + payloadTreeSha256 + testedRuntimeTreeSha256",
             "cleanRoomRule": "Candidate/Production consumers fetch and validate immutable assets on macOS; conversion/export is not rerun in clean-room."
         },
@@ -429,6 +446,7 @@ def main() -> int:
     parser.add_argument("--repo-id", default=DEFAULT_REPO_ID)
     parser.add_argument("--source-assets", type=Path, required=True)
     parser.add_argument("--lower-bound-receipt", type=Path, required=True)
+    parser.add_argument("--conversion-provenance-receipt", type=Path, required=True)
     parser.add_argument("--smoke-receipt", type=Path, required=True)
     parser.add_argument(
         "--listening-receipt", type=Path,
@@ -469,3 +487,5 @@ if __name__ == "__main__":
 # Changes 2026-10-04: immutable dynamic asset manifest records hash-bound family/lower-bound conversion provenance and the exporter-documented macOS/Python/torch/coremltools/Xcode environment, explicitly separating historical model conversion from the supported Mac clean-room consumer path.
 
 # Changes 2026-10-04: hosted lower-bound evidence is sanitized to bounds/checkpoints/cryptographic identity only; developer-local priorSweepPath and other workstation paths are excluded from the immutable asset payload.
+
+# Changes 2026-10-04: dynamic asset publication now requires a PASS exact conversion-provenance receipt whose package metadata/coremltools/torch identity is bound to the same familyReceiptSha256; approximate family-version prose is no longer the release authority.
