@@ -35,7 +35,8 @@ def main()->int:
         "swiftTest":"PASS",
         "command":"swift test --package-path ios",
         "host":{"system":platform.system(),"architecture":platform.machine()},
-        "outputTail":output[-4000:],
+        "rawBuildLogStored":False,
+        "rawBuildLogPolicy":"terminal/CI only; committed Candidate receipt is sanitized and contains no developer-local absolute paths",
         "recordedAtUnix":int(time.time())
     }
     a.output.parent.mkdir(parents=True,exist_ok=True)
@@ -50,3 +51,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Runtime environment: canonical macOS Apple-Silicon release host.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new dynamic Candidate source-build receipt.
+
+# Changes 2026-10-04: do not persist raw Swift build output in committed Candidate evidence; it may contain developer-local paths. PASS metadata remains source-bound while detailed logs stay in terminal/CI.
