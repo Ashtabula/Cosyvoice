@@ -244,11 +244,36 @@ def stage(args: argparse.Namespace) -> tuple[Path, dict]:
     (evidence_dir / "lower-bound-extension.json").write_text(
         json.dumps(lower, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
-    sanitized_listening = dict(listening)
-    boundary = dict(sanitized_listening.get("distributionBoundary") or {})
-    boundary["referenceIdentityAssetRole"] = "validation-only-not-distributed"
-    boundary["publicRedistributionAuthorized"] = False
-    sanitized_listening["distributionBoundary"] = boundary
+    lanes = listening.get("smoke") or {}
+    default_lane = lanes.get("default") or {}
+    reference_lane = lanes.get("reference") or {}
+    sanitized_listening = {
+        "schemaVersion": 1,
+        "status": listening.get("status"),
+        "profile": lanes.get("profile"),
+        "speechTokenBounds": lanes.get("speechTokenBounds"),
+        "smokeSourceCommit": lanes.get("sourceCommit"),
+        "default": {
+            "decision": default_lane.get("decision"),
+            "wavSha256": default_lane.get("wavSha256"),
+            "N": default_lane.get("N"),
+            "samples": default_lane.get("samples"),
+        },
+        "reference": {
+            "decision": reference_lane.get("decision"),
+            "identityMatchJudgment": reference_lane.get("identityMatchJudgment"),
+            "wavSha256": reference_lane.get("wavSha256"),
+            "N": reference_lane.get("N"),
+            "samples": reference_lane.get("samples"),
+        },
+        "distributionBoundary": {
+            "referenceMediaIncluded": False,
+            "referenceTranscriptIncluded": False,
+            "referenceIdentityIncluded": False,
+            "publicRedistributionAuthorized": False,
+            "meaning": "Human listening acceptance is hash/decision-bound; real-person validation identity/media are excluded from the runtime asset payload."
+        }
+    }
     (evidence_dir / "listening-acceptance.json").write_text(
         json.dumps(sanitized_listening, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
@@ -416,3 +441,5 @@ if __name__ == "__main__":
 # Runtime environment: macOS Apple Silicon Python3; huggingface_hub required only for upload.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new dynamic asset publisher; license remains PENDING unless an explicit PASS receipt is supplied.
+
+# Changes 2026-10-04: hosted RC listening evidence is anonymized to decision/output hashes only; real-person validation name, reference WAV/transcript and identity-specific prose are excluded from the asset payload.
