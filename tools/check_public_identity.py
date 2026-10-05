@@ -92,7 +92,7 @@ REQUIRED_CANONICAL = {
         "actacomes",
         "developer@actacomes.com",
         "actacomes/Cosyvoice",
-        "actacomes/Cosyvoice-assets",
+        "actacomes/CosyVoice-assets",
     ],
     ".mailmap": ["actacomes <developer@actacomes.com>"],
 }
