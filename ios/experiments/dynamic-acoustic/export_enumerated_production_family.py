@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import gc
+import hashlib
 import json
 import shutil
 import subprocess
@@ -57,6 +58,32 @@ def tree_bytes(path: Path) -> int:
     if path.is_file():
         return path.stat().st_size
     return sum(p.stat().st_size for p in path.rglob("*") if p.is_file())
+
+
+def shipping_file_rows(root: Path) -> list[dict]:
+    excluded = {"enumerated-production-export-receipt.json"}
+    rows = []
+    for path in sorted(item for item in root.rglob("*") if item.is_file()):
+        if path.name in excluded or ".family-build" in path.parts:
+            continue
+        rows.append({
+            "path": path.relative_to(root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha(path),
+        })
+    return rows
+
+
+def tree_identity(rows: list[dict]) -> str:
+    digest = hashlib.sha256()
+    for row in sorted(rows, key=lambda item: item["path"]):
+        digest.update(row["path"].encode("utf-8"))
+        digest.update(b"\0")
+        digest.update(str(int(row["bytes"])).encode("ascii"))
+        digest.update(b"\0")
+        digest.update(row["sha256"].encode("ascii"))
+        digest.update(b"\n")
+    return digest.hexdigest()
 
 
 def family_values(lo: int, hi: int) -> list[int]:
@@ -781,6 +808,10 @@ def main() -> int:
         if not args.keep_intermediates:
             shutil.rmtree(work)
         receipt["intermediatesRetained"] = args.keep_intermediates
+        payload_rows = shipping_file_rows(args.output)
+        receipt["payloadBytes"] = sum(int(row["bytes"]) for row in payload_rows)
+        receipt["payloadFileCount"] = len(payload_rows)
+        receipt["payloadTreeSha256"] = tree_identity(payload_rows)
         receipt["standaloneRootBytes"] = tree_bytes(args.output)
         receipt["status"] = "PASS_ENUMERATED_N1_N450_EXPORT_NOT_PROMOTED"
         receipt["phase"] = "complete"
@@ -815,3 +846,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: production exporter now executes representative exact shapes N=1/128/129/167/225/256/257/384/385/450 through every selected multifunction family on host CPU. Conditions must retain <=1e-4 relativeL2, Flow must be finite with exact velocity shape while recording FP16 error, and same-input HiFT must retain the existing <=0.02 relativeL2 gate.
 
 # Changes 2026-10-05: representative exact-shape validation now supplies the full canonical Flow case ABI (N/G/P/T). This prevents to_coreml_case/source helpers from failing at asset-build time even though Swift CI is green.
+
+# Changes 2026-10-05: final schema-3 build records deterministic per-file payload identity (path/bytes/SHA256 -> payloadTreeSha256) after transient cleanup. The mutable export receipt is excluded from its own tree hash, eliminating circular identity while binding every shipping model/shared asset byte.
