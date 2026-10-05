@@ -230,3 +230,10 @@ Prompt: 跳过VoxCPM，优化/验证OmniVoice与CosyVoice3；导出分项/资源
 Action/files: 保存 ios/validation/performance-20261005 独立MD+JSON结果、冻结asset检查与最终无测试进程证据；原始全日志/WAV仍在workspace results/omni-cosy-performance-20261005。
 Validation: 物理tested766e735：baseline/candidate/fastHint RTF2.870326/3.109059/3.099898，目标<1未达成；128step realCoreML logits maxAbs0；GPU host output差异拒绝；final866e89f default47tests4skips0fails，人类听审PENDING。
 GitHub Timeline: 源代码已push各自实验分支；本次report未commit，下一步选择性commit/push并readback；main未合并。
+
+时间：2026-10-05T19:11:22.731236-04:00
+用户 Prompt：从782e79c基线建立独立 ANE placement 优化分支，冻结资产，物理比较12角色。
+具体动作：增加12角色 fail-closed validation override、Candidate/FAIL请求配置receipt、阶段日志、thermal peak、reuse staging身份核对和已安装host复用。
+修改文件：AssetLoader.swift、DeviceSmokeApp.swift、run_enumerated_production_device.py、ValidationPlacementTests.swift。
+测试或验证结果：现有51 Release tests，4 skipped，0 failures；新增placement tests待执行；physical matrix待执行。
+GitHub Timeline：当前未 commit；下一步选择性commit源码用于physical source绑定；未push，未更换模型或release catalog。

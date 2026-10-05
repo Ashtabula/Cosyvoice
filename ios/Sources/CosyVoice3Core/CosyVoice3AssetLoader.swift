@@ -16,6 +16,42 @@ enum CosyVoice3ModelComputePlacement {
     static let referenceEncoder: MLComputeUnits = .cpuOnly
 }
 
+// Validation-only role overrides. No fallback: malformed/duplicate requests throw before load.
+enum CosyVoice3ValidationPlacement {
+    static let roles = ["llmPrefill", "llmDecode", "conditions", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5", "hift", "speechTokenizer", "campPlus"]
+    static func role(for path: String) -> String? {
+        let name = URL(fileURLWithPath: path).lastPathComponent
+        if name.contains("prefill") { return "llmPrefill" }
+        if name.contains("decode") { return "llmDecode" }
+        if name.contains("speech-tokenizer") { return "speechTokenizer" }
+        if name.contains("campplus") { return "campPlus" }
+        if path.hasPrefix("enumerated-acoustic/") {
+            if name == "conditions.mlpackage" { return "conditions" }
+            if name == "hift.mlpackage" { return "hift" }
+            for index in 0..<6 where name == "flow-shard-\(index).mlpackage" { return "flow\(index)" }
+        }
+        return nil
+    }
+    static func overrides(arguments: [String] = CommandLine.arguments) throws -> [String: MLComputeUnits] {
+        var result: [String: MLComputeUnits] = [:]
+        for arg in arguments where arg.hasPrefix("--validation-placement=") {
+            let pair = String(arg.dropFirst("--validation-placement=".count)).split(separator: ":", omittingEmptySubsequences: false)
+            guard pair.count == 2, roles.contains(String(pair[0])), result[String(pair[0])] == nil else {
+                throw CosyVoice3AssetError.compiledCache("invalid/duplicate validation placement: \(arg)")
+            }
+            let units: MLComputeUnits
+            switch pair[1] {
+            case "CPU_ONLY": units = .cpuOnly
+            case "CPU_AND_GPU": units = .cpuAndGPU
+            case "CPU_AND_NE": units = .cpuAndNeuralEngine
+            default: throw CosyVoice3AssetError.compiledCache("unknown validation placement: \(arg)")
+            }
+            result[String(pair[0])] = units
+        }
+        return result
+    }
+}
+
 struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
     let path: String
     let computeUnits: MLComputeUnits
@@ -306,7 +342,13 @@ enum CosyVoice3AssetLoader {
         } else {
             units = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
         }
-        config.computeUnits = units
+        let overrides = try CosyVoice3ValidationPlacement.overrides()
+        let role = CosyVoice3ValidationPlacement.role(for: path)
+        let effectiveUnits = role.flatMap { overrides[$0] } ?? units
+        config.computeUnits = effectiveUnits
+        if let role {
+            print("[COSY-ROLE-PLACEMENT] role=\(role) path=\(path) requested=\(effectiveUnits) evidence=requested-only")
+        }
         config.functionName = functionName
         if units != computeUnits { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(units) validationOnly=YES") }
         if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
@@ -317,7 +359,7 @@ enum CosyVoice3AssetLoader {
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
-                "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: units)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+                "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: effectiveUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
             )
         }
     }
@@ -562,3 +604,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: schema-3 production profile identity is exact (ios18-enumerated-n1-n450), matching validate_assets.py; arbitrary ios18-enumerated-* prefixes no longer enter the production loader contract.
 
 // Changes 2026-10-05: align runtime fail-closed validation with validate_assets.py: promoted schema-2/3 reference Conditions must bind to the active flowConditions package, and schema-3 must not carry legacy fixed flowMask/flowNoise paths.
+
+// Changes 2026-10-05 19:12 America/New_York: validation role parser and model configuration (lines 19-61 and model()); 12 independent fail-closed overrides, production defaults/model bytes unchanged. Upstream: existing SDK AssetLoader; environment Swift6/iOS18+/macOS15+.

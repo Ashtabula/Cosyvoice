@@ -167,6 +167,8 @@ def main() -> None:
     parser.add_argument("--skip-variable-smoke", action="store_true")
     parser.add_argument("--skip-candidate-benchmark", action="store_true")
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
+    parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
+    parser.add_argument("--skip-build", action="store_true", help="reuse the already installed exact diagnostic host")
     parser.add_argument("--timeout", type=int, default=1800)
     args = parser.parse_args()
 
@@ -218,7 +220,7 @@ def main() -> None:
         ["git", "-C", REPO, "diff", "--name-only", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
         capture=True,
     ).splitlines()
-    diagnostic_compute = args.diagnostic_enumerated_compute != "production"
+    diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement)
     diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"}
     if runtime_changed and not (
         diagnostic_compute
@@ -247,6 +249,7 @@ def main() -> None:
         "hostReceiptSha256": host_sha,
         "recordedAtUnix": int(time.time()),
         "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
+        "requestedRoleOverrides": args.placement,
         "diagnosticRuntimeChangedFiles": runtime_changed,
         "productionPromotion": False if diagnostic_compute else None,
     }
@@ -269,34 +272,42 @@ def main() -> None:
     json_write(variable_marker_path, variable_marker)
 
     derived = ROOT / ".work/EnumeratedProductionDeviceDerivedData"
-    run([
-        "xcodebuild",
-        "-project", PROJECT,
-        "-scheme", SCHEME,
-        "-configuration", "Release",
-        "-destination", "id=" + args.device,
-        "-derivedDataPath", derived,
-        "SYMROOT=" + str(derived / "Build/Products"),
-        "OBJROOT=" + str(derived / "Build/Intermediates.noindex"),
-        "DEVELOPMENT_TEAM=" + args.team,
-        "PRODUCT_BUNDLE_IDENTIFIER=" + args.bundle,
-        "-allowProvisioningUpdates",
-        "-allowProvisioningDeviceRegistration",
-        "build",
-    ])
-    app = derived / "Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app"
-    if not args.reuse_staging:
-        uninstall = [
-            "xcrun", "devicectl", "device", "uninstall", "app",
-            "--device", args.device, args.bundle,
-        ]
-        print("[COSY-ENUMERATED-DEVICE] RUN " + " ".join(uninstall), flush=True)
-        removed = subprocess.run(uninstall, check=False)
-        print(f"[COSY-ENUMERATED-DEVICE] clean-container uninstall returnCode={removed.returncode}", flush=True)
-    run(["xcrun", "devicectl", "device", "install", "app", "--device", args.device, app])
+    if not args.skip_build:
+        run([
+            "xcodebuild",
+            "-project", PROJECT,
+            "-scheme", SCHEME,
+            "-configuration", "Release",
+            "-destination", "id=" + args.device,
+            "-derivedDataPath", derived,
+            "SYMROOT=" + str(derived / "Build/Products"),
+            "OBJROOT=" + str(derived / "Build/Intermediates.noindex"),
+            "DEVELOPMENT_TEAM=" + args.team,
+            "PRODUCT_BUNDLE_IDENTIFIER=" + args.bundle,
+            "-allowProvisioningUpdates",
+            "-allowProvisioningDeviceRegistration",
+            "build",
+        ])
+        app = derived / "Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app"
+        if not args.reuse_staging:
+            uninstall = [
+                "xcrun", "devicectl", "device", "uninstall", "app",
+                "--device", args.device, args.bundle,
+            ]
+            print("[COSY-ENUMERATED-DEVICE] RUN " + " ".join(uninstall), flush=True)
+            removed = subprocess.run(uninstall, check=False)
+            print(f"[COSY-ENUMERATED-DEVICE] clean-container uninstall returnCode={removed.returncode}", flush=True)
+        run(["xcrun", "devicectl", "device", "install", "app", "--device", args.device, app])
 
     if not args.reuse_staging:
         copy_to(args.device, args.bundle, asset_root, "Documents/GeneratedAssets/Runtime")
+    if args.reuse_staging:
+        previous = output / "previous-device-staging.json"
+        copy_from(args.device, args.bundle, "Documents/GeneratedAssets/staging-complete.json", previous)
+        remote = json.loads(previous.read_text())
+        for key in ("payloadTreeSha256", "payloadBytes", "runtimeManifestSha256", "assetExportSourceCommit"):
+            if remote.get(key) != staging[key]:
+                raise RuntimeError(f"reuse staging identity mismatch: {key}")
     for path, destination in [
         (reference_wav, "Documents/GeneratedAssets/reference.wav"),
         (reference_transcript, "Documents/GeneratedAssets/reference.txt"),
@@ -319,6 +330,7 @@ def main() -> None:
         "bundle": args.bundle,
         "stagingReused": args.reuse_staging,
         "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
+        "requestedRoleOverrides": args.placement,
         "diagnosticRuntimeChangedFiles": runtime_changed,
         "productionPromotion": False if diagnostic_compute else None,
         "runs": {},
@@ -334,6 +346,7 @@ def main() -> None:
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":
                 candidate_args.append("--validation-enumerated-cpu-only")
+            candidate_args += ["--validation-placement=" + item for item in args.placement]
             process = launch_with_console(
                 args.device,
                 args.bundle,
@@ -446,3 +459,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: top-level Candidate summary now carries the deterministic WAV equality gate and both WAV SHA256 values, making matched cold/warm workload identity visible without reopening the raw device receipt.
 
 # Changes 2026-10-05: add explicit non-promotable schema-3 compute-placement probes (cpu-gpu/cpu-only). Diagnostic mode may cross only the known AssetLoader validation-probe source diff, records that diff and placement in evidence, reuses identical asset bytes, and never labels the run Production validation.
+
+# Changes 2026-10-05 19:15 America/New_York: argparse/main allow independent role overrides, exact installed host reuse, and verify frozen staging identity before marker update. Purpose: placement diagnostics; upstream existing enumerated device runner; environment macOS/Xcode/physical iPhone.

@@ -72,6 +72,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     @Published var receiptJSON = ""
     @Published var availableFlowSteps = Set<Int>()
     var didAutoRun = false
+    private var benchmarkThermalPeak = ProcessInfo.ThermalState.nominal
     private var player: AVAudioPlayer?
     private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
 
@@ -278,8 +279,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "generationContract": "maxN=min(targetTextTokens*20,450,512-logicalPrefixLength)",
                 "logicalPrefixMaximumForFullN450Window": 62,
                 "requestedComputePlacement": [
-                    "llmPrefill": "CPU_ONLY",
-                    "llmDecode": "CPU_ONLY",
+                    "llmPrefill": Self.requestedRolePlacement("llmPrefill", defaultValue: "CPU_ONLY"),
+                    "llmDecode": Self.requestedRolePlacement("llmDecode", defaultValue: "CPU_ONLY"),
                     "acoustic": Self.requestedAcousticPlacement(),
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
@@ -339,6 +340,14 @@ final class CosyVoice3SmokeModel: ObservableObject {
     func runCandidateBenchmark() async {
         guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
         if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
+        benchmarkThermalPeak = ProcessInfo.processInfo.thermalState
+        let thermalMonitor = Task { @MainActor in
+            while !Task.isCancelled {
+                if ProcessInfo.processInfo.thermalState.rawValue > benchmarkThermalPeak.rawValue { benchmarkThermalPeak = ProcessInfo.processInfo.thermalState }
+                try? await Task.sleep(for: .seconds(1))
+            }
+        }
+        defer { thermalMonitor.cancel() }
         do {
             let validationCacheReset = try Self.resetValidationCosyVoiceCachesIfRequested()
             let thermalStart = ProcessInfo.processInfo.thermalState
@@ -352,6 +361,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let speechTokenBounds = variable.map { [$0.speechTokenMinimum, $0.speechTokenMaximum] }
             let clock = ContinuousClock(); let initStart = clock.now
             let engine = try CosyVoice3Engine(assetRoot: fixture.runtime); let engineInitMilliseconds = Self.seconds(initStart.duration(to: clock.now))*1000
+            await engine.setValidationProgressObserver { phase in print("[COSY-VALIDATION-STAGE] \(phase)") }
             let validationSamplerSeed: UInt64 = 42
             await engine.setValidationSamplerSeed(validationSamplerSeed)
             let capabilities = try await engine.capabilities()
@@ -384,8 +394,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 receipt["speechTokenBounds"] = speechTokenBounds
                 receipt["acousticShapeMode"] = variable.acousticShapeMode
                 receipt["requestedComputePlacement"] = [
-                    "llmPrefill": "CPU_ONLY",
-                    "llmDecode": "CPU_ONLY",
+                    "llmPrefill": Self.requestedRolePlacement("llmPrefill", defaultValue: "CPU_ONLY"),
+                    "llmDecode": Self.requestedRolePlacement("llmDecode", defaultValue: "CPU_ONLY"),
                     "acoustic": Self.requestedAcousticPlacement(),
                     "referenceEncoders": "CPU_ONLY",
                     "meaning": "requested MLComputeUnits; not measured accelerator residency"
@@ -411,6 +421,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
+            receipt["thermalPeak"] = Self.thermalName(benchmarkThermalPeak)
+            receipt["requestedComputePlacementByRole"] = Self.requestedPlacements()
+            receipt["residencyEvidence"] = "requested placement only, residency not proven"
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url)
             if !automatedNoPlayback { try play(repeatAudio) }
             status = String(format:"PASS Candidate first=%.3fs RTF=%.3f repeat=%.3fs RTF=%.3f receipt=%@",firstMilliseconds/1000,firstMilliseconds/1000/firstDuration,repeatMilliseconds/1000,repeatMilliseconds/1000/repeatDuration,url.path)
@@ -718,8 +731,24 @@ final class CosyVoice3SmokeModel: ObservableObject {
         var receipt:[String:Any]=["schemaVersion":1,"status":"FAIL","recordedAtUnix":Int(Date().timeIntervalSince1970),"error":String(describing:error),"device":UIDevice.current.model,"deviceModelIdentifier":machineIdentifier(),"systemVersion":UIDevice.current.systemVersion]
         if let sourceCommit = validationSourceCommit() { receipt["sourceCommit"] = sourceCommit }
         receipt["requestedAcousticPlacement"] = requestedAcousticPlacement()
+        receipt["requestedComputePlacementByRole"] = requestedPlacements()
+        receipt["residencyEvidence"] = "requested placement only, residency not proven"
         if let data=try? JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]) { if let url=try? receiptURL(filename) { try? data.write(to:url,options:.atomic) }; model.receiptJSON=String(decoding:data,as:UTF8.self) }
         model.status="FAIL \(String(describing:error))"
+    }
+
+    private static func requestedRolePlacement(_ role: String, defaultValue: String) -> String {
+        let prefix = "--validation-placement=\(role):"
+        return CommandLine.arguments.first(where: { $0.hasPrefix(prefix) }).map { String($0.dropFirst(prefix.count)) } ?? defaultValue
+    }
+    private static func requestedPlacements() -> [String: String] {
+        var result = [String: String]()
+        for role in ["llmPrefill", "llmDecode", "conditions", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5", "hift", "speechTokenizer", "campPlus"] {
+            let acoustic = role == "conditions" || role == "hift" || role.hasPrefix("flow")
+            let base = acoustic ? requestedAcousticPlacement().replacingOccurrences(of: "_VALIDATION_OVERRIDE", with: "") : "CPU_ONLY"
+            result[role] = requestedRolePlacement(role, defaultValue: base)
+        }
+        return result
     }
 
     private static func requestedAcousticPlacement() -> String {
@@ -840,3 +869,5 @@ private extension Data {
 // Changes 2026-10-05: matched Candidate benchmark now also requires identical deterministic Int16 WAV SHA256 across cold/warm calls. Same duration alone is insufficient; a divergent seeded token/audio trajectory invalidates the performance comparison.
 
 // Changes 2026-10-05: Candidate/variable receipts and FAIL receipts report the effective validation acoustic placement; schema-3 diagnostic command-line overrides are never labeled as production placement.
+
+// Changes 2026-10-05 19:12 America/New_York: Candidate/FAIL receipts carry 12 requested role placements and explicit unproven residency. Upstream DeviceSmoke public API benchmark; environment physical iPhone/iOS18+, Swift6.
