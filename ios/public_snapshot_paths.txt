@@ -13,3 +13,4 @@ manifest.json
 SOURCE_LOCK.json
 PUBLIC_PROVENANCE.json
 assets/
+validation/release_receipt.json
