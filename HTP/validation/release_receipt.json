@@ -1,0 +1,76 @@
+{
+  "schemaVersion": 1,
+  "engine": "CosyVoice3",
+  "platform": "HTP",
+  "releaseStatus": "development-blocked",
+  "technicalDistributionReady": false,
+  "productionReady": false,
+  "publicRedistributionApproved": false,
+  "sourceCommit": null,
+  "assetIdentity": null,
+  "environment": {
+    "cleanRoomHost": "PENDING_IMPLEMENTATION",
+    "releaseHost": "macOS Apple Silicon required by canonical checklist",
+    "toolchain": "PENDING exact QAIRT/QNN/JDK/Gradle/NDK/CMake identity",
+    "validationTarget": "PENDING compatible physical Qualcomm device/SoC/runtime",
+    "historicalAssetBuildProvenance": null,
+    "consumerRequirements": "PENDING standalone CosyVoice3 HTP implementation and immutable SoC-specific asset contract"
+  },
+  "checks": {
+    "sourceIsolation": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": [
+        "HTP/README.md",
+        "HTP/API.md"
+      ]
+    },
+    "standaloneBuild": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": [
+        "HTP/README.md"
+      ]
+    },
+    "environmentRecorded": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": [
+        "HTP/VALIDATION.md"
+      ]
+    },
+    "assetValidation": {
+      "status": "BLOCKED_NO_ASSET_PROFILE",
+      "evidence": [
+        "HTP/ASSETS.md"
+      ]
+    },
+    "hostParity": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    },
+    "targetRuntimeExecution": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    },
+    "physicalDeviceExecution": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    },
+    "textToPcm": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    },
+    "benchmarkRecorded": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    },
+    "cleanRoomIntegration": {
+      "status": "BLOCKED_NOT_IMPLEMENTED",
+      "evidence": []
+    }
+  },
+  "blocker": {
+    "class": "TECHNICAL_SOURCE_LINEAGE_AND_IMPLEMENTATION",
+    "description": "No accepted CosyVoice3 QNN/HTP implementation/source lineage, standalone public facade, immutable SoC-specific assets or physical Qualcomm text-to-PCM evidence exists in the maintained repository.",
+    "autonomousRepairBoundary": "Documentation/fail-closed release structure is complete; an implementation cannot be fabricated from iOS evidence or an unrelated external experiment."
+  },
+  "licenseReview": "SEPARATE_NOT_EVALUATED"
+}
