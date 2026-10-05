@@ -17,6 +17,8 @@ HOST_RECEIPT="${COSYVOICE3_HOST_PARITY_RECEIPT:-$ROOT/.work/reference-release/pa
 REFERENCE_WAV="${COSYVOICE3_REFERENCE_WAV:-}"
 REFERENCE_TRANSCRIPT="${COSYVOICE3_REFERENCE_TRANSCRIPT:-}"
 PYTHON="$ROOT/.venv-release/bin/python"
+DYNAMIC_PYTHON="${COSYVOICE3_DYNAMIC_PYTHON:-$ROOT/.work/dynamic-acoustic/venv/bin/python}"
+CONVERSION_RECEIPT="$ROOT/validation/evidence/dynamic_conversion_provenance.json"
 RELEASE_ROOT="$ROOT/.work/hf-release/$PROFILE/$VERSION"
 UPLOAD_RECEIPT="$ROOT/.work/hf-release/$PROFILE/$VERSION-hf-upload-receipt.json"
 DOWNLOAD_ROOT="$ROOT/.work/hf-download-replay/$PROFILE-$VERSION"
@@ -38,6 +40,7 @@ main(){
     [ -f "$REFERENCE_WAV" ] || { fail "set COSYVOICE3_REFERENCE_WAV to the local validation reference"; return 2; }
     [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "set COSYVOICE3_REFERENCE_TRANSCRIPT to the matching transcript"; return 2; }
     [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt missing: $HOST_RECEIPT"; return 2; }
+    [ -x "$DYNAMIC_PYTHON" ] || { fail "dynamic conversion Python missing: $DYNAMIC_PYTHON"; return 2; }
     [ "$(git -C "$REPO" branch --show-current)" = "$BRANCH" ] || { fail "wrong branch; expected $BRANCH"; return 2; }
     [ -z "$(git -C "$REPO" status --porcelain --untracked-files=no)" ] || { git -C "$REPO" status --short; fail "tracked worktree must be clean"; return 2; }
     git -C "$REPO" pull --ff-only origin "$BRANCH" || return $?
@@ -52,11 +55,12 @@ print("[COSYVOICE3-DYNAMIC-RC] HF identity="+repr(name),flush=True)
 if name!="actacomes": raise SystemExit("Hugging Face login must be actacomes")
 PY
 
-    printf '[COSYVOICE3-DYNAMIC-RC] STEP 1/7 stage and upload/reuse private RC\n'
+    printf '[COSYVOICE3-DYNAMIC-RC] STEP 1/7 record exact conversion provenance; stage and upload/reuse private RC\n'
+    "$DYNAMIC_PYTHON" "$ROOT/validation/record_dynamic_conversion_provenance.py" --output "$CONVERSION_RECEIPT" || return $?
     rm -rf "$RELEASE_ROOT"
     "$PYTHON" "$ROOT/tools/publish_huggingface_ios_dynamic_n1.py" \
         --version "$VERSION" --repo-id "$REPO_ID" --source-assets "$SOURCE_ASSETS" \
-        --lower-bound-receipt "$LOWER_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
+        --lower-bound-receipt "$LOWER_RECEIPT" --conversion-provenance-receipt "$CONVERSION_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
         --listening-receipt "$LISTENING_RECEIPT" || return $?
     local reuse_upload=0
     if [ -s "$UPLOAD_RECEIPT" ]; then
@@ -76,7 +80,7 @@ PY
     if [ "$reuse_upload" -ne 1 ]; then
         "$PYTHON" "$ROOT/tools/publish_huggingface_ios_dynamic_n1.py" \
             --version "$VERSION" --repo-id "$REPO_ID" --source-assets "$SOURCE_ASSETS" \
-            --lower-bound-receipt "$LOWER_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
+            --lower-bound-receipt "$LOWER_RECEIPT" --conversion-provenance-receipt "$CONVERSION_RECEIPT" --smoke-receipt "$SMOKE_RECEIPT" \
             --listening-receipt "$LISTENING_RECEIPT" --upload || return $?
     fi
     [ -s "$UPLOAD_RECEIPT" ] || { fail "upload receipt missing: $UPLOAD_RECEIPT"; return 3; }
@@ -183,7 +187,7 @@ PY
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 7/7 accept catalog row and push release metadata\n'
     cp "$WORK_CATALOG" "$ROOT/assets/releases.json" || return $?
-    git -C "$REPO" add ios/assets/releases.json ios/validation/evidence/dynamic_private_rc.json || return $?
+    git -C "$REPO" add ios/assets/releases.json ios/validation/evidence/dynamic_private_rc.json ios/validation/evidence/dynamic_conversion_provenance.json || return $?
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" commit -m "release(ios): register dynamic N1 private RC" || return $?
     git -C "$REPO" push origin "$BRANCH" || return $?
     printf '[COSYVOICE3-DYNAMIC-RC] COMPLETE profile=%s version=%s head=%s license=PENDING public=false\n' "$PROFILE" "$VERSION" "$(git -C "$REPO" rev-parse HEAD)"
@@ -202,3 +206,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: private-RC closure is rerun-safe after partial failures: stage first, reuse an existing private upload receipt only when exact payload/runtime-tree/profile/version/repo hashes match, otherwise upload a new RC.
 
 # Changes 2026-10-04: immutable private-RC evidence carries the asset manifest's historical conversion provenance so Candidate environment receipts can distinguish it from clean-room build/consumer requirements.
+
+# Changes 2026-10-04: private RC closure records exact package-metadata-derived conversion provenance with the dynamic coremltools/torch environment before staging, passes that receipt into the publisher, and commits the sanitized provenance evidence with the private RC receipt.
