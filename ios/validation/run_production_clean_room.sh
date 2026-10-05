@@ -2,7 +2,7 @@
 # Requirement: from a clean release checkout, fetch the immutable private RC through the ordinary SDK path, build/install an independent public-API-only consumer, retrieve physical-iPhone PCM evidence, and write a sanitized Production clean-room receipt.
 #!/usr/bin/env bash
 set -u
-ROOT="$(cd "$(dirname "$0")/.." && pwd)"; REPO="$(cd "$ROOT/.." && pwd)"; EXPECTED_BRANCH="release/ios-fixed225-sdk-ready"
+ROOT="$(cd "$(dirname "$0")/.." && pwd)"; REPO="$(cd "$ROOT/.." && pwd)"; EXPECTED_BRANCH="${COSYVOICE3_RELEASE_BRANCH:-$(git -C "$REPO" branch --show-current)}"
 PROJECT="$ROOT/validation/ProductionCleanRoom/CosyVoice3ProductionCleanRoom.xcodeproj"; SCHEME="CosyVoice3ProductionCleanRoom"; BUNDLE_ID="${COSYVOICE3_PRODUCTION_CLEANROOM_BUNDLE_ID:-com.actacomes.cosyvoice3.productioncleanroom}"
 PYTHON="$ROOT/.venv-release/bin/python"; FETCHED="$ROOT/.work/production-clean-room/fetched-runtime"; GENERATED="$ROOT/validation/ProductionCleanRoom/GeneratedAssets"; RAW="$ROOT/.work/production-clean-room/device-receipt.json"; OUTPUT="$ROOT/validation/evidence/production_clean_room.json"; DERIVED="$ROOT/.work/ProductionCleanRoomDerivedData"
 main(){
@@ -27,11 +27,18 @@ x=HfApi().whoami(); n=(x.get("name") or x.get("fullname") or "") if isinstance(x
 print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] HF identity="+repr(n),flush=True)
 if n!="actacomes": raise SystemExit("Hugging Face login must be actacomes")
 PY
+    local profile version benchmark_receipt
+    profile="$("$PYTHON" -c 'import json;print(json.load(open("'"$ROOT"'/validation/release_receipt.json"))["asset"]["profile"])')" || return $?
+    version="$("$PYTHON" -c 'import json;print(json.load(open("'"$ROOT"'/validation/release_receipt.json"))["asset"]["version"])')" || return $?
+    benchmark_receipt="$ROOT/validation/evidence/candidate_benchmark.json"
+    case "$profile" in ios-dynamic-*) benchmark_receipt="$ROOT/validation/evidence/dynamic_candidate_benchmark.json";; esac
+    [ -f "$benchmark_receipt" ] || { printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] ERROR Candidate benchmark missing: %s\n' "$benchmark_receipt"; return 2; }
+    printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] asset=%s/%s benchmark=%s\n' "$profile" "$version" "$benchmark_receipt"
     rm -rf "$FETCHED" "$GENERATED" "$DERIVED"; mkdir -p "$GENERATED" "$(dirname "$RAW")" "$(dirname "$OUTPUT")"; : > "$GENERATED/.gitkeep"
-    "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile ios-fixed225-reference --version 0.1.0-rc1 --output "$FETCHED" --force || return $?
+    "$PYTHON" "$ROOT/assets/fetch_assets.py" --profile "$profile" --version "$version" --output "$FETCHED" --force || return $?
     "$PYTHON" "$ROOT/assets/validate_assets.py" --root "$FETCHED" --require-reference || return $?
     cp -R "$FETCHED" "$GENERATED/Runtime" || return $?; cp "$COSYVOICE3_REFERENCE_WAV" "$GENERATED/reference.wav" || return $?; cp "$COSYVOICE3_REFERENCE_TRANSCRIPT" "$GENERATED/reference.txt" || return $?
-    "$PYTHON" - "$ROOT/validation/release_receipt.json" "$ROOT/validation/production_baseline.json" "$ROOT/validation/evidence/candidate_benchmark.json" "$GENERATED/production-clean-room-binding.json" "$head" "$COSYVOICE3_REFERENCE_TRANSCRIPT" <<'PY' || return $?
+    "$PYTHON" - "$ROOT/validation/release_receipt.json" "$ROOT/validation/production_baseline.json" "$benchmark_receipt" "$GENERATED/production-clean-room-binding.json" "$head" "$COSYVOICE3_REFERENCE_TRANSCRIPT" <<'PY' || return $?
 import json,sys
 from pathlib import Path
 release=json.loads(Path(sys.argv[1]).read_text()); base=json.loads(Path(sys.argv[2]).read_text()); bench=json.loads(Path(sys.argv[3]).read_text()); transcript=Path(sys.argv[6]).read_text().strip(); workload=bench["workload"]; text=workload["text"]
@@ -64,9 +71,16 @@ from pathlib import Path
 raw=json.loads(Path(sys.argv[1]).read_text()); base=json.loads(Path(sys.argv[2]).read_text()); release=json.loads(Path(sys.argv[3]).read_text())
 if raw.get("status")!="PASS_PRODUCTION_CLEAN_ROOM_PUBLIC_API_PCM" or raw.get("publicApiOnly") is not True: raise SystemExit("clean-room device status mismatch")
 if raw.get("candidateReleaseHead")!=base["candidateReleaseHead"] or raw.get("validatedSourceCommit")!=base["validatedSourceCommit"] or raw.get("assetIdentity")!=release["assetIdentity"]: raise SystemExit("clean-room source/asset binding mismatch")
-bench=json.loads((Path(sys.argv[3]).parent/"evidence/candidate_benchmark.json").read_text()); expected=__import__("hashlib").sha256(bench["workload"]["text"].encode()).hexdigest()
+profile=(release.get("asset") or {}).get("profile","")
+bench_name="dynamic_candidate_benchmark.json" if str(profile).startswith("ios-dynamic-") else "candidate_benchmark.json"
+bench=json.loads((Path(sys.argv[3]).parent/"evidence"/bench_name).read_text()); expected=__import__("hashlib").sha256(bench["workload"]["text"].encode()).hexdigest()
 if raw.get("workloadTextSha256")!=expected: raise SystemExit("clean-room workload differs from Candidate-frozen fixed225 workload")
 if raw.get("sampleRate")!=24000 or raw.get("channels")!=1 or int(raw.get("samples",0))<=0 or raw.get("finite") is not True or raw.get("flowSteps")!=6: raise SystemExit("clean-room PCM/public-default contract mismatch")
+profile=(release.get("asset") or {}).get("profile","")
+if str(profile).startswith("ios-dynamic-"):
+    bounds=release.get("speechTokenBounds")
+    samples=int(raw["samples"])
+    if bounds!=[1,479] or samples%960!=0 or not (bounds[0]<=samples//960<=bounds[1]): raise SystemExit("dynamic clean-room PCM length is outside validated 960*N / N1...479 contract")
 out={"schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM","releaseHead":raw["releaseHead"],"candidateReleaseHead":raw["candidateReleaseHead"],"validatedSourceCommit":raw["validatedSourceCommit"],"assetIdentity":raw["assetIdentity"],"publicApiOnly":True,"flowSteps":6,"device":{"model":raw.get("device"),"modelIdentifier":raw.get("deviceModelIdentifier"),"systemName":raw.get("systemName"),"systemVersion":raw.get("systemVersion")},"pcm":{"sampleRate":24000,"channels":1,"samples":raw["samples"],"finite":True},"workloadTextSha256":raw["workloadTextSha256"],"recordedAtUnix":int(time.time())}
 Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] PASS "+json.dumps(out,sort_keys=True),flush=True)
 PY
@@ -79,3 +93,5 @@ main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; tes
 # Changes 2026-10-03: print and fail immediately on a machine-readable device FAIL receipt instead of turning every app-side failure into a six-minute missing-file timeout.
 
 # Changes 2026-10-03: stage the exact text from committed Candidate benchmark evidence and bind its SHA256 into the device/host receipt. This validates the frozen fixed225 lane without changing runtime behavior for early-EOS (<225-token) utterances.
+
+# Changes 2026-10-04: resolve Candidate profile/version and benchmark from canonical release_receipt.json; support dynamic N1...479 960*N PCM while retaining historical fixed225 compatibility; release branch is overrideable/current rather than hard-coded.
