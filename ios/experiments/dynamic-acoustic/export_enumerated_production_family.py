@@ -173,6 +173,8 @@ def flow_case(n: int, conditioning, fixture):
     t = PROMPT_FRAMES + 2 * n
     return {
         "N": n,
+        "G": 2 * n,
+        "P": PROMPT_FRAMES,
         "T": t,
         "mu": mu,
         "spks": spks,
@@ -811,3 +813,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: schema-3 manifest explicitly clears legacy fixed-shape flowMask/flowNoise fields; exact variable runtime owns its mask at request shape and uses the schema-3 maximum stochastic buffer contract instead of stale fixed225 paths.
 
 # Changes 2026-10-05: production exporter now executes representative exact shapes N=1/128/129/167/225/256/257/384/385/450 through every selected multifunction family on host CPU. Conditions must retain <=1e-4 relativeL2, Flow must be finite with exact velocity shape while recording FP16 error, and same-input HiFT must retain the existing <=0.02 relativeL2 gate.
+
+# Changes 2026-10-05: representative exact-shape validation now supplies the full canonical Flow case ABI (N/G/P/T). This prevents to_coreml_case/source helpers from failing at asset-build time even though Swift CI is green.
