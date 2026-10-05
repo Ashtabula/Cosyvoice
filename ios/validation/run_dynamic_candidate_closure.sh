@@ -6,6 +6,7 @@ set -u -o pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 REPO="$(cd "$ROOT/.." && pwd)"
 BRANCH="${COSYVOICE3_DYNAMIC_RELEASE_BRANCH:-experiment/ios-dynamic-acoustic}"
+CANDIDATE_BRANCH="${COSYVOICE3_DYNAMIC_CANDIDATE_BRANCH:-release/ios-dynamic-n1-sdk-ready}"
 PROFILE="${COSYVOICE3_ASSET_PROFILE:-ios-dynamic-n1-n479-reference}"
 VERSION="${COSYVOICE3_ASSET_VERSION:-0.2.0-rc1}"
 WORK="$ROOT/.work/dynamic-candidate-closure"
@@ -89,7 +90,8 @@ PY
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" \
         commit -m "release(ios): freeze dynamic Candidate baseline" || return $?
     git -C "$REPO" push origin "$BRANCH" || return $?
-    printf '[COSYVOICE3-DYNAMIC-CANDIDATE] PASS candidateHead=%s evidenceHead=%s profile=%s/%s license=PENDING public=false\n' "$candidate_head" "$(git -C "$REPO" rev-parse HEAD)" "$PROFILE" "$VERSION"
+    git -C "$REPO" push origin "HEAD:refs/heads/$CANDIDATE_BRANCH" || return $?
+    printf '[COSYVOICE3-DYNAMIC-CANDIDATE] PASS candidateHead=%s evidenceHead=%s candidateBranch=%s profile=%s/%s license=PENDING public=false\n' "$candidate_head" "$(git -C "$REPO" rev-parse HEAD)" "$CANDIDATE_BRANCH" "$PROFILE" "$VERSION"
 }
 main "$@"
 RC=$?
@@ -103,3 +105,5 @@ test "$RC" -eq 0
 # Changes: new dynamic Candidate closure; leaves clean-room/reproducibility/license/public identity/public asset publication as Production gates.
 
 # Changes 2026-10-04: after the Candidate authority commit, freeze that exact commit into production_baseline.json in a second evidence-only commit so later Production gates reject runtime-source drift without circular Candidate-head metadata.
+
+# Changes 2026-10-04: successful technical Candidate closure also creates/fast-forwards release/ios-dynamic-n1-sdk-ready, providing a stable ref for the all-SDK matrix; the matrix itself is not switched before this branch actually exists.
