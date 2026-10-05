@@ -61,6 +61,8 @@ def main()->int:
     require(rebuild.get("status")=="PASS_SUPPORTED_DYNAMIC_RUNTIME_REBUILD_CONTRACT","dynamic runtime rebuild convergence is not PASS")
     require(rebuild.get("sourceCommit")==current,"dynamic runtime rebuild convergence is not current HEAD")
     require(rebuild.get("profile")==PROFILE and rebuild.get("NBounds")==[1,479],"dynamic rebuild profile/bounds mismatch")
+    require(rebuild.get("immutableRevision")==private.get("revision"),"dynamic rebuild is not bound to the private RC immutable revision")
+    require(rebuild.get("immutablePayloadTreeSha256")==private.get("payloadTreeSha256"),"dynamic rebuild is not bound to the private RC payload tree")
     require(benchmark.get("status")=="PASS" and benchmark.get("benchmark")=="public-api-candidate-v1","dynamic Candidate benchmark is not PASS")
     require(benchmark.get("sourceCommit")==current,"dynamic Candidate benchmark is not current HEAD")
     require(benchmark.get("runtimeProfile")=="ios18-dynamic-n1-n479","dynamic Candidate benchmark runtime profile mismatch")
