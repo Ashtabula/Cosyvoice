@@ -22,8 +22,8 @@ def main()->int:
     a=p.parse_args()
     receipt=load(a.receipt)
     current=subprocess.check_output(["git","-C",str(REPO),"rev-parse","HEAD"],text=True).strip()
-    if receipt.get("releaseStatus")!="candidate" or receipt.get("technicalDistributionReady") is not True:
-        raise RuntimeError("dynamic receipt is not Candidate")
+    if receipt.get("releaseStatus")!="candidate" or receipt.get("technicalDistributionReady") is not True or receipt.get("currentSourceReclosureRequired") is not False:
+        raise RuntimeError("dynamic receipt is not an exact-current-source closed Candidate")
     if receipt.get("sourceCommit")!=current:
         raise RuntimeError(f"dynamic Candidate receipt source {receipt.get('sourceCommit')} != current HEAD {current}")
     if receipt.get("publicRedistributionApproved") is not False or receipt.get("productionReady") is not False:
@@ -56,6 +56,7 @@ def main()->int:
     manifest_path=ROOT/"manifest.json"; manifest=load(manifest_path)
     manifest["schemaVersion"]=max(int(manifest.get("schemaVersion",0)),5)
     manifest["releaseStatus"]="candidate"
+    manifest["currentSourceReclosureRequired"]=False
     manifest["releaseReadiness"]="Technical Distribution-Ready Candidate for dynamic N1...479 on immutable private RC; Production/public redistribution remains blocked by non-license Production gates plus separate license review."
     manifest["technicalDistributionReady"]=True
     manifest["sdkIntegrationReady"]=True
@@ -138,7 +139,7 @@ def main()->int:
         "historicalDynamicCandidateReceiptPrivatePath":"validation/dynamic_release_receipt.json",
         "historicalFixed225CandidateReceiptPrivatePath":"validation/history/fixed225_release_receipt.json"
     }
-    (ROOT/"PUBLIC_PROVENANCE.json").write_text(json.dumps(provenance,indent=2,sort_keys=True)+"\\n",encoding="utf-8")
+    (ROOT/"PUBLIC_PROVENANCE.json").write_text(json.dumps(provenance,indent=2,sort_keys=True)+"\n",encoding="utf-8")
 
     benchmark=load(ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
     m=benchmark["measurement"]
@@ -260,4 +261,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: dynamic promotion switches manifest publication.branch and current Candidate/SDK-ready milestone pointers to the dynamic release line while preserving fixed225 milestone metadata under explicit historical fields.
 
 # Changes 2026-10-04: promoted README/ASSETS/BENCHMARK/VALIDATION now surface the canonical Candidate clean-room host/toolchain/consumer-path metadata from release_receipt.environment, not only the JSON ledger.
-\n# Changes 2026-10-05: exact-current-source promotion clears the reclosure flag and rewrites PUBLIC_PROVENANCE to the same dynamic asset/source authority.\n
+
+# Changes 2026-10-05: exact-current-source promotion clears the reclosure flag and rewrites PUBLIC_PROVENANCE to the same dynamic asset/source authority.
