@@ -53,6 +53,8 @@ EXPECTED_SHARED_PROFILE = "ios-dynamic-n1-n479-reference"
 EXPECTED_SHARED_VERSION = "0.2.0-rc1"
 EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479"
 EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68"
+EXPECTED_FLOW_PT_SHA256 = "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b"
+EXPECTED_ACOUSTIC_CONFIG_SHA256 = "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965"
 
 
 def save_json(path: Path, value) -> None:
@@ -785,8 +787,10 @@ def main() -> int:
         model = rebuild_root / "model-cache/Fun-CosyVoice3-0.5B-2512"
         fixture_root = rebuild_root / "fixture"
         flow_checkpoint = model / "flow.pt"
+        hift_checkpoint = model / "hift.pt"
+        acoustic_config = model / "cosyvoice3.yaml"
         flow_fixture_path = fixture_root / "flow_input.pt"
-        for required in (source, model, flow_checkpoint, flow_fixture_path):
+        for required in (source, model, flow_checkpoint, hift_checkpoint, acoustic_config, flow_fixture_path):
             if not required.exists():
                 raise RuntimeError(f"enumerated rebuild prerequisite missing: {required}")
         upstream_head = subprocess.check_output(
@@ -795,11 +799,23 @@ def main() -> int:
         ).strip()
         if upstream_head != PIN:
             raise RuntimeError(f"upstream source pin mismatch: {upstream_head} != {PIN}")
+        flow_sha = sha(flow_checkpoint)
+        config_sha = sha(acoustic_config)
+        if flow_sha != EXPECTED_FLOW_PT_SHA256:
+            raise RuntimeError(
+                f"flow checkpoint SHA mismatch: {flow_sha} != {EXPECTED_FLOW_PT_SHA256}"
+            )
+        if config_sha != EXPECTED_ACOUSTIC_CONFIG_SHA256:
+            raise RuntimeError(
+                f"acoustic config SHA mismatch: {config_sha} != {EXPECTED_ACOUSTIC_CONFIG_SHA256}"
+            )
         fixture = torch.load(flow_fixture_path, weights_only=True)["kwargs"]
         receipt["rebuildInputs"] = {
             "rebuildRoot": str(rebuild_root),
             "upstreamSourceCommit": upstream_head,
-            "flowCheckpointSha256": sha(flow_checkpoint),
+            "flowCheckpointSha256": flow_sha,
+            "hiftCheckpointSha256": sha(hift_checkpoint),
+            "acousticConfigSha256": config_sha,
             "flowFixtureSha256": sha(flow_fixture_path),
         }
 
@@ -946,3 +962,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: production schema-3 export now requires the exact frozen schema-2 private RC source (ios-dynamic-n1-n479-reference/0.2.0-rc1, runtime ios18-dynamic-n1-n479-candidate, payload tree 3f7b...). It recomputes every source file hash/tree/byte count before conversion and records the immutable source manifest/tree in the new receipt.
 
 # Changes 2026-10-05: correct frozen shared runtimeProfile gate to ios18-dynamic-n1-n479, matching the canonical dynamic publish script constant; the previous review-only -candidate suffix was invalid.
+
+# Changes 2026-10-05: Flow/Conditions export now hard-requires the accepted flow.pt SHA256 a6fab32a..., and HiFT construction hard-requires the accepted cosyvoice3.yaml SHA256 f5a6b2c6.... The exact local hift.pt SHA is recorded for independent output binding.
