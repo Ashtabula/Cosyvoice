@@ -616,11 +616,23 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let staged = documents.appendingPathComponent("GeneratedAssets", isDirectory: true)
         if FileManager.default.fileExists(atPath: staged.appendingPathComponent("staging-complete.json").path) {
             let marker = try Data(contentsOf: staged.appendingPathComponent("staging-complete.json"))
-            guard let value = try JSONSerialization.jsonObject(with: marker) as? [String: Any],
-                  let expected = value["immutableManifestSha256"] as? String else { throw SmokeError("staged immutable identity missing") }
-            let manifestData = try Data(contentsOf: staged.appendingPathComponent("Runtime/asset-manifest.json"))
-            let actual = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
-            guard actual == expected else { throw SmokeError("staged immutable manifest identity mismatch") }
+            guard let value = try JSONSerialization.jsonObject(with: marker) as? [String: Any] else {
+                throw SmokeError("staged identity marker is invalid")
+            }
+            if let expected = value["immutableManifestSha256"] as? String {
+                let manifestData = try Data(contentsOf: staged.appendingPathComponent("Runtime/asset-manifest.json"))
+                let actual = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+                guard actual == expected else { throw SmokeError("staged immutable manifest identity mismatch") }
+            } else {
+                guard let name = value["runtimeManifestName"] as? String,
+                      let expected = value["runtimeManifestSha256"] as? String,
+                      name == "cosyvoice3_enumerated.json" else {
+                    throw SmokeError("staged local enumerated identity missing")
+                }
+                let manifestData = try Data(contentsOf: staged.appendingPathComponent("Runtime").appendingPathComponent(name))
+                let actual = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+                guard actual == expected else { throw SmokeError("staged local enumerated manifest identity mismatch") }
+            }
             return staged
         }
         guard let resourceRoot = Bundle.main.resourceURL else { throw SmokeError("bundle resource root unavailable") }
@@ -736,3 +748,5 @@ private extension Data {
 // Changes 2026-10-04: support receipt-last external Documents/GeneratedAssets for exact hosted dynamic replay without bundling/copying 4.28GB on the host. Bind immutable manifest SHA explicitly; do not fabricate a historical host receipt. Original bundle staging and matching-reference recovery remain available.
 
 // Changes 2026-10-05: generalize physical public-API validation and Candidate benchmark to schema-3 exact EnumeratedShapes. Active manifest precedence matches the SDK; receipts record exact EOS-derived N and selected multifunction name, no padding/crop, N450/62-prefix production contract, while schema-2 RangeDim remains a comparison path.
+
+// Changes 2026-10-05: external Documents staging now accepts either immutable hosted asset-manifest binding or an exact local schema-3 cosyvoice3_enumerated.json SHA binding, enabling multi-GB production-candidate device validation without bundling assets into the app.
