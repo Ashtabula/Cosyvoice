@@ -191,10 +191,20 @@ def main() -> None:
     release.rename(candidate)
     manifest = validate_release(candidate, entry)
 
-    if output.exists():
-        shutil.rmtree(output)
     output.parent.mkdir(parents=True, exist_ok=True)
-    candidate.rename(output)
+    backup = output.with_name("." + output.name + ".previous")
+    shutil.rmtree(backup, ignore_errors=True)
+    if output.exists():
+        output.rename(backup)
+    try:
+        candidate.rename(output)
+    except Exception:
+        if output.exists():
+            shutil.rmtree(output)
+        if backup.exists():
+            backup.rename(output)
+        raise
+    shutil.rmtree(backup, ignore_errors=True)
     shutil.rmtree(work, ignore_errors=True)
 
     print(
@@ -225,3 +235,5 @@ if __name__ == "__main__":
 # Changes 2026-10-04: --reuse-valid rehashes and validates an existing immutable output against the selected catalog entry and returns REUSE_PASS without another Hugging Face download; invalid caches still fail closed unless --force permits replacement.
 
 # Changes 2026-10-04: hide incomplete downloads from Finder and move the exact-revision release into the candidate on the same filesystem, avoiding a redundant multi-GB payload copy; validators and atomic activation remain unchanged.
+
+# Changes 2026-10-05: replacement activation is rollback-safe on the same filesystem; activation failure restores the prior runtime before propagating the error.

@@ -8,6 +8,7 @@ import Tokenizers
 enum CosyVoice3NativeFrontendError: Error, Equatable {
     case emptyTarget
     case missingEndOfPrompt
+    case invalidInstructionPrompt
     case prefixTooLong(Int)
     case invalidTextToken(Int)
 }
@@ -49,7 +50,9 @@ final class CosyVoice3Fixed224Frontend: @unchecked Sendable, CosyVoice3NativeFro
 
         let promptIDs = tokenizer.encode(text: prompt)
         let targetIDs = tokenizer.encode(text: target)
-        guard promptIDs.contains(Self.endOfPromptToken) else { throw CosyVoice3NativeFrontendError.missingEndOfPrompt }
+        guard promptIDs.contains(Self.endOfPromptToken) else {
+            throw rawInstruction.isEmpty ? CosyVoice3NativeFrontendError.missingEndOfPrompt : CosyVoice3NativeFrontendError.invalidInstructionPrompt
+        }
         guard promptIDs.allSatisfy({ $0 >= 0 && $0 < textEmbeddings.rows }),
               targetIDs.allSatisfy({ $0 >= 0 && $0 < textEmbeddings.rows }) else {
             throw CosyVoice3NativeFrontendError.invalidTextToken((promptIDs + targetIDs).first(where: { $0 < 0 || $0 >= textEmbeddings.rows }) ?? -1)

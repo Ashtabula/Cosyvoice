@@ -81,7 +81,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     func synthesize(speechTokens: [Int], prepared: CosyVoice3PreparedRequest) async throws -> CosyVoice3Audio {
         defer {
             let value: [String: Any] = ["executeMsExcludingLoad": phaseMilliseconds, "firstCallMs": firstCallMilliseconds, "calls": phaseCalls, "modelLoadMs": modelLoadMilliseconds, "opaqueSpecializationIncludedInPrediction": true]
-            if let data = try? JSONSerialization.data(withJSONObject: value, options: [.sortedKeys]), let text = String(data: data, encoding: .utf8) { print("[COSY-ACOUSTIC-PHASE] \(text)") }
+            if let data = try? JSONSerialization.data(withJSONObject: value, options: [.sortedKeys]), let text = String(data: data, encoding: .utf8) { progress?("acoustic.phase.summary:\(text)") }
         }
         let n = speechTokens.count
         guard n >= contract.speechTokenMinimum, n <= contract.speechTokenMaximum else {
@@ -224,12 +224,9 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     private func loadModel(path: String, stage: String) throws -> MLModel {
         progress?("\(stage).load.begin:\(path)")
         let started = DispatchTime.now().uptimeNanoseconds
-        let fast = stage.contains(".shard.") && ProcessInfo.processInfo.environment["COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION"] == "1"
-        let model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path, preferFastPrediction: fast)
-        print("[COSY-SPECIALIZATION] stage=\(stage) strategy=\(fast ? "FAST_PREDICTION" : "DEFAULT") validationOnly=YES")
+        let model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path)
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000
         modelLoadMilliseconds += elapsed
-        print("[COSY-MODEL-LOAD] stage=\(stage) ms=\(elapsed)")
         progress?("\(stage).load.end:\(path):ms=\(String(format: "%.3f", elapsed))")
         return model
     }
@@ -436,6 +433,3 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-04: every dynamic Conditions/Flow/HiFT prediction load now uses the exact physical-probe MLModel configuration (CPU_AND_NE requested units plus reshapeFrequency=.infrequent). Flow shard progress also includes the outer Euler step so a stall is uniquely attributable.
 
 // Updated 2026-10-04: phase instrumentation only; execute time excludes explicit MLModel construction but includes opaque runtime specialization; all shapes and model scoping preserved.
-
-// Purpose: opt-in single-variable Flow specialization experiment, default unchanged; upstream: sequential dynamic runtime.
-// Environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York; changed loadModel validation hint only.

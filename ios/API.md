@@ -14,7 +14,7 @@ let audio = try await engine.synthesize(
 )
 ```
 
-`CosyVoice3VoiceReference(audioURL:transcript:)` pairs local reference audio with its exact transcript. Both values are required together. `CosyVoice3Parameters` exposes optional `reference`, optional `instruction`, and `flowSteps`. The validated public Flow choices are `.steps6`, `.steps8`, and `.steps10`; omitting `flowSteps` defaults to `.steps6`. Arbitrary integers are not accepted. Development evidence at source commit 8789402 includes Instruct2 controls for happy, angry, fast, soft and Sichuan-style prompts; that evidence does not make those labels a frozen SDK enum or guarantee arbitrary instruction quality.
+`CosyVoice3VoiceReference(audioURL:transcript:)` pairs local reference audio with its exact transcript. Both values are required together. `CosyVoice3Parameters` exposes optional `reference`, optional `instruction`, and `flowSteps`. `instruction`, when non-empty, is the complete upstream Instruct2 prompt and must contain the `<|endofprompt|>` terminator; it is not a shorthand label such as `happy`. Invalid non-empty instruction prompts fail closed before inference. The validated public Flow choices are `.steps6`, `.steps8`, and `.steps10`; omitting `flowSteps` defaults to `.steps6`. Arbitrary integers are not accepted. Development evidence at source commit 8789402 includes Instruct2 controls for happy, angry, fast, soft and Sichuan-style prompts; that evidence does not make those labels a frozen SDK enum or guarantee arbitrary instruction quality.
 
 `CosyVoice3Audio` contains `samples: [Float]`, `sampleRate: Int`, and `channels: Int`. The validated output contract is finite mono Float32 PCM at 24,000 Hz.
 

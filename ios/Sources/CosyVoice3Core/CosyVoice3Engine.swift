@@ -128,17 +128,19 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referencePlan = []
         }
 
-        var modelPreparationCacheHit = false
         let warmStart = DispatchTime.now().uptimeNanoseconds
-        if try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: mainPlan) {
-            modelPreparationCacheHit = true
+        var mainPreparationCacheHit = mainPlan.allSatisfy { warmedModelKeys.contains(warmKey($0)) }
+        var referencePreparationCacheHit = referencePlan.isEmpty || referencePlan.allSatisfy { warmedModelKeys.contains(warmKey($0)) }
+        if !mainPreparationCacheHit, try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: mainPlan) {
             warmedModelKeys.formUnion(mainPlan.map { warmKey($0) })
+            mainPreparationCacheHit = true
         }
-        if !referencePlan.isEmpty,
+        if !referencePlan.isEmpty, !referencePreparationCacheHit,
            try CosyVoice3AssetLoader.hasWarmMarker(root: assetRoot, specs: referencePlan) {
-            modelPreparationCacheHit = true
             warmedModelKeys.formUnion(referencePlan.map { warmKey($0) })
+            referencePreparationCacheHit = true
         }
+        let modelPreparationCacheHit = mainPreparationCacheHit && referencePreparationCacheHit
 
         // Cold custom-reference preparation remains deliberately interleaved by stage, but
         // execution-plan construction itself is serialized after physical iPhone -14 failures
@@ -341,7 +343,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referenceCacheHit: preparation.referenceCacheHit,
             warmedModelCount: preparation.warmedModelCount
         )
-        print("[COSY-PHASE] summary totalMs=\(Self.milliseconds(since: totalStart)) referencePrepareMs=\(preparation.totalMilliseconds) frontendMs=\(frontendMilliseconds) llmLoadMs=\(llmModelLoadMilliseconds) llmMs=\(llmGenerationMilliseconds) acousticLoadMs=\(acousticModelLoadMilliseconds) acousticExecuteMs=\(acousticSynthesisMilliseconds) samples=\(audio.samples.count) steps=\(parameters.flowSteps.rawValue)")
+        validationProgress("synthesis.summary:totalMs=\(Self.milliseconds(since: totalStart)):referencePrepareMs=\(preparation.totalMilliseconds):frontendMs=\(frontendMilliseconds):llmLoadMs=\(llmModelLoadMilliseconds):llmMs=\(llmGenerationMilliseconds):acousticLoadMs=\(acousticModelLoadMilliseconds):acousticExecuteMs=\(acousticSynthesisMilliseconds):samples=\(audio.samples.count):steps=\(parameters.flowSteps.rawValue)")
         validationProgress("synthesis.end:N=\(speechTokens.count):samples=\(audio.samples.count)")
         return audio
     }

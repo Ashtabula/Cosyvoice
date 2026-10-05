@@ -14,7 +14,7 @@ if [ -e "$DEST" ]; then [ -d "$DEST" ] && [ -z "$(find "$DEST" -mindepth 1 -maxd
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 git archive --format=tar HEAD -- ios LICENSE | tar -xf - -C "$TMP" || exit $?
 while IFS= read -r spec; do
-    case "$spec" in ""|#*) continue;; esac
+    case "$spec" in ""|\#*) continue;; esac
     src="$TMP/ios/$spec"; dst="$DEST/$spec"
     [ -e "$src" ] || { printf '[COSYVOICE3-PUBLIC-SNAPSHOT] ERROR archived path missing: %s\n' "$spec"; exit 5; }
     mkdir -p "$(dirname "$dst")" || exit $?

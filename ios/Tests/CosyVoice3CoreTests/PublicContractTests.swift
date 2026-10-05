@@ -3,7 +3,7 @@ import XCTest
 
 final class PublicContractTests:XCTestCase {
     func testTokenSemantics() { XCTAssertEqual(CosyVoice3TokenSemantics.sos,6561); XCTAssertEqual(CosyVoice3TokenSemantics.eos,6562); XCTAssertTrue(CosyVoice3TokenSemantics.isSpeech(6560)); XCTAssertFalse(CosyVoice3TokenSemantics.isSpeech(6561)); XCTAssertTrue(CosyVoice3TokenSemantics.isStop(6561)); XCTAssertTrue(CosyVoice3TokenSemantics.isStop(6760)); XCTAssertFalse(CosyVoice3TokenSemantics.isStop(6761)) }
-    func testParametersPreserveInstruction() { let p=CosyVoice3Parameters(instruction:"happy"); XCTAssertEqual(p.instruction,"happy"); XCTAssertNil(p.reference); XCTAssertEqual(p.flowSteps,.steps6) }
+    func testParametersPreserveInstruction() { let prompt="You are a helpful assistant. Speak happily.<|endofprompt|>"; let p=CosyVoice3Parameters(instruction:prompt); XCTAssertEqual(p.instruction,prompt); XCTAssertNil(p.reference); XCTAssertEqual(p.flowSteps,.steps6) }
     func testFlowStepPublicContract() {
         XCTAssertEqual(CosyVoice3FlowSteps.productionDefault,.steps6)
         XCTAssertEqual(CosyVoice3FlowSteps.allCases.map(\.rawValue),[6,8,10])

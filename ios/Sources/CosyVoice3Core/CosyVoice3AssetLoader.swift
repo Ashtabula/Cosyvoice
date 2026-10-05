@@ -198,10 +198,7 @@ enum CosyVoice3AssetLoader {
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
-        let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
-        let units: MLComputeUnits = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
-        config.computeUnits = units
-        if units != computeUnits { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(units) validationOnly=YES") }
+        config.computeUnits = computeUnits
         if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
@@ -210,7 +207,7 @@ enum CosyVoice3AssetLoader {
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
-                "MLModel load failed path=\(path) computeUnits=\(String(describing: units)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+                "MLModel load failed path=\(path) computeUnits=\(String(describing: computeUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
             )
         }
     }
@@ -426,7 +423,3 @@ enum CosyVoice3AssetLoader {
 // Purpose: explicit specialization hint for independent validation; default remains accepted behavior.
 // Upstream: existing CoreML loader; environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York.
 // Changed model/dynamicAcousticModel optional hint arguments only; compute units unchanged.
-
-// Purpose: independent explicit GPU validation for acoustic paths; reference stays CPU_ONLY and defaults stay accepted.
-// Upstream: existing model loader; environment: Swift6 Apple CoreML; generated 2026-10-05 America/New_York.
-// Changed model configuration: one opt-in validation env key; failures propagate without fallback.
