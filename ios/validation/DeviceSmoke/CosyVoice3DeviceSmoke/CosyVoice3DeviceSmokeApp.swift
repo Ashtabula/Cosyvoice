@@ -308,6 +308,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 "systemVersion": UIDevice.current.systemVersion,
                 "productionPromotion": false
             ]
+            if let payloadTreeSHA256 = fixture.payloadTreeSHA256 { receipt["payloadTreeSha256"] = payloadTreeSHA256 }
+            if let exportReceiptSHA256 = fixture.exportReceiptSHA256 { receipt["exportReceiptSha256"] = exportReceiptSHA256 }
+            if let assetExportSourceCommit = fixture.assetExportSourceCommit { receipt["assetExportSourceCommit"] = assetExportSourceCommit }
             if variable.schemaVersion == 2 {
                 receipt["dynamicAcousticExecutionHints"] = [
                     "reshapeFrequency": "INFREQUENT",
@@ -364,6 +367,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
             let thermalEnd = ProcessInfo.processInfo.thermalState
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false,"validationCacheReset":validationCacheReset]
+            if let payloadTreeSHA256 = fixture.payloadTreeSHA256 { receipt["payloadTreeSha256"] = payloadTreeSHA256 }
+            if let exportReceiptSHA256 = fixture.exportReceiptSHA256 { receipt["exportReceiptSha256"] = exportReceiptSHA256 }
+            if let assetExportSourceCommit = fixture.assetExportSourceCommit { receipt["assetExportSourceCommit"] = assetExportSourceCommit }
             if let speechTokenBounds, let variable {
                 receipt["speechTokenBounds"] = speechTokenBounds
                 receipt["acousticShapeMode"] = variable.acousticShapeMode
@@ -610,6 +616,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let transcript: String
         let hostReceiptSHA256: String
         let sourceCommit: String
+        let payloadTreeSHA256: String?
+        let exportReceiptSHA256: String?
+        let assetExportSourceCommit: String?
         let text: String
         let parameters: CosyVoice3Parameters
     }
@@ -624,6 +633,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let variableBinding = FileManager.default.fileExists(atPath:variableMarker.path) ? variableMarker : (FileManager.default.fileExists(atPath:dynamicMarker.path) ? dynamicMarker : nil)
         let marker:URL? = variableBinding ?? (FileManager.default.fileExists(atPath:flowMarker.path) ? flowMarker : (FileManager.default.fileExists(atPath:candidateMarker.path) ? candidateMarker : nil))
         let hostSHA:String; let sourceCommit:String
+        var payloadTreeSHA256:String?
+        var exportReceiptSHA256:String?
+        var assetExportSourceCommit:String?
         if let marker {
             let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
             let hostBound = value?["hostReceiptSha256"] as? String
@@ -633,13 +645,16 @@ final class CosyVoice3SmokeModel: ObservableObject {
             guard let commit=value?["sourceCommit"] as? String, commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { throw SmokeError("validation marker sourceCommit missing") }
             hostSHA=bound
             sourceCommit=commit
+            payloadTreeSHA256=value?["payloadTreeSha256"] as? String
+            exportReceiptSHA256=value?["exportReceiptSha256"] as? String
+            assetExportSourceCommit=value?["assetExportSourceCommit"] as? String
         } else {
             let hostData=try Data(contentsOf:resources.appendingPathComponent("reference_host_parity_receipt.json"))
             hostSHA=SHA256.hash(data:hostData).map{String(format:"%02x",$0)}.joined()
             sourceCommit="unbound-noncandidate-smoke"
         }
         let text = "This is a CosyVoice3 public API reference voice validation."
-        return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,sourceCommit:sourceCommit,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
+        return Fixture(runtime:runtime,reference:reference,transcript:transcript,hostReceiptSHA256:hostSHA,sourceCommit:sourceCommit,payloadTreeSHA256:payloadTreeSHA256,exportReceiptSHA256:exportReceiptSHA256,assetExportSourceCommit:assetExportSourceCommit,text:text,parameters:CosyVoice3Parameters(reference:reference,instruction:"You are a helpful assistant.<|endofprompt|>"+transcript))
     }
 
     private static func generatedAssets() throws -> URL {
@@ -660,9 +675,24 @@ final class CosyVoice3SmokeModel: ObservableObject {
                       name == "cosyvoice3_enumerated.json" else {
                     throw SmokeError("staged local enumerated identity missing")
                 }
-                let manifestData = try Data(contentsOf: staged.appendingPathComponent("Runtime").appendingPathComponent(name))
+                let runtime = staged.appendingPathComponent("Runtime", isDirectory: true)
+                let manifestData = try Data(contentsOf: runtime.appendingPathComponent(name))
                 let actual = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
                 guard actual == expected else { throw SmokeError("staged local enumerated manifest identity mismatch") }
+                guard let expectedExport = value["exportReceiptSha256"] as? String,
+                      let expectedTree = value["payloadTreeSha256"] as? String,
+                      let expectedAssetSource = value["assetExportSourceCommit"] as? String else {
+                    throw SmokeError("staged local enumerated payload identity missing")
+                }
+                let exportURL = runtime.appendingPathComponent("enumerated-production-export-receipt.json")
+                let exportData = try Data(contentsOf: exportURL)
+                let actualExport = SHA256.hash(data: exportData).map { String(format: "%02x", $0) }.joined()
+                guard actualExport == expectedExport else { throw SmokeError("staged local enumerated export receipt identity mismatch") }
+                guard let exportReceipt = try JSONSerialization.jsonObject(with: exportData) as? [String: Any],
+                      exportReceipt["payloadTreeSha256"] as? String == expectedTree,
+                      exportReceipt["sourceCommit"] as? String == expectedAssetSource else {
+                    throw SmokeError("staged local enumerated payload/source binding mismatch")
+                }
             }
             return staged
         }
@@ -785,3 +815,5 @@ private extension Data {
 // Changes 2026-10-05: automated enumerated validation supports --no-playback; Candidate benchmark now fail-closes unless thermalStart is nominal and records thermalStart/thermalEnd plus playbackDuringBenchmark=false so smoke playback cannot contaminate performance evidence.
 
 // Changes 2026-10-05: automated Candidate validation can pass --reset-cosy-cache to delete only this app's Library/Caches/CosyVoice3Core before engine construction. This makes first-call evidence cold with respect to compiled-model and warm-marker caches even across reinstall/re-run of the same bundle ID.
+
+// Changes 2026-10-05: schema-3 device app verifies staged export-receipt SHA and its payloadTree/source binding before running, then carries payloadTreeSha256/exportReceiptSha256/assetExportSourceCommit into raw variable and Candidate receipts. Host remains responsible for recomputing the multi-GB payload tree before staging.
