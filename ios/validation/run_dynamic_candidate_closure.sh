@@ -78,7 +78,8 @@ PY
         ios/validation/evidence/dynamic_runtime_rebuild.json \
         ios/validation/evidence/dynamic_candidate_benchmark.json \
         ios/validation/evidence/dynamic_release_environment.json \
-        ios/validation/evidence/dynamic_n0_policy.json || return $?
+        ios/validation/evidence/dynamic_n0_policy.json \
+        ios/ASSETS.md ios/README.md ios/API.md ios/BENCHMARK.md ios/VALIDATION.md || return $?
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" \
         commit -m "release(ios): promote dynamic N1 private Candidate" || return $?
     local candidate_head
