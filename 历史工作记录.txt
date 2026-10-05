@@ -188,3 +188,11 @@ GitHub Timeline: catalog/docs7f96b09 committed/pushed first; relative-path error
 修改文件：validation/cleanroom_20261004_runner_receipt.json（Demo 为 validation/cleanroom_ios_four_engine_20261004.json）；OmniVoice/VoxCPM 加 cleanroom_20261004_listening_review.json；本历史记录。
 测试或验证结果：四引擎 PASS；Zip 125.706667s、Omni 125.4s、Cosy dynamic 124.88s、Vox1.5 126.08s；全部完成 playback drain。Cosy 继续使用 HF 8a1f25460a157f35fe79c42a79946c40a59da08e，未上传模型，未使用 fixed225。许可证 IGNORED: LICENSE；不声明 accelerator residency 或 public redistribution。
 GitHub Timeline：此前源码修复已 push；本条新增仅证据与记录，当前未 commit，随后 commit/push；实际测试 source SHA 保持 receipt 中原值。
+
+
+时间：2026-10-04T23:18:43-04:00
+用户 Prompt：同一两分钟文本、同一asset、playback disabled、thermal nominal，分项计时并优化Cosy/Vox到RTF<1。
+具体动作：冻结16句611字相同工作负载，strict nominal-only gate，禁止playback session；记录文本SHA与Debug/Release。增加引擎内部reference/LLM/flow-or-LocDiT/decoder/load/cache-transition/first-prediction计时，不冒充独立compiler计时。
+修改文件：Demo BenchmarkAutomation/Models/Runner；Cosy Engine/DynamicAcousticRuntime；Vox Runtime；历史记录。
+验证：Swift parse通过；Cosy44 tests（2 skipped）通过，计时增补build通过；Vox build通过（没有test target）。物理performance待测。
+GitHub Timeline：当前未commit，随后commit/push。未更换、下载、上传模型，原参数/flow steps/compute policy保持。

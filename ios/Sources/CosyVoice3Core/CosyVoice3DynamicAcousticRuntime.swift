@@ -21,6 +21,15 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     private let hiftExcitationMaximum: MLMultiArray
     private let flowStepCount: Int
     private let progress: (@Sendable (String) -> Void)?
+    private var phaseMilliseconds: [String: Double] = [:]
+    private var firstCallMilliseconds: [String: Double] = [:]
+    private var phaseCalls: [String: Int] = [:]
+    private func recordPhase(_ name: String, since started: UInt64, loadBefore: Double) {
+        let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000 - (modelLoadMilliseconds - loadBefore)
+        if phaseCalls[name, default: 0] == 0 { firstCallMilliseconds[name] = elapsed }
+        phaseMilliseconds[name, default: 0] += elapsed
+        phaseCalls[name, default: 0] += 1
+    }
     private(set) var modelLoadMilliseconds: Double = 0
 
     init(
@@ -70,6 +79,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
     }
 
     func synthesize(speechTokens: [Int], prepared: CosyVoice3PreparedRequest) async throws -> CosyVoice3Audio {
+        defer {
+            let value: [String: Any] = ["executeMsExcludingLoad": phaseMilliseconds, "firstCallMs": firstCallMilliseconds, "calls": phaseCalls, "modelLoadMs": modelLoadMilliseconds, "opaqueSpecializationIncludedInPrediction": true]
+            if let data = try? JSONSerialization.data(withJSONObject: value, options: [.sortedKeys]), let text = String(data: data, encoding: .utf8) { print("[COSY-ACOUSTIC-PHASE] \(text)") }
+        }
         let n = speechTokens.count
         guard n >= contract.speechTokenMinimum, n <= contract.speechTokenMaximum else {
             throw CosyVoice3AcousticError.invalidTokenCount(n)
@@ -169,7 +182,9 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         }
 
         progress?("acoustic.f0.begin:G=\(g)")
+        let f0Started = DispatchTime.now().uptimeNanoseconds
         let f0Values = try f0.prediction(mel: mel)
+        recordPhase("f0", since: f0Started, loadBefore: modelLoadMilliseconds)
         guard f0Values.shape.map(\.intValue) == [1,g] else { throw CosyVoice3AcousticError.invalidShape("f0", f0Values.shape.map(\.intValue)) }
         progress?("acoustic.f0.end:G=\(g)")
 
@@ -212,6 +227,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path)
         let elapsed = Double(DispatchTime.now().uptimeNanoseconds - started) / 1_000_000
         modelLoadMilliseconds += elapsed
+        print("[COSY-MODEL-LOAD] stage=\(stage) ms=\(elapsed)")
         progress?("\(stage).load.end:\(path):ms=\(String(format: "%.3f", elapsed))")
         return model
     }
@@ -223,7 +239,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         speaker: MLMultiArray,
         tFrames: Int
     ) throws -> (MLMultiArray, MLMultiArray, MLMultiArray) {
-        try autoreleasepool {
+        let phaseStarted = DispatchTime.now().uptimeNanoseconds
+        let loadBefore = modelLoadMilliseconds
+        defer { recordPhase("conditions", since: phaseStarted, loadBefore: loadBefore) }
+        return try autoreleasepool {
             let model = try loadModel(path: conditionsPath, stage: "acoustic.conditions.model")
             progress?("acoustic.conditions.prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
@@ -249,7 +268,13 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         feed: [String: MLMultiArray],
         tFrames: Int
     ) throws -> FlowShardStage {
-        try autoreleasepool {
+        let phaseStarted = DispatchTime.now().uptimeNanoseconds
+        let loadBefore = modelLoadMilliseconds
+        defer {
+            recordPhase("flow", since: phaseStarted, loadBefore: loadBefore)
+            recordPhase("flow.shard.\(index)", since: phaseStarted, loadBefore: loadBefore)
+        }
+        return try autoreleasepool {
             let path = flowShardPaths[index]
             let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).6"
             let model = try loadModel(path: path, stage: label)
@@ -283,7 +308,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         norm: MLMultiArray,
         samplesCount: Int
     ) throws -> [Float] {
-        try autoreleasepool {
+        let phaseStarted = DispatchTime.now().uptimeNanoseconds
+        let loadBefore = modelLoadMilliseconds
+        defer { recordPhase("decoder", since: phaseStarted, loadBefore: loadBefore) }
+        return try autoreleasepool {
             let model = try loadModel(path: hiftPath, stage: "acoustic.hift.model")
             progress?("acoustic.hift.prediction.begin:samples=\(samplesCount)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: [
@@ -404,3 +432,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-04: align production dynamic model lifetime exactly with the physically accepted shape-sweep pattern: synchronous MLModel.prediction inside a throwing autoreleasepool, one request-scoped model per prediction. Owned outputs escape the pool; MLModel/provider temporaries do not.
 
 // Changes 2026-10-04: every dynamic Conditions/Flow/HiFT prediction load now uses the exact physical-probe MLModel configuration (CPU_AND_NE requested units plus reshapeFrequency=.infrequent). Flow shard progress also includes the outer Euler step so a stall is uniquely attributable.
+
+// Updated 2026-10-04: phase instrumentation only; execute time excludes explicit MLModel construction but includes opaque runtime specialization; all shapes and model scoping preserved.

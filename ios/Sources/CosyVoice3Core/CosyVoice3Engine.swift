@@ -341,6 +341,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             referenceCacheHit: preparation.referenceCacheHit,
             warmedModelCount: preparation.warmedModelCount
         )
+        print("[COSY-PHASE] summary totalMs=\(Self.milliseconds(since: totalStart)) referencePrepareMs=\(preparation.totalMilliseconds) frontendMs=\(frontendMilliseconds) llmLoadMs=\(llmModelLoadMilliseconds) llmMs=\(llmGenerationMilliseconds) acousticLoadMs=\(acousticModelLoadMilliseconds) acousticExecuteMs=\(acousticSynthesisMilliseconds) samples=\(audio.samples.count) steps=\(parameters.flowSteps.rawValue)")
         validationProgress("synthesis.end:N=\(speechTokens.count):samples=\(audio.samples.count)")
         return audio
     }
@@ -797,3 +798,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: enforce the accepted mixed placement contract at every Engine LLM call site: prefill/decode warm and request-scoped loads use CPU_ONLY; Flow/Conditions/HiFT remain CPU_AND_NE requested placement. This fixes cold-plan Core ML -14 observed on the N1 candidate smoke.
 
 // Changes 2026-10-04: dynamic prepare() now warms Conditions/Flow/HiFT with the same reshapeFrequency=.infrequent hint used by the accepted physical acoustic sweep; warm-key identity includes the hint so an older plan marker cannot mask this change.
+
+// Updated 2026-10-04: emit phase totals from existing synthesis timing; no math, model lifetime, or parameters changed.
