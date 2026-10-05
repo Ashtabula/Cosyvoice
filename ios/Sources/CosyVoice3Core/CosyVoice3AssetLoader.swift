@@ -219,7 +219,7 @@ enum CosyVoice3AssetLoader {
         root: URL,
         prefillPath: String,
         decodePath: String
-    ) throws -> (prefill: MLModel, decode: MLModel) {
+    ) throws -> (prefill: MLModel, decode: MLModel, computeUnits: MLComputeUnits) {
         cacheState.lock.lock()
         let cachedUnits = cacheState.selectedLLMComputeUnits
         cacheState.lock.unlock()
@@ -229,7 +229,7 @@ enum CosyVoice3AssetLoader {
                 let prefill = try model(root: root, path: prefillPath, computeUnits: cachedUnits)
                 let decode = try model(root: root, path: decodePath, computeUnits: cachedUnits)
                 print("[COSY-LLM-ROUTE] reuse computeUnits=\(String(describing: cachedUnits))")
-                return (prefill, decode)
+                return (prefill, decode, cachedUnits)
             } catch {
                 print("[COSY-LLM-ROUTE] cached route rejected computeUnits=\(String(describing: cachedUnits)) error=\(String(describing: error))")
                 cacheState.lock.lock()
@@ -243,11 +243,8 @@ enum CosyVoice3AssetLoader {
             do {
                 let prefill = try model(root: root, path: prefillPath, computeUnits: units)
                 let decode = try model(root: root, path: decodePath, computeUnits: units)
-                cacheState.lock.lock()
-                cacheState.selectedLLMComputeUnits = units
-                cacheState.lock.unlock()
-                print("[COSY-LLM-ROUTE] selected computeUnits=\(String(describing: units))")
-                return (prefill, decode)
+                print("[COSY-LLM-ROUTE] candidate computeUnits=\(String(describing: units))")
+                return (prefill, decode, units)
             } catch {
                 lastError = error
                 print("[COSY-LLM-ROUTE] rejected computeUnits=\(String(describing: units)) error=\(String(describing: error))")
@@ -256,6 +253,22 @@ enum CosyVoice3AssetLoader {
         throw lastError ?? CosyVoice3AssetError.compiledCache(
             "no Core ML compute route could construct both CosyVoice3 LLM models"
         )
+    }
+
+    static func confirmLLMComputeUnits(_ units: MLComputeUnits) {
+        cacheState.lock.lock()
+        cacheState.selectedLLMComputeUnits = units
+        cacheState.lock.unlock()
+        print("[COSY-LLM-ROUTE] confirmed computeUnits=\(String(describing: units))")
+    }
+
+    static func rejectLLMComputeUnits(_ units: MLComputeUnits) {
+        cacheState.lock.lock()
+        if cacheState.selectedLLMComputeUnits == units {
+            cacheState.selectedLLMComputeUnits = nil
+        }
+        cacheState.lock.unlock()
+        print("[COSY-LLM-ROUTE] rejected after prediction computeUnits=\(String(describing: units))")
     }
 
     static func dynamicAcousticModel(root: URL, path: String) throws -> MLModel {
@@ -462,3 +475,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-04: dynamic acoustic model configuration now matches the physically accepted shape-sweep probe by setting optimizationHints.reshapeFrequency=.infrequent for both warm and prediction loads. The hint participates in warm-marker identity; fixed225/LLM/reference behavior is unchanged unless explicitly selected.
 
 // Changes 2026-10-04 performance candidate: add process-cached LLM route negotiation (CPU_AND_NE -> ALL -> CPU_ONLY); a route is accepted only if both stateful prefill and decode models construct. Baseline CPU_ONLY constant and immutable model bytes remain unchanged.
+
+// Changes 2026-10-04 performance candidate follow-up: accelerator LLM route is cached only after a complete generation succeeds; prediction-time failure can reject the route and permit a fresh CPU_ONLY retry.
