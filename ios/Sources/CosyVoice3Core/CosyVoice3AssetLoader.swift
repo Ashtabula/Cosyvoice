@@ -184,7 +184,7 @@ struct CosyVoice3AssetManifest: Codable, Sendable {
     let enumeratedAcoustic: CosyVoice3EnumeratedAcousticAssets?
 
     var isDynamicAcoustic: Bool { profile.hasPrefix("ios18-dynamic-") }
-    var isEnumeratedAcoustic: Bool { profile.hasPrefix("ios18-enumerated-") }
+    var isEnumeratedAcoustic: Bool { profile == "ios18-enumerated-n1-n450" }
     var isVariableAcoustic: Bool { isDynamicAcoustic || isEnumeratedAcoustic }
     var manifestFileName: String {
         if isEnumeratedAcoustic { return "cosyvoice3_enumerated.json" }
@@ -528,3 +528,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: add schema-3 ios18-enumerated-N1...450 acoustic contract with four <=128 exact-shape families, multifunction function selection, and function-bound warm-marker identity. The fixed225 and schema-2 RangeDim contracts remain readable controls.
 
 // Changes 2026-10-05: align Swift variable-acoustic status gates with the standalone validator: both schema-2 and schema-3 accept CANDIDATE and PASS_DEVICE_VALIDATION, preventing a physically promoted manifest from becoming unreadable by the SDK.
+
+// Changes 2026-10-05: schema-3 production profile identity is exact (ios18-enumerated-n1-n450), matching validate_assets.py; arbitrary ios18-enumerated-* prefixes no longer enter the production loader contract.
