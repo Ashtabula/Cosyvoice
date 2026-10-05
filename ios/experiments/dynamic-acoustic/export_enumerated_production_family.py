@@ -49,6 +49,11 @@ FAMILIES = (
 )
 DEFAULT_FUNCTION = "n129_256"
 
+EXPECTED_SHARED_PROFILE = "ios-dynamic-n1-n479-reference"
+EXPECTED_SHARED_VERSION = "0.2.0-rc1"
+EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479-candidate"
+EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68"
+
 
 def save_json(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
@@ -84,6 +89,53 @@ def tree_identity(rows: list[dict]) -> str:
         digest.update(row["sha256"].encode("ascii"))
         digest.update(b"\n")
     return digest.hexdigest()
+
+
+def validate_immutable_shared_root(root: Path) -> dict:
+    manifest_path = root / "asset-manifest.json"
+    if not manifest_path.is_file():
+        raise RuntimeError(f"immutable shared asset-manifest.json missing: {manifest_path}")
+    manifest = json.loads(manifest_path.read_text())
+    expected = {
+        "profile": EXPECTED_SHARED_PROFILE,
+        "assetVersion": EXPECTED_SHARED_VERSION,
+        "runtimeProfile": EXPECTED_SHARED_RUNTIME_PROFILE,
+        "payloadTreeSha256": EXPECTED_SHARED_PAYLOAD_TREE,
+    }
+    for key, value in expected.items():
+        if manifest.get(key) != value:
+            raise RuntimeError(
+                f"immutable shared root identity mismatch {key}: "
+                f"{manifest.get(key)!r} != {value!r}"
+            )
+    rows = []
+    for path in sorted(item for item in root.rglob("*") if item.is_file()):
+        if path.name == "asset-manifest.json":
+            continue
+        rows.append({
+            "path": path.relative_to(root).as_posix(),
+            "bytes": path.stat().st_size,
+            "sha256": sha(path),
+        })
+    actual_tree = tree_identity(rows)
+    if actual_tree != EXPECTED_SHARED_PAYLOAD_TREE:
+        raise RuntimeError(
+            f"immutable shared payload tree mismatch: {actual_tree} "
+            f"!= {EXPECTED_SHARED_PAYLOAD_TREE}"
+        )
+    if int(manifest.get("fileCount", -1)) != len(rows):
+        raise RuntimeError("immutable shared payload fileCount mismatch")
+    if int(manifest.get("payloadBytes", -1)) != sum(int(row["bytes"]) for row in rows):
+        raise RuntimeError("immutable shared payloadBytes mismatch")
+    return {
+        "assetManifestSha256": sha(manifest_path),
+        "profile": EXPECTED_SHARED_PROFILE,
+        "version": EXPECTED_SHARED_VERSION,
+        "runtimeProfile": EXPECTED_SHARED_RUNTIME_PROFILE,
+        "payloadTreeSha256": actual_tree,
+        "payloadBytes": sum(int(row["bytes"]) for row in rows),
+        "fileCount": len(rows),
+    }
 
 
 def family_values(lo: int, hi: int) -> list[int]:
@@ -691,6 +743,9 @@ def main() -> int:
             + source_status
         )
 
+    shared_root = args.shared_root.expanduser().resolve()
+    shared_identity = validate_immutable_shared_root(shared_root)
+
     if args.output.exists():
         raise SystemExit(f"output already exists: {args.output}")
     args.output.mkdir(parents=True)
@@ -716,6 +771,7 @@ def main() -> int:
         "padding": False,
         "crop": False,
         "flowStepsUnchanged": True,
+        "sharedImmutableSource": shared_identity,
     }
     receipt_path = args.output / "enumerated-production-export-receipt.json"
 
@@ -820,7 +876,7 @@ def main() -> int:
         del full, shards, estimator, body, hift
         gc.collect()
 
-        shared_manifest_path = args.shared_root / "cosyvoice3_dynamic.json"
+        shared_manifest_path = shared_root / "cosyvoice3_dynamic.json"
         if not shared_manifest_path.exists():
             raise RuntimeError(f"missing shared dynamic manifest: {shared_manifest_path}")
         shared_manifest = json.loads(shared_manifest_path.read_text())
@@ -828,7 +884,7 @@ def main() -> int:
             raise RuntimeError("shared root is not a schema-2 dynamic asset profile")
         receipt["phase"] = "stage_shared_assets"
         save()
-        stage_shared_assets(args.output, args.shared_root, shared_manifest, receipt)
+        stage_shared_assets(args.output, shared_root, shared_manifest, receipt)
         write_manifest(args.output, shared_manifest, receipt)
         receipt["phase"] = "validate_standalone_root"
         save()
@@ -886,3 +942,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: production exporter exposes --rebuild-root instead of silently trusting one hidden .work path, fail-closes unless pinned upstream source HEAD equals 8789402..., and records exact flow checkpoint/fixture SHA256 in the export receipt before model conversion.
 
 # Changes 2026-10-05: Python exporter now independently refuses any dirty Git worktree before creating the output root and reuses that exact clean HEAD in the receipt. Direct exporter invocation has the same provenance gate as the shell wrapper.
+
+# Changes 2026-10-05: production schema-3 export now requires the exact frozen schema-2 private RC source (ios-dynamic-n1-n479-reference/0.2.0-rc1, runtime ios18-dynamic-n1-n479-candidate, payload tree 3f7b...). It recomputes every source file hash/tree/byte count before conversion and records the immutable source manifest/tree in the new receipt.
