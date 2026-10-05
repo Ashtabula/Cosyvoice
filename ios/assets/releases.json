@@ -1,7 +1,7 @@
 {
   "default": {
-    "profile": "ios-fixed225-reference",
-    "version": "0.1.0-rc1"
+    "profile": "ios-dynamic-n1-n479-reference",
+    "version": "0.2.0-rc1"
   },
   "engine": "CosyVoice3",
   "platform": "iOS",
@@ -28,6 +28,25 @@
       "tag": "ios-fixed225-reference-v0.1.0-rc1",
       "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
       "version": "0.1.0-rc1"
+    },
+    {
+      "profile": "ios-dynamic-n1-n479-reference",
+      "version": "0.2.0-rc1",
+      "repoId": "actacomes/CosyVoice-assets",
+      "repoType": "model",
+      "revision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+      "pathInRepo": "ios-dynamic-n1-n479-reference/0.2.0-rc1",
+      "distributionStatus": "PRIVATE_RC",
+      "requiresAuthentication": true,
+      "publicRedistributionApproved": false,
+      "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+      "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447",
+      "referenceStatus": "PASS_DEVICE_PARITY",
+      "licenseGate": "PENDING",
+      "minimumIOS": "18.0",
+      "candidateTechnicalDistributionReady": true,
+      "assetTechnicalStatus": "READY_PRIVATE_RC",
+      "sdkIntegrationReady": true
     }
   ],
   "schemaVersion": 1

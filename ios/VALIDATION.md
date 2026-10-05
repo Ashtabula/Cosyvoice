@@ -65,3 +65,5 @@ DYNAMIC PRODUCTION PENDING: clean-room consumer integration, release-tree reprod
 
 The fixed225 release status and its existing production blockers above are unchanged by this experiment.
 
+
+2026-10-04 clean-room dynamic closure: exact HF revision `8a1f25460a157f35fe79c42a79946c40a59da08e` passed ordinary fetch/full manifest-file-tree validation and physical public default/reference replay (N137/N260), followed by cold/warm 6-step synthesis. The catalog default is now the dynamic profile; historical fixed225 remains. The dynamic Candidate ledger uses the canonical immutable-assets alternative and records model rebuild NOT_RUN. Source/current build, N0 fail-closed handling, historical conversion and human listening receipts remain explicit; public redistribution is false.
