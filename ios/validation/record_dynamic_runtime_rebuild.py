@@ -77,6 +77,7 @@ def main()->int:
     ap=argparse.ArgumentParser()
     ap.add_argument("--rebuilt-runtime",type=Path,required=True)
     ap.add_argument("--immutable-runtime",type=Path,required=True)
+    ap.add_argument("--private-rc-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_private_rc.json")
     ap.add_argument("--output",type=Path,default=ROOT/"validation/evidence/dynamic_runtime_rebuild.json")
     a=ap.parse_args()
     rebuilt=a.rebuilt_runtime.expanduser().resolve(); immutable=a.immutable_runtime.expanduser().resolve()
@@ -89,8 +90,17 @@ def main()->int:
     if rcandidate.get("status")!="PASS_DYNAMIC_CANDIDATE_ASSET_ROOT_BUILT_NOT_PROMOTED" or rcandidate.get("NBounds")!=[1,479]:
         raise RuntimeError("rebuilt runtime candidate receipt is not accepted N1...479")
     asset=load(immutable/"asset-manifest.json")
+    private=load(a.private_rc_receipt.expanduser().resolve())
     if asset.get("profile")!="ios-dynamic-n1-n479-reference" or asset.get("speechTokenBounds")!=[1,479]:
         raise RuntimeError("immutable dynamic asset manifest identity/bounds mismatch")
+    if private.get("status")!="PASS_DYNAMIC_PRIVATE_RC_IMMUTABLE_REPLAY":
+        raise RuntimeError("private RC receipt is not PASS")
+    if private.get("profile")!=asset.get("profile") or private.get("version")!=asset.get("assetVersion"):
+        raise RuntimeError("private RC profile/version differs from immutable asset manifest")
+    if private.get("payloadTreeSha256")!=asset.get("payloadTreeSha256"):
+        raise RuntimeError("private RC payload tree differs from immutable asset manifest")
+    if private.get("testedRuntimeTreeSha256")!=asset.get("testedRuntimeTreeSha256"):
+        raise RuntimeError("private RC tested runtime tree differs from immutable asset manifest")
     immutable_rows=tree_rows(immutable)
     immutable_tree=tree_id(immutable_rows)
     if immutable_tree!=asset.get("payloadTreeSha256"):
@@ -122,8 +132,10 @@ def main()->int:
         "byteIdentityClaim":len(nonexact)==0,
         "byteIdentityMeaning":"true only when every shared runtime file is byte-identical; Candidate acceptance requires ABI/validator convergence, not compiler serialization identity",
         "immutablePayloadTreeSha256":immutable_tree,
-        "immutableRevision":asset.get("huggingFaceRevision"),
-        "validatedRuntimeSourceCommit":asset.get("validatedRuntimeSourceCommit"),
+        "immutableRevision":private.get("revision"),
+        "immutableRepoId":private.get("repoId"),
+        "immutableVersion":private.get("version"),
+        "validatedRuntimeSourceCommit":private.get("validatedRuntimeSourceCommit"),
         "rebuildSemantics":{
             "productionDefaultFlowSteps":6,
             "validatedPublicFlowSteps":[6,8,10],
@@ -145,3 +157,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Runtime environment: canonical macOS release host, Python3.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new supported dynamic runtime rebuild/convergence gate.
+
+# Changes 2026-10-04: rebuild convergence now binds the immutable runtime to the committed dynamic_private_rc.json revision/repo/version/tree instead of reading a non-existent revision field from asset-manifest.json.
