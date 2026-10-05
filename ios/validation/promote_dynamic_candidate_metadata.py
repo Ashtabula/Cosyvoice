@@ -101,7 +101,103 @@ def main()->int:
     ]
     manifest_path.write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n",encoding="utf-8")
 
-    print("[COSYVOICE3-DYNAMIC-PROMOTE] PASS canonical Candidate metadata now points to dynamic N1...479; fixed225 historical receipt preserved; license/public redistribution remain pending",flush=True)
+    benchmark=load(ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
+    m=benchmark["measurement"]
+    device=benchmark["device"]
+
+    assets_text=f"""# CosyVoice3 iOS assets
+
+Status: **Technical Distribution-Ready Candidate — dynamic N1...479 on immutable private RC; public redistribution is not authorized.**
+
+Source checkpoint: `FunAudioLLM/Fun-CosyVoice3-0.5B-2512`, revision `29e01c4e8d000f4bcd70751be16fa94bf3d85a18`. Canonical maintained SDK source: `Ashtabula/Cosyvoice/ios/`.
+
+The ordinary developer path is `assets/releases.json -> assets/fetch_assets.py -> exact Hugging Face revision -> file/tree hash verification -> assets/validate_assets.py -> atomic activation`. Current Candidate private RC: `{asset['profile']}/{asset['version']}` in `{asset['repoId']}`, immutable revision `{asset['revision']}`, payload tree `{asset['payloadTreeSha256']}`, tested runtime tree `{asset['testedRuntimeTreeSha256']}`. Exact immutable fetch plus physical default/reference public-API replay are recorded in `validation/evidence/dynamic_private_rc.json`.
+
+The active runtime profile is `ios18-dynamic-n1-n479`: speech-token N=1...479, T=304...1260, G=2...958, PCM=960...459840 samples, mono Float32 24 kHz. Public Flow choices are 6/8/10 with 6 default. Stateful LLM prefill/decode request CPU_ONLY; dynamic acoustic requests CPU_AND_NE with `reshapeFrequency=INFREQUENT`; this is not an ANE residency claim.
+
+Custom-reference assets remain `PASS_DEVICE_PARITY`. The real-person validation reference used during device acceptance is validation-only and is excluded from the immutable public/example asset contract. Consumers supply their own reference audio/transcript through the public API.
+
+The historical `ios-fixed225-reference/0.1.0-rc1` immutable RC and its release receipt remain preserved as baseline evidence but are no longer the current catalog default after dynamic Candidate promotion.
+
+Maintainer conversion/rebuild tooling is not an ordinary consumer dependency. The supported dynamic rebuild gate proves validator/ABI/manifest convergence against the immutable RC and records byte identity only when actually observed; it does not assume Core ML compiler serialization is deterministic across toolchains.
+
+Large binaries remain outside Git. `licenseGate=PENDING` and `publicRedistributionApproved=false` remain mandatory until the separate human license/redistribution gate passes.
+"""
+    (ROOT/"ASSETS.md").write_text(assets_text,encoding="utf-8")
+
+    benchmark_text=f"""# CosyVoice3 iOS benchmark status
+
+Current Candidate benchmark: **PASS — dynamic N1...479 immutable private RC through physical-device public API.**
+
+Asset: `{asset['profile']}/{asset['version']}` @ `{asset['revision']}`.
+Device: `{device['modelIdentifier']}`, iOS `{device['systemVersion']}`.
+Flow steps: `{m['flowSteps']}` (production default).
+Engine init: `{m['engineInitMilliseconds']:.3f} ms`.
+First synthesis: `{m['firstSynthesisMilliseconds']:.3f} ms`, audio `{m['firstAudioSeconds']:.6f} s`, RTF `{m['firstRTF']:.6f}`, samples `{m['firstSamples']}`.
+Warm repeat: `{m['repeatSynthesisMilliseconds']:.3f} ms`, audio `{m['repeatAudioSeconds']:.6f} s`, RTF `{m['repeatRTF']:.6f}`, samples `{m['repeatSamples']}`.
+Output contract: finite mono Float32 PCM at 24 kHz; dynamic length is stochastic and each successful sample count must equal 960*N within N=1...479.
+Requested placement: LLM CPU_ONLY; dynamic acoustic CPU_AND_NE; reference encoders CPU_ONLY. `reshapeFrequency=INFREQUENT`. Requested placement is not residency evidence.
+Evidence: `validation/evidence/dynamic_candidate_benchmark.json`.
+
+Historical fixed225 benchmark evidence remains preserved but is not the current Candidate benchmark authority.
+"""
+    (ROOT/"BENCHMARK.md").write_text(benchmark_text,encoding="utf-8")
+
+    readme=f"""# CosyVoice3 iOS SDK publication tree
+
+Status: **Technical Distribution-Ready Candidate — dynamic N1...479 on immutable private RC; public redistribution is not authorized.** Public target: `actacomes/Cosyvoice` as a fresh-history Swift SDK snapshot only after Production gates.
+
+The shipping public facade is `CosyVoice3Engine(assetRoot:)`. The active Candidate path is native tokenizer/prefill -> fixed512 stateful Core ML LLM -> native stochastic RAS/EOS -> exact-length dynamic Conditions/Flow -> FP64 F0/HiFT -> finite mono Float32 PCM at 24 kHz. The SDK accepts optional reference audio/transcript, optional instruction and validated Flow choices 6/8/10 with 6 default.
+
+Current immutable private asset authority: `{asset['profile']}/{asset['version']}` at exact revision `{asset['revision']}`. Speech-token range is N=1...479. Successful PCM length is `960*N`; immediate native EOS may produce N0, which is an explicit fail-closed non-PCM error path. EOS remains 6562 and is not artificially suppressed to hide this edge.
+
+Custom reference/voice cloning is physically validated. Validation-only real-person reference media is not part of public runtime/example assets; consumers supply their own authorized reference material.
+
+Requested Core ML configuration is LLM CPU_ONLY, dynamic acoustic CPU_AND_NE with `reshapeFrequency=INFREQUENT`, reference encoders CPU_ONLY. No ANE residency claim is made.
+
+The historical fixed225 private Candidate remains preserved in `validation/history/fixed225_release_receipt.json` and the fixed catalog row; it is not the current default.
+
+Python is release/conversion/validation tooling only. Shipping runtime uses Swift, AVFoundation, Accelerate, Core ML and swift-transformers. Ordinary consumers fetch immutable assets through `assets/fetch_assets.py` and do not rebuild model conversion graphs.
+
+Production/public release still requires independent clean-room consumer integration, deterministic public-tree reproducibility, human license/redistribution approval, fresh public identity/tree review, and immutable public asset publication. `publicRedistributionApproved=false` until those gates pass.
+
+## SDK layout
+
+The private validation tree retains conversion, benchmarks and evidence. The external snapshot is controlled by `public_snapshot_paths.txt`; Demo repositories are consumers only and are never runtime/build dependencies.
+"""
+    (ROOT/"README.md").write_text(readme,encoding="utf-8")
+
+    api_path=ROOT/"API.md"
+    api=api_path.read_text(encoding="utf-8")
+    api=api.replace("The immutable `ios-fixed225-reference/0.1.0-rc1` private asset profile passed ordinary-developer fetch plus physical public-API replay. Current-source Candidate evidence now additionally includes the supported full-runtime rebuild, controlled cold/warm public-API benchmark at flowSteps=6, and `validation/release_receipt.json`; Production/public release remains separately gated.",
+        f"The current immutable Candidate asset profile is `{asset['profile']}/{asset['version']}` at exact revision `{asset['revision']}`. It supports dynamic N=1...479; successful output length is 960*N samples. The historical fixed225 Candidate remains preserved as baseline evidence. Production/public release remains separately gated.")
+    if "Dynamic N=1...479" not in api:
+        api += "\nDynamic N=1...479 is the current Candidate acoustic envelope. N0 from immediate native EOS is explicitly fail-closed and is not converted into fake/silent PCM.\n"
+    (ROOT/"API.md").write_text(api,encoding="utf-8")
+
+    validation_path=ROOT/"VALIDATION.md"
+    validation=validation_path.read_text(encoding="utf-8")
+    marker="Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized."
+    authority=f"""Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
+
+CURRENT CANDIDATE AUTHORITY: dynamic N1...479, immutable `{asset['profile']}/{asset['version']}` @ `{asset['revision']}`, canonical receipt `validation/release_receipt.json`. Historical fixed225 Candidate evidence is preserved under `validation/history/fixed225_release_receipt.json` and is no longer the current authority."""
+    if marker in validation:
+        validation=validation.replace(marker,authority,1)
+    validation=validation.replace(
+        "DYNAMIC PRE-CANDIDATE BLOCKER / FAIL-CLOSED: native RAS preserves true EOS=6562 and does not suppress EOS during the frontend's minimum-token SOS suppression window, so a theoretical immediate EOS can yield N0. N0 is intentionally outside the physically validated acoustic envelope. Quantify and resolve or explicitly accept this edge case without changing EOS semantics merely to hide it.",
+        "PASS / RELEASE POLICY: native immediate-EOS N0 is explicitly accepted as a fail-closed non-PCM error path; EOS=6562 is unchanged, no token is invented, and no silent/alternate fallback is allowed. Evidence: `validation/evidence/dynamic_n0_policy.json`."
+    )
+    validation=validation.replace(
+        "DYNAMIC RELEASE-ENGINEERING PENDING: freeze an immutable private dynamic asset profile, regenerate exact-current-source standalone/full-runtime rebuild evidence, run controlled cold/warm public-API benchmark on that exact dynamic profile, and generate a dynamic-specific candidate release receipt before labeling the dynamic profile Candidate.",
+        "PASS / CURRENT CANDIDATE: immutable dynamic private RC fetch/replay, current-source standalone build, supported runtime rebuild convergence, physical cold/warm public-API benchmark, canonical environment receipt and dynamic Candidate release receipt are committed and bound to the current Candidate authority."
+    )
+    validation=validation.replace(
+        "The fixed225 release status and its existing production blockers above are unchanged by this experiment.",
+        "The fixed225 Candidate is retained as historical baseline evidence; current Candidate authority is dynamic N1...479."
+    )
+    (ROOT/"VALIDATION.md").write_text(validation,encoding="utf-8")
+
+    print("[COSYVOICE3-DYNAMIC-PROMOTE] PASS canonical Candidate metadata/docs now point to dynamic N1...479; fixed225 historical receipt preserved; license/public redistribution remain pending",flush=True)
     return 0
 
 if __name__=="__main__": raise SystemExit(main())
@@ -111,3 +207,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Runtime environment: release-engineering Python3 in the dynamic release checkout.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new non-license Candidate metadata promotion; never sets Production/public redistribution.
+
+# Changes 2026-10-04: Candidate promotion now atomically rewrites ASSETS/README/API/BENCHMARK/VALIDATION current authority to dynamic N1...479 while explicitly preserving fixed225 as historical baseline and keeping license/public redistribution pending.
