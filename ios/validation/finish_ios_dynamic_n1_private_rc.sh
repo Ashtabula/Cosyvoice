@@ -18,7 +18,10 @@ REFERENCE_WAV="${COSYVOICE3_REFERENCE_WAV:-}"
 REFERENCE_TRANSCRIPT="${COSYVOICE3_REFERENCE_TRANSCRIPT:-}"
 PYTHON="$ROOT/.venv-release/bin/python"
 DYNAMIC_PYTHON="${COSYVOICE3_DYNAMIC_PYTHON:-$ROOT/.work/dynamic-acoustic/venv/bin/python}"
-CONVERSION_RECEIPT="$ROOT/validation/evidence/dynamic_conversion_provenance.json"
+WORK_ROOT="$ROOT/.work/dynamic-private-rc/$PROFILE-$VERSION"
+CONVERSION_RECEIPT="$WORK_ROOT/dynamic_conversion_provenance.json"
+TRACKED_CONVERSION_RECEIPT="$ROOT/validation/evidence/dynamic_conversion_provenance.json"
+REPLAY_EVIDENCE="$WORK_ROOT/device-replay"
 RELEASE_ROOT="$ROOT/.work/hf-release/$PROFILE/$VERSION"
 UPLOAD_RECEIPT="$ROOT/.work/hf-release/$PROFILE/$VERSION-hf-upload-receipt.json"
 DOWNLOAD_ROOT="$ROOT/.work/hf-download-replay/$PROFILE-$VERSION"
@@ -29,6 +32,34 @@ FINAL_RECEIPT="$ROOT/validation/evidence/dynamic_private_rc.json"
 BUNDLE_ID="${COSYVOICE3_DYNAMIC_RC_REPLAY_BUNDLE_ID:-com.actacomes.cosyvoice3.dynamicrcreplay}"
 
 fail(){ printf '[COSYVOICE3-DYNAMIC-RC] ERROR %s\n' "$1"; return 1; }
+
+verify_release_against_upload(){
+    "$PYTHON" - "$1" "$UPLOAD_RECEIPT" <<'PY'
+import hashlib,json,sys
+from pathlib import Path
+root=Path(sys.argv[1]); upload=json.loads(Path(sys.argv[2]).read_text())
+manifest_path=root/"asset-manifest.json"
+if not manifest_path.is_file(): raise SystemExit("asset-manifest.json missing")
+m=json.loads(manifest_path.read_text())
+if m.get("profile")!=upload.get("profile") or m.get("assetVersion")!=upload.get("version"): raise SystemExit("profile/version mismatch")
+if m.get("payloadTreeSha256")!=upload.get("payloadTreeSha256"): raise SystemExit("payload tree receipt mismatch")
+if m.get("testedRuntimeTreeSha256")!=upload.get("testedRuntimeTreeSha256"): raise SystemExit("runtime tree receipt mismatch")
+rows=[]
+for row in m.get("files") or []:
+    p=root/row["path"]
+    if not p.is_file(): raise SystemExit(f"missing file {row['path']}")
+    h=hashlib.sha256()
+    with p.open("rb") as f:
+        for b in iter(lambda:f.read(8*1024*1024),b""): h.update(b)
+    if p.stat().st_size!=int(row["bytes"]) or h.hexdigest()!=row["sha256"]: raise SystemExit(f"file identity mismatch {row['path']}")
+    rows.append(row)
+tree=hashlib.sha256()
+for row in sorted(rows,key=lambda x:x["path"]):
+    tree.update(row["path"].encode());tree.update(b"\0");tree.update(str(int(row["bytes"])).encode());tree.update(b"\0");tree.update(row["sha256"].encode());tree.update(b"\n")
+if len(rows)!=int(m.get("fileCount",-1)) or tree.hexdigest()!=m["payloadTreeSha256"]: raise SystemExit("payload tree verification failed")
+print("[COSYVOICE3-DYNAMIC-RC] LOCAL_IMMUTABLE_REUSE_PASS root="+str(root)+" tree="+tree.hexdigest(),flush=True)
+PY
+}
 
 main(){
     command -v git || return $?
@@ -45,17 +76,25 @@ main(){
     fi
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { fail "set DEVELOPMENT_TEAM"; return 2; }
     local reuse_input_dir="$ROOT/.work/device-smoke-reused-input"
-    mkdir -p "$reuse_input_dir"
+    local canonical_reference_used=0
+    mkdir -p "$reuse_input_dir" "$WORK_ROOT"
+    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$reuse_input_dir/reference.wav" ]; then REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
+    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -s "$reuse_input_dir/reference.txt" ]; then REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
     if [ ! -f "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
     if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
-    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$REPO/asset/zero_shot_prompt.wav" ]; then cp "$REPO/asset/zero_shot_prompt.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; printf '[COSYVOICE3-DYNAMIC-RC] using canonical repository zero-shot WAV for immutable-RC API replay\n'; fi
-    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ -f "$REFERENCE_WAV" ]; then printf '%s\n' '希望你以后能够做的比我还好呦。' > "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; printf '[COSYVOICE3-DYNAMIC-RC] using matching canonical zero-shot transcript for immutable-RC API replay\n'; fi
+    if [ ! -f "$REFERENCE_WAV" ] && [ -f "$REPO/asset/zero_shot_prompt.wav" ]; then cp "$REPO/asset/zero_shot_prompt.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; canonical_reference_used=1; printf '[COSYVOICE3-DYNAMIC-RC] using canonical repository zero-shot WAV for immutable-RC API replay\n'; fi
+    if [ ! -s "$REFERENCE_TRANSCRIPT" ] && [ "$canonical_reference_used" -eq 1 ]; then printf '%s\n' '希望你以后能够做的比我还好呦。' > "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; printf '[COSYVOICE3-DYNAMIC-RC] using matching canonical zero-shot transcript for immutable-RC API replay\n'; fi
+    if [ ! -f "$HOST_RECEIPT" ] && [ -f "$reuse_input_dir/reference_host_parity_receipt.json" ]; then HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
     if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" "$reuse_input_dir/reference_host_parity_receipt.json" || return $?; HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
     [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain a canonical replay reference"; return 2; }
     [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "reference transcript unavailable; set COSYVOICE3_REFERENCE_TRANSCRIPT"; return 2; }
     [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt unavailable at explicit/default or DeviceSmoke staged path"; return 2; }
     [ -x "$DYNAMIC_PYTHON" ] || { fail "dynamic conversion Python missing: $DYNAMIC_PYTHON"; return 2; }
     [ "$(git -C "$REPO" branch --show-current)" = "$BRANCH" ] || { fail "wrong branch; expected $BRANCH"; return 2; }
+    if ! git -C "$REPO" diff --quiet -- ios/validation/evidence/dynamic_conversion_provenance.json; then
+        git -C "$REPO" restore -- ios/validation/evidence/dynamic_conversion_provenance.json || return $?
+        printf '[COSYVOICE3-DYNAMIC-RC] restored generated conversion provenance left by a prior partial run\n'
+    fi
     [ -z "$(git -C "$REPO" status --porcelain --untracked-files=no)" ] || { git -C "$REPO" status --short; fail "tracked worktree must be clean"; return 2; }
     git -C "$REPO" pull --ff-only origin "$BRANCH" || return $?
 
@@ -100,28 +139,23 @@ PY
     [ -s "$UPLOAD_RECEIPT" ] || { fail "upload receipt missing: $UPLOAD_RECEIPT"; return 3; }
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 2/7 download exact immutable revision and verify payload\n'
-    rm -rf "$DOWNLOAD_ROOT"; mkdir -p "$DOWNLOAD_ROOT"
-    "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOAD_ROOT" <<'PY' || return $?
-import hashlib,json,sys
+    local reuse_download=0
+    if [ -s "$DOWNLOADED_RELEASE/asset-manifest.json" ] && verify_release_against_upload "$DOWNLOADED_RELEASE"; then
+        reuse_download=1
+        printf '[COSYVOICE3-DYNAMIC-RC] immutable download cache REUSE_PASS revision=%s\n' "$("$PYTHON" -c 'import json,sys;print(json.load(open(sys.argv[1]))["commit"])' "$UPLOAD_RECEIPT")"
+    fi
+    if [ "$reuse_download" -ne 1 ]; then
+        rm -rf "$DOWNLOAD_ROOT"; mkdir -p "$DOWNLOAD_ROOT"
+        "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOAD_ROOT" <<'PY' || return $?
+import json,sys
 from pathlib import Path
 from huggingface_hub import snapshot_download
 r=json.loads(Path(sys.argv[1]).read_text()); root=Path(sys.argv[2])
 snapshot_download(repo_id=r["repoId"],repo_type="model",revision=r["commit"],allow_patterns=[f'{r["pathInRepo"]}/**'],local_dir=root)
-release=root/r["pathInRepo"]; m=json.loads((release/"asset-manifest.json").read_text())
-rows=[]
-for row in m["files"]:
- p=release/row["path"]
- h=hashlib.sha256()
- with p.open("rb") as f:
-  for b in iter(lambda:f.read(8*1024*1024),b""): h.update(b)
- if p.stat().st_size!=int(row["bytes"]) or h.hexdigest()!=row["sha256"]: raise SystemExit(f"download mismatch {row['path']}")
- rows.append(row)
-tree=hashlib.sha256()
-for row in sorted(rows,key=lambda x:x["path"]):
- tree.update(row["path"].encode());tree.update(b"\0");tree.update(str(int(row["bytes"])).encode());tree.update(b"\0");tree.update(row["sha256"].encode());tree.update(b"\n")
-if tree.hexdigest()!=m["payloadTreeSha256"] or tree.hexdigest()!=r["payloadTreeSha256"]: raise SystemExit("payload tree mismatch")
-print("[COSYVOICE3-DYNAMIC-RC] IMMUTABLE_DOWNLOAD_PASS revision="+r["commit"]+" tree="+tree.hexdigest(),flush=True)
+print("[COSYVOICE3-DYNAMIC-RC] IMMUTABLE_DOWNLOAD_COMPLETE revision="+r["commit"],flush=True)
 PY
+        verify_release_against_upload "$DOWNLOADED_RELEASE" || return $?
+    fi
     "$PYTHON" "$ROOT/assets/validate_assets.py" --root "$DOWNLOADED_RELEASE" --require-reference || return $?
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 3/7 build temporary catalog entry\n'
@@ -161,8 +195,7 @@ print("[COSYVOICE3-DYNAMIC-RC] TEMP_CATALOG_PASS "+json.dumps(entry,sort_keys=Tr
 PY
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 4/7 ordinary SDK immutable fetch\n'
-    rm -rf "$FETCHED_RUNTIME"
-    "$PYTHON" "$ROOT/assets/fetch_assets.py" --catalog "$WORK_CATALOG" --profile "$PROFILE" --version "$VERSION" --output "$FETCHED_RUNTIME" --force || return $?
+    "$PYTHON" "$ROOT/assets/fetch_assets.py" --catalog "$WORK_CATALOG" --profile "$PROFILE" --version "$VERSION" --output "$FETCHED_RUNTIME" --reuse-valid --force || return $?
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 5/7 physical public-API replay from fetched RC\n'
     COSYVOICE3_ASSET_ROOT="$FETCHED_RUNTIME" \
@@ -172,13 +205,13 @@ PY
     COSYVOICE3_HOST_PARITY_RECEIPT="$HOST_RECEIPT" \
     COSYVOICE3_REFERENCE_WAV="$REFERENCE_WAV" \
     COSYVOICE3_REFERENCE_TRANSCRIPT="$REFERENCE_TRANSCRIPT" \
+    COSYVOICE3_DYNAMIC_EVIDENCE_DIR="$REPLAY_EVIDENCE" \
     COSYVOICE3_PYTHON="$PYTHON" CONFIGURATION=Release BUNDLE_ID="$BUNDLE_ID" \
     bash "$ROOT/validation/install_device_smoke.sh" || return $?
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 6/7 record immutable fetch/replay evidence\n'
-    local evidence
-    evidence="$(ls -dt "$ROOT"/validation/evidence/dynamic-public-api-smoke-* | head -n 1)" || return $?
-    "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" "$evidence/dynamic-public-api-smoke-receipt.json" "$FINAL_RECEIPT" <<'PY' || return $?
+    [ -s "$REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json" ] || { fail "deterministic replay receipt missing: $REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json"; return 3; }
+    "$PYTHON" - "$UPLOAD_RECEIPT" "$DOWNLOADED_RELEASE/asset-manifest.json" "$REPLAY_EVIDENCE/dynamic-public-api-smoke-receipt.json" "$FINAL_RECEIPT" <<'PY' || return $?
 import json,sys,time
 from pathlib import Path
 u=json.loads(Path(sys.argv[1]).read_text());m=json.loads(Path(sys.argv[2]).read_text());d=json.loads(Path(sys.argv[3]).read_text())
@@ -201,8 +234,13 @@ PY
 
     printf '[COSYVOICE3-DYNAMIC-RC] STEP 7/7 accept catalog row and push release metadata\n'
     cp "$WORK_CATALOG" "$ROOT/assets/releases.json" || return $?
+    cp "$CONVERSION_RECEIPT" "$TRACKED_CONVERSION_RECEIPT" || return $?
     git -C "$REPO" add ios/assets/releases.json ios/validation/evidence/dynamic_private_rc.json ios/validation/evidence/dynamic_conversion_provenance.json || return $?
-    git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" commit -m "release(ios): register dynamic N1 private RC" || return $?
+    if git -C "$REPO" diff --cached --quiet; then
+        printf '[COSYVOICE3-DYNAMIC-RC] release metadata already current; no commit required\n'
+    else
+        git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" commit -m "release(ios): register dynamic N1 private RC" || return $?
+    fi
     git -C "$REPO" push origin "$BRANCH" || return $?
     printf '[COSYVOICE3-DYNAMIC-RC] COMPLETE profile=%s version=%s head=%s license=PENDING public=false\n' "$PROFILE" "$VERSION" "$(git -C "$REPO" rev-parse HEAD)"
 }
@@ -228,3 +266,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: when falling back to previously staged reference/host inputs, copy them into ios/.work/device-smoke-reused-input before any GeneratedAssets replacement so physical RC replay cannot delete its own source files.
 
 # Changes 2026-10-04: if the prior staged validation reference was already deleted by the historical self-delete bug, immutable-RC API replay falls back to the repository canonical zero_shot_prompt.wav with its matching upstream transcript; prior human-listening acceptance remains separate evidence and is not replaced.
+
+# Changes 2026-10-04: make private-RC retries transaction-safe: conversion provenance stays under .work until Step 7, a historical partial-run provenance edit is restored automatically, exact downloaded/fetched immutable assets are rehashed and reused instead of redownloaded, physical replay writes to a deterministic .work evidence directory, and canonical fallback transcript is emitted only when the canonical fallback WAV is selected.
