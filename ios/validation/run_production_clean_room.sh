@@ -98,6 +98,15 @@ if str(profile).startswith("ios-dynamic-"):
 out={"schemaVersion":1,"status":"PASS_PRODUCTION_CLEAN_ROOM","releaseHead":raw["releaseHead"],"candidateReleaseHead":raw["candidateReleaseHead"],"validatedSourceCommit":raw["validatedSourceCommit"],"assetIdentity":raw["assetIdentity"],"publicApiOnly":True,"flowSteps":6,"device":{"model":raw.get("device"),"modelIdentifier":raw.get("deviceModelIdentifier"),"systemName":raw.get("systemName"),"systemVersion":raw.get("systemVersion")},"pcm":{"sampleRate":24000,"channels":1,"samples":raw["samples"],"finite":True},"referenceWavSha256":raw.get("referenceWavSha256"),"workloadTextSha256":raw["workloadTextSha256"],"recordedAtUnix":int(time.time())}
 Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n"); print("[COSYVOICE3-PRODUCTION-CLEAN-ROOM] PASS "+json.dumps(out,sort_keys=True),flush=True)
 PY
+    if [ -n "${ALL_SDK_ENTRY_RESULT_DIR:-}" ]; then
+        mkdir -p "$ALL_SDK_ENTRY_RESULT_DIR"
+        cp "$OUTPUT" "$ALL_SDK_ENTRY_RESULT_DIR/production_clean_room.json" || return $?
+        cp "$ROOT/validation/release_receipt.json" "$ALL_SDK_ENTRY_RESULT_DIR/release_receipt.json" || return $?
+        if [ -f "$ROOT/validation/evidence/dynamic_release_environment.json" ]; then
+            cp "$ROOT/validation/evidence/dynamic_release_environment.json" "$ALL_SDK_ENTRY_RESULT_DIR/release_environment.json" || return $?
+        fi
+        printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] exported all-SDK evidence=%s\n' "$ALL_SDK_ENTRY_RESULT_DIR"
+    fi
 }
 main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; test "$RC" -eq 0
 # Code purpose: physical independent-consumer Production clean-room gate using only public CosyVoice3Core + ordinary immutable asset fetch.
@@ -111,3 +120,5 @@ main "$@"; RC=$?; printf '[COSYVOICE3-PRODUCTION-CLEAN-ROOM] rc=%s\n' "$RC"; tes
 # Changes 2026-10-04: resolve Candidate profile/version and benchmark from canonical release_receipt.json; support dynamic N1...479 960*N PCM while retaining historical fixed225 compatibility; release branch is overrideable/current rather than hard-coded.
 
 # Changes 2026-10-04: when no explicit custom-reference fixture is supplied, generate a transient macOS say/afconvert speech reference under .work; hash-bind it into host/device receipts. No generated reference is committed, uploaded or included in public assets.
+
+# Changes 2026-10-04: export sanitized clean-room/Candidate/environment receipts to ALL_SDK_ENTRY_RESULT_DIR before disposable all-SDK clone cleanup.
