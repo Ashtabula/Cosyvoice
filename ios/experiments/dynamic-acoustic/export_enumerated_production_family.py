@@ -53,6 +53,7 @@ DEFAULT_FUNCTION = "n129_256"
 EXPECTED_SHARED_PROFILE = "ios-dynamic-n1-n479-reference"
 EXPECTED_SHARED_VERSION = "0.2.0-rc1"
 EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479"
+EXPECTED_SHARED_RUNTIME_MANIFEST_PROFILE = "ios18-dynamic-n1-n479-candidate"
 EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68"
 EXPECTED_FLOW_PT_SHA256 = "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b"
 EXPECTED_ACOUSTIC_CONFIG_SHA256 = "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965"
@@ -141,6 +142,7 @@ def validate_immutable_shared_root(root: Path) -> dict:
         "profile": EXPECTED_SHARED_PROFILE,
         "assetVersion": EXPECTED_SHARED_VERSION,
         "runtimeProfile": EXPECTED_SHARED_RUNTIME_PROFILE,
+        "runtimeManifestProfile": EXPECTED_SHARED_RUNTIME_MANIFEST_PROFILE,
         "payloadTreeSha256": EXPECTED_SHARED_PAYLOAD_TREE,
     }
     for key, value in expected.items():
@@ -173,6 +175,7 @@ def validate_immutable_shared_root(root: Path) -> dict:
         "profile": EXPECTED_SHARED_PROFILE,
         "version": EXPECTED_SHARED_VERSION,
         "runtimeProfile": EXPECTED_SHARED_RUNTIME_PROFILE,
+        "runtimeManifestProfile": EXPECTED_SHARED_RUNTIME_MANIFEST_PROFILE,
         "payloadTreeSha256": actual_tree,
         "payloadBytes": sum(int(row["bytes"]) for row in rows),
         "fileCount": len(rows),
@@ -838,8 +841,12 @@ def main() -> int:
     if not shared_manifest_path.is_file():
         raise SystemExit(f"immutable shared runtime manifest missing: {shared_manifest_path}")
     shared_manifest = json.loads(shared_manifest_path.read_text())
-    if shared_manifest.get("schemaVersion") != 2 or shared_manifest.get("profile") != EXPECTED_SHARED_RUNTIME_PROFILE:
-        raise SystemExit("immutable shared runtime manifest identity mismatch")
+    if shared_manifest.get("schemaVersion") != 2 or shared_manifest.get("profile") != EXPECTED_SHARED_RUNTIME_MANIFEST_PROFILE:
+        raise SystemExit(
+            "immutable shared runtime manifest identity mismatch: "
+            f"schemaVersion={shared_manifest.get('schemaVersion')!r} profile={shared_manifest.get('profile')!r} "
+            f"expectedSchemaVersion=2 expectedProfile={EXPECTED_SHARED_RUNTIME_MANIFEST_PROFILE!r}"
+        )
 
     if args.output.exists():
         raise SystemExit(f"output already exists: {args.output}")
@@ -1086,7 +1093,7 @@ if __name__ == "__main__":
 
 # Changes 2026-10-05: production schema-3 export now requires the exact frozen schema-2 private RC source (ios-dynamic-n1-n479-reference/0.2.0-rc1, runtime ios18-dynamic-n1-n479-candidate, payload tree 3f7b...). It recomputes every source file hash/tree/byte count before conversion and records the immutable source manifest/tree in the new receipt.
 
-# Changes 2026-10-05: correct frozen shared runtimeProfile gate to ios18-dynamic-n1-n479, matching the canonical dynamic publish script constant; the previous review-only -candidate suffix was invalid.
+# Changes 2026-10-05: frozen shared asset-manifest runtimeProfile is ios18-dynamic-n1-n479, while its runtimeManifestProfile and the nested cosyvoice3_dynamic.json profile remain ios18-dynamic-n1-n479-candidate. Validate these two identity layers independently.
 
 # Changes 2026-10-05: Flow/Conditions export now hard-requires the accepted flow.pt SHA256 a6fab32a..., and HiFT construction hard-requires the accepted cosyvoice3.yaml SHA256 f5a6b2c6.... The exact local hift.pt SHA is recorded for independent output binding.
 
