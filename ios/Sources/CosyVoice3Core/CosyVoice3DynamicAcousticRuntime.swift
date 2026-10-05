@@ -230,46 +230,65 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         var currentT = span[0]
         var dt = span[1] - span[0]
 
-        for step in 0..<flowStepCount {
-            progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).begin:N=\(n):T=\(tFrames)")
-            let batchPointer = batchX.dataPointer.assumingMemoryBound(to: Float.self)
-            x.withUnsafeBufferPointer {
-                batchPointer.update(from: $0.baseAddress!, count: x.count)
-                batchPointer.advanced(by: x.count).update(from: $0.baseAddress!, count: x.count)
+        do {
+            let flowModels = try flowShardPaths.enumerated().map { index, path in
+                try loadModel(
+                    path: path,
+                    stage: "acoustic.flow.shard.\(index + 1).6.model",
+                    functionName: functionName
+                )
             }
-            time[0] = NSNumber(value: currentT)
-            time[1] = NSNumber(value: currentT)
+            progress?("acoustic.flow.models.ready:count=\(flowModels.count):function=\(functionName ?? "<range>")")
+            print("[COSY-FLOW-LIFECYCLE] constructors=\(flowModels.count) steps=\(flowStepCount) function=\(functionName ?? "<range>")")
 
-            var feed: [String: MLMultiArray] = [
-                "x": batchX, "mask": mask, "mu": mu, "t": time, "spks": spks, "cond": cond
-            ]
-            var velocity: MLMultiArray?
-            for index in flowShardPaths.indices {
-                let stage = try predictFlowShard(index: index, flowStep: step, feed: feed, tFrames: tFrames, functionName: functionName)
-                switch stage {
-                case .first(let h, let te):
-                    feed = ["h":h, "te":te, "mask":mask]
-                case .hidden(let h):
-                    feed["h"] = h
-                case .velocity(let value):
-                    velocity = value
+            for step in 0..<flowStepCount {
+                progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).begin:N=\(n):T=\(tFrames)")
+                let batchPointer = batchX.dataPointer.assumingMemoryBound(to: Float.self)
+                x.withUnsafeBufferPointer {
+                    batchPointer.update(from: $0.baseAddress!, count: x.count)
+                    batchPointer.advanced(by: x.count).update(from: $0.baseAddress!, count: x.count)
                 }
-                await Task.yield()
-            }
+                time[0] = NSNumber(value: currentT)
+                time[1] = NSNumber(value: currentT)
 
-            guard let velocity, velocity.count == x.count * 2 else {
-                throw CosyVoice3AcousticError.invalidShape("velocity", velocity?.shape.map(\.intValue) ?? [])
+                var feed: [String: MLMultiArray] = [
+                    "x": batchX, "mask": mask, "mu": mu, "t": time, "spks": spks, "cond": cond
+                ]
+                var velocity: MLMultiArray?
+                for index in flowShardPaths.indices {
+                    let stage = try predictFlowShard(
+                        index: index,
+                        model: flowModels[index],
+                        flowStep: step,
+                        feed: feed,
+                        tFrames: tFrames
+                    )
+                    switch stage {
+                    case .first(let h, let te):
+                        feed = ["h":h, "te":te, "mask":mask]
+                    case .hidden(let h):
+                        feed["h"] = h
+                    case .velocity(let value):
+                        velocity = value
+                    }
+                    await Task.yield()
+                }
+
+                guard let velocity, velocity.count == x.count * 2 else {
+                    throw CosyVoice3AcousticError.invalidShape("velocity", velocity?.shape.map(\.intValue) ?? [])
+                }
+                if velocity.dataType == .float32, Self.isContiguous(velocity) {
+                    let pointer = velocity.dataPointer.assumingMemoryBound(to: Float.self)
+                    for i in x.indices { x[i] += dt * (1.7 * pointer[i] - 0.7 * pointer[i + x.count]) }
+                } else {
+                    for i in x.indices { x[i] += dt * (1.7 * velocity[i].floatValue - 0.7 * velocity[i + x.count].floatValue) }
+                }
+                currentT += dt
+                if step < flowStepCount - 1 { dt = span[step + 2] - currentT }
+                progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).end:N=\(n):T=\(tFrames)")
             }
-            if velocity.dataType == .float32, Self.isContiguous(velocity) {
-                let pointer = velocity.dataPointer.assumingMemoryBound(to: Float.self)
-                for i in x.indices { x[i] += dt * (1.7 * pointer[i] - 0.7 * pointer[i + x.count]) }
-            } else {
-                for i in x.indices { x[i] += dt * (1.7 * velocity[i].floatValue - 0.7 * velocity[i + x.count].floatValue) }
-            }
-            currentT += dt
-            if step < flowStepCount - 1 { dt = span[step + 2] - currentT }
-            progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).end:N=\(n):T=\(tFrames)")
         }
+        await Task.yield()
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
 
         let mel = try MLMultiArray(shape: [1,80,NSNumber(value:g)], dataType: .float32)
@@ -373,10 +392,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
     private func predictFlowShard(
         index: Int,
+        model: MLModel,
         flowStep: Int,
         feed: [String: MLMultiArray],
-        tFrames: Int,
-        functionName: String?
+        tFrames: Int
     ) throws -> FlowShardStage {
         let phaseStarted = DispatchTime.now().uptimeNanoseconds
         let loadBefore = modelLoadMilliseconds
@@ -385,9 +404,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             recordPhase("flow.shard.\(index)", since: phaseStarted, loadBefore: loadBefore)
         }
         return try autoreleasepool {
-            let path = flowShardPaths[index]
             let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).6"
-            let model = try loadModel(path: path, stage: label, functionName: functionName)
             progress?("\(label).prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
             let stage: FlowShardStage
@@ -550,3 +567,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York; changed loadModel validation hint only.
 
 // Changes 2026-10-05: production enumerated lane selects one exact-shape multifunction family after real EOS determines N. N/T/G/PCM stay exact; no bucket padding or crop is introduced. Schema-2 RangeDim remains available only as the frozen comparison path.
+
+// Changes 2026-10-05: production Flow lifecycle now constructs the six selected-function MLModel objects once per utterance, reuses them across all Euler steps, and releases the whole Flow set before F0/HiFT. This reduces the 6-step path from 36 Flow constructors to 6 without changing exact N/T/G, model bytes, scheduler math, CFG, noise, or function selection.
