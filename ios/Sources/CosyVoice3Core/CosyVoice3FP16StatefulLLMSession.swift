@@ -27,6 +27,8 @@ public final class CosyVoice3FP16StatefulLLMSession {
     private let cos: MLMultiArray
     private let sin: MLMultiArray
     private var inputs: [Int: MLFeatureProvider] = [:]
+    private var fixedInput: MLFeatureProvider?
+    private var fixedMask: MLMultiArray?
     private let diagnosticPosition: MLMultiArray?
     private let diagnosticWriteMask: MLMultiArray?
     private var previousWritePosition: Int?
@@ -87,12 +89,13 @@ public final class CosyVoice3FP16StatefulLLMSession {
         self.sin = try Self.array([1, 1, 1, 64])
         diagnosticPosition = try (hostWriteMask ? nil : maximumAttentionLength).map { _ in try MLMultiArray(shape:[1],dataType:.int32) }
         diagnosticWriteMask = hostWriteMask ? try Self.array([1,1,512,1]) : nil
-        // All providers reference the same x/cos/sin buffers; each mask computes only its exact prefix.
-        for length in (logicalLength + 1)...(maximumAttentionLength ?? Self.capacity) {
-            let mask = try Self.array([1, 1, 1, maximumAttentionLength ?? length])
-            if let maximum = maximumAttentionLength {
-                let bits = mask.dataPointer.assumingMemoryBound(to:UInt16.self)
-                for i in length..<maximum { bits[i] = 0xfc00 } // FP16 negative infinity: exact invalid-key exclusion.
+        // Fixed-width masks share one provider; exact-length model inputs retain the original path.
+        let lengths = maximumAttentionLength.map { [$0] } ?? Array((logicalLength + 1)...Self.capacity)
+        for length in lengths {
+            let mask = try Self.array([1, 1, 1, length])
+            if maximumAttentionLength != nil {
+                try Self.initializeFixedMask(mask, validLength: logicalLength + 1)
+                fixedMask = mask
             }
             var features: [String:MLFeatureValue] = [
                 "x": MLFeatureValue(multiArray: x), "cos": MLFeatureValue(multiArray: cos),
@@ -100,8 +103,20 @@ public final class CosyVoice3FP16StatefulLLMSession {
             ]
             if let position = diagnosticPosition { features["position"] = MLFeatureValue(multiArray:position) }
             if let writeMask = diagnosticWriteMask { features["write_mask"] = MLFeatureValue(multiArray:writeMask) }
-            inputs[length] = try MLDictionaryFeatureProvider(dictionary:features)
+            let provider = try MLDictionaryFeatureProvider(dictionary:features)
+            if maximumAttentionLength != nil { fixedInput = provider }
+            else { inputs[length] = provider }
         }
+    }
+
+    static func initializeFixedMask(_ mask: MLMultiArray, validLength: Int) throws {
+        guard mask.dataType == .float16, validLength > 0, validLength <= mask.count else { throw SessionError.invalidPrefill }
+        let bits = mask.dataPointer.assumingMemoryBound(to: UInt16.self)
+        for i in 0..<mask.count { bits[i] = i < validLength ? 0 : 0xfc00 }
+    }
+    static func advanceFixedMask(_ mask: MLMultiArray, absolutePosition: Int) throws {
+        guard mask.dataType == .float16, absolutePosition >= 0, absolutePosition < mask.count else { throw SessionError.contextExhausted }
+        mask.dataPointer.assumingMemoryBound(to: UInt16.self)[absolutePosition] = 0
     }
 
     private func predict(_ model: MLModel, input: MLFeatureProvider, name: String) throws -> MLFeatureProvider {
@@ -154,7 +169,8 @@ public final class CosyVoice3FP16StatefulLLMSession {
         guard validLength >= prefixLength, absolutePosition == validLength else {
             throw SessionError.invalidPosition(expected: validLength, actual: absolutePosition)
         }
-        guard let input = inputs[validLength + 1] else { throw SessionError.contextExhausted }
+        guard validLength < Self.capacity, let input = fixedInput ?? inputs[validLength + 1] else { throw SessionError.contextExhausted }
+        if let mask = fixedMask { try Self.advanceFixedMask(mask, absolutePosition: validLength) }
         activityObserver?("llm.decode.input_copy", true)
         do {
             defer { activityObserver?("llm.decode.input_copy", false) }
@@ -205,3 +221,7 @@ public final class CosyVoice3FP16StatefulLLMSession {
 // Changes2026-10-01 19:05 America/New_York: optional false-default diagnosticHostWriteMask after fixed256/449 ANE gates. One preallocated FP16[1,1,512,1] host mask updates two slots per step; omit graph position, keep real RoPE/valid masks and fresh State. Changed diagnostic properties/initializer/providers/decode only; line map in Git diff. Upstream validated static-select mask package; Air Release/no-ASan, no production promotion.
 // Changes2026-10-01 fixed512 phase: permit512 only for the same host-mask route and verify physical mask shape; allocation, two-slot write-mask update, State progression and baseline default unchanged. Upstream accepted449 implementation; Air Release/no-ASan. Initializer guards only, Git diff line map.
 // Changes2026-10-01 22:52 America/New_York: shared production fixed512 host-mask selection from model ABI, optional logicalPrefixLength with physical224 prefill, cached exact-valid masks and overwrite-before-expose. Preserves starting512 WIP and legacy explicit baseline. Initializer/prefill shape guards only (Git diff line map); same State/RoPE/sampling math, no KV readback in decode. Upstream accepted fixed512 instruct2 logical session; iOS18+ Release/no-ASan.
+
+// Purpose: reuse fixed-width decode mask/provider without changing attention, KV state, model bytes or sampling.
+// Upstream: original session with one mask/provider per prefix; environment: Swift 6 iOS18+/macOS15+.
+// Generated: 2026-10-05 America/New_York; changed lines 30-32, 94-112, fixed-mask helpers and decode selection.

@@ -196,3 +196,10 @@ GitHub Timeline：此前源码修复已 push；本条新增仅证据与记录，
 修改文件：Demo BenchmarkAutomation/Models/Runner；Cosy Engine/DynamicAcousticRuntime；Vox Runtime；历史记录。
 验证：Swift parse通过；Cosy44 tests（2 skipped）通过，计时增补build通过；Vox build通过（没有test target）。物理performance待测。
 GitHub Timeline：当前未commit，随后commit/push。未更换、下载、上传模型，原参数/flow steps/compute policy保持。
+
+Time: 2026-10-05T07:42:33.613664-04:00
+Prompt: Skip Vox; optimize the other two engines under frozen assets.
+Actions: replace hundreds of fixed-width per-prefix LLM mask/providers with one mutable mask/provider; open exactly one new valid position per decode; preserve exact-length fallback, KV state, stochastic RAS draws, CPU_ONLY LLM and dynamic acoustic per-prediction lifecycle. No shard-retention or asset experiment.
+Files: CosyVoice3FP16StatefulLLMSession.swift; FixedDecodeMaskTests.swift.
+Validation: 45 Release tests, 2 skipped, zero failures; all positions for width449/512 and logical32/151/224 match original FP16 masks bit for bit; overflow rejects. Physical benchmark pending.
+GitHub Timeline: uncommitted at write; commit/push performance revision next; frozen asset unchanged.
