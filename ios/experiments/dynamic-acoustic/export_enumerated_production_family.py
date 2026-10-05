@@ -56,6 +56,7 @@ EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479"
 EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68"
 EXPECTED_FLOW_PT_SHA256 = "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b"
 EXPECTED_ACOUSTIC_CONFIG_SHA256 = "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965"
+EXPECTED_FLOW_FIXTURE_SHA256 = "c4ea1c46452a1e81e05cba79737a0713fdc7a0ec0fd6a484403ba479213487a1"
 
 
 def save_json(path: Path, value) -> None:
@@ -923,6 +924,11 @@ def main() -> int:
             raise RuntimeError(
                 f"acoustic config SHA mismatch: {config_sha} != {EXPECTED_ACOUSTIC_CONFIG_SHA256}"
             )
+        fixture_sha = sha(flow_fixture_path)
+        if fixture_sha != EXPECTED_FLOW_FIXTURE_SHA256:
+            raise RuntimeError(
+                f"flow fixture SHA mismatch: {fixture_sha} != {EXPECTED_FLOW_FIXTURE_SHA256}"
+            )
         fixture = torch.load(flow_fixture_path, weights_only=True)["kwargs"]
         receipt["rebuildInputs"] = {
             "rebuildRoot": str(rebuild_root),
@@ -932,7 +938,7 @@ def main() -> int:
             "flowCheckpointSha256": flow_sha,
             "hiftCheckpointSha256": sha(hift_checkpoint),
             "acousticConfigSha256": config_sha,
-            "flowFixtureSha256": sha(flow_fixture_path),
+            "flowFixtureSha256": fixture_sha,
         }
 
         receipt["phase"] = "load_source"
@@ -1089,3 +1095,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: pinned upstream validation now rejects tracked source modifications and any recursive submodule checkout marked +, -, or U. HiFT/Matcha code therefore comes from the exact parent-commit submodule state rather than merely sharing the same top-level HEAD.
 
 # Changes 2026-10-05: production conversion now fail-fast pins the previously accepted Python3.11/torch2.7.0/coremltools9.0/numpy1.26.4 and Phase3 dependency set (conformer/diffusers/HyperPyYAML/omegaconf/onnxruntime/scipy/transformers). Exact resolved versions and Xcode are recorded in the export receipt; no package auto-install occurs inside production conversion.
+
+# Changes 2026-10-05: production tracing/validation fixture is hard-pinned to the accepted flow_input.pt SHA256 c4ea1c46..., eliminating silent shape/example drift in the rebuild root.
