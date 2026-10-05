@@ -87,7 +87,7 @@ jobs:
           import json
           from pathlib import Path
           for path in [
-              Path("ios/manifest.json"),
+              Path("ios/manifest.json"),\n              Path("ios/validation/release_receipt.json"),\n              Path("ios/validation/dynamic_release_receipt.json"),
               Path("ios/assets/reference_enrollment.json"),
               Path("ios/assets/cosyvoice3_fixed225.example.json"),
               Path("ios/validation/development_receipt.json"),

@@ -1,6 +1,6 @@
 # CosyVoice3 iOS SDK publication tree
 
-Status: **Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.** Public publication target: `actacomes/Cosyvoice` as a fresh-history Swift SDK snapshot after Production gates. Private validation provenance remains in `Ashtabula/Cosyvoice/ios/`.
+Status: **Dynamic N1...479 immutable private-RC Candidate evidence is preserved; current shipping source requires Candidate reclosure before Production/public snapshot. Public redistribution is not authorized.** Public publication target: `actacomes/Cosyvoice` as a fresh-history Swift SDK snapshot after Production gates. Private validation provenance remains in `Ashtabula/Cosyvoice/ios/`.
 
 The canonical private validation SDK source is this `Ashtabula/Cosyvoice/ios/` tree; external publication uses the explicit slim snapshot scope in `public_snapshot_paths.txt`. `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6` is retained only as frozen migration provenance for the implementation baseline. The Swift package contains the application-facing `CosyVoice3Engine` and the dynamic N1...479 on-device path: native tokenizer/prefill -> stateful Core ML LLM -> Swift RAS -> Flow -> FP64-F0/HiFT -> finite mono Float32 PCM at 24 kHz. Benchmark/UI/runner code is not a runtime dependency.
 

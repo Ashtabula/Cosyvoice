@@ -2,7 +2,7 @@
 
 This file records CosyVoice3-specific validation status and evidence against this engine's `SDK_RELEASE.md` release contract.
 
-Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
+Current status: dynamic N1...479 immutable private-RC Candidate evidence is preserved, but current shipping source requires Candidate reclosure before Production/public snapshot; public redistribution is not authorized.
 
 PASS: private validation publication source is `Ashtabula/Cosyvoice/ios/`; formal external target is a fresh-history `actacomes/Cosyvoice` SDK snapshot after Production gates.
 PASS: canonical maintained SDK source is `Ashtabula/Cosyvoice/ios/`; migration provenance is locked to `Ashtabula/CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6`.

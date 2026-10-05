@@ -121,6 +121,7 @@ def main()->int:
         "engine":"CosyVoice3",
         "platform":"iOS",
         "releaseStatus":"candidate",
+        "currentSourceReclosureRequired":False,
         "sourceCommit":current,
         "validatedSourceCommit":current,
         "validatedRuntimeSourceCommit":validated,
@@ -198,3 +199,4 @@ if __name__=="__main__": raise SystemExit(main())
 
 # Changes 2026-10-04: Candidate ledger requires the committed exact conversion-provenance receipt and cross-binds its familyReceiptSha256 to the immutable private RC; the PASS check references both evidence files.
 # Changes 2026-10-04: optional immutable-asset receipt implements the canonical checklist's obtain-immutable-assets OR pinned-rebuild path. Requires complete Mac-side manifest/file/tree validation and recorded conversion provenance; explicitly records model rebuild as not run. All physical replay, benchmark, source, quality and identity gates remain required.
+\n# Changes 2026-10-05: exact-current-source Candidate closure explicitly clears currentSourceReclosureRequired for downstream identity/Production gates.\n

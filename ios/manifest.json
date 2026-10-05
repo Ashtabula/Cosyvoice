@@ -5,24 +5,25 @@
     "residencyProven": false
   },
   "assetDistribution": {
-    "pathInRepo": "ios-fixed225-reference/0.1.0-rc1",
-    "payloadTreeSha256": "a09dac47b4af1669573b31de64159cb25f9febb38585f8af0f46331e4530127f",
-    "profile": "ios-fixed225-reference",
-    "publicRedistributionApproved": false,
-    "repoId": "actacomes/CosyVoice-assets",
-    "requiresAuthentication": true,
-    "revision": "2fb4251057a5c627e76e392c04b0e778f530d0e0",
     "status": "PRIVATE_RC_IMMUTABLE_REPLAY_PASS",
-    "tag": "ios-fixed225-reference-v0.1.0-rc1",
-    "testedRuntimeTreeSha256": "7c828aa0e36c94c67a4d4d93d811d82237781284794a69448b4e25bb7069470d",
-    "version": "0.1.0-rc1"
+    "profile": "ios-dynamic-n1-n479-reference",
+    "version": "0.2.0-rc1",
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+    "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447",
+    "requiresAuthentication": true,
+    "publicRedistributionApproved": false,
+    "licenseGate": "PENDING"
   },
-  "candidateBlockers": [],
+  "candidateBlockers": [
+    "current-source dynamic Candidate reclosure"
+  ],
   "candidateMilestone": {
-    "date": "2026-10-03",
-    "milestone": "MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md",
-    "receipt": "validation/ios_fixed225_distribution_ready_2026-10-03.json",
-    "status": "PASS"
+    "status": "PASS_HISTORICAL_DYNAMIC_CANDIDATE_EVIDENCE_RECLOSURE_REQUIRED",
+    "date": "2026-10-04",
+    "receipt": "validation/dynamic_release_receipt.json",
+    "milestone": "dynamic N1...479 private Candidate evidence"
   },
   "candidateReleaseReceipt": "validation/release_receipt.json",
   "ci": {
@@ -69,6 +70,7 @@
   },
   "platform": "iOS",
   "productionBlockers": [
+    "current-source dynamic Candidate reclosure",
     "clean-room consumer integration",
     "release-tree reproducibility",
     "asset redistribution license review",
@@ -91,7 +93,7 @@
   },
   "publicRedistributionApproved": false,
   "publication": {
-    "branch": "release/ios-fixed225-sdk-ready",
+    "branch": "experiment/ios-dynamic-acoustic",
     "canonicalSource": true,
     "path": "ios/",
     "repository": "Ashtabula/Cosyvoice",
@@ -102,15 +104,15 @@
     "email": "developer@actacomes.com",
     "name": "actacomes"
   },
-  "releaseReadiness": "Technical Distribution-Ready Candidate for ios-fixed225-reference. Public API, immutable private-RC fetch/replay, supported full-runtime rebuild and controlled cold/warm physical-device benchmark are validated. Production/public redistribution remains blocked by clean-room consumer integration, release-tree reproducibility, license/redistribution review, public release identity review/fresh public snapshot, and immutable public runtime asset publication.",
-  "releaseStatus": "candidate",
-  "schemaVersion": 4,
-  "sdkIntegrationReady": true,
+  "releaseReadiness": "Dynamic N1...479 immutable private-RC Candidate evidence is preserved, but the current shipping source changed after the validated Candidate source and must be reclosed before Production or public snapshot.",
+  "releaseStatus": "candidate-reclosure-required",
+  "schemaVersion": 5,
+  "sdkIntegrationReady": false,
   "sdkReadyMilestone": {
-    "date": "2026-10-02",
-    "milestone": "MILESTONES/IOS_FIXED225_SDK_READY_2026-10-02.md",
-    "receipt": "validation/ios_fixed225_sdk_ready_2026-10-02.json",
-    "status": "PASS_PRIVATE_RC_INTEGRATION_READY"
+    "status": "RECLOSURE_REQUIRED_AFTER_RUNTIME_SOURCE_CHANGE",
+    "date": "2026-10-05",
+    "receipt": "validation/release_receipt.json",
+    "milestone": "current dynamic source reclosure"
   },
   "shippingReady": false,
   "source": {
@@ -119,7 +121,7 @@
     "role": "migration-provenance",
     "tree": "3e84e6681ab123367703a8b612317172b02dc15c"
   },
-  "technicalDistributionReady": true,
+  "technicalDistributionReady": false,
   "tokenSemantics": {
     "eos": 6562,
     "fill": 6564,
@@ -143,5 +145,66 @@
     "licenseInventory": "validation/generate_license_review_inventory.py",
     "licenseGate": "validation/check_license_review.py",
     "status": "IMPLEMENTED_GATES_PENDING_EVIDENCE"
+  },
+  "historicalFixed225CandidateMilestone": {
+    "date": "2026-10-03",
+    "milestone": "MILESTONES/IOS_FIXED225_DISTRIBUTION_READY_2026-10-03.md",
+    "receipt": "validation/ios_fixed225_distribution_ready_2026-10-03.json",
+    "status": "PASS"
+  },
+  "historicalFixed225SdkReadyMilestone": {
+    "date": "2026-10-02",
+    "milestone": "MILESTONES/IOS_FIXED225_SDK_READY_2026-10-02.md",
+    "receipt": "validation/ios_fixed225_sdk_ready_2026-10-02.json",
+    "status": "PASS_PRIVATE_RC_INTEGRATION_READY"
+  },
+  "currentSourceReclosureRequired": true,
+  "historicalFixed225CandidateReceipt": "validation/history/fixed225_release_receipt.json",
+  "dynamicProfile": {
+    "status": "CANDIDATE_EVIDENCE_RECLOSURE_REQUIRED",
+    "runtimeProfile": "ios18-dynamic-n1-n479",
+    "speechTokenBounds": [
+      1,
+      479
+    ],
+    "flowFrameBounds": [
+      304,
+      1260
+    ],
+    "melFrameBounds": [
+      2,
+      958
+    ],
+    "pcmSampleBounds": [
+      960,
+      459840
+    ],
+    "outputSampleRate": 24000,
+    "outputChannels": 1,
+    "flowSteps": {
+      "default": 6,
+      "supported": [
+        6,
+        8,
+        10
+      ]
+    },
+    "generationContract": "min(targetTextTokens*20,512-logicalPrefixLength)",
+    "N0Policy": "FAIL_CLOSED_NON_PCM",
+    "requestedComputePlacement": {
+      "llmPrefill": "CPU_ONLY",
+      "llmDecode": "CPU_ONLY",
+      "dynamicAcoustic": "CPU_AND_NE",
+      "referenceEncoders": "CPU_ONLY",
+      "residencyProven": false
+    },
+    "dynamicAcousticExecutionHints": {
+      "reshapeFrequency": "INFREQUENT"
+    },
+    "customReference": {
+      "status": "PASS_DEVICE_PARITY"
+    },
+    "validatedRuntimeSourceCommit": "3267547f6436444e72889d443a030fd9be41e2af",
+    "validatedCandidateSourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b"
   }
 }

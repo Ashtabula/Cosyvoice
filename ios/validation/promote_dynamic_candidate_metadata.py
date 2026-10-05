@@ -126,6 +126,19 @@ def main()->int:
         "immutable public runtime asset publication after clean-room and license approval"
     ]
     manifest_path.write_text(json.dumps(manifest,indent=2,sort_keys=True)+"\n",encoding="utf-8")
+    provenance={
+        "schemaVersion":1,"engine":"CosyVoice3","platform":"iOS",
+        "candidateReleaseHead":current,"validatedSourceCommit":receipt["validatedSourceCommit"],
+        "validatedRuntimeSourceCommit":receipt.get("validatedRuntimeSourceCommit"),
+        "currentSourceReclosureRequired":False,
+        "asset":{key:asset[key] for key in ("profile","version","repoId","revision","payloadTreeSha256","testedRuntimeTreeSha256")},
+        "deviceEvidence":{"modelIdentifier":receipt["device"]["modelIdentifier"],"systemVersion":receipt["device"]["systemVersion"]},
+        "publicRedistributionApproved":False,
+        "candidateReleaseReceiptPrivatePath":"validation/release_receipt.json",
+        "historicalDynamicCandidateReceiptPrivatePath":"validation/dynamic_release_receipt.json",
+        "historicalFixed225CandidateReceiptPrivatePath":"validation/history/fixed225_release_receipt.json"
+    }
+    (ROOT/"PUBLIC_PROVENANCE.json").write_text(json.dumps(provenance,indent=2,sort_keys=True)+"\\n",encoding="utf-8")
 
     benchmark=load(ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
     m=benchmark["measurement"]
@@ -247,3 +260,4 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: dynamic promotion switches manifest publication.branch and current Candidate/SDK-ready milestone pointers to the dynamic release line while preserving fixed225 milestone metadata under explicit historical fields.
 
 # Changes 2026-10-04: promoted README/ASSETS/BENCHMARK/VALIDATION now surface the canonical Candidate clean-room host/toolchain/consumer-path metadata from release_receipt.environment, not only the JSON ledger.
+\n# Changes 2026-10-05: exact-current-source promotion clears the reclosure flag and rewrites PUBLIC_PROVENANCE to the same dynamic asset/source authority.\n

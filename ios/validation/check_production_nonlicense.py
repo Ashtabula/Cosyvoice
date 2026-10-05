@@ -12,7 +12,7 @@ def main():
     candidate=load(ROOT/"validation/release_receipt.json"); base=load(ROOT/"validation/production_baseline.json"); clean=load(ROOT/"validation/evidence/production_clean_room.json"); tree=load(ROOT/"validation/evidence/release_tree_reproducible.json")
     dynamic=candidate.get("profile")=="ios18-dynamic-n1-n479"
     audio=load(ROOT/("validation/evidence/dynamic_n1_listening_acceptance.json" if dynamic else "validation/evidence/flow6_listening_acceptance.json"))
-    if candidate.get("releaseStatus")!="candidate" or candidate.get("technicalDistributionReady") is not True or candidate.get("publicRedistributionApproved") is not False: raise RuntimeError("Candidate state mismatch")
+    if candidate.get("currentSourceReclosureRequired") is True: raise RuntimeError("current shipping source requires Candidate reclosure")\n    if candidate.get("releaseStatus")!="candidate" or candidate.get("technicalDistributionReady") is not True or candidate.get("publicRedistributionApproved") is not False: raise RuntimeError("Candidate state mismatch")
     if candidate.get("validatedSourceCommit")!=base["validatedSourceCommit"] or candidate.get("assetIdentity")!=base["assetIdentity"]: raise RuntimeError("Candidate baseline binding mismatch")
     if subprocess.run(["git","-C",str(REPO),"diff","--quiet",base["candidateReleaseHead"],"HEAD","--","ios/Package.swift","ios/Sources"]).returncode!=0: raise RuntimeError("runtime source changed after Candidate baseline")
     if clean.get("status")!="PASS_PRODUCTION_CLEAN_ROOM" or clean.get("candidateReleaseHead")!=base["candidateReleaseHead"] or clean.get("assetIdentity")!=base["assetIdentity"] or clean.get("publicApiOnly") is not True: raise RuntimeError("Production clean-room evidence mismatch")
@@ -32,3 +32,4 @@ if __name__=="__main__": main()
 # Changes 2026-10-03: rerun deterministic current-tree verification against the committed publicationTreeSha256 so later evidence-only commits cannot hide public-snapshot drift.
 
 # Changes 2026-10-04: select human-audio evidence from canonical Candidate profile; dynamic N1 additionally requires the explicit N0 fail-closed policy while fixed225 historical behavior remains supported.
+\n# Changes 2026-10-05: Production preflight rejects canonical metadata marked currentSourceReclosureRequired after shipping-runtime source changes.\n

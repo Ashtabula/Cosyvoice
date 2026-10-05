@@ -1,6 +1,6 @@
 # CosyVoice3 iOS benchmark status
 
-Current Candidate benchmark: **PASS — physical-device public-API cold/warm evidence recorded.**
+Historical dynamic Candidate benchmark evidence: **PASS for its recorded source; current shipping source requires Candidate reclosure before this evidence can be treated as current-source authority.**
 
 Current dynamic immutable RC: `ios-dynamic-n1-n479-reference/0.2.0-rc1@8a1f25460a157f35fe79c42a79946c40a59da08e`. Fresh-process public synthesis: 43.776 s / RTF 4.209; identical repeat on the same engine: 29.873 s / RTF 2.872. Both returned 249600 finite mono 24 kHz samples (10.4 s), default 6 steps, on physical iPhone18,4 / iOS27.2. No reference validation prewarm and no performance threshold. See `validation/evidence/dynamic_candidate_benchmark.json`. These measurements do not prove ANE residency or new human listening acceptance; the prior dynamic listening record is preserved.
 

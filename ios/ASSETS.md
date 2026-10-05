@@ -1,6 +1,6 @@
 # CosyVoice3 iOS assets
 
-Status: Technical Distribution-Ready Candidate on immutable private RC; ordinary fetch/replay plus current-source supported full-runtime rebuild and controlled 6-step physical-device benchmark evidence are committed; public redistribution is not authorized.
+Status: Dynamic N1...479 immutable private-RC Candidate evidence is preserved; current shipping source requires Candidate reclosure before Production/public snapshot. Public redistribution is not authorized.
 
 Current intended runtime: `ios-dynamic-n1-n479-reference/0.2.0-rc1`, `actacomes/CosyVoice-assets@8a1f25460a157f35fe79c42a79946c40a59da08e`; payload tree `3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68`. Exact immutable fetch, full file/hash verification, physical default/reference replay and fresh-process cold/warm public API measurements passed on iPhone18,4 / iOS27.2. The released Mac path consumes immutable assets; model conversion/rebuild was not rerun. `validation/dynamic_release_receipt.json` records this route and historical conversion provenance. The fixed225 catalog row remains historical.
 
