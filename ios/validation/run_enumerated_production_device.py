@@ -272,6 +272,14 @@ def main() -> None:
         "build",
     ])
     app = derived / "Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app"
+    if not args.reuse_staging:
+        uninstall = [
+            "xcrun", "devicectl", "device", "uninstall", "app",
+            "--device", args.device, args.bundle,
+        ]
+        print("[COSY-ENUMERATED-DEVICE] RUN " + " ".join(uninstall), flush=True)
+        removed = subprocess.run(uninstall, check=False)
+        print(f"[COSY-ENUMERATED-DEVICE] clean-container uninstall returnCode={removed.returncode}", flush=True)
     run(["xcrun", "devicectl", "device", "install", "app", "--device", args.device, app])
 
     if not args.reuse_staging:
@@ -384,3 +392,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: Candidate launch resets only validation-app CosyVoice3 compiled/warm caches before the first measurement, preventing prior same-bundle runs from masquerading as a cold benchmark.
 
 # Changes 2026-10-05: physical schema-3 validation now re-hashes the complete shipping payload tree, verifies it against the exporter receipt, binds payload bytes/tree/export-receipt SHA into staging/evidence, and rejects runtime-source changes after asset export. Manifest-only identity is no longer sufficient.
+
+# Changes 2026-10-05: non-reuse validation now best-effort uninstalls the prior validation bundle before install, forcing a fresh app data container and preventing stale Runtime/Documents/Library cache files from contaminating clean-room evidence. --reuse-staging intentionally preserves the existing container.
