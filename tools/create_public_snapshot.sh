@@ -14,7 +14,7 @@ if [ -e "$DEST" ]; then [ -d "$DEST" ] && [ -z "$(find "$DEST" -mindepth 1 -maxd
 TMP="$(mktemp -d)"; trap 'rm -rf "$TMP"' EXIT
 git archive --format=tar HEAD -- ios LICENSE | tar -xf - -C "$TMP" || exit $?
 while IFS= read -r spec; do
-    case "$spec" in ""|#*) continue;; esac
+    case "$spec" in ""|"#"*) continue;; esac
     src="$TMP/ios/$spec"; dst="$DEST/$spec"
     [ -e "$src" ] || { printf '[COSYVOICE3-PUBLIC-SNAPSHOT] ERROR archived path missing: %s\n' "$spec"; exit 5; }
     mkdir -p "$(dirname "$dst")" || exit $?
@@ -33,3 +33,5 @@ printf '[COSYVOICE3-PUBLIC-SNAPSHOT] PASS sourceHead=%s publicCommit=%s author=%
 # Generated time: 2026-10-03 America/New_York.
 
 # Changes 2026-10-03: public identity policy stays in the private release-engineering repository; the external consumer snapshot contains only the explicit Swift SDK scope plus Apache LICENSE.
+
+# Changes 2026-10-05: quote the # pattern in the public snapshot path filter so bash -n does not parse it as a shell comment and truncate the case arm.
