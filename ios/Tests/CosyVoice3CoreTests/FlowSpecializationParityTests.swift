@@ -19,13 +19,15 @@ final class FlowSpecializationParityTests: XCTestCase {
         let excitation = try CosyVoice3AssetLoader.array(root: root, path: d.hiftExcitationMaximum, shape: [1,d.maximumPCMSamples,9], type: .float32)
         let f0 = try CosyVoice3HiFTDoubleF0(folder: root.appendingPathComponent(m.f0Folder))
         let prepared = CosyVoice3PreparedRequest(prefillInput: try MLDictionaryFeatureProvider(dictionary: [:]), minimumSpeechTokenCount: 1, maximumSpeechTokenCount: 479, logicalPrefixLength: 224)
-        defer { unsetenv("COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION") }
+        let gpuProbe = ProcessInfo.processInfo.environment["COSYVOICE3_HOST_GPU_PROBE"] == "1"
+        defer { unsetenv("COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION"); unsetenv("COSYVOICE3_VALIDATION_ACOUSTIC_GPU") }
         for n in [186,225] {
             let speech = (0..<n).map { tokens[$0 % 151].intValue }
             var outputs: [[Float]] = []
             var times: [Double] = []
             for fast in [false,true] {
-                setenv("COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION", fast ? "1" : "0", 1)
+                setenv("COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION", fast && !gpuProbe ? "1" : "0", 1)
+                setenv("COSYVOICE3_VALIDATION_ACOUSTIC_GPU", fast && gpuProbe ? "1" : "0", 1)
                 let runtime = try CosyVoice3DynamicAcousticRuntime(assetRoot: root, conditionsPath: m.flowConditions, flowShardPaths: m.flowShards, hiftPath: m.hift, f0: f0, contract: d, defaultPromptTokens: tokens, defaultPromptFeat: feat, defaultSpeaker: speaker, flowNoiseMaximum: noise, hiftExcitationMaximum: excitation)
                 let start = DispatchTime.now().uptimeNanoseconds
                 let audio = try await runtime.synthesize(speechTokens: speech, prepared: prepared)
@@ -34,7 +36,7 @@ final class FlowSpecializationParityTests: XCTestCase {
             }
             XCTAssertEqual(outputs[0].count, outputs[1].count)
             let maxAbs = zip(outputs[0],outputs[1]).map { abs(Double($0.0)-Double($0.1)) }.max() ?? 0
-            print("[COSY-HINT-PARITY] N=\(n) maxAbs=\(maxAbs) beforeSeconds=\(times[0]) afterSeconds=\(times[1]) samples=\(outputs[0].count) scope=HOST_COMPONENT_ONLY")
+            print("[COSY-HINT-PARITY] route=\(gpuProbe ? "CPU_AND_GPU" : "FAST_PREDICTION") N=\(n) maxAbs=\(maxAbs) beforeSeconds=\(times[0]) afterSeconds=\(times[1]) samples=\(outputs[0].count) scope=HOST_COMPONENT_ONLY")
             XCTAssertEqual(maxAbs, 0, "Do not promote a hint with changed endpoint PCM")
         }
     }

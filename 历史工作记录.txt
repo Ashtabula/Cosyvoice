@@ -217,3 +217,10 @@ Actions: independent original provider reconstruction vs reused provider, separa
 Files: DecodeProviderParityTests.swift.
 Validation: both controls maxAbs0 across every logits element and128 recurrent steps; synthetic control is not speech quality/physical evidence. Executable SDK unchanged versus766e735.
 GitHub Timeline: test/evidence commit/push next on experiment branch; physical full candidate766e735 in progress, no model bytes changed.
+
+Time: 2026-10-05T08:30:49.661678-04:00
+Prompt: optimize frozen Cosy after CPU hint did not improve full RTF.
+Actions: independent validation-only acoustic CPU_AND_GPU switch, default CPU_AND_NE and all LLM/reference CPU_ONLY preserved. Fixed-input host N186/N225 complete PCM comparisons; GPU waveform differs, strict control rejected; do not run physical GPU or promote.
+Files: AssetLoader.swift, FlowSpecializationParityTests.swift; root GPU rejection JSON/full log.
+Validation: GPU maxAbs1.695045/1.275717; N225 host9.703->5.080s but output gate failed. Default Release47 tests/4 skips/zero failures. Three full physical CPU-route16 segment benchmarks PASS: baseline2.870326, mask3.109059, fast-hint3.099898; targetRTF<1 not reached.
+GitHub Timeline: publishing failed experiment proof on existing experiment branch, not main; no model/precision/steps/sampling or assets changed.
