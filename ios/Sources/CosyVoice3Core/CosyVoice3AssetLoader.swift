@@ -161,7 +161,7 @@ enum CosyVoice3AssetLoader {
     private final class CacheState: @unchecked Sendable {
         let lock = NSLock()
         var resolvedCompiledURLs: [String: URL] = [:]
-        var selectedLLMComputeUnits: MLComputeUnits?
+        var selectedLLMComputeUnitsByRoute: [String: MLComputeUnits] = [:]
     }
 
     private static let cacheState = CacheState()
@@ -219,9 +219,10 @@ enum CosyVoice3AssetLoader {
         root: URL,
         prefillPath: String,
         decodePath: String
-    ) throws -> (prefill: MLModel, decode: MLModel, computeUnits: MLComputeUnits) {
+    ) throws -> (prefill: MLModel, decode: MLModel, computeUnits: MLComputeUnits, routeKey: String) {
+        let routeKey = llmRouteKey(root: root, prefillPath: prefillPath, decodePath: decodePath)
         cacheState.lock.lock()
-        let cachedUnits = cacheState.selectedLLMComputeUnits
+        let cachedUnits = cacheState.selectedLLMComputeUnitsByRoute[routeKey]
         cacheState.lock.unlock()
 
         if let cachedUnits {
@@ -229,11 +230,11 @@ enum CosyVoice3AssetLoader {
                 let prefill = try model(root: root, path: prefillPath, computeUnits: cachedUnits)
                 let decode = try model(root: root, path: decodePath, computeUnits: cachedUnits)
                 print("[COSY-LLM-ROUTE] reuse computeUnits=\(String(describing: cachedUnits))")
-                return (prefill, decode, cachedUnits)
+                return (prefill, decode, cachedUnits, routeKey)
             } catch {
                 print("[COSY-LLM-ROUTE] cached route rejected computeUnits=\(String(describing: cachedUnits)) error=\(String(describing: error))")
                 cacheState.lock.lock()
-                cacheState.selectedLLMComputeUnits = nil
+                cacheState.selectedLLMComputeUnitsByRoute.removeValue(forKey: routeKey)
                 cacheState.lock.unlock()
             }
         }
@@ -244,7 +245,7 @@ enum CosyVoice3AssetLoader {
                 let prefill = try model(root: root, path: prefillPath, computeUnits: units)
                 let decode = try model(root: root, path: decodePath, computeUnits: units)
                 print("[COSY-LLM-ROUTE] candidate computeUnits=\(String(describing: units))")
-                return (prefill, decode, units)
+                return (prefill, decode, units, routeKey)
             } catch {
                 lastError = error
                 print("[COSY-LLM-ROUTE] rejected computeUnits=\(String(describing: units)) error=\(String(describing: error))")
@@ -255,20 +256,42 @@ enum CosyVoice3AssetLoader {
         )
     }
 
-    static func confirmLLMComputeUnits(_ units: MLComputeUnits) {
+    static func confirmLLMComputeUnits(_ units: MLComputeUnits, routeKey: String) {
         cacheState.lock.lock()
-        cacheState.selectedLLMComputeUnits = units
+        cacheState.selectedLLMComputeUnitsByRoute[routeKey] = units
         cacheState.lock.unlock()
-        print("[COSY-LLM-ROUTE] confirmed computeUnits=\(String(describing: units))")
+        print("[COSY-LLM-ROUTE] confirmed route=\(routeKey) computeUnits=\(String(describing: units))")
     }
 
-    static func rejectLLMComputeUnits(_ units: MLComputeUnits) {
+    static func rejectLLMComputeUnits(_ units: MLComputeUnits, routeKey: String) {
         cacheState.lock.lock()
-        if cacheState.selectedLLMComputeUnits == units {
-            cacheState.selectedLLMComputeUnits = nil
+        if cacheState.selectedLLMComputeUnitsByRoute[routeKey] == units {
+            cacheState.selectedLLMComputeUnitsByRoute.removeValue(forKey: routeKey)
         }
         cacheState.lock.unlock()
-        print("[COSY-LLM-ROUTE] rejected after prediction computeUnits=\(String(describing: units))")
+        print("[COSY-LLM-ROUTE] rejected after prediction route=\(routeKey) computeUnits=\(String(describing: units))")
+    }
+
+    static func isRetryableCoreMLFailure(_ error: Error) -> Bool {
+        if case CosyVoice3AssetError.compiledCache(let message) = error {
+            let text = message.lowercased()
+            return text.contains("coreml") || text.contains("core ml") || text.contains("execution plan") || text.contains("error code: -14")
+        }
+        let nsError = error as NSError
+        if nsError.domain.lowercased().contains("coreml") { return true }
+        if nsError.localizedDescription.lowercased().contains("core ml") { return true }
+        if let underlying = nsError.userInfo[NSUnderlyingErrorKey] as? Error {
+            return isRetryableCoreMLFailure(underlying)
+        }
+        return false
+    }
+
+    private static func llmRouteKey(root: URL, prefillPath: String, decodePath: String) -> String {
+        [
+            root.standardizedFileURL.path,
+            prefillPath,
+            decodePath
+        ].joined(separator: "|")
     }
 
     static func dynamicAcousticModel(root: URL, path: String) throws -> MLModel {
@@ -477,3 +500,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-04 performance candidate: add process-cached LLM route negotiation (CPU_AND_NE -> ALL -> CPU_ONLY); a route is accepted only if both stateful prefill and decode models construct. Baseline CPU_ONLY constant and immutable model bytes remain unchanged.
 
 // Changes 2026-10-04 performance candidate follow-up: accelerator LLM route is cached only after a complete generation succeeds; prediction-time failure can reject the route and permit a fresh CPU_ONLY retry.
+
+// Changes 2026-10-05: key negotiated LLM compute placement by asset root + prefill/decode paths so unrelated profiles cannot share a stale route; expose a fail-closed Core ML error classifier so sampler/contract/runtime logic errors are never silently retried as accelerator failures.
