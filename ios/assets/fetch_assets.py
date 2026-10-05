@@ -117,6 +117,7 @@ def main() -> None:
     parser.add_argument("--catalog", type=Path, default=CATALOG)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--force", action="store_true")
+    parser.add_argument("--reuse-valid", action="store_true")
     args = parser.parse_args()
 
     catalog_path = args.catalog.expanduser().resolve()
@@ -137,6 +138,30 @@ def main() -> None:
         fail(f"huggingface_hub is required: {error}")
 
     output = args.output.expanduser().resolve()
+    if output.exists() and args.reuse_valid:
+        try:
+            manifest = validate_release(output, entry)
+            print(
+                "[COSYVOICE3-HF-FETCH] REUSE_PASS "
+                + json.dumps(
+                    {
+                        "output": str(output),
+                        "repoId": entry["repoId"],
+                        "revision": revision,
+                        "profile": entry["profile"],
+                        "version": entry["version"],
+                        "payloadTreeSha256": manifest["payloadTreeSha256"],
+                        "testedRuntimeTreeSha256": manifest["testedRuntimeTreeSha256"],
+                    },
+                    sort_keys=True,
+                ),
+                flush=True,
+            )
+            return
+        except Exception as error:
+            print(f"[COSYVOICE3-HF-FETCH] existing output is not reusable: {type(error).__name__}: {error}", flush=True)
+            if not args.force:
+                raise
     if output.exists() and not args.force:
         fail(f"output already exists; pass --force: {output}")
 
@@ -196,3 +221,5 @@ if __name__ == "__main__":
 # Code purpose: immutable ordinary-developer fetch path for private/public CosyVoice3 iOS asset releases; --catalog permits fail-closed release validation against a temporary candidate catalog before the tracked catalog is committed.
 # Runtime: Python3 + huggingface_hub; private RCs require an authenticated Hugging Face token.
 # Generated: 2026-10-02 America/New_York.
+
+# Changes 2026-10-04: --reuse-valid rehashes and validates an existing immutable output against the selected catalog entry and returns REUSE_PASS without another Hugging Face download; invalid caches still fail closed unless --force permits replacement.
