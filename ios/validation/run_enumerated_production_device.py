@@ -166,6 +166,7 @@ def main() -> None:
     parser.add_argument("--reuse-staging", action="store_true")
     parser.add_argument("--skip-variable-smoke", action="store_true")
     parser.add_argument("--skip-candidate-benchmark", action="store_true")
+    parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--timeout", type=int, default=1800)
     args = parser.parse_args()
 
@@ -213,12 +214,20 @@ def main() -> None:
     asset_export_source = str(export_receipt.get("sourceCommit", ""))
     if len(asset_export_source) != 40:
         raise RuntimeError("enumerated export receipt sourceCommit missing")
-    runtime_diff = subprocess.run(
-        ["git", "-C", str(REPO), "diff", "--quiet", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
-        check=False,
-    )
-    if runtime_diff.returncode != 0:
-        raise RuntimeError("shipping iOS runtime changed after enumerated asset export; rebuild assets before device validation")
+    runtime_changed = run(
+        ["git", "-C", REPO, "diff", "--name-only", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
+        capture=True,
+    ).splitlines()
+    diagnostic_compute = args.diagnostic_enumerated_compute != "production"
+    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"}
+    if runtime_changed and not (
+        diagnostic_compute
+        and set(runtime_changed).issubset(diagnostic_allowed_runtime_files)
+    ):
+        raise RuntimeError(
+            "shipping iOS runtime changed after enumerated asset export; rebuild assets before device validation: "
+            + ",".join(runtime_changed)
+        )
     manifest_sha = sha256(manifest_path)
     export_receipt_sha = sha256(export_receipt_path)
     host_sha = sha256(host_receipt)
@@ -237,6 +246,9 @@ def main() -> None:
         "logicalPrefixMaximumForFullSpeechWindow": 62,
         "hostReceiptSha256": host_sha,
         "recordedAtUnix": int(time.time()),
+        "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
+        "diagnosticRuntimeChangedFiles": runtime_changed,
+        "productionPromotion": False if diagnostic_compute else None,
     }
     staging_path = output / "staging-complete.json"
     json_write(staging_path, staging)
@@ -306,6 +318,9 @@ def main() -> None:
         "device": args.device,
         "bundle": args.bundle,
         "stagingReused": args.reuse_staging,
+        "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
+        "diagnosticRuntimeChangedFiles": runtime_changed,
+        "productionPromotion": False if diagnostic_compute else None,
         "runs": {},
     }
     evidence_path = output / "enumerated-production-device-evidence.json"
@@ -314,11 +329,16 @@ def main() -> None:
     try:
         if not args.skip_candidate_benchmark:
             started = time.time()
+            candidate_args = ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"]
+            if args.diagnostic_enumerated_compute == "cpu-gpu":
+                candidate_args.append("--validation-enumerated-cpu-gpu")
+            elif args.diagnostic_enumerated_compute == "cpu-only":
+                candidate_args.append("--validation-enumerated-cpu-only")
             process = launch_with_console(
                 args.device,
                 args.bundle,
                 output / "candidate-benchmark-console.log",
-                ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"],
+                candidate_args,
             )
             receipt = wait_receipt(
                 device=args.device,
@@ -346,6 +366,7 @@ def main() -> None:
                 "firstWavSha256": receipt.get("firstWavSha256"),
                 "repeatWavSha256": receipt.get("repeatWavSha256"),
                 "validationCacheReset": receipt.get("validationCacheReset"),
+                "requestedComputePlacement": receipt.get("requestedComputePlacement"),
             }
             json_write(evidence_path, evidence)
     except Exception as exc:
@@ -389,7 +410,7 @@ def main() -> None:
         json_write(evidence_path, evidence)
         raise
 
-    evidence["status"] = "PASS_ENUMERATED_PRODUCTION_DEVICE_VALIDATION"
+    evidence["status"] = "PASS_ENUMERATED_DIAGNOSTIC_DEVICE_VALIDATION" if diagnostic_compute else "PASS_ENUMERATED_PRODUCTION_DEVICE_VALIDATION"
     evidence["completedAtUnix"] = int(time.time())
     json_write(evidence_path, evidence)
     print(f"[COSY-ENUMERATED-DEVICE] PASS evidence={evidence_path}", flush=True)
@@ -423,3 +444,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: top-level device evidence now surfaces Candidate thermal start/end, deterministic seed/matched-length gate, and cache-reset status instead of requiring later readers to reopen the raw receipt for benchmark comparability.
 
 # Changes 2026-10-05: top-level Candidate summary now carries the deterministic WAV equality gate and both WAV SHA256 values, making matched cold/warm workload identity visible without reopening the raw device receipt.
+
+# Changes 2026-10-05: add explicit non-promotable schema-3 compute-placement probes (cpu-gpu/cpu-only). Diagnostic mode may cross only the known AssetLoader validation-probe source diff, records that diff and placement in evidence, reuses identical asset bytes, and never labels the run Production validation.
