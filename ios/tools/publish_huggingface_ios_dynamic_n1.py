@@ -241,8 +241,21 @@ def stage(args: argparse.Namespace) -> tuple[Path, dict]:
     (evidence_dir / "dynamic-public-api-smoke.json").write_text(
         json.dumps(sanitized_smoke, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
+    sanitized_lower = {
+        key: lower.get(key)
+        for key in (
+            "schemaVersion", "status", "carryForwardBasis",
+            "newNBounds", "newTBounds", "newGBounds", "newPCMSampleBounds",
+            "physicalCheckpointN", "negativeBoundaryN",
+            "priorExhaustiveNBounds", "priorExhaustiveIntegerCount",
+            "oldFamilyReceiptSha256", "newFamilyReceiptSha256",
+            "equivalenceReceiptSha256", "deviceReceiptSha256",
+            "productionPromotion"
+        )
+        if key in lower
+    }
     (evidence_dir / "lower-bound-extension.json").write_text(
-        json.dumps(lower, indent=2, sort_keys=True) + "\n", encoding="utf-8"
+        json.dumps(sanitized_lower, indent=2, sort_keys=True) + "\n", encoding="utf-8"
     )
     lanes = listening.get("smoke") or {}
     default_lane = lanes.get("default") or {}
@@ -454,3 +467,5 @@ if __name__ == "__main__":
 # Changes 2026-10-04: hosted RC listening evidence is anonymized to decision/output hashes only; real-person validation name, reference WAV/transcript and identity-specific prose are excluded from the asset payload.
 
 # Changes 2026-10-04: immutable dynamic asset manifest records hash-bound family/lower-bound conversion provenance and the exporter-documented macOS/Python/torch/coremltools/Xcode environment, explicitly separating historical model conversion from the supported Mac clean-room consumer path.
+
+# Changes 2026-10-04: hosted lower-bound evidence is sanitized to bounds/checkpoints/cryptographic identity only; developer-local priorSweepPath and other workstation paths are excluded from the immutable asset payload.
