@@ -597,11 +597,12 @@ def main() -> int:
         )
 
         receipt["assetPackageBytes"] = sum(tree_bytes(p) for p in packages)
+        if not args.keep_intermediates:
+            shutil.rmtree(work)
+        receipt["intermediatesRetained"] = args.keep_intermediates
         receipt["standaloneRootBytes"] = tree_bytes(args.output)
         receipt["status"] = "PASS_ENUMERATED_N1_N450_EXPORT_NOT_PROMOTED"
         receipt["phase"] = "complete"
-        if not args.keep_intermediates:
-            shutil.rmtree(work)
     except Exception as exc:
         receipt.update(status="FAIL", error=str(exc), traceback=traceback.format_exc())
     save()
@@ -623,3 +624,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: compiled mlmodelc artifacts are transient validation products under .family-build and are removed from the shipping root; the exporter now runs the standalone schema-3 asset validator before declaring PASS.
 
 # Changes 2026-10-05: fix production exporter Flow shard-0 ABI: the first shard has two outputs (h, te), while shards 1...5 have one output. Swift CI cannot catch this conversion-only mismatch; exporter now preserves the validated six-shard ABI exactly.
+
+# Changes 2026-10-05: final standaloneRootBytes is measured only after transient .family-build removal (unless --keep-intermediates is explicit), so production size evidence no longer counts conversion/compiled validation artifacts that are not shipped.
