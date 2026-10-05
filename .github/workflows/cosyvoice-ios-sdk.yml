@@ -66,6 +66,15 @@ jobs:
           python-version: '3.10'
       - name: Compile release Python tools
         run: python -m compileall -q ios/tools ios/assets ios/validation
+      - name: Parse release shell tools
+        run: |
+          bash -n ios/validation/finish_ios_dynamic_n1_private_rc.sh
+          bash -n ios/validation/run_dynamic_candidate_closure.sh
+          bash -n ios/validation/run_candidate_benchmark.sh
+          bash -n ios/validation/run_production_clean_room.sh
+          bash -n ios/validation/finalize_production_nonlicense.sh
+          bash -n ios/validation/run_dynamic_production_nonlicense_closure.sh
+          bash -n tools/create_public_snapshot.sh
       - name: Audit shipping iOS source isolation
         run: python ios/validation/audit_source_isolation.py
       - name: Audit public release identity
@@ -83,6 +92,10 @@ jobs:
               Path("ios/assets/cosyvoice3_fixed225.example.json"),
               Path("ios/validation/development_receipt.json"),
               Path("ios/validation/production_baseline.json"),
+              Path("ios/validation/history/fixed225_release_receipt.json"),
+              Path("ios/validation/dynamic_n1_release_entry_2026-10-04.json"),
+              Path("ios/validation/evidence/dynamic_n1_listening_acceptance.json"),
+              Path("HTP/validation/release_receipt.json"),
               Path("ios/PUBLIC_PROVENANCE.json"),
           ]:
               json.loads(path.read_text())
