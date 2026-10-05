@@ -293,7 +293,19 @@ enum CosyVoice3AssetLoader {
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
-        let units: MLComputeUnits = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
+        let enumeratedGPU = path.hasPrefix("enumerated-acoustic/") && CommandLine.arguments.contains("--validation-enumerated-cpu-gpu")
+        let enumeratedCPU = path.hasPrefix("enumerated-acoustic/") && CommandLine.arguments.contains("--validation-enumerated-cpu-only")
+        if enumeratedGPU && enumeratedCPU {
+            throw CosyVoice3AssetError.compiledCache("conflicting enumerated validation compute overrides")
+        }
+        let units: MLComputeUnits
+        if enumeratedGPU {
+            units = .cpuAndGPU
+        } else if enumeratedCPU {
+            units = .cpuOnly
+        } else {
+            units = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
+        }
         config.computeUnits = units
         config.functionName = functionName
         if units != computeUnits { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(units) validationOnly=YES") }
@@ -542,6 +554,8 @@ enum CosyVoice3AssetLoader {
 // Changed model configuration: one opt-in validation env key; failures propagate without fallback.
 
 // Changes 2026-10-05: add schema-3 ios18-enumerated-N1...450 acoustic contract with four <=128 exact-shape families, multifunction function selection, and function-bound warm-marker identity. The fixed225 and schema-2 RangeDim contracts remain readable controls.
+
+// Changes 2026-10-05: add validation-only command-line compute overrides for schema-3 enumerated acoustic models: --validation-enumerated-cpu-gpu and --validation-enumerated-cpu-only. Production/default placement remains CPU_AND_NE; conflicting overrides fail closed.
 
 // Changes 2026-10-05: align Swift variable-acoustic status gates with the standalone validator: both schema-2 and schema-3 accept CANDIDATE and PASS_DEVICE_VALIDATION, preventing a physically promoted manifest from becoming unreadable by the SDK.
 
