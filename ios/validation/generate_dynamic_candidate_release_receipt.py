@@ -22,10 +22,6 @@ def require(value:bool,message:str)->None:
 def head()->str:
     return subprocess.check_output(["git","-C",str(REPO),"rev-parse","HEAD"],text=True).strip()
 
-def runtime_unchanged(validated:str,current:str)->None:
-    if subprocess.run(["git","-C",str(REPO),"diff","--quiet",validated,current,"--","ios/Package.swift","ios/Sources"]).returncode!=0:
-        raise RuntimeError("shipping runtime differs from physically validated source commit")
-
 def main()->int:
     p=argparse.ArgumentParser()
     p.add_argument("--build-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_standalone_build.json")
@@ -60,6 +56,8 @@ def main()->int:
     require(private.get("status")=="PASS_DYNAMIC_PRIVATE_RC_IMMUTABLE_REPLAY","dynamic immutable private RC replay is not PASS")
     require(private.get("profile")==PROFILE and private.get("version")==VERSION,"dynamic private RC profile/version mismatch")
     require(private.get("ordinaryDeveloperFetchPass") is True and private.get("publicApiDefaultReplayPass") is True and private.get("publicApiReferenceReplayPass") is True,"dynamic private RC fetch/device replay incomplete")
+    replay_source=private.get("physicalReplaySourceCommit") or (private.get("immutableReplayBinding") or {}).get("sourceCommit")
+    require(replay_source==current,"dynamic private-RC physical replay is not current HEAD")
     require(private.get("publicRedistributionApproved") is False,"dynamic Candidate must remain private before license approval")
     require(conversion.get("status")=="PASS_DYNAMIC_CONVERSION_PROVENANCE_RECORDED","dynamic conversion provenance is not PASS")
     require((private.get("conversionProvenance") or {}).get("familyReceiptSha256")==conversion.get("familyReceiptSha256"),"private RC/conversion provenance family receipt mismatch")
@@ -105,8 +103,7 @@ def main()->int:
         require(asset.get(key)==release.get(key),f"benchmark asset {key} differs from immutable catalog")
 
     validated=str(private.get("validatedRuntimeSourceCommit") or "")
-    require(len(validated)==40,"private RC validated runtime source commit missing")
-    runtime_unchanged(validated,current)
+    require(len(validated)==40,"private RC immutable asset/runtime provenance commit missing")
 
     device=benchmark.get("device") or {}
     target=environment.get("validationTarget") or env.get("validationTarget") or {}
@@ -125,6 +122,8 @@ def main()->int:
         "sourceCommit":current,
         "validatedSourceCommit":current,
         "validatedRuntimeSourceCommit":validated,
+        "validatedRuntimeSourceRole":"immutable asset/runtime provenance; current SDK authority is validatedSourceCommit plus physicalReplaySourceCommit",
+        "physicalReplaySourceCommit":replay_source,
         "assetIdentity":asset_identity,
         "profile":"ios18-dynamic-n1-n479",
         "speechTokenBounds":[1,479],
@@ -201,3 +200,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: optional immutable-asset receipt implements the canonical checklist's obtain-immutable-assets OR pinned-rebuild path. Requires complete Mac-side manifest/file/tree validation and recorded conversion provenance; explicitly records model rebuild as not run. All physical replay, benchmark, source, quality and identity gates remain required.
 
 # Changes 2026-10-05: exact-current-source Candidate closure explicitly clears currentSourceReclosureRequired for downstream identity/Production gates.
+
+# Changes 2026-10-05: Candidate closure binds current SDK correctness to physicalReplaySourceCommit/benchmark/build/environment/N0 current HEAD; validatedRuntimeSourceCommit remains immutable asset/runtime provenance and no longer incorrectly forbids wrapper-source reclosure.

@@ -237,17 +237,21 @@ def sha256(path):
  return h.hexdigest()
 if d.get("status")!="PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE": raise SystemExit("RC replay is not PASS")
 if d.get("profile")!="ios18-dynamic-n1-n479-candidate" or d.get("speechTokenBounds")!=[1,479]: raise SystemExit("RC replay profile/bounds mismatch")
+replay_source=str(d.get("sourceCommit") or "")
+if len(replay_source)!=40 or any(c not in "0123456789abcdef" for c in replay_source): raise SystemExit("RC replay sourceCommit missing/invalid")
+reference_wav_sha=sha256(sys.argv[5]); reference_transcript_sha=sha256(sys.argv[6])
 out={
  "schemaVersion":1,"status":"PASS_DYNAMIC_PRIVATE_RC_IMMUTABLE_REPLAY",
  "profile":m["profile"],"version":m["assetVersion"],"repoId":u["repoId"],"revision":u["commit"],"tag":u["tag"],
  "visibility":"private","payloadTreeSha256":m["payloadTreeSha256"],"testedRuntimeTreeSha256":m["testedRuntimeTreeSha256"],
- "validatedRuntimeSourceCommit":m["validatedRuntimeSourceCommit"],"conversionProvenance":m.get("conversionProvenance"),"ordinaryDeveloperFetchPass":True,
+ "validatedRuntimeSourceCommit":m["validatedRuntimeSourceCommit"],"physicalReplaySourceCommit":replay_source,"conversionProvenance":m.get("conversionProvenance"),"ordinaryDeveloperFetchPass":True,
  "publicApiDefaultReplayPass":True,"publicApiReferenceReplayPass":True,
  "device":{"model":d.get("device"),"modelIdentifier":d.get("deviceModelIdentifier"),"systemVersion":d.get("systemVersion")},
  "default":{"N":d["default"]["inferredSpeechTokensFromPCM"],"samples":d["default"]["samples"]},
  "reference":{"N":d["reference"]["inferredSpeechTokensFromPCM"],"samples":d["reference"]["samples"]},
- "replayReference":{"wavSha256":sha256(sys.argv[5]),"transcriptSha256":sha256(sys.argv[6]),"mediaCommitted":False,"transcriptCommitted":False},
- "licenseGate":m["licenseGate"],"publicRedistributionApproved":False,"recordedAtUnix":int(time.time())
+ "immutableReplayBinding":{"sourceCommit":replay_source,"immutableManifestSha256":sha256(sys.argv[2]),"repoId":u["repoId"],"revision":u["commit"],"payloadTreeSha256":m["payloadTreeSha256"],"testedRuntimeTreeSha256":m["testedRuntimeTreeSha256"],"physicalReceiptSha256":sha256(sys.argv[3]),"mode":"dynamic","referenceWavSha256":reference_wav_sha,"referenceTranscriptSha256":reference_transcript_sha,"recordedAtUnix":d.get("recordedAtUnix"),"status":d["status"]},
+ "replayReference":{"wavSha256":reference_wav_sha,"transcriptSha256":reference_transcript_sha,"mediaCommitted":False,"transcriptCommitted":False},
+ "licenseGate":m["licenseGate"],"licenseForThisRun":"IGNORED: LICENSE","publicRedistributionApproved":False,"recordedAtUnix":int(time.time())
 }
 Path(sys.argv[4]).parent.mkdir(parents=True,exist_ok=True);Path(sys.argv[4]).write_text(json.dumps(out,indent=2,sort_keys=True)+"\n")
 print("[COSYVOICE3-DYNAMIC-RC] REPLAY_PASS "+json.dumps(out,sort_keys=True),flush=True)
@@ -291,3 +295,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: make private-RC retries transaction-safe: conversion provenance stays under .work until Step 7, a historical partial-run provenance edit is restored automatically, exact downloaded/fetched immutable assets are rehashed and reused instead of redownloaded, physical replay writes to a deterministic .work evidence directory, and canonical fallback transcript is emitted only when the canonical fallback WAV is selected.
 
 # Changes 2026-10-04: resolve replay reference audio/transcript only as an inseparable matching pair and record only their SHA256 identities in dynamic_private_rc.json; never mix explicit/cache/canonical reference components or commit the media/text.
+
+# Changes 2026-10-05: immutable private-RC replay now records the exact SDK physicalReplaySourceCommit and hash-bound replay binding separately from validatedRuntimeSourceCommit, which remains immutable asset/runtime provenance.
