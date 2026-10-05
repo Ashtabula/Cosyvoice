@@ -100,6 +100,8 @@ def validate_shared(root: Path, manifest: dict):
 def validate_fixed(root: Path, manifest: dict):
     if manifest.get("schemaVersion") != 1 or manifest.get("profile") != "ios18-fixed225":
         fail("fixed225 manifest identity mismatch")
+    if manifest.get("dynamicAcoustic") is not None or manifest.get("enumeratedAcoustic") is not None:
+        fail("fixed225 manifest must not carry variable acoustic contracts")
     flow_mask = manifest.get("flowMask")
     flow_noise = manifest.get("flowNoise")
     if not flow_mask or not flow_noise:
@@ -115,6 +117,8 @@ def validate_fixed(root: Path, manifest: dict):
 def validate_dynamic(root: Path, manifest: dict):
     if manifest.get("schemaVersion") != 2 or not str(manifest.get("profile", "")).startswith("ios18-dynamic-"):
         fail("dynamic manifest identity mismatch")
+    if manifest.get("enumeratedAcoustic") is not None:
+        fail("schema-2 dynamic manifest must not carry an enumeratedAcoustic contract")
     contract = manifest.get("dynamicAcoustic")
     if not isinstance(contract, dict):
         fail("dynamic manifest has no dynamicAcoustic contract")
@@ -131,6 +135,10 @@ def validate_dynamic(root: Path, manifest: dict):
 def validate_enumerated(root: Path, manifest: dict):
     if manifest.get("schemaVersion") != 3 or manifest.get("profile") != "ios18-enumerated-n1-n450":
         fail("enumerated manifest identity mismatch")
+    if manifest.get("dynamicAcoustic") is not None:
+        fail("schema-3 enumerated manifest must not carry a dynamicAcoustic contract")
+    if manifest.get("flowMask") is not None or manifest.get("flowNoise") is not None:
+        fail("schema-3 enumerated manifest must not carry legacy fixed flowMask/flowNoise paths")
     contract = manifest.get("enumeratedAcoustic")
     if not isinstance(contract, dict):
         fail("enumerated manifest has no enumeratedAcoustic contract")
@@ -256,3 +264,5 @@ if __name__ == "__main__":
 # Runtime environment: Python 3 standard library.
 # Generated time: 2026-10-05 America/New_York.
 # Changed lines: complete profile-neutral validator; schema-3 N1...450/62-prefix/four-family gates; active-manifest reference checks; standalone enumerated roots no longer need fixed225 acoustic assets.
+
+# Changes 2026-10-05: standalone validator now enforces the same mutually exclusive fixed/dynamic/enumerated acoustic contracts as Swift. Schema-3 additionally requires legacy fixed flowMask/flowNoise fields to be null, matching the production manifest writer.
