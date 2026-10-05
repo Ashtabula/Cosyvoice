@@ -262,22 +262,46 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 prefillPath: manifest.llmPrefill,
                 decodePath: manifest.llmDecode
             )
-            let prefill = models.prefill
-            let decode = models.decode
-            let llm = CosyVoice3LLMRuntime(
-                prefillModel: prefill,
-                decodeModel: decode,
-                conditioner: try reusableConditioner(),
-                progress: validationProgressObserver
-            )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
             validationProgress("llm.load.end")
             validationProgress("llm.generate.begin:maxN=\(prepared.maximumSpeechTokenCount)")
             let generationStart = DispatchTime.now().uptimeNanoseconds
-            let tokens = try llm.generate(prepared)
-            llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
-            validationProgress("llm.generate.end:N=\(tokens.count)")
-            return tokens
+            do {
+                let llm = CosyVoice3LLMRuntime(
+                    prefillModel: models.prefill,
+                    decodeModel: models.decode,
+                    conditioner: try reusableConditioner(),
+                    progress: validationProgressObserver
+                )
+                let tokens = try llm.generate(prepared)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits)
+                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                validationProgress("llm.generate.end:N=\(tokens.count)")
+                return tokens
+            } catch {
+                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits)
+                guard models.computeUnits != .cpuOnly else { throw error }
+                validationProgress("llm.accelerator.failed:fallback=CPU_ONLY:error=\(String(describing: error))")
+                let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
+                let prefill = try CosyVoice3AssetLoader.model(
+                    root: assetRoot, path: manifest.llmPrefill, computeUnits: .cpuOnly
+                )
+                let decode = try CosyVoice3AssetLoader.model(
+                    root: assetRoot, path: manifest.llmDecode, computeUnits: .cpuOnly
+                )
+                llmModelLoadMilliseconds += Self.milliseconds(since: fallbackLoadStart)
+                let fallback = CosyVoice3LLMRuntime(
+                    prefillModel: prefill,
+                    decodeModel: decode,
+                    conditioner: try reusableConditioner(),
+                    progress: validationProgressObserver
+                )
+                let tokens = try fallback.generate(prepared)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly)
+                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                validationProgress("llm.generate.end:N=\(tokens.count):fallback=CPU_ONLY")
+                return tokens
+            }
         }()
 
         // The lexical scope above intentionally drops request-scoped LLM model references
@@ -412,19 +436,41 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 prefillPath: manifest.llmPrefill,
                 decodePath: manifest.llmDecode
             )
-            let prefill = models.prefill
-            let decode = models.decode
-            let llm = CosyVoice3LLMRuntime(
-                prefillModel: prefill,
-                decodeModel: decode,
-                conditioner: try reusableConditioner(),
-                progress: validationProgressObserver
-            )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
             let generationStart = DispatchTime.now().uptimeNanoseconds
-            let tokens = try llm.generate(prepared)
-            llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
-            return tokens
+            do {
+                let llm = CosyVoice3LLMRuntime(
+                    prefillModel: models.prefill,
+                    decodeModel: models.decode,
+                    conditioner: try reusableConditioner(),
+                    progress: validationProgressObserver
+                )
+                let tokens = try llm.generate(prepared)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(models.computeUnits)
+                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                return tokens
+            } catch {
+                CosyVoice3AssetLoader.rejectLLMComputeUnits(models.computeUnits)
+                guard models.computeUnits != .cpuOnly else { throw error }
+                let fallbackLoadStart = DispatchTime.now().uptimeNanoseconds
+                let prefill = try CosyVoice3AssetLoader.model(
+                    root: assetRoot, path: manifest.llmPrefill, computeUnits: .cpuOnly
+                )
+                let decode = try CosyVoice3AssetLoader.model(
+                    root: assetRoot, path: manifest.llmDecode, computeUnits: .cpuOnly
+                )
+                llmModelLoadMilliseconds += Self.milliseconds(since: fallbackLoadStart)
+                let fallback = CosyVoice3LLMRuntime(
+                    prefillModel: prefill,
+                    decodeModel: decode,
+                    conditioner: try reusableConditioner(),
+                    progress: validationProgressObserver
+                )
+                let tokens = try fallback.generate(prepared)
+                CosyVoice3AssetLoader.confirmLLMComputeUnits(.cpuOnly)
+                llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+                return tokens
+            }
         }()
         let speechTokenSHA256 = SHA256.hash(
             data: Data(speechTokens.map { String($0) }.joined(separator: ",").utf8)
@@ -812,3 +858,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Updated 2026-10-04: emit phase totals from existing synthesis timing; no math, model lifetime, or parameters changed.
 
 // Changes 2026-10-04 performance candidate: both production and validation LLM call sites use one process-cached common compute route selected by llmModelPair(); model/state/RAS/public API remain unchanged.
+
+// Changes 2026-10-04 performance candidate follow-up: accelerator-route LLM generation is fail-closed with a fresh CPU_ONLY state/session retry on prediction/execution-plan failure; CPU fallback is cached only after successful generation. Public stochastic sampling semantics and model bytes remain unchanged.
