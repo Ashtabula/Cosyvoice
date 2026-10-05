@@ -20,15 +20,18 @@ struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
     let path: String
     let computeUnits: MLComputeUnits
     let reshapeFrequencyInfrequent: Bool
+    let functionName: String?
 
     init(
         _ path: String,
         computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
-        reshapeFrequencyInfrequent: Bool = false
+        reshapeFrequencyInfrequent: Bool = false,
+        functionName: String? = nil
     ) {
         self.path = path
         self.computeUnits = computeUnits
         self.reshapeFrequencyInfrequent = reshapeFrequencyInfrequent
+        self.functionName = functionName
     }
 
     static func llm(_ path: String) -> Self {
@@ -98,6 +101,68 @@ struct CosyVoice3DynamicAcousticAssets: Codable, Sendable {
     var maximumPCMSamples: Int { 960 * speechTokenMaximum }
 }
 
+struct CosyVoice3EnumeratedShapeFamily: Codable, Sendable, Equatable {
+    let speechTokenMinimum: Int
+    let speechTokenMaximum: Int
+    let functionName: String
+
+    var count: Int { speechTokenMaximum - speechTokenMinimum + 1 }
+
+    func contains(_ n: Int) -> Bool {
+        n >= speechTokenMinimum && n <= speechTokenMaximum
+    }
+}
+
+struct CosyVoice3EnumeratedAcousticAssets: Codable, Sendable {
+    let status: String
+    let speechTokenMinimum: Int
+    let speechTokenMaximum: Int
+    let promptFrameCount: Int
+    let logicalPrefixMaximumForFullSpeechWindow: Int
+    let families: [CosyVoice3EnumeratedShapeFamily]
+    let defaultPromptTokens: String
+    let defaultPromptFeat: String
+    let defaultSpeaker: String
+    let flowNoiseMaximum: String
+    let hiftExcitationMaximum: String
+
+    func validate() throws {
+        guard status == "CANDIDATE",
+              speechTokenMinimum == 1,
+              speechTokenMaximum == 450,
+              promptFrameCount == 302,
+              logicalPrefixMaximumForFullSpeechWindow == CosyVoice3FP16StatefulLLMSession.capacity - speechTokenMaximum,
+              families.count == 4,
+              !defaultPromptTokens.isEmpty,
+              !defaultPromptFeat.isEmpty,
+              !defaultSpeaker.isEmpty,
+              !flowNoiseMaximum.isEmpty,
+              !hiftExcitationMaximum.isEmpty else {
+            throw CosyVoice3AssetError.invalidJSON("invalid enumerated acoustic contract")
+        }
+        let expected = [
+            CosyVoice3EnumeratedShapeFamily(speechTokenMinimum: 1, speechTokenMaximum: 128, functionName: "n001_128"),
+            CosyVoice3EnumeratedShapeFamily(speechTokenMinimum: 129, speechTokenMaximum: 256, functionName: "n129_256"),
+            CosyVoice3EnumeratedShapeFamily(speechTokenMinimum: 257, speechTokenMaximum: 384, functionName: "n257_384"),
+            CosyVoice3EnumeratedShapeFamily(speechTokenMinimum: 385, speechTokenMaximum: 450, functionName: "n385_450"),
+        ]
+        guard families == expected, families.allSatisfy({ $0.count <= 128 }) else {
+            throw CosyVoice3AssetError.invalidJSON("enumerated acoustic family partition mismatch")
+        }
+    }
+
+    func functionName(forSpeechTokenCount n: Int) throws -> String {
+        guard let family = families.first(where: { $0.contains(n) }) else {
+            throw CosyVoice3AssetError.invalidJSON("no enumerated acoustic function for N=\(n)")
+        }
+        return family.functionName
+    }
+
+    var maximumFlowFrames: Int { promptFrameCount + 2 * speechTokenMaximum }
+    var maximumMelFrames: Int { 2 * speechTokenMaximum }
+    var maximumPCMSamples: Int { 960 * speechTokenMaximum }
+}
+
 struct CosyVoice3AssetManifest: Codable, Sendable {
     let schemaVersion: Int
     let profile: String
@@ -116,9 +181,15 @@ struct CosyVoice3AssetManifest: Codable, Sendable {
     let textEmbeddingRows: Int
     let referenceEnrollment: CosyVoice3ReferenceEnrollmentAssets?
     let dynamicAcoustic: CosyVoice3DynamicAcousticAssets?
+    let enumeratedAcoustic: CosyVoice3EnumeratedAcousticAssets?
 
     var isDynamicAcoustic: Bool { profile.hasPrefix("ios18-dynamic-") }
-    var manifestFileName: String { isDynamicAcoustic ? "cosyvoice3_dynamic.json" : "cosyvoice3_fixed225.json" }
+    var isEnumeratedAcoustic: Bool { profile.hasPrefix("ios18-enumerated-") }
+    var isVariableAcoustic: Bool { isDynamicAcoustic || isEnumeratedAcoustic }
+    var manifestFileName: String {
+        if isEnumeratedAcoustic { return "cosyvoice3_enumerated.json" }
+        return isDynamicAcoustic ? "cosyvoice3_dynamic.json" : "cosyvoice3_fixed225.json"
+    }
 
     func validate() throws {
         guard flowShards.count == 6,
@@ -138,15 +209,21 @@ struct CosyVoice3AssetManifest: Codable, Sendable {
         if profile == "ios18-fixed225" {
             guard schemaVersion == 1,
                   dynamicAcoustic == nil,
+                  enumeratedAcoustic == nil,
                   flowMask?.isEmpty == false,
                   flowNoise?.isEmpty == false else {
                 throw CosyVoice3AssetError.unsupportedProfile(profile)
             }
         } else if isDynamicAcoustic {
-            guard schemaVersion == 2, let dynamicAcoustic else {
+            guard schemaVersion == 2, let dynamicAcoustic, enumeratedAcoustic == nil else {
                 throw CosyVoice3AssetError.unsupportedProfile(profile)
             }
             try dynamicAcoustic.validate()
+        } else if isEnumeratedAcoustic {
+            guard schemaVersion == 3, dynamicAcoustic == nil, let enumeratedAcoustic else {
+                throw CosyVoice3AssetError.unsupportedProfile(profile)
+            }
+            try enumeratedAcoustic.validate()
         } else {
             throw CosyVoice3AssetError.unsupportedProfile(profile)
         }
@@ -167,7 +244,7 @@ enum CosyVoice3AssetLoader {
     private static let compiledCacheVersion = "v1"
 
     static func loadManifest(root: URL) throws -> CosyVoice3AssetManifest {
-        let names = ["cosyvoice3_dynamic.json", "cosyvoice3_fixed225.json"]
+        let names = ["cosyvoice3_enumerated.json", "cosyvoice3_dynamic.json", "cosyvoice3_fixed225.json"]
         guard let url = names.map({ root.appendingPathComponent($0) }).first(where: {
             FileManager.default.fileExists(atPath: $0.path)
         }) else {
@@ -192,7 +269,8 @@ enum CosyVoice3AssetLoader {
         path: String,
         computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
         reshapeFrequencyInfrequent: Bool = false,
-        preferFastPrediction: Bool = false
+        preferFastPrediction: Bool = false,
+        functionName: String? = nil
     ) throws -> MLModel {
         let source = root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
@@ -201,6 +279,7 @@ enum CosyVoice3AssetLoader {
         let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
         let units: MLComputeUnits = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
         config.computeUnits = units
+        config.functionName = functionName
         if units != computeUnits { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(units) validationOnly=YES") }
         if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
@@ -210,7 +289,7 @@ enum CosyVoice3AssetLoader {
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
-                "MLModel load failed path=\(path) computeUnits=\(String(describing: units)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+                "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: units)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
             )
         }
     }
@@ -226,6 +305,17 @@ enum CosyVoice3AssetLoader {
             computeUnits: CosyVoice3ModelComputePlacement.acoustic,
             reshapeFrequencyInfrequent: true,
             preferFastPrediction: preferFastPrediction
+        )
+    }
+
+    static func enumeratedAcousticModel(root: URL, path: String, functionName: String) throws -> MLModel {
+        try model(
+            root: root,
+            path: path,
+            computeUnits: CosyVoice3ModelComputePlacement.acoustic,
+            reshapeFrequencyInfrequent: false,
+            preferFastPrediction: false,
+            functionName: functionName
         )
     }
 
@@ -247,7 +337,8 @@ enum CosyVoice3AssetLoader {
                     root: root,
                     path: spec.path,
                     computeUnits: spec.computeUnits,
-                    reshapeFrequencyInfrequent: spec.reshapeFrequencyInfrequent
+                    reshapeFrequencyInfrequent: spec.reshapeFrequencyInfrequent,
+                    functionName: spec.functionName
                 )
                 _ = warmed.modelDescription
             }
@@ -363,7 +454,7 @@ enum CosyVoice3AssetLoader {
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
         let rows = specs.map {
-            $0.path + "|" + String(describing: $0.computeUnits) + "|reshapeInfrequent=" + String($0.reshapeFrequencyInfrequent)
+            $0.path + "|" + String(describing: $0.computeUnits) + "|reshapeInfrequent=" + String($0.reshapeFrequencyInfrequent) + "|function=" + ($0.functionName ?? "<default>")
         }.sorted()
         let identity = [
             ProcessInfo.processInfo.operatingSystemVersionString,
@@ -430,3 +521,5 @@ enum CosyVoice3AssetLoader {
 // Purpose: independent explicit GPU validation for acoustic paths; reference stays CPU_ONLY and defaults stay accepted.
 // Upstream: existing model loader; environment: Swift6 Apple CoreML; generated 2026-10-05 America/New_York.
 // Changed model configuration: one opt-in validation env key; failures propagate without fallback.
+
+// Changes 2026-10-05: add schema-3 ios18-enumerated-N1...450 acoustic contract with four <=128 exact-shape families, multifunction function selection, and function-bound warm-marker identity. The fixed225 and schema-2 RangeDim contracts remain readable controls.
