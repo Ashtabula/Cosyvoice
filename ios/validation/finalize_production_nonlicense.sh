@@ -19,7 +19,7 @@ v=Path(sys.argv[1]); clean=json.loads(Path(sys.argv[2]).read_text()); tree=json.
 text=text.replace("PRODUCTION BLOCKER: clean-room consumer integration has not run.","PASS FOR PRODUCTION EVIDENCE: independent physical-device clean-room consumer integration passed through the stable public CosyVoice3Core API.")
 text=text.replace("PRODUCTION BLOCKER: release-tree reproducibility has not been frozen.","PASS FOR PRODUCTION EVIDENCE: deterministic public snapshot tree/archive reproducibility is frozen and hash-bound.")
 v.write_text(text)
-release=json.loads((Path(sys.argv[1]).parent/"release_receipt.json").read_text())
+release=json.loads((Path(sys.argv[1]).parent/"validation/release_receipt.json").read_text())
 m={"schemaVersion":1,"status":"PASS_EXCEPT_LICENSE_IDENTITY_AND_PUBLICATION","releaseStatus":"candidate","profile":release.get("profile"),"assetIdentity":release.get("assetIdentity"),"publicRedistributionApproved":False,"cleanRoomIntegration":clean,"releaseTreeReproducible":tree,"pending":["licenseReview","publicIdentityReview","publicAssetPublication"],"recordedAtUnix":int(time.time())}
 Path(sys.argv[4]).write_text(json.dumps(m,indent=2,sort_keys=True)+"\n")
 Path(sys.argv[5]).parent.mkdir(parents=True,exist_ok=True); Path(sys.argv[5]).write_text("# CosyVoice3 iOS Production non-license milestone\n\nStatus: **PASS except license review, public identity/fresh snapshot, and public asset publication.**\n\nThe independent public-API physical-device clean-room gate and deterministic public release-tree gate are committed for the canonical Candidate profile. Candidate runtime/source remains the frozen validated baseline; public redistribution remains false.\n\nPending: licenseReview, publicIdentityReview, publicAssetPublication.\n")
