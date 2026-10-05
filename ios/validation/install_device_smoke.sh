@@ -18,6 +18,7 @@ FRESH_INSTALL="${COSYVOICE3_FRESH_INSTALL:-0}"
 CANDIDATE_BENCHMARK="${COSYVOICE3_CANDIDATE_BENCHMARK:-0}"
 FLOW_STEPS_HEAD_TO_HEAD="${COSYVOICE3_FLOW_STEPS_HEAD_TO_HEAD:-0}"
 DYNAMIC_PUBLIC_API_SMOKE="${COSYVOICE3_DYNAMIC_PUBLIC_API_SMOKE:-0}"
+DYNAMIC_EVIDENCE_OVERRIDE="${COSYVOICE3_DYNAMIC_EVIDENCE_DIR:-}"
 
 main() {
     MODE_COUNT=0
@@ -207,7 +208,12 @@ PY
     xcrun devicectl device process launch --device "$DEVICE_ID" "$BUNDLE_ID" || return $?
     printf '[COSYVOICE3-INSTALL] PASS app=%s bundle=%s device=%s\n' "$APP" "$BUNDLE_ID" "$DEVICE_ID"
     if [ "$DYNAMIC_PUBLIC_API_SMOKE" = "1" ]; then
-        DYNAMIC_EVIDENCE="$ROOT/validation/evidence/dynamic-public-api-smoke-$DYNAMIC_LAUNCH_UNIX"
+        if [ -n "$DYNAMIC_EVIDENCE_OVERRIDE" ]; then
+            DYNAMIC_EVIDENCE="$DYNAMIC_EVIDENCE_OVERRIDE"
+            rm -rf "$DYNAMIC_EVIDENCE"
+        else
+            DYNAMIC_EVIDENCE="$ROOT/validation/evidence/dynamic-public-api-smoke-$DYNAMIC_LAUNCH_UNIX"
+        fi
         mkdir -p "$DYNAMIC_EVIDENCE"
         DYNAMIC_RECEIPT="$DYNAMIC_EVIDENCE/dynamic-public-api-smoke-receipt.json"
         DYNAMIC_TMP="$DYNAMIC_RECEIPT.tmp"
@@ -332,3 +338,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: dynamic smoke host gate now requires the receipt to declare the validated mixed requested placement (LLM CPU_ONLY, acoustic CPU_AND_NE, reference encoders CPU_ONLY); no residency claim is inferred.
 
 # Changes 2026-10-04: dynamic smoke host gate now requires reshapeFrequency=INFREQUENT evidence for dynamic acoustic models, matching the accepted physical sweep configuration.
+
+# Changes 2026-10-04: COSYVOICE3_DYNAMIC_EVIDENCE_DIR may pin the dynamic smoke output directory for deterministic higher-level release closure; the default timestamped validation/evidence behavior is unchanged.
