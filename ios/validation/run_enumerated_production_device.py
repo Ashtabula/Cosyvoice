@@ -246,7 +246,7 @@ def main() -> None:
             args.device,
             args.bundle,
             output / "variable-public-api-console.log",
-            [],
+            ["--no-playback"],
         )
         receipt = wait_receipt(
             device=args.device,
@@ -273,7 +273,7 @@ def main() -> None:
             args.device,
             args.bundle,
             output / "candidate-benchmark-console.log",
-            ["--candidate-benchmark"],
+            ["--candidate-benchmark", "--no-playback"],
         )
         receipt = wait_receipt(
             device=args.device,
@@ -312,3 +312,5 @@ if __name__ == "__main__":
 # Changed lines: new file; exact Git/manifest/host-receipt binding, external asset staging, variable public API default/reference run, Candidate cold/warm run, durable evidence JSON and console logs.
 
 # Changes 2026-10-05: match the already validated devicectl copy grammar exactly: copy to/from subcommand precedes appDataContainer domain flags.
+
+# Changes 2026-10-05: automated variable smoke and Candidate benchmark now pass --no-playback. Candidate app itself requires nominal thermal start, so validation cannot silently accept a smoke-heated performance run.
