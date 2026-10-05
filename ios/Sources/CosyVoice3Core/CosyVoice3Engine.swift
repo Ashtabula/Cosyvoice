@@ -96,7 +96,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 )
             }
             referenceAssets = assets
-            flowConditionsPath = assets.flowConditionsDynamic
+            flowConditionsPath = manifest.isEnumeratedAcoustic
+                ? manifest.flowConditions
+                : assets.flowConditionsDynamic
             referenceCacheHit = try cachedReferenceConditioning(for: reference, assets: assets) != nil
         }
 
@@ -104,7 +106,15 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // persistent markers. The reference tensors may already be cached on a later process
         // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
         func acousticWarmSpec(_ path: String) -> CosyVoice3ModelWarmSpec {
-            manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
+            if let enumerated = manifest.enumeratedAcoustic {
+                let defaultFamily = enumerated.families[1].functionName
+                return .init(
+                    path,
+                    computeUnits: CosyVoice3ModelComputePlacement.acoustic,
+                    functionName: defaultFamily
+                )
+            }
+            return manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
         }
         let mainPlan: [CosyVoice3ModelWarmSpec] = [
             .llm(manifest.llmPrefill),
@@ -284,7 +294,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         let acousticModelLoadMilliseconds: Double
         let acousticSynthesisMilliseconds: Double
         if let dynamic = manifest.dynamicAcoustic {
-            validationProgress("acoustic.runtime.begin:N=\(speechTokens.count):lifetime=sequential")
+            validationProgress("acoustic.runtime.begin:N=\(speechTokens.count):mode=range:lifetime=sequential")
             let acoustic = try CosyVoice3DynamicAcousticRuntime(
                 assetRoot: assetRoot,
                 conditionsPath: flowConditionsPath,
@@ -300,7 +310,31 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 flowStepCount: parameters.flowSteps.rawValue,
                 progress: validationProgressObserver
             )
-            validationProgress("acoustic.runtime.end:N=\(speechTokens.count):lifetime=sequential")
+            validationProgress("acoustic.runtime.end:N=\(speechTokens.count):mode=range:lifetime=sequential")
+            validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
+            audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
+            let acousticTotalMilliseconds = Self.milliseconds(since: acousticTotalStart)
+            acousticModelLoadMilliseconds = acoustic.modelLoadMilliseconds
+            acousticSynthesisMilliseconds = max(0, acousticTotalMilliseconds - acousticModelLoadMilliseconds)
+        } else if let enumerated = manifest.enumeratedAcoustic {
+            let functionName = try enumerated.functionName(forSpeechTokenCount: speechTokens.count)
+            validationProgress("acoustic.runtime.begin:N=\(speechTokens.count):mode=enumerated:function=\(functionName):lifetime=sequential")
+            let acoustic = try CosyVoice3DynamicAcousticRuntime(
+                assetRoot: assetRoot,
+                conditionsPath: manifest.flowConditions,
+                flowShardPaths: manifest.flowShards,
+                hiftPath: manifest.hift,
+                f0: try reusableF0(),
+                contract: enumerated,
+                defaultPromptTokens: try reusableEnumeratedDefaultPromptTokens(enumerated),
+                defaultPromptFeat: try reusableEnumeratedDefaultPromptFeat(enumerated),
+                defaultSpeaker: try reusableEnumeratedDefaultSpeaker(enumerated),
+                flowNoiseMaximum: try reusableEnumeratedFlowNoiseMaximum(enumerated),
+                hiftExcitationMaximum: try reusableEnumeratedHiFTExcitationMaximum(enumerated),
+                flowStepCount: parameters.flowSteps.rawValue,
+                progress: validationProgressObserver
+            )
+            validationProgress("acoustic.runtime.end:N=\(speechTokens.count):mode=enumerated:function=\(functionName):lifetime=sequential")
             validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")
             audio = try await acoustic.synthesize(speechTokens: speechTokens, prepared: prepared)
             let acousticTotalMilliseconds = Self.milliseconds(since: acousticTotalStart)
@@ -575,7 +609,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         referenceConditioning: CosyVoice3ReferenceConditioning?
     ) -> CosyVoice3PreparedRequest {
         let maximum: Int
-        if let dynamic = manifest.dynamicAcoustic {
+        if let enumerated = manifest.enumeratedAcoustic {
+            maximum = min(base.maximumSpeechTokenCount, enumerated.speechTokenMaximum)
+        } else if let dynamic = manifest.dynamicAcoustic {
             maximum = min(base.maximumSpeechTokenCount, dynamic.speechTokenMaximum)
         } else {
             maximum = min(base.maximumSpeechTokenCount, 225)
@@ -643,6 +679,41 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private func reusableDynamicHiFTExcitationMaximum(_ dynamic: CosyVoice3DynamicAcousticAssets) throws -> MLMultiArray {
         if let cached = dynamicHiFTExcitationMaximumCache { return cached }
         let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: dynamic.hiftExcitationMaximum, shape: [1,dynamic.maximumPCMSamples,9], type: .float32)
+        dynamicHiFTExcitationMaximumCache = loaded
+        return loaded
+    }
+
+    private func reusableEnumeratedDefaultPromptTokens(_ enumerated: CosyVoice3EnumeratedAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultPromptTokensCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: enumerated.defaultPromptTokens, shape: [1,151], type: .int32)
+        dynamicDefaultPromptTokensCache = loaded
+        return loaded
+    }
+
+    private func reusableEnumeratedDefaultPromptFeat(_ enumerated: CosyVoice3EnumeratedAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultPromptFeatCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: enumerated.defaultPromptFeat, shape: [1,enumerated.promptFrameCount,80], type: .float32)
+        dynamicDefaultPromptFeatCache = loaded
+        return loaded
+    }
+
+    private func reusableEnumeratedDefaultSpeaker(_ enumerated: CosyVoice3EnumeratedAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicDefaultSpeakerCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: enumerated.defaultSpeaker, shape: [1,192], type: .float32)
+        dynamicDefaultSpeakerCache = loaded
+        return loaded
+    }
+
+    private func reusableEnumeratedFlowNoiseMaximum(_ enumerated: CosyVoice3EnumeratedAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicFlowNoiseMaximumCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: enumerated.flowNoiseMaximum, shape: [1,80,enumerated.maximumFlowFrames], type: .float32)
+        dynamicFlowNoiseMaximumCache = loaded
+        return loaded
+    }
+
+    private func reusableEnumeratedHiFTExcitationMaximum(_ enumerated: CosyVoice3EnumeratedAcousticAssets) throws -> MLMultiArray {
+        if let cached = dynamicHiFTExcitationMaximumCache { return cached }
+        let loaded = try CosyVoice3AssetLoader.array(root: assetRoot, path: enumerated.hiftExcitationMaximum, shape: [1,enumerated.maximumPCMSamples,9], type: .float32)
         dynamicHiFTExcitationMaximumCache = loaded
         return loaded
     }
@@ -759,6 +830,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         spec.path
             + "|" + String(describing: spec.computeUnits)
             + "|reshapeInfrequent=" + String(spec.reshapeFrequencyInfrequent)
+            + "|function=" + (spec.functionName ?? "<default>")
     }
 
     private static func milliseconds(since start: UInt64) -> Double {
@@ -800,3 +872,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: dynamic prepare() now warms Conditions/Flow/HiFT with the same reshapeFrequency=.infrequent hint used by the accepted physical acoustic sweep; warm-key identity includes the hint so an older plan marker cannot mask this change.
 
 // Updated 2026-10-04: emit phase totals from existing synthesis timing; no math, model lifetime, or parameters changed.
+
+// Changes 2026-10-05: schema-3 enumerated production lane uses the same public API, real EOS N, sequential large-model lifetime, generic reference Conditions package, and exact multifunction family selection. Prepare warms only the default N129...256 function; other families remain lazy and fail closed on first load.
