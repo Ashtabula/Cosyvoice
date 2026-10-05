@@ -33,6 +33,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var lastPreparationReportValue: CosyVoice3PreparationReport?
     private var lastSynthesisReportValue: CosyVoice3SynthesisReport?
     private var validationProgressObserver: (@Sendable (String) -> Void)?
+    private var validationSamplerSeed: UInt64?
 
     private struct ReferenceCacheDescriptor {
         let cacheKey: String
@@ -68,6 +69,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     @_spi(Validation)
     public func setValidationProgressObserver(_ observer: (@Sendable (String) -> Void)?) {
         validationProgressObserver = observer
+    }
+
+    @_spi(Validation)
+    public func setValidationSamplerSeed(_ seed: UInt64?) {
+        validationSamplerSeed = seed
     }
 
     private func validationProgress(_ phase: String) {
@@ -282,6 +288,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 prefillModel: prefill,
                 decodeModel: decode,
                 conditioner: try reusableConditioner(),
+                validationSeed: validationSamplerSeed,
                 progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
@@ -451,6 +458,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 prefillModel: prefill,
                 decodeModel: decode,
                 conditioner: try reusableConditioner(),
+                validationSeed: validationSamplerSeed,
                 progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
@@ -885,3 +893,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-05: schema-3 enumerated production lane uses the same public API, real EOS N, sequential large-model lifetime, generic reference Conditions package, and exact multifunction family selection. Prepare warms only the default N129...256 function; other families remain lazy and fail closed on first load.
 
 // Changes 2026-10-05: exact-enumerated prepare(reference:) no longer guesses/warm-loads n129_256 acoustic functions before EOS is known. It prepares only LLM and reference encoders; after real N is generated, synthesis loads exactly one matching acoustic family. RangeDim/fixed paths retain prior preparation behavior.
+
+// Changes 2026-10-05: validation SPI can set an optional deterministic sampler seed; both public synthesis and Flow head-to-head LLM construction receive it. Normal SDK state remains nil and therefore uses SystemRandomNumberGenerator exactly as before.
