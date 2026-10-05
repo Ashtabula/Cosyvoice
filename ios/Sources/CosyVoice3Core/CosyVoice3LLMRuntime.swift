@@ -36,7 +36,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         return try generate(prepared,using:&rng)
     }
     private func generate<R:RandomNumberGenerator>(_ prepared:CosyVoice3PreparedRequest,using rng:inout R) throws -> [Int] {
-        progress?("llm.session.begin:logicalPrefix=\(prepared.logicalPrefixLength):maxN=\(prepared.maximumSpeechTokenCount):validationSeed=\(validationSeed.map(String.init) ?? "<system>")")
+        progress?("llm.session.begin:logicalPrefix=\(prepared.logicalPrefixLength):maxN=\(prepared.maximumSpeechTokenCount):validationSeed=\(validationSeed.map { String($0) } ?? "<system>")")
         let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
         progress?("llm.prefill.begin")
         var output=try session.prefill(prepared.prefillInput), decoded:[Int]=[]
@@ -108,3 +108,5 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 // Changes 2026-10-04: optional nil-default validation progress emits session/prefill boundaries, every 16 decoded speech tokens, stop token and max-length completion; sampling/model/state behavior is unchanged.
 
 // Changes 2026-10-05: add nil-default validationSeed. Production remains SystemRandomNumberGenerator; validation can use local SplitMix64 so repeated public synthesize calls receive identical sampling draws/N without changing logits, RAS math, EOS, or the public API.
+
+// Changes 2026-10-05: use an explicit UInt64-to-String closure in validation progress logging to avoid overloaded String.init inference at Swift 6 compile time.
