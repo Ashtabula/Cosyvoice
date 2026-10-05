@@ -77,6 +77,8 @@ jobs:
           bash -n tools/create_public_snapshot.sh
       - name: Audit shipping iOS source isolation
         run: python ios/validation/audit_source_isolation.py
+      - name: Check canonical release identity and source closure
+        run: python ios/validation/check_release_identity.py
       - name: Audit public release identity
         run: python tools/check_public_identity.py
       - name: Check deterministic public release tree
