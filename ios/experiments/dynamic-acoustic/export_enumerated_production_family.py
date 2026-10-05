@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import gc
 import hashlib
+import importlib.metadata as metadata
 import json
 import shutil
 import subprocess
@@ -59,6 +60,43 @@ EXPECTED_ACOUSTIC_CONFIG_SHA256 = "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c0
 
 def save_json(path: Path, value) -> None:
     path.write_text(json.dumps(value, indent=2, sort_keys=True) + "\n")
+
+
+def validate_conversion_environment() -> dict:
+    required = {
+        "torch": "2.7.0",
+        "coremltools": "9.0",
+        "numpy": "1.26.4",
+        "conformer": "0.3.2",
+        "diffusers": "0.29.0",
+        "HyperPyYAML": "1.2.3",
+        "omegaconf": "2.3.0",
+        "onnxruntime": "1.18.0",
+        "scipy": "1.13.1",
+        "transformers": "4.51.3",
+    }
+    actual = {}
+    for distribution, expected in required.items():
+        try:
+            value = metadata.version(distribution)
+        except metadata.PackageNotFoundError as exc:
+            raise RuntimeError(f"required conversion dependency missing: {distribution}=={expected}") from exc
+        actual[distribution] = value
+        if value != expected:
+            raise RuntimeError(
+                f"conversion dependency mismatch: {distribution}={value} != {expected}"
+            )
+    if sys.version_info[:2] != (3, 11):
+        raise RuntimeError(
+            f"conversion Python mismatch: {sys.version.split()[0]} != 3.11.x"
+        )
+    xcode = subprocess.check_output(["xcodebuild", "-version"], text=True).strip()
+    return {
+        "python": sys.version,
+        "pythonExecutable": sys.executable,
+        "dependencies": actual,
+        "xcode": xcode,
+    }
 
 
 def tree_bytes(path: Path) -> int:
@@ -778,6 +816,7 @@ def main() -> int:
     parser.add_argument("--keep-intermediates", action="store_true")
     args = parser.parse_args()
 
+    conversion_environment = validate_conversion_environment()
     source_commit = subprocess.check_output(
         ["git", "-C", str(ROOT), "rev-parse", "HEAD"],
         text=True,
@@ -827,6 +866,7 @@ def main() -> int:
         "crop": False,
         "flowStepsUnchanged": True,
         "sharedImmutableSource": shared_identity,
+        "conversionEnvironment": conversion_environment,
     }
     receipt_path = args.output / "enumerated-production-export-receipt.json"
 
@@ -1047,3 +1087,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: N225 enumerated HiFT now runs an independent same-input Core ML oracle against the exact immutable accepted schema-2 dynamic HiFT package. relativeL2 must remain <=0.02, so an incorrect local hift.pt cannot pass merely by agreeing with its own PyTorch source body.
 
 # Changes 2026-10-05: pinned upstream validation now rejects tracked source modifications and any recursive submodule checkout marked +, -, or U. HiFT/Matcha code therefore comes from the exact parent-commit submodule state rather than merely sharing the same top-level HEAD.
+
+# Changes 2026-10-05: production conversion now fail-fast pins the previously accepted Python3.11/torch2.7.0/coremltools9.0/numpy1.26.4 and Phase3 dependency set (conformer/diffusers/HyperPyYAML/omegaconf/onnxruntime/scipy/transformers). Exact resolved versions and Xcode are recorded in the export receipt; no package auto-install occurs inside production conversion.
