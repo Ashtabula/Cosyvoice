@@ -110,6 +110,7 @@ def main()->int:
         "platform":"iOS",
         "releaseStatus":"candidate",
         "sourceCommit":current,
+        "validatedSourceCommit":current,
         "validatedRuntimeSourceCommit":validated,
         "assetIdentity":asset_identity,
         "profile":"ios18-dynamic-n1-n479",
@@ -178,3 +179,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: dynamic Candidate receipt now requires canonical environment.validationTarget rather than accepting device identity only outside the environment block.
 
 # Changes 2026-10-04: Candidate environment.historicalAssetBuildProvenance is populated from the immutable RC's hash-bound dynamic conversion provenance, while the Mac clean-room toolchain remains separately recorded.
+
+# Changes 2026-10-04: Candidate receipt records validatedSourceCommit=current checklist closure HEAD for Production baseline compatibility, while validatedRuntimeSourceCommit separately preserves the earlier physical public-API runtime source proof.
