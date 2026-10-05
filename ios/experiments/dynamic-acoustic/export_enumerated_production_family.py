@@ -260,7 +260,8 @@ def export_flow(shards, conditioning, fixture, work: Path, receipt: dict) -> lis
                 else:
                     inputs.append(ct.TensorType(name=name, shape=tuple(tensor.shape), dtype=np.float32))
             package = work / f"flow-shard-{index}-{function_name}.mlpackage"
-            convert_family(exported, inputs, (OUTPUT_NAMES[index],), ct.precision.FLOAT16, package)
+            output_names = ("h", "te") if index == 0 else (OUTPUT_NAMES[index],)
+            convert_family(exported, inputs, output_names, ct.precision.FLOAT16, package)
             family_packages.append((function_name, package))
 
         merged = work.parent / f"flow-shard-{index}.mlpackage"
@@ -620,3 +621,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: assemble a standalone production asset root from the immutable schema-2 shared assets instead of requiring the frozen fixed225 profile. Unchanged tokenizer/LLM/reference/F0/default-conditioning files are copied byte-for-byte; N479 stochastic buffers are deterministically narrowed to the N450 production maximum with channel-correct slicing.
 
 # Changes 2026-10-05: compiled mlmodelc artifacts are transient validation products under .family-build and are removed from the shipping root; the exporter now runs the standalone schema-3 asset validator before declaring PASS.
+
+# Changes 2026-10-05: fix production exporter Flow shard-0 ABI: the first shard has two outputs (h, te), while shards 1...5 have one output. Swift CI cannot catch this conversion-only mismatch; exporter now preserves the validated six-shard ABI exactly.
