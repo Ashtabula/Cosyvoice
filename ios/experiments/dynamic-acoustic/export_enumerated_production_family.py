@@ -672,6 +672,8 @@ def main() -> int:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--shared-root", type=Path, required=True,
                         help="Validated immutable schema-2 dynamic asset root used as the source of unchanged tokenizer/LLM/reference/F0 assets and stochastic buffers.")
+    parser.add_argument("--rebuild-root", type=Path, default=BASE,
+                        help="Pinned local rebuild root containing source/, model-cache/Fun-CosyVoice3-0.5B-2512/, and fixture/. Defaults to the canonical ios/.work rebuild path.")
     parser.add_argument("--keep-intermediates", action="store_true")
     args = parser.parse_args()
 
@@ -708,10 +710,28 @@ def main() -> int:
 
     save()
     try:
-        source = BASE / "source"
-        model = BASE / "model-cache/Fun-CosyVoice3-0.5B-2512"
-        fixture_root = BASE / "fixture"
-        fixture = torch.load(fixture_root / "flow_input.pt", weights_only=True)["kwargs"]
+        rebuild_root = args.rebuild_root.expanduser().resolve()
+        source = rebuild_root / "source"
+        model = rebuild_root / "model-cache/Fun-CosyVoice3-0.5B-2512"
+        fixture_root = rebuild_root / "fixture"
+        flow_checkpoint = model / "flow.pt"
+        flow_fixture_path = fixture_root / "flow_input.pt"
+        for required in (source, model, flow_checkpoint, flow_fixture_path):
+            if not required.exists():
+                raise RuntimeError(f"enumerated rebuild prerequisite missing: {required}")
+        upstream_head = subprocess.check_output(
+            ["git", "-C", str(source), "rev-parse", "HEAD"],
+            text=True,
+        ).strip()
+        if upstream_head != PIN:
+            raise RuntimeError(f"upstream source pin mismatch: {upstream_head} != {PIN}")
+        fixture = torch.load(flow_fixture_path, weights_only=True)["kwargs"]
+        receipt["rebuildInputs"] = {
+            "rebuildRoot": str(rebuild_root),
+            "upstreamSourceCommit": upstream_head,
+            "flowCheckpointSha256": sha(flow_checkpoint),
+            "flowFixtureSha256": sha(flow_fixture_path),
+        }
 
         receipt["phase"] = "load_source"
         save()
@@ -848,3 +868,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: representative exact-shape validation now supplies the full canonical Flow case ABI (N/G/P/T). This prevents to_coreml_case/source helpers from failing at asset-build time even though Swift CI is green.
 
 # Changes 2026-10-05: final schema-3 build records deterministic per-file payload identity (path/bytes/SHA256 -> payloadTreeSha256) after transient cleanup. The mutable export receipt is excluded from its own tree hash, eliminating circular identity while binding every shipping model/shared asset byte.
+
+# Changes 2026-10-05: production exporter exposes --rebuild-root instead of silently trusting one hidden .work path, fail-closes unless pinned upstream source HEAD equals 8789402..., and records exact flow checkpoint/fixture SHA256 in the export receipt before model conversion.
