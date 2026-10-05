@@ -130,6 +130,7 @@ def main()->int:
     benchmark=load(ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
     m=benchmark["measurement"]
     device=benchmark["device"]
+    environment=receipt["environment"]
 
     assets_text=f"""# CosyVoice3 iOS assets
 
@@ -142,6 +143,8 @@ The ordinary developer path is `assets/releases.json -> assets/fetch_assets.py -
 The active runtime profile is `ios18-dynamic-n1-n479`: speech-token N=1...479, T=304...1260, G=2...958, PCM=960...459840 samples, mono Float32 24 kHz. Public Flow choices are 6/8/10 with 6 default. Stateful LLM prefill/decode request CPU_ONLY; dynamic acoustic requests CPU_AND_NE with `reshapeFrequency=INFREQUENT`; this is not an ANE residency claim.
 
 Custom-reference assets remain `PASS_DEVICE_PARITY`. The real-person validation reference used during device acceptance is validation-only and is excluded from the immutable public/example asset contract. Consumers supply their own reference audio/transcript through the public API.
+
+Canonical release/clean-room host: `{environment['cleanRoomHost']}`. Release toolchain: `{environment['toolchain']}`. Consumer path: `{environment['consumerRequirements']}`.
 
 The historical `ios-fixed225-reference/0.1.0-rc1` immutable RC and its release receipt remain preserved as baseline evidence but are no longer the current catalog default after dynamic Candidate promotion.
 
@@ -163,6 +166,7 @@ First synthesis: `{m['firstSynthesisMilliseconds']:.3f} ms`, audio `{m['firstAud
 Warm repeat: `{m['repeatSynthesisMilliseconds']:.3f} ms`, audio `{m['repeatAudioSeconds']:.6f} s`, RTF `{m['repeatRTF']:.6f}`, samples `{m['repeatSamples']}`.
 Output contract: finite mono Float32 PCM at 24 kHz; dynamic length is stochastic and each successful sample count must equal 960*N within N=1...479.
 Requested placement: LLM CPU_ONLY; dynamic acoustic CPU_AND_NE; reference encoders CPU_ONLY. `reshapeFrequency=INFREQUENT`. Requested placement is not residency evidence.
+Release environment: `{environment['cleanRoomHost']}`; toolchain: `{environment['toolchain']}`.
 Evidence: `validation/evidence/dynamic_candidate_benchmark.json`.
 
 Historical fixed225 benchmark evidence remains preserved but is not the current Candidate benchmark authority.
@@ -180,6 +184,8 @@ Current immutable private asset authority: `{asset['profile']}/{asset['version']
 Custom reference/voice cloning is physically validated. Validation-only real-person reference media is not part of public runtime/example assets; consumers supply their own authorized reference material.
 
 Requested Core ML configuration is LLM CPU_ONLY, dynamic acoustic CPU_AND_NE with `reshapeFrequency=INFREQUENT`, reference encoders CPU_ONLY. No ANE residency claim is made.
+
+Canonical release environment: `{environment['cleanRoomHost']}`; toolchain: `{environment['toolchain']}`; supported consumer path: `{environment['consumerRequirements']}`.
 
 The historical fixed225 private Candidate remains preserved in `validation/history/fixed225_release_receipt.json` and the fixed catalog row; it is not the current default.
 
@@ -206,7 +212,9 @@ The private validation tree retains conversion, benchmarks and evidence. The ext
     marker="Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized."
     authority=f"""Current status: Technical Distribution-Ready Candidate on immutable private RC; public redistribution is not authorized.
 
-CURRENT CANDIDATE AUTHORITY: dynamic N1...479, immutable `{asset['profile']}/{asset['version']}` @ `{asset['revision']}`, canonical receipt `validation/release_receipt.json`. Historical fixed225 Candidate evidence is preserved under `validation/history/fixed225_release_receipt.json` and is no longer the current authority."""
+CURRENT CANDIDATE AUTHORITY: dynamic N1...479, immutable `{asset['profile']}/{asset['version']}` @ `{asset['revision']}`, canonical receipt `validation/release_receipt.json`. Historical fixed225 Candidate evidence is preserved under `validation/history/fixed225_release_receipt.json` and is no longer the current authority.
+
+CURRENT RELEASE ENVIRONMENT: `{environment['cleanRoomHost']}`; toolchain `{environment['toolchain']}`; target `{json.dumps(environment.get('validationTarget'),sort_keys=True)}`."""
     if marker in validation:
         validation=validation.replace(marker,authority,1)
     validation=validation.replace(
@@ -237,3 +245,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: Candidate promotion now atomically rewrites ASSETS/README/API/BENCHMARK/VALIDATION current authority to dynamic N1...479 while explicitly preserving fixed225 as historical baseline and keeping license/public redistribution pending.
 
 # Changes 2026-10-04: dynamic promotion switches manifest publication.branch and current Candidate/SDK-ready milestone pointers to the dynamic release line while preserving fixed225 milestone metadata under explicit historical fields.
+
+# Changes 2026-10-04: promoted README/ASSETS/BENCHMARK/VALIDATION now surface the canonical Candidate clean-room host/toolchain/consumer-path metadata from release_receipt.environment, not only the JSON ledger.
