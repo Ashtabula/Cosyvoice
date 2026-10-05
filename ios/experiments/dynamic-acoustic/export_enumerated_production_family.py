@@ -472,6 +472,8 @@ def write_manifest(output: Path, shared_manifest: dict, receipt: dict) -> Path:
     manifest = dict(shared_manifest)
     manifest["schemaVersion"] = 3
     manifest["profile"] = "ios18-enumerated-n1-n450"
+    manifest["flowMask"] = None
+    manifest["flowNoise"] = None
     manifest["flowConditions"] = "enumerated-acoustic/conditions.mlpackage"
     manifest["flowShards"] = [f"enumerated-acoustic/flow-shard-{i}.mlpackage" for i in range(6)]
     manifest["hift"] = "enumerated-acoustic/hift.mlpackage"
@@ -655,3 +657,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: final standaloneRootBytes is measured only after transient .family-build removal (unless --keep-intermediates is explicit), so production size evidence no longer counts conversion/compiled validation artifacts that are not shipped.
 
 # Changes 2026-10-05: multifunction host gate now validates complete selected-function input/output ABI for Conditions, all six Flow shards, and HiFT across all four families. Conversion succeeds only if shard0 exposes both h and te and every other stage matches the Swift runtime contract.
+
+# Changes 2026-10-05: schema-3 manifest explicitly clears legacy fixed-shape flowMask/flowNoise fields; exact variable runtime owns its mask at request shape and uses the schema-3 maximum stochastic buffer contract instead of stale fixed225 paths.
