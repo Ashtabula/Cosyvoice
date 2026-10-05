@@ -50,11 +50,12 @@ def main()->int:
     device=None
     if a.device_receipt:
         raw=load(a.device_receipt.expanduser().resolve())
+        nested=raw.get("device") if isinstance(raw.get("device"),dict) else {}
         device={
-            "model":raw.get("device"),
-            "modelIdentifier":raw.get("deviceModelIdentifier") or raw.get("modelIdentifier"),
-            "systemName":raw.get("systemName") or "iOS",
-            "systemVersion":raw.get("systemVersion"),
+            "model":nested.get("model") or raw.get("device"),
+            "modelIdentifier":nested.get("modelIdentifier") or raw.get("deviceModelIdentifier") or raw.get("modelIdentifier"),
+            "systemName":nested.get("systemName") or raw.get("systemName") or "iOS",
+            "systemVersion":nested.get("systemVersion") or raw.get("systemVersion"),
         }
         if not device["modelIdentifier"] or not device["systemVersion"]:
             raise RuntimeError("device receipt does not contain physical modelIdentifier/systemVersion")
@@ -100,3 +101,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Runtime environment: macOS Apple Silicon release host with Xcode command-line tools.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new fail-closed environment recorder; no hard-coded workstation-specific absolute paths.
+
+# Changes 2026-10-04: device binding accepts both raw DeviceSmoke receipts and sanitized Candidate benchmark receipts with nested device metadata.
