@@ -297,6 +297,15 @@ def stage(args: argparse.Namespace) -> tuple[Path, dict]:
         "releaseEngineeringCommit": git_head(),
         "validatedRuntimeSourceCommit": smoke["sourceCommit"],
         "modelRevision": MODEL_REVISION,
+        "conversionProvenance": {
+            "role": "maintainer-only historical asset build provenance; not a clean-room consumer dependency",
+            "exportTool": "ios/experiments/dynamic-acoustic/export_full_range_family.py",
+            "familyReceiptSha256": candidate_receipt.get("familyReceiptSha256"),
+            "lowerBoundExtensionReceiptSha256": candidate_receipt.get("lowerBoundExtensionReceiptSha256"),
+            "documentedEnvironment": "macOS arm64; Python 3.11; torch 2.7 family; coremltools 9 family; Xcode coremlcompiler; iOS 18 mlprogram target",
+            "exactReleasedPackageAuthority": "immutable per-file SHA256 + payloadTreeSha256 + testedRuntimeTreeSha256",
+            "cleanRoomRule": "Candidate/Production consumers fetch and validate immutable assets on macOS; conversion/export is not rerun in clean-room."
+        },
         "referenceStatus": "PASS_DEVICE_PARITY",
         "speechTokenBounds": [1, 479],
         "flowFrameBounds": [304, 1260],
@@ -443,3 +452,5 @@ if __name__ == "__main__":
 # Changes: new dynamic asset publisher; license remains PENDING unless an explicit PASS receipt is supplied.
 
 # Changes 2026-10-04: hosted RC listening evidence is anonymized to decision/output hashes only; real-person validation name, reference WAV/transcript and identity-specific prose are excluded from the asset payload.
+
+# Changes 2026-10-04: immutable dynamic asset manifest records hash-bound family/lower-bound conversion provenance and the exporter-documented macOS/Python/torch/coremltools/Xcode environment, explicitly separating historical model conversion from the supported Mac clean-room consumer path.
