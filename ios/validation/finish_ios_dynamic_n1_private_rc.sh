@@ -44,9 +44,11 @@ main(){
         printf '[COSYVOICE3-DYNAMIC-RC] auto-selected physical iPhone device=%s\n' "$DEVICE_ID"
     fi
     [ -n "${DEVELOPMENT_TEAM:-}" ] || { fail "set DEVELOPMENT_TEAM"; return 2; }
-    if [ -z "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then REFERENCE_WAV="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav"; fi
-    if [ -z "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then REFERENCE_TRANSCRIPT="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt"; fi
-    if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then HOST_RECEIPT="$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json"; fi
+    local reuse_input_dir="$ROOT/.work/device-smoke-reused-input"
+    mkdir -p "$reuse_input_dir"
+    if [ -z "$REFERENCE_WAV" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.wav" "$reuse_input_dir/reference.wav" || return $?; REFERENCE_WAV="$reuse_input_dir/reference.wav"; fi
+    if [ -z "$REFERENCE_TRANSCRIPT" ] && [ -s "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference.txt" "$reuse_input_dir/reference.txt" || return $?; REFERENCE_TRANSCRIPT="$reuse_input_dir/reference.txt"; fi
+    if [ ! -f "$HOST_RECEIPT" ] && [ -f "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" ]; then cp "$ROOT/validation/DeviceSmoke/GeneratedAssets/reference_host_parity_receipt.json" "$reuse_input_dir/reference_host_parity_receipt.json" || return $?; HOST_RECEIPT="$reuse_input_dir/reference_host_parity_receipt.json"; fi
     [ -f "$REFERENCE_WAV" ] || { fail "reference WAV unavailable; set COSYVOICE3_REFERENCE_WAV or retain DeviceSmoke/GeneratedAssets/reference.wav"; return 2; }
     [ -s "$REFERENCE_TRANSCRIPT" ] || { fail "reference transcript unavailable; set COSYVOICE3_REFERENCE_TRANSCRIPT or retain DeviceSmoke/GeneratedAssets/reference.txt"; return 2; }
     [ -f "$HOST_RECEIPT" ] || { fail "host parity receipt unavailable at explicit/default or DeviceSmoke staged path"; return 2; }
@@ -220,3 +222,5 @@ test "$RC" -eq 0
 # Changes 2026-10-04: private RC closure records exact package-metadata-derived conversion provenance with the dynamic coremltools/torch environment before staging, passes that receipt into the publisher, and commits the sanitized provenance evidence with the private RC receipt.
 
 # Changes 2026-10-04: use committed sanitized dynamic N1 public-API smoke evidence instead of an untracked timestamped smoke directory; auto-detect the physical iPhone and reuse staged reference/host inputs during preflight.
+
+# Changes 2026-10-04: when falling back to previously staged reference/host inputs, copy them into ios/.work/device-smoke-reused-input before any GeneratedAssets replacement so physical RC replay cannot delete its own source files.
