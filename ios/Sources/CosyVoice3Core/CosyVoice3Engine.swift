@@ -106,28 +106,30 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // persistent markers. The reference tensors may already be cached on a later process
         // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
         func acousticWarmSpec(_ path: String) -> CosyVoice3ModelWarmSpec {
-            if let enumerated = manifest.enumeratedAcoustic {
-                let defaultFamily = enumerated.families[1].functionName
-                return .init(
-                    path,
-                    computeUnits: CosyVoice3ModelComputePlacement.acoustic,
-                    functionName: defaultFamily
-                )
-            }
-            return manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
+            manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
         }
-        let mainPlan: [CosyVoice3ModelWarmSpec] = [
-            .llm(manifest.llmPrefill),
-            acousticWarmSpec(manifest.flowShards[0]),
-            .llm(manifest.llmDecode),
-            acousticWarmSpec(manifest.flowShards[1]),
-            acousticWarmSpec(flowConditionsPath),
-            acousticWarmSpec(manifest.flowShards[2]),
-            acousticWarmSpec(manifest.flowShards[3]),
-            acousticWarmSpec(manifest.flowShards[4]),
-            acousticWarmSpec(manifest.flowShards[5]),
-            acousticWarmSpec(manifest.hift)
-        ]
+        let mainPlan: [CosyVoice3ModelWarmSpec]
+        if manifest.isEnumeratedAcoustic {
+            // Exact acoustic function is unknown until LLM reaches the real EOS.
+            // Do not guess a family here and pay for a wrong execution plan.
+            mainPlan = [
+                .llm(manifest.llmPrefill),
+                .llm(manifest.llmDecode)
+            ]
+        } else {
+            mainPlan = [
+                .llm(manifest.llmPrefill),
+                acousticWarmSpec(manifest.flowShards[0]),
+                .llm(manifest.llmDecode),
+                acousticWarmSpec(manifest.flowShards[1]),
+                acousticWarmSpec(flowConditionsPath),
+                acousticWarmSpec(manifest.flowShards[2]),
+                acousticWarmSpec(manifest.flowShards[3]),
+                acousticWarmSpec(manifest.flowShards[4]),
+                acousticWarmSpec(manifest.flowShards[5]),
+                acousticWarmSpec(manifest.hift)
+            ]
+        }
         let referencePlan: [CosyVoice3ModelWarmSpec]
         if let assets = referenceAssets, !referenceCacheHit {
             referencePlan = [
@@ -155,14 +157,21 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // under concurrent constructors.
         let plan: [CosyVoice3ModelWarmSpec]
         if referencePlan.count == 2 {
-            plan = [
-                mainPlan[0], referencePlan[0],
-                mainPlan[2], mainPlan[1],
-                referencePlan[1], mainPlan[3],
-                mainPlan[4], mainPlan[5],
-                mainPlan[6], mainPlan[7],
-                mainPlan[8], mainPlan[9]
-            ]
+            if manifest.isEnumeratedAcoustic {
+                plan = [
+                    mainPlan[0], referencePlan[0],
+                    mainPlan[1], referencePlan[1]
+                ]
+            } else {
+                plan = [
+                    mainPlan[0], referencePlan[0],
+                    mainPlan[2], mainPlan[1],
+                    referencePlan[1], mainPlan[3],
+                    mainPlan[4], mainPlan[5],
+                    mainPlan[6], mainPlan[7],
+                    mainPlan[8], mainPlan[9]
+                ]
+            }
         } else {
             plan = mainPlan
         }
@@ -874,3 +883,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Updated 2026-10-04: emit phase totals from existing synthesis timing; no math, model lifetime, or parameters changed.
 
 // Changes 2026-10-05: schema-3 enumerated production lane uses the same public API, real EOS N, sequential large-model lifetime, generic reference Conditions package, and exact multifunction family selection. Prepare warms only the default N129...256 function; other families remain lazy and fail closed on first load.
+
+// Changes 2026-10-05: exact-enumerated prepare(reference:) no longer guesses/warm-loads n129_256 acoustic functions before EOS is known. It prepares only LLM and reference encoders; after real N is generated, synthesis loads exactly one matching acoustic family. RangeDim/fixed paths retain prior preparation behavior.
