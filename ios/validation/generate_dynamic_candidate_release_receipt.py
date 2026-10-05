@@ -148,7 +148,7 @@ def main()->int:
             },
             "dynamicAcousticExecutionHints":{"reshapeFrequency":"INFREQUENT"}
         },
-        "accelerator":{"claim":"requested","evidence":["validation/evidence/dynamic_candidate_benchmark.json"],"note":"CPU_AND_NE is a requested Core ML compute-unit policy; no ANE residency claim is made."},
+        "accelerator":{"claim":"not-claimed","requestedComputePolicyRecorded":True,"evidence":["validation/evidence/dynamic_candidate_benchmark.json"],"note":"CPU_AND_NE is a requested Core ML compute-unit policy; no ANE residency claim is made."},
         "technicalDistributionReady":True,
         "publicRedistributionApproved":False,
         "productionReady":False,
@@ -169,3 +169,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes: new dynamic Candidate generator; license remains a separate Production gate and public redistribution remains false.
 
 # Changes 2026-10-04: require rebuild-convergence and N0-policy receipts to bind the exact current Candidate source HEAD, matching build/benchmark/environment source closure.
+
+# Changes 2026-10-04: accelerator claim remains explicitly not-claimed; Candidate evidence records only requested Core ML compute policy and never infers ANE residency.
