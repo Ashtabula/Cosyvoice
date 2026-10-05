@@ -246,7 +246,7 @@ def main() -> None:
             args.device,
             args.bundle,
             output / "candidate-benchmark-console.log",
-            ["--candidate-benchmark", "--no-playback"],
+            ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"],
         )
         receipt = wait_receipt(
             device=args.device,
@@ -318,3 +318,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: automated variable smoke and Candidate benchmark now pass --no-playback. Candidate app itself requires nominal thermal start, so validation cannot silently accept a smoke-heated performance run.
 
 # Changes 2026-10-05: run the strict nominal-start Candidate benchmark before any full synthesis smoke. Correctness default/reference smoke runs afterward, so its compute heat cannot contaminate cold/warm performance evidence.
+
+# Changes 2026-10-05: Candidate launch resets only validation-app CosyVoice3 compiled/warm caches before the first measurement, preventing prior same-bundle runs from masquerading as a cold benchmark.
