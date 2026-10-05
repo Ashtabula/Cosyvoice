@@ -68,7 +68,10 @@ def main()->int:
     require((benchmark.get("measurement") or {}).get("flowSteps")==6,"dynamic Candidate benchmark does not use production flowSteps=6")
     require(env.get("status")=="PASS_RELEASE_ENVIRONMENT_RECORDED","release environment is not PASS")
     require(env.get("sourceCommit")==current,"release environment is not current HEAD")
-    environment=env.get("environment") or {}
+    environment=dict(env.get("environment") or {})
+    conversion=private.get("conversionProvenance") or {}
+    if conversion:
+        environment["historicalAssetBuildProvenance"]=json.dumps(conversion,sort_keys=True)
     for key in ("cleanRoomHost","releaseHost","toolchain","validationTarget","consumerRequirements","historicalAssetBuildProvenance"):
         require(bool(environment.get(key)),f"release environment missing {key}")
     require(listening.get("status")=="PASS_DYNAMIC_LISTENING_ACCEPTANCE","dynamic human listening is not PASS")
@@ -173,3 +176,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: accelerator claim remains explicitly not-claimed; Candidate evidence records only requested Core ML compute policy and never infers ANE residency.
 
 # Changes 2026-10-04: dynamic Candidate receipt now requires canonical environment.validationTarget rather than accepting device identity only outside the environment block.
+
+# Changes 2026-10-04: Candidate environment.historicalAssetBuildProvenance is populated from the immutable RC's hash-bound dynamic conversion provenance, while the Mac clean-room toolchain remains separately recorded.
