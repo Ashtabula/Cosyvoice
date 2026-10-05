@@ -25,6 +25,8 @@ from run_phase2_dynamic_flow import (
     load_reference_flow_conditioning,
     load_shards,
     source_first_call,
+    to_coreml_case,
+    coreml_first_call,
 )
 from run_phase3_dynamic_hift import (
     DynamicHiFTBody,
@@ -379,6 +381,137 @@ def verify_multifunction_load(packages: list[Path], receipt: dict) -> None:
     }
 
 
+REPRESENTATIVE_NS = (1, 128, 129, 167, 225, 256, 257, 384, 385, 450)
+
+
+def function_name_for_n(n: int) -> str:
+    for lo, hi, name in FAMILIES:
+        if lo <= n <= hi:
+            return name
+    raise RuntimeError(f"N outside enumerated production contract: {n}")
+
+
+def validate_representative_predictions(
+    *,
+    conditions_package: Path,
+    flow_packages: list[Path],
+    hift_package: Path,
+    conditioning,
+    full,
+    shards,
+    hift_body,
+    fixture,
+    receipt: dict,
+) -> None:
+    tests = []
+    grouped: dict[str, list[int]] = {}
+    for n in REPRESENTATIVE_NS:
+        grouped.setdefault(function_name_for_n(n), []).append(n)
+
+    for function_name, values in grouped.items():
+        conditions_model = ct.models.MLModel(
+            str(conditions_package),
+            function_name=function_name,
+            compute_units=ct.ComputeUnit.CPU_ONLY,
+        )
+        flow_models = [
+            ct.models.MLModel(
+                str(package),
+                function_name=function_name,
+                compute_units=ct.ComputeUnit.CPU_ONLY,
+            )
+            for package in flow_packages
+        ]
+        hift_model = ct.models.MLModel(
+            str(hift_package),
+            function_name=function_name,
+            compute_units=ct.ComputeUnit.CPU_ONLY,
+        )
+
+        for n in values:
+            case = flow_case(n, conditioning, fixture)
+            tokens = np.zeros((1, n), dtype=np.int32)
+            condition_feed = {
+                "tokens": tokens,
+                "prompt_tokens": fixture["prompt_token"].int().cpu().numpy(),
+                "prompt_feat": fixture["prompt_feat"].float().cpu().numpy(),
+                "speaker": fixture["embedding"].float().cpu().numpy(),
+            }
+            condition_result = conditions_model.predict(condition_feed)
+            condition_metrics = {
+                name: metrics(
+                    case[name].detach().cpu().numpy(),
+                    np.asarray(condition_result[name], dtype=np.float32),
+                )
+                for name in ("mu", "spks", "cond")
+            }
+            if any(
+                (not value["finite"]) or value["relativeL2"] > 1.0e-4
+                for value in condition_metrics.values()
+            ):
+                raise RuntimeError(
+                    f"enumerated Conditions parity failed N={n} function={function_name}: {condition_metrics}"
+                )
+
+            _, _, source_sharded, _ = source_first_call(full, shards, case)
+            coreml_velocity, _ = coreml_first_call(flow_models, to_coreml_case(case))
+            flow_metric = metrics(
+                source_sharded.detach().cpu().numpy(),
+                np.asarray(coreml_velocity, dtype=np.float32),
+            )
+            expected_t = PROMPT_FRAMES + 2 * n
+            if (
+                not flow_metric["finite"]
+                or tuple(np.asarray(coreml_velocity).shape) != (2, 80, expected_t)
+            ):
+                raise RuntimeError(
+                    f"enumerated Flow execution failed N={n} function={function_name}: "
+                    f"shape={np.asarray(coreml_velocity).shape} metrics={flow_metric}"
+                )
+
+            hift_inputs = hift_example(hift_body, n)
+            with torch.no_grad():
+                source_pcm = hift_body(*hift_inputs).detach().cpu().numpy()
+            hift_feed = {
+                name: tensor.detach().cpu().numpy().astype(np.float32, copy=False)
+                for name, tensor in zip(("mel", "f0", "phase", "noise", "norm"), hift_inputs)
+            }
+            coreml_pcm = np.asarray(hift_model.predict(hift_feed)["pcm"], dtype=np.float32)
+            hift_metric = metrics(source_pcm, coreml_pcm)
+            if (
+                not hift_metric["finite"]
+                or tuple(coreml_pcm.shape) != (1, 960 * n)
+                or hift_metric["relativeL2"] > 0.02
+            ):
+                raise RuntimeError(
+                    f"enumerated HiFT parity failed N={n} function={function_name}: "
+                    f"shape={coreml_pcm.shape} metrics={hift_metric}"
+                )
+
+            tests.append({
+                "N": n,
+                "T": expected_t,
+                "G": 2 * n,
+                "samples": 960 * n,
+                "functionName": function_name,
+                "conditionsVsSource": condition_metrics,
+                "flowFirstCallVsSourceSharded": flow_metric,
+                "hiftSameInputVsSourceBody": hift_metric,
+            })
+
+        del conditions_model, flow_models, hift_model
+        gc.collect()
+
+    receipt["representativeExactShapeValidation"] = {
+        "status": "PASS_HOST_EXECUTION",
+        "Ns": list(REPRESENTATIVE_NS),
+        "tests": tests,
+        "conditionsRelativeL2Maximum": 1.0e-4,
+        "flowPolicy": "finite exact output shape; numerical error recorded without inventing a new FP16 Flow promotion threshold",
+        "hiftRelativeL2Maximum": 0.02,
+    }
+
+
 def copy_path(source: Path, destination: Path) -> None:
     if destination.exists():
         raise RuntimeError(f"refusing to overwrite staged shared asset: {destination}")
@@ -575,8 +708,8 @@ def main() -> int:
         flow_packages = export_flow(shards, conditioning, fixture, work, receipt)
         save()
 
-        del full, shards, estimator
-        gc.collect()
+        # Keep source Flow objects until multifunction representative execution
+        # so exact-shape Core ML output can be compared against the same source math.
 
         receipt["phase"] = "hift"
         save()
@@ -606,6 +739,23 @@ def main() -> int:
         save()
         verify_multifunction_load(packages, receipt)
         save()
+
+        receipt["phase"] = "representative_exact_shape_execution"
+        save()
+        validate_representative_predictions(
+            conditions_package=conditions_package,
+            flow_packages=flow_packages,
+            hift_package=hift_package,
+            conditioning=conditioning,
+            full=full,
+            shards=shards,
+            hift_body=body,
+            fixture=fixture,
+            receipt=receipt,
+        )
+        save()
+        del full, shards, estimator, body, hift
+        gc.collect()
 
         shared_manifest_path = args.shared_root / "cosyvoice3_dynamic.json"
         if not shared_manifest_path.exists():
@@ -659,3 +809,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: multifunction host gate now validates complete selected-function input/output ABI for Conditions, all six Flow shards, and HiFT across all four families. Conversion succeeds only if shard0 exposes both h and te and every other stage matches the Swift runtime contract.
 
 # Changes 2026-10-05: schema-3 manifest explicitly clears legacy fixed-shape flowMask/flowNoise fields; exact variable runtime owns its mask at request shape and uses the schema-3 maximum stochastic buffer contract instead of stale fixed225 paths.
+
+# Changes 2026-10-05: production exporter now executes representative exact shapes N=1/128/129/167/225/256/257/384/385/450 through every selected multifunction family on host CPU. Conditions must retain <=1e-4 relativeL2, Flow must be finite with exact velocity shape while recording FP16 error, and same-input HiFT must retain the existing <=0.02 relativeL2 gate.
