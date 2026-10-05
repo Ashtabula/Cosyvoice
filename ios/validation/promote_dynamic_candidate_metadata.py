@@ -64,6 +64,32 @@ def main()->int:
     manifest["candidateBlockers"]=[]
     manifest["candidateReleaseReceipt"]="validation/release_receipt.json"
     manifest["historicalFixed225CandidateReceipt"]="validation/history/fixed225_release_receipt.json"
+    if manifest.get("candidateMilestone"):
+        manifest["historicalFixed225CandidateMilestone"]=manifest["candidateMilestone"]
+    if manifest.get("sdkReadyMilestone"):
+        manifest["historicalFixed225SdkReadyMilestone"]=manifest["sdkReadyMilestone"]
+    manifest["candidateMilestone"]={
+        "status":"PASS",
+        "date":"2026-10-04",
+        "receipt":"validation/dynamic_release_receipt.json",
+        "milestone":"dynamic N1...479 private Candidate"
+    }
+    manifest["sdkReadyMilestone"]={
+        "status":"PASS_DYNAMIC_N1_RELEASE_PROMOTION_ENTRY_NOT_PRODUCTION",
+        "date":"2026-10-04",
+        "receipt":"validation/dynamic_n1_release_entry_2026-10-04.json",
+        "milestone":"dynamic N1...479 release-promotion entry"
+    }
+    publication=dict(manifest.get("publication") or {})
+    publication.update({
+        "repository":"Ashtabula/Cosyvoice",
+        "branch":"release/ios-dynamic-n1-sdk-ready",
+        "path":"ios/",
+        "canonicalSource":True,
+        "publicTargetRepository":"actacomes/Cosyvoice",
+        "publicSnapshotScope":"ios/public_snapshot_paths.txt"
+    })
+    manifest["publication"]=publication
     manifest["dynamicProfile"]={
         "status":"CANDIDATE_PRIVATE_ASSETS",
         "runtimeProfile":"ios18-dynamic-n1-n479",
@@ -209,3 +235,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes: new non-license Candidate metadata promotion; never sets Production/public redistribution.
 
 # Changes 2026-10-04: Candidate promotion now atomically rewrites ASSETS/README/API/BENCHMARK/VALIDATION current authority to dynamic N1...479 while explicitly preserving fixed225 as historical baseline and keeping license/public redistribution pending.
+
+# Changes 2026-10-04: dynamic promotion switches manifest publication.branch and current Candidate/SDK-ready milestone pointers to the dynamic release line while preserving fixed225 milestone metadata under explicit historical fields.
