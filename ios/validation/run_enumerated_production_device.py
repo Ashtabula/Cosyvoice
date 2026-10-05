@@ -341,6 +341,9 @@ def main() -> None:
                 "thermalEnd": receipt.get("thermalEnd"),
                 "validationSamplerSeed": receipt.get("validationSamplerSeed"),
                 "matchedDeterministicSpeechLength": receipt.get("matchedDeterministicSpeechLength"),
+                "matchedDeterministicWav": receipt.get("matchedDeterministicWav"),
+                "firstWavSha256": receipt.get("firstWavSha256"),
+                "repeatWavSha256": receipt.get("repeatWavSha256"),
                 "validationCacheReset": receipt.get("validationCacheReset"),
             }
             json_write(evidence_path, evidence)
@@ -415,3 +418,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: host physical-validation evidence now closes fail-stop as FAIL_CANDIDATE_BENCHMARK or FAIL_VARIABLE_PUBLIC_API_SMOKE with exact error/completion time before rethrowing. A failed run no longer leaves the top-level evidence permanently RUNNING.
 
 # Changes 2026-10-05: top-level device evidence now surfaces Candidate thermal start/end, deterministic seed/matched-length gate, and cache-reset status instead of requiring later readers to reopen the raw receipt for benchmark comparability.
+
+# Changes 2026-10-05: top-level Candidate summary now carries the deterministic WAV equality gate and both WAV SHA256 values, making matched cold/warm workload identity visible without reopening the raw device receipt.
