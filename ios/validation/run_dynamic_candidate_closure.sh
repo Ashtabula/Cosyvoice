@@ -81,8 +81,14 @@ PY
         ios/validation/evidence/dynamic_n0_policy.json || return $?
     git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" \
         commit -m "release(ios): promote dynamic N1 private Candidate" || return $?
+    local candidate_head
+    candidate_head="$(git -C "$REPO" rev-parse HEAD)" || return $?
+    "$PYTHON" "$ROOT/validation/record_dynamic_production_baseline.py" --candidate-release-head "$candidate_head" || return $?
+    git -C "$REPO" add ios/validation/production_baseline.json || return $?
+    git -C "$REPO" -c user.name="actacomes" -c user.email="developer@actacomes.com" \
+        commit -m "release(ios): freeze dynamic Candidate baseline" || return $?
     git -C "$REPO" push origin "$BRANCH" || return $?
-    printf '[COSYVOICE3-DYNAMIC-CANDIDATE] PASS head=%s profile=%s/%s license=PENDING public=false\n' "$(git -C "$REPO" rev-parse HEAD)" "$PROFILE" "$VERSION"
+    printf '[COSYVOICE3-DYNAMIC-CANDIDATE] PASS candidateHead=%s evidenceHead=%s profile=%s/%s license=PENDING public=false\n' "$candidate_head" "$(git -C "$REPO" rev-parse HEAD)" "$PROFILE" "$VERSION"
 }
 main "$@"
 RC=$?
@@ -94,3 +100,5 @@ test "$RC" -eq 0
 # Runtime environment: canonical Mac Apple-Silicon host, authenticated private HF access, connected trusted physical iPhone.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new dynamic Candidate closure; leaves clean-room/reproducibility/license/public identity/public asset publication as Production gates.
+
+# Changes 2026-10-04: after the Candidate authority commit, freeze that exact commit into production_baseline.json in a second evidence-only commit so later Production gates reject runtime-source drift without circular Candidate-head metadata.
