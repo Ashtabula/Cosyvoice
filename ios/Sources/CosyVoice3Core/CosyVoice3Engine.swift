@@ -257,8 +257,13 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         var llmGenerationMilliseconds = 0.0
         let speechTokens: [Int] = try {
             let loadStart = DispatchTime.now().uptimeNanoseconds
-            let prefill = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmPrefill)
-            let decode = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmDecode)
+            let models = try CosyVoice3AssetLoader.llmModelPair(
+                root: assetRoot,
+                prefillPath: manifest.llmPrefill,
+                decodePath: manifest.llmDecode
+            )
+            let prefill = models.prefill
+            let decode = models.decode
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
@@ -402,8 +407,13 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         var llmGenerationMilliseconds = 0.0
         let speechTokens: [Int] = try {
             let loadStart = DispatchTime.now().uptimeNanoseconds
-            let prefill = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmPrefill)
-            let decode = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmDecode)
+            let models = try CosyVoice3AssetLoader.llmModelPair(
+                root: assetRoot,
+                prefillPath: manifest.llmPrefill,
+                decodePath: manifest.llmDecode
+            )
+            let prefill = models.prefill
+            let decode = models.decode
             let llm = CosyVoice3LLMRuntime(
                 prefillModel: prefill,
                 decodeModel: decode,
@@ -800,3 +810,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-04: dynamic prepare() now warms Conditions/Flow/HiFT with the same reshapeFrequency=.infrequent hint used by the accepted physical acoustic sweep; warm-key identity includes the hint so an older plan marker cannot mask this change.
 
 // Updated 2026-10-04: emit phase totals from existing synthesis timing; no math, model lifetime, or parameters changed.
+
+// Changes 2026-10-04 performance candidate: both production and validation LLM call sites use one process-cached common compute route selected by llmModelPair(); model/state/RAS/public API remain unchanged.
