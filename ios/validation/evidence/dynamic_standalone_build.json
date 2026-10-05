@@ -1,0 +1,19 @@
+{
+  "command": "swift test --package-path ios",
+  "engine": "CosyVoice3",
+  "host": {
+    "architecture": "arm64",
+    "system": "Darwin"
+  },
+  "package": "ios/Package.swift",
+  "platform": "iOS",
+  "product": "CosyVoice3Core",
+  "rawBuildLogPolicy": "terminal/CI only; committed Candidate receipt is sanitized and contains no developer-local absolute paths",
+  "rawBuildLogStored": false,
+  "recordedAtUnix": 1791166768,
+  "schemaVersion": 1,
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "sourceIsolation": "PASS",
+  "status": "PASS_DYNAMIC_STANDALONE_BUILD",
+  "swiftTest": "PASS"
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_IMMUTABLE_DYNAMIC_ASSET_VALIDATION",
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "profile": "ios-dynamic-n1-n479-reference",
+  "NBounds": [
+    1,
+    479
+  ],
+  "immutableRevision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+  "immutablePayloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+  "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447",
+  "manifestSha256": "d1f6f5cf5b70cbf6a6c05e2f5d6296163b1497981ceadde99266bc560bb384de",
+  "payloadFiles": 103,
+  "manifestAndAllFilesVerified": true,
+  "conversionProvenanceRecorded": true,
+  "modelRebuilt": false,
+  "acquisitionRoute": "existing immutable Hugging Face assets; macOS validator; no developer-local model tree"
+}

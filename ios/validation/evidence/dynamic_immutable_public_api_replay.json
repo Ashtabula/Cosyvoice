@@ -1,0 +1,74 @@
+{
+  "benchmark" : "dynamic-public-api-default-and-reference-v1",
+  "default" : {
+    "durationSeconds" : 5.4800000000000004,
+    "inferredSpeechTokensFromPCM" : 137,
+    "samples" : 131520,
+    "synthesisMilliseconds" : 27016.391333,
+    "text" : "This is a CosyVoice3 dynamic default voice validation.",
+    "wavSha256" : "7faab866d8f7899bf51933c3dc41bb29e7eb739211e48eab888b196857c0d01b"
+  },
+  "defaultReport" : {
+    "acousticModelLoadMilliseconds" : 6071.3152859999991,
+    "acousticSynthesisMilliseconds" : 10296.232089000001,
+    "flowSteps" : 6,
+    "frontendMilliseconds" : 327.62904200000003,
+    "llmGenerationMilliseconds" : 3500.4494159999999,
+    "llmModelLoadMilliseconds" : 7.0341250000000004,
+    "modelPreparationCacheHit" : false,
+    "preparationMilliseconds" : 6798.8026669999999,
+    "referenceCacheHit" : false,
+    "totalMilliseconds" : 27015.277582999999,
+    "warmedModelCount" : 10
+  },
+  "device" : "iPhone",
+  "deviceModelIdentifier" : "iPhone18,4",
+  "dynamicAcousticExecutionHints" : {
+    "meaning" : "MLModelConfiguration optimization hint matching the accepted physical shape-sweep probe",
+    "reshapeFrequency" : "INFREQUENT"
+  },
+  "flowSteps" : 6,
+  "generationContract" : "per request maxN=min(targetTextTokens*20,512-logicalPrefixLength)",
+  "hostReceiptSha256" : "",
+  "productionPromotion" : false,
+  "profile" : "ios18-dynamic-n1-n479-candidate",
+  "recordedAtUnix" : 1791166851,
+  "reference" : {
+    "durationSeconds" : 10.4,
+    "inferredSpeechTokensFromPCM" : 260,
+    "referenceTranscriptCharacters" : 32,
+    "samples" : 249600,
+    "synthesisMilliseconds" : 32576.740875,
+    "text" : "This is a CosyVoice3 public API reference voice validation.",
+    "wavSha256" : "1e38cbf5cede81c1cd60e0e5f1df8b787b2ea79b92a76141cadce38cbcf2d12a"
+  },
+  "referenceReport" : {
+    "acousticModelLoadMilliseconds" : 6452.3619560000016,
+    "acousticSynthesisMilliseconds" : 16796.797793999998,
+    "flowSteps" : 6,
+    "frontendMilliseconds" : 0.88254200000000005,
+    "llmGenerationMilliseconds" : 7079.9482500000004,
+    "llmModelLoadMilliseconds" : 3.0211670000000002,
+    "modelPreparationCacheHit" : true,
+    "preparationMilliseconds" : 2228.3476249999999,
+    "referenceCacheHit" : false,
+    "totalMilliseconds" : 32575.617041000001,
+    "warmedModelCount" : 2
+  },
+  "requestedComputePlacement" : {
+    "dynamicAcoustic" : "CPU_AND_NE",
+    "llmDecode" : "CPU_ONLY",
+    "llmPrefill" : "CPU_ONLY",
+    "meaning" : "requested MLComputeUnits; not measured accelerator residency",
+    "referenceEncoders" : "CPU_ONLY"
+  },
+  "schemaVersion" : 1,
+  "sourceCommit" : "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "speechTokenBounds" : [
+    1,
+    479
+  ],
+  "status" : "PASS_DYNAMIC_PUBLIC_API_DEFAULT_AND_REFERENCE",
+  "systemName" : "iOS",
+  "systemVersion" : "27.2"
+}

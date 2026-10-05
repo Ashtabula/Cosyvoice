@@ -1,0 +1,44 @@
+{
+  "assetSelection": {
+    "profile": "ios-dynamic-n1-n479-reference",
+    "version": "0.2.0-rc1"
+  },
+  "environment": {
+    "appleSDK": "27.2",
+    "appleSDKPath": "/Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk",
+    "canonicalReferenceHost": "Mac mini / Apple M4",
+    "canonicalReferenceHostMatched": true,
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cleanRoomHost": "Mac mini (Apple M4), ProductName:\t\tmacOS | ProductVersion:\t\t27.0 | BuildVersion:\t\t26A5353q",
+    "compatibleHostOverride": false,
+    "consumerRequirements": "macOS Apple Silicon clean-room host; Swift package; iOS 18+; immutable validated CosyVoice3 asset root",
+    "deploymentTarget": "iOS 18+",
+    "historicalAssetBuildProvenance": "Non-Mac conversion provenance may be retained only behind immutable hash-bound assets; it is not part of the Candidate/Production clean-room consumer path.",
+    "hostArchitecture": "arm64",
+    "hostChip": "Apple M4",
+    "hostModel": "Mac mini",
+    "hostSystem": "Darwin",
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A5353q",
+    "releaseHost": "macOS Apple Silicon",
+    "swift": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "swiftLanguageMode": "Swift 6.0 package language mode",
+    "toolchain": "Xcode 27.2 / Build version 27B5019j; iPhoneOS SDK 27.2; swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1); Swift 6.0 package language mode",
+    "validationTarget": {
+      "model": "iPhone",
+      "modelIdentifier": "iPhone18,4",
+      "systemName": "iOS",
+      "systemVersion": "27.2"
+    },
+    "xcode": "Xcode 27.2\nBuild version 27B5019j"
+  },
+  "recordedAtUnix": 1791166994,
+  "schemaVersion": 1,
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "status": "PASS_RELEASE_ENVIRONMENT_RECORDED",
+  "validationTarget": {
+    "model": "iPhone",
+    "modelIdentifier": "iPhone18,4",
+    "systemName": "iOS",
+    "systemVersion": "27.2"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "N0Policy": {
+    "alternateEngineFallback": false,
+    "behavior": "FAIL_CLOSED",
+    "classification": "valid native-RAS immediate-EOS outcome outside successful acoustic PCM domain",
+    "padOrInventSpeechToken": false,
+    "releaseMeaning": "N0 is a disclosed synthesis error path, not a successful audio result; successful synthesis remains required to return finite non-empty mono 24 kHz PCM.",
+    "silentFallback": false,
+    "successfulPcmClaim": false,
+    "suppressTrueEOS": false
+  },
+  "acousticSupportedNBounds": [
+    1,
+    479
+  ],
+  "incidenceEvidence": null,
+  "incidenceQuantificationNote": "A stochastic sweep can characterize frequency but cannot prove probability zero. Release correctness is defined by deterministic fail-closed handling without changing upstream EOS semantics.",
+  "incidenceQuantificationRequiredForCandidate": false,
+  "physicalBoundaryEvidence": {
+    "negativeBoundaryN": [
+      0,
+      480
+    ],
+    "newNBounds": [
+      1,
+      479
+    ],
+    "status": "PASS_N1_N2_LOWER_BOUND_EXTENSION_NOT_PROMOTED"
+  },
+  "recordedAtUnix": 1791166768,
+  "schemaVersion": 1,
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "status": "PASS_N0_FAIL_CLOSED_RELEASE_POLICY",
+  "tokenSemantics": {
+    "eos": 6562,
+    "eosBehaviorChanged": false,
+    "sos": 6561
+  }
+}

@@ -1,0 +1,107 @@
+{
+  "asset": {
+    "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "profile": "ios-dynamic-n1-n479-reference",
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+    "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447",
+    "version": "0.2.0-rc1"
+  },
+  "benchmark": "public-api-candidate-v1",
+  "device": {
+    "model": "iPhone",
+    "modelIdentifier": "iPhone18,4",
+    "systemName": "iOS",
+    "systemVersion": "27.2"
+  },
+  "dynamicAcousticExecutionHints": {
+    "meaning": "MLModelConfiguration optimization hint matching physical validation",
+    "reshapeFrequency": "INFREQUENT"
+  },
+  "hostReceiptSha256": "",
+  "immutableReplayBinding": {
+    "immutableManifestSha256": "d1f6f5cf5b70cbf6a6c05e2f5d6296163b1497981ceadde99266bc560bb384de",
+    "mode": "candidate",
+    "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "physicalReceiptSha256": "4c81b0c617850930644172c19c31f045b64770f05feb27f914c0364496bcedaf",
+    "recordedAtUnix": 1791166992,
+    "referenceTranscriptSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+    "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+    "status": "PASS_CANDIDATE_BENCHMARK",
+    "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447"
+  },
+  "measurement": {
+    "channels": 1,
+    "coldDefinition": "fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm",
+    "engineInitMilliseconds": 0.488584,
+    "finite": true,
+    "firstAudioSeconds": 10.4,
+    "firstRTF": 4.209224290865385,
+    "firstSamples": 249600,
+    "firstStages": {
+      "acousticModelLoadMilliseconds": 6079.430249,
+      "acousticSynthesisMilliseconds": 16497.126001,
+      "flowSteps": 6,
+      "frontendMilliseconds": 373.354458,
+      "llmGenerationMilliseconds": 7976.1945,
+      "llmModelLoadMilliseconds": 6.363833,
+      "modelPreparationCacheHit": false,
+      "preparationMilliseconds": 12832.298541,
+      "referenceCacheHit": false,
+      "totalMilliseconds": 43775.846125,
+      "warmedModelCount": 12
+    },
+    "firstSynthesisMilliseconds": 43775.932625,
+    "flowSteps": 6,
+    "referenceValidationPrewarm": false,
+    "repeatAudioSeconds": 10.4,
+    "repeatRTF": 2.872375661057692,
+    "repeatSamples": 249600,
+    "repeatStages": {
+      "acousticModelLoadMilliseconds": 6062.418705000001,
+      "acousticSynthesisMilliseconds": 16593.311753,
+      "flowSteps": 6,
+      "frontendMilliseconds": 1.179917,
+      "llmGenerationMilliseconds": 7196.130458,
+      "llmModelLoadMilliseconds": 4.769125,
+      "modelPreparationCacheHit": true,
+      "preparationMilliseconds": 3.432458,
+      "referenceCacheHit": true,
+      "totalMilliseconds": 29872.674916,
+      "warmedModelCount": 0
+    },
+    "repeatSynthesisMilliseconds": 29872.706875,
+    "sameSampleCount": true,
+    "sampleRate": 24000,
+    "warmDefinition": "second identical public synthesize call on the same engine instance after automatic preparation"
+  },
+  "performanceThresholdApplied": false,
+  "recordedAtUnix": 1791167023,
+  "requestedComputePlacement": {
+    "dynamicAcoustic": "CPU_AND_NE",
+    "llmDecode": "CPU_ONLY",
+    "llmPrefill": "CPU_ONLY",
+    "meaning": "requested MLComputeUnits; not measured accelerator residency",
+    "referenceEncoders": "CPU_ONLY"
+  },
+  "runtimeManifestProfile": "ios18-dynamic-n1-n479-candidate",
+  "runtimeProfile": "ios18-dynamic-n1-n479",
+  "schemaVersion": 1,
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "speechTokenBounds": [
+    1,
+    479
+  ],
+  "status": "PASS",
+  "workload": {
+    "instructionPrefix": "You are a helpful assistant.<|endofprompt|>",
+    "referenceTranscriptCharacters": 32,
+    "referenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
+    "referenceWavBytes": 291028,
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "text": "This is a CosyVoice3 public API reference voice validation."
+  }
+}

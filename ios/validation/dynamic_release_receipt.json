@@ -1,0 +1,206 @@
+{
+  "accelerator": {
+    "claim": "not-claimed",
+    "evidence": [
+      "validation/evidence/dynamic_candidate_benchmark.json"
+    ],
+    "note": "CPU_AND_NE is a requested Core ML compute-unit policy; no ANE residency claim is made.",
+    "requestedComputePolicyRecorded": true
+  },
+  "asset": {
+    "licenseGate": "PENDING",
+    "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "profile": "ios-dynamic-n1-n479-reference",
+    "publicRedistributionApproved": false,
+    "repoId": "actacomes/CosyVoice-assets",
+    "revision": "8a1f25460a157f35fe79c42a79946c40a59da08e",
+    "testedRuntimeTreeSha256": "c8592b5f822a90b1329b477ca9d8e4adff8317ac0f2574aa75a8708dabbf0447",
+    "version": "0.2.0-rc1",
+    "visibility": "private"
+  },
+  "assetIdentity": "ios-dynamic-n1-n479-reference/0.2.0-rc1@8a1f25460a157f35fe79c42a79946c40a59da08e#3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+  "checks": {
+    "assetAcquisition": {
+      "evidence": [
+        "validation/evidence/dynamic_immutable_asset_validation.json"
+      ],
+      "route": "immutable-hosted-assets",
+      "status": "PASS"
+    },
+    "assetValidation": {
+      "evidence": [
+        "assets/releases.json",
+        "validation/evidence/dynamic_private_rc.json"
+      ],
+      "status": "PASS"
+    },
+    "audioReview": {
+      "evidence": [
+        "validation/evidence/dynamic_n1_listening_acceptance.json"
+      ],
+      "status": "PASS"
+    },
+    "benchmarkRecorded": {
+      "evidence": [
+        "validation/evidence/dynamic_candidate_benchmark.json"
+      ],
+      "status": "PASS"
+    },
+    "conversionProvenance": {
+      "evidence": [
+        "validation/evidence/dynamic_conversion_provenance.json",
+        "validation/evidence/dynamic_private_rc.json"
+      ],
+      "status": "PASS"
+    },
+    "environmentRecorded": {
+      "evidence": [
+        "validation/evidence/dynamic_release_environment.json"
+      ],
+      "status": "PASS"
+    },
+    "fullRuntimeRebuild": {
+      "evidence": [
+        "validation/evidence/dynamic_immutable_asset_validation.json"
+      ],
+      "status": "NOT_RUN_IMMUTABLE_ASSET_PATH"
+    },
+    "hostParity": {
+      "evidence": [
+        "validation/dynamic_n1_release_entry_2026-10-04.json"
+      ],
+      "status": "PASS"
+    },
+    "immutableFetchReplay": {
+      "evidence": [
+        "validation/evidence/dynamic_private_rc.json"
+      ],
+      "status": "PASS"
+    },
+    "n0FailClosedPolicy": {
+      "evidence": [
+        "validation/evidence/dynamic_n0_policy.json"
+      ],
+      "status": "PASS"
+    },
+    "physicalDeviceExecution": {
+      "evidence": [
+        "validation/evidence/dynamic_private_rc.json",
+        "validation/evidence/dynamic_candidate_benchmark.json"
+      ],
+      "status": "PASS"
+    },
+    "referenceConditionedPcm": {
+      "evidence": [
+        "validation/evidence/dynamic_private_rc.json",
+        "validation/evidence/dynamic_n1_listening_acceptance.json"
+      ],
+      "status": "PASS"
+    },
+    "sourceIsolation": {
+      "evidence": [
+        "validation/audit_source_isolation.py",
+        "validation/evidence/dynamic_standalone_build.json",
+        "Package.swift"
+      ],
+      "status": "PASS"
+    },
+    "standaloneBuild": {
+      "evidence": [
+        "validation/evidence/dynamic_standalone_build.json"
+      ],
+      "status": "PASS"
+    },
+    "targetRuntimeExecution": {
+      "evidence": [
+        "validation/evidence/dynamic_private_rc.json"
+      ],
+      "status": "PASS"
+    },
+    "textToPcm": {
+      "evidence": [
+        "validation/evidence/dynamic_private_rc.json"
+      ],
+      "status": "PASS"
+    }
+  },
+  "device": {
+    "model": "iPhone",
+    "modelIdentifier": "iPhone18,4",
+    "os": "iOS 27.2",
+    "soc": "Apple SoC implicit in physical iPhone model identifier",
+    "systemVersion": "27.2"
+  },
+  "engine": "CosyVoice3",
+  "environment": {
+    "appleSDK": "27.2",
+    "appleSDKPath": "/Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk",
+    "canonicalReferenceHost": "Mac mini / Apple M4",
+    "canonicalReferenceHostMatched": true,
+    "clang": "Apple clang version 21.0.0 (clang-2100.3.34.2)",
+    "cleanRoomHost": "Mac mini (Apple M4), ProductName:\t\tmacOS | ProductVersion:\t\t27.0 | BuildVersion:\t\t26A5353q",
+    "compatibleHostOverride": false,
+    "consumerRequirements": "macOS Apple Silicon clean-room host; Swift package; iOS 18+; immutable validated CosyVoice3 asset root",
+    "deploymentTarget": "iOS 18+",
+    "historicalAssetBuildProvenance": "{\"cleanRoomRule\": \"Candidate/Production consumers fetch and validate immutable assets on macOS; conversion/export is not rerun in clean-room.\", \"conversionEnvironment\": {\"coremltools\": \"9.0\", \"macOS\": \"ProductName:\\t\\tmacOS\\nProductVersion:\\t\\t27.0\\nBuildVersion:\\t\\t26A5353q\", \"note\": \"Core ML package metadata cryptographically belongs to the accepted family bytes; coremltools/source metadata is cross-checked against this conversion environment. Xcode coremlcompiler was used for validation compilation, not to generate the shipped mlpackage bytes.\", \"numpy\": \"1.26.4\", \"platform\": \"macOS-27.0-arm64-arm-64bit\", \"python\": \"3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]\", \"pythonExecutableRole\": \"project-local dynamic conversion environment\", \"torch\": \"2.7.0\", \"xcodeObservedForCoreMLValidation\": \"Xcode 27.2\\nBuild version 27B5019j\"}, \"exactReleasedPackageAuthority\": \"immutable per-file SHA256 + payloadTreeSha256 + testedRuntimeTreeSha256\", \"exportTool\": \"ios/experiments/dynamic-acoustic/export_full_range_family.py\", \"familyReceiptSha256\": \"185685c23ea6083f814dc48fbc613bd7bfed8b36901bf81530ba6abaac67b80c\", \"familySourceCommit\": \"254976251c9fa40204ec3fc8814bde591c5e7b98\", \"lowerBoundExtensionReceiptSha256\": \"f1fadefb3b0657898d9bcaab551444bdfe9b59422eda7b69638157c03fa051b3\", \"packageMetadata\": [{\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"5d145903c9d5ac412b733eaf9a99600ade6c6b1ed6968ac015f102b5fed88905\", \"role\": \"conditions\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"9a6705d33df4c44fd2745f50756c21e6a9be6cb25a6ab89f0493bcc116a6b413\", \"role\": \"flow-0\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"0ac61f735a7661fc725d661ade8e7ba966fe191ddaf9c8016a9851465e7589a9\", \"role\": \"flow-1\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"af44f63e27401d644aba021dbb484cb9fb176e5dc332a59a3d7e82387fbb29e3\", \"role\": \"flow-2\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"47b16e39d1049169414441a1ce61ad525fee4701e1ccc6d7d6785428b99533f4\", \"role\": \"flow-3\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"9f62c03a63b6c692333a42b81f744a30f786946b9d218f7f95b897fdce9dd703\", \"role\": \"flow-4\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"3dc84597d6b07317ae18a31235990cc8d6a12331192f6c1a4277fb85b0e24c64\", \"role\": \"flow-5\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}, {\"coremltoolsVersionMetadata\": \"9.0\", \"packageTreeSha256\": \"5b4adbab1e8be64c513b7856c5bb70dea8bb0f8a0b9bfccfd7adb9ab158bca0e\", \"role\": \"hift\", \"sourceDialectMetadata\": \"TorchExport::ATEN\", \"sourceMetadata\": \"torch==2.7.0\"}], \"receiptStatus\": \"PASS_DYNAMIC_CONVERSION_PROVENANCE_RECORDED\", \"role\": \"maintainer-only historical asset build provenance; not a clean-room consumer dependency\"}",
+    "hostArchitecture": "arm64",
+    "hostChip": "Apple M4",
+    "hostModel": "Mac mini",
+    "hostSystem": "Darwin",
+    "macOS": "ProductName:\t\tmacOS\nProductVersion:\t\t27.0\nBuildVersion:\t\t26A5353q",
+    "releaseHost": "macOS Apple Silicon",
+    "swift": "swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1)\nTarget: arm64-apple-macosx27.0.0",
+    "swiftLanguageMode": "Swift 6.0 package language mode",
+    "toolchain": "Xcode 27.2 / Build version 27B5019j; iPhoneOS SDK 27.2; swift-driver version: 1.168.6 Apple Swift version 6.4 (swiftlang-6.4.0.34.1 clang-2100.3.34.1); Swift 6.0 package language mode",
+    "validationTarget": {
+      "model": "iPhone",
+      "modelIdentifier": "iPhone18,4",
+      "systemName": "iOS",
+      "systemVersion": "27.2"
+    },
+    "xcode": "Xcode 27.2\nBuild version 27B5019j"
+  },
+  "platform": "iOS",
+  "productionPending": [
+    "cleanRoomIntegration",
+    "releaseTreeReproducible",
+    "licenseReview",
+    "publicIdentityReview",
+    "publicAssetPublication"
+  ],
+  "productionReady": false,
+  "profile": "ios18-dynamic-n1-n479",
+  "publicRedistributionApproved": false,
+  "recordedAtUnix": 1791167110,
+  "releaseStatus": "candidate",
+  "runtime": {
+    "dynamicAcousticExecutionHints": {
+      "reshapeFrequency": "INFREQUENT"
+    },
+    "flowSteps": {
+      "default": 6,
+      "supported": [
+        6,
+        8,
+        10
+      ]
+    },
+    "generationContract": "min(targetTextTokens*20,512-logicalPrefixLength)",
+    "requestedComputePlacement": {
+      "dynamicAcoustic": "CPU_AND_NE",
+      "llmDecode": "CPU_ONLY",
+      "llmPrefill": "CPU_ONLY",
+      "referenceEncoders": "CPU_ONLY",
+      "residencyClaim": false
+    }
+  },
+  "schemaVersion": 1,
+  "sourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b",
+  "speechTokenBounds": [
+    1,
+    479
+  ],
+  "technicalDistributionReady": true,
+  "validatedRuntimeSourceCommit": "3267547f6436444e72889d443a030fd9be41e2af",
+  "validatedSourceCommit": "b6f07f95c70af3e6fee5fd27c6bbb8a279de198b"
+}

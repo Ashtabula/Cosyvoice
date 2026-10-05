@@ -173,3 +173,10 @@ Action: reproducible replay_hosted_dynamic.py validates every immutable file/tre
 Files: validation/replay_hosted_dynamic.py, record_candidate_benchmark.py, DeviceSmokeApp.swift.
 Validation: Python compile PASS; original immutable dynamic public API Runner generated finite 121.32 s PCM on iPhone18,4 iOS27.2. Separate default/reference closure still pending.
 GitHub Timeline: committing/pushing source tools to existing experimental branch; no replacement asset upload.
+
+2026-10-04T22:26:06.606997-04:00
+Prompt: existing dynamic immutable RC closure.
+Action: default N137/131520 samples; reference N260/249600 samples; WAV hashes match. Cold43.775933s/RTF4.209224, warm29.872707s/RTF2.872376, both finite mono24k/default6 on iPhone18,4 iOS27.2. Register exact revision 8a1f25460a157f35fe79c42a79946c40a59da08e, dynamic default, preserve historical fixed225. Commit dynamic privateRC, physical replay, benchmark, immutable validation, historical conversion provenance, MacM4 environment, N0 policy and release ledger.
+Validation: release generator PASS on actual validated source b6f07f95c70af3e6fee5fd27c6bbb8a279de198b; shipping SDK unchanged versus3267547f6436444e72889d443a030fd9be41e2af. Model rebuild NOT_RUN immutable path; prior human listening acceptance preserved.
+Files: ios/assets/releases.json; dynamic validation/evidence JSON; dynamic_release_receipt.json; iOS docs.
+GitHub Timeline: catalog/docs7f96b09 committed/pushed first; relative-path error prevented evidence from joining that commit. This follow-up commits/pushes the missing exact evidence, without rewriting history. No new upload/media/public snapshot; private asset visibility unchanged; license IGNORED: LICENSE for this run.
