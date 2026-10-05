@@ -51,7 +51,7 @@ DEFAULT_FUNCTION = "n129_256"
 
 EXPECTED_SHARED_PROFILE = "ios-dynamic-n1-n479-reference"
 EXPECTED_SHARED_VERSION = "0.2.0-rc1"
-EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479-candidate"
+EXPECTED_SHARED_RUNTIME_PROFILE = "ios18-dynamic-n1-n479"
 EXPECTED_SHARED_PAYLOAD_TREE = "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68"
 
 
@@ -944,3 +944,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: Python exporter now independently refuses any dirty Git worktree before creating the output root and reuses that exact clean HEAD in the receipt. Direct exporter invocation has the same provenance gate as the shell wrapper.
 
 # Changes 2026-10-05: production schema-3 export now requires the exact frozen schema-2 private RC source (ios-dynamic-n1-n479-reference/0.2.0-rc1, runtime ios18-dynamic-n1-n479-candidate, payload tree 3f7b...). It recomputes every source file hash/tree/byte count before conversion and records the immutable source manifest/tree in the new receipt.
+
+# Changes 2026-10-05: correct frozen shared runtimeProfile gate to ios18-dynamic-n1-n479, matching the canonical dynamic publish script constant; the previous review-only -candidate suffix was invalid.
