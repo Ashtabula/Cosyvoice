@@ -453,8 +453,11 @@ enum CosyVoice3AssetLoader {
         let manifest = root.appendingPathComponent(loadedManifest.manifestFileName)
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
-        let rows = specs.map {
-            $0.path + "|" + String(describing: $0.computeUnits) + "|reshapeInfrequent=" + String($0.reshapeFrequencyInfrequent) + "|function=" + ($0.functionName ?? "<default>")
+        let rows = specs.map { spec -> String in
+            let units = String(describing: spec.computeUnits)
+            let reshape = String(spec.reshapeFrequencyInfrequent)
+            let function = spec.functionName ?? "<default>"
+            return [spec.path, units, "reshapeInfrequent=" + reshape, "function=" + function].joined(separator: "|")
         }.sorted()
         let identity = [
             ProcessInfo.processInfo.operatingSystemVersionString,
