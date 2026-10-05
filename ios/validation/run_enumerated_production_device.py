@@ -168,6 +168,8 @@ def main() -> None:
     parser.add_argument("--skip-candidate-benchmark", action="store_true")
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
+    parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--reset-reference-conditioning", action="store_true")
     parser.add_argument("--skip-build", action="store_true", help="reuse the already installed exact diagnostic host")
     parser.add_argument("--timeout", type=int, default=1800)
     args = parser.parse_args()
@@ -220,7 +222,7 @@ def main() -> None:
         ["git", "-C", REPO, "diff", "--name-only", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
         capture=True,
     ).splitlines()
-    diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement)
+    diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function)
     diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"}
     if runtime_changed and not (
         diagnostic_compute
@@ -250,6 +252,7 @@ def main() -> None:
         "recordedAtUnix": int(time.time()),
         "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
         "requestedRoleOverrides": args.placement,
+        "experimentalSingleFunctionRoles": args.single_function,
         "diagnosticRuntimeChangedFiles": runtime_changed,
         "productionPromotion": False if diagnostic_compute else None,
     }
@@ -272,7 +275,10 @@ def main() -> None:
     json_write(variable_marker_path, variable_marker)
 
     derived = ROOT / ".work/EnumeratedProductionDeviceDerivedData"
+    build_marker = ROOT / "validation/DeviceSmoke/GeneratedAssets/validation-build-source.json"
     if not args.skip_build:
+        build_marker.parent.mkdir(parents=True, exist_ok=True)
+        json_write(build_marker, {"sourceCommit": source})
         run([
             "xcodebuild",
             "-project", PROJECT,
@@ -331,6 +337,7 @@ def main() -> None:
         "stagingReused": args.reuse_staging,
         "diagnosticEnumeratedCompute": args.diagnostic_enumerated_compute,
         "requestedRoleOverrides": args.placement,
+        "experimentalSingleFunctionRoles": args.single_function,
         "diagnosticRuntimeChangedFiles": runtime_changed,
         "productionPromotion": False if diagnostic_compute else None,
         "runs": {},
@@ -347,6 +354,9 @@ def main() -> None:
             elif args.diagnostic_enumerated_compute == "cpu-only":
                 candidate_args.append("--validation-enumerated-cpu-only")
             candidate_args += ["--validation-placement=" + item for item in args.placement]
+            candidate_args += ["--validation-single-function=" + item for item in args.single_function]
+            if args.reset_reference_conditioning:
+                candidate_args.append("--reset-reference-conditioning")
             process = launch_with_console(
                 args.device,
                 args.bundle,

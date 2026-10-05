@@ -324,7 +324,13 @@ enum CosyVoice3AssetLoader {
         preferFastPrediction: Bool = false,
         functionName: String? = nil
     ) throws -> MLModel {
-        let source = root.appendingPathComponent(path)
+        let role = CosyVoice3ValidationPlacement.role(for: path)
+        let singleRoles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
+        guard Set(singleRoles).count == singleRoles.count, singleRoles.allSatisfy({ ["conditions", "hift", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5"].contains($0) }) else {
+            throw CosyVoice3AssetError.compiledCache("invalid/duplicate single-function diagnostic role")
+        }
+        let single = role.map { singleRoles.contains($0) } ?? false
+        let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental").appendingPathComponent(role! + ".mlpackage") : root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
@@ -343,14 +349,13 @@ enum CosyVoice3AssetLoader {
             units = gpuKey.map { ProcessInfo.processInfo.environment[$0] == "1" } == true ? .cpuAndGPU : computeUnits
         }
         let overrides = try CosyVoice3ValidationPlacement.overrides()
-        let role = CosyVoice3ValidationPlacement.role(for: path)
         let effectiveUnits = role.flatMap { overrides[$0] } ?? units
         config.computeUnits = effectiveUnits
         if let role {
             print("[COSY-ROLE-PLACEMENT] role=\(role) path=\(path) requested=\(effectiveUnits) evidence=requested-only")
         }
-        config.functionName = functionName
-        if units != computeUnits { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(units) validationOnly=YES") }
+        config.functionName = single ? nil : functionName
+        if effectiveUnits != computeUnits || single { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(effectiveUnits) singleFunction=\(single) validationOnly=YES") }
         if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
@@ -359,7 +364,7 @@ enum CosyVoice3AssetLoader {
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
-                "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: effectiveUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) error=\(String(describing: error))"
+                "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: effectiveUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) source=\(source.path) error=\(String(describing: error))"
             )
         }
     }
@@ -606,3 +611,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: align runtime fail-closed validation with validate_assets.py: promoted schema-2/3 reference Conditions must bind to the active flowConditions package, and schema-3 must not carry legacy fixed flowMask/flowNoise paths.
 
 // Changes 2026-10-05 19:12 America/New_York: validation role parser and model configuration (lines 19-61 and model()); 12 independent fail-closed overrides, production defaults/model bytes unchanged. Upstream: existing SDK AssetLoader; environment Swift6/iOS18+/macOS15+.
+
+// Changes 2026-10-05: model() validation single-function role maps only to separate ANEExperimental package; functionName=nil for main graph. Frozen Runtime untouched, missing experiment throws; probe logs now show final role override.

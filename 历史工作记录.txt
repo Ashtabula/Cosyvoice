@@ -237,3 +237,10 @@ GitHub Timeline: 源代码已push各自实验分支；本次report未commit，�
 修改文件：AssetLoader.swift、DeviceSmokeApp.swift、run_enumerated_production_device.py、ValidationPlacementTests.swift。
 测试或验证结果：现有51 Release tests，4 skipped，0 failures；新增placement tests待执行；physical matrix待执行。
 GitHub Timeline：当前未 commit；下一步选择性commit源码用于physical source绑定；未push，未更换模型或release catalog。
+
+时间：2026-10-05T19:24:42.723070-04:00
+用户 Prompt：继续完整ANE优化矩阵，不能因placement失败停止。
+具体动作：保留第一批thermal-start拒绝，不归因模型；补自动冷却重试。独立single-function n257_384提取，graph/weights byte equality全部PASS，/private/tmp/cosy-ane-single-20261005；冻结基线未动。增加compute-plan诊断、显式reference conditioning cache reset、WAV保存、实验包device SHA核验、signed host source绑定。发现旧host嵌4GiB资源，原资源完整移至ios/.work/ane-optimization/preserved-original-bundled-GeneratedAssets，改建轻量host。
+修改文件：AssetLoader、DeviceSmoke、device runner、ANE matrix/audit/single-function exporter、evidence JSON。
+验证：第一批baseline warm0.924029 nominal；Prefill NE请求warm0.945005（WAV不同）；HiFT NE请求warm0.921938；Flow2 NE load misleading functionName错误；C/D及多项thermal fair未执行，待重试；single-function graph/weights8角色均相同。
+GitHub Timeline：已commit未push1f15521；当前增补未commit，下一步commit用于精确physical绑定；未上传HF/未改release catalog/production defaults。

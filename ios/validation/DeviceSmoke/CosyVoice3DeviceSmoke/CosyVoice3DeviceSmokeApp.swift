@@ -3,6 +3,7 @@
 
 import AVFoundation
 import Combine
+import CoreML
 import CryptoKit
 import Darwin
 import SwiftUI
@@ -97,6 +98,11 @@ final class CosyVoice3SmokeModel: ObservableObject {
         if FileManager.default.fileExists(atPath: root.path) {
             try FileManager.default.removeItem(at: root)
         }
+        if CommandLine.arguments.contains("--reset-reference-conditioning") {
+            let support = FileManager.default.urls(for: .applicationSupportDirectory, in: .userDomainMask)[0]
+            let reference = support.appendingPathComponent("CosyVoice3Core/ReferenceConditioning-v1")
+            if FileManager.default.fileExists(atPath: reference.path) { try FileManager.default.removeItem(at: reference) }
+        }
         return true
     }
 
@@ -106,7 +112,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
         defer { UIApplication.shared.isIdleTimerDisabled = idleSetting }
         do {
             let resources = try Self.generatedAssets()
-            if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
+            if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
+            else if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("variable-public-api-smoke-mode.json").path)
                  || FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) {
                 await runVariablePublicAPISmoke()
@@ -355,6 +362,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 throw SmokeError("Candidate benchmark requires thermal nominal at start; actual=\(Self.thermalName(thermalStart))")
             }
             let fixture = try Self.fixture()
+            let experimentalIdentity = try Self.validateExperimentalModels(runtime: fixture.runtime)
             let activeManifest = try Self.activeManifest(runtime: fixture.runtime)
             let activeProfile = activeManifest.profile
             let variable = try? Self.variableManifestInfo(runtime: fixture.runtime)
@@ -421,6 +429,16 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             if let firstStages { receipt["firstStages"] = Self.reportDictionary(firstStages) }
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
+            try Self.wavData(first).write(to: Self.receiptURL("candidate-cold.wav"), options: .atomic)
+            try Self.wavData(repeatAudio).write(to: Self.receiptURL("candidate-warm.wav"), options: .atomic)
+            receipt["experimentalModelIdentity"] = experimentalIdentity
+            receipt["experimentalSingleFunctionRoles"] = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }
+            receipt["referenceConditioningCacheReset"] = CommandLine.arguments.contains("--reset-reference-conditioning")
+            if let url = Bundle.main.url(forResource: "validation-build-source", withExtension: "json", subdirectory: "GeneratedAssets"),
+               let value = try JSONSerialization.jsonObject(with: Data(contentsOf: url)) as? [String: Any] {
+                receipt["signedHostBuildSourceCommit"] = value["sourceCommit"]
+                guard value["sourceCommit"] as? String == fixture.sourceCommit else { throw SmokeError("installed binary source binding mismatch") }
+            }
             receipt["thermalPeak"] = Self.thermalName(benchmarkThermalPeak)
             receipt["requestedComputePlacementByRole"] = Self.requestedPlacements()
             receipt["residencyEvidence"] = "requested placement only, residency not proven"
@@ -737,6 +755,86 @@ final class CosyVoice3SmokeModel: ObservableObject {
         model.status="FAIL \(String(describing:error))"
     }
 
+    func runANEComputePlans() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let filename = "ane-compute-plan-receipt.json"
+        var rows = [[String: Any]]()
+        do {
+            let fixture = try Self.fixture()
+            let paths = ["llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage", "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage", "conditions": "enumerated-acoustic/conditions.mlpackage", "hift": "enumerated-acoustic/hift.mlpackage", "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage", "campPlus": "reference/campplus-fixed604.mlpackage"]
+            let selected = CommandLine.arguments.filter { $0.hasPrefix("--validation-plan-role=") }.map { String($0.dropFirst("--validation-plan-role=".count)) }
+            let roles = selected.isEmpty ? ["llmPrefill", "llmDecode", "conditions", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5", "hift", "speechTokenizer", "campPlus"] : selected
+            func save(_ status: String) throws {
+                var receipt: [String: Any] = ["schemaVersion": 1, "status": status, "sourceCommit": fixture.sourceCommit, "recordedAtUnix": Int(Date().timeIntervalSince1970), "deviceModelIdentifier": Self.machineIdentifier(), "systemVersion": UIDevice.current.systemVersion, "models": rows, "meaning": "MLComputePlan preferred/supported devices; not measured runtime residency"]
+                receipt["payloadTreeSha256"] = fixture.payloadTreeSHA256
+                _ = try Self.write(receipt, to: Self.receiptURL(filename))
+            }
+            for role in roles {
+                let relative = paths[role] ?? (role.hasPrefix("flow") ? "enumerated-acoustic/flow-shard-\(role.dropFirst(4)).mlpackage" : "")
+                guard !relative.isEmpty else { throw SmokeError("unknown plan role \(role)") }
+                let single = CommandLine.arguments.contains("--validation-single-function=\(role)")
+                let source = single ? fixture.runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role).mlpackage") : fixture.runtime.appendingPathComponent(relative)
+                var row: [String: Any] = ["role": role, "path": source.path, "singleFunction": single, "requestedPlacement": Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE"), "stage": "compile", "status": "RUNNING"]
+                rows.append(row); try save("RUNNING")
+                do {
+                    let compiled = try await MLModel.compileModel(at: source)
+                    defer { try? FileManager.default.removeItem(at: compiled) }
+                    let config = MLModelConfiguration()
+                    let policy = Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE")
+                    switch policy {
+                    case "CPU_ONLY": config.computeUnits = .cpuOnly
+                    case "CPU_AND_GPU": config.computeUnits = .cpuAndGPU
+                    case "CPU_AND_NE": config.computeUnits = .cpuAndNeuralEngine
+                    default: throw SmokeError("invalid compute policy \(policy)")
+                    }
+                    config.functionName = relative.hasPrefix("enumerated-acoustic/") && !single ? "n257_384" : nil
+                    row["stage"] = "compute-plan"; rows[rows.count-1] = row; try save("RUNNING")
+                    let plan = try await MLComputePlan.load(contentsOf: compiled, configuration: config)
+                    var counts = [String: Int](); var operations = [[String: Any]]()
+                    if case let .program(program) = plan.modelStructure {
+                        func visit(_ block: MLModelStructure.Program.Block) {
+                            for op in block.operations {
+                                if let usage = plan.deviceUsage(for: op) {
+                                    counts[usage.preferred.description, default: 0] += 1
+                                    operations.append(["operator": op.operatorName, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
+                                }
+                                for child in op.blocks { visit(child) }
+                            }
+                        }
+                        for function in program.functions.values { visit(function.block) }
+                    }
+                    row["preferredCounts"] = counts; row["operations"] = operations; row["status"] = "PASS_COMPUTE_PLAN"
+                    print("[ANE-COMPUTE-PLAN] role=\(role) single=\(single) counts=\(counts)")
+                } catch {
+                    let error = error as NSError
+                    row["status"] = "FAIL_COMPUTE_PLAN"; row["error"] = ["domain": error.domain, "code": error.code, "description": error.localizedDescription, "userInfo": String(describing: error.userInfo)]
+                }
+                rows[rows.count-1] = row; try save("RUNNING")
+            }
+            try save("PASS_DIAGNOSTIC_COLLECTION"); status = "PASS diagnostic compute-plan collection"
+        } catch { Self.recordFailure(error, filename: filename, into: self) }
+    }
+
+    private static func validateExperimentalModels(runtime: URL) throws -> [String: Any] {
+        let roles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
+        if roles.isEmpty { return [:] }
+        let folder = runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental")
+        let exportData = try Data(contentsOf: folder.appendingPathComponent("export-receipt.json"))
+        guard let receipt = try JSONSerialization.jsonObject(with: exportData) as? [String: Any], let models = receipt["models"] as? [String: [String: Any]] else { throw SmokeError("experimental export receipt missing") }
+        var result = [String: Any]()
+        for role in roles {
+            guard let model = models[role], let identity = model["experimentalIdentity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], model["graphIdentical"] as? Bool == true, model["weightsIdentical"] as? Bool == true else { throw SmokeError("single-function graph identity missing: \(role)") }
+            for file in files {
+                guard let path = file["path"] as? String, let bytes = file["bytes"] as? Int, let sha = file["sha256"] as? String else { throw SmokeError("experimental file identity missing") }
+                let contents = try Data(contentsOf: folder.appendingPathComponent("\(role).mlpackage/\(path)"), options: .mappedIfSafe)
+                let actual = SHA256.hash(data: contents).map { String(format: "%02x", $0) }.joined()
+                guard contents.count == bytes, actual == sha else { throw SmokeError("experimental payload SHA mismatch: \(role)/\(path)") }
+            }
+            result[role] = identity
+        }
+        return result
+    }
+
     private static func requestedRolePlacement(_ role: String, defaultValue: String) -> String {
         let prefix = "--validation-placement=\(role):"
         return CommandLine.arguments.first(where: { $0.hasPrefix(prefix) }).map { String($0.dropFirst(prefix.count)) } ?? defaultValue
@@ -871,3 +969,5 @@ private extension Data {
 // Changes 2026-10-05: Candidate/variable receipts and FAIL receipts report the effective validation acoustic placement; schema-3 diagnostic command-line overrides are never labeled as production placement.
 
 // Changes 2026-10-05 19:12 America/New_York: Candidate/FAIL receipts carry 12 requested role placements and explicit unproven residency. Upstream DeviceSmoke public API benchmark; environment physical iPhone/iOS18+, Swift6.
+
+// Changes 2026-10-05: separate --ane-compute-plans diagnostic records supported/preferred devices/errors; baseline timing mode never loads a plan. Explicit validation reference cache reset; saved cold/warm WAVs for comparisons.
