@@ -32,6 +32,7 @@ def main()->int:
     p.add_argument("--private-rc-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_private_rc.json")
     p.add_argument("--conversion-provenance-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_conversion_provenance.json")
     p.add_argument("--rebuild-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_runtime_rebuild.json")
+    p.add_argument("--immutable-asset-receipt",type=Path,help="Canonical checklist alternative: exact hosted revision validated on macOS, without model conversion/rebuild")
     p.add_argument("--benchmark-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_candidate_benchmark.json")
     p.add_argument("--environment-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_release_environment.json")
     p.add_argument("--listening-receipt",type=Path,default=ROOT/"validation/evidence/dynamic_n1_listening_acceptance.json")
@@ -46,7 +47,7 @@ def main()->int:
     build=load(a.build_receipt)
     private=load(a.private_rc_receipt)
     conversion=load(a.conversion_provenance_receipt)
-    rebuild=load(a.rebuild_receipt)
+    rebuild=load(a.immutable_asset_receipt or a.rebuild_receipt)
     benchmark=load(a.benchmark_receipt)
     env=load(a.environment_receipt)
     listening=load(a.listening_receipt)
@@ -62,8 +63,13 @@ def main()->int:
     require(private.get("publicRedistributionApproved") is False,"dynamic Candidate must remain private before license approval")
     require(conversion.get("status")=="PASS_DYNAMIC_CONVERSION_PROVENANCE_RECORDED","dynamic conversion provenance is not PASS")
     require((private.get("conversionProvenance") or {}).get("familyReceiptSha256")==conversion.get("familyReceiptSha256"),"private RC/conversion provenance family receipt mismatch")
-    require(rebuild.get("status")=="PASS_SUPPORTED_DYNAMIC_RUNTIME_REBUILD_CONTRACT","dynamic runtime rebuild convergence is not PASS")
-    require(rebuild.get("sourceCommit")==current,"dynamic runtime rebuild convergence is not current HEAD")
+    expected="PASS_IMMUTABLE_DYNAMIC_ASSET_VALIDATION" if a.immutable_asset_receipt else "PASS_SUPPORTED_DYNAMIC_RUNTIME_REBUILD_CONTRACT"
+    require(rebuild.get("status")==expected,"dynamic immutable validation/rebuild evidence is not PASS")
+    require(rebuild.get("sourceCommit")==current,"dynamic immutable validation/rebuild is not current HEAD")
+    if a.immutable_asset_receipt:
+        require(rebuild.get("manifestAndAllFilesVerified") is True,"immutable path lacks complete manifest/file verification")
+        require(rebuild.get("conversionProvenanceRecorded") is True,"immutable path lacks recorded conversion provenance")
+        require(rebuild.get("modelRebuilt") is False,"immutable path must not claim a model rebuild")
     require(rebuild.get("profile")==PROFILE and rebuild.get("NBounds")==[1,479],"dynamic rebuild profile/bounds mismatch")
     require(rebuild.get("immutableRevision")==private.get("revision"),"dynamic rebuild is not bound to the private RC immutable revision")
     require(rebuild.get("immutablePayloadTreeSha256")==private.get("payloadTreeSha256"),"dynamic rebuild is not bound to the private RC payload tree")
@@ -140,7 +146,8 @@ def main()->int:
             "assetValidation":{"status":"PASS","evidence":["assets/releases.json","validation/evidence/dynamic_private_rc.json"]},
             "conversionProvenance":{"status":"PASS","evidence":["validation/evidence/dynamic_conversion_provenance.json","validation/evidence/dynamic_private_rc.json"]},
             "immutableFetchReplay":{"status":"PASS","evidence":["validation/evidence/dynamic_private_rc.json"]},
-            "fullRuntimeRebuild":{"status":"PASS","evidence":["validation/evidence/dynamic_runtime_rebuild.json"]},
+            "fullRuntimeRebuild":{"status":"NOT_RUN_IMMUTABLE_ASSET_PATH" if a.immutable_asset_receipt else "PASS","evidence":["validation/evidence/dynamic_immutable_asset_validation.json" if a.immutable_asset_receipt else "validation/evidence/dynamic_runtime_rebuild.json"]},
+            "assetAcquisition":{"status":"PASS","route":"immutable-hosted-assets" if a.immutable_asset_receipt else "pinned-runtime-rebuild","evidence":["validation/evidence/dynamic_immutable_asset_validation.json" if a.immutable_asset_receipt else "validation/evidence/dynamic_runtime_rebuild.json"]},
             "hostParity":{"status":"PASS","evidence":["validation/dynamic_n1_release_entry_2026-10-04.json"]},
             "targetRuntimeExecution":{"status":"PASS","evidence":["validation/evidence/dynamic_private_rc.json"]},
             "physicalDeviceExecution":{"status":"PASS","evidence":["validation/evidence/dynamic_private_rc.json","validation/evidence/dynamic_candidate_benchmark.json"]},
@@ -190,3 +197,4 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: Candidate receipt records validatedSourceCommit=current checklist closure HEAD for Production baseline compatibility, while validatedRuntimeSourceCommit separately preserves the earlier physical public-API runtime source proof.
 
 # Changes 2026-10-04: Candidate ledger requires the committed exact conversion-provenance receipt and cross-binds its familyReceiptSha256 to the immutable private RC; the PASS check references both evidence files.
+# Changes 2026-10-04: optional immutable-asset receipt implements the canonical checklist's obtain-immutable-assets OR pinned-rebuild path. Requires complete Mac-side manifest/file/tree validation and recorded conversion provenance; explicitly records model rebuild as not run. All physical replay, benchmark, source, quality and identity gates remain required.

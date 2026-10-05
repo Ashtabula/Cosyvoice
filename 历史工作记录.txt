@@ -160,3 +160,10 @@ Prompt：收尾审计并确认所有实验code/evidence推送及冻结状态。
 修改文件：历史工作记录.txt（仅append）。
 验证：全部检查PASS；最初作用域检查因git quotePath将中文历史文件转义误报，改用git diff --name-only -z正确读取后PASS；不是代码/数值失败。release/ios-fixed225-sdk-ready仍4ab288d39b92d68b448c2d4b5fa011dddc29e202。Shipping SDK/catalog/releases/Candidate证据未改；所有large artifacts留.work。native真实EOS167/178证明已完成；whole endpoint parity/listening未accepted，>225未验证，cap225仍保留，productionPromotion=false。
 GitHub Timeline：所有实验code/evidence/docs已commit且已push；验证6e3cec3c305330db49132d842a23654750281590 local=remote、tracked/untracked clean。本条日志在写入时未commit未push，由随后独立审计提交同步。
+
+2026-10-04 22:12 EDT
+Prompt: close existing HF dynamic revision 8a1f25460a157f35fe79c42a79946c40a59da08e; no re-upload/fixed225 fallback.
+Actions: hidden atomic download candidate avoids Finder contamination; move validated fetched tree instead of duplicating 4.28 GB. DeviceSmoke supports receipt-last Documents staging bound to immutable manifest, preserves bundled/reference recovery path. Dynamic ledger supports canonical immutable-assets OR pinned-rebuild gate; records rebuild NOT_RUN for immutable path and retains physical/quality/source gates.
+Files: ios/assets/fetch_assets.py; DeviceSmokeApp.swift; generate_dynamic_candidate_release_receipt.py.
+Validation: exact immutable fetch and engine asset validator PASS; standalone package build/test and signed physical replay host build PASS; physical replay pending unified Runner batch completion.
+GitHub Timeline: preparing commit and push to experiment/ios-dynamic-acoustic; hosted bytes untouched; no audio/media committed.

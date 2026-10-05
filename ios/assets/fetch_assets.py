@@ -165,7 +165,7 @@ def main() -> None:
     if output.exists() and not args.force:
         fail(f"output already exists; pass --force: {output}")
 
-    work = output.with_name(output.name + ".download")
+    work = output.with_name("." + output.name + ".download")
     snapshot = work / "snapshot"
     candidate = work / "candidate"
     shutil.rmtree(work, ignore_errors=True)
@@ -188,7 +188,7 @@ def main() -> None:
     if not release.is_dir():
         fail(f"downloaded release directory missing: {release}")
 
-    shutil.copytree(release, candidate)
+    release.rename(candidate)
     manifest = validate_release(candidate, entry)
 
     if output.exists():
@@ -223,3 +223,5 @@ if __name__ == "__main__":
 # Generated: 2026-10-02 America/New_York.
 
 # Changes 2026-10-04: --reuse-valid rehashes and validates an existing immutable output against the selected catalog entry and returns REUSE_PASS without another Hugging Face download; invalid caches still fail closed unless --force permits replacement.
+
+# Changes 2026-10-04: hide incomplete downloads from Finder and move the exact-revision release into the candidate on the same filesystem, avoiding a redundant multi-GB payload copy; validators and atomic activation remain unchanged.

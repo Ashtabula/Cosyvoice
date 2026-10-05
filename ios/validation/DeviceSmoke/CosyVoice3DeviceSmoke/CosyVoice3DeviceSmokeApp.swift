@@ -486,7 +486,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         let hostSHA:String; let sourceCommit:String
         if let marker {
             let value=try JSONSerialization.jsonObject(with:Data(contentsOf:marker)) as? [String:Any]
-            guard let bound=value?["hostReceiptSha256"] as? String, bound.count==64 else { throw SmokeError("validation marker host binding missing") }
+            let hostBound = value?["hostReceiptSha256"] as? String
+            let immutableBound = value?["immutableManifestSha256"] as? String
+            guard hostBound?.count == 64 || immutableBound?.count == 64 else { throw SmokeError("validation marker host/immutable binding missing") }
+            let bound = hostBound ?? ""
             guard let commit=value?["sourceCommit"] as? String, commit.range(of:"^[0-9a-f]{40}$",options:.regularExpression) != nil else { throw SmokeError("validation marker sourceCommit missing") }
             hostSHA=bound
             sourceCommit=commit
@@ -500,6 +503,17 @@ final class CosyVoice3SmokeModel: ObservableObject {
     }
 
     private static func generatedAssets() throws -> URL {
+        let documents = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let staged = documents.appendingPathComponent("GeneratedAssets", isDirectory: true)
+        if FileManager.default.fileExists(atPath: staged.appendingPathComponent("staging-complete.json").path) {
+            let marker = try Data(contentsOf: staged.appendingPathComponent("staging-complete.json"))
+            guard let value = try JSONSerialization.jsonObject(with: marker) as? [String: Any],
+                  let expected = value["immutableManifestSha256"] as? String else { throw SmokeError("staged immutable identity missing") }
+            let manifestData = try Data(contentsOf: staged.appendingPathComponent("Runtime/asset-manifest.json"))
+            let actual = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+            guard actual == expected else { throw SmokeError("staged immutable manifest identity mismatch") }
+            return staged
+        }
         guard let resourceRoot = Bundle.main.resourceURL else { throw SmokeError("bundle resource root unavailable") }
         let root = resourceRoot.appendingPathComponent("GeneratedAssets",isDirectory:true); var isDirectory: ObjCBool = false
         guard FileManager.default.fileExists(atPath:root.path,isDirectory:&isDirectory), isDirectory.boolValue else { throw SmokeError("GeneratedAssets missing; run validation/prepare_device_smoke_assets.py") }
@@ -609,3 +623,5 @@ private extension Data {
 // Changes 2026-10-04: dynamic public-API receipt now binds reshapeFrequency=INFREQUENT for dynamic acoustic MLModel loads, matching the physical shape-sweep execution configuration.
 
 // Changes 2026-10-04: Candidate benchmark receipt records active runtime profile; dynamic profiles also record N bounds, validated requested mixed placement, and reshapeFrequency=INFREQUENT so host-side Candidate evidence can bind the exact dynamic execution contract.
+
+// Changes 2026-10-04: support receipt-last external Documents/GeneratedAssets for exact hosted dynamic replay without bundling/copying 4.28GB on the host. Bind immutable manifest SHA explicitly; do not fabricate a historical host receipt. Original bundle staging and matching-reference recovery remain available.
