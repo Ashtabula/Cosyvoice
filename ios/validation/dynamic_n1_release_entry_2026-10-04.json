@@ -15,7 +15,7 @@
   "engineeringEvidence": {
     "lowerBoundExtension": "experiments/dynamic-acoustic/evidence/lower-bound-n1-extension-20261004-173341-20292",
     "interiorN145": "experiments/dynamic-acoustic/evidence/interior-n1-interior-20261004-184558-32925",
-    "publicApiSmoke": "validation/evidence/dynamic-public-api-smoke-1791154976",
+    "publicApiSmoke": "validation/evidence/dynamic_n1_public_api_smoke.json",
     "listeningAcceptance": "validation/evidence/dynamic_n1_listening_acceptance.json"
   },
   "acceptedRuntimeContract": {
