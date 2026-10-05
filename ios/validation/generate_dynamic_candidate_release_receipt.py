@@ -59,6 +59,7 @@ def main()->int:
     require(private.get("ordinaryDeveloperFetchPass") is True and private.get("publicApiDefaultReplayPass") is True and private.get("publicApiReferenceReplayPass") is True,"dynamic private RC fetch/device replay incomplete")
     require(private.get("publicRedistributionApproved") is False,"dynamic Candidate must remain private before license approval")
     require(rebuild.get("status")=="PASS_SUPPORTED_DYNAMIC_RUNTIME_REBUILD_CONTRACT","dynamic runtime rebuild convergence is not PASS")
+    require(rebuild.get("sourceCommit")==current,"dynamic runtime rebuild convergence is not current HEAD")
     require(rebuild.get("profile")==PROFILE and rebuild.get("NBounds")==[1,479],"dynamic rebuild profile/bounds mismatch")
     require(benchmark.get("status")=="PASS" and benchmark.get("benchmark")=="public-api-candidate-v1","dynamic Candidate benchmark is not PASS")
     require(benchmark.get("sourceCommit")==current,"dynamic Candidate benchmark is not current HEAD")
@@ -72,6 +73,7 @@ def main()->int:
         require(bool(environment.get(key)),f"release environment missing {key}")
     require(listening.get("status")=="PASS_DYNAMIC_LISTENING_ACCEPTANCE","dynamic human listening is not PASS")
     require(n0.get("status")=="PASS_N0_FAIL_CLOSED_RELEASE_POLICY","N0 release policy is not PASS")
+    require(n0.get("sourceCommit")==current,"N0 release policy is not current HEAD")
     require((n0.get("N0Policy") or {}).get("behavior")=="FAIL_CLOSED","N0 policy is not fail-closed")
     require(entry.get("status")=="PASS_DYNAMIC_N1_RELEASE_PROMOTION_ENTRY_NOT_PRODUCTION","dynamic release-entry evidence mismatch")
 
@@ -165,3 +167,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Runtime environment: canonical macOS Apple-Silicon release checkout.
 # Generated time: 2026-10-04 America/New_York.
 # Changes: new dynamic Candidate generator; license remains a separate Production gate and public redistribution remains false.
+
+# Changes 2026-10-04: require rebuild-convergence and N0-policy receipts to bind the exact current Candidate source HEAD, matching build/benchmark/environment source closure.
