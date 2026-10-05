@@ -51,6 +51,8 @@ def main()->int:
     package=(ROOT/"Package.swift").read_text(encoding="utf-8")
     target=re.search(r"\.iOS\(\.v(\d+)\)",package)
     deployment=f"iOS {target.group(1)}+" if target else "documented Package.swift platform"
+    tools=re.search(r"swift-tools-version:\s*([0-9.]+)",package)
+    swift_language_mode=f"Swift {tools.group(1)} package language mode" if tools else "Package.swift-defined Swift language mode"
 
     device=None
     if a.device_receipt:
@@ -84,9 +86,11 @@ def main()->int:
             "appleSDK":sdk,
             "appleSDKPath":sdk_path,
             "swift":swift,
+            "swiftLanguageMode":swift_language_mode,
             "clang":clang,
             "deploymentTarget":deployment,
-            "toolchain":f"{xcode.replace(chr(10),' / ')}; iPhoneOS SDK {sdk}; {swift.splitlines()[0]}",
+            "validationTarget":device,
+            "toolchain":f"{xcode.replace(chr(10),' / ')}; iPhoneOS SDK {sdk}; {swift.splitlines()[0]}; {swift_language_mode}",
             "consumerRequirements":f"macOS Apple Silicon clean-room host; Swift package; {deployment}; immutable validated CosyVoice3 asset root",
             "historicalAssetBuildProvenance":"Non-Mac conversion provenance may be retained only behind immutable hash-bound assets; it is not part of the Candidate/Production clean-room consumer path."
         },
@@ -113,3 +117,5 @@ if __name__=="__main__": raise SystemExit(main())
 # Changes 2026-10-04: device binding accepts both raw DeviceSmoke receipts and sanitized Candidate benchmark receipts with nested device metadata.
 
 # Changes 2026-10-04: canonical Candidate environment now requires Mac mini with Apple M4 by default; a non-reference Apple-Silicon Mac requires explicit COSYVOICE3_ALLOW_COMPATIBLE_RELEASE_MAC=1 and the override is recorded rather than hidden.
+
+# Changes 2026-10-04: environment block now contains validationTarget directly as required by the canonical receipt schema and records the Package.swift Swift language mode/tools version.
