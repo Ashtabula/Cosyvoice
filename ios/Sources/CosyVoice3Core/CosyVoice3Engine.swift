@@ -27,6 +27,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var dynamicFlowNoiseMaximumCache: MLMultiArray?
     private var dynamicHiFTExcitationMaximumCache: MLMultiArray?
     private var referenceConditioningCache: [String: CosyVoice3ReferenceConditioning] = [:]
+    private var referenceConditioningCacheOrder: [String] = []
+    private let referenceConditioningCacheCapacity = 2
     private var referenceAssetIdentityCache: String?
     private var referenceDiskCache: CosyVoice3ReferenceConditioningDiskCache?
     private var warmedModelKeys = Set<String>()
@@ -726,7 +728,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         guard encoded.fingerprint == descriptor.referenceFingerprint else {
             throw CosyVoice3EngineError.developmentRuntimeIncomplete("reference conditioning fingerprint mismatch")
         }
-        referenceConditioningCache[descriptor.cacheKey] = encoded
+        storeReferenceConditioningInMemory(encoded, cacheKey: descriptor.cacheKey)
         try? referenceDiskCache?.store(encoded, cacheKey: descriptor.cacheKey, assetIdentity: descriptor.assetIdentity)
         return encoded
     }
@@ -736,7 +738,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         assets: CosyVoice3ReferenceEnrollmentAssets
     ) throws -> CosyVoice3ReferenceConditioning? {
         let descriptor = try referenceCacheDescriptor(for: reference, assets: assets)
-        if let cached = referenceConditioningCache[descriptor.cacheKey] { return cached }
+        if let cached = referenceConditioningCache[descriptor.cacheKey] {
+            touchReferenceConditioningCacheKey(descriptor.cacheKey)
+            return cached
+        }
         guard let disk = referenceDiskCache else { return nil }
         do {
             if let cached = try disk.load(
@@ -744,13 +749,31 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 referenceFingerprint: descriptor.referenceFingerprint,
                 assetIdentity: descriptor.assetIdentity
             ) {
-                referenceConditioningCache[descriptor.cacheKey] = cached
+                storeReferenceConditioningInMemory(cached, cacheKey: descriptor.cacheKey)
                 return cached
             }
         } catch {
             disk.remove(cacheKey: descriptor.cacheKey)
         }
         return nil
+    }
+
+    private func storeReferenceConditioningInMemory(
+        _ conditioning: CosyVoice3ReferenceConditioning,
+        cacheKey: String
+    ) {
+        referenceConditioningCache[cacheKey] = conditioning
+        touchReferenceConditioningCacheKey(cacheKey)
+        while referenceConditioningCacheOrder.count > referenceConditioningCacheCapacity {
+            let evicted = referenceConditioningCacheOrder.removeFirst()
+            referenceConditioningCache.removeValue(forKey: evicted)
+            print("[COSY-REFERENCE-CACHE] evicted=\(evicted) capacity=\(referenceConditioningCacheCapacity)")
+        }
+    }
+
+    private func touchReferenceConditioningCacheKey(_ cacheKey: String) {
+        referenceConditioningCacheOrder.removeAll { $0 == cacheKey }
+        referenceConditioningCacheOrder.append(cacheKey)
     }
 
     private func referenceCacheDescriptor(
@@ -870,3 +893,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-05: only retry LLM generation on classified Core ML load/execution failures; sampler, contract and engine logic errors now propagate directly. Confirm/reject calls are scoped to the exact asset route key.
 
 // Changes 2026-10-05: fallback telemetry no longer double-counts CPU model construction inside llmGenerationMilliseconds; failed accelerator generation and fallback generation are summed, while fallback constructors remain exclusively in llmModelLoadMilliseconds.
+
+// Changes 2026-10-05: bound in-memory reference conditioning to an LRU of 2 entries while retaining the existing disk cache. The active/recent reference remains a RAM hit; older voices reload from disk rather than accumulating conditioning tensors for the process lifetime.
