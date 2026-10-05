@@ -164,7 +164,7 @@ enum CosyVoice3AssetLoader {
     }
 
     private static let cacheState = CacheState()
-    private static let compiledCacheVersion = "v1"
+    private static let compiledCacheVersion = "v2"
 
     static func loadManifest(root: URL) throws -> CosyVoice3AssetManifest {
         let names = ["cosyvoice3_dynamic.json", "cosyvoice3_fixed225.json"]
@@ -191,15 +191,13 @@ enum CosyVoice3AssetLoader {
         root: URL,
         path: String,
         computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
-        reshapeFrequencyInfrequent: Bool = false,
-        preferFastPrediction: Bool = false
+        reshapeFrequencyInfrequent: Bool = false
     ) throws -> MLModel {
         let source = root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
-        let compiled = try compiledModelURL(source: source)
+        let compiled = try compiledModelURL(root: root, source: source)
         let config = MLModelConfiguration()
         config.computeUnits = computeUnits
-        if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
         }
@@ -216,14 +214,8 @@ enum CosyVoice3AssetLoader {
         try model(root: root, path: path, computeUnits: CosyVoice3ModelComputePlacement.llm)
     }
 
-    static func dynamicAcousticModel(root: URL, path: String, preferFastPrediction: Bool = false) throws -> MLModel {
-        try model(
-            root: root,
-            path: path,
-            computeUnits: CosyVoice3ModelComputePlacement.acoustic,
-            reshapeFrequencyInfrequent: true,
-            preferFastPrediction: preferFastPrediction
-        )
+    static func dynamicAcousticModel(root: URL, path: String) throws -> MLModel {
+        try model(root: root, path: path, computeUnits: CosyVoice3ModelComputePlacement.acoustic, reshapeFrequencyInfrequent: true)
     }
 
     static func warmModels(
@@ -267,12 +259,16 @@ enum CosyVoice3AssetLoader {
 
     static func assetCacheIdentity(root: URL, paths: [String]) throws -> String {
         let fileManager = FileManager.default
-        var rows: [String] = []
-        rows.reserveCapacity(paths.count)
-        for path in paths.sorted() {
+        let sorted = paths.sorted()
+        for path in sorted {
             let source = root.appendingPathComponent(path)
             guard fileManager.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
-            rows.append(try sourceFingerprint(source, fileManager: fileManager))
+        }
+        let rows: [String]
+        if let releaseIdentity = try releaseManifestIdentity(root: root, fileManager: fileManager) {
+            rows = [releaseIdentity] + sorted
+        } else {
+            rows = try sorted.map { try sourceFingerprint(root.appendingPathComponent($0), fileManager: fileManager) }
         }
         return SHA256.hash(data: Data(rows.joined(separator: "\n").utf8)).map { String(format: "%02x", $0) }.joined()
     }
@@ -289,11 +285,12 @@ enum CosyVoice3AssetLoader {
         return array
     }
 
-    private static func compiledModelURL(source: URL) throws -> URL {
+    private static func compiledModelURL(root: URL, source: URL) throws -> URL {
         if source.pathExtension == "mlmodelc" { return source }
 
         let fileManager = FileManager.default
-        let processKey = ProcessInfo.processInfo.operatingSystemVersionString + "|" + source.standardizedFileURL.path
+        let fingerprint = try immutableSourceIdentity(root: root, source: source, fileManager: fileManager)
+        let processKey = fingerprint
 
         cacheState.lock.lock()
         defer { cacheState.lock.unlock() }
@@ -306,7 +303,6 @@ enum CosyVoice3AssetLoader {
         }
 
         let cacheRoot = try compiledModelCacheRoot(fileManager: fileManager)
-        let fingerprint = try sourceFingerprint(source, fileManager: fileManager)
         let digest = SHA256.hash(data: Data(fingerprint.utf8)).map { String(format: "%02x", $0) }.joined()
         let destination = cacheRoot.appendingPathComponent(digest + ".mlmodelc", isDirectory: true)
 
@@ -352,13 +348,14 @@ enum CosyVoice3AssetLoader {
         }
         let markerRoot = caches
             .appendingPathComponent("CosyVoice3Core", isDirectory: true)
-            .appendingPathComponent("PreparedModelPlans-v1", isDirectory: true)
+            .appendingPathComponent("PreparedModelPlans-v2", isDirectory: true)
         try FileManager.default.createDirectory(at: markerRoot, withIntermediateDirectories: true)
 
         let loadedManifest = try loadManifest(root: root)
         let manifest = root.appendingPathComponent(loadedManifest.manifestFileName)
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+        let releaseHash = try releaseManifestIdentity(root: root, fileManager: FileManager.default) ?? "no-release-manifest"
         let rows = specs.map {
             $0.path + "|" + String(describing: $0.computeUnits) + "|reshapeInfrequent=" + String($0.reshapeFrequencyInfrequent)
         }.sorted()
@@ -366,10 +363,31 @@ enum CosyVoice3AssetLoader {
             ProcessInfo.processInfo.operatingSystemVersionString,
             root.standardizedFileURL.path,
             manifestHash,
+            releaseHash,
             rows.joined(separator: "\n")
         ].joined(separator: "\n")
         let key = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         return markerRoot.appendingPathComponent(key + ".ready")
+    }
+
+    private static func releaseManifestIdentity(root: URL, fileManager: FileManager) throws -> String? {
+        let url = root.appendingPathComponent("asset-manifest.json")
+        guard fileManager.fileExists(atPath: url.path) else { return nil }
+        let digest = SHA256.hash(data: try Data(contentsOf: url)).map { String(format: "%02x", $0) }.joined()
+        return "asset-manifest-sha256=" + digest
+    }
+
+    private static func immutableSourceIdentity(root: URL, source: URL, fileManager: FileManager) throws -> String {
+        if let releaseIdentity = try releaseManifestIdentity(root: root, fileManager: fileManager) {
+            let rootPath = root.standardizedFileURL.path
+            let sourcePath = source.standardizedFileURL.path
+            guard sourcePath == rootPath || sourcePath.hasPrefix(rootPath + "/") else {
+                throw CosyVoice3AssetError.compiledCache("model source is outside asset root: \(sourcePath)")
+            }
+            let relative = sourcePath == rootPath ? "." : String(sourcePath.dropFirst(rootPath.count + 1))
+            return [compiledCacheVersion, ProcessInfo.processInfo.operatingSystemVersionString, rootPath, releaseIdentity, relative].joined(separator: "|")
+        }
+        return try sourceFingerprint(source, fileManager: fileManager)
     }
 
     private static func sourceFingerprint(_ source: URL, fileManager: FileManager) throws -> String {
@@ -403,7 +421,7 @@ enum CosyVoice3AssetLoader {
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
 // Runtime: iOS18+/macOS15+.
 // Generated: 2026-10-02 America/New_York.
-// Changes 2026-10-02: .mlpackage assets now compile once into Library/Caches/CosyVoice3Core and subsequent model construction reuses the stable .mlmodelc; cache identity includes OS version, standardized source path and package file sizes/mtimes and remains fail-closed.\n// Changes 2026-10-02: add bounded batch warm-up that releases every MLModel after constructor/execution-plan preparation; maximumConcurrent defaults to two so cold-start specialization can overlap without reintroducing the rejected all-model-residency memory profile. Asset metadata fingerprints are also exposed internally for safe derived-cache invalidation.\n
+// Changes 2026-10-02: .mlpackage assets compile into Library/Caches/CosyVoice3Core and subsequent model construction reuses stable .mlmodelc artifacts.\n// Changes 2026-10-02: add bounded batch warm-up that releases every MLModel after constructor/execution-plan preparation; maximumConcurrent defaults to two so cold-start specialization can overlap without reintroducing the rejected all-model-residency memory profile. Asset metadata fingerprints are also exposed internally for safe derived-cache invalidation.\n
 // Changes 2026-10-02: memoize resolved stable .mlmodelc URLs within the process after the first full package fingerprint/cache check; immutable SDK assets therefore avoid repeated package-tree enumeration on warm model construction.
 
 // Changes 2026-10-02: wrap process-local compiled-URL memoization in a locked @unchecked Sendable reference so Swift 6 strict concurrency sees no unisolated mutable static storage.
@@ -423,3 +441,5 @@ enum CosyVoice3AssetLoader {
 // Purpose: explicit specialization hint for independent validation; default remains accepted behavior.
 // Upstream: existing CoreML loader; environment: Swift6 iOS18+/macOS15+; generated 2026-10-05 America/New_York.
 // Changed model/dynamicAcousticModel optional hint arguments only; compute units unchanged.
+
+// Changes 2026-10-05: immutable RC compiled-model/reference-conditioning cache identities now bind the verified asset-manifest SHA256 plus relative asset paths; developer roots without asset-manifest retain the metadata fingerprint fallback. Cache namespace and warm-marker namespace are bumped to v2. Removed the unused fastPrediction loader parameter so rejected specialization experiments cannot be selected by shipping source call sites.
