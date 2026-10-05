@@ -595,6 +595,53 @@ def validate_representative_predictions(
     }
 
 
+def validate_hift_against_immutable_dynamic(
+    *,
+    enumerated_hift: Path,
+    shared_root: Path,
+    shared_manifest: dict,
+    receipt: dict,
+) -> None:
+    n = 225
+    inputs = hift_example(None, n)
+    feed = {
+        name: tensor.detach().cpu().numpy().astype(np.float32, copy=False)
+        for name, tensor in zip(("mel", "f0", "phase", "noise", "norm"), inputs)
+    }
+    enumerated = ct.models.MLModel(
+        str(enumerated_hift),
+        function_name="n129_256",
+        compute_units=ct.ComputeUnit.CPU_ONLY,
+    )
+    immutable = ct.models.MLModel(
+        str(shared_root / shared_manifest["hift"]),
+        compute_units=ct.ComputeUnit.CPU_ONLY,
+    )
+    new_pcm = np.asarray(enumerated.predict(feed)["pcm"], dtype=np.float32)
+    immutable_pcm = np.asarray(immutable.predict(feed)["pcm"], dtype=np.float32)
+    metric = metrics(immutable_pcm, new_pcm)
+    if (
+        not metric["finite"]
+        or tuple(new_pcm.shape) != (1, 960 * n)
+        or metric["relativeL2"] > 0.02
+    ):
+        raise RuntimeError(
+            "enumerated HiFT does not match the immutable accepted dynamic HiFT "
+            f"at N225: shape={new_pcm.shape} metrics={metric}"
+        )
+    receipt["immutableDynamicHiFTOracle"] = {
+        "status": "PASS",
+        "N": n,
+        "functionName": "n129_256",
+        "immutablePackageSha256": sha(shared_root / shared_manifest["hift"]),
+        "enumeratedPackageSha256": sha(enumerated_hift),
+        "sameInputRelativeL2Maximum": 0.02,
+        "metrics": metric,
+    }
+    del enumerated, immutable
+    gc.collect()
+
+
 def copy_path(source: Path, destination: Path) -> None:
     if destination.exists():
         raise RuntimeError(f"refusing to overwrite staged shared asset: {destination}")
@@ -747,6 +794,12 @@ def main() -> int:
 
     shared_root = args.shared_root.expanduser().resolve()
     shared_identity = validate_immutable_shared_root(shared_root)
+    shared_manifest_path = shared_root / "cosyvoice3_dynamic.json"
+    if not shared_manifest_path.is_file():
+        raise SystemExit(f"immutable shared runtime manifest missing: {shared_manifest_path}")
+    shared_manifest = json.loads(shared_manifest_path.read_text())
+    if shared_manifest.get("schemaVersion") != 2 or shared_manifest.get("profile") != EXPECTED_SHARED_RUNTIME_PROFILE:
+        raise SystemExit("immutable shared runtime manifest identity mismatch")
 
     if args.output.exists():
         raise SystemExit(f"output already exists: {args.output}")
@@ -889,15 +942,18 @@ def main() -> int:
             receipt=receipt,
         )
         save()
+
+        receipt["phase"] = "immutable_dynamic_hift_oracle"
+        save()
+        validate_hift_against_immutable_dynamic(
+            enumerated_hift=hift_package,
+            shared_root=shared_root,
+            shared_manifest=shared_manifest,
+            receipt=receipt,
+        )
+        save()
         del full, shards, estimator, body, hift
         gc.collect()
-
-        shared_manifest_path = shared_root / "cosyvoice3_dynamic.json"
-        if not shared_manifest_path.exists():
-            raise RuntimeError(f"missing shared dynamic manifest: {shared_manifest_path}")
-        shared_manifest = json.loads(shared_manifest_path.read_text())
-        if shared_manifest.get("schemaVersion") != 2 or not str(shared_manifest.get("profile", "")).startswith("ios18-dynamic-"):
-            raise RuntimeError("shared root is not a schema-2 dynamic asset profile")
         receipt["phase"] = "stage_shared_assets"
         save()
         stage_shared_assets(args.output, shared_root, shared_manifest, receipt)
@@ -964,3 +1020,5 @@ if __name__ == "__main__":
 # Changes 2026-10-05: correct frozen shared runtimeProfile gate to ios18-dynamic-n1-n479, matching the canonical dynamic publish script constant; the previous review-only -candidate suffix was invalid.
 
 # Changes 2026-10-05: Flow/Conditions export now hard-requires the accepted flow.pt SHA256 a6fab32a..., and HiFT construction hard-requires the accepted cosyvoice3.yaml SHA256 f5a6b2c6.... The exact local hift.pt SHA is recorded for independent output binding.
+
+# Changes 2026-10-05: N225 enumerated HiFT now runs an independent same-input Core ML oracle against the exact immutable accepted schema-2 dynamic HiFT package. relativeL2 must remain <=0.02, so an incorrect local hift.pt cannot pass merely by agreeing with its own PyTorch source body.
