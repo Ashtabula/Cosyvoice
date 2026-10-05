@@ -3,11 +3,12 @@
 # Requirement: Development-only fail-closed public-identity hygiene gate for tracked/release text. Build the private personal identity family at runtime from fragments, cover current/historical usernames, names, separator/host/home/email variants, and preserve SHA-bound historical Git objects rather than rewriting history.
 from __future__ import annotations
 
+import argparse
 import re
 import subprocess
 from pathlib import Path
 
-ROOT = Path(__file__).resolve().parents[1]
+DEFAULT_ROOT = Path(__file__).resolve().parents[1]
 SELF = Path(__file__).resolve()
 
 SKIP_DIR_NAMES = {
@@ -106,27 +107,35 @@ def skipped(relative: Path) -> bool:
     return any(part in SKIP_DIR_NAMES for part in relative.parts)
 
 
-def candidate_paths() -> list[Path]:
+def candidate_paths(root: Path) -> list[Path]:
     output = subprocess.check_output(
-        ["git", "-C", str(ROOT), "ls-files", "-co", "--exclude-standard", "-z"]
+        ["git", "-C", str(root), "ls-files", "-co", "--exclude-standard", "-z"]
     )
     paths: list[Path] = []
     for raw in output.split(b"\0"):
         if not raw:
             continue
         relative = Path(raw.decode("utf-8", errors="surrogateescape"))
-        path = ROOT / relative
+        path = root / relative
         if path.is_file() and not skipped(relative):
             paths.append(path)
     return paths
 
 
 def main() -> int:
+    parser=argparse.ArgumentParser()
+    parser.add_argument("--root",type=Path,default=DEFAULT_ROOT)
+    parser.add_argument("--content-only",action="store_true")
+    args=parser.parse_args()
+    root=args.root.expanduser().resolve()
+    if not (root/".git").exists():
+        raise RuntimeError(f"identity scan root is not a Git repository: {root}")
+
     failures: list[str] = []
     scanned = 0
     compiled = patterns()
 
-    for path in candidate_paths():
+    for path in candidate_paths(root):
         if path.resolve() == SELF or not is_text_candidate(path):
             continue
         try:
@@ -138,18 +147,19 @@ def main() -> int:
             for match in pattern.finditer(text):
                 line = text.count("\n", 0, match.start()) + 1
                 failures.append(
-                    f"{path.relative_to(ROOT)}:{line}: {label}: {match.group(0)!r}"
+                    f"{path.relative_to(root)}:{line}: {label}: {match.group(0)!r}"
                 )
 
-    for relative, required in REQUIRED_CANONICAL.items():
-        path = ROOT / relative
-        if not path.is_file():
-            failures.append(f"{relative}: missing canonical public identity file")
-            continue
-        text = path.read_text(encoding="utf-8")
-        for marker in required:
-            if marker not in text:
-                failures.append(f"{relative}: missing canonical marker {marker!r}")
+    if not args.content_only:
+        for relative, required in REQUIRED_CANONICAL.items():
+            path = root / relative
+            if not path.is_file():
+                failures.append(f"{relative}: missing canonical public identity file")
+                continue
+            text = path.read_text(encoding="utf-8")
+            for marker in required:
+                if marker not in text:
+                    failures.append(f"{relative}: missing canonical marker {marker!r}")
 
     if failures:
         print("[COSYVOICE3-PUBLIC-IDENTITY] FAIL", flush=True)
@@ -159,7 +169,7 @@ def main() -> int:
 
     print(
         f"[COSYVOICE3-PUBLIC-IDENTITY] PASS scannedTextFiles={scanned} "
-        "canonicalName=actacomes canonicalEmail=developer@actacomes.com",
+        + ("mode=content-only" if args.content_only else "canonicalName=actacomes canonicalEmail=developer@actacomes.com"),
         flush=True,
     )
     return 0
@@ -173,3 +183,5 @@ if __name__ == "__main__":
 # Runtime: Python 3 standard library + Git.
 # Generated: 2026-10-04 America/New_York.
 # Changes: expand to the complete identity family including separator/host/home/email variants and surname-only historical home paths, use tracked/non-ignored file enumeration, skip generated .cxx state, and keep retired personal literals out of checker source through runtime fragment assembly.
+
+# Changes 2026-10-04: add --root and --content-only so the exact fresh public snapshot can be scanned with the same complete private-identity family without requiring private release-engineering identity policy files inside the consumer snapshot.
