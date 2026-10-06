@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-resource-run") { await runResourceEfficiency() }
             else if CommandLine.arguments.contains("--validation-warm-pass") { await runWarmDecodePass() }
             else if CommandLine.arguments.contains("--validation-listening-checkpoint") { await runListeningCheckpoint() }
             else if CommandLine.arguments.contains("--validation-isolated-request") { await runIsolatedRequest() }
@@ -1478,3 +1479,198 @@ private final class WarmPassMemoryTimeline: @unchecked Sendable {
 // Upstream DeviceSmoke warm lane; Swift6/physical iPhone; no inter-request performance delay or synthesis change.
 
 // Measurement2026-10-06: execution-audit timeline adds CPU-only OSenergy/CPU counters tostage boundaries; no synthesis mutation.
+
+// ResourceEfficiency validation: frozen public inference, one-chunk generate-ahead virtual consumption.
+// The waits below are playback deadlines / explicit PRETEST gates, never model throttling.
+extension CosyVoice3SmokeModel {
+    func runResourceEfficiency() async {
+        guard !running else{return}; running=true; defer{running=false}
+        let filename="resource-efficiency-receipt.json"
+        let oldBrightness=UIScreen.main.brightness
+        UIDevice.current.isBatteryMonitoringEnabled=true
+        UIScreen.main.brightness=0.2
+        defer{UIScreen.main.brightness=oldBrightness}
+        var rows=[[String:Any]](), priming=[CosyVoice3Audio]()
+        var lastAudio:CosyVoice3Audio?
+        let monitor=ResourceEfficiencyTimeline()
+        defer{_ = monitor.stop()}
+        do {
+            func option(_ prefix:String)->String? {CommandLine.arguments.first{$0.hasPrefix(prefix)}.map{String($0.dropFirst(prefix.count))}}
+            let mode=option("--validation-resource-lane=") ?? "screen"
+            let policy=option("--validation-acoustic-cache=") ?? "none"
+            let count=mode=="screen" ? 5:(Int(option("--validation-resource-chunks=") ?? "60") ?? 0)
+            let chargingAllowed=CommandLine.arguments.contains("--validation-resource-allow-charging")
+            guard ["screen","continuous"].contains(mode),["selected-family","decoder","none"].contains(policy),
+                  mode=="screen" || (58...115).contains(count),
+                  CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  !CommandLine.arguments.contains("--reset-cosy-cache"),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
+                  !CommandLine.arguments.contains("--validation-execution-audit") else {throw SmokeError("resource lane requires frozen SHARDS2/Flow6/placement, bounded duration, no reset/per-token audit")}
+            let fixture=try Self.fixture()
+            let models=try Self.validateExperimentalModels(runtime:fixture.runtime)
+            let id=UUID().uuidString
+            let eventsURL=try Self.receiptURL("resource-efficiency-events.jsonl")
+            try Data().write(to:eventsURL)
+            let eventHandle=try FileHandle(forWritingTo:eventsURL)
+            defer{try? eventHandle.close()}
+            func saveStatus(_ state:String) throws {
+                _ = try Self.write(["schemaVersion":1,"status":state,"runID":id,"sourceCommit":fixture.sourceCommit,
+                    "mode":mode,"cachePolicy":policy,"SHARDS":2,"flowSteps":6,"chargingAllowed":chargingAllowed,
+                    "environment":Self.resourceEnvironment(),"rows":rows,"productionPromotion":false],to:Self.receiptURL(filename))
+            }
+            let engine=try CosyVoice3Engine(assetRoot:fixture.runtime,idleBucketPreparation:false)
+            await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver {phase in monitor.record(phase)}
+            monitor.record("engine_created")
+            // Two priming outputs remain retained for the complete run in ALL policies.
+            if mode=="continuous" {
+                for n in 1...2 {
+                    status="PRIMING \(policy) \(n)/2"
+                    let a=try await engine.synthesize(fixture.text,parameters:fixture.parameters)
+                    try Self.validate(a);priming.append(a)
+                }
+            }
+            let gateStart=ContinuousClock.now
+            while ProcessInfo.processInfo.thermalState != .nominal ||
+                (mode=="continuous" && !chargingAllowed && UIDevice.current.batteryState != .unplugged) {
+                status="WAIT_RESOURCE_GATE policy=\(policy) nominal + unplugged required"
+                try saveStatus("WAITING_FOR_NOMINAL_UNPLUGGED")
+                monitor.record("pretest_gate_wait")
+                guard Self.seconds(gateStart.duration(to:.now))<1800 else{throw SmokeError("formal gate timeout; no charged/hot result silently accepted")}
+                try await Task.sleep(for:.seconds(5))
+            }
+            guard UIApplication.shared.applicationState == .active else{throw SmokeError("foreground screen-on required")}
+            let environmentStart=Self.resourceEnvironment()
+            monitor.record("formal_begin")
+            let overallStart=ContinuousClock.now
+            var origin:ContinuousClock.Instant?
+            var buffered=[(end:ContinuousClock.Instant,audio:CosyVoice3Audio)]()
+            var starvationSeconds=0.0, maxBuffered=0
+            for n in 1...count {
+                if mode=="continuous", n>1, let origin {
+                    let producerStart=origin.advanced(by:.seconds(Double(n-2)*10.4))
+                    if producerStart>ContinuousClock.now {try await ContinuousClock().sleep(until:producerStart)}
+                }
+                guard UIApplication.shared.applicationState == .active else{throw SmokeError("foreground changed; consumer test invalid")}
+                if mode=="continuous",!chargingAllowed,UIDevice.current.batteryState != .unplugged{throw SmokeError("charging/unknown battery state during formal comparison")}
+                if ProcessInfo.processInfo.thermalState == .critical {throw SmokeError("critical thermal: stop starting new inference")}
+                if mode=="continuous" {buffered.removeAll{$0.end<=ContinuousClock.now}}
+                let env=Self.resourceEnvironment(),cpu=Self.processCPUMilliseconds(),energy=Self.resourceCPUEnergy()
+                monitor.active(true);monitor.record("request_\(n)_begin")
+                let start=ContinuousClock.now
+                let audio=try await engine.synthesize(fixture.text,parameters:fixture.parameters)
+                let finish=ContinuousClock.now,ms=Self.seconds(start.duration(to:finish))*1000
+                let endEnergy=Self.resourceCPUEnergy(),cpuMs=Self.processCPUMilliseconds()-cpu
+                monitor.record("request_\(n)_completion");monitor.active(false)
+                try Self.validate(audio)
+                let pcm=audio.samples.withUnsafeBytes{SHA256.hash(data:Data($0)).map{String(format:"%02x",$0)}.joined()}
+                let tokens=await engine.validationResourceSpeechTokens()
+                let tokenSHA=SHA256.hash(data:try JSONSerialization.data(withJSONObject:tokens)).map{String(format:"%02x",$0)}.joined()
+                guard pcm=="909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+                      tokenSHA=="5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",tokens.count==260,
+                      audio.samples.count==249600,audio.sampleRate==24000,
+                      let report=await engine.lastSynthesisReport(),report.flowSteps == .steps6 else{
+                    try Self.wavData(audio).write(to:Self.receiptURL("resource-quality-difference.wav"))
+                    throw SmokeError("STOP resource candidate identity changed; no automatic promotion")
+                }
+                if origin==nil {origin=finish}
+                var late=0.0
+                if mode=="continuous",n>1,let origin {
+                    let deadline=origin.advanced(by:.seconds(Double(n-1)*10.4))
+                    late=max(0,Self.seconds(deadline.duration(to:finish)));starvationSeconds+=late
+                }
+                if mode=="continuous",let origin {buffered.append((origin.advanced(by:.seconds(Double(n)*10.4)),audio))}
+                else {buffered.append((finish,audio))}
+                maxBuffered=max(maxBuffered,buffered.count);lastAudio=audio
+                let delta:UInt64?=energy.flatMap{before in endEnergy.flatMap{after in after>=before ? after-before:nil}}
+                let row:[String:Any]=["request":n,"elapsedSeconds":Self.seconds(overallStart.duration(to:finish)),
+                    "totalMilliseconds":ms,"RTF":ms/10400,"computeDutyCycle":ms/10400,"idleHeadroom":max(0,1-ms/10400),
+                    "audioSeconds":10.4,"cpuMilliseconds":cpuMs,"CPUOnlyAttributedEnergyNanojoules":delta.map{$0 as Any} ?? NSNull(),
+                    "CPUOnlyEnergyPerPlaybackSecondMillijoules":delta.map{Double($0)/1e6/10.4 as Any} ?? NSNull(),
+                    "energyPerPlaybackSecondMillijoules":NSNull(),"averageTotalActivePowerMilliwatts":NSNull(),
+                    "thermalStart":env["thermalState"]!,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),
+                    "environmentStart":env,"environmentEnd":Self.resourceEnvironment(),"stageTimings":Self.reportDictionary(report),
+                    "completionPhysicalFootprintBytes":Self.processFootprint(),"callerRetainedPCMBytes":(priming.count+buffered.count)*249600*4,
+                    "readyDeadlineLatenessSeconds":late,"virtualStarvation":late>0,"PCM_SHA256":pcm,"tokenSequenceSHA256":tokenSHA,
+                    "N":260,"function":"n257_384","SHARDS":2,"flowSteps":6,"sampleRate":24000,"samples":249600]
+                rows.append(row)
+                let line=try JSONSerialization.data(withJSONObject:row,options:.sortedKeys)
+                try eventHandle.write(contentsOf:line+Data([10]))
+                status="RESOURCE \(policy) \(n)/\(count) RTF=\(String(format:"%.4f",ms/10400)) thermal=\(Self.thermalName(ProcessInfo.processInfo.thermalState))"
+                print("[COSY-RESOURCE] \(status)")
+                // Checkpoint is outside public inference; no device transfer during run.
+                if n%3==0 {try saveStatus("RUNNING_RESOURCE")}
+            }
+            if mode=="continuous",let origin {
+                let consumptionEnd=origin.advanced(by:.seconds(Double(count)*10.4))
+                if consumptionEnd>ContinuousClock.now {try await ContinuousClock().sleep(until:consumptionEnd)}
+            }
+            monitor.record("formal_consumption_end")
+            let formalSeconds=Self.seconds(overallStart.duration(to:.now))
+            let environmentEnd=Self.resourceEnvironment()
+            if mode=="continuous" {
+                for seconds in [1,3,10,35] {
+                    let prior=seconds==1 ? 0:seconds==3 ? 1:seconds==10 ? 3:10
+                    try await Task.sleep(for:.seconds(seconds-prior));monitor.record("post_consumption_idle_\(seconds)s")
+                }
+            }
+            let timeline=monitor.stop()
+            let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
+            let wav=Self.wavData(lastAudio!),wavSHA=SHA256.hash(data:wav).map{String(format:"%02x",$0)}.joined()
+            guard wavSHA=="a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888" else{throw SmokeError("STOP WAV identity")}
+            try wav.write(to:Self.receiptURL("resource-efficiency.wav"))
+            let receipt:[String:Any]=["schemaVersion":1,"status":"PASS_FROZEN_RESOURCE_RUN","runID":id,"sourceCommit":fixture.sourceCommit,
+                "processID":ProcessInfo.processInfo.processIdentifier,"mode":mode,"cachePolicy":policy,"SHARDS":2,"flowSteps":6,
+                "device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"environmentStart":environmentStart,"environmentEnd":environmentEnd,
+                "chargingAllowed":chargingAllowed,"idleBucketPreparationDisabledForMatchedSteadyState":true,"formalSeconds":formalSeconds,"producedAudioSeconds":Double(count)*10.4,
+                "virtuallyConsumedAudioSeconds":mode=="continuous" ? Double(count)*10.4:0,"synthesisWallMilliseconds":rows.reduce(0){$0+($1["totalMilliseconds"] as! Double)},
+                "virtualStarvationSeconds":starvationSeconds,"maximumBufferedChunks":maxBuffered,
+                "consumptionMode":"virtual monotonic24kHz PCM availability; foreground onechunk generateahead; no physical audiohardware underrun claim",
+                "idleMeaning":"consumer deadlines, not cooldown/throttle; post35s memory-expiry observation excludedfromformalwindow",
+                "rows":rows,"memoryThermalCPUCounterTimeline":timeline,"persistentRuntime":snapshot,"experimentalModelIdentity":models,
+                "payloadTreeSHA256":fixture.payloadTreeSHA256 ?? "","inputTextSHA256":SHA256.hash(data:Data(fixture.text.utf8)).map{String(format:"%02x",$0)}.joined(),
+                "PCM_SHA256":"909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694","WAV_SHA256":wavSHA,
+                "energyScope":"selfprocess CPU-only recount/context-switch granularity; totalANE/GPUenergy andmJ/playback-second N/A",
+                "publicAPI":"CosyVoice3Engine.synthesize()","productionPromotion":false]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename))
+            status="PASS resource \(mode) policy=\(policy) SHARDS2 Flow6"
+        } catch {
+            let partial=monitor.stop()
+            Self.recordFailure(error,filename:filename,into:self)
+            if let url=try? Self.receiptURL(filename),let data=try? Data(contentsOf:url),var failure=(try? JSONSerialization.jsonObject(with:data)) as? [String:Any] {
+                failure["partialRows"]=rows; failure["partialTimeline"]=partial;failure["environment"]=Self.resourceEnvironment()
+                _ = try? Self.write(failure,to:url)
+            }
+        }
+    }
+    private static func resourceCharging()->Bool {UIDevice.current.batteryState == .charging || UIDevice.current.batteryState == .full}
+    private static func resourceCPUEnergy()->UInt64? {CosyVoice3Engine.validationExecutionCPUEnergy()}
+    private static func resourceEnvironment()->[String:Any] {
+        ["thermalState":thermalName(ProcessInfo.processInfo.thermalState),"batteryStateRaw":UIDevice.current.batteryState.rawValue,
+         "batteryLevel":UIDevice.current.batteryLevel,"chargingConnected":resourceCharging(),"screenBrightness":Double(UIScreen.main.brightness),
+         "foreground":UIApplication.shared.applicationState == .active,"idleTimerDisabled":UIApplication.shared.isIdleTimerDisabled,
+         "lowPowerMode":ProcessInfo.processInfo.isLowPowerModeEnabled,"ambientTemperatureC":NSNull()]
+    }
+}
+private final class ResourceEfficiencyTimeline:@unchecked Sendable {
+    private let lock=NSLock()
+    private var rows=[[String:Any]](),stage="setup",closed=false
+    private var timer:DispatchSourceTimer?
+    init(){let t=DispatchSource.makeTimerSource(queue:.global(qos:.utility));t.schedule(deadline:.now(),repeating:.seconds(1));t.setEventHandler{[weak self] in self?.record(nil)};timer=t;t.resume()}
+    func active(_ value:Bool){timer?.schedule(deadline:.now(),repeating:value ? .milliseconds(100):.seconds(1))}
+    func record(_ boundary:String?){
+        let time=DispatchTime.now().uptimeNanoseconds,cpu=CosyVoice3Engine.validationExecutionCPUTime(),energy=CosyVoice3Engine.validationExecutionCPUEnergy()
+        var info=task_vm_info_data_t(),count=mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size/MemoryLayout<integer_t>.size)
+        let code=withUnsafeMutablePointer(to:&info){p in p.withMemoryRebound(to:integer_t.self,capacity:Int(count)){task_info(mach_task_self_,task_flavor_t(TASK_VM_INFO),$0,&count)}}
+        lock.lock();defer{lock.unlock()};guard !closed,rows.count<30000 else{return};if let boundary{stage=boundary}
+        rows.append(["uptimeNanoseconds":time,"stage":stage,"boundary":boundary != nil,"physicalFootprintBytes":code==KERN_SUCCESS ? info.phys_footprint:0,
+            "thermalStateRaw":ProcessInfo.processInfo.thermalState.rawValue,"cpuMilliseconds":cpu,"CPUOnlyEnergyNanojoules":energy.map{$0 as Any} ?? NSNull()])
+    }
+    func stop()->[[String:Any]]{timer?.cancel();timer=nil;record("sampler_stop");lock.lock();defer{lock.unlock()};closed=true;return rows}
+    deinit{timer?.cancel()}
+}
+// Purpose: boundedscreen/10-20minute realdevice pacedconsumption resource comparisons, not productionmode.
+// All model/state/precision/placement/Flow/sampling code unchanged. Scalartelemetry is lock protected;
+// actor-scoped serialsynthesis; timer weakcapture; latesttokens/callerPCM bounded equallyacrosspolicies.
+// Upstream existingpublic Engine/DeviceSmoke/OSCPUCounters; Swift6/iOS18+; generated2026-10-06 America/New_York.
+// Changed runAutoMode dispatch andaddedresourcehelper only. Post-expirywait outside formalwindow.

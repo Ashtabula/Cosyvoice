@@ -435,7 +435,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let tokens = outputs[0]
             try CosyVoice3StageDiagnostics.save("llm", rows: rows, equal: outputs.allSatisfy { $0 == tokens }, telemetry: stageSampler.stop())
             llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
-            if CommandLine.arguments.contains("--validation-warm-pass"), validationWarmPassRecords.count < 16 {
+            if CommandLine.arguments.contains("--validation-resource-run") {
+                validationWarmPassRecords = [["tokens":tokens]]
+            } else if CommandLine.arguments.contains("--validation-warm-pass"), validationWarmPassRecords.count < 16 {
                 validationWarmPassRecords.append(["tokens":tokens,"audit":llm.validationDecodeAudit])
             }
             validationProgress("llm.generate.end:N=\(tokens.count)")
@@ -1082,3 +1084,10 @@ extension CosyVoice3Engine {
 }
 // Purpose: expose measurement-only counter snapshots toDeviceSmoke; existing public synthesis/API semantics untouched.
 // Upstream StageDiagnostics/Apple libproc; Swift6/iOS18+; generated2026-10-06 America/New_York. No production model/cache policy change.
+
+// Validation-only latest token witness: bounded one request, no prediction/state output retention.
+extension CosyVoice3Engine {
+    @_spi(Validation) public func validationResourceSpeechTokens()->[Int] {validationWarmPassRecords.last?["tokens"] as? [Int] ?? []}
+}
+// Purpose: resource-harness endpoint identity, not production caching. Upstream existing validationrecords;
+// Swift6/iOS18+; generated2026-10-06 America/New_York. Changed LLMreturn diagnosticbranch/getter only.

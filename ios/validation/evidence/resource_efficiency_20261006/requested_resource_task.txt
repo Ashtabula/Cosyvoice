@@ -1,0 +1,614 @@
+You are working on:
+
+Ashtabula/Cosyvoice
+
+This task begins after the current Model Residency / Peak Memory Optimization investigation and the Core ML / ANE Decode Audit have produced their evidence.
+
+Read all existing evidence first. Do not undo any accepted optimization. Do not assume that lower RTF, lower instantaneous power, or lower energy alone implies a better production profile.
+
+# Mission
+
+Optimize the current CosyVoice3 iOS runtime primarily for sustained mobile thermal behavior and resource efficiency during continuous audio consumption.
+
+The product is already fast enough. The current warm RTF is approximately 0.47, and RTF regression is acceptable if it produces a meaningful improvement in sustained thermal behavior, energy efficiency, or memory use.
+
+For this task:
+
+RTF <= 0.60 is an acceptable production region.
+
+Do NOT optimize for minimum RTF.
+
+Instead search for the best production tradeoff among:
+
+1. sustained thermal trajectory
+2. energy per playback second
+3. peak and steady-state physical memory
+4. RTF, subject to the <= 0.60 guardrail
+5. instantaneous/average power
+
+The goal is a Pareto-efficient mobile production profile, not a benchmark-speed winner.
+
+# 1. Read and freeze the latest accepted baseline
+
+Locate and read:
+- accepted 2-shard / Flow6 evidence
+- embedding-copy evidence
+- warm-decode audit
+- model-residency evidence
+- Core ML / ANE decode audit
+- latest physical-device benchmark
+- current listening checkpoint
+- exact model/asset manifests
+- current compute-unit placement
+- current cache/shelf policy
+
+Use the newest accepted values from repository evidence.
+
+Do not rely only on approximate values in this prompt.
+
+Expected current neighborhood:
+- SHARDS = 2
+- flowSteps = 6
+- warm RTF ~= 0.47
+- ~259 incremental LLM decode predictions
+- 24 kHz output
+- accepted audio/listening baseline
+
+Preserve LAST_KNOWN_GOOD.
+
+# 2. Correct KPI definitions
+
+Primary energy KPI:
+
+energyPerPlaybackSecond =
+total synthesis energy required to produce N seconds of playable audio / N
+
+Report in:
+- mJ/playback-second
+- J/minute of continuous playback when useful
+
+This is numerically equivalent to energy/generated-audio-second when all generated audio is consumed, but call it energyPerPlaybackSecond in product-facing comparisons.
+
+Also report:
+
+computeDutyCycle = RTF
+
+For example:
+RTF 0.47 means approximately 47% compute time per unit playback time if generation and consumption are scheduled serially at steady state.
+
+Do not confuse:
+- instantaneous power
+- average power while actively synthesizing
+- energy per playback second
+- long-run average device heat
+- thermal state
+
+They are related but not interchangeable.
+
+# 3. Acceptance philosophy
+
+Do NOT use this rule:
+
+"energy/playback-second increased, therefore reject."
+
+A faster candidate may consume somewhat more energy per generated second yet still be acceptable because it provides:
+- shorter compute bursts
+- longer idle/cooldown opportunities
+- greater streaming headroom
+- lower memory residency overlap
+- better observed sustained thermal behavior
+
+Likewise, a slower candidate may be preferable if it substantially reduces energy and heat.
+
+Examples of acceptable tradeoffs:
+
+A:
+RTF 0.47 -> 0.40
+energy/playback-second +10%
+sustained thermal improves
+memory improves
+=> may ACCEPT
+
+B:
+RTF 0.47 -> 0.55
+energy/playback-second -25%
+thermal improves materially
+memory same or better
+=> strong ACCEPT candidate
+
+C:
+RTF 0.47 -> 0.60
+energy/playback-second -30%
+serious thermal behavior becomes fair
+=> strong production/Eco candidate
+
+D:
+RTF 0.47 -> 0.40
+energy/playback-second +25%
+thermal worsens to serious
+memory unchanged
+=> REJECT despite speed
+
+These are examples, not hard numerical thresholds.
+
+# 4. Hard performance guardrail
+
+For the production-efficiency lane:
+
+RTF <= 0.60
+
+is acceptable.
+
+Do not automatically reject a candidate because it regresses from 0.47 to 0.50, 0.55, or 0.60.
+
+A candidate above 0.60 requires explicit justification and must not become the default production profile in this task.
+
+RTF >= 1.0 is not acceptable for the default continuous-production profile.
+
+# 5. Stage-level energy attribution first
+
+Before changing compute placement or numerical behavior, establish a reliable energy map of the current baseline.
+
+Measure, where reliable process counters are available:
+
+- engine/model preparation
+- LLM model load
+- prefill
+- autoregressive LLM decode
+- acoustic model load
+- Flow
+- HiFT/F0/vocoder
+- PCM finalization
+- total synthesis
+
+For every stage report:
+- wall time
+- process CPU time
+- process energy delta
+- average active power
+- fraction of total measured synthesis energy
+- thermal start/end
+- memory at useful boundaries
+
+If OS energy counters are unavailable or too noisy at short stage granularity, report N/A. Do not estimate energy from battery percentage.
+
+Use repeated runs where necessary.
+
+# 6. Separate time dominance from energy dominance
+
+Do not assume the LLM is the main energy consumer merely because it dominates wall time.
+
+Determine experimentally whether energy is dominated by:
+- LLM/ANE decode
+- Flow/GPU
+- HiFT/F0/CPU or GPU
+- model loading/memory traffic
+- another stage
+
+The next optimization target must be chosen from measured energy/thermal evidence, not from wall time alone.
+
+# 7. CPU is not automatically the problem
+
+Existing evidence suggests host-side CPU bookkeeping is relatively small and the LLM Core ML path is strongly ANE-oriented.
+
+Do not resume generic Swift micro-optimization unless new measurements show a meaningful CPU/energy contribution.
+
+Do not spend this task on:
+- logits fill
+- RAS tiny arrays
+- token Array capacity
+- embedding-copy work already completed
+- RoPE copies
+- mask scalar writes
+- frontend micro-optimization
+- diagnostic string formatting
+
+# 8. Candidate categories
+
+After baseline attribution, investigate only candidates with a plausible thermal/energy or memory mechanism.
+
+Possible categories include:
+
+A. Model residency/cache policy
+- avoid harmful model overlap
+- shorten retention where reload cost is low
+- family-specific cache policy
+- memory-pressure-aware eviction
+- eliminate accidental duplicate ownership
+
+B. Core ML compute policy
+Only if evidence supports it:
+- compare legal compute-unit policies for a specific stage
+- evaluate whether a slower placement consumes less energy
+- measure real physical-device effect
+
+Do not assume ANE is always lower energy than GPU or CPU.
+Do not assume GPU is always hotter.
+Measure.
+
+C. Work scheduling
+Investigate whether the same workload can be scheduled to create better idle/cooldown intervals without changing generated audio.
+
+Examples:
+- generate-ahead chunk sizing
+- avoiding unnecessary simultaneous residency
+- delaying non-urgent model loading
+- stage sequencing that reduces resource overlap
+
+Do not change semantic output.
+
+D. Flow/acoustic execution
+Only if energy attribution shows this stage is important.
+Do not change Flow steps in the first energy experiment.
+Flow-step quality/performance exploration is a separate numerical/listening lane.
+
+E. LLM execution
+Only if energy attribution or ANE audit identifies a concrete opportunity.
+Do not rewrite the LLM merely because decode is long.
+
+# 9. Preserve audio quality and semantics
+
+For low-risk resource-management/placement candidates, preserve:
+- weights
+- generation semantics
+- sampling
+- EOS
+- KV semantics
+- masks
+- RoPE
+- reference conditioning
+- output sample rate
+- output length for frozen workload
+
+Prefer bit-identical token/PCM output where the candidate should be numerically identical.
+
+If PCM changes:
+- stop treating it as a low-risk resource-only optimization
+- preserve WAVs
+- require human listening
+- document the numerical reason
+- do not automatically promote
+
+# 10. Memory remains a primary KPI
+
+Measure:
+- peak physical footprint
+- generation peak
+- request-completion footprint
+- steady/warm footprint
+- post-cache-expiry footprint
+- request-to-request growth
+- model reload count and cost
+
+Do not call normal Core ML/model residency a leak without evidence.
+
+Do not reduce benchmark PCM retention and call that an engine-memory optimization.
+
+# 11. Continuous playback workload
+
+Single 5-second synthesis thermal state is insufficient for the final product decision.
+
+Create a realistic sustained workload approximating continuous radio/podcast use.
+
+The workload should repeatedly:
+1. synthesize audio
+2. make that audio available for playback/consumption
+3. continue producing enough audio to avoid starvation
+4. preserve realistic idle windows rather than intentionally maxing compute continuously unless that is the product behavior
+
+Do not use an artificial 100%-compute torture loop as the only thermal test.
+
+Also retain a maximum-throughput stress lane separately if useful.
+
+# 12. Sustained test duration
+
+After short candidate screening, run sustained physical-device comparisons long enough to observe thermal trajectory.
+
+Target approximately 10-20 minutes when practical.
+
+Record thermal state over time, not only start/end.
+
+At minimum preserve observations at regular intervals and transition timestamps:
+- nominal
+- fair
+- serious
+- critical
+
+Also record:
+- RTF drift
+- synthesis latency drift
+- energy/playback-second over windows
+- memory trajectory
+- any throttling evidence
+- audio starvation/underrun
+
+# 13. Thermal is the primary product outcome
+
+For final candidate ranking, sustained thermal behavior is more important than winning a short benchmark.
+
+A candidate that remains nominal/fair for sustained use may be preferable to a faster candidate that enters serious thermal state.
+
+Do not infer chassis temperature in degrees unless an actual supported sensor measurement exists.
+
+Use Apple's thermal state as thermal-state evidence and clearly label any other temperature measurement source.
+
+# 14. Duty cycle
+
+For every candidate calculate:
+
+computeDutyCycle = synthesisWallTime / generatedAudioDuration
+
+which is the RTF for the relevant steady-state workload.
+
+Also report approximate idle headroom:
+
+idleHeadroom = 1 - RTF
+
+for RTF < 1.
+
+Examples:
+RTF 0.47 -> ~53% playback-time headroom
+RTF 0.60 -> ~40% playback-time headroom
+
+This is scheduling headroom, not proof that hardware is fully powered off during the remaining time.
+
+# 15. Energy normalization
+
+Always normalize energy to generated/played audio duration.
+
+Report:
+- total measured synthesis energy
+- generated audio seconds
+- mJ/playback-second
+- J/playback-minute
+
+Do not compare total Joules between runs that generate different audio durations without normalization.
+
+# 16. Candidate comparison table
+
+For every serious candidate produce:
+
+Candidate
+RTF
+Compute duty cycle
+Energy/playback-second
+J/playback-minute
+Average active synthesis power
+Thermal trajectory
+Time to first fair
+Time to first serious
+Peak physical footprint
+Steady-state physical footprint
+Reload overhead
+Audio identity/listening status
+
+Use N/A when unavailable.
+
+# 17. Pareto analysis
+
+Do not rank candidates using one scalar score unless explicitly requested later.
+
+Identify the Pareto frontier across:
+- sustained thermal behavior
+- energy/playback-second
+- memory
+- RTF
+
+A candidate is dominated if another candidate is:
+- no worse thermally
+- no worse in normalized energy
+- no worse in memory
+- no worse in RTF
+and better in at least one meaningful dimension.
+
+Remove clearly dominated candidates from further testing.
+
+# 18. Production profile decision
+
+The final recommendation may be one profile or, only if evidence strongly supports it, two internal profiles such as:
+- Production/Eco
+- Performance
+
+Do not create two public modes merely because two benchmarks exist.
+
+Prefer one default if a single candidate gives a strong overall tradeoff.
+
+If two modes are justified, keep model/cache/placement internals engine-owned and expose only a stable user-meaningful abstraction if public exposure is actually necessary.
+
+# 19. Compute placement experiments
+
+Do not perform a broad combinatorial sweep.
+
+If stage-level energy attribution identifies a hotspot, test only a small number of evidence-supported placement alternatives.
+
+For each placement candidate require:
+- same workload
+- same assets/weights
+- same quality gate
+- repeated physical runs
+- normalized energy
+- thermal trajectory
+- RTF
+- memory
+
+Do not claim actual accelerator residency solely from requested computeUnits.
+
+Use MLComputePlan/Instruments/hardware evidence where available.
+
+# 20. Do not optimize solely for lower active power
+
+Example:
+
+Candidate A:
+2 W for 0.5 s = 1 J
+
+Candidate B:
+1.5 W for 0.8 s = 1.2 J
+
+B has lower active power but consumes more energy.
+
+Therefore always interpret active power together with execution duration and normalized energy.
+
+# 21. Do not optimize solely for lower normalized energy
+
+A candidate with slightly higher energy/playback-second may still be acceptable or preferable if:
+- thermal trajectory improves
+- bursts are substantially shorter
+- memory drops substantially
+- streaming headroom improves
+- sustained RTF is more stable
+
+This must be demonstrated physically, not assumed.
+
+# 22. Short screening before long thermal tests
+
+Do not run 20-minute tests for every idea.
+
+Use:
+Phase A: static/host safety
+Phase B: short physical identity/performance/energy screen
+Phase C: reject dominated candidates
+Phase D: sustained thermal test only for baseline plus best 1-2 candidates
+
+This reduces device time and thermal carryover.
+
+# 23. Cooldown and test-order discipline
+
+Thermal comparisons require comparable starting conditions.
+
+Record:
+- starting thermal state
+- battery level when available
+- charging state
+- screen state/brightness policy
+- device/OS
+- relevant ambient conditions if known
+
+Prefer baseline/candidate crossover ordering when practical.
+
+Do not compare a cold candidate against a hot baseline and claim improvement.
+
+Allow appropriate cooldown between sustained tests.
+
+# 24. Charging
+
+Avoid charging during formal thermal/energy comparisons unless the product is explicitly intended to be evaluated while charging.
+
+Record charging state in every receipt.
+
+# 25. Energy measurement limitations
+
+Process energy counters are not whole-device battery drain.
+
+State this explicitly in reports.
+
+If a measurement reflects process-attributed energy, call it that.
+
+Do not infer battery life directly without a separate battery-level/device-power methodology.
+
+# 26. Success categories
+
+Classify each candidate using one of:
+
+RESOURCE_EFFICIENCY_STRONG_WIN
+RESOURCE_EFFICIENCY_WIN
+THERMAL_WIN_WITH_ENERGY_TRADEOFF
+ENERGY_WIN_WITH_PERFORMANCE_TRADEOFF
+MEMORY_WIN_ONLY
+PERFORMANCE_WIN_ONLY
+NO_MEASURABLE_RESOURCE_WIN
+REGRESSION
+QUALITY_CHANGE_REQUIRES_HUMAN_GATE
+
+Do not force a candidate into production.
+
+# 27. Promotion policy
+
+A production candidate must:
+- satisfy quality/semantic gates
+- maintain RTF <= 0.60 unless explicitly approved otherwise
+- show a meaningful product benefit
+- have reproducible physical evidence
+- not introduce serious memory/lifetime regressions
+- not worsen sustained thermal behavior without compelling compensating benefit
+
+Energy/playback-second is important but is not an absolute monotonic gate.
+
+# 28. Preserve current production baseline
+
+Do not overwrite:
+- LAST_KNOWN_GOOD
+- current Core ML assets
+- current Hugging Face assets
+- accepted listening evidence
+- historical benchmark receipts
+
+Experimental profiles must remain separate until promoted.
+
+# 29. Evidence output
+
+Create a dedicated evidence directory.
+
+Preserve:
+- source SHA
+- asset identity
+- exact workload hashes
+- device/OS
+- test order
+- thermal starting condition
+- raw synthesis times
+- generated audio duration
+- raw process-energy counters
+- normalized mJ/playback-second
+- J/playback-minute
+- active average power
+- CPU time
+- thermal timeline
+- memory timeline
+- RTF/duty cycle
+- PCM/token hashes
+- WAVs when needed
+- model/cache/placement policy
+- profiler evidence
+- raw logs
+
+# 30. Final report
+
+Produce:
+
+A. Accepted baseline
+B. Stage-level energy map
+C. Stage-level timing/CPU map
+D. Memory/residency summary
+E. Candidate hypotheses
+F. Short-screen results
+G. Candidate comparison table
+H. Pareto frontier
+I. Sustained thermal protocol
+J. Sustained thermal results
+K. Energy/playback-second results
+L. Memory results
+M. RTF/duty-cycle results
+N. Quality/identity results
+O. Recommended production profile
+P. Rejected candidates and why
+Q. Remaining unknowns
+
+End with answers to exactly these questions:
+
+1. How many mJ are consumed per playback second by the current baseline?
+2. Which stage consumes the most measured energy?
+3. Which stage appears to be the largest thermal concern?
+4. What is the sustained thermal trajectory of the baseline?
+5. Which candidate has the best thermal behavior?
+6. Which candidate has the lowest energy/playback-second?
+7. Which candidate has the lowest peak/steady memory?
+8. What RTF does each candidate achieve?
+9. Does any candidate enter serious thermal state during sustained use?
+10. Which candidate lies on the best production Pareto frontier?
+11. Should the default production profile change?
+12. What should be optimized next?
+
+The task is successful even if the current baseline remains the best production profile.
+
+Do not manufacture an optimization. The objective is sustained mobile efficiency, not a lower benchmark number.

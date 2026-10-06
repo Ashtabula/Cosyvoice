@@ -167,7 +167,7 @@ final class CosyVoice3WarmDecodeAudit {
 enum CosyVoice3ExecutionTelemetry {
     private typealias Reader = @convention(c) (Int32,Int32,UnsafeMutableRawPointer)->Int32
     private static let reader:Reader? = {
-        guard CommandLine.arguments.contains("--validation-execution-audit"),let handle=dlopen("/usr/lib/libproc.dylib",RTLD_LAZY),let pointer=dlsym(handle,"proc_pid_rusage") else {return nil}
+        guard CommandLine.arguments.contains("--validation-execution-audit") || CommandLine.arguments.contains("--validation-resource-run"),let handle=dlopen("/usr/lib/libproc.dylib",RTLD_LAZY),let pointer=dlsym(handle,"proc_pid_rusage") else {return nil}
         return unsafeBitCast(pointer,to:Reader.self)
     }()
     static func cpuEnergyNanojoules()->UInt64? {
@@ -182,3 +182,5 @@ enum CosyVoice3ExecutionTelemetry {
 // Owner one synchronous generation; unsafe telemetry pointer scoped to OS call, no escape or shared tensors.
 // Upstream existing Session observer and Apple libproc/XNU; Swift6/iOS18+/macOS15+; generated2026-10-06 America/New_York.
 // Changed regions WarmDecodeAudit init/observe/snapshot/capture only; production no-audit path unchanged.
+
+// Resource2026-10-06: public CPU-only counter available to pacedvalidation lane without per-token audit. No graph/math change.
