@@ -81,6 +81,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
     private var persistentIdleEngine: CosyVoice3Engine?
     private var idleReceiptTask: Task<Void, Never>?
+    private var heldIdleTimerSetting: Bool?
 
     func resumePersistentIdleIfEnabled() {
         guard let engine = persistentIdleEngine, idleReceiptTask == nil else { return }
@@ -113,6 +114,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 result["idleWindowElapsedMilliseconds"] = Date().timeIntervalSince(started)*1000
                 result["meaning"] = "persistent identity/function load readiness; not proof all exact N system specializations persist"
                 _ = try Self.write(result, to: Self.receiptURL("persistent-idle-receipt.json"))
+                if result["status"] as? String == "PASS_ALL_FOUR_BUCKETS_LOAD_READY", let previous = self?.heldIdleTimerSetting {
+                    UIApplication.shared.isIdleTimerDisabled = previous
+                    self?.heldIdleTimerSetting = nil
+                }
             } catch { if let self { Self.recordFailure(error, filename:"persistent-idle-receipt.json", into:self) } }
         }
     }
@@ -149,8 +154,9 @@ final class CosyVoice3SmokeModel: ObservableObject {
 
     func runAutoMode() async {
         let idleSetting = UIApplication.shared.isIdleTimerDisabled
+        if CommandLine.arguments.contains("--validation-idle-bootstrap") { heldIdleTimerSetting = idleSetting }
         UIApplication.shared.isIdleTimerDisabled = true
-        defer { UIApplication.shared.isIdleTimerDisabled = idleSetting }
+        defer { if heldIdleTimerSetting == nil { UIApplication.shared.isIdleTimerDisabled = idleSetting } }
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
