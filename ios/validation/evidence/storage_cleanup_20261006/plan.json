@@ -1,0 +1,192 @@
+{
+  "timestampAmericaNewYork": "2026-10-06 14:37 EDT",
+  "beforeDisk": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk7s1   976557744 896321772   1582620   100% 1263904  15826200    7%   /Volumes/WD\n/dev/disk3s5   239362496 192522176  16735980    93% 2522406 167359800    1%   /System/Volumes/Data\n",
+  "cacheCandidates": [
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 213,
+      "logicalBytes": 206362024,
+      "allocatedBytes": 206802944
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 439,
+      "logicalBytes": 37151662,
+      "allocatedBytes": 38014976
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 1584564,
+      "allocatedBytes": 1585152
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 213,
+      "logicalBytes": 206365704,
+      "allocatedBytes": 206802944
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 439,
+      "logicalBytes": 37165403,
+      "allocatedBytes": 38014976
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 1584564,
+      "allocatedBytes": 1585152
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 213,
+      "logicalBytes": 206362200,
+      "allocatedBytes": 206802944
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 439,
+      "logicalBytes": 37151647,
+      "allocatedBytes": 38014976
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 1584564,
+      "allocatedBytes": 1585152
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 213,
+      "logicalBytes": 206365592,
+      "allocatedBytes": 206802944
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 439,
+      "logicalBytes": 37155360,
+      "allocatedBytes": 38014976
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 1584564,
+      "allocatedBytes": 1585152
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 425,
+      "logicalBytes": 412757952,
+      "allocatedBytes": 413605888
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1015,
+      "logicalBytes": 83813790,
+      "allocatedBytes": 85749760
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 1584564,
+      "allocatedBytes": 1585152
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.build/out/SDKExplicitPrecompiledModules",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 589,
+      "logicalBytes": 696029616,
+      "allocatedBytes": 697217024
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.build/out/ModuleCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1756,
+      "logicalBytes": 172904916,
+      "allocatedBytes": 176128000
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.build/out/CompilationCache.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 7,
+      "logicalBytes": 16736,
+      "allocatedBytes": 28672
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.build/out/SDKStatCaches.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 1,
+      "logicalBytes": 15319928,
+      "allocatedBytes": 15323136
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex",
+      "kind": "rebuildable compiler cache; no active xcodebuild/swift process",
+      "fileCount": 2797,
+      "logicalBytes": 142503698,
+      "allocatedBytes": 150573056
+    }
+  ],
+  "protected": [
+    "frozen schema3 root generated-ac31e117",
+    "/private/tmp/cosyvoice-llm-quantization-20261006",
+    "/private/tmp/cosy-flow-partitions-20261005",
+    "all artifacts/listening",
+    "all committed evidence",
+    "all profiler traces",
+    "source checkpoint/venvs",
+    "git/release catalog",
+    "unrelated voxcpm2 workspace"
+  ]
+}

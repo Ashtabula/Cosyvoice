@@ -1,0 +1,227 @@
+{
+  "frozenPayloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "frozenPayloadBytes": 3530215890,
+  "frozenManifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "Q8Packages": [
+    {
+      "role": "prefill",
+      "path": "/private/tmp/cosyvoice-llm-quantization-20261006/Q8/models/cosyvoice-llm-q8-prefill.mlpackage",
+      "treeSHA256": "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+      "status": "PASS"
+    },
+    {
+      "role": "decode",
+      "path": "/private/tmp/cosyvoice-llm-quantization-20261006/Q8/models/cosyvoice-llm-q8-decode.mlpackage",
+      "treeSHA256": "ce2beac8170a210f3c4d24e4a15b487f5135df69f6a32fdac516183b4ed7c7f5",
+      "status": "PASS"
+    }
+  ],
+  "Q8ListeningWAVs": [
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+      "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_q8.wav",
+      "sha256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+      "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_q8.wav",
+      "sha256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+      "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_q8.wav",
+      "sha256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a",
+      "status": "PASS"
+    }
+  ],
+  "allWorkspaceWAVs": [
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/f0-candidate.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/flow-candidate.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample01_candidate.wav",
+      "bytes": 307244,
+      "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample02_candidate.wav",
+      "bytes": 756524,
+      "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample03_candidate.wav",
+      "bytes": 841004,
+      "sha256": "1049c208b89633de76489eada18dd7b52a7ee68baf5f1f14bc8fd201a8337ed1"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample04_candidate.wav",
+      "bytes": 748844,
+      "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample05_candidate.wav",
+      "bytes": 464684,
+      "sha256": "8a1079905f908ecddcb3de70a2b1a2e6726a26626a6e3ac12605eba4c5d6a620"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample06_candidate.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/reference_voice.wav",
+      "bytes": 291028,
+      "sha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/embedding-copy_001/candidate.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/llm-execution-audit_20261006/baseline.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/model-lifetime_20261006/current-memory.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/model-lifetime_20261006/decoder-memory.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/model-lifetime_20261006/none-memory.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/resource_efficiency_20261006/current-charging.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/warm-decode-pass_baseline/verified-baseline.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+      "bytes": 307244,
+      "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_q8.wav",
+      "bytes": 307244,
+      "sha256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+      "bytes": 756524,
+      "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_q8.wav",
+      "bytes": 564524,
+      "sha256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+      "bytes": 748844,
+      "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_q8.wav",
+      "bytes": 848684,
+      "sha256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/cosyvoice_baseline_fp16.wav",
+      "bytes": 499244,
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/cosyvoice_llm_q8.wav",
+      "bytes": 499244,
+      "sha256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/profile_witness/cosyvoice_llm_q8.wav",
+      "bytes": 499244,
+      "sha256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1"
+    }
+  ],
+  "profilerTracesRetained": [
+    "/private/tmp/cosy-llm-execution-20261006-CoreAI.trace",
+    "/private/tmp/cosy-llm-q8-20261006-CoreAI.trace"
+  ],
+  "flowP2RetainedPath": "/private/tmp/cosy-flow-partitions-20261005/p2",
+  "originalAcceptedListeningWAVs": [
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample01_candidate.wav",
+      "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample02_candidate.wav",
+      "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample03_candidate.wav",
+      "sha256": "1049c208b89633de76489eada18dd7b52a7ee68baf5f1f14bc8fd201a8337ed1",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample04_candidate.wav",
+      "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample05_candidate.wav",
+      "sha256": "8a1079905f908ecddcb3de70a2b1a2e6726a26626a6e3ac12605eba4c5d6a620",
+      "status": "PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample06_candidate.wav",
+      "sha256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+      "status": "PASS"
+    }
+  ],
+  "flowP2PackageVerification": [
+    {
+      "path": "/private/tmp/cosy-flow-partitions-20261005/p2/group-0.mlpackage",
+      "treeSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+      "status": "PASS"
+    },
+    {
+      "path": "/private/tmp/cosy-flow-partitions-20261005/p2/group-1.mlpackage",
+      "treeSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+      "status": "PASS"
+    }
+  ]
+}

@@ -1,0 +1,14 @@
+Cosyvoice storage cleanup — 2026-10-06 America/New_York
+User authorized removal of unused historical storage. No synthesis/model/code changes.
+
+Deleted25 rebuildable compiler cache directories (pre-deleteallocated2525966336B) and353 byte-identical obsolete large files (logical52314326582B). SHA256 verified before each unlink; retained reference path+hash saved before deletion. After cleanup all canonical referenced files rehashed PASS. One distinct4880832B condition weight retained; unique outputs not removed.
+
+Current frozen schema3 payload rehashed exactly4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa/3530215890B/64files; Q8bothfullpackage identitiesPASS; P2bothfullpackage identitiesPASS;6originalaccepted+6currentFP16/Q8listeningWAVSHAsPASS, all25workspaceWAVsretained. Current signedapp products, sourcecheckpoints/venvs, rawANEtraces/XML, committedsource/evidence, Git, release catalog, phone cache/runtime untouched.
+
+Only selected legacy fixed225/schema2 download/staging copies and two schema3 device readbacks had duplicates removed. They are now INCOMPLETE historical metadata archives. Restore using duplicate_deletion_receipt path/retainedCanonical/SHA mapping if rerunning an old lane. Current authoritative frozen root/currentQ8/2-shard source packages remain complete. This distinction avoids advertising cleaned roots as runnable assets. Old compiler caches rebuild on next Xcode build.
+
+Observed df-k before/after and exact free-space deltas in result.json. WD available roughly1.4GiB->41GiB; Mac data roughly16GiB->23GiB at measured cleanup-plan boundaries. Initial earlier scan showed15GiBMac; concurrent/background filesystem changes possible. Logical52.3GB removed is not physical savings dueAPFSextent sharing. Do not add logical sizes to observedfree-space delta.
+
+No active xcodebuild/xctrace/Swift/quantization jobs found before deletion; otherthreadvoxcpm2untracked changes preserved. No long test, process termination, network download, model promotion or HF action. REQUIREMENTS.md absent atroot. DiskManagementframework unavailable in sandbox; mount confirmed APFS, not needed forcleanup.
+
+Evidence:plan/cache_deletion_receipt/duplicate_deletion_receipt/protected_assets_verification/result. Cleanupscript scope is hardcoded to listed obsolete roots, never canonical roots.

@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 1,
+  "scope": "Cosyvoice obsolete compiler caches and SHA-proven large staging/readback duplicates only",
+  "sourceCommitBeforeCleanup": "a345a44cdbb51510560a4861db2e56a5326d1544",
+  "beforeDisk": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk7s1   976557744 896321772   1582620   100% 1263904  15826200    7%   /Volumes/WD\n/dev/disk3s5   239362496 192522176  16735980    93% 2522406 167359800    1%   /System/Volumes/Data\n",
+  "afterDisk": "Filesystem   1024-blocks      Used Available Capacity iused     ifree %iused  Mounted on\n/dev/disk7s1   976557744 855231556  42672836    96% 1254103 426728360    0%   /Volumes/WD\n/dev/disk3s5   239362496 185639392  23618764    89% 2522361 236187640    1%   /System/Volumes/Data\n",
+  "observedAvailableBytesBeforeAfter": {
+    "/Volumes/WD": {
+      "before": 1620602880,
+      "after": 43696984064,
+      "delta": 42076381184
+    },
+    "/System/Volumes/Data": {
+      "before": 17137643520,
+      "after": 24185614336,
+      "delta": 7047970816
+    }
+  },
+  "diskDeltaMeaning": "Observed free space change includes APFS extent sharing/purgeable/background changes; logical deletion bytes not equal guaranteed physical reclamation.",
+  "deletedDuplicateFileCount": 353,
+  "duplicateFilesByVolume": {
+    "WD": 307,
+    "MacData": 46
+  },
+  "duplicateLogicalBytesByVolume": {
+    "WD": 45266622684,
+    "MacData": 7047703898
+  },
+  "compilerCacheAllocatedBytesBeforeDeletion": 2525966336,
+  "compilerCacheDirectoriesDeleted": 25,
+  "differentBytesRetained": 1,
+  "canonicalFilesRehashedAfterDeletion": 77,
+  "allRetainedCanonicalSHAsPASS": true,
+  "frozenQ8P2ListeningSHAsPASS": true,
+  "allWorkspaceListeningWAVsRetained": 25,
+  "allHistoricalReceiptsAndSmallModelSpecsRetained": true,
+  "allProfilerTracesRetained": true,
+  "sourceCheckpointsAndVenvsRetained": true,
+  "noTrackedFileDeleted": true,
+  "noProductionOrDeviceChange": true,
+  "oldStagingRootsNowIncomplete": true,
+  "restoreInstructions": "For each DELETED_IDENTICAL_OBSOLETE_COPY record verify retainedCanonical SHA256 then copy to path. Small metadata/unique files stayed in the old roots. Next Xcode build rebuilds compiler caches. Never use old incomplete staging roots as current production assets.",
+  "unrelatedWorkspaceChangesPreserved": [
+    ".gitignore",
+    "reports/",
+    "tools/voxcpm2/"
+  ]
+}

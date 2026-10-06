@@ -713,3 +713,11 @@ Actions:humanreview/lateststatus/qualitygatereviewentry已推送；仅更新证�
 Files:历史工作记录.txt append-only。
 Validation:01f2f85已成功push；sixWAVSHA/headerchecksPASS。
 GitHub Timeline:01f2f85已push至origin/experiment/ios-enumerated-ane-optimization；本条发布记录随后commit/push。
+
+Time:2026-10-06 14:42 EDT America/New_York
+Prompt:用户要求清理不用的历史文件释放硬盘空间。
+Actions:inventory125GBios/.work, detectinactivebuilds; delete25rebuildablecompiler-cachefolders/predeleteallocated2.526GB. SHA-prove353largeobsolete staging/readbackduplicatefiles vsretainedcanonical beforeunlink;53? exactlogical52314326582B removed, one differing4.88MBfilekept. Preserveallsmallreceipts/specs/rawtraces/checkpoints/venvs/currentassets and25workspaceWAVs. Oldfixed225/schema2staging/readbackrootspartialaftercleanup, retained canonicalreference+SHA map supportsrestore; no pretendingoldrootsrunnable.
+Files:storage_cleanup_20261006 plan/cache+duplicate receipts/protectedverification/result/REPORT/housekeeping script; appendhistory only.
+Validation:frozen64files3530215890B/tree4750dba5... rehashedPASS;bothQ8/bothP2packagefullSHA,6accepted+6newWAVSHA PASS;77canonicalfiles rehashedafterdeletePASS/all353removedabsent. ObservedWDfree1620602880->43696984064B (+42076381184B/~39.2GiB), Macdata17137643520->24185614336B (+7047970816B/~6.6GiB). Logicalbytes!=physical dueAPFSsharing. No trackedfilesdeleted/runtimechange/deviceoperation. Unrelated.gitignore/reports/tools/voxcpm2 untouched. DiskManagementframeworkunavailablein sandbox, mountAPFSverified; no dependency.
+GitHub Timeline:a345a44已push；清理证据/记录未commit，随后选择性commit/push。
+文字更正：上条Actions中的“53?”为笔误；删除重复文件的逻辑大小准确为52,314,326,582 bytes，物理空间变化按df测量单独报告。
