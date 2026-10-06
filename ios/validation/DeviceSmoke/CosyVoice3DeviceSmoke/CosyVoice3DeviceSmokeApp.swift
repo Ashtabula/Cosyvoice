@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-llm-quantization") { await runLLMQuantization() }
             else if CommandLine.arguments.contains("--validation-resource-run") { await runResourceEfficiency() }
             else if CommandLine.arguments.contains("--validation-warm-pass") { await runWarmDecodePass() }
             else if CommandLine.arguments.contains("--validation-listening-checkpoint") { await runListeningCheckpoint() }
@@ -1682,3 +1683,146 @@ private final class ResourceEfficiencyTimeline:@unchecked Sendable {
 
 // Validation-only2026-10-06: await initialsceneactive up5s beforetimedresource inference; timeoutstillFAIL, notthermal throttle.
 // Upstream DeviceSmoke resourcegate; Swift6/iOS18+; changedrunResourceEfficiency initialforegroundguard only.
+
+// LLMQuantization validation: isolated model assets, unchanged public generation/acoustic path.
+extension CosyVoice3SmokeModel {
+    private static func quantizationRoot(base: URL) throws -> URL {
+        let fm=FileManager.default
+        let docs=try fm.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true)
+        let candidate=docs.appendingPathComponent("LLMQuantization/Q8/Runtime")
+        let recipeURL=candidate.deletingLastPathComponent().appendingPathComponent("quantization-recipe.json")
+        let recipe=try JSONSerialization.jsonObject(with:Data(contentsOf:recipeURL)) as? [String:Any]
+        guard recipe?["parentPayloadTreeSHA256"] as? String == "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              let files=recipe?["reuseFiles"] as? [[String:Any]] else {throw SmokeError("Q8 immutable parent recipe missing")}
+        for item in files {
+            guard let relative=item["path"] as? String,!relative.hasPrefix("/"),!relative.split(separator:"/").contains(".."),
+                  !relative.hasPrefix("models/llm-opt-perlayer-") else {throw SmokeError("invalid Q8 hardlink recipe")}
+            let source=base.appendingPathComponent(relative),destination=candidate.appendingPathComponent(relative)
+            if !fm.fileExists(atPath:destination.path) {
+                try fm.createDirectory(at:destination.deletingLastPathComponent(),withIntermediateDirectories:true)
+                try fm.linkItem(at:source,to:destination)
+            }
+        }
+        // The accepted two lossless multifunction partitions remain byte-identical siblings.
+        let source=base.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
+        let destination=candidate.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
+        guard let enumerator=fm.enumerator(at:source,includingPropertiesForKeys:[.isRegularFileKey]) else {throw SmokeError("frozen FlowPartitions absent")}
+        for case let file as URL in enumerator {
+            let relative=String(file.path.dropFirst(source.path.count+1))
+            guard relative.hasPrefix("p2/") || relative=="partition-export-receipt.json" else {continue}
+            guard try file.resourceValues(forKeys:[.isRegularFileKey]).isRegularFile == true else{continue}
+            let target=destination.appendingPathComponent(relative)
+            if !fm.fileExists(atPath:target.path) {
+                try fm.createDirectory(at:target.deletingLastPathComponent(),withIntermediateDirectories:true)
+                try fm.linkItem(at:file,to:target)
+            }
+        }
+        return candidate
+    }
+    func runLLMQuantization() async {
+        guard !running else{return};running=true;defer{running=false}
+        let variant=CommandLine.arguments.first{$0.hasPrefix("--validation-llm-variant=")}.map{String($0.dropFirst("--validation-llm-variant=".count))} ?? ""
+        let filename="llm-quantization-\(variant)-receipt.json"
+        let monitor=ResourceEfficiencyTimeline();defer{_ = monitor.stop()}
+        var rows=[[String:Any]](),outputs=[CosyVoice3Audio]()
+        let oldBrightness=UIScreen.main.brightness;UIScreen.main.brightness=0.2
+        UIDevice.current.isBatteryMonitoringEnabled=true;defer{UIScreen.main.brightness=oldBrightness}
+        do {
+            guard ["baseline","q8"].contains(variant),CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  CommandLine.arguments.contains("--validation-warm-pass"),CommandLine.arguments.contains("--validation-execution-audit"),
+                  !CommandLine.arguments.contains("--reset-cosy-cache"),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
+                  !CommandLine.arguments.contains("--validation-f0-workspace-baseline") else{throw SmokeError("LLM quantization frozen runtime flags required")}
+            let fixture=try Self.fixture()
+            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime)
+            let partition=try Self.validateExperimentalModels(runtime:root)
+            let manifestURL=root.appendingPathComponent("cosyvoice3_enumerated.json")
+            let manifest=try JSONSerialization.jsonObject(with:Data(contentsOf:manifestURL)) as! [String:Any]
+            monitor.record("before_engine_creation")
+            let engine=try CosyVoice3Engine(assetRoot:root,idleBucketPreparation:false)
+            monitor.record("after_engine_creation")
+            await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver{phase in monitor.record(phase)}
+            let readinessStart=ContinuousClock.now
+            while UIApplication.shared.applicationState != .active || ProcessInfo.processInfo.thermalState != .nominal {
+                status="WAIT_Q8_READY variant=\(variant) nominal foreground required"
+                guard Self.seconds(readinessStart.duration(to:.now))<600 else{throw SmokeError("Q8 readiness timeout")}
+                try await Task.sleep(for:.seconds(1))
+            }
+            let environment=Self.resourceEnvironment()
+            for request in 1...5 {
+                guard UIApplication.shared.applicationState == .active else{throw SmokeError("Q8 screen foreground changed")}
+                monitor.record("request_\(request)_begin");monitor.active(true)
+                let cpu=Self.processCPUMilliseconds(),energy=Self.resourceCPUEnergy(),thermal=Self.thermalName(ProcessInfo.processInfo.thermalState),start=ContinuousClock.now
+                let audio=try await engine.synthesize(fixture.text,parameters:fixture.parameters)
+                let ms=Self.seconds(start.duration(to:.now))*1000,cpuDelta=Self.processCPUMilliseconds()-cpu,endEnergy=Self.resourceCPUEnergy()
+                monitor.record("request_\(request)_completion");monitor.active(false)
+                try Self.validate(audio);outputs.append(audio)
+                let pcm=audio.samples.withUnsafeBytes{SHA256.hash(data:Data($0)).map{String(format:"%02x",$0)}.joined()}
+                let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8)) as! [String:Any]
+                let records=snapshot["validationWarmPassRecords"] as? [[String:Any]] ?? []
+                guard let tokens=records.last?["tokens"] as? [Int],let report=await engine.lastSynthesisReport(),report.flowSteps == .steps6,
+                      audio.samples.count==tokens.count*960 else{throw SmokeError("Q8 output/token ABI mismatch")}
+                let tokenSHA=SHA256.hash(data:try JSONSerialization.data(withJSONObject:tokens)).map{String(format:"%02x",$0)}.joined()
+                if variant=="baseline" {
+                    guard tokens.count==260,pcm=="909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",tokenSHA=="5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d" else{throw SmokeError("baseline semantic identity changed")}
+                }
+                var peak:Float=0,square=0.0,clipped=0
+                for value in audio.samples {peak=max(peak,abs(value));square+=Double(value)*Double(value);if abs(value)>=1{clipped+=1}}
+                let duration=Double(audio.samples.count)/24000
+                let cpuEnergy=energy.flatMap{before in endEnergy.flatMap{after in after>=before ? after-before:nil}}
+                let enumAcoustic=manifest["enumeratedAcoustic"] as? [String:Any]
+                let families=enumAcoustic?["families"] as? [[String:Any]] ?? []
+                let function=families.first{(tokens.count >= ($0["speechTokenMinimum"] as? Int ?? Int.max)) && (tokens.count <= ($0["speechTokenMaximum"] as? Int ?? Int.min))}?["functionName"] as? String ?? "SEE_CONSOLE_EXACT_SELECTION"
+                rows.append(["request":request,"label":request==1 ? "first":request==2 ? "warm_priming":"measured_warm","totalMilliseconds":ms,"RTF":ms/(duration*1000),"stageTimings":Self.reportDictionary(report),"cpuMilliseconds":cpuDelta,"CPUOnlyAttributedEnergyNanojoules":cpuEnergy.map{NSNumber(value:$0)} ?? NSNull(),"CPUOnlyEnergyPerPlaybackSecondMillijoules":cpuEnergy.map{Double($0)/1e6/duration} ?? NSNull(),"thermalStart":thermal,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"N":tokens.count,"tokens":tokens,"tokenSequenceSHA256":tokenSHA,"PCM_SHA256":pcm,"sampleRate":audio.sampleRate,"samples":audio.samples.count,"audioSeconds":duration,"peakAbs":peak,"RMS":sqrt(square/Double(audio.samples.count)),"clippingFraction":Double(clipped)/Double(audio.samples.count),"function":function,"SHARDS":2,"flowSteps":6,"callerRetainedPCMBytes":outputs.reduce(0){$0+$1.samples.count*4},"environmentEnd":Self.resourceEnvironment()])
+                print("[COSY-Q8] variant=\(variant) request=\(request) N=\(tokens.count) ms=\(ms) thermal=\(Self.thermalName(ProcessInfo.processInfo.thermalState))")
+            }
+            var elapsed=0
+            for seconds in [1,3,10,35] {
+                try await Task.sleep(for:.seconds(seconds-elapsed));elapsed=seconds;monitor.record("post_completion_idle_\(seconds)s")
+            }
+            let timeline=monitor.stop()
+            let wavName=variant=="baseline" ? "cosyvoice_baseline_fp16.wav":"cosyvoice_llm_q8.wav"
+            let wav=Self.wavData(outputs.last!),wavSHA=SHA256.hash(data:wav).map{String(format:"%02x",$0)}.joined()
+            try wav.write(to:Self.receiptURL(wavName))
+            let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
+            let phases=timeline.filter{($0["stage"] as? String)?.hasPrefix("llm.stop:")==true || ($0["stage"] as? String)?.hasPrefix("llm.max_length:")==true}
+            var receipt:[String:Any]=["schemaVersion":1,"status":"PASS_OBJECTIVE_SCREEN_PENDING_HUMAN","variant":variant,"sourceCommit":fixture.sourceCommit,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"processID":ProcessInfo.processInfo.processIdentifier,"RuntimeRoot":root.path,"manifestSHA256":SHA256.hash(data:try Data(contentsOf:manifestURL)).map{String(format:"%02x",$0)}.joined(),"environmentStart":environment,"environmentEnd":Self.resourceEnvironment(),"chargingConditions":"SCREENING_ONLY_CHARGING_CONNECTED","SHARDS":2,"flowSteps":6,"publicAPI":"CosyVoice3Engine.synthesize()","frozenText":fixture.text,"frozenTextSHA256":SHA256.hash(data:Data(fixture.text.utf8)).map{String(format:"%02x",$0)}.joined(),"referenceWAVSHA256":SHA256.hash(data:try Data(contentsOf:fixture.reference.audioURL)).map{String(format:"%02x",$0)}.joined(),"referenceTranscriptSHA256":SHA256.hash(data:Data(fixture.transcript.utf8)).map{String(format:"%02x",$0)}.joined(),"rows":rows,"memoryThermalCPUCounterTimeline":timeline,"persistentRuntime":snapshot,"terminationEvents":phases,"WAV_SHA256":wavSHA,"WAVFilename":wavName,"experimentalAcousticIdentity":partition,"requestedComputeUnits":"LLM CPU_AND_NE, acoustic CPU_AND_GPU unchanged","totalDeviceEnergy":NSNull(),"energyScope":"CPU-onlyRecount, notANE/GPUorwholedevice","humanListening":"PENDING_HUMAN","productionPromotion":false,"callerPCMRetention":"all5outputs bothgroups; actualbytesrecorded; nobenchmarkoptics"]
+            let export=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("enumerated-production-export-receipt.json"))) as! [String:Any]
+            receipt["payloadTreeSHA256"]=export["payloadTreeSha256"]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename))
+            // Plan inspection is after measured inference/idle, never included in resource timings.
+            var planRows=[[String:Any]]()
+            for (role,key) in [("prefill","llmPrefill"),("decode","llmDecode")] {
+                do {
+                    let source=root.appendingPathComponent(manifest[key] as! String)
+                    let compiled=try await MLModel.compileModel(at:source);defer{try? FileManager.default.removeItem(at:compiled)}
+                    let config=MLModelConfiguration();config.computeUnits = .cpuAndNeuralEngine
+                    let plan=try await MLComputePlan.load(contentsOf:compiled,configuration:config)
+                    var operations=[[String:Any]](),counts=[String:Int](),bytes=0
+                    if let enumerator=FileManager.default.enumerator(at:compiled,includingPropertiesForKeys:[.fileSizeKey,.isRegularFileKey]) {
+                        for case let file as URL in enumerator {let values=try file.resourceValues(forKeys:[.fileSizeKey,.isRegularFileKey]);if values.isRegularFile == true{bytes+=values.fileSize ?? 0}}
+                    }
+                    if case let .program(program)=plan.modelStructure {
+                        func visit(_ block:MLModelStructure.Program.Block) {
+                            for op in block.operations {
+                                if let usage=plan.deviceUsage(for:op) {counts[usage.preferred.description,default:0]+=1;operations.append(["operator":op.operatorName,"preferred":usage.preferred.description,"supported":usage.supported.map{$0.description},"outputs":op.outputs.map{$0.name}])}
+                                for child in op.blocks{visit(child)}
+                            }
+                        }
+                        for function in program.functions.values{visit(function.block)}
+                    }
+                    planRows.append(["role":role,"source":source.path,"status":"PASS_PLAN","compiledBytes":bytes,"preferredCounts":counts,"operations":operations,"meaning":"preferred/supported only, notactualperopresidency"])
+                } catch {planRows.append(["role":role,"status":"FAIL_PLAN","error":String(describing:error)])}
+            }
+            receipt["executionPlans"]=planRows;_ = try Self.write(receipt,to:Self.receiptURL(filename));status="PASS Q8screen \(variant), humanlisteningpending"
+        } catch {
+            Self.recordFailure(error,filename:filename,into:self)
+            var value=(try? JSONSerialization.jsonObject(with:Data(contentsOf:Self.receiptURL(filename)))) as? [String:Any] ?? [:]
+            value["partialRows"]=rows;value["partialTimeline"]=monitor.stop();value["variant"]=variant;_ = try? Self.write(value,to:Self.receiptURL(filename))
+        }
+    }
+}
+// Purpose: isolated LLMweightcompression publicAPI screen/plan/audioexport, neverproductionpromotion.
+// Upstream existing DeviceSmoke fixture/timeline/MLState audit; Swift6/iOS18+, generated2026-10-06 America/New_York.
+// ChangedrunAutoModequantdispatch andnewextension; inference implementation/placement/sampling/FP64 unchanged.

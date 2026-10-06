@@ -636,3 +636,10 @@ Actions: readfullprompt/newacceptedFP64/baselineaudits. Installedct9supportsweig
 Files: quantize_llm_weights.py; llm_quantization_20261006 feasibility/requestedevidence.
 Validation: installedAPI/configinspectionPASS; wrongct.models.MLState namespacequery correctedtoct.models.model.MLState, nosynthesisimpact. Source/spec/stateIO audited; conversion/host/physicalpending.
 GitHub Timeline:b144e06已push；本轮实验工具/evidence未commit。
+
+Time:2026-10-06 13:23 EDT America/New_York
+Prompt: LLM-onlyQ8 controlledassetexperiment requiringnativeclickableaudio/humanreview.
+Actions: Q8twoisolatedpackages exported(365.38/365.29MB),169selectedmatriceseach, IO/state descriptionsbyteidentical. CPU-onlyhostprefill224+64teacherdecodecommoninputs outputfinite/top1agreement1.0/top20overlap.935; diagnosticnotactualspeechquality. Pythonstateviewfloat32!=declaredFP16storage, documented. Buildisolateddevicehardlinkrootrecipe withnewtree150c0d45..., sourcefrozen4750...unchanged; explicitnewpayloadnotproduction. Newnativepublicquantlane/collector honorsactualN/EOS/tokens,5shortrequests+idle/lateplananalysis, exportsbaseline/Q8audio. NoEngine/LLM/placement/mathchanges.
+Files: hostcomparison/recipe/collector/DeviceSmokequantextension; numerical/assetreceipts.
+Validation: conversionPASS/hostcontrolledcomparisoncomplete; PythonASTPASS; signedbuild/devicepending; objectivePASSnotHUMAN_PASS. Q4/mixednotstarted.
+GitHub Timeline:62b0dfa已commit未push；nativevalidationtooling未commit。
