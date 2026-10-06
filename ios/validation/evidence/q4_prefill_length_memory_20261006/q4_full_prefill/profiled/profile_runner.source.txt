@@ -1,0 +1,14 @@
+import subprocess,threading,time,pathlib,json,signal
+out=pathlib.Path('ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/profiled');out.mkdir(parents=True,exist_ok=True);tracepath=pathlib.Path('ios/.work/q4-prefill-length-20261006/full-CoreAI.trace');assert not tracepath.exists();ready=threading.Event()
+cmd=['xcrun','xctrace','record','--template','Core AI','--instrument','Core ML','--instrument','Points of Interest','--device','00008150-000A05CA1440401C','--time-limit','1200s','--output',str(tracepath),'--all-processes'];trace=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
+def consume():
+ with (out/'trace-console.log').open('w') as f:
+  for line in trace.stdout:
+   print(line,end='',flush=True);f.write(line);f.flush()
+   if 'recording' in line.lower():ready.set()
+threading.Thread(target=consume,daemon=True).start()
+if not ready.wait(60):
+ if trace.poll() is None:trace.send_signal(signal.SIGINT)
+ raise RuntimeError('trace readiness unavailable; no prediction started')
+run=subprocess.run(['python3','ios/validation/run_llm_quantization_screen.py','--variant','q4_full','--profile-trace','--output',str(out/'physical'),'--artifacts','artifacts/listening/q4_prefill_length_memory_20261006/profiled'])
+trace.send_signal(signal.SIGINT);code=trace.wait(timeout=60);(out/'trace-collection.json').write_text(json.dumps({'command':cmd,'tracePath':str(tracepath.resolve()),'traceExitCode':code,'collectorExitCode':run.returncode,'excludedFromUnprofiledPerformance':True},indent=2)+'\n');print('[PROFILE] trace finalized',code,'collector',run.returncode,flush=True)

@@ -1,0 +1,5810 @@
+{
+  "full": {
+    "stageLabelSampledPeaksBytes": {
+      "request0:other": 15582904,
+      "request1:other": 863800432,
+      "request1:preparation": 213305040,
+      "request1:frontend": 332253216,
+      "request1:llm_load": 702826528,
+      "request1:prefill": 719947808,
+      "request1:decode": 750143544,
+      "request1:acoustic_other": 863669360,
+      "request1:flow": 616090592,
+      "request1:hift": 890719320,
+      "request2:other": 1232702600,
+      "request2:preparation": 865242224,
+      "request2:frontend": 865242224,
+      "request2:llm_load": 1232702600,
+      "request2:prefill": 1249709192,
+      "request2:decode": 1266404488,
+      "request2:acoustic_other": 1143180400,
+      "request2:flow": 1005489264,
+      "request2:hift": 877513840,
+      "request3:other": 1208339616,
+      "request3:preparation": 875465888,
+      "request3:frontend": 875465888,
+      "request3:llm_load": 1208339616,
+      "request3:prefill": 1225264288,
+      "request3:decode": 1236618400,
+      "request3:acoustic_other": 1131564120,
+      "request3:flow": 880036952,
+      "request3:hift": 873073776,
+      "request4:other": 1219742880,
+      "request4:preparation": 867617952,
+      "request4:frontend": 867617952,
+      "request4:llm_load": 1219742880,
+      "request4:prefill": 1236667552,
+      "request4:decode": 1251364000,
+      "request4:acoustic_other": 1138347120,
+      "request4:flow": 886131824,
+      "request4:hift": 861342832,
+      "request5:other": 1211174048,
+      "request5:preparation": 859131040,
+      "request5:frontend": 859131040,
+      "request5:llm_load": 1211174048,
+      "request5:prefill": 1228098720,
+      "request5:decode": 1240960160,
+      "request5:acoustic_other": 1133530224,
+      "request5:flow": 949439600,
+      "request5:hift": 864603248
+    },
+    "boundarySamples": [
+      {
+        "request": 0,
+        "stage": "before_engine_creation",
+        "physicalFootprintBytes": 11175608,
+        "uptimeNanoseconds": 276573419945000
+      },
+      {
+        "request": 0,
+        "stage": "after_engine_creation",
+        "physicalFootprintBytes": 15582904,
+        "uptimeNanoseconds": 276574963409083
+      },
+      {
+        "request": 1,
+        "stage": "request_1_begin",
+        "physicalFootprintBytes": 16713400,
+        "uptimeNanoseconds": 276574969871708
+      },
+      {
+        "request": 1,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 16729784,
+        "uptimeNanoseconds": 276574969966291
+      },
+      {
+        "request": 1,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 16729784,
+        "uptimeNanoseconds": 276574970020583
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.1.4.begin:models/cosyvoice-llm-q4-full-prefill.mlpackage",
+        "physicalFootprintBytes": 17057464,
+        "uptimeNanoseconds": 276574976497791
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.1.4.end:models/cosyvoice-llm-q4-full-prefill.mlpackage",
+        "physicalFootprintBytes": 213305040,
+        "uptimeNanoseconds": 276581111623083
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.2.4.begin:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 213305040,
+        "uptimeNanoseconds": 276581111644583
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.2.4.end:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 30082792,
+        "uptimeNanoseconds": 276582760719666
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.3.4.begin:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 30082792,
+        "uptimeNanoseconds": 276582760742833
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.3.4.end:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 208684776,
+        "uptimeNanoseconds": 276587636496208
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.4.4.begin:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 208684776,
+        "uptimeNanoseconds": 276587636516833
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.4.4.end:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 25708264,
+        "uptimeNanoseconds": 276587867817250
+      },
+      {
+        "request": 1,
+        "stage": "prepare.end:warmed=4",
+        "physicalFootprintBytes": 29411096,
+        "uptimeNanoseconds": 276589042551958
+      },
+      {
+        "request": 1,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 29411096,
+        "uptimeNanoseconds": 276589042564000
+      },
+      {
+        "request": 1,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 332253216,
+        "uptimeNanoseconds": 276589377961791
+      },
+      {
+        "request": 1,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 332253216,
+        "uptimeNanoseconds": 276589377987125
+      },
+      {
+        "request": 1,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 702826528,
+        "uptimeNanoseconds": 276589548216083
+      },
+      {
+        "request": 1,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 702826528,
+        "uptimeNanoseconds": 276589548236583
+      },
+      {
+        "request": 1,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 702826528,
+        "uptimeNanoseconds": 276589548254125
+      },
+      {
+        "request": 1,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 709167136,
+        "uptimeNanoseconds": 276589550692333
+      },
+      {
+        "request": 1,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 719947808,
+        "uptimeNanoseconds": 276589582770041
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 719947808,
+        "uptimeNanoseconds": 276589582904166
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 721848352,
+        "uptimeNanoseconds": 276589652429708
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 723748896,
+        "uptimeNanoseconds": 276589729177958
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 725633056,
+        "uptimeNanoseconds": 276589802082166
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 727533600,
+        "uptimeNanoseconds": 276589871413166
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 729417760,
+        "uptimeNanoseconds": 276589937930583
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 731301920,
+        "uptimeNanoseconds": 276590009180375
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 733169696,
+        "uptimeNanoseconds": 276590082100416
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 735086624,
+        "uptimeNanoseconds": 276590150912708
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 736970808,
+        "uptimeNanoseconds": 276590221421125
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 738838584,
+        "uptimeNanoseconds": 276590292574750
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 740739128,
+        "uptimeNanoseconds": 276590361882708
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 742623288,
+        "uptimeNanoseconds": 276590431069041
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 744507448,
+        "uptimeNanoseconds": 276590503495750
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 746391608,
+        "uptimeNanoseconds": 276590573933041
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 748275768,
+        "uptimeNanoseconds": 276590644533375
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 750143544,
+        "uptimeNanoseconds": 276590715790291
+      },
+      {
+        "request": 1,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 750635064,
+        "uptimeNanoseconds": 276590734916208
+      },
+      {
+        "request": 1,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 744572984,
+        "uptimeNanoseconds": 276590735334666
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 739674168,
+        "uptimeNanoseconds": 276590737804208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 435800168,
+        "uptimeNanoseconds": 276590759979708
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 435800168,
+        "uptimeNanoseconds": 276590759997833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 435800168,
+        "uptimeNanoseconds": 276590760033000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 435800168,
+        "uptimeNanoseconds": 276590760036333
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=219.561",
+        "physicalFootprintBytes": 436471936,
+        "uptimeNanoseconds": 276590979605125
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 436471936,
+        "uptimeNanoseconds": 276590979615833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 437569664,
+        "uptimeNanoseconds": 276590980968208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 437569664,
+        "uptimeNanoseconds": 276590980991916
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 437340288,
+        "uptimeNanoseconds": 276590981032208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=3181.477",
+        "physicalFootprintBytes": 468159072,
+        "uptimeNanoseconds": 276594162519625
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 468159072,
+        "uptimeNanoseconds": 276594162534416
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=2818.228",
+        "physicalFootprintBytes": 554339320,
+        "uptimeNanoseconds": 276596980771166
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 554339320,
+        "uptimeNanoseconds": 276596980781375
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 554339320,
+        "uptimeNanoseconds": 276596980797666
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 554339320,
+        "uptimeNanoseconds": 276596980854875
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 606145528,
+        "uptimeNanoseconds": 276597317434458
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 606145528,
+        "uptimeNanoseconds": 276597317476625
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 609225696,
+        "uptimeNanoseconds": 276597523538958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 609225696,
+        "uptimeNanoseconds": 276597523598333
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 609225696,
+        "uptimeNanoseconds": 276597523602833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 609225696,
+        "uptimeNanoseconds": 276597523617916
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 616090592,
+        "uptimeNanoseconds": 276597603492791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 616090592,
+        "uptimeNanoseconds": 276597603530041
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597668881708
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597668936208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597668939791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597668953583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597749683208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 616057824,
+        "uptimeNanoseconds": 276597749793208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 616025056,
+        "uptimeNanoseconds": 276597818398208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 616025056,
+        "uptimeNanoseconds": 276597818450083
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 616025056,
+        "uptimeNanoseconds": 276597818454750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 616025056,
+        "uptimeNanoseconds": 276597818468041
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597898548000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597898602000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597965988375
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597966046583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597966051125
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276597966064458
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598045655583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598045705791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598111796625
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598111854166
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598111859791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598111872333
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598193054958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598193193666
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598263834750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598263886375
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 596151264,
+        "uptimeNanoseconds": 276598263944833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 602033120,
+        "uptimeNanoseconds": 276598285336958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 602672096,
+        "uptimeNanoseconds": 276598287385458
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 602672096,
+        "uptimeNanoseconds": 276598287395666
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=2029.276",
+        "physicalFootprintBytes": 732499032,
+        "uptimeNanoseconds": 276600316684583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 732499032,
+        "uptimeNanoseconds": 276600316694958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 863669360,
+        "uptimeNanoseconds": 276600932859416
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 863669360,
+        "uptimeNanoseconds": 276600932897333
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 863669360,
+        "uptimeNanoseconds": 276600933074958
+      },
+      {
+        "request": 1,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 863669360,
+        "uptimeNanoseconds": 276600933083541
+      },
+      {
+        "request": 1,
+        "stage": "request_1_completion",
+        "physicalFootprintBytes": 863800432,
+        "uptimeNanoseconds": 276600941695458
+      },
+      {
+        "request": 2,
+        "stage": "request_2_begin",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600979929333
+      },
+      {
+        "request": 2,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600979949541
+      },
+      {
+        "request": 2,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600979997666
+      },
+      {
+        "request": 2,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600984620291
+      },
+      {
+        "request": 2,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600984625833
+      },
+      {
+        "request": 2,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600985489291
+      },
+      {
+        "request": 2,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 865242224,
+        "uptimeNanoseconds": 276600985494416
+      },
+      {
+        "request": 2,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1232702600,
+        "uptimeNanoseconds": 276601130020500
+      },
+      {
+        "request": 2,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1232702600,
+        "uptimeNanoseconds": 276601130030875
+      },
+      {
+        "request": 2,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1232702600,
+        "uptimeNanoseconds": 276601130041500
+      },
+      {
+        "request": 2,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1239026824,
+        "uptimeNanoseconds": 276601132538000
+      },
+      {
+        "request": 2,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1249709192,
+        "uptimeNanoseconds": 276601164923458
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1249709192,
+        "uptimeNanoseconds": 276601165051875
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1251593352,
+        "uptimeNanoseconds": 276601236265000
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1253428360,
+        "uptimeNanoseconds": 276601309528166
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1255279752,
+        "uptimeNanoseconds": 276601384210791
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1257114760,
+        "uptimeNanoseconds": 276601454019583
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1258982536,
+        "uptimeNanoseconds": 276601525870208
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1260817544,
+        "uptimeNanoseconds": 276601593075041
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1262685320,
+        "uptimeNanoseconds": 276601659680208
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1264536712,
+        "uptimeNanoseconds": 276601726441125
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1266404488,
+        "uptimeNanoseconds": 276601790703458
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1222118536,
+        "uptimeNanoseconds": 276601856706416
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1200295048,
+        "uptimeNanoseconds": 276601926148041
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1191922824,
+        "uptimeNanoseconds": 276601994139541
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1193790600,
+        "uptimeNanoseconds": 276602059268291
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1145310344,
+        "uptimeNanoseconds": 276602126128750
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1147161736,
+        "uptimeNanoseconds": 276602192414625
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1149045896,
+        "uptimeNanoseconds": 276602258396500
+      },
+      {
+        "request": 2,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1149504648,
+        "uptimeNanoseconds": 276602275831000
+      },
+      {
+        "request": 2,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1143458952,
+        "uptimeNanoseconds": 276602276259750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602278724500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602278750375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602278753625
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602278773833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602278777500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.937",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602279722791
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1138560112,
+        "uptimeNanoseconds": 276602279726250
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1005489264,
+        "uptimeNanoseconds": 276602281756041
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1005489264,
+        "uptimeNanoseconds": 276602281788250
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1005489264,
+        "uptimeNanoseconds": 276602281887541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.975",
+        "physicalFootprintBytes": 1005489264,
+        "uptimeNanoseconds": 276602282869375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1005489264,
+        "uptimeNanoseconds": 276602282872833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.002",
+        "physicalFootprintBytes": 952470640,
+        "uptimeNanoseconds": 276602283879166
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 952355952,
+        "uptimeNanoseconds": 276602283883500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 952241264,
+        "uptimeNanoseconds": 276602283895208
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 951897200,
+        "uptimeNanoseconds": 276602283924166
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602379861458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602379885583
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602445920208
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602445979708
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602445983291
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 777571440,
+        "uptimeNanoseconds": 276602445996875
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602526524125
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602526644291
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602596076541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602596131083
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602596134166
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 774704240,
+        "uptimeNanoseconds": 276602596146208
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602676741375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602676863083
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602745727500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602745778583
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602745782250
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 774950000,
+        "uptimeNanoseconds": 276602745794541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 768642160,
+        "uptimeNanoseconds": 276602826720375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 768642160,
+        "uptimeNanoseconds": 276602826838875
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602895116666
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602895168666
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602895172000
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602895184041
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602976236875
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276602976352750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603045740250
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603045793166
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603045796125
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603045807458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603126868625
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603126979041
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603195423958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603195475458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 743672920,
+        "uptimeNanoseconds": 276603195520625
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 749718616,
+        "uptimeNanoseconds": 276603216181291
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 758729840,
+        "uptimeNanoseconds": 276603218207750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 758729840,
+        "uptimeNanoseconds": 276603218219375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.898",
+        "physicalFootprintBytes": 758729840,
+        "uptimeNanoseconds": 276603219123958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 758729840,
+        "uptimeNanoseconds": 276603219127708
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 874286240,
+        "uptimeNanoseconds": 276603741922791
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 874286240,
+        "uptimeNanoseconds": 276603741975125
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 874286240,
+        "uptimeNanoseconds": 276603742087250
+      },
+      {
+        "request": 2,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 874286240,
+        "uptimeNanoseconds": 276603742095000
+      },
+      {
+        "request": 2,
+        "stage": "request_2_completion",
+        "physicalFootprintBytes": 874302624,
+        "uptimeNanoseconds": 276603751380500
+      },
+      {
+        "request": 3,
+        "stage": "request_3_begin",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603777921625
+      },
+      {
+        "request": 3,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603777938541
+      },
+      {
+        "request": 3,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603777999708
+      },
+      {
+        "request": 3,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603782215125
+      },
+      {
+        "request": 3,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603782219875
+      },
+      {
+        "request": 3,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603782726875
+      },
+      {
+        "request": 3,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 875465888,
+        "uptimeNanoseconds": 276603782729958
+      },
+      {
+        "request": 3,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1208339616,
+        "uptimeNanoseconds": 276603911501708
+      },
+      {
+        "request": 3,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1208339616,
+        "uptimeNanoseconds": 276603911512125
+      },
+      {
+        "request": 3,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1208339616,
+        "uptimeNanoseconds": 276603911522041
+      },
+      {
+        "request": 3,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1214631072,
+        "uptimeNanoseconds": 276603914049125
+      },
+      {
+        "request": 3,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1225264288,
+        "uptimeNanoseconds": 276603946849416
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1225264288,
+        "uptimeNanoseconds": 276603946982250
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1227115680,
+        "uptimeNanoseconds": 276604019154458
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1228950688,
+        "uptimeNanoseconds": 276604089569791
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1230785696,
+        "uptimeNanoseconds": 276604161911291
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1232637088,
+        "uptimeNanoseconds": 276604229261500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1231326368,
+        "uptimeNanoseconds": 276604301708916
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1233161376,
+        "uptimeNanoseconds": 276604369635500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1234996384,
+        "uptimeNanoseconds": 276604437442666
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1236618400,
+        "uptimeNanoseconds": 276604511022041
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1203424416,
+        "uptimeNanoseconds": 276604580003083
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1205259424,
+        "uptimeNanoseconds": 276604649082500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1207110816,
+        "uptimeNanoseconds": 276604714614541
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1208962208,
+        "uptimeNanoseconds": 276604780836500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1164676256,
+        "uptimeNanoseconds": 276604850775333
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1166544032,
+        "uptimeNanoseconds": 276604921365083
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1168395424,
+        "uptimeNanoseconds": 276604990071166
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1170246816,
+        "uptimeNanoseconds": 276605058700250
+      },
+      {
+        "request": 3,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1170721952,
+        "uptimeNanoseconds": 276605074095541
+      },
+      {
+        "request": 3,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1136462960,
+        "uptimeNanoseconds": 276605074794958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1131564120,
+        "uptimeNanoseconds": 276605077357875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1131564120,
+        "uptimeNanoseconds": 276605077374875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1131564120,
+        "uptimeNanoseconds": 276605077377541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1131564120,
+        "uptimeNanoseconds": 276605077393625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1131564120,
+        "uptimeNanoseconds": 276605077397083
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.915",
+        "physicalFootprintBytes": 1082444888,
+        "uptimeNanoseconds": 276605078320666
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1082444888,
+        "uptimeNanoseconds": 276605078324416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 948276312,
+        "uptimeNanoseconds": 276605083825750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 948161624,
+        "uptimeNanoseconds": 276605083850541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 880036952,
+        "uptimeNanoseconds": 276605083950000
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.269",
+        "physicalFootprintBytes": 745327704,
+        "uptimeNanoseconds": 276605085228708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 745213016,
+        "uptimeNanoseconds": 276605085233958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.137",
+        "physicalFootprintBytes": 735120472,
+        "uptimeNanoseconds": 276605086376916
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 735120472,
+        "uptimeNanoseconds": 276605086380583
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 735120472,
+        "uptimeNanoseconds": 276605086388625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 735661144,
+        "uptimeNanoseconds": 276605086470875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756042840,
+        "uptimeNanoseconds": 276605187825458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756042840,
+        "uptimeNanoseconds": 276605187849333
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605254304375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605254366166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605254369833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605254405708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605335290291
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605335386458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605401663250
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605401715958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605401719208
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756026456,
+        "uptimeNanoseconds": 276605401731583
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605482841125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605482925833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605552958750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605553013750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605553017833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754879576,
+        "uptimeNanoseconds": 276605553030125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748571736,
+        "uptimeNanoseconds": 276605634132250
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748571736,
+        "uptimeNanoseconds": 276605634239125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605702447416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605702495708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605702498791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605702510041
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605782763250
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605782774000
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605847603833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605847948166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605847972958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605848050541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605935246041
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605935263208
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605999657750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276605999985875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 748555352,
+        "uptimeNanoseconds": 276606000225416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 754502744,
+        "uptimeNanoseconds": 276606023960833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 764513392,
+        "uptimeNanoseconds": 276606026147458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 764513392,
+        "uptimeNanoseconds": 276606026161375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.019",
+        "physicalFootprintBytes": 764513392,
+        "uptimeNanoseconds": 276606027188791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 764513392,
+        "uptimeNanoseconds": 276606027192750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 865995936,
+        "uptimeNanoseconds": 276606547993416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 865995936,
+        "uptimeNanoseconds": 276606548046416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 865995936,
+        "uptimeNanoseconds": 276606548159041
+      },
+      {
+        "request": 3,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 865995936,
+        "uptimeNanoseconds": 276606548167791
+      },
+      {
+        "request": 3,
+        "stage": "request_3_completion",
+        "physicalFootprintBytes": 865995936,
+        "uptimeNanoseconds": 276606557124875
+      },
+      {
+        "request": 4,
+        "stage": "request_4_begin",
+        "physicalFootprintBytes": 867323040,
+        "uptimeNanoseconds": 276606585999333
+      },
+      {
+        "request": 4,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 867323040,
+        "uptimeNanoseconds": 276606586015500
+      },
+      {
+        "request": 4,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 867323040,
+        "uptimeNanoseconds": 276606586063625
+      },
+      {
+        "request": 4,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 867617952,
+        "uptimeNanoseconds": 276606590333291
+      },
+      {
+        "request": 4,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 867617952,
+        "uptimeNanoseconds": 276606590339041
+      },
+      {
+        "request": 4,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 867617952,
+        "uptimeNanoseconds": 276606590872791
+      },
+      {
+        "request": 4,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 867617952,
+        "uptimeNanoseconds": 276606590876166
+      },
+      {
+        "request": 4,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1219742880,
+        "uptimeNanoseconds": 276606722816500
+      },
+      {
+        "request": 4,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1219742880,
+        "uptimeNanoseconds": 276606722828958
+      },
+      {
+        "request": 4,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1219742880,
+        "uptimeNanoseconds": 276606722839583
+      },
+      {
+        "request": 4,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1226034336,
+        "uptimeNanoseconds": 276606725508041
+      },
+      {
+        "request": 4,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1236667552,
+        "uptimeNanoseconds": 276606755598083
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1236667552,
+        "uptimeNanoseconds": 276606755732625
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1238518944,
+        "uptimeNanoseconds": 276606831315708
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1240353952,
+        "uptimeNanoseconds": 276606906993791
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1242188960,
+        "uptimeNanoseconds": 276606983301708
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1244023968,
+        "uptimeNanoseconds": 276607058204958
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1245858976,
+        "uptimeNanoseconds": 276607126730416
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1247693984,
+        "uptimeNanoseconds": 276607194772500
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1249528992,
+        "uptimeNanoseconds": 276607267366708
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1251364000,
+        "uptimeNanoseconds": 276607333867000
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1185713288,
+        "uptimeNanoseconds": 276607401589000
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1184369800,
+        "uptimeNanoseconds": 276607473930166
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1186221192,
+        "uptimeNanoseconds": 276607541472958
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1188072584,
+        "uptimeNanoseconds": 276607609383583
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1143311496,
+        "uptimeNanoseconds": 276607679169291
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1145162888,
+        "uptimeNanoseconds": 276607744470333
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1147014280,
+        "uptimeNanoseconds": 276607808861375
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1148865672,
+        "uptimeNanoseconds": 276607877220541
+      },
+      {
+        "request": 4,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1149324424,
+        "uptimeNanoseconds": 276607892637875
+      },
+      {
+        "request": 4,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1143262344,
+        "uptimeNanoseconds": 276607893029250
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1138347120,
+        "uptimeNanoseconds": 276607895525083
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1138347120,
+        "uptimeNanoseconds": 276607895543875
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1138347120,
+        "uptimeNanoseconds": 276607895546291
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1138347120,
+        "uptimeNanoseconds": 276607895564583
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1138347120,
+        "uptimeNanoseconds": 276607895567750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.978",
+        "physicalFootprintBytes": 1089227888,
+        "uptimeNanoseconds": 276607896553791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1089227888,
+        "uptimeNanoseconds": 276607896556833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 955059312,
+        "uptimeNanoseconds": 276607902475458
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 954371184,
+        "uptimeNanoseconds": 276607902539041
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 886131824,
+        "uptimeNanoseconds": 276607902653875
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.166",
+        "physicalFootprintBytes": 752913520,
+        "uptimeNanoseconds": 276607903829375
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 752913520,
+        "uptimeNanoseconds": 276607903834000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.055",
+        "physicalFootprintBytes": 741887088,
+        "uptimeNanoseconds": 276607904893708
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 741887088,
+        "uptimeNanoseconds": 276607904897000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 741887088,
+        "uptimeNanoseconds": 276607904903958
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 741887088,
+        "uptimeNanoseconds": 276607904933708
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608001328833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608001353583
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608067842375
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608067900500
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608067904083
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756141168,
+        "uptimeNanoseconds": 276608067917500
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608149004666
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608149102833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608217158000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608217206958
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608217210625
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608217222708
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608298280541
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756386928,
+        "uptimeNanoseconds": 276608298357833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747179120,
+        "uptimeNanoseconds": 276608368311166
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747179120,
+        "uptimeNanoseconds": 276608368363875
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747179120,
+        "uptimeNanoseconds": 276608368366625
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747179120,
+        "uptimeNanoseconds": 276608368378333
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747588720,
+        "uptimeNanoseconds": 276608451319583
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747588720,
+        "uptimeNanoseconds": 276608451405250
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608519641125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608519689125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608519691875
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608519703000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608601263541
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608601349083
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608671607291
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608671663625
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608671667041
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608671679916
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608753516250
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608753618666
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608819437083
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608819489750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 747555952,
+        "uptimeNanoseconds": 276608819541125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 753814640,
+        "uptimeNanoseconds": 276608839233666
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 753814640,
+        "uptimeNanoseconds": 276608840723833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 753814640,
+        "uptimeNanoseconds": 276608840732541
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.901",
+        "physicalFootprintBytes": 753814640,
+        "uptimeNanoseconds": 276608841640750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 753814640,
+        "uptimeNanoseconds": 276608841644291
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 858148000,
+        "uptimeNanoseconds": 276609365862583
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 858148000,
+        "uptimeNanoseconds": 276609365889916
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 858148000,
+        "uptimeNanoseconds": 276609365957500
+      },
+      {
+        "request": 4,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 858148000,
+        "uptimeNanoseconds": 276609365963833
+      },
+      {
+        "request": 4,
+        "stage": "request_4_completion",
+        "physicalFootprintBytes": 858148000,
+        "uptimeNanoseconds": 276609376543250
+      },
+      {
+        "request": 5,
+        "stage": "request_5_begin",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609410709500
+      },
+      {
+        "request": 5,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609410732916
+      },
+      {
+        "request": 5,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609410783416
+      },
+      {
+        "request": 5,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609415536708
+      },
+      {
+        "request": 5,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609415542208
+      },
+      {
+        "request": 5,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609416098416
+      },
+      {
+        "request": 5,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 859131040,
+        "uptimeNanoseconds": 276609416101666
+      },
+      {
+        "request": 5,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1211174048,
+        "uptimeNanoseconds": 276609547688000
+      },
+      {
+        "request": 5,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1211174048,
+        "uptimeNanoseconds": 276609547699083
+      },
+      {
+        "request": 5,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1211174048,
+        "uptimeNanoseconds": 276609547709000
+      },
+      {
+        "request": 5,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1217465504,
+        "uptimeNanoseconds": 276609550373041
+      },
+      {
+        "request": 5,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1228098720,
+        "uptimeNanoseconds": 276609584090416
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1228098720,
+        "uptimeNanoseconds": 276609584224791
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1229950112,
+        "uptimeNanoseconds": 276609657480166
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1231785120,
+        "uptimeNanoseconds": 276609735067125
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1233620128,
+        "uptimeNanoseconds": 276609810601000
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1235455136,
+        "uptimeNanoseconds": 276609885817208
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1237290144,
+        "uptimeNanoseconds": 276609961860458
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1239125152,
+        "uptimeNanoseconds": 276610039744541
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1240960160,
+        "uptimeNanoseconds": 276610115435833
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1209240736,
+        "uptimeNanoseconds": 276610191376375
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1211092128,
+        "uptimeNanoseconds": 276610266377125
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1212943520,
+        "uptimeNanoseconds": 276610341895083
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1211600032,
+        "uptimeNanoseconds": 276610413744666
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1160563872,
+        "uptimeNanoseconds": 276610483150958
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1162415264,
+        "uptimeNanoseconds": 276610552368791
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1164266656,
+        "uptimeNanoseconds": 276610620382125
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1166118048,
+        "uptimeNanoseconds": 276610688113125
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1167969440,
+        "uptimeNanoseconds": 276610755481125
+      },
+      {
+        "request": 5,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1168428192,
+        "uptimeNanoseconds": 276610771892750
+      },
+      {
+        "request": 5,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1138429064,
+        "uptimeNanoseconds": 276610772622625
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1133530224,
+        "uptimeNanoseconds": 276610775239708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1133530224,
+        "uptimeNanoseconds": 276610775258166
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1133530224,
+        "uptimeNanoseconds": 276610775260916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1133530224,
+        "uptimeNanoseconds": 276610775278875
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1133530224,
+        "uptimeNanoseconds": 276610775282000
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.975",
+        "physicalFootprintBytes": 1084410992,
+        "uptimeNanoseconds": 276610776264541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1084410992,
+        "uptimeNanoseconds": 276610776268125
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 950242416,
+        "uptimeNanoseconds": 276610781974250
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 950127728,
+        "uptimeNanoseconds": 276610781994125
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 949439600,
+        "uptimeNanoseconds": 276610782045625
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.151",
+        "physicalFootprintBytes": 797346928,
+        "uptimeNanoseconds": 276610783205125
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 748538992,
+        "uptimeNanoseconds": 276610783209708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.030",
+        "physicalFootprintBytes": 737070192,
+        "uptimeNanoseconds": 276610784244333
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 737070192,
+        "uptimeNanoseconds": 276610784248333
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 737070192,
+        "uptimeNanoseconds": 276610784256041
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 737610864,
+        "uptimeNanoseconds": 276610784321416
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610880249541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610880275791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610946865208
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610946923500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610946927708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276610946941208
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611028036583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611028110291
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611096902791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611096954083
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611096958083
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754928752,
+        "uptimeNanoseconds": 276611096970416
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611178339333
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611178450333
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611247711375
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611247760958
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611247763916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 755174512,
+        "uptimeNanoseconds": 276611247775916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611329228541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611329304708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611399777083
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611399825916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611399829250
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611399840916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611481708125
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611481833833
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611551013166
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611551058625
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611551061916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611551073833
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611633720166
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611633826750
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611705014458
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611705064833
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 748866672,
+        "uptimeNanoseconds": 276611705110625
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 755043440,
+        "uptimeNanoseconds": 276611724990583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 756042864,
+        "uptimeNanoseconds": 276611726488791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 756042864,
+        "uptimeNanoseconds": 276611726497583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.905",
+        "physicalFootprintBytes": 756042864,
+        "uptimeNanoseconds": 276611727410416
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 756042864,
+        "uptimeNanoseconds": 276611727414375
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 861408416,
+        "uptimeNanoseconds": 276612266829291
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 861408416,
+        "uptimeNanoseconds": 276612266883958
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 861408416,
+        "uptimeNanoseconds": 276612267000666
+      },
+      {
+        "request": 5,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 861408416,
+        "uptimeNanoseconds": 276612267009375
+      },
+      {
+        "request": 5,
+        "stage": "request_5_completion",
+        "physicalFootprintBytes": 861424800,
+        "uptimeNanoseconds": 276612277128708
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_1s",
+        "physicalFootprintBytes": 762989728,
+        "uptimeNanoseconds": 276613357879791
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_3s",
+        "physicalFootprintBytes": 757664928,
+        "uptimeNanoseconds": 276615406117083
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_10s",
+        "physicalFootprintBytes": 757615776,
+        "uptimeNanoseconds": 276622830981750
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_35s",
+        "physicalFootprintBytes": 402163888,
+        "uptimeNanoseconds": 276648261206416
+      },
+      {
+        "request": 5,
+        "stage": "sampler_stop",
+        "physicalFootprintBytes": 402163888,
+        "uptimeNanoseconds": 276648261287791
+      }
+    ],
+    "scope": "process footprint correlated with last emitted stage,100ms sampling plus exactboundary; not individualmodelbytes/privateCoreMLdeallocation attribution",
+    "rawReceiptSourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2"
+  },
+  "hybrid": {
+    "stageLabelSampledPeaksBytes": {
+      "request0:other": 11060872,
+      "request1:other": 976209952,
+      "request1:preparation": 383387296,
+      "request1:frontend": 376473584,
+      "request1:llm_load": 929777648,
+      "request1:prefill": 945555464,
+      "request1:decode": 975702048,
+      "request1:acoustic_other": 915327008,
+      "request1:flow": 593349600,
+      "request1:hift": 889851016,
+      "request2:other": 1435913376,
+      "request2:preparation": 873893000,
+      "request2:frontend": 873893000,
+      "request2:llm_load": 1435913376,
+      "request2:prefill": 1451527328,
+      "request2:decode": 1462422688,
+      "request2:acoustic_other": 1362807968,
+      "request2:flow": 1362807968,
+      "request2:hift": 900893832,
+      "request3:other": 1433013408,
+      "request3:preparation": 898976904,
+      "request3:frontend": 898976904,
+      "request3:llm_load": 1433013408,
+      "request3:prefill": 1448496288,
+      "request3:decode": 1462996152,
+      "request3:acoustic_other": 1391479968,
+      "request3:flow": 1323469984,
+      "request3:hift": 908364960,
+      "request4:other": 1404243128,
+      "request4:preparation": 888736928,
+      "request4:frontend": 888736928,
+      "request4:llm_load": 1404243128,
+      "request4:prefill": 1419726008,
+      "request4:decode": 1434176696,
+      "request4:acoustic_other": 1332333728,
+      "request4:flow": 1263979680,
+      "request4:hift": 881069216,
+      "request5:other": 1412598968,
+      "request5:preparation": 863669408,
+      "request5:frontend": 863669408,
+      "request5:llm_load": 1412598968,
+      "request5:prefill": 1428081848,
+      "request5:decode": 1440943288,
+      "request5:acoustic_other": 1337281696,
+      "request5:flow": 1269271712,
+      "request5:hift": 893717664
+    },
+    "boundarySamples": [
+      {
+        "request": 0,
+        "stage": "before_engine_creation",
+        "physicalFootprintBytes": 11044488,
+        "uptimeNanoseconds": 276671637827083
+      },
+      {
+        "request": 0,
+        "stage": "after_engine_creation",
+        "physicalFootprintBytes": 11060872,
+        "uptimeNanoseconds": 276671638652041
+      },
+      {
+        "request": 1,
+        "stage": "request_1_begin",
+        "physicalFootprintBytes": 12273288,
+        "uptimeNanoseconds": 276671644357083
+      },
+      {
+        "request": 1,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 12273288,
+        "uptimeNanoseconds": 276671644428750
+      },
+      {
+        "request": 1,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 12273288,
+        "uptimeNanoseconds": 276671644476541
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.1.4.begin:models/cosyvoice-llm-q8-prefill.mlpackage",
+        "physicalFootprintBytes": 16975496,
+        "uptimeNanoseconds": 276673385555875
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.1.4.end:models/cosyvoice-llm-q8-prefill.mlpackage",
+        "physicalFootprintBytes": 383370912,
+        "uptimeNanoseconds": 276680549363708
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.2.4.begin:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 383370912,
+        "uptimeNanoseconds": 276680549387208
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.2.4.end:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 383387296,
+        "uptimeNanoseconds": 276680553886666
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.3.4.begin:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 383387296,
+        "uptimeNanoseconds": 276680553895458
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.3.4.end:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 201262752,
+        "uptimeNanoseconds": 276680673315250
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.4.4.begin:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 201262752,
+        "uptimeNanoseconds": 276680673328958
+      },
+      {
+        "request": 1,
+        "stage": "prepare.model.4.4.end:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 17925792,
+        "uptimeNanoseconds": 276680677656208
+      },
+      {
+        "request": 1,
+        "stage": "prepare.end:warmed=4",
+        "physicalFootprintBytes": 23348944,
+        "uptimeNanoseconds": 276682365589750
+      },
+      {
+        "request": 1,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 23348944,
+        "uptimeNanoseconds": 276682365601708
+      },
+      {
+        "request": 1,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 376473584,
+        "uptimeNanoseconds": 276682696020333
+      },
+      {
+        "request": 1,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 376473584,
+        "uptimeNanoseconds": 276682696042000
+      },
+      {
+        "request": 1,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 929777648,
+        "uptimeNanoseconds": 276682831950375
+      },
+      {
+        "request": 1,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 929777648,
+        "uptimeNanoseconds": 276682831962916
+      },
+      {
+        "request": 1,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 929777648,
+        "uptimeNanoseconds": 276682831974666
+      },
+      {
+        "request": 1,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 936167408,
+        "uptimeNanoseconds": 276682834544041
+      },
+      {
+        "request": 1,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 945555464,
+        "uptimeNanoseconds": 276682868663125
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 945555464,
+        "uptimeNanoseconds": 276682868795791
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 947439624,
+        "uptimeNanoseconds": 276682941236791
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 949340168,
+        "uptimeNanoseconds": 276683023031000
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 951207944,
+        "uptimeNanoseconds": 276683096028375
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 953092104,
+        "uptimeNanoseconds": 276683172860125
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 954992648,
+        "uptimeNanoseconds": 276683240830416
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 956876808,
+        "uptimeNanoseconds": 276683307286875
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 958744584,
+        "uptimeNanoseconds": 276683376082958
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 960661512,
+        "uptimeNanoseconds": 276683441577041
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 962529288,
+        "uptimeNanoseconds": 276683506589541
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 964413448,
+        "uptimeNanoseconds": 276683573592416
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 966314016,
+        "uptimeNanoseconds": 276683643119250
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 968198176,
+        "uptimeNanoseconds": 276683711425541
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 970065952,
+        "uptimeNanoseconds": 276683782504375
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 971950112,
+        "uptimeNanoseconds": 276683847768583
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 973834272,
+        "uptimeNanoseconds": 276683919112458
+      },
+      {
+        "request": 1,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 975702048,
+        "uptimeNanoseconds": 276683988815625
+      },
+      {
+        "request": 1,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 976209952,
+        "uptimeNanoseconds": 276684005198250
+      },
+      {
+        "request": 1,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 970147872,
+        "uptimeNanoseconds": 276684005621250
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 915327008,
+        "uptimeNanoseconds": 276684011248833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 427067448,
+        "uptimeNanoseconds": 276684034669791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 427067448,
+        "uptimeNanoseconds": 276684034709041
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 427067448,
+        "uptimeNanoseconds": 276684034752250
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 427067448,
+        "uptimeNanoseconds": 276684034756083
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=12.775",
+        "physicalFootprintBytes": 427280440,
+        "uptimeNanoseconds": 276684047538333
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 427280440,
+        "uptimeNanoseconds": 276684047549291
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 428378168,
+        "uptimeNanoseconds": 276684055884833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 428378168,
+        "uptimeNanoseconds": 276684055916000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 428148792,
+        "uptimeNanoseconds": 276684056024041
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=609.391",
+        "physicalFootprintBytes": 456886832,
+        "uptimeNanoseconds": 276684665426291
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 456886832,
+        "uptimeNanoseconds": 276684665438625
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=459.160",
+        "physicalFootprintBytes": 523799496,
+        "uptimeNanoseconds": 276685124606125
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 523799496,
+        "uptimeNanoseconds": 276685124622583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 523799496,
+        "uptimeNanoseconds": 276685124635750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 523799496,
+        "uptimeNanoseconds": 276685124703416
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 583175184,
+        "uptimeNanoseconds": 276685441811958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 583175184,
+        "uptimeNanoseconds": 276685441847750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 586206152,
+        "uptimeNanoseconds": 276685657007166
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 586206152,
+        "uptimeNanoseconds": 276685657067000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 586206152,
+        "uptimeNanoseconds": 276685657071875
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 586206152,
+        "uptimeNanoseconds": 276685657086875
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685738093708
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685738169833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685803632500
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685803683291
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685803686625
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685803699583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685883967750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593087456,
+        "uptimeNanoseconds": 276685884076833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276685948721750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276685948773958
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276685948778125
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276685948794000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686029361000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686029457750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686098075375
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686098124458
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686098127833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593071072,
+        "uptimeNanoseconds": 276686098139875
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686178989583
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686179085416
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686247287208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686247335125
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686247339166
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686247350791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686328212208
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686328322000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686394712458
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686394761750
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 593349600,
+        "uptimeNanoseconds": 276686394806500
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 595479520,
+        "uptimeNanoseconds": 276686415757791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 596118496,
+        "uptimeNanoseconds": 276686417726416
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 596118496,
+        "uptimeNanoseconds": 276686417736833
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=221.792",
+        "physicalFootprintBytes": 761089160,
+        "uptimeNanoseconds": 276686639536791
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 761089160,
+        "uptimeNanoseconds": 276686639549291
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 871828616,
+        "uptimeNanoseconds": 276687257048000
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 871828616,
+        "uptimeNanoseconds": 276687257090541
+      },
+      {
+        "request": 1,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 871828616,
+        "uptimeNanoseconds": 276687257216541
+      },
+      {
+        "request": 1,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 871828616,
+        "uptimeNanoseconds": 276687257224375
+      },
+      {
+        "request": 1,
+        "stage": "request_1_completion",
+        "physicalFootprintBytes": 871992456,
+        "uptimeNanoseconds": 276687271131000
+      },
+      {
+        "request": 2,
+        "stage": "request_2_begin",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687312455416
+      },
+      {
+        "request": 2,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687312476500
+      },
+      {
+        "request": 2,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687312531583
+      },
+      {
+        "request": 2,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687317108375
+      },
+      {
+        "request": 2,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687317114291
+      },
+      {
+        "request": 2,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687317744291
+      },
+      {
+        "request": 2,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 873893000,
+        "uptimeNanoseconds": 276687317747708
+      },
+      {
+        "request": 2,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1435913376,
+        "uptimeNanoseconds": 276687457316916
+      },
+      {
+        "request": 2,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1435913376,
+        "uptimeNanoseconds": 276687457328375
+      },
+      {
+        "request": 2,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1435913376,
+        "uptimeNanoseconds": 276687457338208
+      },
+      {
+        "request": 2,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1442270368,
+        "uptimeNanoseconds": 276687459945916
+      },
+      {
+        "request": 2,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1451527328,
+        "uptimeNanoseconds": 276687492927833
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1451527328,
+        "uptimeNanoseconds": 276687493055041
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1453411488,
+        "uptimeNanoseconds": 276687566061541
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1455279264,
+        "uptimeNanoseconds": 276687639060083
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1457114272,
+        "uptimeNanoseconds": 276687710789666
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1458965664,
+        "uptimeNanoseconds": 276687783299791
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1460817056,
+        "uptimeNanoseconds": 276687857510125
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1452182688,
+        "uptimeNanoseconds": 276687921592208
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1454050488,
+        "uptimeNanoseconds": 276687995964208
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1455901880,
+        "uptimeNanoseconds": 276688069853416
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1457769656,
+        "uptimeNanoseconds": 276688145487166
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1423969464,
+        "uptimeNanoseconds": 276688219321875
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1415613624,
+        "uptimeNanoseconds": 276688288944250
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1413139640,
+        "uptimeNanoseconds": 276688355883083
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1415007416,
+        "uptimeNanoseconds": 276688430323791
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1364315320,
+        "uptimeNanoseconds": 276688499886041
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1366183096,
+        "uptimeNanoseconds": 276688565892958
+      },
+      {
+        "request": 2,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1368050872,
+        "uptimeNanoseconds": 276688633827250
+      },
+      {
+        "request": 2,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1368526008,
+        "uptimeNanoseconds": 276688651445500
+      },
+      {
+        "request": 2,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1362463928,
+        "uptimeNanoseconds": 276688651842791
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688654370750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688654386583
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688654389125
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688654406541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688654409833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.953",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688655371333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1361710240,
+        "uptimeNanoseconds": 276688655374416
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1362807968,
+        "uptimeNanoseconds": 276688656926333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1362807968,
+        "uptimeNanoseconds": 276688656952458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1362807968,
+        "uptimeNanoseconds": 276688657034166
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.085",
+        "physicalFootprintBytes": 1362807968,
+        "uptimeNanoseconds": 276688658125833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1362807968,
+        "uptimeNanoseconds": 276688658132750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.945",
+        "physicalFootprintBytes": 1358449824,
+        "uptimeNanoseconds": 276688659082708
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1358335136,
+        "uptimeNanoseconds": 276688659086375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1358335136,
+        "uptimeNanoseconds": 276688659094750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1358105760,
+        "uptimeNanoseconds": 276688659121208
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813288584,
+        "uptimeNanoseconds": 276688760038625
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813288584,
+        "uptimeNanoseconds": 276688760062375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813272200,
+        "uptimeNanoseconds": 276688826331083
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 813272200,
+        "uptimeNanoseconds": 276688826384791
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 813272200,
+        "uptimeNanoseconds": 276688826388000
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813272200,
+        "uptimeNanoseconds": 276688826401375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688908119666
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688908223666
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688975084041
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688975133500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688975137333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276688975149500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276689056141333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813517960,
+        "uptimeNanoseconds": 276689056235958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784518280,
+        "uptimeNanoseconds": 276689125424833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 784518280,
+        "uptimeNanoseconds": 276689125473333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 784518280,
+        "uptimeNanoseconds": 276689125476416
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784518280,
+        "uptimeNanoseconds": 276689125488291
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689206347500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689206469500
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689274831583
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689274879958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689274884833
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689274896750
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689355872416
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689355979458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689421059875
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689421110375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689421113458
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689421124958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689502469958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 778210440,
+        "uptimeNanoseconds": 276689502572250
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 778177672,
+        "uptimeNanoseconds": 276689572408541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 778177672,
+        "uptimeNanoseconds": 276689572456333
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 778177672,
+        "uptimeNanoseconds": 276689572500416
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 782077064,
+        "uptimeNanoseconds": 276689592325958
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 782077064,
+        "uptimeNanoseconds": 276689593840916
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 782077064,
+        "uptimeNanoseconds": 276689593850791
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.928",
+        "physicalFootprintBytes": 782077064,
+        "uptimeNanoseconds": 276689594786375
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 782077064,
+        "uptimeNanoseconds": 276689594790666
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 897715336,
+        "uptimeNanoseconds": 276690116861541
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 897715336,
+        "uptimeNanoseconds": 276690116903125
+      },
+      {
+        "request": 2,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 897715336,
+        "uptimeNanoseconds": 276690117018458
+      },
+      {
+        "request": 2,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 897715336,
+        "uptimeNanoseconds": 276690117026708
+      },
+      {
+        "request": 2,
+        "stage": "request_2_completion",
+        "physicalFootprintBytes": 897715336,
+        "uptimeNanoseconds": 276690128835333
+      },
+      {
+        "request": 3,
+        "stage": "request_3_begin",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690159975083
+      },
+      {
+        "request": 3,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690159994416
+      },
+      {
+        "request": 3,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690160047625
+      },
+      {
+        "request": 3,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690164536875
+      },
+      {
+        "request": 3,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690164543541
+      },
+      {
+        "request": 3,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690165032375
+      },
+      {
+        "request": 3,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 898976904,
+        "uptimeNanoseconds": 276690165035208
+      },
+      {
+        "request": 3,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1433013408,
+        "uptimeNanoseconds": 276690303774375
+      },
+      {
+        "request": 3,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1433013408,
+        "uptimeNanoseconds": 276690303786583
+      },
+      {
+        "request": 3,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1433013408,
+        "uptimeNanoseconds": 276690303797500
+      },
+      {
+        "request": 3,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1439304864,
+        "uptimeNanoseconds": 276690306354250
+      },
+      {
+        "request": 3,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1448496288,
+        "uptimeNanoseconds": 276690339363958
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1448496288,
+        "uptimeNanoseconds": 276690339492541
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1450347680,
+        "uptimeNanoseconds": 276690414892875
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1452182688,
+        "uptimeNanoseconds": 276690488281791
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1454017696,
+        "uptimeNanoseconds": 276690561642625
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1455869088,
+        "uptimeNanoseconds": 276690634883916
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1457704096,
+        "uptimeNanoseconds": 276690706938500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1459293344,
+        "uptimeNanoseconds": 276690775033916
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1461128352,
+        "uptimeNanoseconds": 276690842376875
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1462996152,
+        "uptimeNanoseconds": 276690910024500
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1431030968,
+        "uptimeNanoseconds": 276690979647833
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1432882360,
+        "uptimeNanoseconds": 276691046502000
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1434733752,
+        "uptimeNanoseconds": 276691124936708
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1390447800,
+        "uptimeNanoseconds": 276691201632083
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1392315576,
+        "uptimeNanoseconds": 276691274325916
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1394166968,
+        "uptimeNanoseconds": 276691343428958
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1396018360,
+        "uptimeNanoseconds": 276691413335875
+      },
+      {
+        "request": 3,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1397869752,
+        "uptimeNanoseconds": 276691481579291
+      },
+      {
+        "request": 3,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1398328504,
+        "uptimeNanoseconds": 276691500124833
+      },
+      {
+        "request": 3,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1392266424,
+        "uptimeNanoseconds": 276691500759166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691503419375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691503435541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691503438166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691503453375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691503456791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.995",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691504459708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1391479968,
+        "uptimeNanoseconds": 276691504463166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1324387488,
+        "uptimeNanoseconds": 276691510204458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1324272800,
+        "uptimeNanoseconds": 276691510228958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1323469984,
+        "uptimeNanoseconds": 276691510323708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.138",
+        "physicalFootprintBytes": 1243745440,
+        "uptimeNanoseconds": 276691511470416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1243745440,
+        "uptimeNanoseconds": 276691511475041
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.998",
+        "physicalFootprintBytes": 1166527624,
+        "uptimeNanoseconds": 276691512477791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1166527624,
+        "uptimeNanoseconds": 276691512482083
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1166412936,
+        "uptimeNanoseconds": 276691512490166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1099173024,
+        "uptimeNanoseconds": 276691512554708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 821709984,
+        "uptimeNanoseconds": 276691610466541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 821709984,
+        "uptimeNanoseconds": 276691610491291
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 821726368,
+        "uptimeNanoseconds": 276691676933583
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 821726368,
+        "uptimeNanoseconds": 276691676985208
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 821726368,
+        "uptimeNanoseconds": 276691676989125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 821726368,
+        "uptimeNanoseconds": 276691677002791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691758135166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691758247875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691824563958
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691824612625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691824615625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 819104928,
+        "uptimeNanoseconds": 276691824627625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 819350688,
+        "uptimeNanoseconds": 276691905770041
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 819350688,
+        "uptimeNanoseconds": 276691905890166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 819317920,
+        "uptimeNanoseconds": 276691975134541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 819317920,
+        "uptimeNanoseconds": 276691975182125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 819317920,
+        "uptimeNanoseconds": 276691975185916
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 819317920,
+        "uptimeNanoseconds": 276691975197791
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 813010080,
+        "uptimeNanoseconds": 276692056521291
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 813010080,
+        "uptimeNanoseconds": 276692056656166
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 786140320,
+        "uptimeNanoseconds": 276692125856750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 786140320,
+        "uptimeNanoseconds": 276692125908708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 786140320,
+        "uptimeNanoseconds": 276692125912291
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 786140320,
+        "uptimeNanoseconds": 276692125925458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692208136333
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692208215458
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692278205583
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692278257875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692278260750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692278272750
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692359921625
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692360048125
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692427695250
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692427747541
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 792857760,
+        "uptimeNanoseconds": 276692427798375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 798788768,
+        "uptimeNanoseconds": 276692447456875
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 799788192,
+        "uptimeNanoseconds": 276692448986375
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 799788192,
+        "uptimeNanoseconds": 276692448996708
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.925",
+        "physicalFootprintBytes": 799788192,
+        "uptimeNanoseconds": 276692449930416
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 799788192,
+        "uptimeNanoseconds": 276692449933833
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 887065760,
+        "uptimeNanoseconds": 276692979107250
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 887065760,
+        "uptimeNanoseconds": 276692979162000
+      },
+      {
+        "request": 3,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 887065760,
+        "uptimeNanoseconds": 276692979297875
+      },
+      {
+        "request": 3,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 887065760,
+        "uptimeNanoseconds": 276692979308208
+      },
+      {
+        "request": 3,
+        "stage": "request_3_completion",
+        "physicalFootprintBytes": 887065760,
+        "uptimeNanoseconds": 276692990250166
+      },
+      {
+        "request": 4,
+        "stage": "request_4_begin",
+        "physicalFootprintBytes": 888491168,
+        "uptimeNanoseconds": 276693025787208
+      },
+      {
+        "request": 4,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 888491168,
+        "uptimeNanoseconds": 276693025809166
+      },
+      {
+        "request": 4,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 888491168,
+        "uptimeNanoseconds": 276693025859791
+      },
+      {
+        "request": 4,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 888736928,
+        "uptimeNanoseconds": 276693030401875
+      },
+      {
+        "request": 4,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 888736928,
+        "uptimeNanoseconds": 276693030409083
+      },
+      {
+        "request": 4,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 888736928,
+        "uptimeNanoseconds": 276693030953083
+      },
+      {
+        "request": 4,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 888736928,
+        "uptimeNanoseconds": 276693030956416
+      },
+      {
+        "request": 4,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1404243128,
+        "uptimeNanoseconds": 276693160667291
+      },
+      {
+        "request": 4,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1404243128,
+        "uptimeNanoseconds": 276693160677625
+      },
+      {
+        "request": 4,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1404243128,
+        "uptimeNanoseconds": 276693160689083
+      },
+      {
+        "request": 4,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1410534584,
+        "uptimeNanoseconds": 276693163073583
+      },
+      {
+        "request": 4,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1419726008,
+        "uptimeNanoseconds": 276693189112333
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1419726008,
+        "uptimeNanoseconds": 276693189234875
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1421577400,
+        "uptimeNanoseconds": 276693259485458
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1423412408,
+        "uptimeNanoseconds": 276693332538833
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1425247416,
+        "uptimeNanoseconds": 276693401797833
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1427082424,
+        "uptimeNanoseconds": 276693475720250
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1428917432,
+        "uptimeNanoseconds": 276693548448833
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1430752440,
+        "uptimeNanoseconds": 276693617336083
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1432587448,
+        "uptimeNanoseconds": 276693685201666
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1434176696,
+        "uptimeNanoseconds": 276693750012583
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1400736952,
+        "uptimeNanoseconds": 276693815310833
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1402588344,
+        "uptimeNanoseconds": 276693886022750
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1404439736,
+        "uptimeNanoseconds": 276693955346541
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1406291128,
+        "uptimeNanoseconds": 276694030485208
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1362005176,
+        "uptimeNanoseconds": 276694111372041
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1334955192,
+        "uptimeNanoseconds": 276694190595583
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1336806584,
+        "uptimeNanoseconds": 276694265079291
+      },
+      {
+        "request": 4,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1338674360,
+        "uptimeNanoseconds": 276694343094958
+      },
+      {
+        "request": 4,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1339133112,
+        "uptimeNanoseconds": 276694362247583
+      },
+      {
+        "request": 4,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1333087416,
+        "uptimeNanoseconds": 276694362912500
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694365877541
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694365895125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694365897791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694365923000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694365926375
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.143",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694367078250
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1332333728,
+        "uptimeNanoseconds": 276694367082125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1265241248,
+        "uptimeNanoseconds": 276694371986000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1264897184,
+        "uptimeNanoseconds": 276694372030916
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1263979680,
+        "uptimeNanoseconds": 276694372143791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.191",
+        "physicalFootprintBytes": 1184484512,
+        "uptimeNanoseconds": 276694373344708
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1184484512,
+        "uptimeNanoseconds": 276694373349750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.068",
+        "physicalFootprintBytes": 1106709664,
+        "uptimeNanoseconds": 276694374423000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1106709664,
+        "uptimeNanoseconds": 276694374427458
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1106594976,
+        "uptimeNanoseconds": 276694374435500
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1106480288,
+        "uptimeNanoseconds": 276694374466250
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 768707744,
+        "uptimeNanoseconds": 276694471909791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 768707744,
+        "uptimeNanoseconds": 276694471935125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694539192750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694539247125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694539250750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694539265791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694620675666
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 768674976,
+        "uptimeNanoseconds": 276694620786833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 768642208,
+        "uptimeNanoseconds": 276694688095833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 768642208,
+        "uptimeNanoseconds": 276694688146291
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 768642208,
+        "uptimeNanoseconds": 276694688150583
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 768642208,
+        "uptimeNanoseconds": 276694688164000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694769713833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694769733708
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694835589416
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694835637125
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694835640333
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767495328,
+        "uptimeNanoseconds": 276694835653083
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694917301208
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694917418625
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694987941958
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694987986833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694987990416
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276694988001916
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276695069966291
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761433248,
+        "uptimeNanoseconds": 276695070075166
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695139602750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695139650958
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695139654041
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695139665791
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695222949375
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695223072500
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695291290166
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695291341666
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 758844576,
+        "uptimeNanoseconds": 276695291393000
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 765103264,
+        "uptimeNanoseconds": 276695311471833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 774081696,
+        "uptimeNanoseconds": 276695313502166
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 774081696,
+        "uptimeNanoseconds": 276695313513750
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.942",
+        "physicalFootprintBytes": 774081696,
+        "uptimeNanoseconds": 276695314462833
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 774081696,
+        "uptimeNanoseconds": 276695314466625
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 877841568,
+        "uptimeNanoseconds": 276695849696958
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 877841568,
+        "uptimeNanoseconds": 276695849727333
+      },
+      {
+        "request": 4,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 877841568,
+        "uptimeNanoseconds": 276695849796333
+      },
+      {
+        "request": 4,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 877841568,
+        "uptimeNanoseconds": 276695849802541
+      },
+      {
+        "request": 4,
+        "stage": "request_4_completion",
+        "physicalFootprintBytes": 877841568,
+        "uptimeNanoseconds": 276695863507833
+      },
+      {
+        "request": 5,
+        "stage": "request_5_begin",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695900616666
+      },
+      {
+        "request": 5,
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695900632750
+      },
+      {
+        "request": 5,
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695900695708
+      },
+      {
+        "request": 5,
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695905431041
+      },
+      {
+        "request": 5,
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695905436041
+      },
+      {
+        "request": 5,
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695905968916
+      },
+      {
+        "request": 5,
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 863669408,
+        "uptimeNanoseconds": 276695905972125
+      },
+      {
+        "request": 5,
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1412598968,
+        "uptimeNanoseconds": 276696044942666
+      },
+      {
+        "request": 5,
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1412598968,
+        "uptimeNanoseconds": 276696044956208
+      },
+      {
+        "request": 5,
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1412598968,
+        "uptimeNanoseconds": 276696044966833
+      },
+      {
+        "request": 5,
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1418890424,
+        "uptimeNanoseconds": 276696047790208
+      },
+      {
+        "request": 5,
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1428081848,
+        "uptimeNanoseconds": 276696077036583
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1428081848,
+        "uptimeNanoseconds": 276696077183250
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1429933240,
+        "uptimeNanoseconds": 276696155473333
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1431768248,
+        "uptimeNanoseconds": 276696234251458
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1433603256,
+        "uptimeNanoseconds": 276696312468208
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1435438264,
+        "uptimeNanoseconds": 276696390815708
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1437273272,
+        "uptimeNanoseconds": 276696469139291
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1439108280,
+        "uptimeNanoseconds": 276696546220250
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1440943288,
+        "uptimeNanoseconds": 276696624618500
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1406274744,
+        "uptimeNanoseconds": 276696703276625
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1408109752,
+        "uptimeNanoseconds": 276696781485458
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1409944760,
+        "uptimeNanoseconds": 276696861586833
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1365167288,
+        "uptimeNanoseconds": 276696941745208
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1367018680,
+        "uptimeNanoseconds": 276697023844125
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1368870072,
+        "uptimeNanoseconds": 276697105659041
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1339952312,
+        "uptimeNanoseconds": 276697186762625
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1341803704,
+        "uptimeNanoseconds": 276697265025208
+      },
+      {
+        "request": 5,
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1343655096,
+        "uptimeNanoseconds": 276697341557416
+      },
+      {
+        "request": 5,
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1344130232,
+        "uptimeNanoseconds": 276697361974791
+      },
+      {
+        "request": 5,
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1338068152,
+        "uptimeNanoseconds": 276697362677500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697365578041
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697365596041
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697365599083
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697365618708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697365623750
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.186",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697366818958
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1337281696,
+        "uptimeNanoseconds": 276697366822791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1270189216,
+        "uptimeNanoseconds": 276697371740708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1269959840,
+        "uptimeNanoseconds": 276697371774458
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1269271712,
+        "uptimeNanoseconds": 276697371866500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.307",
+        "physicalFootprintBytes": 1188629664,
+        "uptimeNanoseconds": 276697373184291
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1188514976,
+        "uptimeNanoseconds": 276697373190291
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.178",
+        "physicalFootprintBytes": 1042484384,
+        "uptimeNanoseconds": 276697374375166
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1042369696,
+        "uptimeNanoseconds": 276697374379708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1042369696,
+        "uptimeNanoseconds": 276697374389708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1042107552,
+        "uptimeNanoseconds": 276697374461541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697471369916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697471397791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697538524791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697538588375
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697538592875
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697538609500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697620056041
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767823008,
+        "uptimeNanoseconds": 276697620142166
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697690070625
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697690126416
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697690130291
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697690146541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697771637833
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767790240,
+        "uptimeNanoseconds": 276697771771250
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767773856,
+        "uptimeNanoseconds": 276697840510583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 767773856,
+        "uptimeNanoseconds": 276697840566875
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 767773856,
+        "uptimeNanoseconds": 276697840570708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767773856,
+        "uptimeNanoseconds": 276697840585500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697922246458
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697922340958
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697992128208
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697992184500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697992188583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276697992203250
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698075123125
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698075259375
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698142804916
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698142860750
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698142864500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 761466016,
+        "uptimeNanoseconds": 276698142879041
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 759925920,
+        "uptimeNanoseconds": 276698229224708
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 759925920,
+        "uptimeNanoseconds": 276698229315958
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 759925920,
+        "uptimeNanoseconds": 276698299004208
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 759925920,
+        "uptimeNanoseconds": 276698299061791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 759925920,
+        "uptimeNanoseconds": 276698299121458
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 766102688,
+        "uptimeNanoseconds": 276698323135791
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 767102112,
+        "uptimeNanoseconds": 276698325028500
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 767102112,
+        "uptimeNanoseconds": 276698325040583
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.057",
+        "physicalFootprintBytes": 767102112,
+        "uptimeNanoseconds": 276698326105666
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 767102112,
+        "uptimeNanoseconds": 276698326110250
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 893717664,
+        "uptimeNanoseconds": 276698870050541
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 893717664,
+        "uptimeNanoseconds": 276698870093333
+      },
+      {
+        "request": 5,
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 893717664,
+        "uptimeNanoseconds": 276698870177833
+      },
+      {
+        "request": 5,
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 893717664,
+        "uptimeNanoseconds": 276698870186750
+      },
+      {
+        "request": 5,
+        "stage": "request_5_completion",
+        "physicalFootprintBytes": 893717664,
+        "uptimeNanoseconds": 276698883549000
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_1s",
+        "physicalFootprintBytes": 774491296,
+        "uptimeNanoseconds": 276699938084416
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_3s",
+        "physicalFootprintBytes": 766790816,
+        "uptimeNanoseconds": 276702003693291
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_10s",
+        "physicalFootprintBytes": 766741664,
+        "uptimeNanoseconds": 276709272439833
+      },
+      {
+        "request": 5,
+        "stage": "post_completion_idle_35s",
+        "physicalFootprintBytes": 397379784,
+        "uptimeNanoseconds": 276734884739416
+      },
+      {
+        "request": 5,
+        "stage": "sampler_stop",
+        "physicalFootprintBytes": 397379784,
+        "uptimeNanoseconds": 276734884780833
+      }
+    ],
+    "scope": "process footprint correlated with last emitted stage,100ms sampling plus exactboundary; not individualmodelbytes/privateCoreMLdeallocation attribution",
+    "rawReceiptSourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2"
+  }
+}

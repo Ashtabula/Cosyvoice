@@ -1,0 +1,8 @@
+{
+  "timedPublicRequests": "ALL5_COMPLETE_IDENTITY_PASS",
+  "postTimedPlanInspection": "WAITING_NO_AUTO_DONE_AFTER_IDLE35S",
+  "readback": "actual_native_receipt_and_WAV_exported_after_all_timed_work",
+  "termination": "next_authorized_launch_terminate_existing_will_end_completed_diagnostic_app; not inference crash",
+  "humanListening": "EXISTING_HUMAN_PASS_FOR_IDENTICAL_ACCEPTED_HYBRID",
+  "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2"
+}

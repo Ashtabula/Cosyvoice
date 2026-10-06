@@ -1,0 +1,129 @@
+CosyVoice3 Q4 prefill length / physical RAM audit
+Time: 2026-10-06T18:20:27.956071-04:00 America/New_York
+Decision: Q4_PREFILL_RESCUED_AWAITING_HUMAN
+New full-A is Validation SPI only, NOT promoted. Ordinary .q4 remains the human-approved Q8-prefill/INT4-per-channel-decode hybrid. Current default, Q8, failed original packages, Demo, HF/catalog/release unchanged.
+
+A. Current hybrid baseline
+Accepted public source: 0cc21be6d7e024ecfba5ec3fd5552fa60871b7df; latest accepted public RTF 0.274785974, sampled peak 1453886600 bytes.
+Direct new comparison signed source: 0d7c97545f3d2877234bf5e38d8cafaebaa525e2, iPhone18,4/iOS27.2, charging, nominal, no playback, seed42, SHARDS=2, Flow=6, N260/n257_384, 24000Hz/249600samples/10.4s.
+Exact text/reference/trimmed transcript hashes, asset/manifest/package SHA, raw run timings are in final_summary.json and raw receipts. Raw transcript/instruction/corpus identities remain bound by accepted evidence and listening_manifest.
+Historical Current/Q8 source1b1d342 figures are context only; do not mix their timing with the matched0d full/hybrid comparison.
+Current frozen payload4750dba5... and accepted hybrid3b57dab1... preserved. New full candidate11e06330... is explicitly a changed prefill asset, not the original frozen payload.
+
+B. Initial length probes
+Six lengths1/16/32/64/128/224 all initially PASS compile + physical MLModel load + CPU_AND_NE MLComputePlan in a serial process, thermal nominal/charging. LEVEL_A only: no state/prediction/synthesis.
+Independent new process128 PASS; same224 package FAIL at MLModel load, NSError domaincom.apple.CoreML/code0, description execution-plan -14. All raw results retained.
+The 361 static sequence constants are 289 slice ends,48 state-write slice_update ends,24 reshape shapes. All169 compressed weight expressions, weight.bin bytes and48 state schemas byte-identical; MIL inferred types revalidated per operation. Length224 is an exact copy of original rescue-A, not reconverted.
+Two earlier host preflight failures (protobuf API and wrong expected static-constant count) preserved; neither is a device model-compatibility FAIL.
+
+C. Threshold refinement
+Only one additional unique length176 used (budget1/4), PASS; following224 in the same process PASS again. No stable monotonic threshold established; never claim176 is the largest supported length. No extra quantization/decode sweep.
+
+D. Evidence-supported -14 explanation
+Length alone is not sufficient: identical224 source package can PASS and FAIL under same OS/requested placement. Constructor/compilation/cache/runtime context correlates, precise cause UNKNOWN.
+The PASS/FAIL compiled content comparison differs only in coremldata.bin; model.mil/weight content equal. This does not prove that metadata file causes failure.
+Full-A pipeline succeeded in two processes, but isolated load failure remains a real compatibility limitation. No unsupported-op, cache-corruption or all-Q4-unsupported claim is justified.
+
+E. Full prefill feasibility
+Standalone legitimate synthetic224 prefill + frozenAdecode LevelB PASS (source34c067b): finite logits[1,6761], hidden[1,896], all48 FP16 states. Each scoped131072-byte state transfer byte-identical, total6291456bytes; one legitimate frozen decode succeeds.
+Diagnostic prefill 28.391ms / decode 9.929ms are single teacher-forced synthetic values, NOT frozen public performance.
+The independent full root replaces only accepted hybrid Q8 prefill with original A224 package, preserving frozen decodeSHA4685dcbf..., schema3/four buckets/2-shard/Flow6/reference/noise/solver/FP64/placement/sampler/mask/RoPE/KV meaning.
+No new quantization recipe or graph rewrite. Existing supported request-owned state copy bridge reused; no escaping pointers, no mutation during an in-flight prediction; actor/session lock boundaries unchanged. The public profile is not rebound.
+
+F. Chunked semantic feasibility
+NOT_IMPLEMENTED. Each short graph has mask[1,1,L,L], static KV update[0:L], attention[:L], no past-length/offset input. A second chunk overwrites previous KV and lacks past attention. RoPE changes or output concatenation cannot repair this.
+Correct offset-aware graph changes are outside length-only specialization; production224 now runs, so no conditional chunk implementation is justified. No state/KV numerical semantics changed.
+
+G. Numerical result
+Chunked numerical comparison NOT_RUN. Full-Q4 is not claimed numerically/token/PCM equivalent to Q8/Current/hybrid. It reuses existing A graph/weight bytes exactly. State transfer itself BIT_IDENTICAL.
+All5 unprofiled +5 profiled frozen requests internally identical token/PCM/WAV. Compared with accepted hybrid output changes, requiring a new human listening gate.
+
+H. Physical end-to-end
+Real public CosyVoice3Engine.synthesize(), experimental constructor only. No LLM-only/acoustic-only microbenchmark or silent fallback. All10 frozen requests N260/n257_384/SHARDS2/Flow6/249600samples/24000Hz/finite/MAX_LENGTH; original stopping and workload retained.
+Full tokenSHA: 0b7eb70854d61cc8bb9cc4db2357187755c735737638d1dc802a6862fed4fc8c
+Full PCM_SHA: 9eb0effef712a58411078341db19c54975f80982e3bda2ca91c3a1bfc3047382
+Full WAV_SHA: 5c097ab2e7c07e9585c23d5bfa573a0fdb7d27afbf0e0ce6856f231781d45643
+
+I. Physical RAM
+Same-source full sampled peak 1266404488B vs hybrid 1462996152B: 187.484MiB / 13.438% less.
+100ms samples + exact boundaries, process-level measurement, not precise instantaneous peak or per-model/CoreML-private attribution, not proof on older iPhones.
+memory_stage_summary.json retains all boundaries and peaks grouped by last emitted stage. LLM.load holds both models; no separate physical model byte attribution is available. Full first generation ~750MB, second ~1266MB; existing acoustic shelf overlap unchanged.
+Full completion bytes: [863800432, 874302624, 865995936, 858148000, 861424800]; idle35s [402163888].
+Hybrid completion bytes: [871992456, 897715336, 887065760, 877841568, 893717664]; idle35s [397379784].
+This is inference-peak reduction, not lower persistent baseline or a leak fix. Both callers retain all5PCM outputs (4992000bytes), unchanged; no benchmark optics.
+
+J. Performance is secondary
+Full measured warm raw [2779.190625, 2790.5316249999996, 2866.4060839999997]ms, median 2790.532ms/RTF 0.268320.
+Hybrid raw [2830.263916, 2837.709084, 2982.9210000000003]ms, median 2837.709ms/RTF 0.272857.
+Difference 47.177ms is not a proven statistical speedup: sequential candidate-then-hybrid, three measured warms each, substantial range, no randomized/alternating control.
+Prefill full 29.220ms vs Q8-hybrid 25.158ms. Decode 4.268027 vs 4.400492ms/token; unchanged decode model, differences cannot be attributed to a new decode algorithm.
+First request uses existing cache. Full SPI asset verification happens before synthesis timer, hybrid partly verifies during first preparation. First synthesis alone is NOT matched FIRST_EVER_COLD; do not compare the25.97s candidate first against control as cold benefit. All initialization is present in peak telemetry. Profiling excluded from performance.
+
+K. Development energy/thermal
+CPU medians full 431.373 vs hybrid 451.313ms.
+CPU-only attributed energy/audio-second full 131.681 vs hybrid 124.650mJ: no energy-win evidence. ANE/GPU/whole-device energy N/A.
+All matched frozen requests nominal/charging. Listening third sample nominal->fair with different N/audio length/bucket first-use, not a controlled thermal regression/benefit claim. No long stress, sustained playback or older-device testing, no heat-reduction percentage.
+Prefill runs once, decode259times; main plausible Q4-prefill benefit is RAM/residency, not large direct compute-energy savings.
+
+L. ANE topology
+Plan1761ANE-preferred operations for all tested lengths; planning is not actual residency.
+Initial xctrace save timeout and second device-boot timeout preserved. Official Apple xctrace import recovered the actual ATRC, without copying any donor trace/template.
+Recovered hardware table1314rows, native/CoreML signpost interval tables0rows. Exact package identity -> this receipt's actual processLoadEvents -> compiled key matches5prefill +1295decode ANE hardware predictions, equal native counts. Prefill hardware mean 25.084516ms.
+Claim only exact-model-linked ANE activity observed. Per-prediction PID containment, CPU/GPU fallback, internal gaps, pre/postANE boundaries, per-op/FULL_ANE remain UNKNOWN. Empty recovered tables do NOT prove zero CPU/GPU or MOSTLY_CONTIGUOUS_ANE. Accepted hybrid's older complete1b trace remains independent, not proof for new full prefill.
+
+M. Human listening
+Three new physical WAVs pulled to workspace. All12 Current/Q8/accepted-hybrid/new-full files SHA-verified. Existing three reference groups HUMAN_PASS, new full PENDING_HUMAN.
+New samples:1 N160/6.4s,2 N413/16.52s,3 N442/17.68s. Third differs from hybrid N363/EOS/14.52s: listen carefully for repeated/skipped words, pauses, end truncation and naturalness.
+New candidate is not LAST_KNOWN_GOOD. Final response must display all12 local native audio players, not sandbox paths or download-only links.
+
+N. API recommendation
+Keep ordinary .q4 as approved Q8-prefill/Q4-decode hybrid, Current default and Q8 unchanged. New full stays explicit Validation SPI only.
+After human PASS, separately resolve/load-relaunch robustness and collect full native-PID profiling before considering public binding. No Demo/HF/catalog/release change.
+
+O. Is more work justified?
+Material short-test RAM signal justifies retaining this experiment for human review. Stop length/quantization/decoder sweeps; no chunking or work solely to save a few prefill milliseconds.
+-14 conditions unresolved; no promise for all devices, fresh install or other contexts. This bounded pass is complete, candidate unpromoted.
+
+Requested comparison table (N/A means unmeasured, not an estimate)
+Historical Current/Q8 source1b only context; matched Hybrid/Full signedsource0d. Every column SHARDS=2/Flow6.
+|Metric|Current historical1b|Q8 historical1b|Hybrid matched0d|Full-Q4 matched0d|
+|---|---:|---:|---:|---:|
+|Prefill package bytes|728609297|365380226|365380226|183437878|
+|Decode package bytes|728542251|365290677|183348350|183348350|
+|Total LLM bytes|1457151548|730670903|548728576|366786228|
+|Prefill ms|33.249334|27.533791|25.157958|29.219709|
+|Decode ms/token|12.514659806949807|7.433423903474903|4.400491629343629|4.2680273706563705|
+|LLM ms|3308.463375|1990.54075|1202.225541|1170.192084|
+|RTF|0.4799852684615385|0.35034484778846153|0.2728566426923077|0.26832034855769227|
+|Sampled peak bytes|2353417424|1591790704|1462996152|1266404488|
+|Last completion bytes|860966120|843533424|893717664|861424800|
+|Idle35s bytes|423413984|394660040|397379784|402163888|
+|Process total energy/playback-second|N/A|N/A|N/A|N/A|
+|CPU-only mJ/audio-second|118.9534|120.6387|124.64965730769231|131.68135153846154|
+|Prefill/decode topology|ANEactivity,peropUNKNOWN|priortraceobserved|acceptedpriortrace1b|5/1295hardwarematched; containmentUNKNOWN|
+|Token behavior|260 MAX_LENGTH|260 MAX_LENGTH|260 MAX_LENGTH|260 MAX_LENGTH,newtokenSHA|
+|Human|PASS|PASS|PASS|PENDING_NEW_FULL|
+
+16 explicit answers
+1: No sequence-length-only cause established; same224 PASS/FAIL.
+2: Initial1/16/32/64/128/224PASS; isolated128PASS/224FAIL;176then224PASS.
+3: No reliable threshold.
+4: Specialization/constructor/cache context correlates; precise -14 root cause UNKNOWN.
+5: Yes224 legitimately predicts and10fullrequests succeed, but isolated load failure remains.
+6: Original short graph does not support semantically equivalent sequential chunks.
+7: No chunk implementation or physical chunk test.
+8: Yes48state byte-copy and frozenAdecode validated.
+9: Matched short-test peak reduction187.484MiB.
+10: Material peak signal; older-device feasibility unverified.
+11: Prefill29.220 vs25.158ms, no speed benefit.
+12: No credible whole-device energy signal; CPU-only energy higher.
+13: Five exact-model ANE hardware events, complete topology UNKNOWN.
+14: New full PENDING_HUMAN.
+15: Retain experimental for human review, stop sweeps, do not promote.
+16: Accepted hybrid remains public preferred until full gates are complete.
+
+Cleanup completed first
+242 SHA-identical historical weight duplicates replaced by readonly same-volume hardlinks;5obsoleteDerivedData removed. Observed free WD+30617202688B/Mac+2910806016B, about31.2GiB total.
+Complete historical packages, original failures, WAVs, traces, activebuild and unrelatedVox work preserved. Protected5package and9oldWAVSHA PASS. New assets also isolated hardlinks. No model/WAV/trace committed.
+
+GitHub Timeline: source checkpoints through0d7c975 committed, not yet pushed; final report/evidence selective commit then push. Exact final push receipt appended separately. No historical accepted evidence overwritten.

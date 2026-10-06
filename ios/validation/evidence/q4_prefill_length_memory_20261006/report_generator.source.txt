@@ -1,0 +1,151 @@
+# final_q4_report.py
+# Requirement: preserve exact raw evidence; classify new full-A audio human pending, never promote from RAM/plan alone.
+import pathlib,json,statistics,hashlib,subprocess
+from datetime import datetime
+from zoneinfo import ZoneInfo
+base=pathlib.Path('ios/validation/evidence/q4_prefill_length_memory_20261006');b=base/'q4_full_prefill';comparison=json.load(open(b/'matched_comparison.json'));asset=json.load(open(b/'asset_collection.json'));audio=json.load(open(b/'listening_manifest.json'));hw=json.load(open(b/'topology/hardware_model_counts.json'));latest=json.load(open('ios/validation/evidence/q4_human_acceptance_20261006/latest_status.json'));old=json.load(open('ios/validation/evidence/q4_compatibility_rescue_20261006/comparison.json'))
+initial=json.load(open(base/'prefill_length_probe/physical/ane-compute-plan-receipt.json'));long=json.load(open(base/'prefill_length_probe/physical/isolated224/receipt.json'));levelb=json.load(open(b/'physical/isolated-gate/receipt.json'));physical=json.load(open(b/'public-api/physical/llm-quantization-q4_full-receipt.json'));profiled=json.load(open(b/'profiled/physical/llm-quantization-q4_full-receipt.json'))
+assert all(x['PCM_SHA256']==physical['rows'][0]['PCM_SHA256'] and x['tokenSequenceSHA256']==physical['rows'][0]['tokenSequenceSHA256'] for x in physical['rows']+profiled['rows'])
+now=datetime.now(ZoneInfo('America/New_York')).isoformat()
+final={'classification':'Q4_PREFILL_RESCUED_AWAITING_HUMAN','recordedAt':now,'physicalSourceCommit':physical['sourceCommit'],'acceptedPublicSourceCommit':latest['sourceCommit'],'evidenceParentGitHEAD':subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),'candidate':'q4_full_prefill_a','sourcePrefillPackageSHA256':asset['prefillIdentity']['treeSha256'],'frozenDecodePackageSHA256':asset['decodeIdentity']['treeSha256'],'manifestSHA256':asset['manifestSHA256'],'assetPayloadTreeSHA256':asset['payloadIdentity']['treeSha256'],'requestedLLMPlacement':'CPU_AND_NE','requestedAcousticPlacement':'CPU_AND_GPU','SHARDS':2,'flowSteps':6,'N':260,'function':'n257_384','sampleRate':24000,'samples':249600,'frozenInputs':{k:physical[k] for k in ['frozenText','frozenTextSHA256','referenceWAVSHA256','referenceTranscriptSHA256']},'seed':42,'initialLengths':[{'length':int(x['role'].removeprefix('q4PrefillL')),'status':x['status'],'packageSHA256':x['packageIdentity']['treeSha256'],'compiledSHA256':x['compiledIdentity']['treeSha256'],'thermalStartRaw':x['thermalStart'],'thermalEndRaw':x['thermalEnd']} for x in initial['models']],'additionalUniqueLengths':[176],'threshold':'NOT_ESTABLISHED;128isolatedPASS,224isolatedFAIL_-14,224serialPASS twice; length alone not sufficient cause','isolated224Error':long['models'][0]['error'],'levelBStatus':levelb['status'],'all48StatesFinite':True,'stateTransferByteIdentical':all(x['byteIdentical'] for x in levelb['stateTransfer']),'publicSynthesisRepeated':{'unprofiledRequests':5,'profiledRelaunchRequests':5,'all10SameTokenPCM':True,'PCM_SHA256':physical['rows'][0]['PCM_SHA256'],'tokenSequenceSHA256':physical['rows'][0]['tokenSequenceSHA256'],'WAV_SHA256':physical['WAV_SHA256'],'bitIdenticalToHybrid':False},'matchedMemoryPerformance':comparison,'measuredEnergyScope':'CPU_ONLY_RECOUNT, not ANE/GPU/whole-device; no demonstrated energy win','wholeDeviceEnergy':None,'sustainedThermal':'NOT_RUN','chargingConditions':'CHARGING_CONNECTED','listenThermal':'sample1/2nominal;sample3nominal->fair; not controlled thermal comparison','ANEHardwareEvidence':{'prefillCount':hw['models']['prefill']['ANEHardwarePredictionCount'],'decodeCount':hw['models']['decode']['ANEHardwarePredictionCount'],'nativePIDContainment':'UNPROVEN_AFTER_IMPORT_LOST_SIGNPOSTS','actualPerOpResidency':'UNKNOWN','CPU_GPUFallback':'UNKNOWN','fullANEClaim':False},'chunking':'NOT_IMPLEMENTED; fixed[0:L]KVwrites/attention[:L]cannotsequentiallyappendunchanged','humanListening':'PENDING_HUMAN_FOR_NEW_FULL_PREFILL_ONLY','audioExport':'ALL12_CURRENT_Q8_HYBRID_NEW_WAVS_LOCAL_SHA_VERIFIED','ordinaryQ4Profile':'UNCHANGED_ACCEPTED_Q8_PREFILL_Q4_DECODE_HYBRID','productionDefault':'UNCHANGED_CURRENT','newCandidatePromoted':False,'searchBudget':{'initialUniqueLengths':6,'thresholdUniqueLengths':1,'additionalQuantizationSchemes':0,'newDecodeCandidates':0,'chunkImplementations':0,'CPU_ONLYRescues':0},'protectedAssetAndAudioCleanup':json.load(open('ios/validation/evidence/storage_cleanup_20261006_1737/result.json'))}
+(base/'final_summary.json').write_text(json.dumps(final,indent=2)+'\n')
+logs=[]
+for p in base.rglob('*.log'):
+ if 'build' in p.name or 'contract-tests' in p.name:
+  dest=p.with_suffix('.txt');dest.write_text('\n'.join(x.rstrip() for x in p.read_text(errors='replace').splitlines())+'\n');logs.append({'raw':str(p),'rawSHA256':hashlib.sha256(p.read_bytes()).hexdigest(),'normalized':str(dest),'normalization':'trailing whitespace only'})
+(base/'log_bindings.json').write_text(json.dumps(logs,indent=2)+'\n')
+diff=subprocess.check_output(['git','diff','0cc21be6d7e024ecfba5ec3fd5552fa60871b7df','0d7c97545f3d2877234bf5e38d8cafaebaa525e2','--','ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift','ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift','ios/validation/run_llm_quantization_screen.py'],text=True)
+(base/'physical_source_changes.diff.txt').write_text(diff)
+f=comparison['profiles']['full'];h=comparison['profiles']['hybrid'];delta=comparison['delta']
+text=f'''CosyVoice3 Q4 prefill length / physical RAM audit
+Time: {now} America/New_York
+Decision: Q4_PREFILL_RESCUED_AWAITING_HUMAN
+New full-A is Validation SPI only, NOT promoted. Ordinary .q4 remains the human-approved Q8-prefill/INT4-per-channel-decode hybrid. Current default, Q8, failed original packages, Demo, HF/catalog/release unchanged.
+
+A. Current hybrid baseline
+Accepted public source: {latest['sourceCommit']}; latest accepted public RTF {latest['warmMedianRTF']:.9f}, sampled peak {latest['sampledPeakFootprintBytes']} bytes.
+Direct new comparison signed source: {physical['sourceCommit']}, iPhone18,4/iOS27.2, charging, nominal, no playback, seed42, SHARDS=2, Flow=6, N260/n257_384, 24000Hz/249600samples/10.4s.
+Exact text/reference/trimmed transcript hashes, asset/manifest/package SHA, raw run timings are in final_summary.json and raw receipts. Raw transcript/instruction/corpus identities remain bound by accepted evidence and listening_manifest.
+Historical Current/Q8 source1b1d342 figures are context only; do not mix their timing with the matched0d full/hybrid comparison.
+Current frozen payload4750dba5... and accepted hybrid3b57dab1... preserved. New full candidate11e06330... is explicitly a changed prefill asset, not the original frozen payload.
+
+B. Initial length probes
+Six lengths1/16/32/64/128/224 all initially PASS compile + physical MLModel load + CPU_AND_NE MLComputePlan in a serial process, thermal nominal/charging. LEVEL_A only: no state/prediction/synthesis.
+Independent new process128 PASS; same224 package FAIL at MLModel load, NSError domaincom.apple.CoreML/code0, description execution-plan -14. All raw results retained.
+The 361 static sequence constants are 289 slice ends,48 state-write slice_update ends,24 reshape shapes. All169 compressed weight expressions, weight.bin bytes and48 state schemas byte-identical; MIL inferred types revalidated per operation. Length224 is an exact copy of original rescue-A, not reconverted.
+Two earlier host preflight failures (protobuf API and wrong expected static-constant count) preserved; neither is a device model-compatibility FAIL.
+
+C. Threshold refinement
+Only one additional unique length176 used (budget1/4), PASS; following224 in the same process PASS again. No stable monotonic threshold established; never claim176 is the largest supported length. No extra quantization/decode sweep.
+
+D. Evidence-supported -14 explanation
+Length alone is not sufficient: identical224 source package can PASS and FAIL under same OS/requested placement. Constructor/compilation/cache/runtime context correlates, precise cause UNKNOWN.
+The PASS/FAIL compiled content comparison differs only in coremldata.bin; model.mil/weight content equal. This does not prove that metadata file causes failure.
+Full-A pipeline succeeded in two processes, but isolated load failure remains a real compatibility limitation. No unsupported-op, cache-corruption or all-Q4-unsupported claim is justified.
+
+E. Full prefill feasibility
+Standalone legitimate synthetic224 prefill + frozenAdecode LevelB PASS (source34c067b): finite logits[1,6761], hidden[1,896], all48 FP16 states. Each scoped131072-byte state transfer byte-identical, total6291456bytes; one legitimate frozen decode succeeds.
+Diagnostic prefill {levelb['prefillMilliseconds']:.3f}ms / decode {levelb['decodeMilliseconds']:.3f}ms are single teacher-forced synthetic values, NOT frozen public performance.
+The independent full root replaces only accepted hybrid Q8 prefill with original A224 package, preserving frozen decodeSHA4685dcbf..., schema3/four buckets/2-shard/Flow6/reference/noise/solver/FP64/placement/sampler/mask/RoPE/KV meaning.
+No new quantization recipe or graph rewrite. Existing supported request-owned state copy bridge reused; no escaping pointers, no mutation during an in-flight prediction; actor/session lock boundaries unchanged. The public profile is not rebound.
+
+F. Chunked semantic feasibility
+NOT_IMPLEMENTED. Each short graph has mask[1,1,L,L], static KV update[0:L], attention[:L], no past-length/offset input. A second chunk overwrites previous KV and lacks past attention. RoPE changes or output concatenation cannot repair this.
+Correct offset-aware graph changes are outside length-only specialization; production224 now runs, so no conditional chunk implementation is justified. No state/KV numerical semantics changed.
+
+G. Numerical result
+Chunked numerical comparison NOT_RUN. Full-Q4 is not claimed numerically/token/PCM equivalent to Q8/Current/hybrid. It reuses existing A graph/weight bytes exactly. State transfer itself BIT_IDENTICAL.
+All5 unprofiled +5 profiled frozen requests internally identical token/PCM/WAV. Compared with accepted hybrid output changes, requiring a new human listening gate.
+
+H. Physical end-to-end
+Real public CosyVoice3Engine.synthesize(), experimental constructor only. No LLM-only/acoustic-only microbenchmark or silent fallback. All10 frozen requests N260/n257_384/SHARDS2/Flow6/249600samples/24000Hz/finite/MAX_LENGTH; original stopping and workload retained.
+Full tokenSHA: {final['publicSynthesisRepeated']['tokenSequenceSHA256']}
+Full PCM_SHA: {final['publicSynthesisRepeated']['PCM_SHA256']}
+Full WAV_SHA: {final['publicSynthesisRepeated']['WAV_SHA256']}
+
+I. Physical RAM
+Same-source full sampled peak {f['sampledPeakFootprintBytes']}B vs hybrid {h['sampledPeakFootprintBytes']}B: {delta['memorySavedMiB']:.3f}MiB / {delta['peakReductionPercent']:.3f}% less.
+100ms samples + exact boundaries, process-level measurement, not precise instantaneous peak or per-model/CoreML-private attribution, not proof on older iPhones.
+memory_stage_summary.json retains all boundaries and peaks grouped by last emitted stage. LLM.load holds both models; no separate physical model byte attribution is available. Full first generation ~750MB, second ~1266MB; existing acoustic shelf overlap unchanged.
+Full completion bytes: {f['completionFootprints']}; idle35s {f['idle35Footprints']}.
+Hybrid completion bytes: {h['completionFootprints']}; idle35s {h['idle35Footprints']}.
+This is inference-peak reduction, not lower persistent baseline or a leak fix. Both callers retain all5PCM outputs (4992000bytes), unchanged; no benchmark optics.
+
+J. Performance is secondary
+Full measured warm raw {f['warmRawTotalMs']}ms, median {f['warmMedianTotalMs']:.3f}ms/RTF {f['warmMedianRTF']:.6f}.
+Hybrid raw {h['warmRawTotalMs']}ms, median {h['warmMedianTotalMs']:.3f}ms/RTF {h['warmMedianRTF']:.6f}.
+Difference {delta['warmMedianSavedMs']:.3f}ms is not a proven statistical speedup: sequential candidate-then-hybrid, three measured warms each, substantial range, no randomized/alternating control.
+Prefill full {f['prefillMedianMs']:.3f}ms vs Q8-hybrid {h['prefillMedianMs']:.3f}ms. Decode {f['decodeMsPerTokenMedian']:.6f} vs {h['decodeMsPerTokenMedian']:.6f}ms/token; unchanged decode model, differences cannot be attributed to a new decode algorithm.
+First request uses existing cache. Full SPI asset verification happens before synthesis timer, hybrid partly verifies during first preparation. First synthesis alone is NOT matched FIRST_EVER_COLD; do not compare the25.97s candidate first against control as cold benefit. All initialization is present in peak telemetry. Profiling excluded from performance.
+
+K. Development energy/thermal
+CPU medians full {f['CPUmsMedian']:.3f} vs hybrid {h['CPUmsMedian']:.3f}ms.
+CPU-only attributed energy/audio-second full {f['CPUOnlyEnergyPerPlaybackSecondMedian']:.3f} vs hybrid {h['CPUOnlyEnergyPerPlaybackSecondMedian']:.3f}mJ: no energy-win evidence. ANE/GPU/whole-device energy N/A.
+All matched frozen requests nominal/charging. Listening third sample nominal->fair with different N/audio length/bucket first-use, not a controlled thermal regression/benefit claim. No long stress, sustained playback or older-device testing, no heat-reduction percentage.
+Prefill runs once, decode259times; main plausible Q4-prefill benefit is RAM/residency, not large direct compute-energy savings.
+
+L. ANE topology
+Plan1761ANE-preferred operations for all tested lengths; planning is not actual residency.
+Initial xctrace save timeout and second device-boot timeout preserved. Official Apple xctrace import recovered the actual ATRC, without copying any donor trace/template.
+Recovered hardware table1314rows, native/CoreML signpost interval tables0rows. Exact package identity -> this receipt's actual processLoadEvents -> compiled key matches5prefill +1295decode ANE hardware predictions, equal native counts. Prefill hardware mean {hw['models']['prefill']['meanHardwareMilliseconds']:.6f}ms.
+Claim only exact-model-linked ANE activity observed. Per-prediction PID containment, CPU/GPU fallback, internal gaps, pre/postANE boundaries, per-op/FULL_ANE remain UNKNOWN. Empty recovered tables do NOT prove zero CPU/GPU or MOSTLY_CONTIGUOUS_ANE. Accepted hybrid's older complete1b trace remains independent, not proof for new full prefill.
+
+M. Human listening
+Three new physical WAVs pulled to workspace. All12 Current/Q8/accepted-hybrid/new-full files SHA-verified. Existing three reference groups HUMAN_PASS, new full PENDING_HUMAN.
+New samples:1 N160/6.4s,2 N413/16.52s,3 N442/17.68s. Third differs from hybrid N363/EOS/14.52s: listen carefully for repeated/skipped words, pauses, end truncation and naturalness.
+New candidate is not LAST_KNOWN_GOOD. Final response must display all12 local native audio players, not sandbox paths or download-only links.
+
+N. API recommendation
+Keep ordinary .q4 as approved Q8-prefill/Q4-decode hybrid, Current default and Q8 unchanged. New full stays explicit Validation SPI only.
+After human PASS, separately resolve/load-relaunch robustness and collect full native-PID profiling before considering public binding. No Demo/HF/catalog/release change.
+
+O. Is more work justified?
+Material short-test RAM signal justifies retaining this experiment for human review. Stop length/quantization/decoder sweeps; no chunking or work solely to save a few prefill milliseconds.
+-14 conditions unresolved; no promise for all devices, fresh install or other contexts. This bounded pass is complete, candidate unpromoted.
+
+Requested comparison table (N/A means unmeasured, not an estimate)
+Historical Current/Q8 source1b only context; matched Hybrid/Full signedsource0d. Every column SHARDS=2/Flow6.
+|Metric|Current historical1b|Q8 historical1b|Hybrid matched0d|Full-Q4 matched0d|
+|---|---:|---:|---:|---:|
+|Prefill package bytes|728609297|365380226|365380226|183437878|
+|Decode package bytes|728542251|365290677|183348350|183348350|
+|Total LLM bytes|1457151548|730670903|548728576|366786228|
+'''
+for label,rel in [('current','controls/current/llm-quantization-baseline-receipt.json'),('q8','controls/q8/llm-quantization-q8-receipt.json')]:
+ raw=json.load(open(pathlib.Path('ios/validation/evidence/q4_compatibility_rescue_20261006')/rel));old['profiles'][label]['prefillMs']=statistics.median(x['audit']['milliseconds']['llm.prefill.prediction'] for x in raw['persistentRuntime']['validationWarmPassRecords'][2:])
+c=old['profiles']['current'];q=old['profiles']['q8']
+for label,vals in [('Prefill ms',[c['prefillMs'],q['prefillMs'],h['prefillMedianMs'],f['prefillMedianMs']]),('Decode ms/token',[c['decodeMsPerTokenMedian'],q['decodeMsPerTokenMedian'],h['decodeMsPerTokenMedian'],f['decodeMsPerTokenMedian']]),('LLM ms',[c['LLMmsMedian'],q['LLMmsMedian'],h['warmMedianLLMms'],f['warmMedianLLMms']]),('RTF',[c['RTFmedian'],q['RTFmedian'],h['warmMedianRTF'],f['warmMedianRTF']]),('Sampled peak bytes',[c['sampledPeakFootprintBytes'],q['sampledPeakFootprintBytes'],h['sampledPeakFootprintBytes'],f['sampledPeakFootprintBytes']]),('Last completion bytes',[860966120,843533424,h['completionFootprints'][-1],f['completionFootprints'][-1]]),('Idle35s bytes',[423413984,394660040,h['idle35Footprints'][-1],f['idle35Footprints'][-1]])]:text+='|'+label+'|'+'|'.join(str(v) for v in vals)+'|\n'
+text+=f'''|Process total energy/playback-second|N/A|N/A|N/A|N/A|
+|CPU-only mJ/audio-second|118.9534|120.6387|{h['CPUOnlyEnergyPerPlaybackSecondMedian']}|{f['CPUOnlyEnergyPerPlaybackSecondMedian']}|
+|Prefill/decode topology|ANEactivity,peropUNKNOWN|priortraceobserved|acceptedpriortrace1b|5/1295hardwarematched; containmentUNKNOWN|
+|Token behavior|260 MAX_LENGTH|260 MAX_LENGTH|260 MAX_LENGTH|260 MAX_LENGTH,newtokenSHA|
+|Human|PASS|PASS|PASS|PENDING_NEW_FULL|
+
+16 explicit answers
+1: No sequence-length-only cause established; same224 PASS/FAIL.
+2: Initial1/16/32/64/128/224PASS; isolated128PASS/224FAIL;176then224PASS.
+3: No reliable threshold.
+4: Specialization/constructor/cache context correlates; precise -14 root cause UNKNOWN.
+5: Yes224 legitimately predicts and10fullrequests succeed, but isolated load failure remains.
+6: Original short graph does not support semantically equivalent sequential chunks.
+7: No chunk implementation or physical chunk test.
+8: Yes48state byte-copy and frozenAdecode validated.
+9: Matched short-test peak reduction187.484MiB.
+10: Material peak signal; older-device feasibility unverified.
+11: Prefill29.220 vs25.158ms, no speed benefit.
+12: No credible whole-device energy signal; CPU-only energy higher.
+13: Five exact-model ANE hardware events, complete topology UNKNOWN.
+14: New full PENDING_HUMAN.
+15: Retain experimental for human review, stop sweeps, do not promote.
+16: Accepted hybrid remains public preferred until full gates are complete.
+
+Cleanup completed first
+242 SHA-identical historical weight duplicates replaced by readonly same-volume hardlinks;5obsoleteDerivedData removed. Observed free WD+30617202688B/Mac+2910806016B, about31.2GiB total.
+Complete historical packages, original failures, WAVs, traces, activebuild and unrelatedVox work preserved. Protected5package and9oldWAVSHA PASS. New assets also isolated hardlinks. No model/WAV/trace committed.
+
+GitHub Timeline: source checkpoints through0d7c975 committed, not yet pushed; final report/evidence selective commit then push. Exact final push receipt appended separately. No historical accepted evidence overwritten.
+'''
+(base/'REPORT.txt').write_text(text)
+(base/'report_generator.source.txt').write_text(pathlib.Path(__file__).read_text())
+print('report A-O/table/16answers and final_summary saved')
+# Purpose: report evidence layers, immutable accepted baseline, human gate and observed partial profiling honestly. macOS/iPhone18,4,2026-10-06.

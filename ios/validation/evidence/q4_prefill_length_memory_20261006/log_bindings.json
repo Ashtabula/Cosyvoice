@@ -1,0 +1,44 @@
+[
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/public-api/signed-build.log",
+    "rawSHA256": "a6040ead3e484e40b35f34540b7530485625ae09bb3ca8708edb07e15108959d",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/public-api/signed-build.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "21ca477c0d03b171ec4ed7855d6e48638837199d5a2395c29d671564320373e1"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/physical/contract-tests.log",
+    "rawSHA256": "11222c8754e1a1202e3f0cc93644e15df4166f20dc74a55d61ad1c8a09f513a5",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/physical/contract-tests.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "11222c8754e1a1202e3f0cc93644e15df4166f20dc74a55d61ad1c8a09f513a5"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/physical/signed-build.log",
+    "rawSHA256": "5c3d58031ff0dce3edfd996931ad5972776567df9a4e0c670fbfebf803d38578",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/physical/signed-build.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "afcf92bb471b34f855894eab38c61572e79a93bb512764c3393d479e4a2cfb19"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_threshold/physical/signed-build.log",
+    "rawSHA256": "fd6e6a386ce7d34b7626482cf28d87e4c30502a98d439385b9aef52320dd7ff8",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_threshold/physical/signed-build.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "1a9a5d73c9e621531128bc66cf7067167ceeb3b70be0edd307a3b5f20749e25e"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_length_probe/physical/contract-tests.log",
+    "rawSHA256": "a4a8769167179a901648749795b7da413a4bd0e68e2c7d6d3e91976a608635ba",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_length_probe/physical/contract-tests.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "a4a8769167179a901648749795b7da413a4bd0e68e2c7d6d3e91976a608635ba"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_length_probe/physical/signed-build.log",
+    "rawSHA256": "5bc822829a985029ea040b53101908fc01dbcf4b8d15edc44410941ed10ae441",
+    "normalized": "ios/validation/evidence/q4_prefill_length_memory_20261006/prefill_length_probe/physical/signed-build.txt",
+    "normalization": "trailing whitespace per line plus terminal blank-line trim; raw log unchanged",
+    "normalizedSHA256": "81a331e0ee325892ded4fd8968948e67843ca32d666ef4446fe1b6c7e769bc6f"
+  }
+]

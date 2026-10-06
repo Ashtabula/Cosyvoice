@@ -1,0 +1,14 @@
+import subprocess,threading,time,json,pathlib,sys
+lengths=[int(x) for x in sys.argv[2:]];out=pathlib.Path(sys.argv[1]);out.mkdir(parents=True,exist_ok=True);device='00008150-000A05CA1440401C';bundle='com.actacomes.cosyvoice3.candidatebenchmark';cmd=['xcrun','devicectl','device','process','launch','--device',device,'--terminate-existing','--console',bundle,'--','--no-playback','--ane-compute-plans']+['--validation-plan-role=q4PrefillL'+str(n) for n in lengths];(out/'launch.json').write_text(json.dumps(cmd))
+p=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);done=threading.Event()
+def consume():
+ with (out/'console.log').open('w') as f:
+  for line in p.stdout:
+   print(line,end='',flush=True);f.write(line);f.flush()
+   if '[COSY-AUTO-DONE]' in line:done.set()
+threading.Thread(target=consume,daemon=True).start();deadline=time.monotonic()+600
+while not done.wait(30):
+ print('[ISOLATED-LENGTH] pending',flush=True)
+ if p.poll() is not None or time.monotonic()>deadline:raise RuntimeError('probe incomplete')
+subprocess.run(['xcrun','devicectl','device','copy','from','--device',device,'--domain-type','appDataContainer','--domain-identifier',bundle,'--source','Documents/ane-compute-plan-receipt.json','--destination',str(out/'receipt.json')],check=True)
+r=json.load(open(out/'receipt.json'));print([(x['role'],x['status'],x.get('error')) for x in r['models']],flush=True)

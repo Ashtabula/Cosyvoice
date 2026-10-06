@@ -1,0 +1,6 @@
+{
+  "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "nativeSHA256": "556ef696fa21fe6d7280e71cb0df58a5889ddc0ce1fa6d1183b73e71793a8fb8",
+  "engineSHA256": "08b06157245750cb9145dfba765252368a47fccd32903d01e03c530718087115",
+  "scope": "experimental SPI constructor; unchanged public synthesize/Flow6/P2; no profile promotion"
+}

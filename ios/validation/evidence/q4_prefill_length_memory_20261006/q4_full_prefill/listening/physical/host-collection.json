@@ -1,0 +1,48 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-variant=q4_full",
+    "--validation-warm-pass",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-q4-full-prefill",
+    "--validation-llm-quantization-listening"
+  ],
+  "runnerSHA256": "af9c9d2b98341ec20a0f59ee5dac31ab34810a36039f48df474d66233716eab2",
+  "physicalSourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "sourceGitHEADAtCollection": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "artifactFilename": "checkpoint_001_sample03_q4_full.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample03_q4_full.wav",
+  "artifacts": [
+    {
+      "filename": "checkpoint_001_sample01_q4_full.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample01_q4_full.wav",
+      "sha256": "9923b527aeee14489eb19123465f076bf9c63ce74d565a52910cfd7c4f2c7b9a"
+    },
+    {
+      "filename": "checkpoint_001_sample02_q4_full.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample02_q4_full.wav",
+      "sha256": "11a667c4957a4432f9dae4fcebdb09fc164756d6c4943e841ede579afa0bd3d0"
+    },
+    {
+      "filename": "checkpoint_001_sample03_q4_full.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample03_q4_full.wav",
+      "sha256": "dc539a0d0449968d7b0596772bd626e5d3fa2d4fc815b62c459905197d8256b0"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

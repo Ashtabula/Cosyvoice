@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "status": "MODEL_AND_STAGE_ACTIVITY_OBSERVED_PER_OP_ASSIGNMENT_UNAVAILABLE",
+  "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "processID": 6129,
+  "requestReceiptSHA256": "75aa1bbdb06d8f529b3ff565b7b0043af5c064f751f989be3da1df95f2e6df2d",
+  "stageIntervals": [],
+  "models": [],
+  "actualResidency": "UNKNOWN_RESIDENCY",
+  "meaning": "Measured activity joins do not turn MLComputePlan preferred devices into actual per-operation residency.",
+  "limitations": [
+    "CoreAIProfile per-model/op table unavailable; legacy CoreML activities are coarse",
+    "Hardware ANE rows lack PID; assignment uses exact compiled artifact hash plus native prediction containment",
+    "CPU event duration is a partition/event interval, not individual fallback op latency",
+    "Trace timings excluded from unprofiled performance comparison"
+  ],
+  "rawEvidence": [
+    {
+      "path": "ios/.work/q4-prefill-length-20261006/full-trace-OSSignpostIntervals.xml",
+      "sha256": "66de15f3db10c6dbefeed4aec83644683365199eff15000a56706b4b785368ac",
+      "rowCount": 0
+    },
+    {
+      "path": "ios/.work/q4-prefill-length-20261006/full-trace-coreml-os-signpost.xml",
+      "sha256": "7823b10bc416232d923b88639ab16a54e0327b19a7dee14bb44ccc891cb2a8af",
+      "rowCount": 0
+    },
+    {
+      "path": "ios/.work/q4-prefill-length-20261006/full-trace-ane-hw-intervals.xml",
+      "sha256": "ad1106ba4b682dd1779d8db54d9411ebfaaf3d9b40e38adad149a3d5e57f1c61",
+      "rowCount": 1314
+    }
+  ]
+}

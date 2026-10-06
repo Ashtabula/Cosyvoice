@@ -908,3 +908,12 @@ Actions:original A224 legitimate synthetic prefill finite logits/hidden/48states
 Files:assemble_q4_full_prefill_candidate.py;Engine validationSPI;DeviceSmoke/collector q4_full;full asset/stategate receipts.
 Validation:24Swift6testsPASS/0skip; source/decode/acoustic unchanged. Conditional fivepublicrequests andmemorypending; newaudiohumanpending if produced.
 GitHub Timeline:34c067b committed not pushed; fullcandidate checkpoint next.
+
+Time:2026-10-06T18:21:29.448351-04:00
+Prompt:Clean unused history first; continue bounded Q4 prefill length/physical RAM audit.
+Actions:cleanup31.2GiB/protectedassetsPASS; six initialplansPASS,isolated224FAIL_-14/128PASS,one176midpointPASSthen224PASS; no stablethreshold. OriginalA224legitimateprediction/finite48states/bytecopiedfrozenAdecodePASS. Independentfull-AValidationSPI,publicsynthesize10requests(N260/P2/Flow6/249600/24k)internallysame tokensPCM/WAV;acceptedhybridunchanged.
+Files:q4_prefill_length_memory_20261006 A-Oreport/finalsummary/allrawphysicalmemorytimingreceipts/12WAVmanifest/partialANEevidence/failures;Engine opt-inSPI/native/collectors/assembler;append-onlyhistory.
+Validation:24Swift6testsPASS/0skip;signed0d7c975PASS. Matchedsame-source fullpeak1266404488B vs hybrid1462996152B,187.484MiB/13.438percent lower;warmmedianRTF.268320 vs.272857,no statisticalspeedupclaim. CPU-onlyenergy131.681vs124.650mJ/audiosecond,noenergywin. Nominalcharging short frozenruns;listeningthirdnominal->fair,notcontrolledthermaltest.
+Profiling:initialstop-save60stimeout/secondboot-timeoutpreserved. OfficialAppleimportactualATRC recovered5prefill+1295decodeexactmodelANEhardwarecounts;native/CoreMLsignpostsnotrecovered,perPIDcontainment/fallback/gaps/fullANEUNKNOWN. No donortracecopied.
+Audio:new3actualiPhoneWAVpulledworkspace,all12Current/Q8/hybrid/fullreferencesSHAverified;newfullN160/413/442,userreviewrequired;priorhybridHUMAN_PASSnottransferred. DecisionQ4_PREFILL_RESCUED_AWAITING_HUMAN. Normal.q4 remainsacceptedhybrid;Currentdefault/Q8/Demo/HF/catalog/releaseunchanged;nochunk/newdecode/CPUfallback/newquantizationsweep.
+GitHub Timeline:sourcecheckpoints2a3735d/d5bd163/35a7393/34c067b/0d7c975 committednotpushed;finalselectiveevidencecommit/pushnext;unrelated.gitignore/Vox/reportsuntouched.

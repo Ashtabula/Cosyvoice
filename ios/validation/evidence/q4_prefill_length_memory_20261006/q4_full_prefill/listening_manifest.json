@@ -1,0 +1,113 @@
+{
+  "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "corpusSHA256": "5825cceeefe50f38ea88b38fa29190eb6a70707833440a894b7db22f0c90ba54",
+  "referenceWAVSHA256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+  "rows": [
+    {
+      "sample": 1,
+      "text": "The morning sun shines through the window.",
+      "sourceCorpusID": "sample01",
+      "textSHA256": "022c44b01f89e590187705404a30d53b68573cdb323970a0a5ebebaa58b62964",
+      "audio": {
+        "Current": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+          "bytes": 307244,
+          "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b"
+        },
+        "Q8": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_q8.wav",
+          "bytes": 307244,
+          "sha256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241"
+        },
+        "AcceptedHybrid": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample01_q4_hybrid.wav",
+          "bytes": 307244,
+          "sha256": "6fb93920792fd18bac16ef471fd4f33e1781a8b2609a36d3807d0f3ee24b397e"
+        },
+        "FullQ4Candidate": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample01_q4_full.wav",
+          "bytes": 307244,
+          "sha256": "9923b527aeee14489eb19123465f076bf9c63ce74d565a52910cfd7c4f2c7b9a"
+        }
+      },
+      "newCandidateN": 160,
+      "newCandidateAudioSeconds": 6.4,
+      "candidatePCM_SHA256": "8239844178d3a2957f47b064ae82ea1b6f134ced51089a23183f191a5e9bcda6",
+      "seed": 42,
+      "SHARDS": 2,
+      "flowSteps": 6
+    },
+    {
+      "sample": 2,
+      "text": "After the rain stopped, we walked through the quiet park, watched the birds by the lake, and returned home before sunset.",
+      "sourceCorpusID": "sample02",
+      "textSHA256": "b1ea2cb3191faa67468a065fdb4d84b45c0f070b18aab677e5917d9b584f73d8",
+      "audio": {
+        "Current": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+          "bytes": 756524,
+          "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644"
+        },
+        "Q8": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_q8.wav",
+          "bytes": 564524,
+          "sha256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd"
+        },
+        "AcceptedHybrid": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample02_q4_hybrid.wav",
+          "bytes": 856364,
+          "sha256": "160b0cf110ad037c995de625ee9b06325cce5c6c9dfbc625582df245009a7e98"
+        },
+        "FullQ4Candidate": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample02_q4_full.wav",
+          "bytes": 793004,
+          "sha256": "11a667c4957a4432f9dae4fcebdb09fc164756d6c4943e841ede579afa0bd3d0"
+        }
+      },
+      "newCandidateN": 413,
+      "newCandidateAudioSeconds": 16.52,
+      "candidatePCM_SHA256": "900640f64caa65286c8aee12b621de8a8d64aaaa85951eb50d2d5fb5e7655c46",
+      "seed": 42,
+      "SHARDS": 2,
+      "flowSteps": 6
+    },
+    {
+      "sample": 3,
+      "text": "First, open the door. Then, close the door. Read each word once, pause at the commas, and finish this final sentence clearly.",
+      "sourceCorpusID": "sample04",
+      "textSHA256": "97b59ae4c1eb7f3730df606701f5eff8fa12b27939b892d78b8721abfb73ec53",
+      "audio": {
+        "Current": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+          "bytes": 748844,
+          "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6"
+        },
+        "Q8": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_q8.wav",
+          "bytes": 848684,
+          "sha256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a"
+        },
+        "AcceptedHybrid": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample03_q4_hybrid.wav",
+          "bytes": 697004,
+          "sha256": "1693065ae3f50ae80bf3ec61a10c6d1a93cb66dc319cf152c3d321cc18b7d427"
+        },
+        "FullQ4Candidate": {
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/checkpoint_001/checkpoint_001_sample03_q4_full.wav",
+          "bytes": 848684,
+          "sha256": "dc539a0d0449968d7b0596772bd626e5d3fa2d4fc815b62c459905197d8256b0"
+        }
+      },
+      "newCandidateN": 442,
+      "newCandidateAudioSeconds": 17.68,
+      "candidatePCM_SHA256": "f41eb45deade6ea287fa0444187d46d3892b571a8a8dd99ac79f5421c741bcc6",
+      "seed": 42,
+      "SHARDS": 2,
+      "flowSteps": 6
+    }
+  ],
+  "currentQ8HybridHumanStatus": "EXISTING_HUMAN_PASS_REUSED_REFERENCE_WAVS",
+  "fullQ4HumanStatus": "PENDING_HUMAN",
+  "workspaceExport": "ALL12_FILES_PHYSICALLY_PRESENT_SHA_VERIFIED",
+  "productionPromotion": false
+}

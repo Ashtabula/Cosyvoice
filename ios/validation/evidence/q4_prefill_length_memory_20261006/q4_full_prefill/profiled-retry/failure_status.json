@@ -1,0 +1,9 @@
+{
+  "status": "XCTRACE_DEVICE_BOOT_TIMEOUT",
+  "recordingStarted": false,
+  "predictionsStarted": false,
+  "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "tracePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI-retry.trace",
+  "actualResidency": "UNKNOWN",
+  "originalFailedTracePreserved": true
+}

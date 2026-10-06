@@ -1,0 +1,51 @@
+{
+  "originalATRC": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI.trace/Trace1.run/Attachments/trace-data.atrc",
+  "originalATRC_SHA256": "b4054ea40297480804d89bbafae537240b636132280a8955cdd82081a6923d4d",
+  "recoveredTrace": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI-recovered.trace",
+  "mechanism": "Apple official xctrace import --template Core AI --instrument Core ML --instrument Points of Interest; no donor trace/template copied",
+  "exportCommands": [
+    {
+      "command": [
+        "xcrun",
+        "xctrace",
+        "export",
+        "--input",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI-recovered.trace",
+        "--xpath",
+        "/trace-toc/run[@number=\"1\"]/data/table[@schema=\"OSSignpostIntervals\"]",
+        "--output",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-trace-OSSignpostIntervals.xml"
+      ],
+      "returnCode": 0
+    },
+    {
+      "command": [
+        "xcrun",
+        "xctrace",
+        "export",
+        "--input",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI-recovered.trace",
+        "--xpath",
+        "/trace-toc/run[@number=\"1\"]/data/table[@schema=\"coreml-os-signpost\"]",
+        "--output",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-trace-coreml-os-signpost.xml"
+      ],
+      "returnCode": 0
+    },
+    {
+      "command": [
+        "xcrun",
+        "xctrace",
+        "export",
+        "--input",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI-recovered.trace",
+        "--xpath",
+        "/trace-toc/run[@number=\"1\"]/data/table[@schema=\"ane-hw-intervals\"]",
+        "--output",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-trace-ane-hw-intervals.xml"
+      ],
+      "returnCode": 0
+    }
+  ],
+  "originalFailuresPreserved": true
+}

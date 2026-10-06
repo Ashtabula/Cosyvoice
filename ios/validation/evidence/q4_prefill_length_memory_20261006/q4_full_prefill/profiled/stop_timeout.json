@@ -1,0 +1,11 @@
+{
+  "status": "XCTRACE_STOP_WAIT_TIMEOUT_60S",
+  "stopSignal": "SIGINT already sent after real5requests andreceiptcollection",
+  "collectorCompleted": true,
+  "profiledReceiptSourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "tracePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-prefill-length-20261006/full-CoreAI.trace",
+  "residencyClaims": "PENDING_VALID_TRACE_EXPORT",
+  "instrumentedPerformanceExcluded": true,
+  "error": "subprocess.TimeoutExpired trace.wait(timeout=60)",
+  "wholeDeviceEnergy": null
+}

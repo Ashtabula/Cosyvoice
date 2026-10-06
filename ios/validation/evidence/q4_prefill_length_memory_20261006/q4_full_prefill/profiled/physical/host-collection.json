@@ -1,0 +1,40 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--validation-stage-profiling",
+    "--no-playback",
+    "--validation-llm-quantization",
+    "--validation-llm-variant=q4_full",
+    "--validation-warm-pass",
+    "--validation-execution-audit",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-q4-full-prefill"
+  ],
+  "runnerSHA256": "af9c9d2b98341ec20a0f59ee5dac31ab34810a36039f48df474d66233716eab2",
+  "physicalSourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "sourceGitHEADAtCollection": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+  "artifactFilename": "cosyvoice_llm_q4_full.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/profiled/cosyvoice_llm_q4_full.wav",
+  "artifacts": [
+    {
+      "filename": "cosyvoice_llm_q4_full.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_prefill_length_memory_20261006/profiled/cosyvoice_llm_q4_full.wav",
+      "sha256": "5c097ab2e7c07e9585c23d5bfa573a0fdb7d27afbf0e0ce6856f231781d45643"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

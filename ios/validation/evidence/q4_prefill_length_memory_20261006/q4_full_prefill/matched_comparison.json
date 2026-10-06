@@ -1,0 +1,92 @@
+{
+  "profiles": {
+    "full": {
+      "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+      "rawReceipt": "/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/public-api/physical/llm-quantization-q4_full-receipt.json",
+      "warmRawTotalMs": [
+        2779.190625,
+        2790.5316249999996,
+        2866.4060839999997
+      ],
+      "warmMedianTotalMs": 2790.5316249999996,
+      "warmMedianRTF": 0.26832034855769227,
+      "warmMedianLLMms": 1170.192084,
+      "prefillMedianMs": 29.219709,
+      "decodeMsPerTokenMedian": 4.2680273706563705,
+      "sampledPeakFootprintBytes": 1266404488,
+      "completionFootprints": [
+        863800432,
+        874302624,
+        865995936,
+        858148000,
+        861424800
+      ],
+      "idle35Footprints": [
+        402163888
+      ],
+      "CPUmsMedian": 431.3729999999996,
+      "CPUOnlyEnergyPerPlaybackSecondMedian": 131.68135153846154,
+      "N": [
+        260
+      ],
+      "PCM_SHA256": [
+        "9eb0effef712a58411078341db19c54975f80982e3bda2ca91c3a1bfc3047382"
+      ],
+      "tokenSHA256": [
+        "0b7eb70854d61cc8bb9cc4db2357187755c735737638d1dc802a6862fed4fc8c"
+      ],
+      "WAV_SHA256": "5c097ab2e7c07e9585c23d5bfa573a0fdb7d27afbf0e0ce6856f231781d45643",
+      "firstSynthesisMs": 25971.808290999998,
+      "allNominal": true
+    },
+    "hybrid": {
+      "sourceCommit": "0d7c97545f3d2877234bf5e38d8cafaebaa525e2",
+      "rawReceipt": "/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill/hybrid-control/physical/llm-quantization-q4_hybrid-receipt.json",
+      "warmRawTotalMs": [
+        2830.263916,
+        2837.709084,
+        2982.9210000000003
+      ],
+      "warmMedianTotalMs": 2837.709084,
+      "warmMedianRTF": 0.2728566426923077,
+      "warmMedianLLMms": 1202.225541,
+      "prefillMedianMs": 25.157958,
+      "decodeMsPerTokenMedian": 4.400491629343629,
+      "sampledPeakFootprintBytes": 1462996152,
+      "completionFootprints": [
+        871992456,
+        897715336,
+        887065760,
+        877841568,
+        893717664
+      ],
+      "idle35Footprints": [
+        397379784
+      ],
+      "CPUmsMedian": 451.3130000000001,
+      "CPUOnlyEnergyPerPlaybackSecondMedian": 124.64965730769231,
+      "N": [
+        260
+      ],
+      "PCM_SHA256": [
+        "bfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a"
+      ],
+      "tokenSHA256": [
+        "b5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76"
+      ],
+      "WAV_SHA256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b",
+      "firstSynthesisMs": 15626.757125,
+      "allNominal": true
+    }
+  },
+  "delta": {
+    "memorySavedMiB": 187.4844207763672,
+    "peakReductionPercent": 13.437606362207303,
+    "warmRTFDelta": -0.004536294134615426,
+    "warmMedianSavedMs": 47.177459000000454
+  },
+  "scope": "same signed source/physical device/SHARDS2/Flow6/N260/n257_384/charging/nominal; candidate then hybrid;3 measured warms each, not randomized or statistical/sustained proof",
+  "coldTimingCaveat": "FullSPI constructor validates payload before synthesis timer; accepted hybrid validates at first prepare. First synthesis alone not matched first-ever cold comparison. Warm unaffected. All peak timelines include engine initialization.",
+  "wholeDeviceEnergy": null,
+  "humanListening": "NEW_FULL_PREFILL_PENDING_HUMAN; accepted hybrid existinghumanPASS"
+}

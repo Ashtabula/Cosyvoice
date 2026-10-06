@@ -1,0 +1,22 @@
+# cosy-q4-hardware-counts.py
+# Requirement: correlate only exact compiled-model labels; missing native signposts must remain unproven.
+import json,importlib.util,pathlib,statistics,hashlib
+m=importlib.util.spec_from_file_location('traceparser','ios/validation/analyze_quantized_llm_trace.py');mod=importlib.util.module_from_spec(m);m.loader.exec_module(mod)
+b=pathlib.Path('ios/validation/evidence/q4_prefill_length_memory_20261006/q4_full_prefill');r=json.load(open(b/'profiled/physical/llm-quantization-q4_full-receipt.json'));table=mod.Table(pathlib.Path('ios/.work/q4-prefill-length-20261006/full-trace-ane-hw-intervals.xml'));ids={'905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4':'prefill','4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46':'decode'};records={x['key']:x for x in r['persistentRuntime']['records'] if 'compiledArtifact' in x};models={}
+for e in r['persistentRuntime']['processLoadEvents']:
+ rec=records.get(e.get('key'));role=ids.get(rec.get('identity',{}).get('modelPackageSHA256')) if rec else None
+ if role:models[role]=rec
+result={'sourceCommit':r['sourceCommit'],'processID':r['processID'],'recoveryScope':'OfficialATRCimport retains ANEhardware rows, loses native/coreMLsignpostintervals; exactmodelcompiledkey+counts correlated, no perpredictionPIDcontainment proof','nativePredictionCount':{'prefill':5,'decode':sum(x['audit']['calls']['llm.decode.prediction'] for x in r['persistentRuntime']['validationWarmPassRecords'])},'models':{},'actualPerOperationResidency':'UNKNOWN','CPUBackendActivity':'N/A_LOST_COREML_ACTIVITY_TABLE','GPUBackendActivity':'N/A_LOST_COREML_ACTIVITY_TABLE','internalGapsAndCPUToANEBoundaries':'UNKNOWN_NO_NATIVE_CONTAINMENT','hardwareTableSHA256':hashlib.sha256(table.path.read_bytes()).hexdigest(),'originalFailuresPreserved':True,'noNewPhysicalPredictionsForRecovery':True}
+for role,rec in models.items():
+ name=rec['compiledArtifact'].removesuffix('.mlmodelc');matched=[]
+ for row in table.rows:
+  label=table.text(row.find('formatted-label'))
+  if label.startswith(name+'_') and 'Prediction' in label:
+   start,end=table.interval(row);matched.append({'label':label,'startNanoseconds':start,'endNanoseconds':end,'milliseconds':(end-start)/1e6})
+ assert len(matched)==result['nativePredictionCount'][role],(role,len(matched),result['nativePredictionCount'][role])
+ result['models'][role]={'identity':rec['identity'],'compiledCacheKey_NOT_ContentHash':name,'ANEHardwarePredictionCount':len(matched),'ANEActivity':'OBSERVED_EXACT_MODEL_LABEL_MATCHED_COUNTS','meanHardwareMilliseconds':statistics.mean(x['milliseconds'] for x in matched),'hardwarePredictions':matched,'perNativePredictionContainment':'UNPROVEN_SIGNPOSTS_NOT_RECOVERED','CPUFallbackAndFullANE':'UNKNOWN'}
+ print(role,'matchedANE',len(matched),'meanHW',result['models'][role]['meanHardwareMilliseconds'])
+assert set(result['models'])=={'prefill','decode'}
+(b/'topology/hardware_model_counts.json').write_text(json.dumps(result,indent=2)+'\n')
+(b/'topology/hardware_counts_parser.source.txt').write_text(pathlib.Path(__file__).read_text())
+# Purpose: honest partial recovered evidence, exact count gates, no invented absent-CPU/full-ANE claim. CoreAI on iPhone18,4/macOS,2026-10-06.
