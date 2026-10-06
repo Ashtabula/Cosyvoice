@@ -1,0 +1,30 @@
+[
+  {
+    "path": "ios/validation/evidence/q4_validation_20261006/api_profile/signed-build-final.txt",
+    "beforeSHA256": "d9ab536674f3a6c5d321db2bd16b782447e9eb5630aeecb455bc6c48f515c543",
+    "afterSHA256": "17a271b87cbe89d025ad92b91eebacfc49b1398077775a7bb45e990e9dcc7c94",
+    "method": "remove trailing whitespace/extra blank EOF only; content/debug lines retained",
+    "originalVerbatimGitCommit": "599acd5"
+  },
+  {
+    "path": "ios/validation/evidence/q4_validation_20261006/api_profile/signed-build-gated.txt",
+    "beforeSHA256": "f1ea0293e2758c0187a7570794b1c4f2b90bc35bba659a5d550f5880abfdf24d",
+    "afterSHA256": "0c6e911e9c0fd0c921c4a74a504705d8d60b15541eca500694be5e847732b791",
+    "method": "remove trailing whitespace/extra blank EOF only; content/debug lines retained",
+    "originalVerbatimGitCommit": "599acd5"
+  },
+  {
+    "path": "ios/validation/evidence/q4_validation_20261006/api_profile/signed-build.txt",
+    "beforeSHA256": "d57a0d1d0800ed21f9febfc9d0af957ec3ff2cf26826f2472ac1f811a0fba004",
+    "afterSHA256": "0b05b826739b072b21937c5942d82b1f1cd98a4663962a5ceb1e0d7c17011e94",
+    "method": "remove trailing whitespace/extra blank EOF only; content/debug lines retained",
+    "originalVerbatimGitCommit": "599acd5"
+  },
+  {
+    "path": "ios/validation/evidence/q4_validation_20261006/api_profile/usage-example-typecheck-sdk-mismatch.txt",
+    "beforeSHA256": "0eea550fb58bc0320f655b097ac4b747c00f48b04a0e66484518de516e33257b",
+    "afterSHA256": "5595a3914758086ae0182f11c34ee548eeeae7c72f5399988652208b5cf04aab",
+    "method": "remove trailing whitespace/extra blank EOF only; content/debug lines retained",
+    "originalVerbatimGitCommit": "599acd5"
+  }
+]

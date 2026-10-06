@@ -117,7 +117,7 @@ SwiftCompile normal arm64 Compiling\ CosyVoice3AcousticRuntime.swift,\ CosyVoice
 
 SwiftCompile normal arm64 (in target 'CosyVoice3Core' from project 'CosyVoice3iOS')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 /Volumes/WD/Codes/Cosyvoice/ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift:52:25: warning: 'cblas_dgemm' was deprecated in iOS 16.4: An updated CBLAS interface supporting ILP64 is available.  Please compile with -DACCELERATE_NEW_LAPACK to access the new headers and -DACCELERATE_LAPACK_ILP64 for ILP64 support. [#DeprecatedDeclaration]
 50 |                     y.withUnsafeMutableBufferPointer { output in
@@ -204,7 +204,7 @@ SwiftCompile normal arm64 Compiling\ CosyVoice3DeviceSmokeApp.swift /Volumes/WD/
 
 SwiftCompile normal arm64 (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke
-    
+
 
 /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift:1091:26: warning: result of call to 'withUnsafeBytes' is unused [#NoUsage]
 1089 |                 if position < 54 {
@@ -262,11 +262,11 @@ GenerateDSYMFile /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iph
 
 CodeSign /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke
-    
+
     Signing Identity:     "Apple Development: Ziqi Zhu (PQ463FQ2V2)"
     Provisioning Profile: "iOS Team Provisioning Profile: *"
                           (56c4796c-8834-48f4-89c2-96f4927ac5e0)
-    
+
     /usr/bin/codesign --force --sign D776DE19975B1773727D4181F1D4DC1ED2DC723D --entitlements /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/CosyVoice3DeviceSmoke.build/Release-iphoneos/CosyVoice3DeviceSmoke.build/CosyVoice3DeviceSmoke.app.xcent --timestamp\=none --generate-entitlement-der /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app
 
 Validate /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
@@ -280,4 +280,3 @@ PruneExplicitPrecompiledModules /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Inter
 PruneExplicitPrecompiledModules /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules
 
 ** BUILD SUCCEEDED **
-

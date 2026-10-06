@@ -644,9 +644,9 @@ Touch /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/swift
 
 ScanDependencies /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.o /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SourcePackages/checkouts/yyjson/src/yyjson.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'yyjson' from project 'yyjson')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
     Using response file: /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
-    
+
     builtin-ScanDependencies -o /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.o.scan -- /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKStatCaches.noindex/iphoneos27.2-24B5084k-e821fdb8917235809b0e62def4db75bb7fc9acae99eeabdbf9938de364788382.sdkstatcache -target arm64-apple-ios15.0 -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -w -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -isysroot /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body @/Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.d --serialize-diagnostics /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.dia -c /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SourcePackages/checkouts/yyjson/src/yyjson.c -o /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.o
 
 SwiftDriver EventSource normal arm64 com.apple.xcode.tools.swift.compiler (in target 'EventSource' from project 'EventSource')
@@ -685,7 +685,7 @@ SwiftCompile normal arm64 Compiling\ BorrowingIteratorProtocol+Equality.swift,\ 
 
 SwiftCompile normal arm64 (in target 'InternalCollectionsUtilities' from project 'swift-collections')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 PrecompileModule /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/ExplicitPrecompiledModules/_Builtin_stdbool-285SXRMVUUDEK1TFYRIIS71T0.scan
     cd /
@@ -763,9 +763,9 @@ SwiftExplicitDependencyGeneratePcm arm64 /Volumes/WD/Codes/Cosyvoice/ios/.work/E
 
 CompileC /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.o /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SourcePackages/checkouts/yyjson/src/yyjson.c normal arm64 c com.apple.compilers.llvm.clang.1_0.compiler (in target 'yyjson' from project 'yyjson')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
     Using response file: /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp
-    
+
     /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -x c -ivfsstatcache /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKStatCaches.noindex/iphoneos27.2-24B5084k-e821fdb8917235809b0e62def4db75bb7fc9acae99eeabdbf9938de364788382.sdkstatcache -target arm64-apple-ios15.0 -fmessage-length\=0 -fdiagnostics-show-note-include-stack -fmacro-backtrace-limit\=0 -fno-color-diagnostics -fmodules-prune-interval\=86400 -fmodules-prune-after\=345600 -fbuild-session-file\=/Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/ModuleCache.noindex/Session.modulevalidation -fmodules-validate-once-per-build-session -Wnon-modular-include-in-framework-module -Werror\=non-modular-include-in-framework-module -Wno-trigraphs -Wno-missing-field-initializers -Wno-missing-prototypes -Wno-return-type -Wno-missing-braces -Wparentheses -Wswitch -Wno-unused-function -Wno-unused-label -Wno-unused-parameter -Wno-unused-variable -Wunused-value -Wno-empty-body -Wno-uninitialized -Wno-unknown-pragmas -w -Wno-shadow -Wno-four-char-constants -Wno-conversion -Wno-constant-conversion -Wno-int-conversion -Wno-bool-conversion -Wno-enum-conversion -Wno-float-conversion -Wno-non-literal-null-conversion -Wno-objc-literal-conversion -Wshorten-64-to-32 -Wpointer-sign -Wno-newline-eof -Wno-implicit-fallthrough -isysroot /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk -fstrict-aliasing -Wdeprecated-declarations -Wno-sign-conversion -Wno-infinite-recursion -Wno-comma -Wno-block-capture-autoreleasing -Wno-strict-prototypes -Wno-semicolon-before-method-body @/Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/7187679823f38a2a940e0043cdf9d637-common-args.resp -MMD -MT dependencies -MF /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.d --serialize-diagnostics /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.dia -c /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SourcePackages/checkouts/yyjson/src/yyjson.c -o /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/yyjson.build/Release-iphoneos/yyjson-t.build/Objects-normal/arm64/yyjson.o
 
 SwiftExplicitDependencyGeneratePcm arm64 /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules/_DarwinFoundation3-6FF3E5HWGG2641Q3BL36ZSTOH.pcm
@@ -822,7 +822,7 @@ SwiftCompile normal arm64 Compiling\ _HashTable+Bucket.swift,\ _HashTable+Bucket
 
 SwiftCompile normal arm64 (in target 'OrderedCollections' from project 'swift-collections')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftExplicitDependencyGeneratePcm arm64 /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules/os_workgroup-261OJ1XUT5I49AS6NGNPVGX7U.pcm
 
@@ -842,7 +842,7 @@ SwiftCompile normal arm64 Compiling\ AsyncEventsSequence.swift,\ AsyncSequence+E
 
 SwiftCompile normal arm64 (in target 'EventSource' from project 'EventSource')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftExplicitDependencyGeneratePcm arm64 /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules/LocalAuthentication-ATIQDM2NO9R6II31YT9U9Y60O.pcm
 
@@ -850,7 +850,7 @@ SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ AES-GCM.sw
 
 SwiftCompile normal arm64 (in target 'Crypto' from project 'swift-crypto')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, AES-GCM.swift, AES-GCM_boring.swift, ChaChaPoly_boring.swift, ChaChaPoly.swift, Cipher.swift, Nonces.swift, ASN1.swift, ASN1Any.swift, ASN1BitString.swift, ASN1Boolean.swift, ASN1Identifier.swift, ASN1Integer.swift, ASN1Null.swift, ASN1OctetString.swift, ASN1Strings.swift, ArraySliceBigint.swift, GeneralizedTime.swift, ObjectIdentifier.swift, ECDSASignature.swift, PEMDocument.swift, PKCS8PrivateKey.swift, SEC1PrivateKey.swift, SubjectPublicKeyInfo.swift, CryptoError_boring.swift, CryptoKitErrors.swift, Digest_boring.swift, Digest.swift, Digests.swift, HashFunctions.swift, HashFunctions_SHA2.swift, HashFunctions_SHA3.swift, Digest_xkcp.swift, HPKE-AEAD.swift, HPKE-Ciphersuite.swift, HPKE-KDF.swift, HPKE-KexKeyDerivation.swift, HPKE-LabeledExtract.swift, HPKE-Utils.swift, DHKEM.swift, HPKE-KEM-Curve25519.swift, HPKE-NIST-EC-KEMs.swift, HPKE-KEM.swift, HPKE-Errors.swift, HPKE.swift, HPKE-Context.swift, HPKE-KeySchedule.swift, HPKE-Modes.swift, Insecure.swift, Insecure_HashFunctions.swift, MLKEM_boring.swift, MLKEM_wrapper.swift, XWing_boring.swift, KEM-Errors.swift, KEM.swift, MLKEM.swift, XWing.swift, ECDH_boring.swift, DH.swift, ECDH.swift, ANSIx963.swift, HKDF.swift, AESWrap.swift, AESWrap_boring.swift, Ed25519_boring.swift, NISTCurvesKeys_boring.swift, X25519Keys_boring.swift, Curve25519.swift, Ed25519Keys.swift, NISTCurvesKeys.swift, X25519Keys.swift, SymmetricKeys.swift, HMAC.swift, MACFunctions.swift, MessageAuthenticationCode.swift, AES.swift, ECDSASignature_boring.swift, ECDSA_boring.swift, EdDSA_boring.swift, MLDSA_boring.swift, MLDSA_wrapper.swift, ECDSA.swift, Ed25519.swift, MLDSA.swift, Signature.swift, CryptoKitErrors_boring.swift, Optional+withUnsafeBytes_boring.swift, RNG_boring.swift, SafeCompare_boring.swift, Zeroization_boring.swift, _CryptoModuleAnchor.swift, PrettyBytes.swift, SafeCompare.swift, SecureBytes.swift, Zeroization.swift (in target 'Crypto' from project 'swift-crypto')
 
@@ -1030,7 +1030,7 @@ SwiftCompile normal arm64 Compiling\ AST.swift,\ Error.swift,\ Filters.swift,\ G
 
 SwiftCompile normal arm64 (in target 'Jinja' from project 'Jinja')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftDriver\ Compilation Jinja normal arm64 com.apple.xcode.tools.swift.compiler (in target 'Jinja' from project 'Jinja')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
@@ -1042,7 +1042,7 @@ SwiftCompile normal arm64 Compiling\ AccessRequest.swift,\ Billing.swift,\ Bucke
 
 SwiftCompile normal arm64 (in target 'HuggingFace' from project 'swift-huggingface')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling AST.swift, Error.swift, Filters.swift, Globals.swift, Interpreter.swift, JSON.swift, Lexer.swift, Macro.swift, Parser.swift, PropertyMembers.swift, Template.swift, Tests.swift, Token.swift, Utilities.swift, Value.swift (in target 'Jinja' from project 'Jinja')
 
@@ -1246,7 +1246,7 @@ SwiftCompile normal arm64 Compiling\ resource_bundle_accessor.swift,\ BinaryDist
 
 SwiftCompile normal arm64 (in target 'Hub' from project 'swift-transformers')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling resource_bundle_accessor.swift, BinaryDistinct.swift, Config.swift, Hub.swift, HubApi.swift, YYJSONParser.swift (in target 'Hub' from project 'swift-transformers')
 
@@ -1292,7 +1292,7 @@ SwiftCompile normal arm64 Compiling\ BPETokenizer.swift,\ BertTokenizer.swift,\ 
 
 SwiftCompile normal arm64 (in target 'Tokenizers' from project 'swift-transformers')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 SwiftDriverJobDiscovery normal arm64 Compiling BPETokenizer.swift, BertTokenizer.swift, ByteEncoder.swift, Decoder.swift, Normalizer.swift, PostProcessor.swift, PreTokenizer.swift, String+PreTokenization.swift, TokenLattice.swift, Tokenizer.swift, Trie.swift, UnigramTokenizer.swift (in target 'Tokenizers' from project 'swift-transformers')
 
@@ -1368,7 +1368,7 @@ SwiftCompile normal arm64 Compiling\ CosyVoice3AcousticRuntime.swift,\ CosyVoice
 
 SwiftCompile normal arm64 (in target 'CosyVoice3Core' from project 'CosyVoice3iOS')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj
-    
+
 
 /Volumes/WD/Codes/Cosyvoice/ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift:52:25: warning: 'cblas_dgemm' was deprecated in iOS 16.4: An updated CBLAS interface supporting ILP64 is available.  Please compile with -DACCELERATE_NEW_LAPACK to access the new headers and -DACCELERATE_LAPACK_ILP64 for ILP64 support. [#DeprecatedDeclaration]
 50 |                     y.withUnsafeMutableBufferPointer { output in
@@ -1439,15 +1439,15 @@ Ld /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoic
 
 ProcessProductPackaging "" /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/CosyVoice3DeviceSmoke.build/Release-iphoneos/CosyVoice3DeviceSmoke.build/CosyVoice3DeviceSmoke.app.xcent (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke
-    
+
     Entitlements:
-    
+
     {
     "application-identifier" = "H5R282PV62.com.actacomes.cosyvoice3.candidatebenchmark";
     "com.apple.developer.team-identifier" = H5R282PV62;
     "get-task-allow" = 1;
 }
-    
+
     builtin-productPackagingUtility -entitlements -format xml -o /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/CosyVoice3DeviceSmoke.build/Release-iphoneos/CosyVoice3DeviceSmoke.build/CosyVoice3DeviceSmoke.app.xcent
 
 ProcessProductPackaging /Users/ziqizhu/Library/Developer/Xcode/UserData/Provisioning\ Profiles/56c4796c-8834-48f4-89c2-96f4927ac5e0.mobileprovision /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app/embedded.mobileprovision (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
@@ -1646,7 +1646,7 @@ SwiftCompile normal arm64 Compiling\ CosyVoice3DeviceSmokeApp.swift /Volumes/WD/
 
 SwiftCompile normal arm64 (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke
-    
+
 
 /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift:1091:26: warning: result of call to 'withUnsafeBytes' is unused [#NoUsage]
 1089 |                 if position < 54 {
@@ -1727,11 +1727,11 @@ AppIntentsSSUTraining (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice
 
 CodeSign /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
     cd /Volumes/WD/Codes/Cosyvoice/ios/validation/DeviceSmoke
-    
+
     Signing Identity:     "Apple Development: Ziqi Zhu (PQ463FQ2V2)"
     Provisioning Profile: "iOS Team Provisioning Profile: *"
                           (56c4796c-8834-48f4-89c2-96f4927ac5e0)
-    
+
     /usr/bin/codesign --force --sign D776DE19975B1773727D4181F1D4DC1ED2DC723D --entitlements /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Intermediates.noindex/CosyVoice3DeviceSmoke.build/Release-iphoneos/CosyVoice3DeviceSmoke.build/CosyVoice3DeviceSmoke.app.xcent --timestamp\=none --generate-entitlement-der /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app
 
 RegisterExecutionPolicyException /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app (in target 'CosyVoice3DeviceSmoke' from project 'CosyVoice3DeviceSmoke')
@@ -1753,4 +1753,3 @@ PruneExplicitPrecompiledModules /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Inter
 PruneExplicitPrecompiledModules /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules
 
 ** BUILD SUCCEEDED **
-
