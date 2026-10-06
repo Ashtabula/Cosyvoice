@@ -377,7 +377,7 @@ enum CosyVoice3AssetLoader {
             throw CosyVoice3AssetError.compiledCache("invalid/duplicate single-function diagnostic role")
         }
         let single = role.map { singleRoles.contains($0) } ?? false
-        let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental").appendingPathComponent(role! + ".mlpackage") : root.appendingPathComponent(path)
+        let source = single ? root.deletingLastPathComponent().appendingPathComponent(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental").appendingPathComponent(role! + ".mlpackage") : root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
         let config = MLModelConfiguration()
         let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
@@ -401,7 +401,7 @@ enum CosyVoice3AssetLoader {
             print("[COSY-ROLE-PLACEMENT] role=\(role) path=\(path) requested=\(effectiveUnits) evidence=requested-only")
         }
         config.functionName = single ? nil : functionName
-        let packageVariant = single ? "EXTRACTED_SINGLE_FUNCTION_DIAGNOSTIC" : (path.hasPrefix("../FlowPartitions/") ? "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION" : "FROZEN_PACKAGE")
+        let packageVariant = single ? (CommandLine.arguments.contains("--validation-static-n260") ? "EXTRACTED_SINGLE_FUNCTION_STATIC_N260_DIAGNOSTIC" : "EXTRACTED_SINGLE_FUNCTION_DIAGNOSTIC") : (path.hasPrefix("../FlowPartitions/") ? "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION" : "FROZEN_PACKAGE")
         print("[COSY-ACTUAL-PACKAGE] sourcePath=\(source.standardizedFileURL.path) selectedFunctionName=\(config.functionName ?? "<nil:main>") variant=\(packageVariant) multifunction=\(!single && functionName != nil) extractedSingleFunction=\(single)")
         if effectiveUnits != computeUnits || single { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(effectiveUnits) singleFunction=\(single) validationOnly=YES") }
         let enumeratedPath = path.hasPrefix("enumerated-acoustic/") || path.hasPrefix("../FlowPartitions/")
@@ -484,7 +484,7 @@ enum CosyVoice3AssetLoader {
         }
         let role = CosyVoice3ValidationPlacement.role(for: path)
         let single = role.map { CommandLine.arguments.contains("--validation-single-function=\($0)") } ?? false
-        let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role!).mlpackage") : root.appendingPathComponent(path)
+        let source = single ? root.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role!).mlpackage") : root.appendingPathComponent(path)
         let base: MLComputeUnits = CommandLine.arguments.contains("--validation-enumerated-cpu-only") ? .cpuOnly : .cpuAndGPU
         let overrides = try CosyVoice3ValidationPlacement.overrides()
         let units = role.flatMap { overrides[$0] } ?? base
@@ -628,7 +628,7 @@ enum CosyVoice3AssetLoader {
             $0.hasPrefix("--validation-flow-partition=") ||
             $0 == "--validation-materialize-te"
         }.sorted()
-        let diagnosticReceipts = ["../FlowPartitions/partition-export-receipt.json", "../ANEExperimental/export-receipt.json"].map { path in
+        let diagnosticReceipts = ["../FlowPartitions/partition-export-receipt.json", "../ANEExperimental/export-receipt.json", "../ANEStaticN260/export-receipt.json"].map { path in
             let url = root.appendingPathComponent(path).standardizedFileURL
             guard let data = try? Data(contentsOf: url) else { return path + "|absent" }
             return path + "|" + SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
@@ -724,3 +724,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: model() validation single-function role maps only to separate ANEExperimental package; functionName=nil for main graph. Frozen Runtime untouched, missing experiment throws; probe logs now show final role override.
 
 // Changes 2026-10-05: validation-only model shelf in lines before WarmSpec and model(): none/small/decoder/selected-family; one family, exact compute/function key, 30-second eviction, no LLM/state caching. Purpose eliminate redundant constructors without math changes; upstream AssetLoader; Swift6/CoreML/iOS18+.
+
+// Changes2026-10-05 residency diagnostics: opt-in staticN260 packages use separateANEStaticN260 root, neverFrozen nor originalANEExperimental. Identity includesactualpackagebytes andsidecar; selectedmain onlywhenexplicit singlefunctiondiagnostic. No productionfunction/math/default changes; Swift6/iOS27.2, linesvia gitdiff.

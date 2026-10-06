@@ -1048,7 +1048,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let single = CommandLine.arguments.contains("--validation-single-function=\(role)")
                 let partition = CommandLine.arguments.first { $0.hasPrefix("--validation-flow-partition=") }.flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
                 let source: URL
-                if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role).mlpackage") }
+                if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role).mlpackage") }
                 else if role.hasPrefix("flow"), partition != 6, let index = Int(role.dropFirst(4)), index < partition {
                     source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions/p\(partition)/group-\(index).mlpackage")
                 } else { source = fixture.runtime.appendingPathComponent(relative) }
@@ -1136,12 +1136,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
         }
         let roles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
         if roles.isEmpty { return partitionIdentity }
-        let folder = runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental")
+        let folder = runtime.deletingLastPathComponent().appendingPathComponent(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")
         let exportData = try Data(contentsOf: folder.appendingPathComponent("export-receipt.json"))
         guard let receipt = try JSONSerialization.jsonObject(with: exportData) as? [String: Any], let models = receipt["models"] as? [String: [String: Any]] else { throw SmokeError("experimental export receipt missing") }
         var result = partitionIdentity
         for role in roles {
-            guard let model = models[role], let identity = model["experimentalIdentity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], model["graphIdentical"] as? Bool == true, model["weightsIdentical"] as? Bool == true else { throw SmokeError("single-function graph identity missing: \(role)") }
+            guard let model = models[role], let identity = model["experimentalIdentity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], (model["graphIdentical"] as? Bool == true || (model["operatorBlocksByteIdentical"] as? Bool == true && model["hostNumericalParityStatus"] as? String == "PASS")), model["weightsIdentical"] as? Bool == true else { throw SmokeError("single-function graph identity missing: \(role)") }
             for file in files {
                 guard let path = file["path"] as? String, let bytes = file["bytes"] as? Int, let sha = file["sha256"] as? String else { throw SmokeError("experimental file identity missing") }
                 let contents = try Data(contentsOf: folder.appendingPathComponent("\(role).mlpackage/\(path)"), options: .mappedIfSafe)

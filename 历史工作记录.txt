@@ -369,3 +369,10 @@ Prompt: physical SDK build follow-up.
 Actions: Binding enum is nonfrozen in iOS SDK; add unknown case rather than assuming allcases. Add after-loop persistent identity snapshot and monotonic iteration timestamps.
 Validation: fbf0002 build failed exhaustive unknown case; exact errors preserved /private/tmp/cosy-residency-device-build-2.log; no modelschanged.
 GitHub Timeline: f88a488/fbf0002已commit未push; repair checkpoint next.
+
+Time: 2026-10-05 23:33 EDT America/New_York
+Prompt: actual residency/thermal and safe static diagnostic.
+Actions: c6269a6 signedbuildPASS. ProfiledLLM12 outputsidentical PCM909a;allnominal3309-3337ms. CoreML31,531 activityrows andANE3,126intervals withnativeprefill/decode signposts, modelopactualassignment stillunderanalysis. Add no-readback consolecompletion runner,1Hzdiagnostic sampledmemory, independentstaticN260folder.
+Validation: descriptor-only allcompileFAILinputtype; inputtypes-staticConditions/HiFTCPUhostmaxAbs0, Flowcompile/parityFAIL preserved/rejected. No failedFlowphysicalbenchmark, Frozenunchanged. Firstp2 isolationpossibletracefinalizationoverlapexcluded, HiFTGPU12nominal outputsidentical.
+Files: stagehelper/runtime diagnostics, probe/export scripts, hostfailure/parity evidence.
+GitHub Timeline: c6269a6已commit未push; next diagnostic checkpoint includesknownfailures; no promotion/HF/catalog.

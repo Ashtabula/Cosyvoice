@@ -418,6 +418,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             validationProgress("llm.generate.begin:maxN=\(prepared.maximumSpeechTokenCount)")
             try await CosyVoice3StageDiagnostics.gate("llm")
             let generationStart = DispatchTime.now().uptimeNanoseconds
+            let stageSampler = CosyVoice3StageSampler(stage: "llm")
             var outputs = [[Int]](); var rows = [[String: Any]]()
             for iteration in 1...CosyVoice3StageDiagnostics.count("llm") {
                 let started = DispatchTime.now().uptimeNanoseconds
@@ -428,7 +429,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 if CosyVoice3StageDiagnostics.count("llm") > 1 { rows.append(CosyVoice3StageDiagnostics.row(iteration, since: started, cpuBefore: cpu, thermalBefore: thermal)) }
             }
             let tokens = outputs[0]
-            try CosyVoice3StageDiagnostics.save("llm", rows: rows, equal: outputs.allSatisfy { $0 == tokens })
+            try CosyVoice3StageDiagnostics.save("llm", rows: rows, equal: outputs.allSatisfy { $0 == tokens }, telemetry: stageSampler.stop())
             llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
             validationProgress("llm.generate.end:N=\(tokens.count)")
             return tokens

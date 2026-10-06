@@ -254,6 +254,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             print("[COSY-FLOW-LIFECYCLE] constructors=\(flowModels.count) steps=\(flowStepCount) function=\(functionName ?? "<range>")")
 
             try await CosyVoice3StageDiagnostics.gate("flow")
+            let flowSampler = CosyVoice3StageSampler(stage: "flow")
             let initialX = CosyVoice3StageDiagnostics.count("flow") > 1 ? x : []
             var repeatedX = [[Float]](); var flowRows = [[String: Any]]()
             for iteration in 1...CosyVoice3StageDiagnostics.count("flow") {
@@ -313,7 +314,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                     repeatedX.append(x)
                 }
             }
-            try CosyVoice3StageDiagnostics.save("flow", rows: flowRows, equal: repeatedX.allSatisfy { $0 == x })
+            try CosyVoice3StageDiagnostics.save("flow", rows: flowRows, equal: repeatedX.allSatisfy { $0 == x }, telemetry: flowSampler.stop())
         }
         await Task.yield()
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
@@ -348,6 +349,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let norm = try overlapAddNorm(sampleCount: samplesCount)
         progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
         try await CosyVoice3StageDiagnostics.gate("hift")
+        let hiftSampler = CosyVoice3StageSampler(stage: "hift")
         var hiftOutputs = [[Float]](); var hiftRows = [[String: Any]]()
         for iteration in 1...CosyVoice3StageDiagnostics.count("hift") {
             let started = DispatchTime.now().uptimeNanoseconds
@@ -358,7 +360,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             if CosyVoice3StageDiagnostics.count("hift") > 1 { hiftRows.append(CosyVoice3StageDiagnostics.row(iteration, since: started, cpuBefore: cpu, thermalBefore: thermal)) }
         }
         let samples = hiftOutputs[0]
-        try CosyVoice3StageDiagnostics.save("hift", rows: hiftRows, equal: hiftOutputs.allSatisfy { $0 == samples })
+        try CosyVoice3StageDiagnostics.save("hift", rows: hiftRows, equal: hiftOutputs.allSatisfy { $0 == samples }, telemetry: hiftSampler.stop())
         await Task.yield()
         progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
         return .init(samples: samples, sampleRate: Self.sampleRate, channels: 1)

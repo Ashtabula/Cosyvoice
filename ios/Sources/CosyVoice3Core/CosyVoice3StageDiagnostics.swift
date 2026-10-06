@@ -56,16 +56,43 @@ enum CosyVoice3StageDiagnostics {
          "CPUTimeMilliseconds":cpu()-cpuBefore,"thermalStart":thermalBefore,"thermalEnd":thermal(),"physicalFootprintBytes":footprint(),
          "actualResidency":"UNKNOWN_RESIDENCY"]
     }
-    static func save(_ stage: String, rows: [[String: Any]], equal: Bool) throws {
+    static func save(_ stage: String, rows: [[String: Any]], equal: Bool, telemetry: [[String: Any]] = []) throws {
         guard count(stage) > 1 else { return }
         let root = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
         let nominal = rows.first?["thermalStart"] as? String == "nominal"
         let receipt: [String: Any] = ["schemaVersion":1,"stage":stage,"status":!nominal ? "INVALID_NOMINAL_START" : (equal ? "PASS_REPEAT_OUTPUT_EQUAL" : "FAIL_REPEAT_OUTPUT_CHANGED"),
           "processID":ProcessInfo.processInfo.processIdentifier,"iterations":rows,"noInterIterationDelay":true,
           "noFileIOInsideLoop":true,"scope":"isolated stage from actual public request; diagnostic expanded request is not a production RTF",
-          "memoryMeaning":"boundary footprint samples, not authoritative peak","CPUTimeMeaning":"process self CPU only; no accelerator residency or power inference"]
+          "telemetry":telemetry,"sampledPeakFootprintBytes":telemetry.compactMap { $0["physicalFootprintBytes"] as? UInt64 }.max() ?? 0,
+          "memoryMeaning":"one-second process footprint plus boundary samples; sampled peak, replay output buffers included, not authoritative peak","CPUTimeMeaning":"process self CPU only; no accelerator residency or power inference"]
         try JSONSerialization.data(withJSONObject:receipt,options:[.prettyPrinted,.sortedKeys]).write(to:root.appendingPathComponent("isolated-\(stage)-receipt.json"),options:.atomic)
         print("[COSY-ISOLATED-COMPLETE] stage=\(stage) equal=\(equal) iterations=\(rows.count)")
     }
+}
+
+@available(iOS 18.0, macOS 15.0, *)
+final class CosyVoice3StageSampler: @unchecked Sendable {
+    private let lock = NSLock()
+    private var samples = [[String: Any]]()
+    private var timer: DispatchSourceTimer?
+    init(stage: String) {
+        guard CosyVoice3StageDiagnostics.count(stage) > 1 else { return }
+        sample()
+        let value = DispatchSource.makeTimerSource(queue: .global(qos: .utility))
+        value.schedule(deadline: .now() + .seconds(1), repeating: .seconds(1))
+        value.setEventHandler { [weak self] in self?.sample() }
+        timer = value; value.resume()
+    }
+    private func sample() {
+        let row: [String: Any] = ["uptimeNanoseconds":DispatchTime.now().uptimeNanoseconds,
+           "physicalFootprintBytes":CosyVoice3StageDiagnostics.footprint(),"thermalState":CosyVoice3StageDiagnostics.thermal()]
+        lock.lock(); samples.append(row); lock.unlock()
+    }
+    func stop() -> [[String: Any]] {
+        guard timer != nil else { return [] }
+        timer?.cancel(); timer = nil; sample()
+        lock.lock(); defer { lock.unlock() }; return samples
+    }
+    deinit { timer?.cancel() }
 }
 // Purpose: exact native stage repeats, boundary metrics and trace correlation. Upstream native Engine/Flow/HiFT; Swift6/CoreML iOS18+/macOS15+. Generated 2026-10-05 America/New_York. New validation helper; graph, weights and production iteration counts unchanged.
