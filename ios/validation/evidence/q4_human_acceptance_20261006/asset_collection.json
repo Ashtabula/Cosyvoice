@@ -1,0 +1,11 @@
+{
+  "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-q4-hybrid-20261006",
+  "currentDefault": true,
+  "q8Preserved": true,
+  "q4Profile": "q4_decode_hybrid_a",
+  "originalFailedBlock32AssetsUnchanged": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006/q4",
+  "method": "read-only samevolumehardlinks; no expandedweights",
+  "publicUsage": "CosyVoice3Engine(assetRoot:collectionURL,profile:.q4)",
+  "manifestSHA256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+  "payloadSHA256": "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9"
+}

@@ -1,0 +1,37 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-quantization",
+    "--validation-llm-variant=q4_hybrid",
+    "--validation-warm-pass",
+    "--validation-execution-audit",
+    "--validation-acoustic-cache=selected-family"
+  ],
+  "runnerSHA256": "edf777899517a0bb0ef3a84cc172214812051c16d504874a0473c20cee65732e",
+  "physicalSourceCommit": "0cc21be6d7e024ecfba5ec3fd5552fa60871b7df",
+  "sourceGitHEADAtCollection": "0cc21be6d7e024ecfba5ec3fd5552fa60871b7df",
+  "artifactFilename": "cosyvoice_llm_q4_hybrid.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_human_acceptance_20261006/cosyvoice_llm_q4_hybrid.wav",
+  "artifacts": [
+    {
+      "filename": "cosyvoice_llm_q4_hybrid.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_human_acceptance_20261006/cosyvoice_llm_q4_hybrid.wav",
+      "sha256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

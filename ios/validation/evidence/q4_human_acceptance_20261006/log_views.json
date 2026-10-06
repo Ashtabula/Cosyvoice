@@ -1,0 +1,23 @@
+[
+  {
+    "raw": "ios/validation/evidence/q4_human_acceptance_20261006/signed-build.log",
+    "rawSHA256": "205d477e310ba6d8f6de94aaad1cef486d7d61182bd2dcbdcb03c87ac84e362c",
+    "view": "ios/validation/evidence/q4_human_acceptance_20261006/signed-build.txt",
+    "viewSHA256": "0e202106855af2a5c2b882551443dfbb1cc5e0e03fb88403ce9af3628a9d57a8",
+    "transform": "trailingwhitespaceonly/rawretained"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_human_acceptance_20261006/swift-tests.log",
+    "rawSHA256": "c0eb0d43becef7d0e621de9b626000673240e1fff84e39e16b4ea7556f52f77e",
+    "view": "ios/validation/evidence/q4_human_acceptance_20261006/swift-tests.txt",
+    "viewSHA256": "c0eb0d43becef7d0e621de9b626000673240e1fff84e39e16b4ea7556f52f77e",
+    "transform": "trailingwhitespaceonly/rawretained"
+  },
+  {
+    "raw": "ios/validation/evidence/q4_human_acceptance_20261006/public-api/console.log",
+    "rawSHA256": "7c3b1e8393660685811dbbad1cd60577047bc3aaaf930375e7acb1cf3efd610b",
+    "view": "ios/validation/evidence/q4_human_acceptance_20261006/public-api/console.txt",
+    "viewSHA256": "7c3b1e8393660685811dbbad1cd60577047bc3aaaf930375e7acb1cf3efd610b",
+    "transform": "trailingwhitespaceonly/rawretained"
+  }
+]

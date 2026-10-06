@@ -1,0 +1,28 @@
+{
+  "files": [
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift",
+      "SHA256": "019bbedce85835f3e9871cf168ddb0c7c7c3b4d5f8ad3c07d991797b5bd8ec34",
+      "unchangedFromAcceptedRescue": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+      "SHA256": "2398f41cb4f735f388ef5b653be7b9427e3ee5b47adb042d17bd415298a865b3",
+      "unchangedFromAcceptedRescue": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+      "SHA256": "7b68b811b297b7fb800bfc66ba20e2e6985f18908fc4b39bb5bda2c398826142",
+      "unchangedFromAcceptedRescue": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+      "SHA256": "cd47ad736d9481781dcddef6032a10de92b39d6373edc44cc39ba2c7b9ee9899",
+      "unchangedFromAcceptedRescue": true
+    }
+  ],
+  "stateBridge": "identicalacceptedcode; now selectedautomaticallybyvalidatedprofile",
+  "CurrentDefault": true,
+  "oldAssetRootsUnchanged": true,
+  "noNewModelAssets": true
+}

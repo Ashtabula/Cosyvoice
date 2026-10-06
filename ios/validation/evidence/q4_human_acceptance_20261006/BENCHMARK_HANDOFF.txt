@@ -1,0 +1,29 @@
+Q4 hybrid public API handoff after user HUMAN_PASS — 2026-10-06
+
+CosyVoice3Engine(assetRoot: installedCollectionURL, profile: .q4)
+
+.q4 now selects Q8 prefill + INT4 per-channel decode, accurately named
+Q4 Decode Hybrid. It is not pure Q4. Current remains the default; Q8 remains
+selectable. All three use one shared public CosyVoice3Engine.synthesize().
+No shard CLI or state-copy CLI is needed for public .q4. The exact accepted
+per-request model-owned FP16 state initialization is automatic; SHARDS2 is
+selected internally. Flow6, reference, sampling, masks/RoPE, placement and
+Core ML model bytes are unchanged from the human-reviewed hybrid.
+
+Complete collection (new; old block32 assets untouched):
+/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-q4-hybrid-20261006
+Selected .q4 root is its q4/ child. Do not use the old weight-profile-sdk-20261006/q4
+block32 root; it deliberately fails assetIdentityMismatch. No silent fallback.
+
+Immutable profile binds manifest/payload, Q8 prefill and A decode package hashes
+plus unchanged P2 sibling hashes. Mixed/old/incomplete roots fail before prediction.
+Human review references all three physical English WAVs, including sample02
+MAX_LENGTH446. Review does not prove other texts/devices or sustained thermal.
+
+Original Q4 block32 prefill -14 classification/assets/receipts remain preserved.
+No HF/catalog/default/release promotion; NPU_engines_Demo source is not modified.
+Future Demo integration can use the ordinary profile API and this complete
+collection after public-api receipts PASS; no private filenames required by caller.
+
+Prior source38bd guards and source1b trace/listening remain immutable history.
+Post-acceptance public API source/build/receipts are in this evidence directory.

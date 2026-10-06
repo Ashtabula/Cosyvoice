@@ -43,6 +43,14 @@
       "scope": "three English corpus01/02/04 pairs",
       "promotionAllowed": false,
       "classification": "Q8_RESOURCE_WIN"
+    },
+    "Q4_DECODE_HYBRID_A": {
+      "status": "PASS",
+      "review": "ios/validation/evidence/q4_human_acceptance_20261006/human_review.json",
+      "reviewSHA256": "74e5bd779a163cd0c8adc8c89d749fe058ef2b59faf348859d9340c7efe38463",
+      "scope": "all3Englishcorpus01/02/04 hybridoutputs including sample02MAX_LENGTH446",
+      "classification": "Q4_RESCUED_STAGE_HYBRID",
+      "promotionAllowed": false
     }
   },
   "experimentalCandidateValidation": {
@@ -54,12 +62,11 @@
       "reason": "physical prefill CPU_AND_NE execution-plan -14 before PCM; not a human quality FAIL"
     },
     "Q4_DECODE_HYBRID_A": {
-      "objectiveStatus": "Q4_RESCUE_AWAITING_HUMAN",
-      "humanListening": "PENDING_HUMAN",
-      "inferenceSelectable": false,
-      "evidence": "ios/validation/evidence/q4_compatibility_rescue_20261006/final_summary.json",
-      "listeningManifest": "ios/validation/evidence/q4_compatibility_rescue_20261006/listening_manifest.json",
-      "reason": "physical gates and1295ANEtopologyPASS; new3Englishhumanreviewrequired, sample2MAX_LENGTH446; originalQ4failurepreserved"
+      "objectiveStatus": "Q4_RESCUED_STAGE_HYBRID",
+      "humanListening": "PASS",
+      "inferenceSelectable": true,
+      "evidence": "ios/validation/evidence/q4_human_acceptance_20261006/latest_status.json",
+      "reason": "Allautomatedrescuegates+actualhumanAllgood; publicAPIbinding recheck inthisdirectory; notpureQ4/defaultpromotion"
     }
   }
 }
