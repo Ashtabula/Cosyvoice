@@ -1176,7 +1176,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         var rows = [[String: Any]]()
         do {
             let fixture = try Self.fixture()
-            let paths = ["llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage", "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage", "q4Decode": "models/cosyvoice-llm-q4-decode.mlpackage", "conditions": "enumerated-acoustic/conditions.mlpackage", "hift": "enumerated-acoustic/hift.mlpackage", "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage", "campPlus": "reference/campplus-fixed604.mlpackage"]
+            let paths = ["llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage", "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage", "q4Decode": "models/cosyvoice-llm-q4-decode.mlpackage", "q4RescueAPrefill": "models/cosyvoice-llm-q4-prefill.mlpackage", "q4RescueADecode": "models/cosyvoice-llm-q4-decode.mlpackage", "conditions": "enumerated-acoustic/conditions.mlpackage", "hift": "enumerated-acoustic/hift.mlpackage", "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage", "campPlus": "reference/campplus-fixed604.mlpackage"]
             let selected = CommandLine.arguments.filter { $0.hasPrefix("--validation-plan-role=") }.map { String($0.dropFirst("--validation-plan-role=".count)) }
             let roles = selected.isEmpty ? ["llmPrefill", "llmDecode", "conditions", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5", "hift", "speechTokenizer", "campPlus"] : selected
             func save(_ status: String) throws {
@@ -1192,9 +1192,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let planFolderOption = CommandLine.arguments.first { $0.hasPrefix("--validation-plan-directory=") }.map { String($0.dropFirst("--validation-plan-directory=".count)) }
                 if let option = planFolderOption { guard single && ["ANEFlowP2","ANEFlowP3"].contains(option) else { throw SmokeError("invalid isolated plan directory") } }
                 let source: URL
-                if role == "q4Decode" {
+                if role == "q4Decode" || role.hasPrefix("q4RescueA") {
                     guard !single, Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE") == "CPU_AND_NE" else { throw SmokeError("Q4 decode probe forbids placement fallback/extracted package") }
-                    source = try Self.quantizationRoot(base: fixture.runtime, variant: "q4").appendingPathComponent(relative)
+                    if role == "q4Decode" { source = try Self.quantizationRoot(base: fixture.runtime, variant: "q4").appendingPathComponent(relative) }
+                    else { source = try FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Q4CompatibilityRescue/A/" + relative) }
                 }
                 else if single, let option = planFolderOption { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(option)/\(role).mlpackage") }
                 else if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role).mlpackage") }
@@ -1202,10 +1203,11 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions/p\(partition)/group-\(index).mlpackage")
                 } else { source = fixture.runtime.appendingPathComponent(relative) }
                 var row: [String: Any] = ["role": role, "path": source.path, "singleFunction": single, "requestedPlacement": Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE"), "stage": "compile", "status": "RUNNING"]
-                if role == "q4Decode" {
+                if role == "q4Decode" || role.hasPrefix("q4RescueA") {
+                    let expected = ["q4Decode": "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7", "q4RescueAPrefill": "905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4", "q4RescueADecode": "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46"]
                     let identity = try Self.probePackageIdentity(source)
                     print("[Q4-PROBE-IDENTITY] \(identity)")
-                    guard identity["treeSha256"] as? String == "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7" else { throw SmokeError("original Q4 decode package identity mismatch") }
+                    guard identity["treeSha256"] as? String == expected[role] else { throw SmokeError("original Q4 decode package identity mismatch") }
                     row["packageIdentity"] = identity
                     row["scope"] = "LEVEL_A_ONLY; no MLState or prediction; diagnostic, not public synthesis"
                     row["chargingConditions"] = "CHARGING_CONNECTED"
@@ -1215,8 +1217,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 rows.append(row); try save("RUNNING")
                 do {
                     let compiled = try await MLModel.compileModel(at: source)
-                    defer { if role != "q4Decode" { try? FileManager.default.removeItem(at: compiled) } }
-                    if role == "q4Decode" { row["compiledPath"] = compiled.path }
+                    defer { if role != "q4Decode" && !role.hasPrefix("q4RescueA") { try? FileManager.default.removeItem(at: compiled) } }
+                    if role == "q4Decode" || role.hasPrefix("q4RescueA") { row["compiledPath"] = compiled.path }
                     let config = MLModelConfiguration()
                     let policy = Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE")
                     switch policy {
@@ -1226,7 +1228,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     default: throw SmokeError("invalid compute policy \(policy)")
                     }
                     config.functionName = relative.hasPrefix("enumerated-acoustic/") && !single ? "n257_384" : nil
-                    if role == "q4Decode" { row["compiledIdentity"] = try Self.probePackageIdentity(compiled) }
+                    if role == "q4Decode" || role.hasPrefix("q4RescueA") { row["compiledIdentity"] = try Self.probePackageIdentity(compiled) }
                     row["stage"] = "model-load"; rows[rows.count-1] = row; try save("RUNNING")
                     try autoreleasepool { _ = try MLModel(contentsOf: compiled, configuration: config) }
                     row["modelLoadStatus"] = "PASS"
@@ -2031,3 +2033,5 @@ extension CosyVoice3SmokeModel {
 // No pointers escape; FP16 bytes/shapes/strides validated; no production engine/session modification.
 // Upstream Apple makeState/withMultiArray documented APIs, existing diagnostic causal prefix; Swift6/iOS27.2.
 // Generated 2026-10-06 America/New_York; new isolated dispatch/function only.
+
+// Rescue A2026-10-06: two hash-pinned diagnostic plan roles for per-channel package pair. CPU_AND_NE only; public profile guard unchanged; no fallback or graph edit.
