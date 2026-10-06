@@ -650,3 +650,10 @@ Actions: signedbuildfailedSwift6DirectoryEnumerator.makeIterator unavailableinas
 Files: DeviceSmokequantcompiled-sizehelper.
 Validation: rebuildingnext; initialfailureevidencepreserved.
 GitHub Timeline:dce5d85已commit未push；buildfix未commit。
+
+Time:2026-10-06 13:32 EDT America/New_York
+Prompt: updatedinlineaudio prompt, sameQ8goal, at least3fixedEnglishsamples.
+Actions: preserveactivebaselinebenchmark; completed5baselineN260/identityPASS/allnominal. Reuseacceptedcorpus01/02/04 asnativepairedEnglishsample01/02/03; noChineseoptimization. Addlistening-onlybranch/collector3actualWAVexports, immutabletexts/reference/seed/Flow2shardparams; noQ8reconversion/productionchange. Hostnumericaldiagnosticread-statefloat32 bridgeview documentedstate storageFP16unchanged. Collector capturesownSHAatlaunch.
+Files: updatedrequestedprompt,DeviceSmokelisteningextension,collectorlisteningoption.
+Validation: baselinepublic5PASS/wavesexported,CoreMLplanallopsANEpreferred (notfullresidency), originalcollectorSHAexactoldcommittedsource verified. Updatedsignedbuildnext; candidate/listeningpendingHUMAN.
+GitHub Timeline:3c77e8e已commit未push；updatedcorpusvalidation未commit。

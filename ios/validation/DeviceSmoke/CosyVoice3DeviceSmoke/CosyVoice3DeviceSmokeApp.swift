@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-llm-quantization-listening") { await runLLMQuantizationListening() }
             else if CommandLine.arguments.contains("--validation-llm-quantization") { await runLLMQuantization() }
             else if CommandLine.arguments.contains("--validation-resource-run") { await runResourceEfficiency() }
             else if CommandLine.arguments.contains("--validation-warm-pass") { await runWarmDecodePass() }
@@ -1831,3 +1832,60 @@ extension CosyVoice3SmokeModel {
 // Purpose: isolated LLMweightcompression publicAPI screen/plan/audioexport, neverproductionpromotion.
 // Upstream existing DeviceSmoke fixture/timeline/MLState audit; Swift6/iOS18+, generated2026-10-06 America/New_York.
 // ChangedrunAutoModequantdispatch andnewextension; inference implementation/placement/sampling/FP64 unchanged.
+
+// Updated user gate: three fixed English samples and paired Codex inline players.
+extension CosyVoice3SmokeModel {
+    func runLLMQuantizationListening() async {
+        guard !running else{return};running=true;defer{running=false}
+        let variant=CommandLine.arguments.first{$0.hasPrefix("--validation-llm-variant=")}.map{String($0.dropFirst("--validation-llm-variant=".count))} ?? ""
+        let filename="llm-quantization-listening-\(variant)-receipt.json"
+        var rows=[[String:Any]]()
+        do {
+            guard ["baseline","q8"].contains(variant),CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  !CommandLine.arguments.contains("--reset-cosy-cache"),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
+                  !CommandLine.arguments.contains("--validation-f0-workspace-baseline") else{throw SmokeError("isolated listening flags require frozen runtime")}
+            let fixture=try Self.fixture(),corpusData=try Data(contentsOf:Self.receiptURL("listening-corpus.json"))
+            let corpus=try JSONSerialization.jsonObject(with:corpusData) as! [String:Any]
+            guard corpus["seed"] as? Int==42,corpus["flowSteps"] as? Int==6,corpus["shards"] as? Int==2,
+                  let entries=corpus["samples"] as? [[String:Any]] else{throw SmokeError("fixed accepted corpus invalid")}
+            func sha(_ data:Data)->String{SHA256.hash(data:data).map{String(format:"%02x",$0)}.joined()}
+            guard sha(try Data(contentsOf:fixture.reference.audioURL))==corpus["referenceWavSHA256"] as? String,
+                  sha(try Data(contentsOf:Self.generatedAssets().appendingPathComponent("reference.txt")))==corpus["referenceTranscriptFileSHA256"] as? String else{throw SmokeError("listening reference changed")}
+            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime)
+            let packages=try Self.validateExperimentalModels(runtime:root),info=try Self.variableManifestInfo(runtime:root)
+            let engine=try CosyVoice3Engine(assetRoot:root,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver{phase in print("[COSY-Q8-LISTENING-STAGE] \(phase)")}
+            let start=ContinuousClock.now
+            while UIApplication.shared.applicationState != .active || ProcessInfo.processInfo.thermalState != .nominal {
+                guard Self.seconds(start.duration(to:.now))<600 else{throw SmokeError("listening readiness timeout")}
+                try await Task.sleep(for:.seconds(1))
+            }
+            let ids=["sample01","sample02","sample04"]
+            for (index,id) in ids.enumerated() {
+                guard let entry=entries.first(where:{$0["id"] as? String==id}),let text=entry["text"] as? String else{throw SmokeError("accepted English sample absent")}
+                let thermal=Self.thermalName(ProcessInfo.processInfo.thermalState)
+                let audio=try await engine.synthesize(text,parameters:fixture.parameters);try Self.validate(audio)
+                guard audio.samples.count%960==0,let report=await engine.lastSynthesisReport(),report.flowSteps == .steps6 else{throw SmokeError("listening acoustic ABI")}
+                let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8)) as! [String:Any]
+                let records=snapshot["validationWarmPassRecords"] as? [[String:Any]] ?? []
+                guard let tokens=records.last?["tokens"] as? [Int],tokens.count*960==audio.samples.count else{throw SmokeError("listening token identity unavailable")}
+                let suffix=variant=="baseline" ? "fp16":"q8",name=String(format:"checkpoint_001_sample%02d_%@.wav",index+1,suffix)
+                let wav=Self.wavData(audio);try wav.write(to:Self.receiptURL(name),options:.atomic)
+                let pcm=audio.samples.withUnsafeBytes{sha(Data($0))}
+                var peak:Float=0,clipped=0
+                for value in audio.samples{peak=max(peak,abs(value));if abs(value)>=1{clipped+=1}}
+                rows.append(["sample":index+1,"sourceCorpusID":id,"category":entry["category"] ?? "","text":text,"textSHA256":sha(Data(text.utf8)),"N":tokens.count,"tokens":tokens,"tokenSequenceSHA256":sha(try JSONSerialization.data(withJSONObject:tokens)),"samples":audio.samples.count,"sampleRate":audio.sampleRate,"audioSeconds":Double(audio.samples.count)/24000,"function":info.functionName(for:tokens.count) ?? "","SHARDS":2,"flowSteps":6,"seed":42,"PCM_SHA256":pcm,"WAV_SHA256":sha(wav),"WAV":name,"peakAbs":peak,"clippingFraction":Double(clipped)/Double(audio.samples.count),"thermalStart":thermal,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState)])
+                print("[COSY-Q8-LISTENING] variant=\(variant) corpus=\(id) WAV=\(name) N=\(tokens.count)")
+            }
+            let receipt:[String:Any]=["schemaVersion":1,"status":"PASS_DEVICE_LISTENING_PENDING_HUMAN","sourceCommit":fixture.sourceCommit,"variant":variant,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"RuntimeRoot":root.path,"corpusSHA256":sha(corpusData),"corpusID":corpus["corpusID"] ?? "","chosenAcceptedIDs":ids,"EnglishPriority":true,"referenceWAVSHA256":sha(try Data(contentsOf:fixture.reference.audioURL)),"referenceTranscriptSHA256":sha(Data(fixture.transcript.utf8)),"SHARDS":2,"flowSteps":6,"publicAPI":"CosyVoice3Engine.synthesize()","rows":rows,"modelIdentity":packages,"humanListening":"PENDING_HUMAN","productionPromotion":false,"exportStatus":"DEVICE_WAV_READY_HOST_PULL_REQUIRED"]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename));status="PASS threeEnglishWAVs \(variant), humanpending"
+        } catch {
+            Self.recordFailure(error,filename:filename,into:self)
+            var receipt=(try? JSONSerialization.jsonObject(with:Data(contentsOf:Self.receiptURL(filename)))) as? [String:Any] ?? [:]
+            receipt["partialRows"]=rows;receipt["variant"]=variant;_ = try? Self.write(receipt,to:Self.receiptURL(filename))
+        }
+    }
+}
+// Purpose: reuse acceptedcorpus01/02/04 asEnglishpairedthree-samplequantizationlistening; no corpus/reference/settings drift.
+// Upstream existing listeningcheckpoint/quantizationroot/publicEngine; Swift6/iOS18+, generated2026-10-06 America/New_York.
