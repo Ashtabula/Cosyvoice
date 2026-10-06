@@ -788,3 +788,10 @@ Actions:initialsignedf7ab8edbuildPASS; beforedevice foundexistingruntimeconstruc
 Files:Engine/DynamicRuntime constructor routingadapter,2newroutingtests,mathidentity/preflight/logs。
 Validation:23testsPASS including9profiletests/actualFP64weights; no math/LLM/state/placement change. Q4hostallfinite/top1.984375;newsourcecheckpointrequiredbeforefinalbuild。
 GitHub Timeline:f7ab8ed已commit未push；routingadapter修正随后commit/build。
+
+Time:2026-10-06 15:27 EDT America/New_York
+Prompt:Q4stopconditions/SDKfailclosed。
+Actions:physicalsource217fd97/actualQ4treebca74138...verified;firstprefillCPU_AND_NEexecutionplanloadCoreML-14, no prediction/PCM. Stopthiscandidate perprompt, preservefullconsole/partialtimeline/receipt/compiledSHA. ClassificationQ4_UNSUPPORTED_OR_INCOMPATIBLE; do not inferperopcause/allQ4support, noCPUfallback/newgroupvariant. Q4metadata availablebutpublicselectionthrowsprofileNotValidated. Current/Q8controlAPIrevalidation next.
+Files:Q4objective_status/physical-a,evidence;WeightProfileavailability/Engineguard/test。
+Validation:hostthreewayfinite/specABIpass,signed217buildpass;physical0completedQ4requests. NoQ4RTF/memory/audio fabricated;newgatedtestbuildsource next。
+GitHub Timeline:217fd97已commit未push；failedQ4/profilegatechange pendingcommit。

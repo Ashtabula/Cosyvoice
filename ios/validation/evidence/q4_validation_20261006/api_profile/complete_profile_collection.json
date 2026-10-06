@@ -1,0 +1,29 @@
+{
+  "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006",
+  "profiles": [
+    {
+      "profile": "current",
+      "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006/current",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "logicalPayloadBytes": 3530215890,
+      "status": "PASS_COMPLETE_IMMUTABLE_ASSETS"
+    },
+    {
+      "profile": "q8",
+      "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006/q8",
+      "payloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+      "logicalPayloadBytes": 2803735289,
+      "status": "PASS_COMPLETE_IMMUTABLE_ASSETS"
+    },
+    {
+      "profile": "q4",
+      "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006/q4",
+      "payloadTreeSHA256": "bca74138e3d7112f2e9e6bd0b0370401cc79be4ee27c7c2c09cc0ddf644f86d1",
+      "logicalPayloadBytes": 2484092582,
+      "status": "PASS_COMPLETE_IMMUTABLE_ASSETS"
+    }
+  ],
+  "sharedAcousticPackagePath": "FlowPartitions/p2",
+  "sharing": "read-only same-APFS hardlinks; Q8/P2 crossvolume copies, no frozen/Q8 overwrite",
+  "releasePromotion": false
+}

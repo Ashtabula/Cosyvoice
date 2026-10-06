@@ -9,12 +9,14 @@ public struct CosyVoice3WeightProfileMetadata: Sendable, Equatable {
     public let weightCompression: String
     public let modelAssetIdentity: String
     public let isExperimental: Bool
+    public let isSelectableForInference: Bool
 }
 
 public enum CosyVoice3WeightProfileError: Error, Equatable, Sendable {
     case assetsMissing(profileID: String)
     case assetIdentityMismatch(profileID: String)
     case incompatibleRuntimeConfiguration(profileID: String)
+    case profileNotValidated(profileID: String)
 }
 
 public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
@@ -32,7 +34,7 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
         let pair = contract.prefillSHA + "\n" + contract.decodeSHA
         return .init(id: rawValue, displayName: name, weightCompression: compression,
                      modelAssetIdentity: SHA256.hash(data: Data(pair.utf8)).map { String(format: "%02x", $0) }.joined(),
-                     isExperimental: self != .current)
+                     isExperimental: self != .current, isSelectableForInference: self != .q4)
     }
 
     // Accept either an installed profile root or a logical profile collection containing
@@ -137,3 +139,5 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
 // Purpose: one immutable profile contract; asset hashes verified by existing locked byte-identity store, no global mutable selection.
 // Upstream accepted FP16/Q8 and isolated Q4 export receipts; Swift6/iOS18+/macOS15+; generated2026-10-06 America/New_York.
 // New API/contract file; no tensor math, weights, sampling, precision, placement or state changes.
+// Q4 physicalgate2026-10-06: INT4block32 prefill failed CPU_AND_NE plan -14 before prediction on iPhone18,4/iOS27.2.
+// Q4 remains discoverable metadata but is not selectable for inference until a separate candidate passes physical validation; no automatic fallback.

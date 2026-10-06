@@ -22,7 +22,7 @@ final class WeightProfileTests: XCTestCase {
     }
 
     func testExplicitProfilesUseSameEngineAndStableMetadata() throws {
-        for profile in CosyVoice3WeightProfile.allCases {
+        for profile in CosyVoice3WeightProfile.allCases where profile.metadata.isSelectableForInference {
             let engine = try CosyVoice3Engine(assetRoot: fixture(profile), profile: profile, idleBucketPreparation: false)
             XCTAssertEqual(engine.weightProfile, profile)
             XCTAssertEqual(engine.profileMetadata.id, profile.rawValue)
@@ -68,7 +68,7 @@ final class WeightProfileTests: XCTestCase {
     }
 
     func testMetadataOnlyRootCannotReachPrediction() async throws {
-        for profile in CosyVoice3WeightProfile.allCases {
+        for profile in CosyVoice3WeightProfile.allCases where profile.metadata.isSelectableForInference {
             let engine = try CosyVoice3Engine(assetRoot: fixture(profile), profile: profile, idleBucketPreparation: false)
             do { _ = try await engine.prepare(); XCTFail("incomplete assets must fail before model prediction") }
             catch { XCTAssertNotNil(error) }
@@ -102,6 +102,17 @@ final class WeightProfileTests: XCTestCase {
         XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: ["wrong"], isEnumerated: true, arguments: []))
         XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: false, arguments: []))
         XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: true, arguments: ["--validation-flow-partition=3"]))
+    }
+
+    func testUnvalidatedQ4FailsClosedInsteadOfFallingBack() throws {
+        XCTAssertTrue(CosyVoice3WeightProfile.current.metadata.isSelectableForInference)
+        XCTAssertTrue(CosyVoice3WeightProfile.q8.metadata.isSelectableForInference)
+        XCTAssertFalse(CosyVoice3WeightProfile.q4.metadata.isSelectableForInference)
+        for supplied in CosyVoice3WeightProfile.allCases {
+            XCTAssertThrowsError(try CosyVoice3Engine(assetRoot: fixture(supplied), profile: .q4)) { error in
+                XCTAssertEqual(error as? CosyVoice3WeightProfileError, .profileNotValidated(profileID: "q4"))
+            }
+        }
     }
 }
 // Purpose: profile/asset/cache contracts, not neural execution or human quality proof.

@@ -1,0 +1,1004 @@
+{
+  "device" : "iPhone",
+  "deviceModelIdentifier" : "iPhone18,4",
+  "error" : "compiledCache(\"MLModel load failed path=models\/cosyvoice-llm-q4-prefill.mlpackage function=<default> computeUnits=MLComputeUnits(rawValue: 3) reshapeFrequencyInfrequent=false compiled=19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc source=\/var\/mobile\/Containers\/Data\/Application\/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11\/Documents\/LLMQuantization\/Q4\/Runtime\/models\/cosyvoice-llm-q4-prefill.mlpackage error=Error Domain=com.apple.CoreML Code=0 \\\"Failed to build the model execution plan using a model architecture file \\'\/private\/var\/mobile\/Containers\/Data\/Application\/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11\/Library\/Application Support\/CosyVoice3Core\/RuntimeDerived-v2\/CompiledModels\/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc\/model.mil\\' with error code: -14.\\\" UserInfo={NSLocalizedDescription=Failed to build the model execution plan using a model architecture file \\'\/private\/var\/mobile\/Containers\/Data\/Application\/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11\/Library\/Application Support\/CosyVoice3Core\/RuntimeDerived-v2\/CompiledModels\/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc\/model.mil\\' with error code: -14.}\")",
+  "partialRows" : [
+
+  ],
+  "partialTimeline" : [
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 94.468999999999994,
+      "CPUOnlyEnergyNanojoules" : 116558767,
+      "physicalFootprintBytes" : 10405536,
+      "stage" : "setup",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266965493182625
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 474.03800000000001,
+      "CPUOnlyEnergyNanojoules" : 950292939,
+      "physicalFootprintBytes" : 10995360,
+      "stage" : "before_engine_creation",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966226034958
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 475.18599999999998,
+      "CPUOnlyEnergyNanojoules" : 950979238,
+      "physicalFootprintBytes" : 11011744,
+      "stage" : "after_engine_creation",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966227345083
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 483.32100000000003,
+      "CPUOnlyEnergyNanojoules" : 971400752,
+      "physicalFootprintBytes" : 12158624,
+      "stage" : "request_1_begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966234008833
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 483.50200000000001,
+      "CPUOnlyEnergyNanojoules" : 971404080,
+      "physicalFootprintBytes" : 12158624,
+      "stage" : "synthesis.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966234073791
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 483.572,
+      "CPUOnlyEnergyNanojoules" : 973343462,
+      "physicalFootprintBytes" : 12158624,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966234129375
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 488.26900000000001,
+      "CPUOnlyEnergyNanojoules" : 981356383,
+      "physicalFootprintBytes" : 12453536,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966236591791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 566.41600000000005,
+      "CPUOnlyEnergyNanojoules" : 1209662527,
+      "physicalFootprintBytes" : 16975520,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966334105250
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 642.00999999999999,
+      "CPUOnlyEnergyNanojoules" : 1421208962,
+      "physicalFootprintBytes" : 16991904,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966435071291
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 724.07899999999995,
+      "CPUOnlyEnergyNanojoules" : 1621135017,
+      "physicalFootprintBytes" : 17024672,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966535186041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 803.40599999999995,
+      "CPUOnlyEnergyNanojoules" : 1834870575,
+      "physicalFootprintBytes" : 17024672,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966634150208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 880.63999999999999,
+      "CPUOnlyEnergyNanojoules" : 2046812079,
+      "physicalFootprintBytes" : 17024672,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966734260625
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 961.97500000000002,
+      "CPUOnlyEnergyNanojoules" : 2264234214,
+      "physicalFootprintBytes" : 16811680,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966835077541
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1041.8810000000001,
+      "CPUOnlyEnergyNanojoules" : 2478865416,
+      "physicalFootprintBytes" : 16828064,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266966934634875
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1123.048,
+      "CPUOnlyEnergyNanojoules" : 2691744853,
+      "physicalFootprintBytes" : 16828064,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967035083791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1205.193,
+      "CPUOnlyEnergyNanojoules" : 2912274147,
+      "physicalFootprintBytes" : 16828064,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967135140458
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1282.7719999999999,
+      "CPUOnlyEnergyNanojoules" : 3128635370,
+      "physicalFootprintBytes" : 16828064,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967235117625
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1361.8109999999999,
+      "CPUOnlyEnergyNanojoules" : 3348820092,
+      "physicalFootprintBytes" : 16828064,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967335254916
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1440.0930000000001,
+      "CPUOnlyEnergyNanojoules" : 3565463006,
+      "physicalFootprintBytes" : 16844448,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967435223125
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1516.136,
+      "CPUOnlyEnergyNanojoules" : 3776085660,
+      "physicalFootprintBytes" : 16860832,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967535111791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1607.298,
+      "CPUOnlyEnergyNanojoules" : 4036025212,
+      "physicalFootprintBytes" : 16909984,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967635071250
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1707.3519999999999,
+      "CPUOnlyEnergyNanojoules" : 4312404589,
+      "physicalFootprintBytes" : 16926368,
+      "stage" : "prepare.begin",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967735061916
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 1800.4859999999999,
+      "CPUOnlyEnergyNanojoules" : 4594341840,
+      "physicalFootprintBytes" : 16942752,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967827799125
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1805.482,
+      "CPUOnlyEnergyNanojoules" : 4611212948,
+      "physicalFootprintBytes" : 18597536,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967835114250
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 1905.722,
+      "CPUOnlyEnergyNanojoules" : 5138450449,
+      "physicalFootprintBytes" : 36112032,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266967935319583
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2005.5599999999999,
+      "CPUOnlyEnergyNanojoules" : 5697268152,
+      "physicalFootprintBytes" : 36488888,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968035191708
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2105.2489999999998,
+      "CPUOnlyEnergyNanojoules" : 6306962946,
+      "physicalFootprintBytes" : 40552120,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968135072125
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2193.1530000000002,
+      "CPUOnlyEnergyNanojoules" : 6902096729,
+      "physicalFootprintBytes" : 43583232,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968234304000
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2280.8069999999998,
+      "CPUOnlyEnergyNanojoules" : 7496888265,
+      "physicalFootprintBytes" : 44107592,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968335108500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2378.9210000000003,
+      "CPUOnlyEnergyNanojoules" : 8076051740,
+      "physicalFootprintBytes" : 44500808,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968435064500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2478.3050000000003,
+      "CPUOnlyEnergyNanojoules" : 8643085195,
+      "physicalFootprintBytes" : 44697416,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968534424875
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2578.8969999999999,
+      "CPUOnlyEnergyNanojoules" : 9179578314,
+      "physicalFootprintBytes" : 44910408,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968635070000
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2673.6970000000001,
+      "CPUOnlyEnergyNanojoules" : 9718963461,
+      "physicalFootprintBytes" : 45844296,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968735061958
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2776.1179999999999,
+      "CPUOnlyEnergyNanojoules" : 10378087078,
+      "physicalFootprintBytes" : 45729608,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968835073083
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2872.2420000000002,
+      "CPUOnlyEnergyNanojoules" : 10911446633,
+      "physicalFootprintBytes" : 45745992,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266968935062958
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 2976.3400000000001,
+      "CPUOnlyEnergyNanojoules" : 11401932977,
+      "physicalFootprintBytes" : 45762376,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969035066000
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3072.4539999999997,
+      "CPUOnlyEnergyNanojoules" : 11913516193,
+      "physicalFootprintBytes" : 45991752,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969135081666
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3177.9430000000002,
+      "CPUOnlyEnergyNanojoules" : 12449766471,
+      "physicalFootprintBytes" : 45991752,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969235063791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3270.9490000000001,
+      "CPUOnlyEnergyNanojoules" : 12892810781,
+      "physicalFootprintBytes" : 43288392,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969335130041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.1080000000002,
+      "CPUOnlyEnergyNanojoules" : 13193301446,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969434682458
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.172,
+      "CPUOnlyEnergyNanojoules" : 13193327687,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969535109208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.2339999999999,
+      "CPUOnlyEnergyNanojoules" : 13193358254,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969635060166
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.297,
+      "CPUOnlyEnergyNanojoules" : 13193387075,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969734728083
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.3469999999998,
+      "CPUOnlyEnergyNanojoules" : 13193413316,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969835093458
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.3829999999998,
+      "CPUOnlyEnergyNanojoules" : 13193440834,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266969934853958
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.4369999999999,
+      "CPUOnlyEnergyNanojoules" : 13193466204,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970035188500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.5,
+      "CPUOnlyEnergyNanojoules" : 13193491688,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970135065416
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.5529999999999,
+      "CPUOnlyEnergyNanojoules" : 13193514395,
+      "physicalFootprintBytes" : 43337544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970235063791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.6089999999999,
+      "CPUOnlyEnergyNanojoules" : 13193539156,
+      "physicalFootprintBytes" : 36718408,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970335129708
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.6710000000003,
+      "CPUOnlyEnergyNanojoules" : 13193561003,
+      "physicalFootprintBytes" : 36718408,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970435065291
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.7660000000001,
+      "CPUOnlyEnergyNanojoules" : 13193604221,
+      "physicalFootprintBytes" : 36718408,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970534435333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.8209999999999,
+      "CPUOnlyEnergyNanojoules" : 13193629624,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970635123708
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.8760000000002,
+      "CPUOnlyEnergyNanojoules" : 13193651099,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970735020333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3329.9390000000003,
+      "CPUOnlyEnergyNanojoules" : 13193673474,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970835109875
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.0100000000002,
+      "CPUOnlyEnergyNanojoules" : 13193696446,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266970935200125
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.0770000000002,
+      "CPUOnlyEnergyNanojoules" : 13193723659,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971035107000
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.1390000000001,
+      "CPUOnlyEnergyNanojoules" : 13193747309,
+      "physicalFootprintBytes" : 36669256,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971135109291
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.2739999999999,
+      "CPUOnlyEnergyNanojoules" : 13193786861,
+      "physicalFootprintBytes" : 36570952,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971234182041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.3389999999999,
+      "CPUOnlyEnergyNanojoules" : 13193810074,
+      "physicalFootprintBytes" : 31573832,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971335140958
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.4679999999998,
+      "CPUOnlyEnergyNanojoules" : 13193845147,
+      "physicalFootprintBytes" : 31524680,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971435137791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.5360000000001,
+      "CPUOnlyEnergyNanojoules" : 13193873204,
+      "physicalFootprintBytes" : 31524680,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971535193708
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.6010000000001,
+      "CPUOnlyEnergyNanojoules" : 13193897632,
+      "physicalFootprintBytes" : 31524680,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971635198583
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3330.6669999999999,
+      "CPUOnlyEnergyNanojoules" : 13193918695,
+      "physicalFootprintBytes" : 31524680,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971734679333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3411.4760000000001,
+      "CPUOnlyEnergyNanojoules" : 13481385696,
+      "physicalFootprintBytes" : 31524560,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971835147333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3509.5219999999999,
+      "CPUOnlyEnergyNanojoules" : 13818779693,
+      "physicalFootprintBytes" : 32917200,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266971935124166
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3609.0250000000001,
+      "CPUOnlyEnergyNanojoules" : 14246239734,
+      "physicalFootprintBytes" : 32949968,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972034741041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3709.431,
+      "CPUOnlyEnergyNanojoules" : 14688910768,
+      "physicalFootprintBytes" : 18466512,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972135061916
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3809.46,
+      "CPUOnlyEnergyNanojoules" : 15167739165,
+      "physicalFootprintBytes" : 18646736,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972235061041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3897.2930000000001,
+      "CPUOnlyEnergyNanojoules" : 15630599607,
+      "physicalFootprintBytes" : 18679552,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972335126041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 3984.252,
+      "CPUOnlyEnergyNanojoules" : 16077201660,
+      "physicalFootprintBytes" : 18728776,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972434630625
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4082.3420000000001,
+      "CPUOnlyEnergyNanojoules" : 16528868536,
+      "physicalFootprintBytes" : 18761544,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972535060541
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4182.3220000000001,
+      "CPUOnlyEnergyNanojoules" : 16927265705,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972635061583
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4281.8909999999996,
+      "CPUOnlyEnergyNanojoules" : 17382702229,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972734566208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4377.0599999999995,
+      "CPUOnlyEnergyNanojoules" : 17837307492,
+      "physicalFootprintBytes" : 18941768,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972835093333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4481.5320000000002,
+      "CPUOnlyEnergyNanojoules" : 18237879962,
+      "physicalFootprintBytes" : 18941768,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266972935062666
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4581.8510000000006,
+      "CPUOnlyEnergyNanojoules" : 18637550064,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973035064875
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4677.9529999999995,
+      "CPUOnlyEnergyNanojoules" : 19048909851,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973135061833
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4782.0540000000001,
+      "CPUOnlyEnergyNanojoules" : 19530963749,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973235063500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4881.9089999999997,
+      "CPUOnlyEnergyNanojoules" : 20006582251,
+      "physicalFootprintBytes" : 18777928,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973335057958
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 4981.1689999999999,
+      "CPUOnlyEnergyNanojoules" : 20468297697,
+      "physicalFootprintBytes" : 17794888,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973434103500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5074.7119999999995,
+      "CPUOnlyEnergyNanojoules" : 20847565049,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973535061083
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5104.9259999999995,
+      "CPUOnlyEnergyNanojoules" : 20984640729,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973635066208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5104.9799999999996,
+      "CPUOnlyEnergyNanojoules" : 20984660740,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973735061208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.0419999999995,
+      "CPUOnlyEnergyNanojoules" : 20984684972,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973835062458
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.098,
+      "CPUOnlyEnergyNanojoules" : 20984709571,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266973935196333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.1610000000001,
+      "CPUOnlyEnergyNanojoules" : 20984734144,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974034641583
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.2219999999998,
+      "CPUOnlyEnergyNanojoules" : 20984758942,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974135067083
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.2759999999998,
+      "CPUOnlyEnergyNanojoules" : 20984779279,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974235064416
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.3310000000001,
+      "CPUOnlyEnergyNanojoules" : 20984800356,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974335062375
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.3879999999999,
+      "CPUOnlyEnergyNanojoules" : 20984820901,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974434456250
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.4430000000002,
+      "CPUOnlyEnergyNanojoules" : 20984842830,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974535109916
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.5069999999996,
+      "CPUOnlyEnergyNanojoules" : 20984867456,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974635062916
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.5599999999995,
+      "CPUOnlyEnergyNanojoules" : 20984895094,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974735058791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.6130000000003,
+      "CPUOnlyEnergyNanojoules" : 20984916492,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974835108583
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.6769999999997,
+      "CPUOnlyEnergyNanojoules" : 20984949603,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266974935065166
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.7479999999996,
+      "CPUOnlyEnergyNanojoules" : 20984973994,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975035089500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.8199999999997,
+      "CPUOnlyEnergyNanojoules" : 20984998191,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975135080416
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.8980000000001,
+      "CPUOnlyEnergyNanojoules" : 20985020854,
+      "physicalFootprintBytes" : 17811272,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975235063791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5105.9619999999995,
+      "CPUOnlyEnergyNanojoules" : 20985044438,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975335061375
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.0290000000005,
+      "CPUOnlyEnergyNanojoules" : 20985069410,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975434243208
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.0860000000002,
+      "CPUOnlyEnergyNanojoules" : 20985094422,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975535069041
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.1559999999999,
+      "CPUOnlyEnergyNanojoules" : 20985117932,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975635062833
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.2119999999995,
+      "CPUOnlyEnergyNanojoules" : 20985141034,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975735066791
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.2730000000001,
+      "CPUOnlyEnergyNanojoules" : 20985158597,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975835061500
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5106.3299999999999,
+      "CPUOnlyEnergyNanojoules" : 20985178225,
+      "physicalFootprintBytes" : 17008456,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266975935071333
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5119.8599999999997,
+      "CPUOnlyEnergyNanojoules" : 21005107876,
+      "physicalFootprintBytes" : 16942800,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266976035034625
+    },
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 5219.8670000000002,
+      "CPUOnlyEnergyNanojoules" : 21371845410,
+      "physicalFootprintBytes" : 16942800,
+      "stage" : "prepare.model.1.4.begin:models\/cosyvoice-llm-q4-prefill.mlpackage",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266976135063625
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 5245.2470000000003,
+      "CPUOnlyEnergyNanojoules" : 21462115466,
+      "physicalFootprintBytes" : 16942800,
+      "stage" : "sampler_stop",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 266976162930875
+    }
+  ],
+  "recordedAtUnix" : 1791314584,
+  "requestedAcousticPlacement" : "CPU_AND_GPU",
+  "requestedComputePlacementByRole" : {
+    "campPlus" : "CPU_ONLY",
+    "conditions" : "CPU_AND_GPU",
+    "flow0" : "CPU_AND_GPU",
+    "flow1" : "CPU_AND_GPU",
+    "flow2" : "CPU_AND_GPU",
+    "flow3" : "CPU_AND_GPU",
+    "flow4" : "CPU_AND_GPU",
+    "flow5" : "CPU_AND_GPU",
+    "hift" : "CPU_AND_GPU",
+    "llmDecode" : "CPU_AND_NE",
+    "llmPrefill" : "CPU_AND_NE",
+    "speechTokenizer" : "CPU_ONLY"
+  },
+  "residencyEvidence" : "requested placement only, residency not proven",
+  "schemaVersion" : 1,
+  "sourceCommit" : "217fd97db5cae2b4a687f5280b1a0711bf929992",
+  "status" : "FAIL",
+  "systemVersion" : "27.2",
+  "variant" : "q4"
+}

@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "217fd97db5cae2b4a687f5280b1a0711bf929992",
+  "binarySHA256": "611243b4db17d6cfac8211176d753c86b4c60d1aac1ccfcecdc97400ae5af067",
+  "bundleMarker": {
+    "sourceCommit": "217fd97db5cae2b4a687f5280b1a0711bf929992"
+  },
+  "resourceManifestSHA256": "fb8b744fb5ad92a1f6fc99f93fa45f1cee8ea1b050f947246bab0d948cec12ed",
+  "buildSucceeded": true
+}

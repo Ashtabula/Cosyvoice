@@ -61,6 +61,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     public init(assetRoot: URL, profile: CosyVoice3WeightProfile, idleBucketPreparation: Bool = true) throws {
+        guard profile.metadata.isSelectableForInference else {
+            throw CosyVoice3WeightProfileError.profileNotValidated(profileID: profile.rawValue)
+        }
         try self.init(assetRoot: profile.resolveAssets(in: assetRoot), profile: profile, validatedProfile: true,
                       idleBucketPreparation: idleBucketPreparation)
     }
