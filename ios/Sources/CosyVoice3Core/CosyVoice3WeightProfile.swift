@@ -8,6 +8,14 @@ public struct CosyVoice3WeightProfileMetadata: Sendable, Equatable {
     public let displayName: String
     public let weightCompression: String
     public let modelAssetIdentity: String
+    public let manifestIdentity: String
+    public let prefillModelIdentity: String
+    public let decodeModelIdentity: String
+    public let prefillRepresentation: String
+    public let decodeRepresentation: String
+    public let stateBridgeMode: String
+    public let acousticShards: Int
+    public let flowSteps: Int
     public let isExperimental: Bool
     public let isSelectableForInference: Bool
 }
@@ -30,11 +38,41 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
         case .q8: name = "Q8"; compression = "INT8 weight compression, per channel"
         case .q4: name = "Q4 Decode Hybrid"; compression = "Q8 prefill + INT4 per-channel decode (hybrid)"
         }
-        // Identity is a stable digest of the two immutable model packages, not filenames.
+        let prefillRepresentation: String
+        let decodeRepresentation: String
+        let stateBridgeMode: String
+        switch self {
+        case .current:
+            prefillRepresentation = "FP16"
+            decodeRepresentation = "FP16"
+            stateBridgeMode = "shared model-owned FP16 MLState; no cross-model state copy"
+        case .q8:
+            prefillRepresentation = "INT8 per-channel weight compression"
+            decodeRepresentation = "INT8 per-channel weight compression"
+            stateBridgeMode = "shared model-owned FP16 MLState; no cross-model state copy"
+        case .q4:
+            prefillRepresentation = "Q8 prefill"
+            decodeRepresentation = "INT4 per-channel decode"
+            stateBridgeMode = "Q8-prefill→Q4-decode request-level FP16 state-copy bridge"
+        }
+        // Public identities are content hashes only; model filenames stay private.
         let pair = contract.prefillSHA + "\n" + contract.decodeSHA
-        return .init(id: rawValue, displayName: name, weightCompression: compression,
-                     modelAssetIdentity: SHA256.hash(data: Data(pair.utf8)).map { String(format: "%02x", $0) }.joined(),
-                     isExperimental: self != .current, isSelectableForInference: true)
+        return .init(
+            id: rawValue,
+            displayName: name,
+            weightCompression: compression,
+            modelAssetIdentity: SHA256.hash(data: Data(pair.utf8)).map { String(format: "%02x", $0) }.joined(),
+            manifestIdentity: contract.manifestSHA,
+            prefillModelIdentity: contract.prefillSHA,
+            decodeModelIdentity: contract.decodeSHA,
+            prefillRepresentation: prefillRepresentation,
+            decodeRepresentation: decodeRepresentation,
+            stateBridgeMode: stateBridgeMode,
+            acousticShards: 2,
+            flowSteps: 6,
+            isExperimental: self != .current,
+            isSelectableForInference: true
+        )
     }
 
     // Accept either an installed profile root or a logical profile collection containing
@@ -143,3 +181,5 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
 // Historical block32 candidate remains failed; human-approved hybrid supersedes its public contract without fallback.
 
 // Human acceptance2026-10-06: all3hybridEnglishWAVs userPASS; q4 now selects exact Q8prefill+INT4perchanneldecode hybrid. Originalblock32 failure/assets preserved; Currentdefault unchanged; notrelease/HFpromotion. Changedmetadata/contractonly.
+
+// Benchmark identity 2026-10-06: expose only stable public content hashes/representations/SHARDS2/Flow6/state-bridge metadata. Core ML filenames and conversion internals remain private.
