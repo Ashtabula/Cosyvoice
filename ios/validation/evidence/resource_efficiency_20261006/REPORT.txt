@@ -1,0 +1,85 @@
+CosyVoice3 resource-efficiency code audit and runner handoff
+2026-10-06 11:09 EDT America/New_York
+Status: AUDIT_COMPLETE_TESTING_STOPPED_BY_USER. No production optimization promoted.
+
+A. Accepted baseline
+Semantic source b65820d08e8ff64db41614dcf6512f08ad166cae; preceding complete execution audit bcb7ffd9fd2f92e12cde9178cc2e72786ebc626e. This physical screen source eeefd77f92acd0f922dc34204cc8b66e7611467a.
+Read embedding-copy, warm-decode, model-lifetime, LLM-execution and human-accepted checkpoint001 committed evidence. Retained embedding optimization; no residency candidate previously accepted.
+SHARDS=2, Flow6, N260/n257_384, 249600 samples/24000Hz=10.4s, seed42. Frozen export ac31e117938ed50132365973a103cc8425942700, payload 4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa; full manifest/package/input identities in phase_a_protocol and screen receipt. Partition package trees unchanged. LLM CPU_AND_NE requested, acoustic CPU_AND_GPU requested, no placement change.
+
+B. Stage-level energy map
+Prior llm_execution_audit reference warm request3 CPU-only measured deltas: LLMload413.495mJ, decode474.233mJ, Flow226.489mJ, F077.635mJ, HiFT81.075mJ. These are process CPU Recount deltas with context-switch accounting; stages can include adjacent CPU work. No total ANE/GPU or synthesis energy exposed. Total mJ/playback-second N/A; CPU-only values cannot establish battery-life or total-energy dominance.
+
+C. Stage-level timing/CPU map
+Prior decode audit: CoreML prediction dominates, mean12.488ms across1295 calls; matchedANE hardware interval11.717ms/call. 93.83% temporal coverage is neither utilization nor full per-op residency. Static fixed512 attention, persistent48MLState KV tensors, no host fullKVcopy. Host logits/copies are sub-ms/request; no material host-micro target. Internal arithmetic/bandwidth/state/sync breakdown UNKNOWN. Prefill/decode remain separate.
+Current screen warm requests3-5 public report median 4881.974ms / RTF0.469421, LLM3253.143ms, acoustic1488.207ms, LLMload133.759ms, acousticload2.946ms.
+Outer awaited synthesize interval includes diagnostics/finalization: median4891.874ms /RTF0.470373. Do not mix outer interval with report timing in comparisons. Raw per-request both retained. First request43925.948ms is first-request/preparation observation without cache reset; not FIRST_EVER_COLD proof.
+
+D. Memory/residency summary
+Source AssetLoader: optional global bounded selected-family shelf, MLModel strong owner with exact compiled/function/placement key;30s weak-self/key timer; excludesLLM. Reference session models request scoped; cached conditioning bounded. LLM prefill/decode and one MLState per session released before acoustic. Previous acoustic four shelf models can overlap next LLM stage. Prior weak lifecycle evidence confirms2LLM+4acoustic Swift objects at secondLLM load; physical drop correlation does not establish exact per-model or privateCoreML deallocation. No monotonic completed-request growth proved; no leak claim.
+Current sampled100ms peak 2335640760 bytes (2227.44MiB), completion855297232 bytes. Screen caller retains5PCM outputs (4992000bytes); retain this same accounting in controls. This short screen has no post35s idle result. Stage lifecycle/source map from model_lifetime report remains valid, not a newly measured candidate reduction.
+
+E. Candidate hypotheses and risk
+Existing decoder policy retainsConditions/HiFT, releases2Flow partitions: prior nominal3warm median5738.072ms/RTF.551738; sampledpeak median153MiB lower than matched selected-family, with+838ms total and+462ms reload. New<=.60 guard makes it eligible for resource testing, not automatically accepted. Existingnone policy nominalpair saves294MiB with+845ms; repeated mixedthermal medianRTF.611465 fails guard. Do not crosscompare unmatched thermal runs.
+Applying new stage-aware production eviction remains MEDIUM risk until in-flight/lifetime/concurrency and sustained tradeoff validated. Testing existing validation cache selectors changes no production policy. Graph/precision/KV/placement rewrites not justified, out of this pass.
+
+F. Short-screen results
+One selected-family screen only,5 public requests, no candidate screen. CHARGING_CONNECTED throughout (batteryStateRaw3/full); screen brightness0.2, foreground, lowpowerfalse, ambientunknown. All1117telemetry samplesnominal. Native chargingAllowed=false reflects an unused screen-mode flag, not unplugged conditions. User explicitly authorizes charging only for future formal runs.
+Five token/PCM/WAV identitiesPASS. Warm raw report ms requests2-5: 4901.167958, 4855.751917, 4881.974166, 5009.399667. No measurable speed/resource improvement claimed from this screen.
+
+G. Candidate comparison
+Current: newcharging shortscreen only, not sustained.
+Decoder: previousnominal evidence memory/latency tradeoff only; no newthermal/energy comparison.
+None: previousnominal memorypair and mixedthermalguard concern; no newthermal/energy comparison.
+No contemporaneous alternating candidate run; no statistical win or thermal ranking.
+
+H. Pareto frontier
+Production frontier UNKNOWN in energy/thermal dimensions. Existing current/decoder expose a possible latency-memory tradeoff. Missing sustained measurements cannot be filled with inferred watts or ANE percentage. Classification NO_MEASURABLE_RESOURCE_WIN means no tested improvement, not disproof of candidates.
+
+I. Sustained thermal protocol and runner handoff
+Existing validation-only native runResourceEfficiency and run_resource_efficiency.py support60chunks=624s virtual24kHz consumption,2warmprime,1chunk ahead, serializedinference. Native public call unaffected; producer runs full speed and waits only for consumer scheduling. This is virtual availability, not speaker playback/physical underrun proof. Keep fixed charging conditions, foreground/brightness/lowpower/deviceOS/reference/seed/SHARDS2/Flow6/placement. Require --allow-charging; nominal start and documented between-group cooldown. Never devicecopy/hash/readback from host during timedrun. Record full rawtimeline, perrequestRTF/deadlines/modelreload/CPU-onlycounter, peak/steady memory and thermal transitions. Comparebaseline+decoder, none only if guard passes. Do not claim charging results as unplugged/mobile battery evidence.
+Example launch delegated to runner (NOT executed after stop):
+python3 ios/validation/run_resource_efficiency.py --mode continuous --policy selected-family --allow-charging --output ios/.work/resource-efficiency-20261006/runner-current
+After native UI PASS only, samecommand with --collect-only. Separate candidate directory/policy decoder, matchedconditions. Existing collector launchesoffline/no remoteconsole dependency; integrate with runner benchmark rather than resume tests here. Keep installed native source receipt binding distinct from later report commit.
+
+J. Sustained thermal results
+NOT_RUN. User explicitly stopped tests and moves them to runner benchmark. No10-20min run/candidate comparison/thermal winner. Short63.6s screen nominal is not sustainedproof.
+
+K. Energy/playback-second
+Total N/A. CPU-only warm median125.755mJ/audiosecond, requests3-5. Noaccelerator/system/screen/charger energy included. Cannot compare energywinner or estimate battery percentage from it.
+
+L. Memory results
+Onlybaseline shortscreen new; historical meaningful shelf overlap established. Candidate peak/steady/sustained trend/reload cost mustbe runner verified together. AvoidbenchmarkPCM-retention removal as engine improvement.
+
+M. RTF/duty-cycle
+Warm reportRTF0.469421, outerRTF0.470373 below.60. In a pacedclock model1-RTF denotes scheduling headroom, not power-off fraction. Screen has no real pacedconsumer and no sustained guard outcome. No6shardresults mixed.
+
+N. Quality/identity
+Tokens 5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d
+PCM 909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694
+WAV a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888
+All5 BIT_IDENTICAL, N/function/rate/count/SHARDS/Flow invariantPASS. Accepted checkpoint001 userHUMAN_PASS unchanged. WAV physicallyexported: /Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/resource_efficiency_20261006/current-charging.wav. No newlisteningPASS claimed.
+
+O. Recommended production profile
+Keep accepted profile/weights/placement/runtime. No public modes/defaultcachechange/promotion. Decoder is runner'sfirst memory/resource candidate undernewRTFguard, conditional on measuredthermal/totalenergy or honestlyCPU-onlylimits and acceptable memory/latency tradeoff. Existing production defaultretentionnone and accepted selected-family validation profile are distinct; do not relabel validation selector as released production default.
+
+P. Rejected/deferred
+Hostmicro/Decodev2/graph/precision/placement candidates: not justified or outside scope. Noneguard borderline and priorfairrows incomparable, deferred. Decoder oldlatency rejection cannot decide newresourcegoal; defer untilrunner evidence. No candidate rejected solely because17%slower ifRTF<=.60.
+
+Q. Remaining unknowns and implementation validation
+Totalenergy/actualpower/exactperopresidency/physicalKVtraffic/ambient/chargerpower/internalCoreMLprivate bytes unknown. Actualspeakerunderruns nottested. Sustained trajectory/steadyfootprint/candidatePareto winner pendingrunner.
+Onlyopt-inmeasurement/validationharness added; bounded latesttokenrecord, weak telemetrytimer, serializedsameengine predictions, no unsafe borrowedpointer added. No production algorithm/math/weights/precision/state/order/placement/cachepolicy change. SignedReleasebuildPASS,19relevanttestsPASS;5physicalidentitiesPASS. Rawreceipt/events/console/sourcebinding/build/testlogs retained. Further tests stopped; no moredevice actions.
+
+Answers (12)
+1: Totalbaseline mJ/playbacksecond UNKNOWN; CPU-only shortscreen warmmedian125.755mJ/audiosecond.
+2: Prior measuredCPU-onlydecode474.233mJ exceeds the listed individualstages; dominantTOTALenergystage UNKNOWN.
+3: Prior isolatedLLM thermal evidence makesLLM a concern; unequalcold/durations prevent causalenergy ranking.
+4: Sustainedbaseline NOT_RUN; currentcharging shortscreenallnominal.
+5: UNKNOWN, no sustainedcandidatecomparison.
+6: UNKNOWN, no totalenergy or candidatecomparison.
+7: Historicalnone hadlargermemoryreduction; decoder nominalrepeat153MiB reduction; sustained/steadywinner UNKNOWN.
+8: Currentnew warmreportRTF0.469421; prior decoder.551738; priornone mixedthermal.611465 not matchednewscreen.
+9: NOT_TESTED in this task; historicalisolatedLLM serious is differentprotocol.
+10: UNKNOWN pendingrunnerPareto comparison.
+11: No, retainacceptedprofile; no supported resourcewinner.
+12: Runnerchargingbaseline/decoder sustainedcomparison withexactidentities, memory/reloadlatency, thermal and honestCPU-onlyenergylimits; no generalhostmicro orgraphrewrite.

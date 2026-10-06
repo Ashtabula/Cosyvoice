@@ -755,7 +755,7 @@
     "mode": "virtualclock-pacedavailability, not actualspeakerplayback/AVunderrunproof",
     "foreground": true,
     "screenBrightness": 0.2,
-    "charging": "unpluggedonlyunlessexplicituserallow",
+    "charging": "CHARGING_ONLY explicitly authorized by user; --allow-charging required for formal lane",
     "thermalStart": "nominal",
     "firstGeneration": "startupbufferfill thenconsumerclockorigin",
     "chunkNProducerStartOffset": "(n-2)*10.4s forn>=2",
@@ -770,5 +770,6 @@
     "ambient": "unknownuntiluserprovided",
     "noDeviceTransfersDuringFormal": true
   },
-  "formalPendingExternalCondition": "usercharging/unplugconfirmationrequested; build/screenbeforeformal"
+  "formalPendingExternalCondition": "CANCELLED_BY_USER: further testing moved to runner benchmark; not a charging blocker",
+  "status": "AUDIT_COMPLETE_TESTING_STOPPED_BY_USER"
 }

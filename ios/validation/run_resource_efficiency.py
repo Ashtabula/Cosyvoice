@@ -33,7 +33,7 @@ def main():
  print('[RESOURCE] launch',cmd,flush=True)
  if a.mode=='continuous':
   subprocess.run(cmd,check=True)
-  print('[RESOURCE] offline app will prime then require nominal/unplugged; no console dependency. Reconnect after UI PASS and use --collect-only.',flush=True)
+  print('[RESOURCE] offline app will prime, then require nominal and ' + ('explicit CHARGING conditions' if a.allow_charging else 'unplugged conditions') + '; no console dependency. Collect only after UI PASS with --collect-only.',flush=True)
   return
  proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);done=threading.Event()
  def read():

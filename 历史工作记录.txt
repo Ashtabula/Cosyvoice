@@ -573,3 +573,10 @@ Actions: readfullnewprompt/priorfrozenreceipts; noacceptedresidency/Decodev2repl
 Files: AGENT_PERSONAL_CUSTOMIZATION resource-laneboundaries,Engineboundedvalidationtokengetter,StageDiagnosticsresourceCPUcounterguard,DeviceSmokeresourceharness,run_resource_efficiency.py,phase_a_protocol/requestedevidence.
 Validation: Pythonparse/staticlifetime/dependencyreviewPASS; signedbuild/existingtests/physicalscreensnext. Formalunplugconditionawaitsuser; nochargedresultclaimed.
 GitHub Timeline:bcb7ffd已push; currentresourceharness未commit.
+
+Time:2026-10-06 11:14 EDT America/New_York
+Prompt: user authorizes charging-only testing, then explicitly stops further tests and moves sustained testing to runner benchmark; requests report and push.
+Actions: stopped follow-on candidate/formal device runs; baseline screen already completed. Code/resource audit complete; no production default/cache/model/placement change accepted. Report separates CPU-only Recount from unavailable totalenergy, prior memory/latency hypotheses from untested sustained Pareto outcomes, public report timing from outer awaited timing. Charging_CONNECTED batteryfull/brightness0.2/nominal labels fixed. Runner handoff --allow-charging; full A-Q report and12answers.
+Files: resource_efficiency_20261006 REPORT/final_summary/protocol/raw screenreceipt/events/console/binding/build/tests; collector charging message; candidate WAV exported artifacts/listening/2shard/resource_efficiency_20261006/current-charging.wav ignored/notgit.
+Validation: physicalsourceeeefd77 signedReleasePASS;19existingtestsPASS;5fullpublicSHARDS2/Flow6/N260 requests frozen token/PCM/WAV BIT_IDENTICAL; screennominalthroughout. No10-20minrun/candidatecomparison/resourcewinner. Pythonpy_compile initially failed restrictedexternalbytecodecachedir; ASTsyntaxvalidationPASS withoutwritingoutsideworkspace.
+GitHub Timeline:eeefd77已commit未push; reportcommit/pushnext.
