@@ -1,0 +1,21 @@
+{
+  "originalBlock32Failure": {
+    "path": "ios/validation/evidence/q4_validation_20261006/q4/objective_status.json",
+    "SHA256": "bd7aa8366b2a54b4d329dbbbab16045f788bd816b3e9ce8c4f16b8f05e18662c",
+    "classification": "Q4_UNSUPPORTED_OR_INCOMPATIBLE",
+    "unchanged": true
+  },
+  "CurrentDefaultUnchanged": true,
+  "Q8HumanGatePreserved": true,
+  "Q4PublicSelectable": false,
+  "newQuantizedCandidatesCreated": 1,
+  "candidateB": "NOT_CREATED; no second compression hypothesis needed",
+  "candidateAFullProfile": "REJECTED_PREFILL_LOAD_-14",
+  "candidateADecode": "LOAD_AND_PREDICTION_PASS",
+  "experimentalHybrid": "q4_decode_hybrid_a",
+  "requiredRemainingGates": [
+    "matched ANE topology",
+    "fixed3English listening actualhumanPASS"
+  ],
+  "rescuePromoted": false
+}

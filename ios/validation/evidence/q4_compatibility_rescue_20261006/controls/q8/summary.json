@@ -1,0 +1,14 @@
+{
+  "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "profile": "q8",
+  "all5TokensPCMAndWAVBitIdentical": true,
+  "warmTotalMsMedian": 3643.586417,
+  "warmRTFMedian": 0.35034484778846153,
+  "warmLLMmsMedian": 1990.54075,
+  "decodeMsPerTokenMedian": 7.433423903474903,
+  "sampledPeakFootprintBytes": 1591790704,
+  "all5Nominal": true,
+  "CPUTimeMedianMs": 444.0460000000003,
+  "CPUOnlyEnergyMedianMillijoulesPerAudioSecond": 120.63874134615385,
+  "chargingOnly": true
+}

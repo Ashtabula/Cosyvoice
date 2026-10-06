@@ -1,0 +1,6 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[Q4-PROBE-IDENTITY] ["bytes": 205469334, "treeSha256": "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7", "files": [["sha256": "f7f3bc5e6463b66fecb510e6c1ad85475c2e22b068bbc1a07aa2ec1f6d63c6dd", "path": "Data/com.apple.CoreML/model.mlmodel", "bytes": 585947], ["path": "Data/com.apple.CoreML/weights/weight.bin", "sha256": "62deaa7b6731a3ca54f3552ff5af7018f304c60b491ca70384e89735d5603388", "bytes": 204882770], ["path": "Manifest.json", "bytes": 617, "sha256": "f9531f7a92b3ad95a1ecfe070a724988f56e51e9584cfa81f52acaafd0a09bc9"]]]
+[ANE-COMPUTE-PLAN] role=q4Decode single=false counts=["<MLCPUComputeDevice: 0x11601be40>": 1714]
+[COSY-DIAGNOSTIC-DONE] ane-compute-plan-receipt.json
+[COSY-AUTO-DONE] status=PASS diagnostic compute-plan collection

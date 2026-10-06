@@ -1,0 +1,22 @@
+{
+  "status": "PASS_AUTOMATED_AWAITING_HUMAN",
+  "allEvidenceJSONParses": true,
+  "all9AudioFilesExistAndMatchSHA": true,
+  "originalPreservation": [
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3WeightProfile.swift",
+      "unchangedFromParent362bb18": true
+    },
+    {
+      "path": "ios/validation/evidence/q4_validation_20261006/q4/objective_status.json",
+      "unchangedFromParent362bb18": true
+    },
+    {
+      "path": "ios/validation/evidence/llm_quantization_20261006/q8/human_review.json",
+      "unchangedFromParent362bb18": true
+    }
+  ],
+  "Q4Available": false,
+  "humanListening": "PENDING_HUMAN",
+  "sourceCommit": "38bd685136a69870677d587ff9d684f7b4bcb3a2"
+}

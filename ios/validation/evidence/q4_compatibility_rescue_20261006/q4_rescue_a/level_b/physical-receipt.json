@@ -1,0 +1,347 @@
+{
+  "actualResidency" : "UNKNOWN",
+  "chargingConditions" : "CHARGING_CONNECTED",
+  "decodeIdentity" : {
+    "bytes" : 183348350,
+    "files" : [
+      {
+        "bytes" : 585923,
+        "path" : "Data\/com.apple.CoreML\/model.mlmodel",
+        "sha256" : "00f1230e85217504f975e5928654579cc831be1432156e3d99afa00c665152c1"
+      },
+      {
+        "bytes" : 182761810,
+        "path" : "Data\/com.apple.CoreML\/weights\/weight.bin",
+        "sha256" : "9bfe54ae6936b86a80f620abf1e95b8a23b489b5ee51f7dcb2b805989472051d"
+      },
+      {
+        "bytes" : 617,
+        "path" : "Manifest.json",
+        "sha256" : "4138ae35e42047044b8ee23044653333bcf35179ea1d7c7f9df3d210f3a5925f"
+      }
+    ],
+    "treeSha256" : "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46"
+  },
+  "decodeMilliseconds" : 5.4519176483154297,
+  "device" : "iPhone18,4",
+  "humanListening" : "NOT_REACHED",
+  "iOS" : "27.2",
+  "logitsFinite" : true,
+  "prefillIdentity" : {
+    "bytes" : 365380226,
+    "files" : [
+      {
+        "bytes" : 675591,
+        "path" : "Data\/com.apple.CoreML\/model.mlmodel",
+        "sha256" : "b08731afa4f2ebf538ec344f9371a9fa28c7c8b209238e3b94098c9877949a6c"
+      },
+      {
+        "bytes" : 364704018,
+        "path" : "Data\/com.apple.CoreML\/weights\/weight.bin",
+        "sha256" : "88dbf1e7a4e4271be4f3a1e1ca886ef12c530f2f3f944094af4d60b8045d3f8c"
+      },
+      {
+        "bytes" : 617,
+        "path" : "Manifest.json",
+        "sha256" : "113464dd49a6174c4d2ec12e8b51ef946994a487a739aeece524199760e8f479"
+      }
+    ],
+    "treeSha256" : "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280"
+  },
+  "prefillMilliseconds" : 24.734020233154297,
+  "publicQ4Selectable" : false,
+  "requestedPlacement" : "CPU_AND_NE",
+  "scope" : "synthetic legitimate Q8 prefill -> public scoped byte-exact FP16 initialization of Q4-owned state; one diagnostic decode, NOT public synthesis",
+  "sourceCommit" : "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "stateTransfer" : [
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_00",
+      "sha256" : "5d480b6236b36d9643e30633d02c7c74c4336517ed295b46512f081a8b872baf"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_01",
+      "sha256" : "4e188a60f24b805582628df48703b476c8a3e87d7e031769af947d16fa3133eb"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_02",
+      "sha256" : "97cc022a6309a8d157c9b5964e5c4af2a8f9f848e505d2379b75a490e05cb389"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_03",
+      "sha256" : "c80a7bc5384de7f34feac959e3aea1fd40195c8a0e4b6a62ffb2f1325fb2c491"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_04",
+      "sha256" : "54be84b365ed6690ae8e5697f40d1950271c748cefb6401f209249374f589b5a"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_05",
+      "sha256" : "473ae54534a69d57d31f265fbaafe5425f7d7934307a2c141324ef3589ab9fe2"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_06",
+      "sha256" : "b789ccee49ff373f7c2e0c1b2123ad3134ebdb33f1df62a67bc21a4c7af8244e"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_07",
+      "sha256" : "345a66e136ace1cc6a394404192e44872ec96bcab899118cf1fc680d758eee66"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_08",
+      "sha256" : "6636b50bf24e96b2f4faa11853a3517567891d6446e8abde189aa15a992cd934"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_09",
+      "sha256" : "c4920e3673634ac71322a1429a7f772ac530131ba2ebacb7ac107938901ab5d3"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_10",
+      "sha256" : "5744c0cde9b23365cb1d568365c4123fe95ed662080fe29062fccc1327698bd5"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_11",
+      "sha256" : "27f2551ace8d270323f5ff7ee03e47658098fcffc54704443be5aa31c6ed0970"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_12",
+      "sha256" : "9eb0e049d0b8b88abafe539ec3e43fde1d803a6e2f22603759d8524209d65799"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_13",
+      "sha256" : "e6dda92bfc061dcd15e4653cb4341bb1404ae91209a4f2eea6853a075df73d5a"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_14",
+      "sha256" : "07621becb3d25620814dae77f45f4850446e9c30affb48a9b3493a1036e18e6b"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_15",
+      "sha256" : "6caabf68761f3edc6f51070892d86c268221e83655ec4430d39e11e81618e5f9"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_16",
+      "sha256" : "f91f4805d789e8682d8a91dabca62fccde96f4dec4ec224725fa051821c8c514"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_17",
+      "sha256" : "73cc0d85b4ea4de8927fbf1520a11ef53eae53ece756e47a336cd96e6d21c02a"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_18",
+      "sha256" : "8de38c74034b2c4f787d3ba7a52c009413ba4069dcfbd8c97b8c3d0e1abf5d62"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_19",
+      "sha256" : "55539e8cc3d47a96882616117b6b01df5c529d77cabf05a5393755952ade393c"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_20",
+      "sha256" : "64462171ff177b3b0f6348a6c91945b931307d3aa95636e4bff1cd89d453410d"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_21",
+      "sha256" : "9a70dccf81e6838f33b4b25f480eee18032bfd3fb10a0cad02933c47fba9d7c1"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_22",
+      "sha256" : "f86a663e21236876d8f89379870674890cc17f6ca58822938bb7ca654a4936ef"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "keys_state_23",
+      "sha256" : "a52385e7f25639ce467d58622a641331a1cd34d46b655d54d6af0b8491189a72"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_00",
+      "sha256" : "1256967bb9db3eeeffb3eee7fc23f4417609243dbc396ccd6b420c4969cd48ba"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_01",
+      "sha256" : "ca4a74471176d791de9ec5470f346007e5f0e272868b82b24fb9ed323be02da2"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_02",
+      "sha256" : "0531ee2c9874259acaf3f7a1bc62f155512af5c2e1b3dceab65827df7bd9bf1f"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_03",
+      "sha256" : "8aa4a902855ada4c97786348396cd97545da74a4658569913d47fbe1badd2add"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_04",
+      "sha256" : "03224f3604a6234fb52c6f58fe08f248c40d62a6194c24bce1e6344c5526e68a"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_05",
+      "sha256" : "f706301ab9bc4b2e941ff2a1ae7df40541637a9a10024b2c10ddfcca2e1b0645"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_06",
+      "sha256" : "ac6dd50fc5a419a1fe3971a61ae0b874f522115f8d225cbb8b83e2392ecf23c2"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_07",
+      "sha256" : "40c93d52574ff2512e28da9520bc58c814214b4309f13eebb8b1a10de3e98022"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_08",
+      "sha256" : "808146fbb41d842f88bb726dc6c8db665f8013ddd346569be20b03b61ae22872"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_09",
+      "sha256" : "d4751da636094213c7870b2d06aacfa596758327834cbe058c961ab4617a6bf0"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_10",
+      "sha256" : "7c305483dc1dd88f9281bccb5b334cda32d42dce4758dd558f8ccc358f675f78"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_11",
+      "sha256" : "d1578d1cdcd72b2ffeeeaad2a3408bddc846408da5dfd0402566dd36455b061d"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_12",
+      "sha256" : "2ea35ba7602853b4958b6b2ad3cce093dcb329e9791a87c680b7abf019c1bc56"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_13",
+      "sha256" : "90b9bd4a6a67e9f65af501c7d9991324e7a6e10332199ab74f54d6ded39567c7"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_14",
+      "sha256" : "f5d531e9f004e4ee137346c760b735d108c3847bdaf87d463641c1319846a411"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_15",
+      "sha256" : "64a5f57abe0d1c10731e9d3325b98822798300b887b1f4352261652b974bdd30"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_16",
+      "sha256" : "3846743a40775ff1daaeaa2bf9139ca3d3d72faac7fa4793127bd0744f4fcd8e"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_17",
+      "sha256" : "3d6f27771000ae7ab9d87a8640f1984d83d154cdb3e891e4f3c1627acc9c63f3"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_18",
+      "sha256" : "091997eb3ebe898e856d5e77399145d67e966ba72c2d4078b52e077f5826cbbf"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_19",
+      "sha256" : "d5c63ed09e8736dae3a7ff4fc965351d889310e6ca62407d0ee95876069feb96"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_20",
+      "sha256" : "007b9ac580f9daf60f0efe1e17aff1c23be882584be1193dc632b4d6f54cc385"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_21",
+      "sha256" : "92424b39f8751015d31399c2fcb87ddabaff6abe102c185f817b5103684f02cc"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_22",
+      "sha256" : "9c6d9da551ffa9fbbec8ac587731585967fe0dc5fc8ffe6257ac8917a18598d8"
+    },
+    {
+      "byteIdentical" : true,
+      "bytes" : 131072,
+      "name" : "values_state_23",
+      "sha256" : "59935c46679dd04c78e1274c25871c29bf7af4637a8862fd95a88043dde389c9"
+    }
+  ],
+  "status" : "PASS_LEVEL_B_DIAGNOSTIC"
+}

@@ -1,0 +1,2684 @@
+{
+  "baseline": {
+    "finite": true,
+    "observedStateDtypes": [
+      "float32"
+    ]
+  },
+  "q8": {
+    "finite": true,
+    "observedStateDtypes": [
+      "float32"
+    ]
+  },
+  "hybridStateBridge": {
+    "method": "decode-owned state via supported public read_state/write_state, exact finite FP16 values",
+    "states": [
+      "keys_state_00",
+      "values_state_00",
+      "keys_state_01",
+      "values_state_01",
+      "keys_state_02",
+      "values_state_02",
+      "keys_state_03",
+      "values_state_03",
+      "keys_state_04",
+      "values_state_04",
+      "keys_state_05",
+      "values_state_05",
+      "keys_state_06",
+      "values_state_06",
+      "keys_state_07",
+      "values_state_07",
+      "keys_state_08",
+      "values_state_08",
+      "keys_state_09",
+      "values_state_09",
+      "keys_state_10",
+      "values_state_10",
+      "keys_state_11",
+      "values_state_11",
+      "keys_state_12",
+      "values_state_12",
+      "keys_state_13",
+      "values_state_13",
+      "keys_state_14",
+      "values_state_14",
+      "keys_state_15",
+      "values_state_15",
+      "keys_state_16",
+      "values_state_16",
+      "keys_state_17",
+      "values_state_17",
+      "keys_state_18",
+      "values_state_18",
+      "keys_state_19",
+      "values_state_19",
+      "keys_state_20",
+      "values_state_20",
+      "keys_state_21",
+      "values_state_21",
+      "keys_state_22",
+      "values_state_22",
+      "keys_state_23",
+      "values_state_23"
+    ],
+    "byteValueIdentityVerified": true,
+    "crossModelMLStateObjectShared": false
+  },
+  "q4": {
+    "finite": true,
+    "observedStateDtypes": [
+      "float32"
+    ]
+  },
+  "status": "HOST_NUMERICAL_COMPLETE_NOT_QUALITY_PASS",
+  "candidate": "q4_decode_hybrid_a",
+  "rows": [
+    {
+      "step": 0,
+      "stage": "prefill",
+      "maxAbs": 0.6025390625,
+      "meanAbs": 0.12179291444035646,
+      "RMSE": 0.15618273808664623,
+      "cosine": 0.9995086025793678,
+      "top1Match": true,
+      "top20Overlap": 0.95,
+      "hidden": {
+        "maxAbs": 0.44677734375,
+        "meanAbs": 0.08950210788420268,
+        "RMSE": 0.11442064280092201,
+        "cosine": 0.9984641040391247
+      }
+    },
+    {
+      "step": 1,
+      "stage": "decode",
+      "maxAbs": 3.6982421875,
+      "meanAbs": 0.8987832184356974,
+      "RMSE": 1.1197279797192274,
+      "cosine": 0.973349514790849,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 3.62506103515625,
+        "meanAbs": 0.5960133054426738,
+        "RMSE": 0.7624833087479207,
+        "cosine": 0.9325715351076325
+      }
+    },
+    {
+      "step": 2,
+      "stage": "decode",
+      "maxAbs": 4.5546875,
+      "meanAbs": 1.0544407143075867,
+      "RMSE": 1.3263810830432872,
+      "cosine": 0.9653538118301391,
+      "top1Match": false,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 3.095703125,
+        "meanAbs": 0.6556091351168496,
+        "RMSE": 0.8396739152204532,
+        "cosine": 0.9245372555724498
+      }
+    },
+    {
+      "step": 3,
+      "stage": "decode",
+      "maxAbs": 5.0078125,
+      "meanAbs": 1.2245861200728443,
+      "RMSE": 1.5506405344919898,
+      "cosine": 0.9535091797069678,
+      "top1Match": false,
+      "top20Overlap": 0.6,
+      "hidden": {
+        "maxAbs": 3.3240509033203125,
+        "meanAbs": 0.6829990904246058,
+        "RMSE": 0.8676188558461967,
+        "cosine": 0.9114639912317678
+      }
+    },
+    {
+      "step": 4,
+      "stage": "decode",
+      "maxAbs": 4.8076171875,
+      "meanAbs": 1.1535030117297276,
+      "RMSE": 1.4595281524571844,
+      "cosine": 0.9500924085437995,
+      "top1Match": true,
+      "top20Overlap": 0.65,
+      "hidden": {
+        "maxAbs": 3.017578125,
+        "meanAbs": 0.7111984182681356,
+        "RMSE": 0.9022593403504694,
+        "cosine": 0.9045610510346649
+      }
+    },
+    {
+      "step": 5,
+      "stage": "decode",
+      "maxAbs": 4.890625,
+      "meanAbs": 1.3427672085016547,
+      "RMSE": 1.6433162538420334,
+      "cosine": 0.9490426890763236,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.0615234375,
+        "meanAbs": 0.8000835794955492,
+        "RMSE": 1.004289383456886,
+        "cosine": 0.8919972942044694
+      }
+    },
+    {
+      "step": 6,
+      "stage": "decode",
+      "maxAbs": 5.1005859375,
+      "meanAbs": 1.2900185609706636,
+      "RMSE": 1.599416040674346,
+      "cosine": 0.9463271517639106,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 3.939453125,
+        "meanAbs": 0.8168204011661666,
+        "RMSE": 1.0290867648768125,
+        "cosine": 0.8858086208794808
+      }
+    },
+    {
+      "step": 7,
+      "stage": "decode",
+      "maxAbs": 6.28125,
+      "meanAbs": 1.4518796517076338,
+      "RMSE": 1.8143493414901763,
+      "cosine": 0.9256471726715707,
+      "top1Match": false,
+      "top20Overlap": 0.55,
+      "hidden": {
+        "maxAbs": 4.01171875,
+        "meanAbs": 0.8568412821207728,
+        "RMSE": 1.0830384014253995,
+        "cosine": 0.8759669791788381
+      }
+    },
+    {
+      "step": 8,
+      "stage": "decode",
+      "maxAbs": 5.4453125,
+      "meanAbs": 1.5133653766850435,
+      "RMSE": 1.8678834124602435,
+      "cosine": 0.9388129278806966,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.2886962890625,
+        "meanAbs": 0.8895884369100843,
+        "RMSE": 1.1121952574796887,
+        "cosine": 0.8775216811872609
+      }
+    },
+    {
+      "step": 9,
+      "stage": "decode",
+      "maxAbs": 5.734375,
+      "meanAbs": 1.5698587129567787,
+      "RMSE": 1.9304412731207636,
+      "cosine": 0.9269974206374976,
+      "top1Match": false,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.453125,
+        "meanAbs": 0.9088110168065343,
+        "RMSE": 1.1358031625551068,
+        "cosine": 0.8718697895872713
+      }
+    },
+    {
+      "step": 10,
+      "stage": "decode",
+      "maxAbs": 5.83984375,
+      "meanAbs": 1.5992908926338791,
+      "RMSE": 1.9461179158168496,
+      "cosine": 0.9187002218306258,
+      "top1Match": false,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 4.70703125,
+        "meanAbs": 0.94277184722679,
+        "RMSE": 1.186560645025784,
+        "cosine": 0.8561814795135138
+      }
+    },
+    {
+      "step": 11,
+      "stage": "decode",
+      "maxAbs": 6.0576171875,
+      "meanAbs": 1.5840456990373326,
+      "RMSE": 1.9549335474097629,
+      "cosine": 0.9254664807035924,
+      "top1Match": false,
+      "top20Overlap": 0.15,
+      "hidden": {
+        "maxAbs": 5.00537109375,
+        "meanAbs": 0.9396787754126957,
+        "RMSE": 1.1689841982394775,
+        "cosine": 0.8627382841263381
+      }
+    },
+    {
+      "step": 12,
+      "stage": "decode",
+      "maxAbs": 6.24609375,
+      "meanAbs": 1.5741887063674014,
+      "RMSE": 1.9664031878677335,
+      "cosine": 0.8808340923118005,
+      "top1Match": true,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 4.59375,
+        "meanAbs": 0.907578000000545,
+        "RMSE": 1.136227213147416,
+        "cosine": 0.8291438974334125
+      }
+    },
+    {
+      "step": 13,
+      "stage": "decode",
+      "maxAbs": 6.064453125,
+      "meanAbs": 1.4234874033042797,
+      "RMSE": 1.7728209151634202,
+      "cosine": 0.9066815729664399,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.5009765625,
+        "meanAbs": 0.9291773225579943,
+        "RMSE": 1.1723401918912777,
+        "cosine": 0.8423598719654106
+      }
+    },
+    {
+      "step": 14,
+      "stage": "decode",
+      "maxAbs": 5.9375,
+      "meanAbs": 1.418944933343579,
+      "RMSE": 1.7710223239622287,
+      "cosine": 0.9079065994417073,
+      "top1Match": true,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 4.6953125,
+        "meanAbs": 0.8915352951735258,
+        "RMSE": 1.1157728881754425,
+        "cosine": 0.8449968497456625
+      }
+    },
+    {
+      "step": 15,
+      "stage": "decode",
+      "maxAbs": 5.97509765625,
+      "meanAbs": 1.5264291660335356,
+      "RMSE": 1.9211434878507663,
+      "cosine": 0.87757950964226,
+      "top1Match": true,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 4.87890625,
+        "meanAbs": 0.9089160923446927,
+        "RMSE": 1.1496888376616208,
+        "cosine": 0.8376915030295021
+      }
+    },
+    {
+      "step": 16,
+      "stage": "decode",
+      "maxAbs": 5.32421875,
+      "meanAbs": 1.461355673422247,
+      "RMSE": 1.808979847797527,
+      "cosine": 0.8889080432247786,
+      "top1Match": true,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 4.5732421875,
+        "meanAbs": 0.8699144587985107,
+        "RMSE": 1.0944475043527042,
+        "cosine": 0.8504842909670033
+      }
+    },
+    {
+      "step": 17,
+      "stage": "decode",
+      "maxAbs": 5.5546875,
+      "meanAbs": 1.5292441271198094,
+      "RMSE": 1.9161769003146165,
+      "cosine": 0.8899147145819907,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.5263671875,
+        "meanAbs": 0.9141341234956469,
+        "RMSE": 1.146297304365485,
+        "cosine": 0.838931440332012
+      }
+    },
+    {
+      "step": 18,
+      "stage": "decode",
+      "maxAbs": 5.7890625,
+      "meanAbs": 1.4594783706789167,
+      "RMSE": 1.8531196381663466,
+      "cosine": 0.8852119169035286,
+      "top1Match": false,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.306640625,
+        "meanAbs": 0.8995875897152084,
+        "RMSE": 1.1288235298286626,
+        "cosine": 0.8459977910212204
+      }
+    },
+    {
+      "step": 19,
+      "stage": "decode",
+      "maxAbs": 6.271484375,
+      "meanAbs": 1.6306454675858093,
+      "RMSE": 2.002678401596324,
+      "cosine": 0.8749315770944435,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.66650390625,
+        "meanAbs": 0.9932197577186993,
+        "RMSE": 1.2471015723785714,
+        "cosine": 0.8283331239712858
+      }
+    },
+    {
+      "step": 20,
+      "stage": "decode",
+      "maxAbs": 5.1484375,
+      "meanAbs": 1.4147218710712173,
+      "RMSE": 1.7593956010549396,
+      "cosine": 0.9101567641484479,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.512939453125,
+        "meanAbs": 0.9255136336599078,
+        "RMSE": 1.1669057859928123,
+        "cosine": 0.8515320642657825
+      }
+    },
+    {
+      "step": 21,
+      "stage": "decode",
+      "maxAbs": 5.3984375,
+      "meanAbs": 1.4441219759206063,
+      "RMSE": 1.778504681643968,
+      "cosine": 0.9071425596924299,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.2109375,
+        "meanAbs": 0.8837739005684853,
+        "RMSE": 1.1051047471204356,
+        "cosine": 0.8500088888503998
+      }
+    },
+    {
+      "step": 22,
+      "stage": "decode",
+      "maxAbs": 6.18994140625,
+      "meanAbs": 1.5064845858831903,
+      "RMSE": 1.8484889762153496,
+      "cosine": 0.8970145126766498,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 4.4765625,
+        "meanAbs": 0.9331035720450538,
+        "RMSE": 1.1720883477315835,
+        "cosine": 0.8509275705793843
+      }
+    },
+    {
+      "step": 23,
+      "stage": "decode",
+      "maxAbs": 5.8203125,
+      "meanAbs": 1.5053480915937916,
+      "RMSE": 1.8971976834798627,
+      "cosine": 0.8847129520230839,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 4.951171875,
+        "meanAbs": 0.9225426401410785,
+        "RMSE": 1.168515088617167,
+        "cosine": 0.830583921127563
+      }
+    },
+    {
+      "step": 24,
+      "stage": "decode",
+      "maxAbs": 6.2509765625,
+      "meanAbs": 1.4926656974947077,
+      "RMSE": 1.8505929952531346,
+      "cosine": 0.8911968218966825,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 4.44140625,
+        "meanAbs": 0.9589674047061375,
+        "RMSE": 1.193418246652771,
+        "cosine": 0.8398874938050646
+      }
+    },
+    {
+      "step": 25,
+      "stage": "decode",
+      "maxAbs": 6.3369140625,
+      "meanAbs": 1.6727132200577646,
+      "RMSE": 2.0727096862140133,
+      "cosine": 0.864120162616551,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 4.76123046875,
+        "meanAbs": 0.9936991693185908,
+        "RMSE": 1.257798771265703,
+        "cosine": 0.8260750154385531
+      }
+    },
+    {
+      "step": 26,
+      "stage": "decode",
+      "maxAbs": 5.671875,
+      "meanAbs": 1.56178158885751,
+      "RMSE": 1.9539072084177553,
+      "cosine": 0.8896664116841128,
+      "top1Match": false,
+      "top20Overlap": 0.55,
+      "hidden": {
+        "maxAbs": 5.072265625,
+        "meanAbs": 0.9659355660634381,
+        "RMSE": 1.213824162580085,
+        "cosine": 0.8367633959651627
+      }
+    },
+    {
+      "step": 27,
+      "stage": "decode",
+      "maxAbs": 7.3828125,
+      "meanAbs": 1.6025675533967794,
+      "RMSE": 1.9682320535936857,
+      "cosine": 0.884162127537807,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.86328125,
+        "meanAbs": 0.9972963492785182,
+        "RMSE": 1.2535404384591118,
+        "cosine": 0.8323553500882487
+      }
+    },
+    {
+      "step": 28,
+      "stage": "decode",
+      "maxAbs": 6.84130859375,
+      "meanAbs": 1.6024442553396778,
+      "RMSE": 1.9696847546603733,
+      "cosine": 0.8998018271444671,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 5.0400390625,
+        "meanAbs": 0.9886737902249608,
+        "RMSE": 1.2404064147003093,
+        "cosine": 0.841244029846474
+      }
+    },
+    {
+      "step": 29,
+      "stage": "decode",
+      "maxAbs": 6.462890625,
+      "meanAbs": 1.58441715497199,
+      "RMSE": 1.9666638862819943,
+      "cosine": 0.8945510195894173,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 4.443359375,
+        "meanAbs": 0.9253953886883599,
+        "RMSE": 1.1563581961978626,
+        "cosine": 0.8367321864125072
+      }
+    },
+    {
+      "step": 30,
+      "stage": "decode",
+      "maxAbs": 6.4267578125,
+      "meanAbs": 1.5552197995049735,
+      "RMSE": 1.911553582884353,
+      "cosine": 0.8926049593553018,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.802734375,
+        "meanAbs": 0.9655962522540774,
+        "RMSE": 1.2044277752376915,
+        "cosine": 0.8344215045604962
+      }
+    },
+    {
+      "step": 31,
+      "stage": "decode",
+      "maxAbs": 6.4609375,
+      "meanAbs": 1.642918589411006,
+      "RMSE": 2.0437449811120953,
+      "cosine": 0.8643299300516742,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.654296875,
+        "meanAbs": 0.9900775562439647,
+        "RMSE": 1.2373490013148418,
+        "cosine": 0.8086084296350343
+      }
+    },
+    {
+      "step": 32,
+      "stage": "decode",
+      "maxAbs": 6.5546875,
+      "meanAbs": 1.6705403468291835,
+      "RMSE": 2.0684579835034147,
+      "cosine": 0.8683883082419428,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.64453125,
+        "meanAbs": 1.016219635094915,
+        "RMSE": 1.2690470275035257,
+        "cosine": 0.7836069876924141
+      }
+    },
+    {
+      "step": 33,
+      "stage": "decode",
+      "maxAbs": 6.8515625,
+      "meanAbs": 1.7073753344520735,
+      "RMSE": 2.1059555764867786,
+      "cosine": 0.846847807371406,
+      "top1Match": true,
+      "top20Overlap": 0.15,
+      "hidden": {
+        "maxAbs": 4.8095703125,
+        "meanAbs": 1.0571500180023057,
+        "RMSE": 1.3290793984935654,
+        "cosine": 0.7938302929339716
+      }
+    },
+    {
+      "step": 34,
+      "stage": "decode",
+      "maxAbs": 7.177734375,
+      "meanAbs": 1.897007186566914,
+      "RMSE": 2.350844231693861,
+      "cosine": 0.7569369292943016,
+      "top1Match": true,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 5.4638671875,
+        "meanAbs": 1.0760803970375232,
+        "RMSE": 1.3532180994360523,
+        "cosine": 0.7589964250284337
+      }
+    },
+    {
+      "step": 35,
+      "stage": "decode",
+      "maxAbs": 7.506591796875,
+      "meanAbs": 1.7677754668896057,
+      "RMSE": 2.188444499523725,
+      "cosine": 0.8409010656963739,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 5.1689453125,
+        "meanAbs": 1.0999730953148432,
+        "RMSE": 1.3785336241771815,
+        "cosine": 0.7770254945602164
+      }
+    },
+    {
+      "step": 36,
+      "stage": "decode",
+      "maxAbs": 7.28125,
+      "meanAbs": 1.6953356736793512,
+      "RMSE": 2.107484754681737,
+      "cosine": 0.8314573722439611,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 5.2412109375,
+        "meanAbs": 1.0519995455230986,
+        "RMSE": 1.3248881531188315,
+        "cosine": 0.786029586588852
+      }
+    },
+    {
+      "step": 37,
+      "stage": "decode",
+      "maxAbs": 7.220703125,
+      "meanAbs": 1.673423844952323,
+      "RMSE": 2.0688078690533316,
+      "cosine": 0.8316234945441964,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 5.118408203125,
+        "meanAbs": 1.041965008580259,
+        "RMSE": 1.3206668381773987,
+        "cosine": 0.7899439766981968
+      }
+    },
+    {
+      "step": 38,
+      "stage": "decode",
+      "maxAbs": 6.953125,
+      "meanAbs": 1.639178021739457,
+      "RMSE": 2.047535697774597,
+      "cosine": 0.858054198625022,
+      "top1Match": true,
+      "top20Overlap": 0.4,
+      "hidden": {
+        "maxAbs": 4.707763671875,
+        "meanAbs": 1.0410477960748332,
+        "RMSE": 1.3114670455241932,
+        "cosine": 0.7857755780844751
+      }
+    },
+    {
+      "step": 39,
+      "stage": "decode",
+      "maxAbs": 6.58203125,
+      "meanAbs": 1.7085674834875573,
+      "RMSE": 2.1328492804902783,
+      "cosine": 0.83440046354113,
+      "top1Match": true,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 5.0048828125,
+        "meanAbs": 1.0428933852485247,
+        "RMSE": 1.320042272271176,
+        "cosine": 0.7936896828757793
+      }
+    },
+    {
+      "step": 40,
+      "stage": "decode",
+      "maxAbs": 6.068359375,
+      "meanAbs": 1.5773069158564514,
+      "RMSE": 1.942914835870324,
+      "cosine": 0.8584465028166934,
+      "top1Match": true,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.73681640625,
+        "meanAbs": 0.9861687634672437,
+        "RMSE": 1.2547761207591484,
+        "cosine": 0.8070234367449189
+      }
+    },
+    {
+      "step": 41,
+      "stage": "decode",
+      "maxAbs": 6.331787109375,
+      "meanAbs": 1.63040008116114,
+      "RMSE": 2.0344245213864367,
+      "cosine": 0.8675153751678815,
+      "top1Match": true,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 5.009765625,
+        "meanAbs": 1.0082989100899016,
+        "RMSE": 1.2751512413105117,
+        "cosine": 0.8064460785101485
+      }
+    },
+    {
+      "step": 42,
+      "stage": "decode",
+      "maxAbs": 6.66943359375,
+      "meanAbs": 1.7027265066015105,
+      "RMSE": 2.1252133035160146,
+      "cosine": 0.8436501591350553,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 4.8564453125,
+        "meanAbs": 0.9982887533094201,
+        "RMSE": 1.2613947782931063,
+        "cosine": 0.8171644243363426
+      }
+    },
+    {
+      "step": 43,
+      "stage": "decode",
+      "maxAbs": 6.880859375,
+      "meanAbs": 1.6198641818367752,
+      "RMSE": 2.001622708946662,
+      "cosine": 0.8566551860865356,
+      "top1Match": false,
+      "top20Overlap": 0.35,
+      "hidden": {
+        "maxAbs": 4.90771484375,
+        "meanAbs": 1.0031917850886072,
+        "RMSE": 1.2615520737644617,
+        "cosine": 0.8103853315343093
+      }
+    },
+    {
+      "step": 44,
+      "stage": "decode",
+      "maxAbs": 7.4693603515625,
+      "meanAbs": 1.5915508611617295,
+      "RMSE": 1.9922709384145556,
+      "cosine": 0.8829708296551826,
+      "top1Match": true,
+      "top20Overlap": 0.55,
+      "hidden": {
+        "maxAbs": 4.8515625,
+        "meanAbs": 1.008188422769308,
+        "RMSE": 1.2759874563736093,
+        "cosine": 0.8226152061928818
+      }
+    },
+    {
+      "step": 45,
+      "stage": "decode",
+      "maxAbs": 7.41748046875,
+      "meanAbs": 1.80218223297566,
+      "RMSE": 2.2538846258028284,
+      "cosine": 0.8428412274640391,
+      "top1Match": true,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 5.1494140625,
+        "meanAbs": 1.0678992782320296,
+        "RMSE": 1.341706811466548,
+        "cosine": 0.7885683497304906
+      }
+    },
+    {
+      "step": 46,
+      "stage": "decode",
+      "maxAbs": 6.70703125,
+      "meanAbs": 1.7146524565580628,
+      "RMSE": 2.1243992784991335,
+      "cosine": 0.8736477697759355,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.939453125,
+        "meanAbs": 1.0746621702398573,
+        "RMSE": 1.346126774571111,
+        "cosine": 0.8092766338910596
+      }
+    },
+    {
+      "step": 47,
+      "stage": "decode",
+      "maxAbs": 7.0927734375,
+      "meanAbs": 1.7380115704817842,
+      "RMSE": 2.1694685914528553,
+      "cosine": 0.8725402005428148,
+      "top1Match": true,
+      "top20Overlap": 0.55,
+      "hidden": {
+        "maxAbs": 5.5673828125,
+        "meanAbs": 1.0630185423152787,
+        "RMSE": 1.3384924194025591,
+        "cosine": 0.795135575538355
+      }
+    },
+    {
+      "step": 48,
+      "stage": "decode",
+      "maxAbs": 6.603515625,
+      "meanAbs": 1.6661638571055502,
+      "RMSE": 2.072669298221167,
+      "cosine": 0.8844575535806662,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 5.1806640625,
+        "meanAbs": 1.0496250752891814,
+        "RMSE": 1.3312125426994894,
+        "cosine": 0.8151037288202827
+      }
+    },
+    {
+      "step": 49,
+      "stage": "decode",
+      "maxAbs": 6.94580078125,
+      "meanAbs": 1.7621554569492077,
+      "RMSE": 2.1923220551331055,
+      "cosine": 0.8580448424436754,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 5.3505859375,
+        "meanAbs": 1.0650910948004042,
+        "RMSE": 1.3459817046373552,
+        "cosine": 0.8033598847868199
+      }
+    },
+    {
+      "step": 50,
+      "stage": "decode",
+      "maxAbs": 7.4560546875,
+      "meanAbs": 1.8278361550274553,
+      "RMSE": 2.2779368329551377,
+      "cosine": 0.8560002055173679,
+      "top1Match": false,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 5.1826171875,
+        "meanAbs": 1.0710528987858976,
+        "RMSE": 1.3470257657949343,
+        "cosine": 0.7976707478561057
+      }
+    },
+    {
+      "step": 51,
+      "stage": "decode",
+      "maxAbs": 8.337890625,
+      "meanAbs": 2.037781131847637,
+      "RMSE": 2.5453872768937047,
+      "cosine": 0.7881551142835739,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 4.98046875,
+        "meanAbs": 1.1445093756275517,
+        "RMSE": 1.4298156025841,
+        "cosine": 0.7202234775497771
+      }
+    },
+    {
+      "step": 52,
+      "stage": "decode",
+      "maxAbs": 7.948974609375,
+      "meanAbs": 2.0711887575715733,
+      "RMSE": 2.563366347547612,
+      "cosine": 0.7682279992161851,
+      "top1Match": true,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 5.5009765625,
+        "meanAbs": 1.2104689329862595,
+        "RMSE": 1.5169478390328477,
+        "cosine": 0.712364477050014
+      }
+    },
+    {
+      "step": 53,
+      "stage": "decode",
+      "maxAbs": 8.7802734375,
+      "meanAbs": 2.0582553799768433,
+      "RMSE": 2.5666496817992694,
+      "cosine": 0.7918467059749991,
+      "top1Match": false,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 5.09375,
+        "meanAbs": 1.195430763065815,
+        "RMSE": 1.5000678249869634,
+        "cosine": 0.7178260579611743
+      }
+    },
+    {
+      "step": 54,
+      "stage": "decode",
+      "maxAbs": 8.125,
+      "meanAbs": 2.071245685199929,
+      "RMSE": 2.5573475182785828,
+      "cosine": 0.8050494990046946,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 5.2216796875,
+        "meanAbs": 1.2242432917867387,
+        "RMSE": 1.5330435684873982,
+        "cosine": 0.7114282062000047
+      }
+    },
+    {
+      "step": 55,
+      "stage": "decode",
+      "maxAbs": 8.71435546875,
+      "meanAbs": 2.141491616165439,
+      "RMSE": 2.6400857263930857,
+      "cosine": 0.7837293594137106,
+      "top1Match": false,
+      "top20Overlap": 0.05,
+      "hidden": {
+        "maxAbs": 5.537109375,
+        "meanAbs": 1.2457943122301782,
+        "RMSE": 1.563610914487258,
+        "cosine": 0.7200150907995319
+      }
+    },
+    {
+      "step": 56,
+      "stage": "decode",
+      "maxAbs": 8.484375,
+      "meanAbs": 2.012550826820991,
+      "RMSE": 2.519719387271964,
+      "cosine": 0.824482004664556,
+      "top1Match": true,
+      "top20Overlap": 0.45,
+      "hidden": {
+        "maxAbs": 5.8125,
+        "meanAbs": 1.1812046936580114,
+        "RMSE": 1.4807828313407199,
+        "cosine": 0.7281796892849002
+      }
+    },
+    {
+      "step": 57,
+      "stage": "decode",
+      "maxAbs": 8.431640625,
+      "meanAbs": 1.929908665551393,
+      "RMSE": 2.4173614076891314,
+      "cosine": 0.8114658058749499,
+      "top1Match": false,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 5.662109375,
+        "meanAbs": 1.1557759956589766,
+        "RMSE": 1.4441568426158182,
+        "cosine": 0.7471412060758591
+      }
+    },
+    {
+      "step": 58,
+      "stage": "decode",
+      "maxAbs": 8.890625,
+      "meanAbs": 2.061484980205868,
+      "RMSE": 2.613018163412819,
+      "cosine": 0.775592548627766,
+      "top1Match": true,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 5.85546875,
+        "meanAbs": 1.2338711145733083,
+        "RMSE": 1.5439800931200345,
+        "cosine": 0.7056558717349697
+      }
+    },
+    {
+      "step": 59,
+      "stage": "decode",
+      "maxAbs": 8.14599609375,
+      "meanAbs": 1.8652118874132202,
+      "RMSE": 2.344955263721863,
+      "cosine": 0.847652049073815,
+      "top1Match": true,
+      "top20Overlap": 0.25,
+      "hidden": {
+        "maxAbs": 4.947265625,
+        "meanAbs": 1.1747463600976127,
+        "RMSE": 1.4723652963527696,
+        "cosine": 0.7492949645022094
+      }
+    },
+    {
+      "step": 60,
+      "stage": "decode",
+      "maxAbs": 7.733154296875,
+      "meanAbs": 1.9205544252681972,
+      "RMSE": 2.4229264766289287,
+      "cosine": 0.8298032882545044,
+      "top1Match": true,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 5.306640625,
+        "meanAbs": 1.1711876796824592,
+        "RMSE": 1.465024653854356,
+        "cosine": 0.7445673109779066
+      }
+    },
+    {
+      "step": 61,
+      "stage": "decode",
+      "maxAbs": 7.9921875,
+      "meanAbs": 1.9634297583480855,
+      "RMSE": 2.4674280018340213,
+      "cosine": 0.8224611740447366,
+      "top1Match": false,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 5.61328125,
+        "meanAbs": 1.1916793696582317,
+        "RMSE": 1.5019741738769996,
+        "cosine": 0.7558974387736993
+      }
+    },
+    {
+      "step": 62,
+      "stage": "decode",
+      "maxAbs": 8.392578125,
+      "meanAbs": 1.7950975508084048,
+      "RMSE": 2.2667963640935938,
+      "cosine": 0.8707153726539966,
+      "top1Match": true,
+      "top20Overlap": 0.3,
+      "hidden": {
+        "maxAbs": 5.71875,
+        "meanAbs": 1.1545820528907436,
+        "RMSE": 1.4509358399834054,
+        "cosine": 0.7713993941196303
+      }
+    },
+    {
+      "step": 63,
+      "stage": "decode",
+      "maxAbs": 8.9072265625,
+      "meanAbs": 1.8477307452091962,
+      "RMSE": 2.32784896939969,
+      "cosine": 0.8464491387647833,
+      "top1Match": false,
+      "top20Overlap": 0.2,
+      "hidden": {
+        "maxAbs": 5.5771484375,
+        "meanAbs": 1.1530262540493692,
+        "RMSE": 1.4585782076884324,
+        "cosine": 0.7705168603287194
+      }
+    },
+    {
+      "step": 64,
+      "stage": "decode",
+      "maxAbs": 8.951171875,
+      "meanAbs": 1.8175805877112299,
+      "RMSE": 2.2803217327654988,
+      "cosine": 0.8414094701313563,
+      "top1Match": false,
+      "top20Overlap": 0.1,
+      "hidden": {
+        "maxAbs": 5.1357421875,
+        "meanAbs": 1.1467319652438164,
+        "RMSE": 1.4640934377560832,
+        "cosine": 0.782157337459163
+      }
+    }
+  ],
+  "stateErrors": {
+    "keys_state_00": {
+      "maxAbs": 0.296875,
+      "meanAbs": 0.0033127840324596036,
+      "RMSE": 0.012449701832597776,
+      "cosine": 0.999999779623991
+    },
+    "keys_state_01": {
+      "maxAbs": 0.78125,
+      "meanAbs": 0.01864541658142116,
+      "RMSE": 0.05655802283026891,
+      "cosine": 0.9999942998470895
+    },
+    "keys_state_02": {
+      "maxAbs": 1.0390625,
+      "meanAbs": 0.022739982183338725,
+      "RMSE": 0.06855969361209392,
+      "cosine": 0.9997992920349286
+    },
+    "keys_state_03": {
+      "maxAbs": 0.9990234375,
+      "meanAbs": 0.02694904625786876,
+      "RMSE": 0.07943878692719662,
+      "cosine": 0.9998229283830269
+    },
+    "keys_state_04": {
+      "maxAbs": 1.013671875,
+      "meanAbs": 0.024238111334852874,
+      "RMSE": 0.0718155292535941,
+      "cosine": 0.999519157073573
+    },
+    "keys_state_05": {
+      "maxAbs": 0.9298248291015625,
+      "meanAbs": 0.027527579984962358,
+      "RMSE": 0.0808061058723654,
+      "cosine": 0.9979938514934039
+    },
+    "keys_state_06": {
+      "maxAbs": 0.92578125,
+      "meanAbs": 0.026604022644278302,
+      "RMSE": 0.07673803680684418,
+      "cosine": 0.9994664384932949
+    },
+    "keys_state_07": {
+      "maxAbs": 1.3515625,
+      "meanAbs": 0.03078313080004591,
+      "RMSE": 0.09089289849416526,
+      "cosine": 0.9980032242848944
+    },
+    "keys_state_08": {
+      "maxAbs": 1.0556640625,
+      "meanAbs": 0.02634704945376143,
+      "RMSE": 0.07554724798045902,
+      "cosine": 0.9987958342225741
+    },
+    "keys_state_09": {
+      "maxAbs": 3.08251953125,
+      "meanAbs": 0.04478707014095562,
+      "RMSE": 0.16368623603589638,
+      "cosine": 0.9895127067412464
+    },
+    "keys_state_10": {
+      "maxAbs": 1.037109375,
+      "meanAbs": 0.029974061966640875,
+      "RMSE": 0.08672931618682884,
+      "cosine": 0.9996544011371978
+    },
+    "keys_state_11": {
+      "maxAbs": 2.12109375,
+      "meanAbs": 0.07420860628189985,
+      "RMSE": 0.2181226765012396,
+      "cosine": 0.9925451475385291
+    },
+    "keys_state_12": {
+      "maxAbs": 3.1181640625,
+      "meanAbs": 0.06845979367699329,
+      "RMSE": 0.21105030315904674,
+      "cosine": 0.9914331217599438
+    },
+    "keys_state_13": {
+      "maxAbs": 1.392578125,
+      "meanAbs": 0.05053258075986378,
+      "RMSE": 0.1464313984612397,
+      "cosine": 0.9945466271590251
+    },
+    "keys_state_14": {
+      "maxAbs": 1.50390625,
+      "meanAbs": 0.04501678430460743,
+      "RMSE": 0.12784565060134537,
+      "cosine": 0.9956298586237068
+    },
+    "keys_state_15": {
+      "maxAbs": 1.345703125,
+      "meanAbs": 0.04930845732178568,
+      "RMSE": 0.14128312325237335,
+      "cosine": 0.9956083928486014
+    },
+    "keys_state_16": {
+      "maxAbs": 3.091796875,
+      "meanAbs": 0.07526886233245023,
+      "RMSE": 0.24562390314979957,
+      "cosine": 0.98892389283796
+    },
+    "keys_state_17": {
+      "maxAbs": 1.8046875,
+      "meanAbs": 0.05140945504172123,
+      "RMSE": 0.1522625772982399,
+      "cosine": 0.9954423461021605
+    },
+    "keys_state_18": {
+      "maxAbs": 1.77734375,
+      "meanAbs": 0.0563137268909486,
+      "RMSE": 0.15734045434754262,
+      "cosine": 0.9931742371775765
+    },
+    "keys_state_19": {
+      "maxAbs": 1.880859375,
+      "meanAbs": 0.06888649703796546,
+      "RMSE": 0.18771820404831613,
+      "cosine": 0.9938976754787255
+    },
+    "keys_state_20": {
+      "maxAbs": 1.630859375,
+      "meanAbs": 0.04842703538270143,
+      "RMSE": 0.1295737820842976,
+      "cosine": 0.9963878170773282
+    },
+    "keys_state_21": {
+      "maxAbs": 2.12939453125,
+      "meanAbs": 0.060537555290466116,
+      "RMSE": 0.17625590445438244,
+      "cosine": 0.9939075313249338
+    },
+    "keys_state_22": {
+      "maxAbs": 1.76171875,
+      "meanAbs": 0.05074864699781756,
+      "RMSE": 0.13414357255830586,
+      "cosine": 0.994871227225357
+    },
+    "keys_state_23": {
+      "maxAbs": 2.3125,
+      "meanAbs": 0.05182475173933199,
+      "RMSE": 0.14804699164165017,
+      "cosine": 0.9998520560278991
+    },
+    "values_state_00": {
+      "maxAbs": 0.032196044921875,
+      "meanAbs": 0.0008012484086066252,
+      "RMSE": 0.0024142232569266944,
+      "cosine": 0.9950774544929897
+    },
+    "values_state_01": {
+      "maxAbs": 0.452484130859375,
+      "meanAbs": 0.008527805759513285,
+      "RMSE": 0.025776956537155688,
+      "cosine": 0.9958997450643811
+    },
+    "values_state_02": {
+      "maxAbs": 0.5908203125,
+      "meanAbs": 0.013437135436106473,
+      "RMSE": 0.04003042472565569,
+      "cosine": 0.9944454360779333
+    },
+    "values_state_03": {
+      "maxAbs": 0.5692138671875,
+      "meanAbs": 0.015049687965074554,
+      "RMSE": 0.04354879064616879,
+      "cosine": 0.9941230947218306
+    },
+    "values_state_04": {
+      "maxAbs": 0.6092529296875,
+      "meanAbs": 0.014632049627834931,
+      "RMSE": 0.04261772580433041,
+      "cosine": 0.9927692454838697
+    },
+    "values_state_05": {
+      "maxAbs": 0.63232421875,
+      "meanAbs": 0.016554490925045684,
+      "RMSE": 0.0488219986379451,
+      "cosine": 0.9906317709653739
+    },
+    "values_state_06": {
+      "maxAbs": 0.767333984375,
+      "meanAbs": 0.020935781387379393,
+      "RMSE": 0.06088074911093403,
+      "cosine": 0.9858362700175635
+    },
+    "values_state_07": {
+      "maxAbs": 0.7510986328125,
+      "meanAbs": 0.02171827976417262,
+      "RMSE": 0.06250946337590439,
+      "cosine": 0.9789434934382264
+    },
+    "values_state_08": {
+      "maxAbs": 0.8365478515625,
+      "meanAbs": 0.019218217639718205,
+      "RMSE": 0.05664615499439741,
+      "cosine": 0.9782516405922586
+    },
+    "values_state_09": {
+      "maxAbs": 1.16455078125,
+      "meanAbs": 0.02494397530972492,
+      "RMSE": 0.07084642234666896,
+      "cosine": 0.9884133198788315
+    },
+    "values_state_10": {
+      "maxAbs": 1.0322265625,
+      "meanAbs": 0.031930108583765104,
+      "RMSE": 0.09035142195759001,
+      "cosine": 0.9858273936488327
+    },
+    "values_state_11": {
+      "maxAbs": 1.427734375,
+      "meanAbs": 0.042074143057106994,
+      "RMSE": 0.12240637320831661,
+      "cosine": 0.971450306754382
+    },
+    "values_state_12": {
+      "maxAbs": 0.80908203125,
+      "meanAbs": 0.030672094377223402,
+      "RMSE": 0.08348945813318552,
+      "cosine": 0.9864317198067062
+    },
+    "values_state_13": {
+      "maxAbs": 0.786376953125,
+      "meanAbs": 0.031581351067870855,
+      "RMSE": 0.08759688992309124,
+      "cosine": 0.9855779476685158
+    },
+    "values_state_14": {
+      "maxAbs": 1.561767578125,
+      "meanAbs": 0.04541680413240101,
+      "RMSE": 0.130496799416301,
+      "cosine": 0.9792989819676086
+    },
+    "values_state_15": {
+      "maxAbs": 1.830078125,
+      "meanAbs": 0.04091648841131246,
+      "RMSE": 0.12477911471793181,
+      "cosine": 0.9847194660039138
+    },
+    "values_state_16": {
+      "maxAbs": 1.6748046875,
+      "meanAbs": 0.057072800991591066,
+      "RMSE": 0.1665470793128984,
+      "cosine": 0.9661793662129288
+    },
+    "values_state_17": {
+      "maxAbs": 2.0771484375,
+      "meanAbs": 0.07639448246845859,
+      "RMSE": 0.21727528127519502,
+      "cosine": 0.9616324030017335
+    },
+    "values_state_18": {
+      "maxAbs": 1.38525390625,
+      "meanAbs": 0.05916341330157593,
+      "RMSE": 0.1590431093074293,
+      "cosine": 0.9757152381520562
+    },
+    "values_state_19": {
+      "maxAbs": 1.6953125,
+      "meanAbs": 0.06317974862759002,
+      "RMSE": 0.16248438582075084,
+      "cosine": 0.9666573729251293
+    },
+    "values_state_20": {
+      "maxAbs": 2.10498046875,
+      "meanAbs": 0.08027248426515143,
+      "RMSE": 0.2101303778686055,
+      "cosine": 0.9845921523477734
+    },
+    "values_state_21": {
+      "maxAbs": 4.38671875,
+      "meanAbs": 0.18792281550122425,
+      "RMSE": 0.5095210028775526,
+      "cosine": 0.9663417858645612
+    },
+    "values_state_22": {
+      "maxAbs": 4.2587890625,
+      "meanAbs": 0.1700404025032185,
+      "RMSE": 0.4513772739798952,
+      "cosine": 0.9728001655132691
+    },
+    "values_state_23": {
+      "maxAbs": 8.4345703125,
+      "meanAbs": 0.24105995410354808,
+      "RMSE": 0.6906871444163944,
+      "cosine": 0.9549729722107726
+    }
+  },
+  "decodeTop1Agreement": 0.75,
+  "decodeTop20OverlapMean": 0.31562500000000004,
+  "Q4vsQ8": {
+    "rows": [
+      {
+        "step": 0,
+        "maxAbs": 0.0,
+        "meanAbs": 0.0,
+        "RMSE": 0.0,
+        "cosine": 1.0,
+        "top1Match": true,
+        "top20Overlap": 1.0,
+        "hidden": {
+          "maxAbs": 0.0,
+          "meanAbs": 0.0,
+          "RMSE": 0.0,
+          "cosine": 1.0000000000000002
+        }
+      },
+      {
+        "step": 1,
+        "maxAbs": 4.0322265625,
+        "meanAbs": 0.9289906104981697,
+        "RMSE": 1.1601438091857113,
+        "cosine": 0.972788186251456,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 3.65240478515625,
+          "meanAbs": 0.5906611255237034,
+          "RMSE": 0.7538266032565974,
+          "cosine": 0.9339132305080632
+        }
+      },
+      {
+        "step": 2,
+        "maxAbs": 4.7265625,
+        "meanAbs": 1.0923294904686576,
+        "RMSE": 1.3736957824782186,
+        "cosine": 0.9644051351111248,
+        "top1Match": false,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 3.150390625,
+          "meanAbs": 0.6591330638953617,
+          "RMSE": 0.8403005629138875,
+          "cosine": 0.9244774506498807
+        }
+      },
+      {
+        "step": 3,
+        "maxAbs": 5.15625,
+        "meanAbs": 1.2445579588616005,
+        "RMSE": 1.5761751744040757,
+        "cosine": 0.95296391472069,
+        "top1Match": false,
+        "top20Overlap": 0.6,
+        "hidden": {
+          "maxAbs": 3.2732696533203125,
+          "meanAbs": 0.6814529810632978,
+          "RMSE": 0.8602957988761362,
+          "cosine": 0.9132212801670835
+        }
+      },
+      {
+        "step": 4,
+        "maxAbs": 4.8271484375,
+        "meanAbs": 1.1786422379675252,
+        "RMSE": 1.4943898937767768,
+        "cosine": 0.9490221133220825,
+        "top1Match": true,
+        "top20Overlap": 0.65,
+        "hidden": {
+          "maxAbs": 3.1474609375,
+          "meanAbs": 0.706980607339314,
+          "RMSE": 0.8957778670829484,
+          "cosine": 0.9059087006777162
+        }
+      },
+      {
+        "step": 5,
+        "maxAbs": 5.1748046875,
+        "meanAbs": 1.3887037692770345,
+        "RMSE": 1.695596206616599,
+        "cosine": 0.9466901940630836,
+        "top1Match": true,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 3.9873046875,
+          "meanAbs": 0.8043112464781318,
+          "RMSE": 1.0061182920389637,
+          "cosine": 0.8918923920017792
+        }
+      },
+      {
+        "step": 6,
+        "maxAbs": 5.1044921875,
+        "meanAbs": 1.313219602776956,
+        "RMSE": 1.6293710388117921,
+        "cosine": 0.9455039848944252,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 3.923828125,
+          "meanAbs": 0.8142371795007161,
+          "RMSE": 1.0238210191207155,
+          "cosine": 0.887149122998712
+        }
+      },
+      {
+        "step": 7,
+        "maxAbs": 6.28515625,
+        "meanAbs": 1.4627721837561012,
+        "RMSE": 1.8361602912487918,
+        "cosine": 0.9257271750515491,
+        "top1Match": false,
+        "top20Overlap": 0.55,
+        "hidden": {
+          "maxAbs": 4.154296875,
+          "meanAbs": 0.8563125814710345,
+          "RMSE": 1.0803479046196767,
+          "cosine": 0.8770466333490085
+        }
+      },
+      {
+        "step": 8,
+        "maxAbs": 5.5390625,
+        "meanAbs": 1.5240920684232178,
+        "RMSE": 1.887457191276021,
+        "cosine": 0.9393364526226774,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 4.4215087890625,
+          "meanAbs": 0.8814102815730231,
+          "RMSE": 1.1047177942974022,
+          "cosine": 0.8799916229303643
+        }
+      },
+      {
+        "step": 9,
+        "maxAbs": 5.7373046875,
+        "meanAbs": 1.5774212676275237,
+        "RMSE": 1.9435759446201961,
+        "cosine": 0.9279028165487843,
+        "top1Match": false,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.568359375,
+          "meanAbs": 0.9024879921759877,
+          "RMSE": 1.1313623750990482,
+          "cosine": 0.8735121576474165
+        }
+      },
+      {
+        "step": 10,
+        "maxAbs": 5.91650390625,
+        "meanAbs": 1.6056203493756702,
+        "RMSE": 1.9547571975116258,
+        "cosine": 0.9202688028274867,
+        "top1Match": false,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 4.818359375,
+          "meanAbs": 0.9347802214324474,
+          "RMSE": 1.1767448520869064,
+          "cosine": 0.8594386540982792
+        }
+      },
+      {
+        "step": 11,
+        "maxAbs": 6.0068359375,
+        "meanAbs": 1.5883913010539537,
+        "RMSE": 1.9691769144494442,
+        "cosine": 0.9265162675743595,
+        "top1Match": false,
+        "top20Overlap": 0.15,
+        "hidden": {
+          "maxAbs": 5.09521484375,
+          "meanAbs": 0.9288578400654453,
+          "RMSE": 1.1614578112117997,
+          "cosine": 0.8654507122071108
+        }
+      },
+      {
+        "step": 12,
+        "maxAbs": 6.064453125,
+        "meanAbs": 1.5571761202519505,
+        "RMSE": 1.9505408513669866,
+        "cosine": 0.8847186713590754,
+        "top1Match": true,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 4.6484375,
+          "meanAbs": 0.894684445645128,
+          "RMSE": 1.1234270626363319,
+          "cosine": 0.83446219851868
+        }
+      },
+      {
+        "step": 13,
+        "maxAbs": 6.173828125,
+        "meanAbs": 1.43483183112763,
+        "RMSE": 1.7937997613521246,
+        "cosine": 0.9074689167679199,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 4.6103515625,
+          "meanAbs": 0.9230863702084336,
+          "RMSE": 1.163730248268046,
+          "cosine": 0.8453702513377873
+        }
+      },
+      {
+        "step": 14,
+        "maxAbs": 5.94140625,
+        "meanAbs": 1.4408510927793596,
+        "RMSE": 1.8065482645313267,
+        "cosine": 0.9081433124810139,
+        "top1Match": true,
+        "top20Overlap": 0.15,
+        "hidden": {
+          "maxAbs": 4.814453125,
+          "meanAbs": 0.8839463756552765,
+          "RMSE": 1.1103059175774794,
+          "cosine": 0.8477266455019342
+        }
+      },
+      {
+        "step": 15,
+        "maxAbs": 6.10400390625,
+        "meanAbs": 1.5451478883370617,
+        "RMSE": 1.9527876645739035,
+        "cosine": 0.8786904931409731,
+        "top1Match": true,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 4.943359375,
+          "meanAbs": 0.9024856596120766,
+          "RMSE": 1.1432568959564586,
+          "cosine": 0.8408621167194654
+        }
+      },
+      {
+        "step": 16,
+        "maxAbs": 5.46484375,
+        "meanAbs": 1.4869979093314944,
+        "RMSE": 1.8419417175033816,
+        "cosine": 0.8897007018841337,
+        "top1Match": true,
+        "top20Overlap": 0.45,
+        "hidden": {
+          "maxAbs": 4.6181640625,
+          "meanAbs": 0.864331809005567,
+          "RMSE": 1.0872764201774638,
+          "cosine": 0.8531293702477034
+        }
+      },
+      {
+        "step": 17,
+        "maxAbs": 5.7578125,
+        "meanAbs": 1.5621326877033723,
+        "RMSE": 1.961911530962358,
+        "cosine": 0.8906760618287136,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 4.59375,
+          "meanAbs": 0.9132337096546378,
+          "RMSE": 1.1452383836768396,
+          "cosine": 0.8407746688962807
+        }
+      },
+      {
+        "step": 18,
+        "maxAbs": 5.8359375,
+        "meanAbs": 1.4820296467099912,
+        "RMSE": 1.8888641172815548,
+        "cosine": 0.8846208295866299,
+        "top1Match": false,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.4130859375,
+          "meanAbs": 0.8980197565896171,
+          "RMSE": 1.1283590976849895,
+          "cosine": 0.8469122265028214
+        }
+      },
+      {
+        "step": 19,
+        "maxAbs": 6.318359375,
+        "meanAbs": 1.6577371688411708,
+        "RMSE": 2.038260705829434,
+        "cosine": 0.8731842417702942,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.7451171875,
+          "meanAbs": 0.9924944096377918,
+          "RMSE": 1.247112247086097,
+          "cosine": 0.8286925859658635
+        }
+      },
+      {
+        "step": 20,
+        "maxAbs": 5.2578125,
+        "meanAbs": 1.4330449481631786,
+        "RMSE": 1.7890893833133261,
+        "cosine": 0.9108645776888381,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.486328125,
+          "meanAbs": 0.9255327571715627,
+          "RMSE": 1.1666652229976355,
+          "cosine": 0.8528369577446799
+        }
+      },
+      {
+        "step": 21,
+        "maxAbs": 5.44140625,
+        "meanAbs": 1.4742918314973978,
+        "RMSE": 1.815444050823291,
+        "cosine": 0.9059815045168746,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.2724609375,
+          "meanAbs": 0.8851109072566032,
+          "RMSE": 1.107055691801961,
+          "cosine": 0.850460216799118
+        }
+      },
+      {
+        "step": 22,
+        "maxAbs": 6.36962890625,
+        "meanAbs": 1.5263486268904378,
+        "RMSE": 1.8719821493219253,
+        "cosine": 0.8983913043754234,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 4.5361328125,
+          "meanAbs": 0.9309813518609319,
+          "RMSE": 1.1699069432517597,
+          "cosine": 0.8527603494173506
+        }
+      },
+      {
+        "step": 23,
+        "maxAbs": 5.9296875,
+        "meanAbs": 1.5313894934527992,
+        "RMSE": 1.9317911533094372,
+        "cosine": 0.8838318668591358,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.99609375,
+          "meanAbs": 0.9235283828207425,
+          "RMSE": 1.1685163124410343,
+          "cosine": 0.8316978132413637
+        }
+      },
+      {
+        "step": 24,
+        "maxAbs": 6.2314453125,
+        "meanAbs": 1.5197799675846537,
+        "RMSE": 1.8813527957689091,
+        "cosine": 0.8908997654293491,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.47265625,
+          "meanAbs": 0.9540586269327572,
+          "RMSE": 1.1879855100493348,
+          "cosine": 0.8422206388099133
+        }
+      },
+      {
+        "step": 25,
+        "maxAbs": 6.2587890625,
+        "meanAbs": 1.684865169810078,
+        "RMSE": 2.087491963497656,
+        "cosine": 0.8646420794622279,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 4.69140625,
+          "meanAbs": 0.9941925743062582,
+          "RMSE": 1.256696127756472,
+          "cosine": 0.8269588625027956
+        }
+      },
+      {
+        "step": 26,
+        "maxAbs": 5.716796875,
+        "meanAbs": 1.571967942071832,
+        "RMSE": 1.9717403102081525,
+        "cosine": 0.8884397774438277,
+        "top1Match": false,
+        "top20Overlap": 0.55,
+        "hidden": {
+          "maxAbs": 4.97998046875,
+          "meanAbs": 0.9630967917452965,
+          "RMSE": 1.2149130590137214,
+          "cosine": 0.8369396726678905
+        }
+      },
+      {
+        "step": 27,
+        "maxAbs": 7.3359375,
+        "meanAbs": 1.621582464571624,
+        "RMSE": 1.9896651443569087,
+        "cosine": 0.883310678279052,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 4.91015625,
+          "meanAbs": 0.9948546101472208,
+          "RMSE": 1.252382736392223,
+          "cosine": 0.8332971187380255
+        }
+      },
+      {
+        "step": 28,
+        "maxAbs": 6.85302734375,
+        "meanAbs": 1.5994133691854016,
+        "RMSE": 1.9652958175329507,
+        "cosine": 0.9013911150624995,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 4.9599609375,
+          "meanAbs": 0.9846423832433564,
+          "RMSE": 1.232938010351958,
+          "cosine": 0.8438944610453698
+        }
+      },
+      {
+        "step": 29,
+        "maxAbs": 6.400390625,
+        "meanAbs": 1.593323674714701,
+        "RMSE": 1.9778619929867916,
+        "cosine": 0.8950250102399292,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 4.3525390625,
+          "meanAbs": 0.9240438012140137,
+          "RMSE": 1.1492904421300685,
+          "cosine": 0.8398281910987416
+        }
+      },
+      {
+        "step": 30,
+        "maxAbs": 6.4970703125,
+        "meanAbs": 1.5712042668746995,
+        "RMSE": 1.9278796737535009,
+        "cosine": 0.8940706679250336,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 4.681640625,
+          "meanAbs": 0.9612902285797256,
+          "RMSE": 1.198858659681019,
+          "cosine": 0.8372199447044556
+        }
+      },
+      {
+        "step": 31,
+        "maxAbs": 6.2421875,
+        "meanAbs": 1.658100387151205,
+        "RMSE": 2.058971044516423,
+        "cosine": 0.8667209545211224,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 4.71337890625,
+          "meanAbs": 0.9854817656534058,
+          "RMSE": 1.232983650600397,
+          "cosine": 0.8118761621435046
+        }
+      },
+      {
+        "step": 32,
+        "maxAbs": 6.640625,
+        "meanAbs": 1.6974622356593654,
+        "RMSE": 2.0956589878762886,
+        "cosine": 0.8696108990535311,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.689453125,
+          "meanAbs": 1.0173544500555312,
+          "RMSE": 1.2730974265923414,
+          "cosine": 0.7854466425683624
+        }
+      },
+      {
+        "step": 33,
+        "maxAbs": 7.02734375,
+        "meanAbs": 1.7415066343707246,
+        "RMSE": 2.1426072985186924,
+        "cosine": 0.8460695868203556,
+        "top1Match": true,
+        "top20Overlap": 0.15,
+        "hidden": {
+          "maxAbs": 4.873046875,
+          "meanAbs": 1.0623808630875178,
+          "RMSE": 1.337147221226364,
+          "cosine": 0.7930785193210712
+        }
+      },
+      {
+        "step": 34,
+        "maxAbs": 7.173828125,
+        "meanAbs": 1.9223661881158944,
+        "RMSE": 2.3796184411523673,
+        "cosine": 0.757057721404743,
+        "top1Match": true,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 5.4638671875,
+          "meanAbs": 1.0785926998193776,
+          "RMSE": 1.3592844185936561,
+          "cosine": 0.758952249672947
+        }
+      },
+      {
+        "step": 35,
+        "maxAbs": 7.29296875,
+        "meanAbs": 1.7946053606362549,
+        "RMSE": 2.2182448806659316,
+        "cosine": 0.8410681967223193,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 5.275390625,
+          "meanAbs": 1.1032468602061272,
+          "RMSE": 1.385123593086373,
+          "cosine": 0.7770201358478129
+        }
+      },
+      {
+        "step": 36,
+        "maxAbs": 6.88671875,
+        "meanAbs": 1.7169966272411394,
+        "RMSE": 2.1302113667124027,
+        "cosine": 0.8313653460718718,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 5.3349609375,
+          "meanAbs": 1.0556280612945557,
+          "RMSE": 1.330728644671423,
+          "cosine": 0.7852583596199605
+        }
+      },
+      {
+        "step": 37,
+        "maxAbs": 6.90380859375,
+        "meanAbs": 1.6962990650074878,
+        "RMSE": 2.0930101852909497,
+        "cosine": 0.8312929910827771,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 5.2255859375,
+          "meanAbs": 1.0452022975576776,
+          "RMSE": 1.3273973090563618,
+          "cosine": 0.7889558121183331
+        }
+      },
+      {
+        "step": 38,
+        "maxAbs": 6.9453125,
+        "meanAbs": 1.6551363634262684,
+        "RMSE": 2.0663779414254324,
+        "cosine": 0.8586048843277153,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.744140625,
+          "meanAbs": 1.041166003793478,
+          "RMSE": 1.3144801576725922,
+          "cosine": 0.786490327812903
+        }
+      },
+      {
+        "step": 39,
+        "maxAbs": 6.5546875,
+        "meanAbs": 1.7107176614960804,
+        "RMSE": 2.1360398278674286,
+        "cosine": 0.8369504662166605,
+        "top1Match": true,
+        "top20Overlap": 0.4,
+        "hidden": {
+          "maxAbs": 5.0751953125,
+          "meanAbs": 1.0429465206606048,
+          "RMSE": 1.3195062305438312,
+          "cosine": 0.7952349114763659
+        }
+      },
+      {
+        "step": 40,
+        "maxAbs": 6.19140625,
+        "meanAbs": 1.6067540090194452,
+        "RMSE": 1.9755811230874423,
+        "cosine": 0.8585831320049516,
+        "top1Match": true,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.77783203125,
+          "meanAbs": 0.9905884191393852,
+          "RMSE": 1.259500151708641,
+          "cosine": 0.8068869331845103
+        }
+      },
+      {
+        "step": 41,
+        "maxAbs": 6.3125,
+        "meanAbs": 1.651756964814573,
+        "RMSE": 2.061321912501395,
+        "cosine": 0.8687117281202158,
+        "top1Match": true,
+        "top20Overlap": 0.45,
+        "hidden": {
+          "maxAbs": 5.0830078125,
+          "meanAbs": 1.012706539460591,
+          "RMSE": 1.2805372446184815,
+          "cosine": 0.8064677146905144
+        }
+      },
+      {
+        "step": 42,
+        "maxAbs": 6.5,
+        "meanAbs": 1.706800352767134,
+        "RMSE": 2.132079487824813,
+        "cosine": 0.8462923391613262,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 4.951171875,
+          "meanAbs": 0.9996608588844538,
+          "RMSE": 1.2647972928104088,
+          "cosine": 0.8173877729803087
+        }
+      },
+      {
+        "step": 43,
+        "maxAbs": 6.4970703125,
+        "meanAbs": 1.6581947474486023,
+        "RMSE": 2.0424620554948385,
+        "cosine": 0.8551914040020322,
+        "top1Match": false,
+        "top20Overlap": 0.35,
+        "hidden": {
+          "maxAbs": 4.98046875,
+          "meanAbs": 1.010521290557725,
+          "RMSE": 1.2725695216313615,
+          "cosine": 0.8084321395252845
+        }
+      },
+      {
+        "step": 44,
+        "maxAbs": 7.0751953125,
+        "meanAbs": 1.6111736097309015,
+        "RMSE": 2.012729972486934,
+        "cosine": 0.8835917383170842,
+        "top1Match": true,
+        "top20Overlap": 0.55,
+        "hidden": {
+          "maxAbs": 4.9404296875,
+          "meanAbs": 1.0070136982415403,
+          "RMSE": 1.277507144111382,
+          "cosine": 0.8233434084256509
+        }
+      },
+      {
+        "step": 45,
+        "maxAbs": 7.43310546875,
+        "meanAbs": 1.8174400741471075,
+        "RMSE": 2.2727395039496043,
+        "cosine": 0.8431793782818635,
+        "top1Match": true,
+        "top20Overlap": 0.45,
+        "hidden": {
+          "maxAbs": 5.2138671875,
+          "meanAbs": 1.0667467606919152,
+          "RMSE": 1.3440442040112193,
+          "cosine": 0.789440831788674
+        }
+      },
+      {
+        "step": 46,
+        "maxAbs": 6.5625,
+        "meanAbs": 1.7400221918447716,
+        "RMSE": 2.1534774554440808,
+        "cosine": 0.872528655633387,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 5.0556640625,
+          "meanAbs": 1.0784062211002623,
+          "RMSE": 1.3521496079088067,
+          "cosine": 0.8088775210296791
+        }
+      },
+      {
+        "step": 47,
+        "maxAbs": 7.0693359375,
+        "meanAbs": 1.7684947085652085,
+        "RMSE": 2.2060690824821454,
+        "cosine": 0.871575006586226,
+        "top1Match": true,
+        "top20Overlap": 0.55,
+        "hidden": {
+          "maxAbs": 5.681640625,
+          "meanAbs": 1.0675587728619576,
+          "RMSE": 1.3472899359752364,
+          "cosine": 0.7950465129078275
+        }
+      },
+      {
+        "step": 48,
+        "maxAbs": 6.681640625,
+        "meanAbs": 1.6977352011998965,
+        "RMSE": 2.1092884985568876,
+        "cosine": 0.8841460476210787,
+        "top1Match": true,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 5.314453125,
+          "meanAbs": 1.055938913353852,
+          "RMSE": 1.3374138421570558,
+          "cosine": 0.8150232873611006
+        }
+      },
+      {
+        "step": 49,
+        "maxAbs": 7.005859375,
+        "meanAbs": 1.798774257705614,
+        "RMSE": 2.2329325356090313,
+        "cosine": 0.8564458394282843,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 5.4560546875,
+          "meanAbs": 1.071423816893782,
+          "RMSE": 1.3548291353214308,
+          "cosine": 0.8024467503557358
+        }
+      },
+      {
+        "step": 50,
+        "maxAbs": 7.4677734375,
+        "meanAbs": 1.861939948050515,
+        "RMSE": 2.3189352403991648,
+        "cosine": 0.8537076796103376,
+        "top1Match": false,
+        "top20Overlap": 0.45,
+        "hidden": {
+          "maxAbs": 5.34375,
+          "meanAbs": 1.0763881179903234,
+          "RMSE": 1.3571628703449568,
+          "cosine": 0.7961997996296406
+        }
+      },
+      {
+        "step": 51,
+        "maxAbs": 8.458984375,
+        "meanAbs": 2.0715747568632366,
+        "RMSE": 2.588756741636766,
+        "cosine": 0.7864903526512462,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 5.00390625,
+          "meanAbs": 1.1551617458462715,
+          "RMSE": 1.4423784786229896,
+          "cosine": 0.719484574311638
+        }
+      },
+      {
+        "step": 52,
+        "maxAbs": 8.077880859375,
+        "meanAbs": 2.098911293863704,
+        "RMSE": 2.598000836704276,
+        "cosine": 0.7690301578756352,
+        "top1Match": true,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 5.5595703125,
+          "meanAbs": 1.2150820823652404,
+          "RMSE": 1.5241617644493872,
+          "cosine": 0.7138945905508505
+        }
+      },
+      {
+        "step": 53,
+        "maxAbs": 8.8271484375,
+        "meanAbs": 2.0851345189205555,
+        "RMSE": 2.601635570023496,
+        "cosine": 0.7902274932624737,
+        "top1Match": false,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 5.21484375,
+          "meanAbs": 1.2037577671664101,
+          "RMSE": 1.510645648575019,
+          "cosine": 0.7177369980144008
+        }
+      },
+      {
+        "step": 54,
+        "maxAbs": 8.14453125,
+        "meanAbs": 2.0926752269594227,
+        "RMSE": 2.581370935268728,
+        "cosine": 0.8052536556994163,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 5.3544921875,
+          "meanAbs": 1.2287236633045333,
+          "RMSE": 1.5393520822928495,
+          "cosine": 0.7126849678195949
+        }
+      },
+      {
+        "step": 55,
+        "maxAbs": 8.30419921875,
+        "meanAbs": 2.151633165729344,
+        "RMSE": 2.6526866304917416,
+        "cosine": 0.7855106307545251,
+        "top1Match": false,
+        "top20Overlap": 0.05,
+        "hidden": {
+          "maxAbs": 5.6669921875,
+          "meanAbs": 1.2514663423810686,
+          "RMSE": 1.5717781623560405,
+          "cosine": 0.7203405083004484
+        }
+      },
+      {
+        "step": 56,
+        "maxAbs": 8.5703125,
+        "meanAbs": 2.039896084419141,
+        "RMSE": 2.558170489712042,
+        "cosine": 0.8232417494985013,
+        "top1Match": true,
+        "top20Overlap": 0.45,
+        "hidden": {
+          "maxAbs": 5.91796875,
+          "meanAbs": 1.1950909463422639,
+          "RMSE": 1.4929256046992159,
+          "cosine": 0.7278130179774761
+        }
+      },
+      {
+        "step": 57,
+        "maxAbs": 8.470703125,
+        "meanAbs": 1.9564291360621233,
+        "RMSE": 2.4516021746595222,
+        "cosine": 0.8109165495089857,
+        "top1Match": false,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 5.79296875,
+          "meanAbs": 1.1661350774977888,
+          "RMSE": 1.4556087586601356,
+          "cosine": 0.7470725957485266
+        }
+      },
+      {
+        "step": 58,
+        "maxAbs": 8.92578125,
+        "meanAbs": 2.070374726790716,
+        "RMSE": 2.6203685224025848,
+        "cosine": 0.7762163856514496,
+        "top1Match": true,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 5.888671875,
+          "meanAbs": 1.2367907102618898,
+          "RMSE": 1.548994964945018,
+          "cosine": 0.7060228378491715
+        }
+      },
+      {
+        "step": 59,
+        "maxAbs": 8.05078125,
+        "meanAbs": 1.8834542312701061,
+        "RMSE": 2.366968949917613,
+        "cosine": 0.8476598591167993,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 5.1015625,
+          "meanAbs": 1.1769491221223558,
+          "RMSE": 1.4768923043329474,
+          "cosine": 0.7507677106821352
+        }
+      },
+      {
+        "step": 60,
+        "maxAbs": 7.64453125,
+        "meanAbs": 1.9442493092853312,
+        "RMSE": 2.448743399100311,
+        "cosine": 0.829350097570313,
+        "top1Match": true,
+        "top20Overlap": 0.25,
+        "hidden": {
+          "maxAbs": 5.443359375,
+          "meanAbs": 1.1744403700743402,
+          "RMSE": 1.4704205118180544,
+          "cosine": 0.745514495671429
+        }
+      },
+      {
+        "step": 61,
+        "maxAbs": 8.02734375,
+        "meanAbs": 1.9801111242471758,
+        "RMSE": 2.4850018499928885,
+        "cosine": 0.8235409492125237,
+        "top1Match": false,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 5.7900390625,
+          "meanAbs": 1.1963189308132445,
+          "RMSE": 1.5075599332922323,
+          "cosine": 0.756770289745657
+        }
+      },
+      {
+        "step": 62,
+        "maxAbs": 7.923828125,
+        "meanAbs": 1.8152173328216286,
+        "RMSE": 2.2850241892296475,
+        "cosine": 0.8707217522500237,
+        "top1Match": true,
+        "top20Overlap": 0.3,
+        "hidden": {
+          "maxAbs": 5.8125,
+          "meanAbs": 1.1594191411776202,
+          "RMSE": 1.4564524946464095,
+          "cosine": 0.7720593159773483
+        }
+      },
+      {
+        "step": 63,
+        "maxAbs": 8.4443359375,
+        "meanAbs": 1.8608341293210833,
+        "RMSE": 2.33922589634358,
+        "cosine": 0.8466296364197401,
+        "top1Match": false,
+        "top20Overlap": 0.2,
+        "hidden": {
+          "maxAbs": 5.7216796875,
+          "meanAbs": 1.1586401632853918,
+          "RMSE": 1.4636956978383016,
+          "cosine": 0.7709559503128395
+        }
+      },
+      {
+        "step": 64,
+        "maxAbs": 8.498046875,
+        "meanAbs": 1.823156940498008,
+        "RMSE": 2.282268457157476,
+        "cosine": 0.8427282487013892,
+        "top1Match": false,
+        "top20Overlap": 0.1,
+        "hidden": {
+          "maxAbs": 5.2666015625,
+          "meanAbs": 1.1549787010465349,
+          "RMSE": 1.4706747953066064,
+          "cosine": 0.7815927693075146
+        }
+      }
+    ],
+    "stateErrors": {
+      "keys_state_00": {
+        "maxAbs": 0.28125,
+        "meanAbs": 0.0026768533025460783,
+        "RMSE": 0.012108907707901117,
+        "cosine": 0.9999997915229857
+      },
+      "keys_state_01": {
+        "maxAbs": 0.8125,
+        "meanAbs": 0.015139348077354953,
+        "RMSE": 0.056099645452977305,
+        "cosine": 0.9999943917376787
+      },
+      "keys_state_02": {
+        "maxAbs": 1.046875,
+        "meanAbs": 0.01861802485655062,
+        "RMSE": 0.0681858591010303,
+        "cosine": 0.9998015485533931
+      },
+      "keys_state_03": {
+        "maxAbs": 1.0771484375,
+        "meanAbs": 0.021727183979237452,
+        "RMSE": 0.07864155828627697,
+        "cosine": 0.9998264981096203
+      },
+      "keys_state_04": {
+        "maxAbs": 1.017578125,
+        "meanAbs": 0.019624940730864182,
+        "RMSE": 0.07141309206358325,
+        "cosine": 0.9995245340536778
+      },
+      "keys_state_05": {
+        "maxAbs": 0.9405670166015625,
+        "meanAbs": 0.02220055492944084,
+        "RMSE": 0.08038072637488411,
+        "cosine": 0.9980161928672749
+      },
+      "keys_state_06": {
+        "maxAbs": 0.8828125,
+        "meanAbs": 0.02113042630662676,
+        "RMSE": 0.07607882233097744,
+        "cosine": 0.9994758622799681
+      },
+      "keys_state_07": {
+        "maxAbs": 1.3828125,
+        "meanAbs": 0.024369442733586766,
+        "RMSE": 0.08949591342013788,
+        "cosine": 0.9980657683330683
+      },
+      "keys_state_08": {
+        "maxAbs": 1.0576171875,
+        "meanAbs": 0.020615410612663254,
+        "RMSE": 0.07483096039638368,
+        "cosine": 0.9988193377693912
+      },
+      "keys_state_09": {
+        "maxAbs": 3.02813720703125,
+        "meanAbs": 0.036282770037360024,
+        "RMSE": 0.1617967453408476,
+        "cosine": 0.9897555391108254
+      },
+      "keys_state_10": {
+        "maxAbs": 1.044921875,
+        "meanAbs": 0.023663646104978397,
+        "RMSE": 0.08610968187928726,
+        "cosine": 0.9996593036119994
+      },
+      "keys_state_11": {
+        "maxAbs": 2.048828125,
+        "meanAbs": 0.06079642227268778,
+        "RMSE": 0.21648665352887903,
+        "cosine": 0.9926600355292557
+      },
+      "keys_state_12": {
+        "maxAbs": 3.1640625,
+        "meanAbs": 0.05467713401412766,
+        "RMSE": 0.2078391625801115,
+        "cosine": 0.9916690290002167
+      },
+      "keys_state_13": {
+        "maxAbs": 1.38037109375,
+        "meanAbs": 0.040797241861582734,
+        "RMSE": 0.14492730962259542,
+        "cosine": 0.9946640585349279
+      },
+      "keys_state_14": {
+        "maxAbs": 1.525390625,
+        "meanAbs": 0.034797304280800745,
+        "RMSE": 0.12434459813201801,
+        "cosine": 0.9958605257055091
+      },
+      "keys_state_15": {
+        "maxAbs": 1.345703125,
+        "meanAbs": 0.03948164418397937,
+        "RMSE": 0.14069814457040639,
+        "cosine": 0.9956417480912492
+      },
+      "keys_state_16": {
+        "maxAbs": 3.146484375,
+        "meanAbs": 0.06010160189180169,
+        "RMSE": 0.24103954667790722,
+        "cosine": 0.9893396482077735
+      },
+      "keys_state_17": {
+        "maxAbs": 1.853515625,
+        "meanAbs": 0.03960401428776095,
+        "RMSE": 0.1503279332491773,
+        "cosine": 0.9955568515585406
+      },
+      "keys_state_18": {
+        "maxAbs": 1.67578125,
+        "meanAbs": 0.04147110495978268,
+        "RMSE": 0.15592008795438356,
+        "cosine": 0.9933051202237082
+      },
+      "keys_state_19": {
+        "maxAbs": 1.914794921875,
+        "meanAbs": 0.05122801508696284,
+        "RMSE": 0.1834720353634743,
+        "cosine": 0.994129098535882
+      },
+      "keys_state_20": {
+        "maxAbs": 1.61474609375,
+        "meanAbs": 0.035089398006675765,
+        "RMSE": 0.12828900419352704,
+        "cosine": 0.9964532401129544
+      },
+      "keys_state_21": {
+        "maxAbs": 2.19677734375,
+        "meanAbs": 0.04718456774571678,
+        "RMSE": 0.17607282785141273,
+        "cosine": 0.9939187553227087
+      },
+      "keys_state_22": {
+        "maxAbs": 1.7890625,
+        "meanAbs": 0.03686552186263725,
+        "RMSE": 0.1315951989915291,
+        "cosine": 0.9950806646427093
+      },
+      "keys_state_23": {
+        "maxAbs": 2.25,
+        "meanAbs": 0.0384476266335696,
+        "RMSE": 0.14566533373983684,
+        "cosine": 0.9998563475672546
+      },
+      "values_state_00": {
+        "maxAbs": 0.032196044921875,
+        "meanAbs": 0.0006628901301155565,
+        "RMSE": 0.002404592097899202,
+        "cosine": 0.995116795317313
+      },
+      "values_state_01": {
+        "maxAbs": 0.46124267578125,
+        "meanAbs": 0.007052268949337304,
+        "RMSE": 0.02566765088091573,
+        "cosine": 0.9959345174144498
+      },
+      "values_state_02": {
+        "maxAbs": 0.591796875,
+        "meanAbs": 0.01096700958441943,
+        "RMSE": 0.039811539285386374,
+        "cosine": 0.9945060417214966
+      },
+      "values_state_03": {
+        "maxAbs": 0.5975341796875,
+        "meanAbs": 0.012178224918898195,
+        "RMSE": 0.04322367659464602,
+        "cosine": 0.9942107737551472
+      },
+      "values_state_04": {
+        "maxAbs": 0.6026611328125,
+        "meanAbs": 0.011807969451183453,
+        "RMSE": 0.04235692517447252,
+        "cosine": 0.9928578398219552
+      },
+      "values_state_05": {
+        "maxAbs": 0.629150390625,
+        "meanAbs": 0.01350229955278337,
+        "RMSE": 0.048542492451102856,
+        "cosine": 0.9907392008254156
+      },
+      "values_state_06": {
+        "maxAbs": 0.7734375,
+        "meanAbs": 0.016940714383963495,
+        "RMSE": 0.06052648969446488,
+        "cosine": 0.9860017270699986
+      },
+      "values_state_07": {
+        "maxAbs": 0.74365234375,
+        "meanAbs": 0.017277380946325138,
+        "RMSE": 0.061906736643924716,
+        "cosine": 0.9793443595902247
+      },
+      "values_state_08": {
+        "maxAbs": 0.85546875,
+        "meanAbs": 0.015293524134904146,
+        "RMSE": 0.05583527821528646,
+        "cosine": 0.9788769021789419
+      },
+      "values_state_09": {
+        "maxAbs": 1.15234375,
+        "meanAbs": 0.019615902449004352,
+        "RMSE": 0.06996752148481909,
+        "cosine": 0.9887146096962325
+      },
+      "values_state_10": {
+        "maxAbs": 1.0595703125,
+        "meanAbs": 0.02541531270253472,
+        "RMSE": 0.08902785116425536,
+        "cosine": 0.9860793760243328
+      },
+      "values_state_11": {
+        "maxAbs": 1.435302734375,
+        "meanAbs": 0.033420459483750165,
+        "RMSE": 0.1213791390522734,
+        "cosine": 0.9719351841043431
+      },
+      "values_state_12": {
+        "maxAbs": 0.82763671875,
+        "meanAbs": 0.02324384028906934,
+        "RMSE": 0.08283649763702178,
+        "cosine": 0.9866496848070196
+      },
+      "values_state_13": {
+        "maxAbs": 0.76318359375,
+        "meanAbs": 0.02401980187278241,
+        "RMSE": 0.08547143349314468,
+        "cosine": 0.9862516350348856
+      },
+      "values_state_14": {
+        "maxAbs": 1.552001953125,
+        "meanAbs": 0.035575012108893134,
+        "RMSE": 0.12868584995741605,
+        "cosine": 0.9798376435308842
+      },
+      "values_state_15": {
+        "maxAbs": 1.8046875,
+        "meanAbs": 0.03221742017194629,
+        "RMSE": 0.12274452845938151,
+        "cosine": 0.9850194862321137
+      },
+      "values_state_16": {
+        "maxAbs": 1.65771484375,
+        "meanAbs": 0.04594433668535203,
+        "RMSE": 0.1635406053203157,
+        "cosine": 0.9673548338367913
+      },
+      "values_state_17": {
+        "maxAbs": 2.1064453125,
+        "meanAbs": 0.06079522060463205,
+        "RMSE": 0.21559016805070585,
+        "cosine": 0.9621522313224995
+      },
+      "values_state_18": {
+        "maxAbs": 1.437255859375,
+        "meanAbs": 0.04444225778570399,
+        "RMSE": 0.15793761664187528,
+        "cosine": 0.9760617419480656
+      },
+      "values_state_19": {
+        "maxAbs": 1.78125,
+        "meanAbs": 0.04610454506473616,
+        "RMSE": 0.1614659483821911,
+        "cosine": 0.9671318658567758
+      },
+      "values_state_20": {
+        "maxAbs": 2.047607421875,
+        "meanAbs": 0.05894990137312561,
+        "RMSE": 0.20749687798537064,
+        "cosine": 0.9849835467011431
+      },
+      "values_state_21": {
+        "maxAbs": 4.72265625,
+        "meanAbs": 0.14555719261988997,
+        "RMSE": 0.5056114079234713,
+        "cosine": 0.9669571606491751
+      },
+      "values_state_22": {
+        "maxAbs": 4.3603515625,
+        "meanAbs": 0.12440887931734324,
+        "RMSE": 0.4390847668811441,
+        "cosine": 0.9743280159782343
+      },
+      "values_state_23": {
+        "maxAbs": 8.390625,
+        "meanAbs": 0.18172376474831253,
+        "RMSE": 0.6835583361537155,
+        "cosine": 0.9561024911562611
+      }
+    },
+    "decodeTop1Agreement": 0.75,
+    "decodeTop20OverlapMean": 0.309375
+  },
+  "pureQ4": false,
+  "stateDtypeMeaning": "Python read_state float32 bridge views; encoded MLState and native IO remain FP16, not activation/KV quantization"
+}

@@ -1,0 +1,21 @@
+{
+  "status": "PASS_ALL5_BIT_IDENTICAL_TO_HYBRID_1B1D342",
+  "sourceCommit": "38bd685136a69870677d587ff9d684f7b4bcb3a2",
+  "warmRawTotalMilliseconds": [
+    2903.2043750000003,
+    2871.468209,
+    2911.3835
+  ],
+  "warmTotalMsMedian": 2903.2043750000003,
+  "warmRTFMedian": 0.2791542668269231,
+  "warmLLMmsMedian": 1207.282834,
+  "warmAcousticMsMedian": 1499.2396250000002,
+  "decodeMsPerTokenMedian": 4.392498555984556,
+  "sampledPeakFootprintBytes": 1448381552,
+  "all5Nominal": true,
+  "chargingOnly": true,
+  "PCM_SHA256": "bfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a",
+  "WAV_SHA256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b",
+  "tokenSequenceSHA256": "b5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76",
+  "seriesMeaning": "latestfinalP2hashguard/source38bd; donotmixwithsame-source1bthreewaycomparison orprofiledtimings"
+}

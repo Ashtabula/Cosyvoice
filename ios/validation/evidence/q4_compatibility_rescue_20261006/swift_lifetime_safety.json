@@ -1,0 +1,27 @@
+{
+  "physicalSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "rules": {
+    "defaultCurrent": true,
+    "Q8Selectable": true,
+    "Q4Selectable": false,
+    "newQuantizationCandidates": 1,
+    "noDemoChanges": true,
+    "SHARDS": 2,
+    "flowSteps": 6,
+    "statePrecision": "FP16",
+    "placement": "LLM CPU_AND_NE/acoustic CPU_AND_GPU unchanged",
+    "precisionAndAlgorithms": "No sampler/RAS/EOS/RoPE/attention/Flow/HiFT math changes; INT4 compression of169decode weights is numerical experiment, notbitidenticalCurrent"
+  },
+  "stateOwnership": {
+    "source": "Q8 prefill.makeState owned until sessionend",
+    "destination": "Adecode.makeState retainedonlybyrequestsession",
+    "copy": "aftercompletedprefill beforefirstdecode",
+    "byteIdentity": "48xFP16 buffers6291456B memcmp verified",
+    "closureScope": "source/destination pointers used inside public withMultiArray closures only",
+    "noCrossModelStateObjectSharing": true,
+    "synchronization": "NSLock; requestsession owned exclusively by actor-isolated Engine generation; no predictioninflightduringtransfer",
+    "additionalLogicalKVStorageBytes": 6291456,
+    "ordinaryProfiles": "optionalbridgedstate nil; same originalstate call; Current frozen token/PCM/WAV validatedfive requests"
+  },
+  "strictGate": "Only ValidationSPI with exactmanifest4f8e.../payload3b57... and explicitSHARDS2/statecopyflags; ordinarypublicq4 constructorstillprofileNotValidated"
+}

@@ -1,0 +1,3 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-AUTO-DONE] status=PASS Q4 decode Level B diagnostic

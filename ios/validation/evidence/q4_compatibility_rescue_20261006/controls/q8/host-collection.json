@@ -1,0 +1,37 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-quantization",
+    "--validation-llm-variant=q8",
+    "--validation-warm-pass",
+    "--validation-execution-audit",
+    "--validation-acoustic-cache=selected-family"
+  ],
+  "runnerSHA256": "d4fabb558d7f7bb9eb38caa72d390c2632bed7de87c995b5487a438e3c4ff30d",
+  "physicalSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "sourceGitHEADAtCollection": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "artifactFilename": "cosyvoice_llm_q8.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/controls/cosyvoice_llm_q8.wav",
+  "artifacts": [
+    {
+      "filename": "cosyvoice_llm_q8.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/controls/cosyvoice_llm_q8.wav",
+      "sha256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

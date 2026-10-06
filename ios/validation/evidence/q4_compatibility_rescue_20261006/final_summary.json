@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "decision": "Q4_RESCUE_AWAITING_HUMAN",
+  "candidate": "q4_decode_hybrid_a",
+  "pureQ4": false,
+  "originalQ4ClassificationPreserved": "Q4_UNSUPPORTED_OR_INCOMPATIBLE",
+  "originalDecodeLevelA": "PASS_CPU_AND_NE_LOAD_AND_PLAN",
+  "originalDecodeLevelB": "PASS_FINITE_SYNTHETIC_LEGITIMATE_Q8_PREFILL_MODEL_OWNED_STATE_COPY",
+  "originalDecodePlan": "169linearCPU_only_supported,1714CPU_preferred; actualresidencyUNKNOWN",
+  "rescueCandidatesCreated": 1,
+  "rescueA": "INT4per_channel169linearweights, prefFAIL_-14/decodePASS_ANEpreferred_and_prediction",
+  "rescueB": "NOT_CREATED",
+  "legalStateBridge": "documented public makeState/withMultiArray; no cross-modelMLStateobjectsharing; actualFP16bytes verified48states6291456B, productionfrozenprefixcopyloggedeachrequest",
+  "physicalSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "finalGuardSourceCommit": "38bd685136a69870677d587ff9d684f7b4bcb3a2",
+  "assetManifestSHA256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+  "assetPayloadTreeSHA256": "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9",
+  "publicRequests": {
+    "unprofiledHybrid": 5,
+    "profiledHybrid": 5,
+    "CurrentControl": 5,
+    "Q8Control": 5,
+    "listeningHybrid": 3,
+    "finalGuardHybrid": 5
+  },
+  "metrics": {
+    "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+    "warmRaw": [
+      {
+        "totalMs": 2750.303625,
+        "RTF": 0.2644522716346154,
+        "LLMms": 1140.619333,
+        "acousticMs": 1460.062501,
+        "thermalStart": "nominal",
+        "thermalEnd": "nominal"
+      },
+      {
+        "totalMs": 2787.162583,
+        "RTF": 0.2679964022115384,
+        "LLMms": 1158.825125,
+        "acousticMs": 1478.872167,
+        "thermalStart": "nominal",
+        "thermalEnd": "nominal"
+      },
+      {
+        "totalMs": 2839.915042,
+        "RTF": 0.27306875403846154,
+        "LLMms": 1178.4525,
+        "acousticMs": 1498.98375,
+        "thermalStart": "nominal",
+        "thermalEnd": "nominal"
+      }
+    ],
+    "totalMsMedian": 2787.162583,
+    "RTFmedian": 0.2679964022115384,
+    "LLMmsMedian": 1158.825125,
+    "decodeMsPerTokenMedian": 4.22403122007722,
+    "sampledPeakFootprintBytes": 1447595168,
+    "warmCPUTimeMedianMs": 429.6849999999995,
+    "CPUOnlyEnergyMedianMillijoulesPerAudioSecond": 131.25303663461537,
+    "peakMeaning": "100ms sampled processfootprint acrossfirst/5warm, notpermodel/privateCoreMLattribution",
+    "N": 260,
+    "sampleRate": 24000,
+    "samples": 249600,
+    "SHARDS": 2,
+    "flowSteps": 6,
+    "PCM_SHA256": "bfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a",
+    "WAV_SHA256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b",
+    "tokenSequenceSHA256": "b5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76",
+    "termination": [
+      "MAX_LENGTH",
+      "MAX_LENGTH",
+      "MAX_LENGTH",
+      "MAX_LENGTH",
+      "MAX_LENGTH"
+    ],
+    "tokenDivergencesVsCurrent": 259,
+    "tokenDivergencesVsQ8": 259
+  },
+  "comparison": {
+    "memorySavedVsQ8MiB": 137.5155792236328,
+    "memorySavedVsQ8Percent": 9.058699465806153,
+    "warmMedianSavedVsQ8Ms": 856.4238340000002,
+    "warmRTFRelativeReductionVsQ8Percent": 23.504968346685995,
+    "totalLLMPackageBytes": {
+      "current": 1457151548,
+      "q8": 730670903,
+      "q4_decode_hybrid_a": 548728576
+    },
+    "sequence": "hybrid first, Currentcontrol, profiledhybrid excludedfromspeed, Q8control; notrandomized/alternatingstatisticalproof",
+    "chargingOnly": true,
+    "wholeDeviceEnergy": null,
+    "energyConclusion": "CPU-onlycounter didnotshowenergywin; noANE/GPU/wholedeviceenergyinference",
+    "thermalConclusion": "allshortpublicrequestnominal; nosustainedthermalcomparison",
+    "promotion": "PENDING_HUMAN; ordinarypublicQ4disabled"
+  },
+  "topologyClassification": "MOSTLY_CONTIGUOUS_ANE",
+  "decodePredictionsMatched": 1295,
+  "modelCPUOrGPUBackendEvents": 0,
+  "observedANEProgramIntervalsPerPrediction": 1,
+  "actualPerOpResidency": "UNKNOWN_RESIDENCY",
+  "humanListening": "PENDING_HUMAN",
+  "audioExportedToWorkspace": true,
+  "candidateListeningN": [
+    160,
+    446,
+    363
+  ],
+  "secondUtteranceMaxLengthReviewRequired": true,
+  "publicQ4Selectable": false,
+  "publicQ4Error": "profileNotValidated",
+  "productionDefault": "Current",
+  "Q8Status": "experimental/selectable/priorHUMAN_PASS",
+  "DemoModified": false,
+  "promotion": false,
+  "wholeDeviceEnergy": null,
+  "sustainedThermal": "NOT_RUN",
+  "chargingOnly": true,
+  "finalGuardPhysicalRecheck": {
+    "status": "PASS_ALL5_BIT_IDENTICAL_TO_HYBRID_1B1D342",
+    "sourceCommit": "38bd685136a69870677d587ff9d684f7b4bcb3a2",
+    "warmRawTotalMilliseconds": [
+      2903.2043750000003,
+      2871.468209,
+      2911.3835
+    ],
+    "warmTotalMsMedian": 2903.2043750000003,
+    "warmRTFMedian": 0.2791542668269231,
+    "warmLLMmsMedian": 1207.282834,
+    "warmAcousticMsMedian": 1499.2396250000002,
+    "decodeMsPerTokenMedian": 4.392498555984556,
+    "sampledPeakFootprintBytes": 1448381552,
+    "all5Nominal": true,
+    "chargingOnly": true,
+    "PCM_SHA256": "bfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a",
+    "WAV_SHA256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b",
+    "tokenSequenceSHA256": "b5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76",
+    "seriesMeaning": "latestfinalP2hashguard/source38bd; donotmixwithsame-source1bthreewaycomparison orprofiledtimings"
+  }
+}

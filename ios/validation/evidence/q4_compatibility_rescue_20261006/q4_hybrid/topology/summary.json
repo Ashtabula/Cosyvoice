@@ -1,0 +1,1282 @@
+{
+  "schemaVersion": 1,
+  "variant": "q4_decode_hybrid_a",
+  "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "processID": 6004,
+  "device": "iPhone18,4",
+  "iOS": "27.2",
+  "modelIdentity": {
+    "functionName": "<default:main>",
+    "manifestSHA256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+    "modelABI": "CoreML-MLProgram-source-content-v2",
+    "modelPackageSHA256": "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46",
+    "payloadTreeSHA256": "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9",
+    "requestedPlacement": "3",
+    "reshapeInfrequent": "false",
+    "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+    "schema": "3"
+  },
+  "compiledName": "2ef129037225b21c1488e7877e701ced81b5c45589d1b8b65dc9ef1a481a833c",
+  "actualResidency": "UNKNOWN_RESIDENCY",
+  "topologyClassification": "MOSTLY_CONTIGUOUS_ANE",
+  "meaning": "One observed contiguous program-level ANE interval; not proof of uninterrupted kernel activity or full per-op residency.",
+  "recordCount": 1295,
+  "hardwareRecordCount": 1295,
+  "backendEventCount": 0,
+  "allPredictions": {
+    "count": 1295,
+    "aneIntervalCount": {
+      "min": 1,
+      "median": 1,
+      "mean": 1,
+      "max": 1
+    },
+    "mergedANEIntervalCount": {
+      "min": 1,
+      "median": 1,
+      "mean": 1,
+      "max": 1
+    },
+    "totalANEIntervalMilliseconds": {
+      "min": 3.069042,
+      "median": 3.781125,
+      "mean": 3.6838530872586874,
+      "max": 4.34375
+    },
+    "longestANEIntervalMilliseconds": {
+      "min": 3.069042,
+      "median": 3.781125,
+      "mean": 3.6838530872586874,
+      "max": 4.34375
+    },
+    "internalGapCount": {
+      "min": 0,
+      "median": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "internalGapMilliseconds": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "maxInternalGapMilliseconds": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "predictionWallMilliseconds": {
+      "min": 3.711083,
+      "median": 4.6185,
+      "mean": 4.512063081853282,
+      "max": 6.438209
+    },
+    "aneIntervalCoverage": {
+      "min": 0.6172912373611978,
+      "median": 0.8188840191703851,
+      "mean": 0.817472683399565,
+      "max": 0.8641485057532402
+    },
+    "contiguousANEFraction": {
+      "min": 0.6172912373611978,
+      "median": 0.8188840191703851,
+      "mean": 0.817472683399565,
+      "max": 0.8641485057532402
+    },
+    "fragmentationRatio": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "preANEBoundaryMilliseconds": {
+      "min": 0.506833,
+      "median": 0.73875,
+      "mean": 0.727829850965251,
+      "max": 2.3365
+    },
+    "postANEBoundaryMilliseconds": {
+      "min": 0.0365,
+      "median": 0.1,
+      "mean": 0.10038014362934362,
+      "max": 0.226375
+    }
+  },
+  "warmPredictions": {
+    "count": 777,
+    "aneIntervalCount": {
+      "min": 1,
+      "median": 1,
+      "mean": 1,
+      "max": 1
+    },
+    "mergedANEIntervalCount": {
+      "min": 1,
+      "median": 1,
+      "mean": 1,
+      "max": 1
+    },
+    "totalANEIntervalMilliseconds": {
+      "min": 3.075542,
+      "median": 3.7925,
+      "mean": 3.7066754453024453,
+      "max": 4.34375
+    },
+    "longestANEIntervalMilliseconds": {
+      "min": 3.075542,
+      "median": 3.7925,
+      "mean": 3.7066754453024453,
+      "max": 4.34375
+    },
+    "internalGapCount": {
+      "min": 0,
+      "median": 0,
+      "mean": 0,
+      "max": 0
+    },
+    "internalGapMilliseconds": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "maxInternalGapMilliseconds": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "predictionWallMilliseconds": {
+      "min": 3.729833,
+      "median": 4.647833,
+      "mean": 4.543456285714286,
+      "max": 6.438209
+    },
+    "aneIntervalCoverage": {
+      "min": 0.6172912373611978,
+      "median": 0.8186825560605159,
+      "mean": 0.816894750472596,
+      "max": 0.8641485057532402
+    },
+    "contiguousANEFraction": {
+      "min": 0.6172912373611978,
+      "median": 0.8186825560605159,
+      "mean": 0.816894750472596,
+      "max": 0.8641485057532402
+    },
+    "fragmentationRatio": {
+      "min": 0.0,
+      "median": 0.0,
+      "mean": 0.0,
+      "max": 0.0
+    },
+    "preANEBoundaryMilliseconds": {
+      "min": 0.506833,
+      "median": 0.748375,
+      "mean": 0.7369151647361647,
+      "max": 2.3365
+    },
+    "postANEBoundaryMilliseconds": {
+      "min": 0.0365,
+      "median": 0.100375,
+      "mean": 0.09986567567567567,
+      "max": 0.220458
+    }
+  },
+  "earlyMiddleLate": {
+    "early": {
+      "count": 60,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.124208,
+        "median": 3.8739999999999997,
+        "mean": 3.8025957666666668,
+        "max": 4.2605
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.124208,
+        "median": 3.8739999999999997,
+        "mean": 3.8025957666666668,
+        "max": 4.2605
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.842167,
+        "median": 4.7788335,
+        "mean": 4.753468666666667,
+        "max": 6.3005
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6259820649154829,
+        "median": 0.8114883379432767,
+        "mean": 0.8029660892568562,
+        "max": 0.8360806805724835
+      },
+      "contiguousANEFraction": {
+        "min": 0.6259820649154829,
+        "median": 0.8114883379432767,
+        "mean": 0.8029660892568562,
+        "max": 0.8360806805724835
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.528459,
+        "median": 0.8115625,
+        "mean": 0.8529090333333333,
+        "max": 2.310375
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.040417,
+        "median": 0.1075835,
+        "mean": 0.09796386666666666,
+        "max": 0.135917
+      }
+    },
+    "middle": {
+      "count": 60,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.107084,
+        "median": 3.6963540000000004,
+        "mean": 3.6315597333333334,
+        "max": 4.124917
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.107084,
+        "median": 3.6963540000000004,
+        "mean": 3.6315597333333334,
+        "max": 4.124917
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.768125,
+        "median": 4.5482295,
+        "mean": 4.43886815,
+        "max": 5.031583
+      },
+      "aneIntervalCoverage": {
+        "min": 0.7852757489149995,
+        "median": 0.8189133188800202,
+        "mean": 0.8187744284654195,
+        "max": 0.8430718420127361
+      },
+      "contiguousANEFraction": {
+        "min": 0.7852757489149995,
+        "median": 0.8189133188800202,
+        "mean": 0.8187744284654195,
+        "max": 0.8430718420127361
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.506833,
+        "median": 0.7219580000000001,
+        "mean": 0.6983277833333333,
+        "max": 0.909333
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.069333,
+        "median": 0.1055625,
+        "mean": 0.10898063333333333,
+        "max": 0.187125
+      }
+    },
+    "late": {
+      "count": 60,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.086916,
+        "median": 3.7060205,
+        "mean": 3.621372883333333,
+        "max": 4.109125
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.086916,
+        "median": 3.7060205,
+        "mean": 3.621372883333333,
+        "max": 4.109125
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.751583,
+        "median": 4.5100415,
+        "mean": 4.46697505,
+        "max": 6.438209
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6172912373611978,
+        "median": 0.8198585947450934,
+        "mean": 0.8132642743020443,
+        "max": 0.8417636929681039
+      },
+      "contiguousANEFraction": {
+        "min": 0.6172912373611978,
+        "median": 0.8198585947450934,
+        "mean": 0.8132642743020443,
+        "max": 0.8417636929681039
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.526958,
+        "median": 0.7022705,
+        "mean": 0.74129525,
+        "max": 2.3365
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.092167,
+        "median": 0.1004165,
+        "mean": 0.10430691666666667,
+        "max": 0.209917
+      }
+    }
+  },
+  "contextGroups": {
+    "55...64": {
+      "count": 30,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.17825,
+        "median": 3.9151875,
+        "mean": 3.8455013,
+        "max": 4.2605
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.17825,
+        "median": 3.9151875,
+        "mean": 3.8455013,
+        "max": 4.2605
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.842167,
+        "median": 4.845333,
+        "mean": 4.8412193,
+        "max": 6.064958
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6914045324532453,
+        "median": 0.8087141421269719,
+        "mean": 0.7974857147121488,
+        "max": 0.8348303995477596
+      },
+      "contiguousANEFraction": {
+        "min": 0.6914045324532453,
+        "median": 0.8087141421269719,
+        "mean": 0.7974857147121488,
+        "max": 0.8348303995477596
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.535459,
+        "median": 0.832708,
+        "mean": 0.8958486,
+        "max": 1.686291
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.046833,
+        "median": 0.1090005,
+        "mean": 0.0998694,
+        "max": 0.135917
+      }
+    },
+    "65...128": {
+      "count": 192,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.109125,
+        "median": 3.8813335,
+        "mean": 3.797349802083333,
+        "max": 4.264667
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.109125,
+        "median": 3.8813335,
+        "mean": 3.797349802083333,
+        "max": 4.264667
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.774917,
+        "median": 4.7666875,
+        "mean": 4.667185125,
+        "max": 6.3005
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6259820649154829,
+        "median": 0.8151497631184603,
+        "mean": 0.8145634165924388,
+        "max": 0.8479626934779733
+      },
+      "contiguousANEFraction": {
+        "min": 0.6259820649154829,
+        "median": 0.8151497631184603,
+        "mean": 0.8145634165924388,
+        "max": 0.8479626934779733
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.521458,
+        "median": 0.801104,
+        "mean": 0.77915584375,
+        "max": 2.310375
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.0365,
+        "median": 0.096417,
+        "mean": 0.09067947916666666,
+        "max": 0.143084
+      }
+    },
+    "129...192": {
+      "count": 192,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.080958,
+        "median": 3.7726665,
+        "mean": 3.6820169166666665,
+        "max": 4.34375
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.080958,
+        "median": 3.7726665,
+        "mean": 3.6820169166666665,
+        "max": 4.34375
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.762875,
+        "median": 4.6230205,
+        "mean": 4.505467671875,
+        "max": 5.193875
+      },
+      "aneIntervalCoverage": {
+        "min": 0.7852757489149995,
+        "median": 0.8189133188800202,
+        "mean": 0.8179440021938308,
+        "max": 0.8641485057532402
+      },
+      "contiguousANEFraction": {
+        "min": 0.7852757489149995,
+        "median": 0.8189133188800202,
+        "mean": 0.8179440021938308,
+        "max": 0.8641485057532402
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.506833,
+        "median": 0.7453335000000001,
+        "mean": 0.7168834479166667,
+        "max": 0.928417
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.068584,
+        "median": 0.10427049999999999,
+        "mean": 0.10656730729166666,
+        "max": 0.187125
+      }
+    },
+    "193...256": {
+      "count": 192,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1.0,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.087417,
+        "median": 3.7543335,
+        "mean": 3.674756953125,
+        "max": 4.284458
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.087417,
+        "median": 3.7543335,
+        "mean": 3.674756953125,
+        "max": 4.284458
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0.0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.748708,
+        "median": 4.6068955,
+        "mean": 4.4872360625,
+        "max": 5.17175
+      },
+      "aneIntervalCoverage": {
+        "min": 0.7832386396718275,
+        "median": 0.8208776768579247,
+        "mean": 0.8195717490641027,
+        "max": 0.8482131298264888
+      },
+      "contiguousANEFraction": {
+        "min": 0.7832386396718275,
+        "median": 0.8208776768579247,
+        "mean": 0.8195717490641027,
+        "max": 0.8482131298264888
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.513625,
+        "median": 0.7345630000000001,
+        "mean": 0.7117553854166667,
+        "max": 0.931667
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.058959,
+        "median": 0.09918750000000001,
+        "mean": 0.10072372395833333,
+        "max": 0.220458
+      }
+    },
+    "257...313": {
+      "count": 171,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.075542,
+        "median": 3.713042,
+        "mean": 3.6440353040935674,
+        "max": 4.22375
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.075542,
+        "median": 3.713042,
+        "mean": 3.6440353040935674,
+        "max": 4.22375
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.729833,
+        "median": 4.545667,
+        "mean": 4.458071894736842,
+        "max": 6.438209
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6172912373611978,
+        "median": 0.8216740958297054,
+        "mean": 0.818733622506264,
+        "max": 0.8448289482647467
+      },
+      "contiguousANEFraction": {
+        "min": 0.6172912373611978,
+        "median": 0.8216740958297054,
+        "mean": 0.818733622506264,
+        "max": 0.8448289482647467
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.508875,
+        "median": 0.706334,
+        "mean": 0.7123453040935672,
+        "max": 2.3365
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.072375,
+        "median": 0.098834,
+        "mean": 0.1016912865497076,
+        "max": 0.209917
+      }
+    }
+  },
+  "perRequest": {
+    "1": {
+      "count": 259,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.079292,
+        "median": 3.726292,
+        "mean": 3.6522241235521236,
+        "max": 4.204
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.079292,
+        "median": 3.726292,
+        "mean": 3.6522241235521236,
+        "max": 4.204
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.744125,
+        "median": 4.566333,
+        "mean": 4.478629637065637,
+        "max": 5.871708
+      },
+      "aneIntervalCoverage": {
+        "min": 0.7159756581900871,
+        "median": 0.8185375375823893,
+        "mean": 0.8164959433593589,
+        "max": 0.8391613602539626
+      },
+      "contiguousANEFraction": {
+        "min": 0.7159756581900871,
+        "median": 0.8185375375823893,
+        "mean": 0.8164959433593589,
+        "max": 0.8391613602539626
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.509917,
+        "median": 0.732292,
+        "mean": 0.7269639227799228,
+        "max": 1.548583
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.045042,
+        "median": 0.097542,
+        "mean": 0.09944159073359074,
+        "max": 0.216834
+      }
+    },
+    "2": {
+      "count": 259,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.069042,
+        "median": 3.788375,
+        "mean": 3.647014976833977,
+        "max": 4.295083
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.069042,
+        "median": 3.788375,
+        "mean": 3.647014976833977,
+        "max": 4.295083
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.711083,
+        "median": 4.602291,
+        "mean": 4.451316915057915,
+        "max": 5.69
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6999449440264268,
+        "median": 0.8213062998421452,
+        "mean": 0.8201832222206781,
+        "max": 0.854461678849794
+      },
+      "contiguousANEFraction": {
+        "min": 0.6999449440264268,
+        "median": 0.8213062998421452,
+        "mean": 0.8201832222206781,
+        "max": 0.854461678849794
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.511125,
+        "median": 0.70525,
+        "mean": 0.7014398378378378,
+        "max": 1.540584
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.061583,
+        "median": 0.1045,
+        "mean": 0.10286210038610039,
+        "max": 0.226375
+      }
+    },
+    "3": {
+      "count": 259,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.095958,
+        "median": 3.814875,
+        "mean": 3.716644127413127,
+        "max": 4.34375
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.095958,
+        "median": 3.814875,
+        "mean": 3.716644127413127,
+        "max": 4.34375
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.769167,
+        "median": 4.658292,
+        "mean": 4.55554906949807,
+        "max": 6.438209
+      },
+      "aneIntervalCoverage": {
+        "min": 0.6172912373611978,
+        "median": 0.8190958221346601,
+        "mean": 0.8172465833610425,
+        "max": 0.8641485057532402
+      },
+      "contiguousANEFraction": {
+        "min": 0.6172912373611978,
+        "median": 0.8190958221346601,
+        "mean": 0.8172465833610425,
+        "max": 0.8641485057532402
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.508875,
+        "median": 0.746875,
+        "mean": 0.7380032046332047,
+        "max": 2.3365
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.040417,
+        "median": 0.10375,
+        "mean": 0.10090173745173746,
+        "max": 0.220458
+      }
+    },
+    "4": {
+      "count": 259,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.075542,
+        "median": 3.795041,
+        "mean": 3.71206577992278,
+        "max": 4.264667
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.075542,
+        "median": 3.795041,
+        "mean": 3.71206577992278,
+        "max": 4.264667
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.74625,
+        "median": 4.665167,
+        "mean": 4.548498046332046,
+        "max": 6.064958
+      },
+      "aneIntervalCoverage": {
+        "min": 0.695846123269218,
+        "median": 0.8188810625442273,
+        "mean": 0.8170616547886663,
+        "max": 0.8479626934779733
+      },
+      "contiguousANEFraction": {
+        "min": 0.695846123269218,
+        "median": 0.8188810625442273,
+        "mean": 0.8170616547886663,
+        "max": 0.8479626934779733
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.506833,
+        "median": 0.746916,
+        "mean": 0.7352450231660231,
+        "max": 1.686291
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.0365,
+        "median": 0.100375,
+        "mean": 0.10118724324324324,
+        "max": 0.209917
+      }
+    },
+    "5": {
+      "count": 259,
+      "aneIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "mergedANEIntervalCount": {
+        "min": 1,
+        "median": 1,
+        "mean": 1,
+        "max": 1
+      },
+      "totalANEIntervalMilliseconds": {
+        "min": 3.086916,
+        "median": 3.753292,
+        "mean": 3.6913164285714286,
+        "max": 4.204167
+      },
+      "longestANEIntervalMilliseconds": {
+        "min": 3.086916,
+        "median": 3.753292,
+        "mean": 3.6913164285714286,
+        "max": 4.204167
+      },
+      "internalGapCount": {
+        "min": 0,
+        "median": 0,
+        "mean": 0,
+        "max": 0
+      },
+      "internalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "maxInternalGapMilliseconds": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "predictionWallMilliseconds": {
+        "min": 3.729833,
+        "median": 4.621041,
+        "mean": 4.526321741312741,
+        "max": 5.787417
+      },
+      "aneIntervalCoverage": {
+        "min": 0.7020257914713939,
+        "median": 0.8175360754308763,
+        "mean": 0.8163760132680792,
+        "max": 0.8419893145783724
+      },
+      "contiguousANEFraction": {
+        "min": 0.7020257914713939,
+        "median": 0.8175360754308763,
+        "mean": 0.8163760132680792,
+        "max": 0.8419893145783724
+      },
+      "fragmentationRatio": {
+        "min": 0.0,
+        "median": 0.0,
+        "mean": 0.0,
+        "max": 0.0
+      },
+      "preANEBoundaryMilliseconds": {
+        "min": 0.509917,
+        "median": 0.749459,
+        "mean": 0.7374972664092664,
+        "max": 1.588584
+      },
+      "postANEBoundaryMilliseconds": {
+        "min": 0.043042,
+        "median": 0.098584,
+        "mean": 0.09750804633204634,
+        "max": 0.143084
+      }
+    }
+  },
+  "inputs": {
+    "attribution": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/topology/execution_trace_attribution.json",
+    "attributionSHA256": "5c440fa726dcfdce72c7b959943b3671052c6051c5cfafa65aa012569bac3aaf",
+    "receipt": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled/llm-quantization-q4_hybrid-receipt.json",
+    "receiptSHA256": "22503642835afea2d56b32ad73de4a2a6b9768076ea8756df0a7cb00cbaed165",
+    "diagnostics": null,
+    "diagnosticsSHA256": null,
+    "exportedTables": [
+      {
+        "path": "ios/.work/q4-rescue-20261006/hybrid-trace-OSSignpostIntervals.xml",
+        "sha256": "5ac8a8164a854060d16b4e9a287c1c80608f361024027d89131af59ea457d4ae",
+        "rowCount": 1315
+      },
+      {
+        "path": "ios/.work/q4-rescue-20261006/hybrid-trace-coreml-os-signpost.xml",
+        "sha256": "6939380bbe6afd4508352682128601e372c691686271cfa7162076d5cf10f4cc",
+        "rowCount": 13621
+      },
+      {
+        "path": "ios/.work/q4-rescue-20261006/hybrid-trace-ane-hw-intervals.xml",
+        "sha256": "a07135441c95829af5e7eb1a5767039c5b435cf418478ce8d6a1827da952fd9c",
+        "rowCount": 1314
+      }
+    ]
+  },
+  "limitations": [
+    "ANE table resolves model/program intervals, not internal kernels/micro-gaps.",
+    "Hardware table lacks PID: exact compiled hash plus PID-native containment and one-to-one match required.",
+    "CPU/process activity inside hidden gaps UNKNOWN; no exclusive op attribution.",
+    "Historical traces have different instrument sets/source dates; compare topology, not controlled speed or energy.",
+    "Coverage is temporal coverage, not utilization; zero recorded internal gap is not proof of zero hidden synchronization."
+  ],
+  "auditToolSHA256": "4d005230c832b7f00690eff6e45a1abfccf50a59f83457631e3ee98746cbb37f",
+  "attributionToolSHA256": "184c22f0da67aeabc9705419584f8153eb794fccb13d5c14529423986a9deed5",
+  "rawTracePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-CoreAI-retry.trace"
+}

@@ -1,0 +1,6 @@
+[Q4] source prefill
+[Q4] quantize169 linear matrices only prefill {'mode': 'linear_symmetric', 'dtype': 'int4', 'granularity': 'per_channel', 'weight_threshold': 2048}
+[Q4] saved prefill 183437878
+[Q4] source decode
+[Q4] quantize169 linear matrices only decode {'mode': 'linear_symmetric', 'dtype': 'int4', 'granularity': 'per_channel', 'weight_threshold': 2048}
+[Q4] saved decode 183348350

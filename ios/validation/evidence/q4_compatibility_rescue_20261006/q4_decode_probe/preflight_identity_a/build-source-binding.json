@@ -1,0 +1,6 @@
+{
+  "sourceCommit": "543312a46a99d2f04e8ba118314cfcc3daa2a559",
+  "DeviceSmokeSHA256": "e40c11991eb76b21326c28a356bc6061880a1acfbe2cd18a10cdc9d77d6cb7e8",
+  "baselineSourceCommit": "362bb1842d48d7b8e5ce89287e2468d0ea722f75",
+  "publicQ4GuardUnchanged": true
+}

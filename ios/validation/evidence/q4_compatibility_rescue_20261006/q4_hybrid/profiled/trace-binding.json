@@ -1,0 +1,26 @@
+{
+  "recordCommand": [
+    "xcrun",
+    "xctrace",
+    "record",
+    "--template",
+    "Core AI",
+    "--instrument",
+    "Core ML",
+    "--instrument",
+    "Points of Interest",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--time-limit",
+    "180s",
+    "--output",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-CoreAI-retry.trace",
+    "--all-processes"
+  ],
+  "tracePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-CoreAI-retry.trace",
+  "traceReturnCode": 0,
+  "requestReturnCode": 0,
+  "temporaryCollectorSHA256": "cdf957db00b86d21d1502866b23a6ca0bbf20ac90372723874c18d15cb9fc78a",
+  "instrumentedNotPerformanceComparison": true,
+  "noTimedReadback": true
+}

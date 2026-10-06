@@ -1,0 +1,18 @@
+from pathlib import Path
+import subprocess,threading,signal,json,hashlib,time
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');out=ROOT/'ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled';out.mkdir(parents=True,exist_ok=True)
+trace=Path('/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-CoreAI-retry.trace');command=['xcrun','xctrace','record','--template','Core AI','--instrument','Core ML','--instrument','Points of Interest','--device','00008150-000A05CA1440401C','--time-limit','180s','--output',str(trace),'--all-processes']
+proc=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);ready=threading.Event()
+def consume():
+ with (out/'trace-console.log').open('w') as f:
+  for line in proc.stdout:
+   print(line,end='',flush=True);f.write(line);f.flush()
+   if 'recording' in line.lower():ready.set()
+threading.Thread(target=consume,daemon=True).start()
+if not ready.wait(45):raise RuntimeError('trace readiness failure; no fakeplacementclaim')
+s=(ROOT/'ios/validation/run_llm_quantization_screen.py').read_text().replace("flags=['--no-playback'","flags=['--validation-stage-profiling','--no-playback'");runner=Path('/private/tmp/run_cosy_q4_hybrid_profile.py');runner.write_text(s)
+result=subprocess.run(['python3',str(runner),'--variant','q4_hybrid','--output',str(out),'--artifacts',str(ROOT/'artifacts/listening/q4_compatibility_rescue_20261006/profile_witness')],check=False)
+if proc.poll() is None:proc.send_signal(signal.SIGINT)
+code=proc.wait(timeout=60);binding={'recordCommand':command,'tracePath':str(trace),'traceReturnCode':code,'requestReturnCode':result.returncode,'temporaryCollectorSHA256':hashlib.sha256(runner.read_bytes()).hexdigest(),'instrumentedNotPerformanceComparison':True,'noTimedReadback':True};(out/'trace-binding.json').write_text(json.dumps(binding,indent=2)+'\n')
+if code==0:subprocess.run(['xcrun','xctrace','export','--input',str(trace),'--toc','--output',str(out/'trace-toc.xml')],check=True)
+if result.returncode!=0:raise RuntimeError('profiledrequestfailure preserved')

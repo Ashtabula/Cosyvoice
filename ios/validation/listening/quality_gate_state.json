@@ -52,6 +52,14 @@
       "inferenceSelectable": false,
       "evidence": "ios/validation/evidence/q4_validation_20261006/q4/objective_status.json",
       "reason": "physical prefill CPU_AND_NE execution-plan -14 before PCM; not a human quality FAIL"
+    },
+    "Q4_DECODE_HYBRID_A": {
+      "objectiveStatus": "Q4_RESCUE_AWAITING_HUMAN",
+      "humanListening": "PENDING_HUMAN",
+      "inferenceSelectable": false,
+      "evidence": "ios/validation/evidence/q4_compatibility_rescue_20261006/final_summary.json",
+      "listeningManifest": "ios/validation/evidence/q4_compatibility_rescue_20261006/listening_manifest.json",
+      "reason": "physical gates and1295ANEtopologyPASS; new3Englishhumanreviewrequired, sample2MAX_LENGTH446; originalQ4failurepreserved"
     }
   }
 }

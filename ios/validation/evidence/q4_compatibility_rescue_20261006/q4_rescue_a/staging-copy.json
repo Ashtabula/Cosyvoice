@@ -1,0 +1,60 @@
+{
+  "info" : {
+    "arguments" : [
+      "devicectl",
+      "device",
+      "copy",
+      "to",
+      "--device",
+      "00008150-000A05CA1440401C",
+      "--domain-type",
+      "appDataContainer",
+      "--domain-identifier",
+      "com.actacomes.cosyvoice3.candidatebenchmark",
+      "--source",
+      "ios/.work/q4-rescue-20261006/A",
+      "--destination",
+      "Documents/Q4CompatibilityRescue/A",
+      "--json-output",
+      "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/staging-copy.json"
+    ],
+    "commandType" : "devicectl.device.copy.to",
+    "environment" : {
+      "TERM" : "dumb"
+    },
+    "jsonVersion" : 5,
+    "outcome" : "success",
+    "version" : "651.13.2"
+  },
+  "result" : {
+    "destination" : "file:///private/var/mobile/Containers/Data/Application/5DF52DBF-EB8D-4B35-92A3-4D7B0144BDAF/Documents/Q4CompatibilityRescue/A",
+    "deviceIdentifier" : "FD701839-6A88-59F5-9AFF-A3362B91B2A5",
+    "domain" : "appDataContainer",
+    "domainIdentifier" : "com.actacomes.cosyvoice3.candidatebenchmark",
+    "file" : {
+      "metadata" : {
+        "extendedAttributes" : {
+
+        },
+        "lastModDate" : "2026-10-06T20:20:24.000Z",
+        "ownerGid" : 501,
+        "ownerUid" : 501,
+        "permissions" : 493,
+        "size" : 96
+      },
+      "name" : "/private/var/mobile/Containers/Data/Application/5DF52DBF-EB8D-4B35-92A3-4D7B0144BDAF/Documents/Q4CompatibilityRescue/A",
+      "relativePath" : "/private/var/mobile/Containers/Data/Application/5DF52DBF-EB8D-4B35-92A3-4D7B0144BDAF/Documents/Q4CompatibilityRescue/A",
+      "resources" : {
+        "isDirectory" : true,
+        "isHidden" : false,
+        "isReadable" : true,
+        "isSymbolicLink" : false,
+        "isWritable" : true
+      }
+    },
+    "source" : "file:///Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/A/",
+    "sources" : [
+      "file:///Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/A/"
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+[
+  "xcrun",
+  "devicectl",
+  "device",
+  "process",
+  "launch",
+  "--device",
+  "00008150-000A05CA1440401C",
+  "--terminate-existing",
+  "--console",
+  "com.actacomes.cosyvoice3.candidatebenchmark",
+  "--",
+  "--no-playback",
+  "--validation-q4-decode-state-probe"
+]

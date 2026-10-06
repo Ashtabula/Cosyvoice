@@ -1,0 +1,73 @@
+{
+  "chargingConditions": "CHARGING_CONNECTED",
+  "compiledIdentity": {
+    "bytes": 205490640,
+    "files": [
+      {
+        "bytes": 243,
+        "path": "analytics/coremldata.bin",
+        "sha256": "c97f17d8ab9fd94ab915d432dd93b828d1a12e1d303985bea951642bc663d0e6"
+      },
+      {
+        "bytes": 1941,
+        "path": "coremldata.bin",
+        "sha256": "cb53706464f7cac329213dba9b2dfa3e75a9f518acff2f6b19a479acd30b07c4"
+      },
+      {
+        "bytes": 605686,
+        "path": "model.mil",
+        "sha256": "21c566aa793a387592a83c4bcf3e10bcf6e7f9b637069825ca61bd8f615bb266"
+      },
+      {
+        "bytes": 204882770,
+        "path": "weights/weight.bin",
+        "sha256": "62deaa7b6731a3ca54f3552ff5af7018f304c60b491ca70384e89735d5603388"
+      }
+    ],
+    "treeSha256": "3e0f726a8e81903871ea0af4504a0815a023eca25d635ef4753d203c043ab5ec"
+  },
+  "compiledPath": "/private/var/mobile/Containers/Data/Application/E14053B8-6F4A-44DC-B585-643538787973/tmp/cosyvoice-llm-q4-decode.mlmodelc",
+  "estimatedCostByPreferredDevice": {
+    "<MLCPUComputeDevice: 0x11601be40>": 0.6646388553568565
+  },
+  "modelLoadStatus": "PASS",
+  "packageIdentity": {
+    "bytes": 205469334,
+    "files": [
+      {
+        "bytes": 585947,
+        "path": "Data/com.apple.CoreML/model.mlmodel",
+        "sha256": "f7f3bc5e6463b66fecb510e6c1ad85475c2e22b068bbc1a07aa2ec1f6d63c6dd"
+      },
+      {
+        "bytes": 204882770,
+        "path": "Data/com.apple.CoreML/weights/weight.bin",
+        "sha256": "62deaa7b6731a3ca54f3552ff5af7018f304c60b491ca70384e89735d5603388"
+      },
+      {
+        "bytes": 617,
+        "path": "Manifest.json",
+        "sha256": "f9531f7a92b3ad95a1ecfe070a724988f56e51e9584cfa81f52acaafd0a09bc9"
+      }
+    ],
+    "treeSha256": "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7"
+  },
+  "path": "/var/mobile/Containers/Data/Application/E14053B8-6F4A-44DC-B585-643538787973/Documents/LLMQuantization/Q4/Runtime/models/cosyvoice-llm-q4-decode.mlpackage",
+  "preferredCounts": {
+    "<MLCPUComputeDevice: 0x11601be40>": 1714
+  },
+  "requestedPlacement": "CPU_AND_NE",
+  "role": "q4Decode",
+  "scope": "LEVEL_A_ONLY; no MLState or prediction; diagnostic, not public synthesis",
+  "signedBuildSourceCommit": "c201c6a8e05aa2ce10887d6266c11f8fdcd44bb6",
+  "singleFunction": false,
+  "stage": "compute-plan",
+  "status": "PASS_COMPUTE_PLAN",
+  "supportedCPUOnlyOperatorCounts": {
+    "ios18.linear": 169
+  },
+  "actualResidency": "UNKNOWN; plan preferences/support are not physical residency",
+  "physicalPackageSHA256": "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7",
+  "parentPayloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "probeOnlyChangedAsset": "Q4 decode exact original, isolated; parent payload refers fixture parent not Q4 root"
+}

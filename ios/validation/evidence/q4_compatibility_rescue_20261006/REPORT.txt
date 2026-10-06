@@ -1,0 +1,90 @@
+CosyVoice3 Q4 Compatibility Rescue — 2026-10-06 America/New_York
+最终 decision: Q4_RESCUE_AWAITING_HUMAN。
+实验候选准确名称: q4_decode_hybrid_a = Q8 prefill + rescue A INT4 per-channel decode。不是 pure Q4。
+Current 仍 shipping LAST_KNOWN_GOOD。Q8 保持 experimental/selectable/prior HUMAN_PASS。普通 .q4 仍 profileNotValidated，不能 silent fallback。仅 hash-bound Validation SPI 可运行此实验；不改 Demo/HF/catalog/release/default。
+
+A: 原 block32 失败保存。
+原转换 source4a9366f，physical source217fd97：coremltools9.0 symmetricINT4per_block32，169linear-weight constants/package，FP16 IO/48-state保持；prefill compiled artifact生成，CPU_AND_NE execution-plan load -14。原 classification Q4_UNSUPPORTED_OR_INCOMPATIBLE 完整保留，不能被本轮decode成功覆盖。
+原 prefill package SHA a434a6d7ff3102ed5ba708a45f62677762acefceed53f6f8e9eb79dc5a509ce7；decode bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7。原failedcompiled205588953B/tree d8c32bef3c8144e5415a7aaf7d1eb06da7915ece2657593427301409396153a4。原packages/receipt/console/hostnumerical不改写。
+
+B: Existing Q4 decode physical Level A/B。
+Physical iPhone18,4/27.2(build24B5089g)，wired connected，CHARGING_CONNECTED。LevelA sourcec201c6a，真实device package hash匹配，MLModel compile/load/MLComputePlan PASS，配置CPU_AND_NE/defaultmain/noextracted/nofallback。Compiled205490640B/tree3e0f726a8e81903871ea0af4504a0815a023eca25d635ef4753d203c043ab5ec。
+Plan1714operations CPU-preferred，其中169linear只列CPU支持。只是plan偏好/支持，不等同actualCPU residency。
+LevelB sourcec0fc758，Q8prefill实际生成合法syntheticteacherforced224prefixstate；decode.makeState自有state，用公开APIscopedcopy48FP16buffers，全部6291456B bytes一致。一次physicaldecode logitsfinite，48.795ms；NOT warm productionbenchmark，NOT frozenreference publicworkload。没有任意伪造KV，未直接跨compiledmodel共享MLState对象。
+第一次LevelA预检因/var与/private/var相对路径hash计算不一致被门禁阻止，未load；devicepackage回读三文件完全匹配后规范化路径重建，失败预检单独保存。一次Swift6 async-overload编译错误保留并改为await完成后访问state。
+
+C: Q8/Q4 State ABI / ownership。
+真实48state names keys_state_00…23/values_state_00…23，FP16[1,2,512,64]，contiguous strides[65536,32768,64,1]。序列化state schemas byte-identical（state_and_structure.json包含完整schema及SHA），logicalstate6291456B。
+同schema不是跨模型对象共享的合法性证明。原production session创建prefillModel.makeState后给对应decode沿用，这是既有accepted路径；不把它推广成任意Q8→Q4对象共享保证。
+Apple公开makeState允许用withMultiArray初始化模型自己创建的state；本轮来源是已完成Q8prefill实际state。源/目的scopedviews内FP16memcpy+memcmp，prediction全部结束后才访问，指针不逃逸。最终hybrid session仍持有source state，另有decode-owned state，增加6291456B logicalKVstorage；每请求复制一次，非per-tokenKVcopy。
+Public docs: https://developer.apple.com/documentation/coreml/mlstate 和 https://developer.apple.com/documentation/coreml/mlmodel/makestate()
+本地SDK MLState.h说明bufferaddress可每次改变，必须在closure内访问；遵守。合法初始化已在physicalLevelB和真实publicsynthesis证明，不声称支持底层sharedbacking/私有stateaccess。
+
+D: Hybrid feasibility/result。
+原block32decode虽能load/predict，但CPU-only-supported linear plan及单次48.795ms没有足够动机进入原block32 publichybrid。继续唯一有证据的A。
+Adecode LevelA/B PASS，单次diagnostic5.452ms；随后建立q4_decode_hybrid_a。Public CosyVoice3Engine.synthesize()，同真实reference/frontend/LLM/Conditions/P2/HiFT/F0/PCM，无microbenchmark冒充。
+SPI只接受exactmanifest/payload+两个P2packageSHA，显式state-copy和P2flags。普通publicprofileinitializer guard/pins原样。Engine.metadata.q4仍描述原失败合同，receipt另写准确experimentalProfileID和实际资产；不能把ValidationSPI作为已开放的普通.q4API。
+模型/asset bindings：Q8prefill f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280；Adecode4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46；hybridmanifest4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8；payload3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9，2621792999B。
+Parentfrozenac31e117938ed50132365973a103cc8425942700/tree4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa。57nonLLMfiles unchangedreadonlyhardlinks。P2group0 SHA1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a，group1 f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c。
+No weights/graph/precision/placement changes to Current/Q8/acoustic；LLM compressed weight values不同，明确属于数值实验，绝不声称与Current/Q8bit-identical。
+
+E: -14 Forensics。
+全部169matrix inputdimensions896或4864均divisible32，无conversion因block不整除skip。实际shape families[Cout,Cin] = [896,896]48、[128,896]48、[4864,896]48、[896,4864]24、[6761,896]1。
+原block32 scale[Cout,Cin/32]，Q8/A per-channel scale[Cout,1]。Adecode从原1714CPUpreferred/169linearCPUonlysupported变为1714ANEpreferred，并有实际ANEtrace。Granularity/scale representation与decode规划改善高度相关，不能证明单一compiler根因；量化数值也改变。
+A prefill独立serialconstructor仍-14，所以不只是公共pipeline/reference/acoustic并发或旧cache损坏。共同剩余关联是INT4prefill224 graph path；可能是编译/specialization/shape/state interaction，具体unsupportedoperator UNKNOWN。不声称constexpr_blockwise_shift_scale整体不支持，也不证明所有Q4prefill/其它设备不支持。
+
+F: Rescue A。
+唯一新量化candidate，conversion source8d49c32。Installedct9 API支持INT4per_channel。只改supportedgranularity，保留169matrixselection/spec9/CoreML8/iOS18/serializedIO48state/majoropcounts。源模型和原candidate不覆盖。
+A pref package183437878B/SHA905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4：physicalprefillloadFAIL_-14。
+A decode183348350B/SHA4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46：physicalload/plan/predictPASS。
+Full-Aprofile不通过；仅Adecode进入准确命名Q8prefillhybrid。Hostcommon64teacherforced Current/Q8/hybrid全finite，hybridprefillvsQ8maxAbs0，decode top1agreement48/64=75%vsCurrent和Q8。不可据此称qualityPASS；全部logits/hidden/48stateerrors保存。
+
+G: Rescue B。
+NOT_CREATED。A已给出可行stagehybrid，不创建第二套weightpackage，不扫blocksize/granularity/palettization，不做per-layerqualitytuning。预算1/2，新量化candidate总数1。
+
+H: Physical memory/performance。
+主对照同signedsource1b1d3426d1188d5e45da40b81c02152b5461251f，五次/各组 first+primer+3measuredwarm。同iPhone/OS/reference/transcript/instruction/text/seed42，SHARDS2/Flow6/N260/n257_384/24000Hz/249600samples/10.4s/no playback，start/end全部nominal/charging/brightness.2。所有rawruns和100mstelemetry保存。
+Current warm median total4991.847ms/RTF0.479985/decode12.514660ms/token/samplepeak2353417424B。
+Q8 warm median total3643.586ms/RTF0.350345/decode7.433424ms/token/samplepeak1591790704B。
+Hybrid warm median total2787.163ms/RTF0.267996/decode4.224031ms/token/LLM1158.825ms/samplepeak1447595168B。
+Hybrid versusQ8：sampledpeak -137.516MiB (-9.059%)，warmmedian -856.424ms，RTFrelative -23.505%。非随机/交替统计设计，短测不能宣称统计支持或其它设备受益。100mspeak不是exactinstantaneouspeak/permodelbytes/CoreMLprivateresidency归因。
+Hybrid packages548728576B vsQ8730670903B vsCurrent1457151548B。Packagebytes与RAM分开。Firsthybrid27341.771ms includesprepare14899.336/acousticload8720.621；新process使用已有persistentartifacts，不是reset/fresh-install FIRST_EVER_COLD。
+CPUwarmmedian Current429.696/Q8444.046/hybrid429.685ms。CPU-onlyenergy/audiosec Current118.953/Q8120.639/hybrid131.253mJ。没有energywin证明，非ANE/GPU/wholedeviceenergy。Sustainedthermal/olderdevice NOT_RUN。
+所有Current/Q8五次token/PCM/WAV与各自prioraccepted完全一致。Hybrid内部五次tokens/PCM一致，但与Current/Q8不同：tokenb5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76；PCMbfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a；WAV54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b。FrozenworkloadMAX_LENGTH=260沿用，不改EOS/stop算法。
+Current五次已完成并写入receipt/WAV，后置未计时MLComputePlaninspection等待，manualreadback保存后下一验证launch明确terminate-existing；signal9属于受控结束completedtestapp，不宣称inferencecrash/Jetsam。Collector没AUTO_DONE，collection_status单独记录；不能隐藏失败。Q8/hybridcollectors完整DONE。
+
+I: Actual ANE topology。
+恢复Instrumentsonline后source1b1d342/PID绑定exactmodelpackages/cachecompiledname与nativepredictioncontainment。5prefill+1295decode各匹配1ANEprograminterval；decodebackendCPU/GPUevents0；内部recordedgap0。MOSTLY_CONTIGUOUS_ANE。
+777warmdecode：ANEmean3.706675ms，wallmean4.543456ms，preANEmean0.736915ms，postANEmean0.099866ms。CPU->oneANEprograminterval->CPU observed；不证明microkernel无hidden同步/fullperopANE。Planpreferred不是actualassignment，actualperop UNKNOWN。
+TraceprofilingRTF不纳入unprofiled性能对照。Hardwaretable无PID，用exactcompiledidentifier+nativePID/signpost区间唯一containment，1295一一匹配，未放宽计数/归属断言。Initialtraceoffline/boot-timeout没有recording，保留failure；用户解锁后独立retryPASS。
+Actualcompileddecode cachekey2ef129037225b21c1488e7877e701ced81b5c45589d1b8b65dc9ef1a481a833c，不是contenthash。ReadbackcontentSHAc459bd7d37d155ae5ebc5a9238c27a9595a67969584d94fa673dff6e0f6f2a8d，183369450B。Rawtrace/3XML/compiledreadback在workspace，SHA/路径绑定保存，未commit大文件。
+
+J: Listening。
+实际physical同publicsynthesize/同fixedacceptedEnglishids01/02/04/同reference/transcript/seed42/P2/Flow6生成并拉回workspace。完整3组三方WAV（Current/Q8旧acceptedphysicalreferences复用，不重复伪造）：listening_manifest.json绑定9个实际路径/SHA。
+Hybrid sample1 N160/6.4s/MAX_LENGTH；sample2 N446/17.84s/MAX_LENGTH；sample3 N363/14.52s/EOS6562。第二句Current394/EOS15.76s、Q8294/EOS11.76s，有ending/repetition/pacing风险，必须人听。未宣称catastrophic或PASS。Candidate数字不同不是bitidentical低风险lane。
+Human status PENDING_HUMAN；此前“语音全部通过”仅批准旧Q8，不适用于新hybrid。最终response用Codexnativeinlineaudio9卡片，不用phonepaths/HTML替代。No automaticpromotion。
+
+K: API availability / final guard。
+普通CosyVoice3Engine(assetRoot:profile:) Current/Q8 selectable，.q4 metadatafalse/throwsprofileNotValidated，Currentdefault不变。实验q4_decode_hybrid_a不交给Demo runner，不是pureQ4 profile。
+最末source38bd685只强化ValidationSPI两个P2hash门禁；LLM/session/采样/acoustic/HiFT/collector文件与physical1b1d342逐字节相同，24Swift6tests/最终signedReleasebuildPASS。final-guard独立五次physicalrepeat已PASS；token/PCM/WAV全部与1b1d342hybrid相同。最终source38bd685136a69870677d587ff9d684f7b4bcb3a2，另组warmmedian2903.204ms/RTF0.279154/decode4.392499ms/token/samplepeak1448381552B，全部nominal。此组不混入1b同源码三方主对照，差异不是guard自身的加速/回归证明。所有最终check结果以final_summary.json为准。
+通过human后才可另行准确绑定普通.q4到该hybrid并更新immutablecontract/metadata，不能把它称成全Q4，也不HF/releasepromote。当前不执行。
+
+L: Remaining unknowns /15answers。
+1: 原block32decodeCPU_AND_NEloadPASS。
+2: 可physicalpredict；legitimateQ8prefill→publicbyte-copy自有state；finite，非productionbenchmark。
+3: publicmodel-owned初始化支持，实际FP16bytes证明；genericcrossmodelMLState-objectsharedbacking未证明/未使用。
+4: 原block32productionhybrid未测试；Adecodehybrid已真实5unprofiled+5profiledpublicsynthesis、3listening，以及最终guard复核。
+5: 最强剩余关联INT4prefill224 path；具体-14op/compilercauseUNKNOWN，blockscale不是单独充分解释。
+6: A已建立；per-channel broadcastscale布局借鉴成功Q8并针对原decode169linearCPUonlysupport证据。
+7: B未建立，不需新compressionhypothesis/sweep。
+8: Adecode+Q8prefillhybrid完成physicalpublicsynthesis；pureAfullprofileprefill仍失败。
+9: 主对照peak hybrid1447595168B，Q81591790704B，Current2353417424B；Q8saved137.516MiB/9.059%，不是olderdeviceproof。
+10: 主对照hybriddecode4.224031ms/token，totalwarmRTF.267996。
+11: 保留MOSTLY_CONTIGUOUS_ANE programinterval拓扑，1295各1，CPU/GPUbackend0，peropUNKNOWN。
+12: hybridPENDING_HUMAN，9actualworkspaceWAVs提供；特别sample2MAX_LENGTH。
+13: .q4仍failclosed，禁止先于人听启用。
+14: 当前不hand off任何Q4到Demo；只有全部门禁+humanPASS之后，准确q4_decode_hybrid_a可作为未来实验profile候选。
+15: 不广泛继续Q4。Q8维持已通过low-memoryprofile；本hybrid仅等待人听。若人听FAIL，则保留失败，不做无证据B/per-layerqualitysweep；若PASS再处理explicitprofilebinding。
+
+附：修改files/functions、owner/锁/指针lifetime、allsource/asset/compiled identities见swift_lifetime_safety.json、state_and_structure.json、asset_recipe.json、comparison.json、host_tool_bindings.json及rawreceipts。
+No terminal/session exit/set-e，未删除frozenassets，未上传HF/更新catalog/promotion，未触及NPU_engines_Demo和其它engine；unrelated.gitignore/reports/tools/voxcpm2保留。

@@ -1,0 +1,37 @@
+{
+  "info" : {
+    "arguments" : [
+      "devicectl",
+      "device",
+      "install",
+      "app",
+      "--device",
+      "00008150-000A05CA1440401C",
+      "ios/.build/out/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app",
+      "--json-output",
+      "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/install.json"
+    ],
+    "commandType" : "devicectl.device.install.app",
+    "environment" : {
+      "TERM" : "dumb"
+    },
+    "jsonVersion" : 5,
+    "outcome" : "success",
+    "version" : "651.13.2"
+  },
+  "result" : {
+    "deviceIdentifier" : "FD701839-6A88-59F5-9AFF-A3362B91B2A5",
+    "installedApplications" : [
+      {
+        "bundleID" : "com.actacomes.cosyvoice3.candidatebenchmark",
+        "databaseSequenceNumber" : 4860,
+        "databaseUUID" : "8CD02CEF-E954-4EA4-A6C1-BD5470028999",
+        "installationURL" : "file:///private/var/containers/Bundle/Application/5FA17E27-1533-4D81-A0F6-12329230EF22/CosyVoice3DeviceSmoke.app/",
+        "launchServicesIdentifier" : "unknown",
+        "options" : {
+
+        }
+      }
+    ]
+  }
+}

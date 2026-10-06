@@ -1,0 +1,11 @@
+{
+  "synthesisStatus": "PASS_ALL5_BIT_IDENTICAL_CURRENT",
+  "collection": "MANUAL_POST_TIMING_READBACK; post-inference MLComputePlan inspect did not return after >=120s, timed receipt saved before it",
+  "collectorDoneObserved": false,
+  "postPlanDiagnosticInterruptedBeforeNextRun": true,
+  "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "noTimedReadback": true,
+  "collectorFailure": "missing AUTO_DONE after successful5synthesis+35sidle; saved receipt before modelplaninspection; next explicit test --terminate-existing issued signal9 to priorvalidationapp",
+  "controlledTermination": "profile_runner_retry launches samebundle with --terminate-existing after all timed work and readback; notinference/Jetsam claim"
+}

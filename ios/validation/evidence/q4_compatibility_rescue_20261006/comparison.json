@@ -1,0 +1,183 @@
+{
+  "profiles": {
+    "current": {
+      "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+      "warmRaw": [
+        {
+          "totalMs": 4991.846792,
+          "RTF": 0.4799852684615385,
+          "LLMms": 3356.976458,
+          "acousticMs": 1478.1737919999998,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 4959.2681250000005,
+          "RTF": 0.4768527043269231,
+          "LLMms": 3301.875583,
+          "acousticMs": 1493.545208,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 4995.722,
+          "RTF": 0.4803578846153846,
+          "LLMms": 3308.463375,
+          "acousticMs": 1531.443958,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        }
+      ],
+      "totalMsMedian": 4991.846792,
+      "RTFmedian": 0.4799852684615385,
+      "LLMmsMedian": 3308.463375,
+      "decodeMsPerTokenMedian": 12.514659806949807,
+      "sampledPeakFootprintBytes": 2353417424,
+      "warmCPUTimeMedianMs": 429.6959999999999,
+      "CPUOnlyEnergyMedianMillijoulesPerAudioSecond": 118.95340913461538,
+      "peakMeaning": "100ms sampled processfootprint acrossfirst/5warm, notpermodel/privateCoreMLattribution",
+      "N": 260,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "termination": [
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH"
+      ],
+      "tokenDivergencesVsCurrent": 0,
+      "tokenDivergencesVsQ8": 257
+    },
+    "q8": {
+      "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+      "warmRaw": [
+        {
+          "totalMs": 3626.001625,
+          "RTF": 0.34865400240384614,
+          "LLMms": 1990.54075,
+          "acousticMs": 1473.786084,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 3643.586417,
+          "RTF": 0.35034484778846153,
+          "LLMms": 1988.049375,
+          "acousticMs": 1490.031291,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 3731.920833,
+          "RTF": 0.35883854163461537,
+          "LLMms": 2058.50825,
+          "acousticMs": 1509.076917,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        }
+      ],
+      "totalMsMedian": 3643.586417,
+      "RTFmedian": 0.35034484778846153,
+      "LLMmsMedian": 1990.54075,
+      "decodeMsPerTokenMedian": 7.433423903474903,
+      "sampledPeakFootprintBytes": 1591790704,
+      "warmCPUTimeMedianMs": 444.0460000000003,
+      "CPUOnlyEnergyMedianMillijoulesPerAudioSecond": 120.63874134615385,
+      "peakMeaning": "100ms sampled processfootprint acrossfirst/5warm, notpermodel/privateCoreMLattribution",
+      "N": 260,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "PCM_SHA256": "f48d2b90f402f9cc246401a30f21e665984fc28bb6cace0f433dc99a6d1370af",
+      "WAV_SHA256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1",
+      "tokenSequenceSHA256": "b9e9c1de795dfd77dfcbcf90109d9d9ed6a90dfb2990d958f6fbcf5b555b13c8",
+      "termination": [
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH"
+      ],
+      "tokenDivergencesVsCurrent": 257,
+      "tokenDivergencesVsQ8": 0
+    },
+    "q4_decode_hybrid_a": {
+      "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+      "warmRaw": [
+        {
+          "totalMs": 2750.303625,
+          "RTF": 0.2644522716346154,
+          "LLMms": 1140.619333,
+          "acousticMs": 1460.062501,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 2787.162583,
+          "RTF": 0.2679964022115384,
+          "LLMms": 1158.825125,
+          "acousticMs": 1478.872167,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        },
+        {
+          "totalMs": 2839.915042,
+          "RTF": 0.27306875403846154,
+          "LLMms": 1178.4525,
+          "acousticMs": 1498.98375,
+          "thermalStart": "nominal",
+          "thermalEnd": "nominal"
+        }
+      ],
+      "totalMsMedian": 2787.162583,
+      "RTFmedian": 0.2679964022115384,
+      "LLMmsMedian": 1158.825125,
+      "decodeMsPerTokenMedian": 4.22403122007722,
+      "sampledPeakFootprintBytes": 1447595168,
+      "warmCPUTimeMedianMs": 429.6849999999995,
+      "CPUOnlyEnergyMedianMillijoulesPerAudioSecond": 131.25303663461537,
+      "peakMeaning": "100ms sampled processfootprint acrossfirst/5warm, notpermodel/privateCoreMLattribution",
+      "N": 260,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "PCM_SHA256": "bfe701ceee3b47802ca31ed138084b5b98b289c30c3d5c50fd8620dd90ebd35a",
+      "WAV_SHA256": "54de21d427a9535c09b7ce2063d00931abec3f82861862d3375afbc99ad2ca6b",
+      "tokenSequenceSHA256": "b5d93333ef89cc019b1be957e938871d020e956a68556138e3556f490e179e76",
+      "termination": [
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH",
+        "MAX_LENGTH"
+      ],
+      "tokenDivergencesVsCurrent": 259,
+      "tokenDivergencesVsQ8": 259
+    }
+  },
+  "delta": {
+    "memorySavedVsQ8MiB": 137.5155792236328,
+    "memorySavedVsQ8Percent": 9.058699465806153,
+    "warmMedianSavedVsQ8Ms": 856.4238340000002,
+    "warmRTFRelativeReductionVsQ8Percent": 23.504968346685995,
+    "totalLLMPackageBytes": {
+      "current": 1457151548,
+      "q8": 730670903,
+      "q4_decode_hybrid_a": 548728576
+    },
+    "sequence": "hybrid first, Currentcontrol, profiledhybrid excludedfromspeed, Q8control; notrandomized/alternatingstatisticalproof",
+    "chargingOnly": true,
+    "wholeDeviceEnergy": null,
+    "energyConclusion": "CPU-onlycounter didnotshowenergywin; noANE/GPU/wholedeviceenergyinference",
+    "thermalConclusion": "allshortpublicrequestnominal; nosustainedthermalcomparison",
+    "promotion": "PENDING_HUMAN; ordinarypublicQ4disabled"
+  }
+}

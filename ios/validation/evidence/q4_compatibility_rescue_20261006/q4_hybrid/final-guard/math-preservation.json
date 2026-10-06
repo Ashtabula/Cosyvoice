@@ -1,0 +1,30 @@
+{
+  "change": "Engine privateValidationSPI P2hash checks only; allruntimeLLM/state/sampling/acoustic/waveform functions and validationcollector unchanged",
+  "files": [
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift",
+      "SHA256": "019bbedce85835f3e9871cf168ddb0c7c7c3b4d5f8ad3c07d991797b5bd8ec34",
+      "byteIdenticalToPhysical1b1d342": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+      "SHA256": "2398f41cb4f735f388ef5b653be7b9427e3ee5b47adb042d17bd415298a865b3",
+      "byteIdenticalToPhysical1b1d342": true
+    },
+    {
+      "file": "ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift",
+      "SHA256": "439caec1c03daea59e5139acef170400fa61bd318ebf29de6116c5a3915cde9f",
+      "byteIdenticalToPhysical1b1d342": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+      "SHA256": "7b68b811b297b7fb800bfc66ba20e2e6985f18908fc4b39bb5bda2c398826142",
+      "byteIdenticalToPhysical1b1d342": true
+    },
+    {
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+      "SHA256": "cd47ad736d9481781dcddef6032a10de92b39d6373edc44cc39ba2c7b9ee9899",
+      "byteIdenticalToPhysical1b1d342": true
+    }
+  ]
+}

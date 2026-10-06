@@ -1,0 +1,48 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-variant=q4_hybrid",
+    "--validation-warm-pass",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-q4-hybrid-state-copy",
+    "--validation-llm-quantization-listening"
+  ],
+  "runnerSHA256": "d4fabb558d7f7bb9eb38caa72d390c2632bed7de87c995b5487a438e3c4ff30d",
+  "physicalSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "sourceGitHEADAtCollection": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "artifactFilename": "checkpoint_001_sample03_q4_hybrid.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample03_q4_hybrid.wav",
+  "artifacts": [
+    {
+      "filename": "checkpoint_001_sample01_q4_hybrid.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample01_q4_hybrid.wav",
+      "sha256": "6fb93920792fd18bac16ef471fd4f33e1781a8b2609a36d3807d0f3ee24b397e"
+    },
+    {
+      "filename": "checkpoint_001_sample02_q4_hybrid.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample02_q4_hybrid.wav",
+      "sha256": "160b0cf110ad037c995de625ee9b06325cce5c6c9dfbc625582df245009a7e98"
+    },
+    {
+      "filename": "checkpoint_001_sample03_q4_hybrid.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample03_q4_hybrid.wav",
+      "sha256": "1693065ae3f50ae80bf3ec61a10c6d1a93cb66dc319cf152c3d321cc18b7d427"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

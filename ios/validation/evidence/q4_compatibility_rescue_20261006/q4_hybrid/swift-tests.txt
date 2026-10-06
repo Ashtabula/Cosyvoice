@@ -1,0 +1,73 @@
+Test Suite 'Selected tests' started at 2026-10-06 16:24:46.446.
+Test Suite 'CosyVoice3CoreTests.xctest' started at 2026-10-06 16:24:46.448.
+Test Suite 'EnumeratedAcousticContractTests' started at 2026-10-06 16:24:46.448.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' passed (0.000 seconds).
+Test Suite 'EnumeratedAcousticContractTests' passed at 2026-10-06 16:24:46.450.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.002) seconds
+Test Suite 'F0WorkspaceParityTests' started at 2026-10-06 16:24:46.450.
+Test Case '-[CosyVoice3CoreTests.F0WorkspaceParityTests testFrozenWeightsAcrossPaddingAndProductionLengths]' started.
+Test Case '-[CosyVoice3CoreTests.F0WorkspaceParityTests testFrozenWeightsAcrossPaddingAndProductionLengths]' passed (5.205 seconds).
+Test Suite 'F0WorkspaceParityTests' passed at 2026-10-06 16:24:51.655.
+	 Executed 1 test, with 0 failures (0 unexpected) in 5.205 (5.205) seconds
+Test Suite 'PersistentRuntimeStoreTests' started at 2026-10-06 16:24:51.655.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testCanonicalAndAliasPathsHaveTheSameContentIdentity]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testCanonicalAndAliasPathsHaveTheSameContentIdentity]' passed (0.003 seconds).
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testFamilyPendingPersistenceAndIndependentIdentity]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testFamilyPendingPersistenceAndIndependentIdentity]' passed (0.009 seconds).
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testRestartHashesActualBytesEvenWithPreservedTimestampAndSize]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testRestartHashesActualBytesEvenWithPreservedTimestampAndSize]' passed (0.001 seconds).
+Test Suite 'PersistentRuntimeStoreTests' passed at 2026-10-06 16:24:51.668.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.013 (0.014) seconds
+Test Suite 'PublicContractTests' started at 2026-10-06 16:24:51.668.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' passed (0.000 seconds).
+Test Suite 'PublicContractTests' passed at 2026-10-06 16:24:51.669.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'WeightProfileTests' started at 2026-10-06 16:24:51.669.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAllWrongProfileCombinationsFailDuringInitialization]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAllWrongProfileCombinationsFailDuringInitialization]' passed (0.004 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testCollectionResolutionHasNoSilentFallback]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testCollectionResolutionHasNoSilentFallback]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExistingInitializerRemainsCurrent]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExistingInitializerRemainsCurrent]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExplicitProfilesUseSameEngineAndStableMetadata]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExplicitProfilesUseSameEngineAndStableMetadata]' passed (0.002 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testInvalidProfileRoutingNeverSilentlyFallsBack]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testInvalidProfileRoutingNeverSilentlyFallsBack]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMetadataOnlyRootCannotReachPrediction]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMetadataOnlyRootCannotReachPrediction]' passed (0.003 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMixedPackagePayloadAndStaleManifestRejected]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMixedPackagePayloadAndStaleManifestRejected]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testPersistentPlanAndShelfKeysDisjointAcrossProfiles]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testPersistentPlanAndShelfKeysDisjointAcrossProfiles]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testProfileRoutingNeedsNoShardCLIAndKeepsLegacyDefault]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testProfileRoutingNeedsNoShardCLIAndKeepsLegacyDefault]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testUnvalidatedQ4FailsClosedInsteadOfFallingBack]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testUnvalidatedQ4FailsClosedInsteadOfFallingBack]' passed (0.002 seconds).
+Test Suite 'WeightProfileTests' passed at 2026-10-06 16:24:51.683.
+	 Executed 10 tests, with 0 failures (0 unexpected) in 0.014 (0.014) seconds
+Test Suite 'CosyVoice3CoreTests.xctest' passed at 2026-10-06 16:24:51.683.
+	 Executed 24 tests, with 0 failures (0 unexpected) in 5.234 (5.235) seconds
+Test Suite 'Selected tests' passed at 2026-10-06 16:24:51.683.
+	 Executed 24 tests, with 0 failures (0 unexpected) in 5.234 (5.237) seconds
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/CosyWeightProfile-76376D15-8DAD-48BC-B833-61E8BD4A613C
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=392714f9e41327c52019d207afd6f7aa96ea60a9ac4ccdd180727c8e43dbe5a0
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/CosyWeightProfile-5252E8F5-F0DF-4F7E-AB9B-3E7EA899EB03
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=b0a79d4ac418e55246755837e3bca82f361ee1db5dd3faab83835c7f30f757d9

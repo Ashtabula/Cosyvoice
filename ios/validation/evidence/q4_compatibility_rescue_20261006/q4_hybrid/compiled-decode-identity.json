@@ -1,0 +1,30 @@
+{
+  "compiledArchiveKey": "2ef129037225b21c1488e7877e701ced81b5c45589d1b8b65dc9ef1a481a833c",
+  "compiledContentTreeSHA256": "c459bd7d37d155ae5ebc5a9238c27a9595a67969584d94fa673dff6e0f6f2a8d",
+  "compiledBytes": 183369450,
+  "files": [
+    {
+      "path": "analytics/coremldata.bin",
+      "bytes": 243,
+      "sha256": "68972b7bb3d001516cfa25195fad79fe8923658a7a2d1f4c53ec88cfb9f47361"
+    },
+    {
+      "path": "coremldata.bin",
+      "bytes": 1941,
+      "sha256": "cb53706464f7cac329213dba9b2dfa3e75a9f518acff2f6b19a479acd30b07c4"
+    },
+    {
+      "path": "model.mil",
+      "bytes": 605456,
+      "sha256": "94878f8f08970f3e5e1f31df1cb2ba9db8260b8d8513649b45c2e05468a3a014"
+    },
+    {
+      "path": "weights/weight.bin",
+      "bytes": 182761810,
+      "sha256": "9bfe54ae6936b86a80f620abf1e95b8a23b489b5ee51f7dcb2b805989472051d"
+    }
+  ],
+  "hostReadbackPath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-decode-compiled-readback",
+  "noTimedReadback": true,
+  "packageSHA256": "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46"
+}

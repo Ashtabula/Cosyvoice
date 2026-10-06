@@ -1,0 +1,7 @@
+{
+  "status": "PENDING_HUMAN",
+  "candidate": "q4_decode_hybrid_a",
+  "sampleCount": 3,
+  "knownQ8HumanPASSDoesNotApproveHybrid": true,
+  "publicQ4Selectable": false
+}

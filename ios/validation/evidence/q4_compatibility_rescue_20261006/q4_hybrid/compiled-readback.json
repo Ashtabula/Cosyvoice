@@ -1,0 +1,36 @@
+{
+  "info" : {
+    "arguments" : [
+      "devicectl",
+      "device",
+      "copy",
+      "from",
+      "--device",
+      "00008150-000A05CA1440401C",
+      "--domain-type",
+      "appDataContainer",
+      "--domain-identifier",
+      "com.actacomes.cosyvoice3.candidatebenchmark",
+      "--source",
+      "Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2ef129037225b21c1488e7877e701ced81b5c45589d1b8b65dc9ef1a481a833c.mlmodelc",
+      "--destination",
+      "ios/.work/q4-rescue-20261006/hybrid-decode-compiled-readback",
+      "--json-output",
+      "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/compiled-readback.json"
+    ],
+    "commandType" : "devicectl.device.copy.from",
+    "environment" : {
+      "TERM" : "dumb"
+    },
+    "jsonVersion" : 5,
+    "outcome" : "success",
+    "version" : "651.13.2"
+  },
+  "result" : {
+    "destination" : "file:///Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/hybrid-decode-compiled-readback",
+    "deviceIdentifier" : "FD701839-6A88-59F5-9AFF-A3362B91B2A5",
+    "domain" : "appDataContainer",
+    "domainIdentifier" : "com.actacomes.cosyvoice3.candidatebenchmark",
+    "source" : "Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2ef129037225b21c1488e7877e701ced81b5c45589d1b8b65dc9ef1a481a833c.mlmodelc"
+  }
+}

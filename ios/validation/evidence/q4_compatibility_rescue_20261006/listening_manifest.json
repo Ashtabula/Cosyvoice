@@ -1,0 +1,110 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": "q4_compatibility_rescue_20261006",
+  "candidate": "q4_decode_hybrid_a",
+  "pureQ4": false,
+  "candidateSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "sameCorpusReferenceAndSeed": true,
+  "humanListening": "PENDING_HUMAN",
+  "publicQ4Selectable": false,
+  "promotionAllowed": false,
+  "inlinePresentation": "native Markdown audio embeds, absoluteworkspacepaths; explicit Current/Q8/hybrid comparison aslatestpromptrequires",
+  "samples": [
+    {
+      "sample": 1,
+      "text": "The morning sun shines through the window.",
+      "sourceCorpusID": "sample01",
+      "candidateN": 160,
+      "candidateAudioSeconds": 6.4,
+      "files": [
+        {
+          "variant": "Current",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+          "WAV_SHA256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b",
+          "bytes": 307244,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_q8.wav",
+          "WAV_SHA256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241",
+          "bytes": 307244,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "q4_decode_hybrid_a",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample01_q4_hybrid.wav",
+          "WAV_SHA256": "6fb93920792fd18bac16ef471fd4f33e1781a8b2609a36d3807d0f3ee24b397e",
+          "bytes": 307244,
+          "source": "newphysicaliPhonesamepublicsynthesize"
+        }
+      ],
+      "candidateTermination": "MAX_LENGTH",
+      "reviewNote": "matchespriorCurrent/Q8shortmax160"
+    },
+    {
+      "sample": 2,
+      "text": "After the rain stopped, we walked through the quiet park, watched the birds by the lake, and returned home before sunset.",
+      "sourceCorpusID": "sample02",
+      "candidateN": 446,
+      "candidateAudioSeconds": 17.84,
+      "files": [
+        {
+          "variant": "Current",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+          "WAV_SHA256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644",
+          "bytes": 756524,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_q8.wav",
+          "WAV_SHA256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd",
+          "bytes": 564524,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "q4_decode_hybrid_a",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample02_q4_hybrid.wav",
+          "WAV_SHA256": "160b0cf110ad037c995de625ee9b06325cce5c6c9dfbc625582df245009a7e98",
+          "bytes": 856364,
+          "source": "newphysicaliPhonesamepublicsynthesize"
+        }
+      ],
+      "candidateTermination": "MAX_LENGTH",
+      "reviewNote": "candidateN446/17.84s vsCurrent394/15.76s andQ8294/11.76s; mandatoryreviewending/repetition/pacing, noqualityPASS"
+    },
+    {
+      "sample": 3,
+      "text": "First, open the door. Then, close the door. Read each word once, pause at the commas, and finish this final sentence clearly.",
+      "sourceCorpusID": "sample04",
+      "candidateN": 363,
+      "candidateAudioSeconds": 14.52,
+      "files": [
+        {
+          "variant": "Current",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+          "WAV_SHA256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6",
+          "bytes": 748844,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_q8.wav",
+          "WAV_SHA256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a",
+          "bytes": 848684,
+          "source": "previousacceptedphysicalEnglishcorpus"
+        },
+        {
+          "variant": "q4_decode_hybrid_a",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/q4_compatibility_rescue_20261006/checkpoint_001/checkpoint_001_sample03_q4_hybrid.wav",
+          "WAV_SHA256": "1693065ae3f50ae80bf3ec61a10c6d1a93cb66dc319cf152c3d321cc18b7d427",
+          "bytes": 697004,
+          "source": "newphysicaliPhonesamepublicsynthesize"
+        }
+      ],
+      "candidateTermination": "EOS_6562",
+      "reviewNote": "candidateN363/EOS vsCurrent390/EOS andQ8442/MAX_LENGTH; humanreviewrequired"
+    }
+  ]
+}

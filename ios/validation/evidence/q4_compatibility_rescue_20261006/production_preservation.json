@@ -1,0 +1,26 @@
+{
+  "baselineSource": "362bb1842d48d7b8e5ce89287e2468d0ea722f75",
+  "currentSource": "5b9598abfc4a9bc275ad178a1b40988b6958fe9a",
+  "productionFiles": {
+    "ios/Sources/CosyVoice3Core/CosyVoice3WeightProfile.swift": {
+      "SHA256": "227d2d817db7bf6fa7e6a63aeb5e68463b53dea41ead4fc70f48fd6743efa47a",
+      "byteIdentical": true
+    },
+    "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift": {
+      "SHA256": "7d3e1d927474bd7763ae02b29b3717302e3fbc8b8901771ab7fc132a3bae65b7",
+      "byteIdentical": true
+    },
+    "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift": {
+      "SHA256": "699df164db7ef9fca6c9158f729ba6d67adbd6e1ffdd3114fab1b4c8698044f0",
+      "byteIdentical": true
+    },
+    "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift": {
+      "SHA256": "9893c0cc37e53fbf34a3d28293c85f5be52b616486f81b2fa0218c50005a52b9",
+      "byteIdentical": true
+    },
+    "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift": {
+      "SHA256": "7b68b811b297b7fb800bfc66ba20e2e6985f18908fc4b39bb5bda2c398826142",
+      "byteIdentical": true
+    }
+  }
+}

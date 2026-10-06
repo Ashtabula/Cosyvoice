@@ -1,0 +1,11 @@
+{
+  "sourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "profile": "current",
+  "all5TokensPCMAndWAVBitIdentical": true,
+  "warmTotalMsMedian": 4991.846792,
+  "warmRTFMedian": 0.4799852684615385,
+  "sampledPeakFootprintBytes": 2353417424,
+  "all5Nominal": true,
+  "chargingOnly": true,
+  "postPlanInspectCompleted": false
+}

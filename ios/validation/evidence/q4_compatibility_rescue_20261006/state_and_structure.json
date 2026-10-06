@@ -1,0 +1,2746 @@
+{
+  "coremltools": "9.0",
+  "models": {
+    "q4Decode": {
+      "stateNames": [
+        "keys_state_00",
+        "values_state_00",
+        "keys_state_01",
+        "values_state_01",
+        "keys_state_02",
+        "values_state_02",
+        "keys_state_03",
+        "values_state_03",
+        "keys_state_04",
+        "values_state_04",
+        "keys_state_05",
+        "values_state_05",
+        "keys_state_06",
+        "values_state_06",
+        "keys_state_07",
+        "values_state_07",
+        "keys_state_08",
+        "values_state_08",
+        "keys_state_09",
+        "values_state_09",
+        "keys_state_10",
+        "values_state_10",
+        "keys_state_11",
+        "values_state_11",
+        "keys_state_12",
+        "values_state_12",
+        "keys_state_13",
+        "values_state_13",
+        "keys_state_14",
+        "values_state_14",
+        "keys_state_15",
+        "values_state_15",
+        "keys_state_16",
+        "values_state_16",
+        "keys_state_17",
+        "values_state_17",
+        "keys_state_18",
+        "values_state_18",
+        "keys_state_19",
+        "values_state_19",
+        "keys_state_20",
+        "values_state_20",
+        "keys_state_21",
+        "values_state_21",
+        "keys_state_22",
+        "values_state_22",
+        "keys_state_23",
+        "values_state_23"
+      ],
+      "stateCount": 48,
+      "quantizedShapes": [
+        {
+          "data": [
+            896,
+            896
+          ],
+          "scale": [
+            896,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            128,
+            896
+          ],
+          "scale": [
+            128,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            4864,
+            896
+          ],
+          "scale": [
+            4864,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            896,
+            4864
+          ],
+          "scale": [
+            896,
+            152
+          ],
+          "count": 24,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            6761,
+            896
+          ],
+          "scale": [
+            6761,
+            28
+          ],
+          "count": 1,
+          "inputDivisible32": true
+        }
+      ],
+      "operatorCounts": {
+        "const": 1838,
+        "pow": 49,
+        "reduce_mean": 49,
+        "add": 193,
+        "rsqrt": 49,
+        "mul": 314,
+        "constexpr_blockwise_shift_scale": 169,
+        "linear": 169,
+        "reshape": 120,
+        "transpose": 96,
+        "slice_by_index": 241,
+        "concat": 72,
+        "read_state": 96,
+        "greater": 1,
+        "select": 48,
+        "write_state": 48,
+        "matmul": 96,
+        "softmax": 48,
+        "silu": 24,
+        "identity": 1
+      },
+      "stateSchema": [
+        {
+          "name": "keys_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        }
+      ],
+      "stateSchemaSHA256": "4c0ad83a98a3d32c032fdd59a85dff949b117c27f981bd867ff395be491e3361"
+    },
+    "q4Prefill": {
+      "stateNames": [
+        "keys_state_00",
+        "values_state_00",
+        "keys_state_01",
+        "values_state_01",
+        "keys_state_02",
+        "values_state_02",
+        "keys_state_03",
+        "values_state_03",
+        "keys_state_04",
+        "values_state_04",
+        "keys_state_05",
+        "values_state_05",
+        "keys_state_06",
+        "values_state_06",
+        "keys_state_07",
+        "values_state_07",
+        "keys_state_08",
+        "values_state_08",
+        "keys_state_09",
+        "values_state_09",
+        "keys_state_10",
+        "values_state_10",
+        "keys_state_11",
+        "values_state_11",
+        "keys_state_12",
+        "values_state_12",
+        "keys_state_13",
+        "values_state_13",
+        "keys_state_14",
+        "values_state_14",
+        "keys_state_15",
+        "values_state_15",
+        "keys_state_16",
+        "values_state_16",
+        "keys_state_17",
+        "values_state_17",
+        "keys_state_18",
+        "values_state_18",
+        "keys_state_19",
+        "values_state_19",
+        "keys_state_20",
+        "values_state_20",
+        "keys_state_21",
+        "values_state_21",
+        "keys_state_22",
+        "values_state_22",
+        "keys_state_23",
+        "values_state_23"
+      ],
+      "stateCount": 48,
+      "quantizedShapes": [
+        {
+          "data": [
+            896,
+            896
+          ],
+          "scale": [
+            896,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            128,
+            896
+          ],
+          "scale": [
+            128,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            4864,
+            896
+          ],
+          "scale": [
+            4864,
+            28
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            896,
+            4864
+          ],
+          "scale": [
+            896,
+            152
+          ],
+          "count": 24,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            6761,
+            896
+          ],
+          "scale": [
+            6761,
+            28
+          ],
+          "count": 1,
+          "inputDivisible32": true
+        }
+      ],
+      "operatorCounts": {
+        "const": 2269,
+        "constexpr_blockwise_shift_scale": 169,
+        "pow": 49,
+        "reduce_mean": 49,
+        "add": 193,
+        "rsqrt": 49,
+        "mul": 314,
+        "linear": 169,
+        "reshape": 120,
+        "transpose": 96,
+        "slice_by_index": 289,
+        "concat": 72,
+        "read_state": 96,
+        "slice_update": 48,
+        "write_state": 48,
+        "matmul": 96,
+        "softmax": 48,
+        "silu": 24,
+        "identity": 1
+      },
+      "stateSchema": [
+        {
+          "name": "keys_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        }
+      ],
+      "stateSchemaSHA256": "4c0ad83a98a3d32c032fdd59a85dff949b117c27f981bd867ff395be491e3361"
+    },
+    "q8Prefill": {
+      "stateNames": [
+        "keys_state_00",
+        "values_state_00",
+        "keys_state_01",
+        "values_state_01",
+        "keys_state_02",
+        "values_state_02",
+        "keys_state_03",
+        "values_state_03",
+        "keys_state_04",
+        "values_state_04",
+        "keys_state_05",
+        "values_state_05",
+        "keys_state_06",
+        "values_state_06",
+        "keys_state_07",
+        "values_state_07",
+        "keys_state_08",
+        "values_state_08",
+        "keys_state_09",
+        "values_state_09",
+        "keys_state_10",
+        "values_state_10",
+        "keys_state_11",
+        "values_state_11",
+        "keys_state_12",
+        "values_state_12",
+        "keys_state_13",
+        "values_state_13",
+        "keys_state_14",
+        "values_state_14",
+        "keys_state_15",
+        "values_state_15",
+        "keys_state_16",
+        "values_state_16",
+        "keys_state_17",
+        "values_state_17",
+        "keys_state_18",
+        "values_state_18",
+        "keys_state_19",
+        "values_state_19",
+        "keys_state_20",
+        "values_state_20",
+        "keys_state_21",
+        "values_state_21",
+        "keys_state_22",
+        "values_state_22",
+        "keys_state_23",
+        "values_state_23"
+      ],
+      "stateCount": 48,
+      "quantizedShapes": [
+        {
+          "data": [
+            896,
+            896
+          ],
+          "scale": [
+            896,
+            1
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            128,
+            896
+          ],
+          "scale": [
+            128,
+            1
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            4864,
+            896
+          ],
+          "scale": [
+            4864,
+            1
+          ],
+          "count": 48,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            896,
+            4864
+          ],
+          "scale": [
+            896,
+            1
+          ],
+          "count": 24,
+          "inputDivisible32": true
+        },
+        {
+          "data": [
+            6761,
+            896
+          ],
+          "scale": [
+            6761,
+            1
+          ],
+          "count": 1,
+          "inputDivisible32": true
+        }
+      ],
+      "operatorCounts": {
+        "const": 2269,
+        "constexpr_blockwise_shift_scale": 169,
+        "pow": 49,
+        "reduce_mean": 49,
+        "add": 193,
+        "rsqrt": 49,
+        "mul": 314,
+        "linear": 169,
+        "reshape": 120,
+        "transpose": 96,
+        "slice_by_index": 289,
+        "concat": 72,
+        "read_state": 96,
+        "slice_update": 48,
+        "write_state": 48,
+        "matmul": 96,
+        "softmax": 48,
+        "silu": 24,
+        "identity": 1
+      },
+      "stateSchema": [
+        {
+          "name": "keys_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_00",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_01",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_02",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_03",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_04",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_05",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_06",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_07",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_08",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_09",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_10",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_11",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_12",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_13",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_14",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_15",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_16",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_17",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_18",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_19",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_20",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_21",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_22",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "keys_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        },
+        {
+          "name": "values_state_23",
+          "type": {
+            "stateType": {
+              "arrayType": {
+                "shape": [
+                  "1",
+                  "2",
+                  "512",
+                  "64"
+                ],
+                "dataType": "FLOAT16"
+              }
+            }
+          }
+        }
+      ],
+      "stateSchemaSHA256": "4c0ad83a98a3d32c032fdd59a85dff949b117c27f981bd867ff395be491e3361"
+    }
+  },
+  "supportedStateAccess": {
+    "references": [
+      "https://developer.apple.com/documentation/coreml/mlstate",
+      "https://developer.apple.com/documentation/coreml/mlmodel/makestate()"
+    ],
+    "contract": "State made by its model; public scoped mutable view permits initialization; no buffer access while prediction in flight; no pointer may escape closure. Same schema alone does not establish cross-model object sharing.",
+    "existingProduction": "prefillModel.makeState reused by corresponding decode model; this does not establish Q8-state/Q4-object portability",
+    "possibleBridge": "model-owned Q4 state initialized via documented mutable views with exact completed Q8 prefill FP16 values, only if actual runtime layout/value checks and semantic parity prove validity; NOT IMPLEMENTED while Level A unresolved",
+    "physicalBridgeResult": {
+      "method": "Q4 decode.makeState, two nested public withMultiArray closures, copy after completed Q8 prefill",
+      "all48StatesByteIdentical": true,
+      "copiedBytes": 6291456,
+      "predictionFinite": true,
+      "physicalSourceCommit": "c0fc758cc1f1c937c4c84a43b2b001ffe01c7a28",
+      "scope": "synthetic legitimate Q8 prefill -> public scoped byte-exact FP16 initialization of Q4-owned state; one diagnostic decode, NOT public synthesis",
+      "unproven": "Frozen reference/public generation state bridge, long decode/parity/audio not tested; no production bridge implemented"
+    }
+  },
+  "stateSchemasByteIdentical": true
+}

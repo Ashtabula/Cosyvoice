@@ -1,0 +1,22 @@
+{
+  "physicalSourceCommit": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "currentHEAD": "1b1d3426d1188d5e45da40b81c02152b5461251f",
+  "tools": [
+    {
+      "file": "ios/validation/compare_llm_quantized_host.py",
+      "SHA256": "579f24b444912dff94128b342ff30ec7b0b3c1f37ceb753ddfda5e6238cc4e22",
+      "AST": "PASS"
+    },
+    {
+      "file": "ios/validation/analyze_quantized_llm_trace.py",
+      "SHA256": "184c22f0da67aeabc9705419584f8153eb794fccb13d5c14529423986a9deed5",
+      "AST": "PASS"
+    },
+    {
+      "file": "ios/validation/run_llm_quantization_screen.py",
+      "SHA256": "d4fabb558d7f7bb9eb38caa72d390c2632bed7de87c995b5487a438e3c4ff30d",
+      "AST": "PASS"
+    }
+  ],
+  "hostNumerical": "finite64steps, top1agreement.75vsCurrent/Q8, notqualityPASS"
+}

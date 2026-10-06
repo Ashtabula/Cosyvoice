@@ -1,0 +1,3 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-AUTO-DONE] status=FAIL SmokeError(message: "original Q4 decode package identity mismatch")

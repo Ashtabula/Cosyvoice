@@ -1,0 +1,7 @@
+{
+  "status": "TRACE_NOT_STARTED_DEVICE_OFFLINE",
+  "recordingStarted": false,
+  "rawTraceAvailable": false,
+  "nextAction": "user unlocked and confirmed foreground; Instruments online; separate retry path",
+  "scope": "tool readiness failure, not Q4 inference incompatibility"
+}

@@ -1,0 +1,177 @@
+[
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/controls/current/console.log",
+    "rawSHA256": "bee73935168b2dd2525bca2a9b34773cf3599de41d351b11dca5235a721a243c",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/controls/current/console.txt",
+    "viewSHA256": "bee73935168b2dd2525bca2a9b34773cf3599de41d351b11dca5235a721a243c",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/controls/q8/console.log",
+    "rawSHA256": "eb9ae0bc60ce8d5f8b920dc22a2705be83e5b75df8154956d6a47bb80d5d1f01",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/controls/q8/console.txt",
+    "viewSHA256": "eb9ae0bc60ce8d5f8b920dc22a2705be83e5b75df8154956d6a47bb80d5d1f01",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/console.log",
+    "rawSHA256": "f1ac4b7eae8570499353e97ebc227b3effe200e3893acfa11b4abf7da117d24e",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/console.txt",
+    "viewSHA256": "f1ac4b7eae8570499353e97ebc227b3effe200e3893acfa11b4abf7da117d24e",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/console.log",
+    "rawSHA256": "cdeee0e7f6edb420468df9f7745979b107af7de0bfbb85f9dd7465645838e5de",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/console.txt",
+    "viewSHA256": "cdeee0e7f6edb420468df9f7745979b107af7de0bfbb85f9dd7465645838e5de",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/signed-build-initial-async-overload-failure.log",
+    "rawSHA256": "7cd3bf34150f22052ebd69fb5756e9572723ff960902c531037edcccb5487b62",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/signed-build-initial-async-overload-failure.txt",
+    "viewSHA256": "9ba0d34a08bf58391fdc245aa3bd08c205f087afb95254d15826f4efc4747847",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/signed-build.log",
+    "rawSHA256": "40f8604b2cfe2f857795741fcdc485f276a5f52f355f1b0fa48ae9a5bdbeed3b",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/level_b/signed-build.txt",
+    "viewSHA256": "90e74c8c804c382d5a9e0f066e340e50a3d4a206ca322526b4d40504289aa9ee",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/preflight_identity_a/console.log",
+    "rawSHA256": "63b445e047a12a5789ac8de6d487b0a2755e3297554ac3bda75ea501df224751",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/preflight_identity_a/console.txt",
+    "viewSHA256": "63b445e047a12a5789ac8de6d487b0a2755e3297554ac3bda75ea501df224751",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/preflight_identity_a/signed-build.log",
+    "rawSHA256": "ad2207ddc4b5c1be857537add77d9785601ed4eb151570961a6f3c4ee6d00900",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/preflight_identity_a/signed-build.txt",
+    "viewSHA256": "4662ac9100412595a089d3df03698b0d9c294ab7b2d58f00b656c5c95afe229f",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/signed-build.log",
+    "rawSHA256": "dfe3815ee458bcb0019c496ab0a6beeb32cc94f00997b6f78869f62cf1f72167",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_decode_probe/signed-build.txt",
+    "viewSHA256": "64168685ffc3ee447905ac5e69fa7c178de8e9adb09f163869374bba560bd7df",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard/physical/console.log",
+    "rawSHA256": "9a8595e6e26b450ac4124fa520d36f77b8aa30489b201f4d5c5d4f9034bfa48d",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard/physical/console.txt",
+    "viewSHA256": "9a8595e6e26b450ac4124fa520d36f77b8aa30489b201f4d5c5d4f9034bfa48d",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard/signed-build.log",
+    "rawSHA256": "7577d710489320c9142c02885b0ef70213bf73204ebea3c690914daa41d8337c",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard/signed-build.txt",
+    "viewSHA256": "1dd7f3f351a654703a160aee3569314d55141c8adff7af84c6c76db6d50e980a",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard-tests.log",
+    "rawSHA256": "c19a3519c83c037ad58fb4872b44cd79fb30e28676636eb442a1b72cd7d7541c",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/final-guard-tests.txt",
+    "viewSHA256": "c19a3519c83c037ad58fb4872b44cd79fb30e28676636eb442a1b72cd7d7541c",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/host-numerical.log",
+    "rawSHA256": "f38ccb8f948025382d91a983f2599a44cc4fc787ae61aafbafcf28d2bd023767",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/host-numerical.txt",
+    "viewSHA256": "f38ccb8f948025382d91a983f2599a44cc4fc787ae61aafbafcf28d2bd023767",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/listening/console.log",
+    "rawSHA256": "31d93804ffcadb4686dc598a413fb283df81cd61b0ed10671a26487a6af964c5",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/listening/console.txt",
+    "viewSHA256": "31d93804ffcadb4686dc598a413fb283df81cd61b0ed10671a26487a6af964c5",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/physical-a/console.log",
+    "rawSHA256": "622795c1fb572a9291f0a5df1b3b4128df534e06dd5548ee3c1010f84d904833",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/physical-a/console.txt",
+    "viewSHA256": "622795c1fb572a9291f0a5df1b3b4128df534e06dd5548ee3c1010f84d904833",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled/console.log",
+    "rawSHA256": "e402cd33479f773ba263a50cfb2a2a526cf0ccc7a70bfa4071e46d07404656a8",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled/console.txt",
+    "viewSHA256": "e402cd33479f773ba263a50cfb2a2a526cf0ccc7a70bfa4071e46d07404656a8",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled/trace-console.log",
+    "rawSHA256": "49657530b1b21e414bfca057e061ed4ab0eec89c884aa0ba678de10b0ad4fae7",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled/trace-console.txt",
+    "viewSHA256": "49657530b1b21e414bfca057e061ed4ab0eec89c884aa0ba678de10b0ad4fae7",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled_initial_offline/trace-console.log",
+    "rawSHA256": "045e7ed15b12cc661b1817c27ca4019ba5c367ffad2953f7ef1801cafd0adfb4",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/profiled_initial_offline/trace-console.txt",
+    "viewSHA256": "045e7ed15b12cc661b1817c27ca4019ba5c367ffad2953f7ef1801cafd0adfb4",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/signed-build-preflight.log",
+    "rawSHA256": "fa5f281ee4fe32a0d9fec4e08090bb87a0eca9a22bd25bc5984c45be75ce9c77",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/signed-build-preflight.txt",
+    "viewSHA256": "93d736739a1493f9688e1b9a102d82a9f1c21fb1f741d14833028b826b609626",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/signed-build.log",
+    "rawSHA256": "f4cdb850f1b99163bdfd2f2d4262f8656e546cd79da15642c2c2b4cfe81967c2",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/signed-build.txt",
+    "viewSHA256": "f27a385f51f5665d6e3fc2a1d3bc53d1ec44c20ce2a79ad3a8a4d881ad50774d",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/swift-tests.log",
+    "rawSHA256": "bfb10d77e04e878083e725e4b37da53d001d965056c679a54a10e93fba4169e7",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/swift-tests.txt",
+    "viewSHA256": "bfb10d77e04e878083e725e4b37da53d001d965056c679a54a10e93fba4169e7",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/console.log",
+    "rawSHA256": "6dd6cd678630f6acd444c42f9e4a398e0f567f52f7809033ac2b9041c26ee52d",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/console.txt",
+    "viewSHA256": "6dd6cd678630f6acd444c42f9e4a398e0f567f52f7809033ac2b9041c26ee52d",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/conversion.log",
+    "rawSHA256": "c69d5950c085e4b69341cdab01b21092e36aff17bd2c3ac497e4ac6b9d4b81c8",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/conversion.txt",
+    "viewSHA256": "c69d5950c085e4b69341cdab01b21092e36aff17bd2c3ac497e4ac6b9d4b81c8",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/level_b/console.log",
+    "rawSHA256": "cdeee0e7f6edb420468df9f7745979b107af7de0bfbb85f9dd7465645838e5de",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/level_b/console.txt",
+    "viewSHA256": "cdeee0e7f6edb420468df9f7745979b107af7de0bfbb85f9dd7465645838e5de",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  },
+  {
+    "rawPath": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/signed-build.log",
+    "rawSHA256": "58d984a4588cfd87e1476ef3842512eea0ecf9e2b57deae3efbabd6348acb8d9",
+    "view": "ios/validation/evidence/q4_compatibility_rescue_20261006/q4_rescue_a/signed-build.txt",
+    "viewSHA256": "c79e93fa66186cd16f18156f73f4c1387a2ed07c07ce7b71ac8ee6a4c62ea992",
+    "transformation": "trailing whitespace/EOF only;raw.log retainedworkspace; no debugline suppression"
+  }
+]
