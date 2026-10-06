@@ -830,3 +830,10 @@ Actions:existing diagnostic plan collector adds hash-pinned q4Decode role, CPU_A
 Files:DeviceSmoke source; new append-only q4_compatibility_rescue_20261006 evidence.
 Validation:source static review; signed physical build/run pending; original Q4 failure and Current/Q8 untouched.
 GitHub Timeline:未commit、未push；source checkpoint next.
+
+Time:2026-10-06T16:25:51.686186-04:00
+Prompt:Q4 compatibility rescue bounded A and legal hybrid.
+Actions:originaldecodeLevelA/BPASS;48model-owned FP16 states6291456Bverified byteidentical via public scoped APIs, syntheticdiagnosticdecode48.795ms;plan169linearsCPUonlysupported (notactualresidency). Aperchannelprefillstill-14;Adecode1714ANEpreferred. NoB/newquantization. New hash-bound validationSPI hybrid Q8prefill+Adecode; publicq4failclosed unchanged, exact public synth path next.
+Files:Session optionalvalidationstatebridge/Runtime defaultfalse/Engine exactSHA-gated validationSPI/DeviceSmoke/collector/newevidence.
+Validation:24Swift6testsPASS/0skip includingpublicprofilefailclosed/cache/Flow/FP64; signedhybridbuildandphysicalprediction pending. OriginalfailedassetsandCurrent/Q8preserved.
+GitHub Timeline:diagnostic/source checkpoints已commit未push；hybridcheckpointnext.

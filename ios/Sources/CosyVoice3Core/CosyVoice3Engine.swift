@@ -68,13 +68,25 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                       idleBucketPreparation: idleBucketPreparation)
     }
 
-    private init(assetRoot: URL, profile: CosyVoice3WeightProfile, validatedProfile: Bool, idleBucketPreparation: Bool) throws {
+    @_spi(Validation) public init(validationQ4HybridRoot: URL) throws {
+        try self.init(assetRoot: validationQ4HybridRoot, profile: .q4, validatedProfile: false, idleBucketPreparation: false, validationHybrid: true)
+    }
+
+    private init(assetRoot: URL, profile: CosyVoice3WeightProfile, validatedProfile: Bool, idleBucketPreparation: Bool, validationHybrid: Bool = false) throws {
         var isDirectory: ObjCBool = false
         guard FileManager.default.fileExists(atPath: assetRoot.path, isDirectory: &isDirectory), isDirectory.boolValue else {
             throw CosyVoice3EngineError.assetRootMissing(assetRoot.path)
         }
         let manifest = try CosyVoice3AssetLoader.loadManifest(root: assetRoot)
-        try profile.validateManifest(root: assetRoot, manifest: manifest, requireValidatedRuntime: validatedProfile)
+        if validationHybrid {
+            let identity = try CosyVoice3PersistentRuntimeStore.shared.rootIdentity(assetRoot)
+            guard CommandLine.arguments.contains("--validation-q4-hybrid-state-copy"),
+                  CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  identity.manifest == "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+                  identity.payload == "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" else { throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a") }
+        } else {
+            try profile.validateManifest(root: assetRoot, manifest: manifest, requireValidatedRuntime: validatedProfile)
+        }
         self.assetRoot = assetRoot
         self.weightProfile = profile
         self.usesValidatedWeightProfileAssets = validatedProfile
@@ -442,6 +454,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 decodeModel: decode,
                 conditioner: try reusableConditioner(),
                 validationSeed: validationSamplerSeed,
+                validationCopiedPrefillState: try validationQ4HybridStateBridgeEnabled(),
                 progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
@@ -650,6 +663,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 decodeModel: decode,
                 conditioner: try reusableConditioner(),
                 validationSeed: validationSamplerSeed,
+                validationCopiedPrefillState: try validationQ4HybridStateBridgeEnabled(),
                 progress: validationProgressObserver
             )
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
@@ -1123,3 +1137,20 @@ extension CosyVoice3Engine {
 }
 // Purpose: resource-harness endpoint identity, not production caching. Upstream existing validationrecords;
 // Swift6/iOS18+; generated2026-10-06 America/New_York. Changed LLMreturn diagnosticbranch/getter only.
+
+// Internal validation experiment; cannot make public .q4 selectable or bypass any profile guard.
+extension CosyVoice3Engine {
+    private func validationQ4HybridStateBridgeEnabled() throws -> Bool {
+        guard CommandLine.arguments.contains("--validation-q4-hybrid-state-copy") else { return false }
+        let bytes = try Data(contentsOf: assetRoot.appendingPathComponent("cosyvoice3_enumerated.json"))
+        let sha = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
+        guard !usesValidatedWeightProfileAssets,
+              sha == "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+              manifest.llmPrefill == "models/cosyvoice-llm-q8-prefill.mlpackage",
+              manifest.llmDecode == "models/cosyvoice-llm-q4-rescue-a-decode.mlpackage" else { throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a") }
+        return true
+    }
+}
+// Purpose: authorize only exact experimental hybrid manifest for supported state copy; payload checked by normal asset loader.
+// Upstream accepted public engine; default/profile routing/API unchanged; Swift6/iOS27.2,2026-10-06 America/New_York.
+// Changed two internal LLM constructors plus private hash/flag guard. No production availability/pinning relaxation.

@@ -20,6 +20,7 @@ public final class CosyVoice3FP16StatefulLLMSession {
     public let prefillModel: MLModel
     public let decodeModel: MLModel
     private let state: MLState
+    private var validationBridgedState: MLState?
     private let lock = NSLock()
     private var validLength = 0
     private var invalidated = false
@@ -123,7 +124,7 @@ public final class CosyVoice3FP16StatefulLLMSession {
         activityObserver?(name, true)
         let interval = CosyVoice3StageDiagnostics.begin(name)
         defer { activityObserver?(name, false); CosyVoice3StageDiagnostics.end(interval, name) }
-        return try model.prediction(from: input, using: state)
+        return try model.prediction(from: input, using: validationBridgedState ?? state)
     }
 
     private static func array(_ shape: [Int]) throws -> MLMultiArray {
@@ -247,3 +248,34 @@ public final class CosyVoice3FP16StatefulLLMSession {
 // Upstream: original decode body; locks/state/masks/position/error handling/prediction/RoPE copies unchanged.
 // Environment Swift6/iOS18+/macOS15+; generated2026-10-06 08:14 EDT America/New_York.
 // Added copyEmbeddingBytes and internal decode overload; public Data decode delegates, exact line map via git diff.
+
+// Validation-only rescue bridge; ordinary prefill/decode retain original state behavior.
+extension CosyVoice3FP16StatefulLLMSession {
+    @_spi(Validation) public func validationPrefillCopyingToDecodeState(_ input: MLFeatureProvider) throws -> MLFeatureProvider {
+        let output = try prefill(input)
+        lock.lock(); defer { lock.unlock() }
+        guard validationBridgedState == nil, !invalidated else { throw SessionError.invalidPrefill }
+        do {
+            let destinationState = decodeModel.makeState()
+            for name in prefillModel.modelDescription.stateDescriptionsByName.keys.sorted() {
+                try state.withMultiArray(for: name) { source in
+                    try destinationState.withMultiArray(for: name) { destination in
+                        guard source.dataType == .float16, destination.dataType == .float16,
+                              source.shape.map({ $0.intValue }) == [1,2,512,64], source.shape == destination.shape,
+                              source.strides.map({ $0.intValue }) == [65536,32768,64,1], source.strides == destination.strides else { throw SessionError.incompatibleStateSchema }
+                        let bytes = source.count * 2
+                        memcpy(destination.dataPointer, source.dataPointer, bytes)
+                        guard memcmp(source.dataPointer, destination.dataPointer, bytes) == 0 else { throw SessionError.incompatibleStateSchema }
+                    }
+                }
+            }
+            validationBridgedState = destinationState
+            print("[Q4-HYBRID-STATE-BRIDGE] model-owned FP16 state copiedBytes=6291456 verifiedByteIdentical=true")
+            return output
+        } catch { invalidated = true; throw error }
+    }
+}
+// Purpose: supported one-time byte-exact Q8-prefill -> Q4-owned state initialization for hash-pinned validation hybrid only.
+// Upstream Apple makeState/withMultiArray contract and accepted session. FP16 precision/layout/masks/RoPE/update order unchanged.
+// Owner request-local session; NSLock; both predictions synchronous and finished before views; no pointer escapes; no state sharing across requests.
+// Swift6/iOS18+; generated2026-10-06 America/New_York. Changes: optional diagnostic state, predict handle selection, SPI bridge only.

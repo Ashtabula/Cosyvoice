@@ -11,6 +11,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     private let conditioner:CosyVoice3TokenConditioner
     private let sampler:CosyVoice3RASampler
     private let validationSeed:UInt64?
+    private let validationCopiedPrefillState:Bool
     private(set) var validationDecodeAudit = [String:Any]()
     private let progress:(@Sendable (String)->Void)?
     init(
@@ -19,6 +20,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         conditioner:CosyVoice3TokenConditioner,
         sampler: CosyVoice3RASampler = .init(),
         validationSeed: UInt64? = nil,
+        validationCopiedPrefillState:Bool = false,
         progress: (@Sendable (String)->Void)? = nil
     ) {
         self.prefillModel=prefillModel
@@ -26,6 +28,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         self.conditioner=conditioner
         self.sampler=sampler
         self.validationSeed=validationSeed
+        self.validationCopiedPrefillState=validationCopiedPrefillState
         self.progress=progress
     }
     func generate(_ prepared:CosyVoice3PreparedRequest) throws -> [Int] {
@@ -43,7 +46,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         defer { if let audit { validationDecodeAudit=audit.snapshot(tokens:decoded,minimum:prepared.minimumSpeechTokenCount,maximum:prepared.maximumSpeechTokenCount,logicalPrefix:prepared.logicalPrefixLength) } }
         let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,activityObserver:audit.map { observer in { name,begin in observer.observe(name,begin) } },diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
         progress?("llm.prefill.begin")
-        var output=try session.prefill(prepared.prefillInput)
+        var output=try validationCopiedPrefillState ? session.validationPrefillCopyingToDecodeState(prepared.prefillInput) : session.prefill(prepared.prefillInput)
         progress?("llm.prefill.end")
         var logits=[Float](repeating:0,count:CosyVoice3TokenSemantics.logitsCount)
         for step in 0..<prepared.maximumSpeechTokenCount {
@@ -146,3 +149,5 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 // Owner synchronous generation, no escaping input/output pointer; exact line map git diff.
 
 // Measurement2026-10-06: snapshot logicalprefix for context-indexed prediction rows only; no generation/state/input change.
+
+// Q4rescue2026-10-06: hash-gated validation-only copied-state prefill; normal path flag=false; generation/sampler/decode inputs untouched.

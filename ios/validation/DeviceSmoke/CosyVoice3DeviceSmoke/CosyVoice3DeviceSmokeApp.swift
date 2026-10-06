@@ -159,7 +159,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         defer { if heldIdleTimerSetting == nil { UIApplication.shared.isIdleTimerDisabled = idleSetting } }
         do {
             let resources = try Self.generatedAssets()
-            if CommandLine.arguments.contains("--validation-q4-decode-state-probe") { await runQ4DecodeStateProbe() }
+            if CommandLine.arguments.contains("--validation-q4-decode-state-probe") || CommandLine.arguments.contains("--validation-q4-rescue-a-state-probe") { await runQ4DecodeStateProbe() }
             else if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
             else if CommandLine.arguments.contains("--validation-llm-quantization-listening") { await runLLMQuantizationListening() }
             else if CommandLine.arguments.contains("--validation-llm-quantization") { await runLLMQuantization() }
@@ -1714,10 +1714,10 @@ extension CosyVoice3SmokeModel {
         return bytes
     }
     private static func quantizationRoot(base: URL, variant: String) throws -> URL {
-        guard ["q8","q4"].contains(variant) else {throw SmokeError("unknown weight variant")}
+        guard ["q8","q4","q4_hybrid"].contains(variant) else {throw SmokeError("unknown weight variant")}
         let fm=FileManager.default
         let docs=try fm.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true)
-        let candidate=docs.appendingPathComponent("LLMQuantization/\(variant.uppercased())/Runtime")
+        let candidate=docs.appendingPathComponent(variant == "q4_hybrid" ? "Q4CompatibilityRescue/Hybrid/Runtime" : "LLMQuantization/\(variant.uppercased())/Runtime")
         let recipeURL=candidate.deletingLastPathComponent().appendingPathComponent("quantization-recipe.json")
         let recipe=try JSONSerialization.jsonObject(with:Data(contentsOf:recipeURL)) as? [String:Any]
         guard recipe?["parentPayloadTreeSHA256"] as? String == "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
@@ -1759,7 +1759,7 @@ extension CosyVoice3SmokeModel {
         let oldBrightness=UIScreen.main.brightness;UIScreen.main.brightness=0.2
         UIDevice.current.isBatteryMonitoringEnabled=true;defer{UIScreen.main.brightness=oldBrightness}
         do {
-            guard ["baseline","q8","q4"].contains(variant),
+            guard ["baseline","q8","q4","q4_hybrid"].contains(variant),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   CommandLine.arguments.contains("--validation-warm-pass"),CommandLine.arguments.contains("--validation-execution-audit"),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
@@ -1772,7 +1772,7 @@ extension CosyVoice3SmokeModel {
             let manifest=try JSONSerialization.jsonObject(with:Data(contentsOf:manifestURL)) as! [String:Any]
             monitor.record("before_engine_creation")
             let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
-            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false)
+            let engine=try variant == "q4_hybrid" ? CosyVoice3Engine(validationQ4HybridRoot:root) : CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false)
             monitor.record("after_engine_creation")
             await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in monitor.record(phase)}
@@ -1824,6 +1824,8 @@ extension CosyVoice3SmokeModel {
             let export=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("enumerated-production-export-receipt.json"))) as! [String:Any]
             receipt["payloadTreeSHA256"]=export["payloadTreeSha256"]
             receipt["weightProfileID"]=engine.weightProfile.rawValue
+            receipt["experimentalProfileID"]=variant == "q4_hybrid" ? "q4_decode_hybrid_a" : engine.weightProfile.rawValue
+            receipt["publicQ4Selectable"]=CosyVoice3WeightProfile.q4.metadata.isSelectableForInference
             receipt["profileModelAssetIdentity"]=engine.profileMetadata.modelAssetIdentity
             receipt["publicProfileAPI"]="CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
             _ = try Self.write(receipt,to:Self.receiptURL(filename))
@@ -1869,7 +1871,7 @@ extension CosyVoice3SmokeModel {
         let filename="llm-quantization-listening-\(variant)-receipt.json"
         var rows=[[String:Any]]()
         do {
-            guard ["baseline","q8","q4"].contains(variant),
+            guard ["baseline","q8","q4","q4_hybrid"].contains(variant),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
@@ -1884,7 +1886,7 @@ extension CosyVoice3SmokeModel {
             let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime,variant:variant)
             let packages=try Self.validateExperimentalModels(runtime:root,partitionOverride:2),info=try Self.variableManifestInfo(runtime:root)
             let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
-            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
+            let engine=try variant == "q4_hybrid" ? CosyVoice3Engine(validationQ4HybridRoot:root) : CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in print("[COSY-Q8-LISTENING-STAGE] \(phase)")}
             let start=ContinuousClock.now
             while UIApplication.shared.applicationState != .active || ProcessInfo.processInfo.thermalState != .nominal {
@@ -1951,16 +1953,17 @@ extension CosyVoice3SmokeModel {
 extension CosyVoice3SmokeModel {
     func runQ4DecodeStateProbe() async {
         guard !running else { return }; running = true; defer { running = false }
-        let filename = "q4-decode-state-probe.json"
+        let rescueA = CommandLine.arguments.contains("--validation-q4-rescue-a-state-probe")
+        let filename = rescueA ? "q4-rescue-a-state-probe.json" : "q4-decode-state-probe.json"
         do {
             let fixture = try Self.fixture()
             let q8Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q8")
             let q4Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q4")
             let prefSource = q8Root.appendingPathComponent("models/cosyvoice-llm-q8-prefill.mlpackage")
-            let decSource = q4Root.appendingPathComponent("models/cosyvoice-llm-q4-decode.mlpackage")
+            let decSource = rescueA ? try Self.receiptURL("Q4CompatibilityRescue/A/models/cosyvoice-llm-q4-decode.mlpackage") : q4Root.appendingPathComponent("models/cosyvoice-llm-q4-decode.mlpackage")
             let prefIdentity = try Self.probePackageIdentity(prefSource), decIdentity = try Self.probePackageIdentity(decSource)
             guard prefIdentity["treeSha256"] as? String == "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
-                  decIdentity["treeSha256"] as? String == "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7",
+                  decIdentity["treeSha256"] as? String == (rescueA ? "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46" : "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7"),
                   Self.validationSourceCommit() == fixture.sourceCommit else { throw SmokeError("state probe identity mismatch") }
             let prefURL = try await MLModel.compileModel(at: prefSource)
             let decURL = try await MLModel.compileModel(at: decSource)
