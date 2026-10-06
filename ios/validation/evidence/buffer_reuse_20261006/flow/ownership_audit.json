@@ -1,0 +1,83 @@
+{
+  "status": "OWNERSHIP_AUDIT_COMPLETE_BEFORE_IMPLEMENTATION",
+  "baselineSourceSHA": "3e74158a6cef926b02e16ae04b9a2fb0ec2eabb3",
+  "semanticSourceSHA": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "T": 822,
+  "G": 520,
+  "buffers": {
+    "h": {
+      "shape": [
+        2,
+        822,
+        1024
+      ],
+      "bytes": 6733824,
+      "allocations": 6,
+      "copies": 6,
+      "copyBytes": 40402944,
+      "owner": "owned MLMultiArray allocated by ownedFloat32Output; firstgroup result copied inside autoreleasepool; fedread-only to secondgroup synchronousprediction; feed releasesatstepend",
+      "candidate": "one request-local scratch ref; refillonlyafterpriorsecondgroup synchronousprediction/Euler hascompleted"
+    },
+    "te": {
+      "bytes": 8192,
+      "allocations": 6,
+      "owner": "firstgroup copied ownedoutput, feedretainuntilstepend",
+      "unchanged": true
+    },
+    "velocity": {
+      "bytes": 526080,
+      "allocations": 6,
+      "copyBytes": 3156480,
+      "owner": "lastgroup ownedcopy, pointerreads forEuler thenreleaseatstepend",
+      "unchanged": true
+    },
+    "batchX": {
+      "bytes": 526080,
+      "allocations": 1,
+      "copyBytes": 3156480,
+      "owner": "requestlocalMLMultiArray, xprefixduplicatedperstep forCFGbatch2",
+      "unchanged": true
+    },
+    "x": {
+      "bytes": 263040,
+      "allocations": 1,
+      "owner": "requestlocalFloatArray noisyinitialstate; in-placeEuler; no diagnosticinitialXcopy whenrepeatcount1",
+      "unchanged": true
+    }
+  },
+  "CFG": "one batched unconditional/conditional prediction perpartition perstep;2partitions*6=12predictions not24",
+  "copyReason": "owned snapshot escapes CoreMLresult/autoreleasepool and provides stableconsumerinput; h notmutatedbySwift exceptrefill; copyrequiredbycurrentexplicitownershippolicy, undocumentedCoreMLborrowingnotattempted",
+  "candidateRanking": [
+    "A request-localownedhcapacityreuse LOW, remove5largeallocations, retainallcopies",
+    "velocityreuse LOW but separatecandidate notstacked",
+    "removeCoreMLownedcopy MEDIUM/undocumentedoutputretention forbidden",
+    "pingpong unnecessary in2shard becauseonlyoneintermediate and synchronouscalls"
+  ],
+  "candidate": "A: request-local h reuse only for2-shard; lazyfirstoutputshapevalidated, sameFloat32copyhelper; otherpartitions unchanged",
+  "expectedAccounting": {
+    "hAllocationsBefore": 6,
+    "hAllocationsAfter": 1,
+    "logicalAllocatedBytesRemoved": 33669120,
+    "copiedBytesRemoved": 0,
+    "physicalPeakSavings": "UNKNOWN; oneh already live atpeak, allocator/CoreML effectsnotguaranteed"
+  },
+  "safety": {
+    "owner": "localvariableinsideflowmodelscope, perrequest notengineglobal",
+    "mutationBoundary": "afterpreviousstepsecondshard predictionandEuler; prediction synchronous; no in-flightasyncoperation",
+    "pointerEscape": false,
+    "CoreMLOwnedMutation": false,
+    "arithmeticOrderChanged": false,
+    "SwiftCOW": "MLMultiArray referenceobject, noscratchArrayCOW; xunchanged",
+    "autorelease": "result/provider diesatpoolend; scratchretain independentownedmemory untilFlowstageends",
+    "concurrency": "actor mayyield, allscratchrequestlocal; noSendable/sharedstate changes"
+  },
+  "requiredValidation": [
+    "hostcopybyteparity contiguousandstrided source",
+    "signedbuild",
+    "existingcontracttests",
+    "physicaltokenPCM/WAVidentity",
+    "samechargingshortscreencurrentcandidate rawstage/memory/CPU-onlyenergy; noenergyclaimfromonegroup"
+  ]
+}

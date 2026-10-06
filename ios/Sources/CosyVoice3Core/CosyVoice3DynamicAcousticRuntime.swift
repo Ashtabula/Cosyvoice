@@ -257,6 +257,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             let flowSampler = CosyVoice3StageSampler(stage: "flow")
             let initialX = CosyVoice3StageDiagnostics.count("flow") > 1 ? x : []
             var repeatedX = [[Float]](); var flowRows = [[String: Any]]()
+            // Request-owned scratch is refilled only after the preceding synchronous consumer finishes.
+            var hiddenScratch: MLMultiArray?
             for iteration in 1...CosyVoice3StageDiagnostics.count("flow") {
                 if CosyVoice3StageDiagnostics.count("flow") > 1 { x = initialX; currentT = span[0]; dt = span[1] - span[0] }
                 let started = DispatchTime.now().uptimeNanoseconds
@@ -282,7 +284,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                         model: flowModels[index],
                         flowStep: step,
                         feed: feed,
-                        tFrames: tFrames
+                        tFrames: tFrames,
+                        hiddenScratch: &hiddenScratch
                     )
                     switch stage {
                     case .first(let h, let te):
@@ -414,9 +417,9 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                 "prompt_feat": promptFeat,
                 "speaker": speaker
             ]))
-            let mu = try ownedFloat32Output(result, "mu")
-            let spks = try ownedFloat32Output(result, "spks")
-            let cond = try ownedFloat32Output(result, "cond")
+            let mu = try Self.ownedFloat32Output(result, "mu")
+            let spks = try Self.ownedFloat32Output(result, "spks")
+            let cond = try Self.ownedFloat32Output(result, "cond")
             guard mu.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("mu", mu.shape.map(\.intValue)) }
             guard spks.shape.map(\.intValue) == [2,80] else { throw CosyVoice3AcousticError.invalidShape("spks", spks.shape.map(\.intValue)) }
             guard cond.shape.map(\.intValue) == [2,80,tFrames] else { throw CosyVoice3AcousticError.invalidShape("cond", cond.shape.map(\.intValue)) }
@@ -430,7 +433,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         model: MLModel,
         flowStep: Int,
         feed: [String: MLMultiArray],
-        tFrames: Int
+        tFrames: Int,
+        hiddenScratch: inout MLMultiArray?
     ) throws -> FlowShardStage {
         let phaseStarted = DispatchTime.now().uptimeNanoseconds
         let loadBefore = modelLoadMilliseconds
@@ -444,16 +448,19 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
             let stage: FlowShardStage
             if index == 0 && flowShardPaths.count > 1 {
-                let h = try ownedFloat32Output(result, "h")
-                let te = try ownedFloat32Output(result, "te")
+                let reuseHidden = flowShardPaths.count == 2 && !CommandLine.arguments.contains("--validation-flow-buffer-baseline")
+                let reuse = reuseHidden ? hiddenScratch : nil
+                let h = try Self.ownedFloat32Output(result, "h", reuse: reuse)
+                let te = try Self.ownedFloat32Output(result, "te")
                 guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
                 guard te.shape.map(\.intValue) == [2,1024] else { throw CosyVoice3AcousticError.invalidShape("te", te.shape.map(\.intValue)) }
+                if reuseHidden { hiddenScratch = h }
                 stage = .first(h,te)
             } else if index == flowShardPaths.count - 1 {
-                let velocity = try ownedFloat32Output(result, "velocity")
+                let velocity = try Self.ownedFloat32Output(result, "velocity")
                 stage = .velocity(velocity)
             } else {
-                let h = try ownedFloat32Output(result, "h_out")
+                let h = try Self.ownedFloat32Output(result, "h_out")
                 guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h_out", h.shape.map(\.intValue)) }
                 stage = .hidden(h)
             }
@@ -490,12 +497,17 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         }
     }
 
-    private func ownedFloat32Output(_ provider: MLFeatureProvider, _ name: String) throws -> MLMultiArray {
-        let source = try output(provider, name)
+    static func ownedFloat32Output(_ provider: MLFeatureProvider, _ name: String, reuse: MLMultiArray? = nil) throws -> MLMultiArray {
+        guard let source = provider.featureValue(for: name)?.multiArrayValue else { throw CosyVoice3AcousticError.missingOutput(name) }
         guard source.dataType == .float32 else {
             throw CosyVoice3AcousticError.invalidShape("\(name)_dtype", source.shape.map(\.intValue))
         }
-        let owned = try MLMultiArray(shape: source.shape, dataType: .float32)
+        let owned: MLMultiArray
+        if let reuse, reuse.dataType == .float32, reuse.shape == source.shape {
+            owned = reuse
+        } else {
+            owned = try MLMultiArray(shape: source.shape, dataType: .float32)
+        }
         if Self.isContiguous(source), Self.isContiguous(owned) {
             memcpy(owned.dataPointer, source.dataPointer, source.count * MemoryLayout<Float>.size)
         } else {
@@ -614,3 +626,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Upstream: original overlapAddNorm loop; window/summation/index order unchanged.
 // Environment: Swift6/iOS18+/macOS15+ CoreML; generated2026-10-06 07:27 EDT America/New_York.
 // Changed regions: synthesis norm call349 and overlapAddNorm538-563; exact line map in git diff.
+
+// Changes2026-10-06: Flow scope hiddenScratch/predictFlowShard/ownedFloat32Output reuse one request-owned2-shard h buffer.
+// Purpose remove5large h allocations acrossFlow6, retain every original copy and all arithmetic.
+// Upstream current DynamicAcousticRuntime; Swift6/CoreML iOS18+/macOS15+; generated2026-10-06 America/New_York.
+// Synchronous prediction consumes h before next refill; no CoreML output borrowing/sharedscratch; validation-only baseline flag preserves prior allocation path.

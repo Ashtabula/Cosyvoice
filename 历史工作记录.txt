@@ -587,3 +587,10 @@ Actions: append correction: preceding11:14entry was a timestamp drafting error; 
 Files: 历史工作记录.txt; resource_efficiency_20261006/screen_current/console.log.
 Validation:76a5545 localHEAD andorigin trackingSHA match; no further device tests.
 GitHub Timeline:eeefd77和76a5545已push至experiment/ios-enumerated-ane-optimization；本条记录和console随后commit/push。
+
+Time:2026-10-06 11:34 EDT America/New_York
+Prompt: sequentialFlow thenHiFT/F0 buffer lifetime experiment, noalgorithm/precision/placement changes.
+Actions: auditedcurrent2shardFlow6 ownership; T822 h6733824bytes*6copies40402944bytes. x/batchXalreadyrequestreused; batchedCFG not2separatecalls. ONEcandidate requestlocalownedh reuse reduces6allocations to1, preservesallcopies andsynchronousprediction/Eulerorder. Baselineflagdoesnotretainh betweensteps. HiFT/F0codeuntouched pendingfrozenFlowresult.
+Files: DynamicAcousticRuntime scope/helper; FlowOwnedBufferTests; collectorbaselineflag; flowownership_audit.
+Validation:16relevanttestsPASS including6refillbyteparity/stridedfallback/shapemismatch. Initialsandboxcachedenial preservedinconsole, rerunwithauthorizedcacheaccessPASS. Signedbuild/chargingphysicalgatepending; noacceptanceyet.
+GitHub Timeline:3e74158已push；本次候选未commit。
