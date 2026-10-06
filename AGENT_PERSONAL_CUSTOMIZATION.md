@@ -87,3 +87,10 @@
 2: 使用 `asset/leijun-1.wav` 与 `asset/leijun-1.txt` 做 Phase 0。原始数据不改写。
 3: 下载并固定官方 base checkpoint，保留 revision、资产大小和 hash；先 upstream 数值行为，再优化。
 4: 迁移顺序：LLM prefill/decode/KV cache、Flow/DiT、HiFT、reference frontend、Swift runtime、physical device。所有 Apple-specific 文件位于 `ios/`。
+
+## 10. 2026-10-05 本轮等价优化边界
+
+1: 只允许 runtime、placement、packaging、cache、execution-plan 与现有 graph 的无损 partition/merge/repack。保持 weights、数学、sampler/RAS/EOS/RoPE/KV、reference、Flow solver/noise、HiFT/F0 完全不变；Flow 默认 6，supported 6/8/10。禁止量化、近似、裁剪/padding 近似、减少 layers/heads/channels/Flow calls。
+2: 正式架构保持 schema-3 N1...450 四 family multifunction。single-function 仅用于诊断；partition 必须保留原始边界 casts，完成 host parity 和 physical correctness 后才纳入候选。
+3: 比较保存实际 text/reference WAV/transcript SHA、asset tree SHA、Git HEAD、N/function、timings、thermal、memory 与 requested/observed placement。不补造旧 run 输入证据；不上传 HF、不改 release catalog、不 promotion。
+4: 不以 sleep/throttle 伪造低温；steady-state 请求间不人为停顿。启动前 nominal 门禁属于测量准备，不能称为 thermal 优化。不使用 shell exit、set -e/set -euo pipefail 或主动终止用户 Terminal/session；单项失败记录后继续其他 variant。

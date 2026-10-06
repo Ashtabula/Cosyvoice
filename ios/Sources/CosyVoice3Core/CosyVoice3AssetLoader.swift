@@ -52,6 +52,38 @@ enum CosyVoice3ValidationPlacement {
     }
 }
 
+// Experiment-only bounded acoustic reuse. No LLM/state sharing, no production default change.
+private final class CosyVoice3ValidationModelShelf: @unchecked Sendable {
+    static let shared = CosyVoice3ValidationModelShelf()
+    let lock = NSLock()
+    var family: String?
+    var entries: [String: (MLModel, UUID)] = [:]
+    func model(key: String, family selected: String, construct: () throws -> MLModel) throws -> MLModel {
+        lock.lock(); defer { lock.unlock() }
+        if family != selected { entries.removeAll(); family = selected }
+        if let hit = entries[key] {
+            print("[COSY-REUSE] HIT key=\(key)")
+            arm(key: key, model: hit.0)
+            return hit.0
+        }
+        let model = try construct()
+        arm(key: key, model: model)
+        print("[COSY-REUSE] MISS key=\(key)")
+        return model
+    }
+    private func arm(key: String, model: MLModel) {
+        let token = UUID(); entries[key] = (model, token)
+        DispatchQueue.global().asyncAfter(deadline: .now() + 30) { [weak self] in
+            guard let self else { return }
+            self.lock.lock(); defer { self.lock.unlock() }
+            if self.entries[key]?.1 == token {
+                self.entries.removeValue(forKey: key)
+                print("[COSY-REUSE] EXPIRED key=\(key) lifetimeSeconds=30")
+            }
+        }
+    }
+}
+
 struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
     let path: String
     let computeUnits: MLComputeUnits
@@ -360,7 +392,19 @@ enum CosyVoice3AssetLoader {
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
         }
+        let cacheArguments = CommandLine.arguments.filter { $0.hasPrefix("--validation-acoustic-cache=") }
+        guard cacheArguments.count <= 1 else { throw CosyVoice3AssetError.compiledCache("duplicate acoustic cache strategy") }
+        let strategy = cacheArguments.first.map { String($0.dropFirst("--validation-acoustic-cache=".count)) } ?? "none"
+        guard ["none", "small", "decoder", "selected-family"].contains(strategy) else { throw CosyVoice3AssetError.compiledCache("invalid acoustic cache strategy \(strategy)") }
+        let acousticRole = role.map { $0 == "conditions" || $0 == "hift" || $0.hasPrefix("flow") } ?? false
+        let retain = acousticRole && (strategy == "selected-family" || (strategy == "small" && role == "conditions") || (strategy == "decoder" && ["conditions", "hift"].contains(role ?? "")))
         do {
+            if retain {
+                let key = compiled.path + "|" + String(describing: effectiveUnits) + "|" + (config.functionName ?? "main")
+                return try CosyVoice3ValidationModelShelf.shared.model(key: key, family: functionName ?? "default") {
+                    try MLModel(contentsOf: compiled, configuration: config)
+                }
+            }
             return try MLModel(contentsOf: compiled, configuration: config)
         } catch {
             throw CosyVoice3AssetError.compiledCache(
@@ -613,3 +657,5 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05 19:12 America/New_York: validation role parser and model configuration (lines 19-61 and model()); 12 independent fail-closed overrides, production defaults/model bytes unchanged. Upstream: existing SDK AssetLoader; environment Swift6/iOS18+/macOS15+.
 
 // Changes 2026-10-05: model() validation single-function role maps only to separate ANEExperimental package; functionName=nil for main graph. Frozen Runtime untouched, missing experiment throws; probe logs now show final role override.
+
+// Changes 2026-10-05: validation-only model shelf in lines before WarmSpec and model(): none/small/decoder/selected-family; one family, exact compute/function key, 30-second eviction, no LLM/state caching. Purpose eliminate redundant constructors without math changes; upstream AssetLoader; Swift6/CoreML/iOS18+.

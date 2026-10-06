@@ -258,3 +258,10 @@ GitHub Timeline：0bae3df已commit未push；本审计证据与日志当前未com
 修改文件：DeviceSmoke、device/matrix runner、single-function exporter与host parity runner、各JSON结果及历史记录。
 验证：新增诊断app在暂停前Release compile PASS（未安装）；single-function v9 host CPU包装对照8角色maxAbs0；v8和sandbox失败均保留。0.5866历史审计依然INVALID_COMPARISON，不补造输入哈希。
 GitHub Timeline：当前98e9e1e已commit未push；本条随后选择性commit与push当前optimization branch。
+
+Time: 2026-10-05T20:09:21.297280-04:00
+Prompt: algorithm unchanged runtime/placement/cache/partition optimization.
+Actions: pushed preserved diagnostic/source receipts at0bc1402; add actual device text/reference/instruction/manifest SHA, float32 PCM SHA, bounded30s one-family validation model shelf (none/small/decoder/selected-family), sustained public synthesis loop without inter-request delay; formalize strict round constraints.
+Files: AssetLoader.swift, DeviceSmokeApp.swift, device runner, AGENT_PERSONAL_CUSTOMIZATION.md.
+Validation: placement3 tests PASS; physical new identity baseline pending. No frozen bytes or algorithms changed; no release/HF promotion.
+GitHub Timeline: 0bc1402 pushed; current new changes uncommitted, commit next for signed source binding.

@@ -398,6 +398,16 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let firstStages = await engine.lastSynthesisReport()
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
             let repeatStages = await engine.lastSynthesisReport()
+            let inputIdentity: [String: Any] = [
+                "text": fixture.text,
+                "textSha256": SHA256.hash(data: Data(fixture.text.utf8)).map { String(format: "%02x", $0) }.joined(),
+                "referenceWavSha256": SHA256.hash(data: try Data(contentsOf: fixture.reference.audioURL)).map { String(format: "%02x", $0) }.joined(),
+                "referenceTranscriptFileSha256": SHA256.hash(data: try Data(contentsOf: Self.generatedAssets().appendingPathComponent("reference.txt"))).map { String(format: "%02x", $0) }.joined(),
+                "effectiveReferenceTranscriptSha256": SHA256.hash(data: Data(fixture.transcript.utf8)).map { String(format: "%02x", $0) }.joined(),
+                "instructionSha256": SHA256.hash(data: Data((fixture.parameters.instruction ?? "").utf8)).map { String(format: "%02x", $0) }.joined(),
+                "runtimeRoot": fixture.runtime.path,
+                "manifestSha256": SHA256.hash(data: try Data(contentsOf: fixture.runtime.appendingPathComponent("cosyvoice3_enumerated.json"))).map { String(format: "%02x", $0) }.joined()
+            ]
             guard first.samples.count == repeatAudio.samples.count else {
                 throw SmokeError("deterministic Candidate cold/warm sample-count mismatch: \(first.samples.count) != \(repeatAudio.samples.count)")
             }
@@ -407,8 +417,29 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 throw SmokeError("deterministic Candidate cold/warm WAV mismatch")
             }
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
+            var sustained = [[String: Any]]()
+            let sustainedCount = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-sustained-count=") }).flatMap { Int($0.dropFirst("--validation-sustained-count=".count)) } ?? 0
+            guard (0...20).contains(sustainedCount) else { throw SmokeError("invalid sustained count") }
+            for index in 0..<sustainedCount {
+                let thermalBefore = Self.thermalName(ProcessInfo.processInfo.thermalState)
+                let start = clock.now
+                let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
+                let ms = Self.seconds(start.duration(to: clock.now))*1000
+                try Self.validate(audio)
+                let hash = SHA256.hash(data: Self.wavData(audio)).map { String(format: "%02x", $0) }.joined()
+                guard hash == repeatWAVSHA256 else { throw SmokeError("sustained deterministic output diverged") }
+                let stages = await engine.lastSynthesisReport()
+                var row: [String: Any] = ["index": index, "totalMilliseconds": ms, "RTF":ms/1000/Self.audioDuration(audio), "samples":audio.samples.count,"thermalStart":thermalBefore,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"wavSha256":hash,"physicalFootprintBytes":Self.processFootprint(),"interRequestDelay":false]
+                if let stages { row["stages"] = Self.reportDictionary(stages) }
+                sustained.append(row)
+            }
             let thermalEnd = ProcessInfo.processInfo.thermalState
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false,"validationCacheReset":validationCacheReset,"validationSamplerSeed":validationSamplerSeed,"matchedDeterministicSpeechLength":true,"matchedDeterministicWav":true,"firstWavSha256":firstWAVSHA256,"repeatWavSha256":repeatWAVSHA256]
+            receipt["sustainedRuns"] = sustained
+            receipt["inputIdentity"] = inputIdentity
+            receipt["acousticCacheStrategy"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-acoustic-cache=") }) ?? "none"
+            receipt["firstFloat32PCMSha256"] = first.samples.withUnsafeBytes { SHA256.hash(data: Data($0)).map { String(format: "%02x", $0) }.joined() }
+            receipt["warmFloat32PCMSha256"] = repeatAudio.samples.withUnsafeBytes { SHA256.hash(data: Data($0)).map { String(format: "%02x", $0) }.joined() }
             if let payloadTreeSHA256 = fixture.payloadTreeSHA256 { receipt["payloadTreeSha256"] = payloadTreeSHA256 }
             if let exportReceiptSHA256 = fixture.exportReceiptSHA256 { receipt["exportReceiptSha256"] = exportReceiptSHA256 }
             if let assetExportSourceCommit = fixture.assetExportSourceCommit { receipt["assetExportSourceCommit"] = assetExportSourceCommit }
@@ -1081,3 +1112,5 @@ private extension Data {
 // Changes 2026-10-05 19:12 America/New_York: Candidate/FAIL receipts carry 12 requested role placements and explicit unproven residency. Upstream DeviceSmoke public API benchmark; environment physical iPhone/iOS18+, Swift6.
 
 // Changes 2026-10-05: separate --ane-compute-plans diagnostic records supported/preferred devices/errors; baseline timing mode never loads a plan. Explicit validation reference cache reset; saved cold/warm WAVs for comparisons.
+
+// Changes 2026-10-05: Candidate actual-input identity and Float32 PCM hashes, bounded sustained loop without sleep between public syntheses; memory/thermal sampling remains diagnostic. Upstream public Engine; environment physical iPhone/Swift6.

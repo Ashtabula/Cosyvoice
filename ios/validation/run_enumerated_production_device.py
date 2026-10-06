@@ -169,6 +169,8 @@ def main() -> None:
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--sustained-count", type=int, default=0)
+    parser.add_argument("--acoustic-cache", choices=("none","small","decoder","selected-family"), default="none")
     parser.add_argument("--wait-thermal-nominal", action="store_true")
     parser.add_argument("--reset-reference-conditioning", action="store_true")
     parser.add_argument("--skip-build", action="store_true", help="reuse the already installed exact diagnostic host")
@@ -223,7 +225,7 @@ def main() -> None:
         ["git", "-C", REPO, "diff", "--name-only", asset_export_source, source, "--", "ios/Package.swift", "ios/Sources"],
         capture=True,
     ).splitlines()
-    diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function)
+    diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function) or args.acoustic_cache != "none"
     diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift"}
     if runtime_changed and not (
         diagnostic_compute
@@ -354,6 +356,8 @@ def main() -> None:
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":
                 candidate_args.append("--validation-enumerated-cpu-only")
+            candidate_args.append("--validation-sustained-count=" + str(args.sustained_count))
+            candidate_args.append("--validation-acoustic-cache=" + args.acoustic_cache)
             candidate_args += ["--validation-placement=" + item for item in args.placement]
             candidate_args += ["--validation-single-function=" + item for item in args.single_function]
             if args.wait_thermal_nominal:
