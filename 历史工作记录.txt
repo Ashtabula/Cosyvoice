@@ -629,3 +629,10 @@ Actions: completedsequentialFlowrejection/FP64acceptance, noadditionaloptimizati
 Files: 历史工作记录.txt append-onlyfinaltimeline.
 Validation:localHEAD a88e187408016755d1bb89063059953c1055cb03 matchesorigin/experiment/ios-enumerated-ane-optimization; cleanworkingtree beforethislogappend.
 GitHub Timeline:f23988e/55499bc/f23445e/1b62aa8/a88e187全部已push；本条最终同步记录随后独立commit/push。
+
+Time:2026-10-06 13:11 EDT America/New_York
+Prompt: attachedLLM-onlyQ8quantization/clickableaudio/humangate controlledmodelassetexperiment.
+Actions: readfullprompt/newacceptedFP64/baselineaudits. Installedct9supportsweight-onlyint8/int4 compression; choose169linearmatricesonly perchannelsymmetricQ8, retainallbias/activation/MLStateFP16. Explicitusernewauthorization supersedesoldernoquantizationlane onlyforisolatedLLMexperiment. OutputprivateTmp dueWD1.4GiBfree; nofrozenasset/catalog/defaultoverwrite. Q4/mixedconditionalnotstarted.
+Files: quantize_llm_weights.py; llm_quantization_20261006 feasibility/requestedevidence.
+Validation: installedAPI/configinspectionPASS; wrongct.models.MLState namespacequery correctedtoct.models.model.MLState, nosynthesisimpact. Source/spec/stateIO audited; conversion/host/physicalpending.
+GitHub Timeline:b144e06已push；本轮实验工具/evidence未commit。

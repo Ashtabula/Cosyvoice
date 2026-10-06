@@ -1,0 +1,181 @@
+You are working on:
+
+Ashtabula/Cosyvoice
+
+TASK
+Investigate and experimentally validate LLM weight quantization for the current CosyVoice3 iOS runtime.
+
+This is a controlled MODEL-ASSET experiment. Product priorities:
+1. lower sustained thermal burden
+2. lower energy per playback second
+3. lower peak and steady-state memory
+4. preserve perceptual audio quality
+5. keep production RTF approximately <= 0.60
+
+Minimum RTF is NOT the primary objective. Quantize the LLM only first. Production remains LAST_KNOWN_GOOD.
+
+1. READ CURRENT EVIDENCE
+Read the current repository and accepted evidence: SHARDS=2, Flow6, embedding-copy optimization, accepted HiFT/F0 FP64 workspace reuse, rejected Flow-buffer experiment, warm-decode audit, Core ML/ANE audit, residency/resource evidence, human listening checkpoint, conversion scripts, prefill/decode models, manifests, asset identities and physical receipts. Use newest committed evidence, not prompt numbers.
+
+2. BASELINE
+Expected neighborhood: SHARDS=2, Flow6, N=260, n257_384, 24 kHz, 249600 samples/10.4 s, warm RTF ~0.47-0.48, LLM ~3.25 s, acoustic ~1.48 s, process peak ~2.32 GB. Verify.
+Expected frozen baseline identities:
+tokenSequenceSHA256 5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d
+PCM_SHA256 909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694
+WAV_SHA256 a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888
+These define baseline, NOT mandatory identities for quantized candidates.
+
+3. FEASIBILITY AUDIT
+Before conversion determine source/Core ML weight dtype, activation precision where known, prefill/decode/package sizes, duplicated/shared weights, existing compression, model type, deployment target, coremltools version, compute units, ANE evidence, MLState/KV precision, and byte-dominant layers.
+
+4. INSTALLED CORE ML TOOLCHAIN
+Inspect actual installed coremltools APIs. Determine supported Q8/Q4 weight compression mechanisms for this exact ML Program/deployment target. Do not invent APIs. Distinguish compressed storage, runtime representation, ANE arithmetic precision, activation precision and decompression/materialization. Never claim INT4 ANE arithmetic without evidence.
+
+5. ISOLATE LLM
+Do not quantize Flow, HiFT, F0, tokenizer, CAMPPlus, reference encoder, frontend or acoustic models. Freeze SHARDS, Flow steps, RAS/sampling/EOS, KV/MLState semantics, reference conditioning, public API and acoustic pipeline.
+
+6. Q8 FIRST
+Create one conservative LLM-Q8 weight-only/compression candidate. Do not alter activation or KV precision unless technically required and explicitly documented. No architecture, attention, generation, training or fine-tuning changes.
+
+7. ASSET ISOLATION
+Do not overwrite production. Q8 gets separate packages, manifest, hashes and evidence. Do not publish it to production HF/catalog/default.
+
+8. SIZE ACCOUNTING
+Baseline vs Q8: source bytes, package/compiled bytes, weight bytes, prefill/decode sizes, total LLM bytes, compression ratio. Disk reduction is NOT RAM reduction.
+
+9. HOST NUMERICAL COMPARISON
+Compare controlled prefill/decode logits/hidden/state where observable. Report max/mean error, RMSE/cosine where useful, top-1 agreement and top-k overlap. No single metric proves perceptual quality.
+
+10. TOKEN DIVERGENCE
+On frozen workload report exact token match, first divergence, divergence count/fraction, EOS, N, repetition, premature termination and length drift. Divergence is not automatic rejection.
+
+11. PHYSICAL AUDIO
+Generate baseline and candidate with identical reference WAV/transcript, instruction, text and seed/config. Validate finite PCM, sample rate, duration, clipping and gross failures.
+
+12. CODEX-NATIVE CLICKABLE AUDIO IS MANDATORY
+Human listening must NOT depend on downloading a WAV or navigating to a filesystem path.
+
+For every candidate that reaches listening review, surface BOTH baseline and candidate WAVs directly in the Codex/agent result as task-visible clickable/playable file artifacts using the environment's supported attachment/artifact mechanism.
+
+Required user experience:
+- the user sees clearly named audio files in the Codex result
+- the user can click/open/play them directly from Codex
+- no Finder/Terminal/manual workspace navigation is required
+- no /Volumes/... path is presented as the primary listening mechanism
+
+Use descriptive filenames:
+cosyvoice_baseline_fp16.wav
+cosyvoice_llm_q8.wav
+cosyvoice_llm_q4.wav
+cosyvoice_llm_mixed.wav
+
+If generated WAVs live elsewhere, COPY them into the task-visible output/artifact area before final response. Verify bytes exist and are readable. Preserve original path/hash separately for provenance.
+
+Do NOT merely print a path and call it clickable.
+Do NOT require the user to manually download from a device container or workspace.
+If the Codex runtime truly cannot expose task-visible file artifacts, explicitly report CODEX_CLICKABLE_AUDIO_UNAVAILABLE and use the closest supported file attachment mechanism. Do not falsely claim success.
+
+13. HUMAN LISTENING GATE
+If PCM differs, human listening is mandatory before promotion. The agent must NOT declare subjective PASS. Surface baseline and candidate audio directly in Codex, report objective results, and stop at the human gate. Evaluate intelligibility, pronunciation, speaker similarity, naturalness, prosody, rhythm, artifacts, repetition and long-sentence stability. Record HUMAN_PASS only after explicit user judgment.
+
+14. PHYSICAL MEMORY
+Same device/conditions: measure before/after engine/preparation/LLM load, prefill, decode peak, post-LLM, acoustic peak, overall peak, completion and idle/post-expiry. Determine actual LLM residency, decode peak, overall peak and steady-state change. Never infer RAM from package size.
+
+15. PERFORMANCE
+Measure cold/warm synthesis, LLM load, prefill, decode/token, total decode, acoustic, total and RTF with repeated warm runs. RTF <= ~0.60 is acceptable for a superior resource candidate.
+
+16. DEVELOPMENT ENERGY
+Record CPU time, valid process-attributed energy, normalized energy/audio, thermal and memory. Do not call CPU-only/process counters whole-device energy. Charging tests are screening evidence only.
+
+17. FINAL ENERGY/THERMAL
+If upgraded Ashtabula/NPU_engines_Demo sustained benchmark is ready, prefer Release, unplugged/not charging, wireless host control, comparable thermal start, bounded generate/playback, and Power Profiler evidence when available. Compare whole-device/process energy per playback second, sustained power, thermal trajectory, time-to-fair/serious, RTF drift, memory and underruns. Do not block initial Q8 feasibility if this infrastructure is unavailable.
+
+18. Q8 CLASSIFICATION
+Choose exactly one:
+Q8_STRONG_RESOURCE_WIN
+Q8_RESOURCE_WIN
+Q8_NEUTRAL
+Q8_QUALITY_REGRESSION
+Q8_PERFORMANCE_REGRESSION
+Q8_NO_REAL_RUNTIME_BENEFIT
+Q8_UNSUPPORTED_OR_INCOMPATIBLE
+Q8_AWAITING_HUMAN_LISTENING
+Do not promote solely for smaller disk size.
+
+19. Q4 IS CONDITIONAL
+Proceed to Q4 only if Q8 shows real runtime/resource benefit or strong toolchain evidence suggests Q4 materially differs. If Q8 only reduces disk size with no real memory/energy/thermal/runtime benefit, stop unless concrete evidence justifies Q4.
+
+20. Q4
+If justified, create isolated LLM-Q4 and repeat size, numerical, token, physical audio, CODEX-NATIVE CLICKABLE AUDIO, human gate, memory, performance, process energy, whole-device thermal/energy and execution-placement checks. Do not overwrite Q8/baseline.
+
+21. Q4 QUALITY
+Do not require bit identity. Immediately reject invalid PCM, NaN/Inf, severe repetition, broken EOS, extreme duration drift, unintelligible speech or major speaker-identity loss. Subtle differences require human listening.
+
+22. MIXED PRECISION THIRD
+Only consider ONE mixed candidate if Q8 quality is good but gain insufficient, or Q4 gain is strong but quality degrades. Perform sensitivity analysis; do not guess sensitive layers.
+
+23. NO COMBINATORIAL SEARCH
+Maximum ladder: Baseline -> Q8 -> Q4 if justified -> ONE mixed candidate if justified.
+
+24. ANE EXECUTION
+For every candidate inspect Core ML execution evidence: preferred device, graph partitioning, ANE compatibility, CPU fallback, specialization and state behavior. Smaller assets with CPU fallback may be worse.
+
+25. MLSTATE/KV
+Do not quantize MLState/KV initially.
+
+26. PREFILL VS DECODE
+Report prefill latency, decode latency/token, total decode, context-length behavior and model-load latency separately.
+
+27. SUCCESS IS RESOURCE-BASED
+Examples:
+RTF .47->.49, peak 2.32->1.75GB, energy -15%, quality PASS = excellent.
+RTF .47->.55, peak 2.32->1.55GB, energy -25%, thermal improves, quality PASS = potentially stronger.
+RTF .47->.38, memory unchanged, energy +15%, quality worse = likely reject.
+
+28. PRESERVE PRODUCTION
+Never overwrite LAST_KNOWN_GOOD, production assets/manifests/HF revision, accepted listening evidence or historical receipts.
+
+29. EVIDENCE
+Separate baseline/Q8/Q4/mixed evidence. Record source/conversion SHA, coremltools version, quantization config, source/output hashes, sizes, asset identity, device/OS, frozen inputs, tokens, PCM/WAV hashes, numerical metrics, memory timeline, raw RTF/stages, CPU/process energy, thermal, listening status, Codex artifact filenames/identities and ANE evidence.
+
+30. STOP CONDITIONS
+Stop if tooling cannot support meaningful quantization, Q8 breaks state/decode, causes major CPU fallback, gives only disk savings with no reason for Q4, has clearly unacceptable quality, requires architecture changes, or evidence cannot distinguish benefit from noise.
+
+31. FINAL REPORT
+Provide:
+A baseline precision/assets
+B available quantization mechanisms
+C Q8 method
+D Q8 size
+E numerical comparison
+F token divergence
+G memory
+H performance
+I process energy
+J whole-device energy/thermal if available
+K ANE placement
+L listening status
+M classification
+Then equivalent Q4/mixed sections only if performed.
+
+Include one table:
+Metric | Baseline | Q8 | Q4 | Mixed
+with LLM/total asset size, load, prefill, decode ms/token, total LLM, total synthesis, RTF, peak/steady memory, process energy/playback-sec, whole-device energy/playback-sec, thermal trajectory, token divergence and listening status.
+
+End by answering:
+1. Does Q8 reduce real physical memory?
+2. Does Q8 reduce energy/playback-second?
+3. Does Q8 improve sustained thermal behavior?
+4. What is the Q8 RTF?
+5. Is Q8 perceptually acceptable according to the HUMAN gate?
+6. Was Q4 justified?
+7. If tested, does Q4 offer a better Pareto tradeoff?
+8. Is mixed precision justified?
+9. Which candidate is on the best product Pareto frontier?
+10. Should any quantized candidate be promoted?
+11. What should be tested next?
+
+CRITICAL FINAL-RESPONSE REQUIREMENT:
+If listening artifacts were generated, the final Codex response must surface the actual baseline/candidate WAV files as clickable task-visible artifacts. A local filesystem path alone is NOT sufficient.
+
+Do not auto-promote any candidate requiring human listening before the user has listened and explicitly approved it.
