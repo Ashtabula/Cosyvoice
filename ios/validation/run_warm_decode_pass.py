@@ -5,10 +5,11 @@ import argparse,base64,hashlib,json,subprocess,threading,time
 DEVICE='00008150-000A05CA1440401C';BUNDLE='com.actacomes.cosyvoice3.candidatebenchmark'
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat'],required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat'],required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--lifetime',action='store_true');p.add_argument('--cache',choices=['none','small','decoder','selected-family'],default='selected-family');a=p.parse_args()
     out=a.output;out.mkdir(parents=True,exist_ok=True)
-    flags=['--no-playback','--validation-warm-pass',f'--validation-warm-pass-mode={a.mode}','--validation-flow-partition=2','--validation-acoustic-cache=selected-family']
-    if a.mode=='memory':flags+=['--validation-decode-audit']
+    flags=['--no-playback','--validation-warm-pass',f'--validation-warm-pass-mode={a.mode}','--validation-flow-partition=2',f'--validation-acoustic-cache={a.cache}']
+    if a.lifetime:flags+=['--validation-model-lifetime']
+    elif a.mode=='memory':flags+=['--validation-decode-audit']
     cmd=['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing','--console',BUNDLE,'--',*flags]
     print('[WARM-DECODE-PASS] SHARDS=2',cmd,flush=True)
     proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);done=threading.Event()
@@ -30,9 +31,15 @@ def main():
         if audit.get('logitsFP16Base64'):
             blob=base64.b64decode(audit['logitsFP16Base64']);(out/f'request-{i+1}-logits.f16').write_bytes(blob)
             audit['fixtureSHA256']=hashlib.sha256(blob).hexdigest()
-        (out/f'request-{i+1}-tokens.json').write_text(json.dumps(item['tokens'])+'\n')
+        tokens=item['tokens']
+        tokenSHA=hashlib.sha256(json.dumps(tokens,separators=(',',':')).encode()).hexdigest()
+        assert tokenSHA=='5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d', 'STOP token identity differs'
+        (out/f'request-{i+1}-tokens.json').write_text(json.dumps(tokens)+'\n')
     (out/'host-collection.json').write_text(json.dumps(dict(command=cmd,runnerSHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),noTimedReadback=True,SHARDS=2,receiptSHA256=hashlib.sha256((out/'warm-decode-pass-receipt.json').read_bytes()).hexdigest()),indent=2)+'\n')
     print('[WARM-DECODE-PASS] complete',out,flush=True)
 if __name__=='__main__':main()
 # Purpose: hash-bound PhaseA memory and baseline warm-repeat collection; upstream native warm lane.
 # Python3/macOS/Xcode/iPhone; generated2026-10-06. No cold cache reset, placement/graph/shard/Flow change.
+
+# Measurement2026-10-06: existing cache policies for causal lifetime comparisons; rawlogits disabled in lifetime lane.
+# Upstream warm runner; Python3/macOS; validates frozen token identity, no timed readback or cache reset.

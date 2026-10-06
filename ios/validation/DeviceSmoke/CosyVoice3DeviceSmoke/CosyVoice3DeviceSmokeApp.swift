@@ -409,7 +409,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
                   Self.thermalName(ProcessInfo.processInfo.thermalState)=="nominal" else {throw SmokeError("warm pass requires SHARDS2/unchanged placement/noreset/nominal start")}
-            let memory:WarmPassMemoryTimeline?=mode=="memory" ? WarmPassMemoryTimeline():nil
+            let memory:WarmPassMemoryTimeline?=(mode=="memory" || CommandLine.arguments.contains("--validation-model-lifetime")) ? WarmPassMemoryTimeline():nil
             defer{_ = memory?.stop()}
             memory?.record("before_fixture_and_package_checks")
             let fixture=try Self.fixture(),experimental=try Self.validateExperimentalModels(runtime:fixture.runtime)
@@ -418,7 +418,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             memory?.record("after_engine_creation")
             await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver { phase in
-                if phase.hasPrefix("prepare.end") || phase.hasPrefix("frontend.end") || phase.hasPrefix("llm.load.end") || phase.hasPrefix("llm.prefill") || phase.hasPrefix("llm.decode.progress") || phase.hasPrefix("llm.generate.end") || phase.hasPrefix("acoustic.synthesize.end") || phase.hasPrefix("synthesis.end") {memory?.record(phase)}
+                memory?.record(phase)
                 print("[COSY-WARM-PASS-STAGE] \(phase)")
             }
             let count=mode=="memory" ? 2:5
@@ -438,7 +438,14 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     memory?.record("idle_after_request_\(request)")
                     // Only the explicit memory lane observes normal idle/30s cache expiry.
                     // No idle delay is used in performance repeats or reported as cooling.
-                    try await Task.sleep(for:.seconds(request==1 ? 3:35))
+                    if CommandLine.arguments.contains("--validation-model-lifetime") {
+                        let checkpoints=request==1 ? [1,3]:[1,3,10,35]
+                        var elapsed=0
+                        for seconds in checkpoints {
+                            try await Task.sleep(for:.seconds(seconds-elapsed)); elapsed=seconds
+                            memory?.record("request_\(request)_idle_\(seconds)s")
+                        }
+                    } else {try await Task.sleep(for:.seconds(request==1 ? 3:35))}
                     memory?.record("idle_observation_end_\(request)")
                 }
             }
@@ -1464,3 +1471,6 @@ private final class WarmPassMemoryTimeline: @unchecked Sendable {
 
 // PhaseA2026-10-06: validation-only public warm/memory lane; sampling/state/input algorithm unchanged.
 // Native memory idle observation separate from no-delay performance repeats; exact line map git diff.
+
+// Measurement2026-10-06: all stage boundaries,100ms lifetime mode,1/3/10/35s idle probes onlymemory lane.
+// Upstream DeviceSmoke warm lane; Swift6/physical iPhone; no inter-request performance delay or synthesis change.

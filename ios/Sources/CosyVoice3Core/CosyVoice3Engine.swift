@@ -185,7 +185,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
     @_spi(Validation)
     public func setValidationProgressObserver(_ observer: (@Sendable (String) -> Void)?) {
-        validationProgressObserver = observer
+        if CosyVoice3ModelLifetimeAudit.enabled, let observer {
+            validationProgressObserver = { phase in CosyVoice3ModelLifetimeAudit.boundary(phase); observer(phase) }
+        } else { validationProgressObserver = observer }
     }
 
     @_spi(Validation)
@@ -1069,3 +1071,6 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changed region736-749 only; no weights/reference/cache/placement/public API change.
 
 // Change2026-10-06 PhaseA: bounded opt-in token/audit records via existing snapshot API; no public signature or production behavior change.
+
+// Measurement2026-10-06: opt-in weak-model stage observer; no production cache/API/numerical change.
+// Upstream Engine; Swift6/iOS18+; changed setValidationProgressObserver wrapper only.

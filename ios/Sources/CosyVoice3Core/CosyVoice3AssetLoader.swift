@@ -65,6 +65,7 @@ private final class CosyVoice3ValidationModelShelf: @unchecked Sendable {
         lock.lock(); defer { lock.unlock() }
         if family != selected { entries.removeAll(); family = selected }
         if let hit = entries[key] {
+            CosyVoice3ModelLifetimeAudit.event("SHELF_HIT", detail:key)
             print("[COSY-REUSE] HIT key=\(key)")
             arm(key: key, model: hit.0)
             return hit.0
@@ -76,11 +77,14 @@ private final class CosyVoice3ValidationModelShelf: @unchecked Sendable {
     }
     private func arm(key: String, model: MLModel) {
         let token = UUID(); entries[key] = (model, token)
+        CosyVoice3ModelLifetimeAudit.event("SHELF_INSERT", detail:key)
         DispatchQueue.global().asyncAfter(deadline: .now() + 30) { [weak self] in
             guard let self else { return }
             self.lock.lock(); defer { self.lock.unlock() }
             if self.entries[key]?.1 == token {
                 self.entries.removeValue(forKey: key)
+                CosyVoice3ModelLifetimeAudit.event("SHELF_EVICT", detail:key)
+                CosyVoice3ModelLifetimeAudit.boundary("shelf_expiry")
                 print("[COSY-REUSE] EXPIRED key=\(key) lifetimeSeconds=30")
             }
         }
@@ -418,6 +422,7 @@ enum CosyVoice3AssetLoader {
         let compiled = try compiledModelURL(source: source)
         func construct() throws -> MLModel {
             let started = DispatchTime.now().uptimeNanoseconds
+            CosyVoice3ModelLifetimeAudit.event("MODEL_LOAD_BEGIN", detail:path)
             let result: MLModel
             do { result = try MLModel(contentsOf: compiled, configuration: config) }
             catch {
@@ -428,6 +433,7 @@ enum CosyVoice3AssetLoader {
                 let rebuilt = try compiledModelURL(source: source)
                 result = try MLModel(contentsOf: rebuilt, configuration: config)
             }
+            CosyVoice3ModelLifetimeAudit.loaded(result, path:path, function:config.functionName, units:String(describing:effectiveUnits))
             try persistent.validatedLoad(identity: identity, compiled: compiled,
                 milliseconds: Double(DispatchTime.now().uptimeNanoseconds-started)/1_000_000, compiledHit: compiledHit)
             return result
@@ -726,3 +732,6 @@ enum CosyVoice3AssetLoader {
 // Changes 2026-10-05: validation-only model shelf in lines before WarmSpec and model(): none/small/decoder/selected-family; one family, exact compute/function key, 30-second eviction, no LLM/state caching. Purpose eliminate redundant constructors without math changes; upstream AssetLoader; Swift6/CoreML/iOS18+.
 
 // Changes2026-10-05 residency diagnostics: opt-in staticN260 packages use separateANEStaticN260 root, neverFrozen nor originalANEExperimental. Identity includesactualpackagebytes andsidecar; selectedmain onlywhenexplicit singlefunctiondiagnostic. No productionfunction/math/default changes; Swift6/iOS27.2, linesvia gitdiff.
+
+// Measurement-only lifetime hooks2026-10-06: load/shelf timestamps and weak-model probes.
+// Upstream existing AssetLoader; Swift6/iOS18+; no cache policy/model math change. Changedregions construct/shelf arm/hit/expiry.
