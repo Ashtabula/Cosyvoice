@@ -47,8 +47,8 @@
     "enumerated-acoustic/flow-shard-5.mlpackage"
   ],
   "hift": "enumerated-acoustic/hift.mlpackage",
-  "llmDecode": "models/cosyvoice-llm-q4-decode.mlpackage",
-  "llmPrefill": "models/cosyvoice-llm-q4-prefill.mlpackage",
+  "llmDecode": "models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+  "llmPrefill": "models/cosyvoice-llm-q8-prefill.mlpackage",
   "profile": "ios18-enumerated-n1-n450",
   "referenceEnrollment": {
     "campPlus": "reference/campplus-fixed604.mlpackage",
@@ -73,5 +73,5 @@
   "textEmbedding": "embeddings/text_embedding_fp16.bin",
   "textEmbeddingRows": 151936,
   "tokenizerFolder": "tokenizer",
-  "experimentalLLMVariant": "Q4_WEIGHT_ONLY_UNPROMOTED"
+  "experimentalLLMVariant": "Q4_DECODE_HYBRID_A_Q8_PREFILL_INT4_PER_CHANNEL_DECODE"
 }

@@ -32,7 +32,7 @@ final class WeightProfileTests: XCTestCase {
         XCTAssertEqual(CosyVoice3WeightProfile.allCases.map(\.rawValue), ["current", "q8", "q4"])
         XCTAssertEqual(CosyVoice3WeightProfile.current.metadata.displayName, "Current")
         XCTAssertEqual(CosyVoice3WeightProfile.q8.metadata.displayName, "Q8")
-        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.displayName, "Q4")
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.displayName, "Q4 Decode Hybrid")
     }
 
     func testAllWrongProfileCombinationsFailDuringInitialization() throws {
@@ -104,14 +104,18 @@ final class WeightProfileTests: XCTestCase {
         XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: true, arguments: ["--validation-flow-partition=3"]))
     }
 
-    func testUnvalidatedQ4FailsClosedInsteadOfFallingBack() throws {
-        XCTAssertTrue(CosyVoice3WeightProfile.current.metadata.isSelectableForInference)
-        XCTAssertTrue(CosyVoice3WeightProfile.q8.metadata.isSelectableForInference)
-        XCTAssertFalse(CosyVoice3WeightProfile.q4.metadata.isSelectableForInference)
-        for supplied in CosyVoice3WeightProfile.allCases {
-            XCTAssertThrowsError(try CosyVoice3Engine(assetRoot: fixture(supplied), profile: .q4)) { error in
-                XCTAssertEqual(error as? CosyVoice3WeightProfileError, .profileNotValidated(profileID: "q4"))
-            }
+    func testAcceptedQ4HybridRejectsOriginalFailedBlock32Assets() throws {
+        XCTAssertTrue(CosyVoice3WeightProfile.q4.metadata.isSelectableForInference)
+        XCTAssertEqual(CosyVoice3WeightProfile.productionDefault, .current)
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.contract.prefillSHA, CosyVoice3WeightProfile.q8.contract.prefillSHA)
+        let root = try fixture(.q4)
+        var old = try JSONSerialization.jsonObject(with: Data(contentsOf: root.appendingPathComponent("cosyvoice3_enumerated.json"))) as! [String: Any]
+        old["experimentalLLMVariant"] = "Q4_WEIGHT_ONLY_UNPROMOTED"
+        old["llmPrefill"] = "models/cosyvoice-llm-q4-prefill.mlpackage"
+        old["llmDecode"] = "models/cosyvoice-llm-q4-decode.mlpackage"
+        try JSONSerialization.data(withJSONObject: old).write(to: root.appendingPathComponent("cosyvoice3_enumerated.json"))
+        XCTAssertThrowsError(try CosyVoice3Engine(assetRoot: root, profile: .q4)) { error in
+            XCTAssertEqual(error as? CosyVoice3WeightProfileError, .assetIdentityMismatch(profileID: "q4"))
         }
     }
 }

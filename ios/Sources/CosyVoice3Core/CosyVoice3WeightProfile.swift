@@ -28,13 +28,13 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
         switch self {
         case .current: name = "Current"; compression = "FP16"
         case .q8: name = "Q8"; compression = "INT8 weight compression, per channel"
-        case .q4: name = "Q4"; compression = "INT4 weight compression, block32"
+        case .q4: name = "Q4 Decode Hybrid"; compression = "Q8 prefill + INT4 per-channel decode (hybrid)"
         }
         // Identity is a stable digest of the two immutable model packages, not filenames.
         let pair = contract.prefillSHA + "\n" + contract.decodeSHA
         return .init(id: rawValue, displayName: name, weightCompression: compression,
                      modelAssetIdentity: SHA256.hash(data: Data(pair.utf8)).map { String(format: "%02x", $0) }.joined(),
-                     isExperimental: self != .current, isSelectableForInference: self != .q4)
+                     isExperimental: self != .current, isSelectableForInference: true)
     }
 
     // Accept either an installed profile root or a logical profile collection containing
@@ -126,13 +126,13 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
                          prefillPath: "models/cosyvoice-llm-q8-prefill.mlpackage",
                          decodePath: "models/cosyvoice-llm-q8-decode.mlpackage")
         case .q4:
-            return .init(marker: "Q4_WEIGHT_ONLY_UNPROMOTED",
-                         manifestSHA: "092d9fbe3c8ad8fe556dd788a0824128200aec1f2fafba410ecb65b10a1ae31a",
-                         payloadSHA: "bca74138e3d7112f2e9e6bd0b0370401cc79be4ee27c7c2c09cc0ddf644f86d1",
-                         prefillSHA: "a434a6d7ff3102ed5ba708a45f62677762acefceed53f6f8e9eb79dc5a509ce7",
-                         decodeSHA: "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7",
-                         prefillPath: "models/cosyvoice-llm-q4-prefill.mlpackage",
-                         decodePath: "models/cosyvoice-llm-q4-decode.mlpackage")
+            return .init(marker: "Q4_DECODE_HYBRID_A_Q8_PREFILL_INT4_PER_CHANNEL_DECODE",
+                         manifestSHA: "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+                         payloadSHA: "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9",
+                         prefillSHA: "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+                         decodeSHA: "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46",
+                         prefillPath: "models/cosyvoice-llm-q8-prefill.mlpackage",
+                         decodePath: "models/cosyvoice-llm-q4-rescue-a-decode.mlpackage")
         }
     }
 }
@@ -140,4 +140,6 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
 // Upstream accepted FP16/Q8 and isolated Q4 export receipts; Swift6/iOS18+/macOS15+; generated2026-10-06 America/New_York.
 // New API/contract file; no tensor math, weights, sampling, precision, placement or state changes.
 // Q4 physicalgate2026-10-06: INT4block32 prefill failed CPU_AND_NE plan -14 before prediction on iPhone18,4/iOS27.2.
-// Q4 remains discoverable metadata but is not selectable for inference until a separate candidate passes physical validation; no automatic fallback.
+// Historical block32 candidate remains failed; human-approved hybrid supersedes its public contract without fallback.
+
+// Human acceptance2026-10-06: all3hybridEnglishWAVs userPASS; q4 now selects exact Q8prefill+INT4perchanneldecode hybrid. Originalblock32 failure/assets preserved; Currentdefault unchanged; notrelease/HFpromotion. Changedmetadata/contractonly.

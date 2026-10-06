@@ -9,7 +9,7 @@ def main():
  if a.variant=='q4_hybrid':flags+=['--validation-q4-hybrid-state-copy']
  if a.listening:flags=[x for x in flags if x not in ['--validation-llm-quantization','--validation-execution-audit']]+['--validation-llm-quantization-listening']
  if a.profile_trace:flags=['--validation-stage-profiling']+flags
- if a.sdk_profile_only:flags=[x for x in flags if x!='--validation-flow-partition=2']
+ if a.sdk_profile_only:flags=[x for x in flags if x not in ['--validation-flow-partition=2','--validation-q4-hybrid-state-copy']]
  cmd=['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing','--console',BUNDLE,'--',*flags];proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);done=threading.Event()
  def consume():
   with (a.output/'console.log').open('w') as f:

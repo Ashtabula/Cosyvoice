@@ -1146,6 +1146,7 @@ extension CosyVoice3Engine {
 // Internal validation experiment; cannot make public .q4 selectable or bypass any profile guard.
 extension CosyVoice3Engine {
     private func validationQ4HybridStateBridgeEnabled() throws -> Bool {
+        if usesValidatedWeightProfileAssets && weightProfile == .q4 { return true }
         guard CommandLine.arguments.contains("--validation-q4-hybrid-state-copy") else { return false }
         let bytes = try Data(contentsOf: assetRoot.appendingPathComponent("cosyvoice3_enumerated.json"))
         let sha = SHA256.hash(data: bytes).map { String(format: "%02x", $0) }.joined()
@@ -1161,3 +1162,5 @@ extension CosyVoice3Engine {
 // Changed two internal LLM constructors plus private hash/flag guard. No production availability/pinning relaxation.
 
 // Finalguard2026-10-06: Validation SPI additionally pins unchanged P2 sibling package hashes itself; normalprofileguards/math/modelcalls unchanged.
+
+// Human-approved publicq4 profile automatically uses the identical validated one-time model-owned state copy; no CLI needed. Current/Q8 flags remainfalse; weights/sampler/Flow/placement unchanged.2026-10-06.
