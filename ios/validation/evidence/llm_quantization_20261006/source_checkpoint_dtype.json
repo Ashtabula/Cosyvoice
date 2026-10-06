@@ -1,0 +1,14 @@
+{
+  "checkpointPath": "ios/.work/rebuild/ios-fixed225-reference/model-cache/Fun-CosyVoice3-0.5B-2512/llm.pt",
+  "bytes": 2024669519,
+  "tensorCounts": {
+    "torch.float32": 293
+  },
+  "elementsByDtype": {
+    "torch.float32": 642283136
+  },
+  "sourceConfigBF16IsNotActualCheckpointDtype": true,
+  "tensorNumelSumIncludesAliases": true,
+  "uniqueStorageCount": 292,
+  "uniqueStorageBytes": 2024593920
+}

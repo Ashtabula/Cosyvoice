@@ -1712,19 +1712,22 @@ extension CosyVoice3SmokeModel {
             }
         }
         // The accepted two lossless multifunction partitions remain byte-identical siblings.
-        let source=base.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
+        let source=base.deletingLastPathComponent().appendingPathComponent("FlowPartitions").resolvingSymlinksInPath()
         let destination=candidate.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
         guard let enumerator=fm.enumerator(at:source,includingPropertiesForKeys:[.isRegularFileKey]) else {throw SmokeError("frozen FlowPartitions absent")}
         for case let file as URL in enumerator {
-            let relative=String(file.path.dropFirst(source.path.count+1))
+            let canonicalFile=file.resolvingSymlinksInPath()
+            guard canonicalFile.path.hasPrefix(source.path + "/") else {throw SmokeError("partition file escaped source root")}
+            let relative=canonicalFile.pathComponents.dropFirst(source.pathComponents.count).joined(separator:"/")
             guard relative.hasPrefix("p2/") || relative=="partition-export-receipt.json" else {continue}
             guard try file.resourceValues(forKeys:[.isRegularFileKey]).isRegularFile == true else{continue}
             let target=destination.appendingPathComponent(relative)
             if !fm.fileExists(atPath:target.path) {
                 try fm.createDirectory(at:target.deletingLastPathComponent(),withIntermediateDirectories:true)
-                try fm.linkItem(at:file,to:target)
+                try fm.linkItem(at:canonicalFile,to:target)
             }
         }
+        guard fm.fileExists(atPath:destination.appendingPathComponent("partition-export-receipt.json").path) else {throw SmokeError("partition receipt link missing source=\(source.path)")}
         return candidate
     }
     func runLLMQuantization() async {

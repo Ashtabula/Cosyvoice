@@ -657,3 +657,10 @@ Actions: preserveactivebaselinebenchmark; completed5baselineN260/identityPASS/al
 Files: updatedrequestedprompt,DeviceSmokelisteningextension,collectorlisteningoption.
 Validation: baselinepublic5PASS/wavesexported,CoreMLplanallopsANEpreferred (notfullresidency), originalcollectorSHAexactoldcommittedsource verified. Updatedsignedbuildnext; candidate/listeningpendingHUMAN.
 GitHub Timeline:3c77e8e已commit未push；updatedcorpusvalidation未commit。
+
+Time:2026-10-06 13:37 EDT America/New_York
+Prompt: Q8candidatevalidation.
+Actions: firstQ8failedbeforeEngine/inference duemissinglinkedpartitionreceipt; preservepartialfailure/noQ8audio fabricated. CanonicalizeFlowPartitions/sourcefilepaths andusepathcomponents ratherthanrawstringdrop toavoidvar/privatevar alias. Noquantization/package/math/placementchange. SystemPythonTorchinspectionfailedModuleNotFoundError; rerunreadonlyinexistingcoremlvenv.
+Files: DeviceSmokequantizationRoot canonicalpathhelper.
+Validation: rebuild/retrypending; parentassetunchanged.
+GitHub Timeline:7bb0265已commit未push；stagingfix未commit。
