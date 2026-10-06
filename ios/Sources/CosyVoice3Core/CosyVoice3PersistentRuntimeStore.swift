@@ -64,7 +64,13 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
             let handle = try FileHandle(forReadingFrom: file)
             defer { try? handle.close() }
             var hash = SHA256()
-            while let bytes = try handle.read(upToCount: 4 * 1024 * 1024), !bytes.isEmpty { hash.update(data: bytes) }
+            // Foundation FileHandle bridges autoreleased NSData. Drain each chunk,
+            // rather than retaining several GiB until the enclosing actor turn ends.
+            while try autoreleasepool(invoking: {
+                guard let bytes = try handle.read(upToCount: 4 * 1024 * 1024), !bytes.isEmpty else { return false }
+                hash.update(data: bytes)
+                return true
+            }) { }
             rows.append((relative, values.fileSize ?? 0, hash.finalize().map { String(format: "%02x", $0) }.joined()))
         }
         func tree(_ items: [(String, Int, String)]) -> String {
@@ -88,8 +94,10 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
         let key = root.standardizedFileURL.path
         if let hit = roots[key] { return hit }
         let manifest = try CosyVoice3AssetLoader.loadManifest(root: root)
+        print("[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=\(root.path)")
         let manifestSHA = sha(try Data(contentsOf: root.appendingPathComponent(manifest.manifestFileName)))
         let payload = try contentTree(root, excludingExportReceipt: true)
+        print("[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=\(payload)")
         let receipt = root.appendingPathComponent("enumerated-production-export-receipt.json")
         if manifest.isEnumeratedAcoustic, FileManager.default.fileExists(atPath: receipt.path) {
             let advertised = try JSONSerialization.jsonObject(with: Data(contentsOf: receipt)) as? [String: Any]

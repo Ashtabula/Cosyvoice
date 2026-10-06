@@ -417,6 +417,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             let fixture = try Self.fixture()
             let experimentalIdentity = try Self.validateExperimentalModels(runtime: fixture.runtime)
+            _ = try Self.write(["status":"RUNNING","phase":"ENGINE_INIT","recordedAtUnix":Int(Date().timeIntervalSince1970),"processID":ProcessInfo.processInfo.processIdentifier,"physicalFootprintBytes":Self.processFootprint(),"sourceCommit":fixture.sourceCommit], to: Self.receiptURL("candidate-benchmark-receipt.json"))
             let activeManifest = try Self.activeManifest(runtime: fixture.runtime)
             let activeProfile = activeManifest.profile
             let variable = try? Self.variableManifestInfo(runtime: fixture.runtime)

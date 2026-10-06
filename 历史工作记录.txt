@@ -306,3 +306,10 @@ Prompt: persistent-device build follow-up.
 Actions: iOS actor snapshot uses Sendable String instead of SDK Data crossing; global active-synthesis gate prevents idle constructors from another engine; materialized-te identity path corrected; diagnostic single-function never starts production idle buckets; conflicting placement identities fail closed.
 Validation: prior13tests PASS; iOS Data region-isolation failure preserved in persistent_build_failures.json; rebuild next.
 GitHub Timeline: 0540889 local checkpoint, through4fa112d pushed; repair checkpoint next, no assets modified.
+
+Time: 2026-10-05T21:58:51.478938-04:00
+Prompt: persistent actual-byte hashing physical failure diagnosis.
+Actions: preserve A/B signal9 failure receipts; matched215356 Jetsam target CosyVoice3DeviceSmoke PID4692 reason per-process-limit, RSS216080*16384=3540254720 bytes; console only synthesis.begin/prepare.begin before any native constructor. Drain Foundation autoreleased FileHandle NSData per4MiB chunk, add actual payload hash phase/PID RUNNING receipt.
+Files: PersistentRuntimeStore, DeviceSmoke, enumerated_persistent_failures.json, new A/B/C matrix helper/evidence.
+Validation: persistent identity tests PASS after hash buffer fix; physical retry pending, no inference crash attribution.
+GitHub Timeline: aed1691 local, through4fa112d pushed; repair checkpoint commit next; no frozen bytes changed.

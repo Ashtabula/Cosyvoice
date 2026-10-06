@@ -1,0 +1,52 @@
+{
+  "sourceCommit": "0540889efef526d1623d25a5a9f9ab4b7e3d5bcc",
+  "scope": "iOS app build failure, no physical persistent benchmark executed",
+  "failure": "Swift6 iOS region-isolation rejected Data snapshot return across actors; replace diagnostic return with Sendable String, no inference changes",
+  "completeLog": "ios/.work/persistent-cold/final-host/build-retry-console.log",
+  "status": "REPAIR_PENDING_BUILD",
+  "physicalIdentityStreamingFailure": {
+    "jetsamReportSha256": "8ffcc5a7d39c323a18dba8265b5ab704b198316f81e66c49cc88b1cf33a0fefa",
+    "reportPath": "/private/tmp/cosy-JetsamEvent-2026-10-05-215356.ips",
+    "header": {
+      "bug_type": "298",
+      "timestamp": "2026-10-05 21:53:56.00 -0400",
+      "os_version": "iPhone OS 27.2 (24B5089g)",
+      "roots_installed": 0,
+      "incident_id": "3AFEAC97-0700-4B8A-8B34-897DACB0C8DA"
+    },
+    "pageSize": 16384,
+    "targetProcesses": [
+      {
+        "states": [
+          "active",
+          "frontmost"
+        ],
+        "genCount": 0,
+        "purgeable": 0,
+        "rpages": 216080,
+        "physicalPages": {
+          "internal": [
+            180819,
+            35126
+          ]
+        },
+        "mem_regions": 980,
+        "uuid": "760bdaee-d5c2-3c45-bbfd-ad09fe57eab1",
+        "fds": 50,
+        "name": "CosyVoice3DeviceSmoke",
+        "priority": 100,
+        "csTrustLevel": 4,
+        "cpuTime": 1.239109,
+        "freeze_skip_reason:": "none",
+        "age": 51060506,
+        "coalition": 3275,
+        "csFlags": 570434309,
+        "reason": "per-process-limit",
+        "pid": 4692,
+        "lifetimeMax": 216143,
+        "killDelta": 14284
+      }
+    ],
+    "scope": "prepare identity hash phase before native model constructors; initialRoot streaming lacked per-chunk autoreleasepool; repaired without model/math changes"
+  }
+}
