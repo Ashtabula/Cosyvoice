@@ -32,6 +32,7 @@ final class WeightProfileTests: XCTestCase {
             XCTAssertEqual(engine.profileMetadata.decodeModelIdentity.count, 64)
             XCTAssertEqual(engine.profileMetadata.acousticShards, 2)
             XCTAssertEqual(engine.profileMetadata.flowSteps, 6)
+            XCTAssertEqual(engine.profileMetadata.requestedLLMPlacement, "CPU_AND_NE")
             XCTAssertEqual(engine.profileMetadata.isExperimental, profile != .current)
         }
         XCTAssertEqual(CosyVoice3WeightProfile.allCases.map(\.rawValue), ["current", "q8", "q4"])
