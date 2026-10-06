@@ -533,3 +533,10 @@ Actions: additiveopt-in substage observer/rawFP16logits/token capture;100ms boun
 Files: LLMRuntime/Engine/StageDiagnostics andDeviceSmoke validationonlyhelper.
 Validation:20relevantSwiftPASS; signedRelease/physicalPhaseAnext.
 GitHub Timeline:5bd8afeaudit committednotpushed; measurementcommitnext.
+
+Time:2026-10-06 09:20 EDT America/New_York
+Prompt: rigorouswarmLLM low-riskpass, stop ifnoise exceedsremaininghostbenefit.
+Actions: PhaseAcomplete publicdecode259/state/input/provider/allocation maps,100msmemory timeline2requests+idle,3unprofiledwarmrepeat baseline. Native7requests exacttokens/PCM909/WAVa04f69. One temporaryborrowedFP16logitsprototype exact65536patterns/1024syntheticdraws/260physicalframesRNG/tokens; WMO8pairedreplays savesmedian0.0531035ms, belowphysicalLLM28.991332ms spread. STOP/no productioncandidate adopted; originalsampler/embedding-copy/precision/shards/Flow/placement unchanged.
+Files: warm_decode_pass_20261006 phase_a_static/measurement/hostprototype/final_summary/REPORT andrawmetadata; run_warm_decode_pass.py; measurement-only Engine/LLM/StageDiagnostics/DeviceSmoke. Raw3.5MBlogitsfixtures localignored; generatedverifiedbaselineWAV localartifacts.
+Validation:20SwiftPASS/signed50677fbReleasePASS. Profileddecode3253.983581ms/~98percent vsalllogitsfill0.335964ms. Unprofiledwarmmedian4864.855166ms/RTF0.4677745352, notnewoptimization. Measuredpeak2223279264B; completion901.958840MB->894.307512MB;35sidle415.107272MB with4shelfexpiry events. No confirmedleak/per-model attribution/thermal benefit.
+GitHub Timeline:through50677fblocalcommittednotpushed; PhaseAmeasurement/source/reportpushnext; acceptedb65820d remainssemanticreference/LGcheckpoint001 unchanged.

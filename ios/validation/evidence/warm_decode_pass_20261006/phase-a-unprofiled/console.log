@@ -1,0 +1,600 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-WARM-PASS-STAGE] synthesis.begin
+[COSY-WARM-PASS-STAGE] prepare.begin
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa
+[COSY-WARM-PASS-STAGE] prepare.end:warmed=0
+[COSY-WARM-PASS-STAGE] frontend.begin
+[COSY-WARM-PASS-STAGE] frontend.end:logicalPrefix=54:minN=26:maxN=260
+[COSY-WARM-PASS-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-WARM-PASS-STAGE] llm.load.end
+[COSY-WARM-PASS-STAGE] llm.generate.begin:maxN=260
+[COSY-WARM-PASS-STAGE] llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42
+[COSY-WARM-PASS-STAGE] llm.prefill.begin
+[COSY-WARM-PASS-STAGE] llm.prefill.end
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=1:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=16:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=32:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=48:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=64:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=80:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=96:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=112:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=128:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=144:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=160:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=176:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=192:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=208:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=224:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=240:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=256:maxN=260
+[COSY-WARM-PASS-STAGE] llm.max_length:N=260
+[COSY-WARM-PASS-STAGE] llm.generate.end:N=260
+[COSY-WARM-PASS-STAGE] acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.begin:N=260
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.conditions.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=12.540584
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=12.541
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=758.770834
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=758.771
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=570.278875
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=570.279
+[COSY-WARM-PASS-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.f0.begin:G=520
+[COSY-WARM-PASS-STAGE] acoustic.f0.end:G=520
+[COSY-WARM-PASS-STAGE] acoustic.hift.begin:G=520:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=163.149625
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=163.150
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.begin:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.end:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.end:G=520:samples=249600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":7.8989989999999981,"decoder":605.86520899999994,"f0":21.557791000000002,"flow":1191.3699160000001,"flow.shard.0":667.49733299999991,"flow.shard.1":523.90062399999999},"firstCallMs":{"conditions":7.8989989999999981,"decoder":605.86520899999994,"f0":21.557791000000002,"flow":267.422416,"flow.shard.0":267.42541599999998,"flow.shard.1":188.920208},"modelLoadMs":1504.739918,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.end:N=260:samples=249600
+[COSY-PHASE] summary totalMs=9622.201041 referencePrepareMs=1974.242375 frontendMs=249.643459 llmLoadMs=798.736375 llmMs=3246.294291 acousticLoadMs=1504.739918 acousticExecuteMs=1846.224582 samples=249600 steps=6
+[COSY-WARM-PASS-STAGE] synthesis.end:N=260:samples=249600
+[COSY-WARM-PASS] SHARDS=2 request=1 totalMs=9635.473542 thermal=nominal
+[COSY-WARM-PASS-STAGE] synthesis.begin
+[COSY-WARM-PASS-STAGE] prepare.begin
+[COSY-WARM-PASS-STAGE] prepare.end:warmed=0
+[COSY-WARM-PASS-STAGE] frontend.begin
+[COSY-WARM-PASS-STAGE] frontend.end:logicalPrefix=54:minN=26:maxN=260
+[COSY-WARM-PASS-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-WARM-PASS-STAGE] llm.load.end
+[COSY-WARM-PASS-STAGE] llm.generate.begin:maxN=260
+[COSY-WARM-PASS-STAGE] llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42
+[COSY-WARM-PASS-STAGE] llm.prefill.begin
+[COSY-WARM-PASS-STAGE] llm.prefill.end
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=1:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=16:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=32:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=48:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=64:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=80:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=96:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=112:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=128:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=144:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=160:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=176:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=192:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=208:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=224:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=240:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=256:maxN=260
+[COSY-WARM-PASS-STAGE] llm.max_length:N=260
+[COSY-WARM-PASS-STAGE] llm.generate.end:N=260
+[COSY-WARM-PASS-STAGE] acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.begin:N=260
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.conditions.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.687417
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.687
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.716625
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.717
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.648584
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.649
+[COSY-WARM-PASS-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.f0.begin:G=520
+[COSY-WARM-PASS-STAGE] acoustic.f0.end:G=520
+[COSY-WARM-PASS-STAGE] acoustic.hift.begin:G=520:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.684375
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.684
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.begin:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.end:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.end:G=520:samples=249600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":1.6893739999999999,"decoder":521.37066699999991,"f0":20.489083999999998,"flow":913.207582,"flow.shard.0":508.01916600000004,"flow.shard.1":405.21691499999997},"firstCallMs":{"conditions":1.6893739999999999,"decoder":521.37066699999991,"f0":20.489083999999998,"flow":104.86125,"flow.shard.0":104.863417,"flow.shard.1":65.888458},"modelLoadMs":2.7370010000000002,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.end:N=260:samples=249600
+[COSY-PHASE] summary totalMs=4889.90525 referencePrepareMs=2.564416 frontendMs=0.726667 llmLoadMs=136.977458 llmMs=3284.728125 acousticLoadMs=2.7370010000000002 acousticExecuteMs=1459.895624 samples=249600 steps=6
+[COSY-WARM-PASS-STAGE] synthesis.end:N=260:samples=249600
+[COSY-WARM-PASS] SHARDS=2 request=2 totalMs=4899.3715 thermal=nominal
+[COSY-WARM-PASS-STAGE] synthesis.begin
+[COSY-WARM-PASS-STAGE] prepare.begin
+[COSY-WARM-PASS-STAGE] prepare.end:warmed=0
+[COSY-WARM-PASS-STAGE] frontend.begin
+[COSY-WARM-PASS-STAGE] frontend.end:logicalPrefix=54:minN=26:maxN=260
+[COSY-WARM-PASS-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-WARM-PASS-STAGE] llm.load.end
+[COSY-WARM-PASS-STAGE] llm.generate.begin:maxN=260
+[COSY-WARM-PASS-STAGE] llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42
+[COSY-WARM-PASS-STAGE] llm.prefill.begin
+[COSY-WARM-PASS-STAGE] llm.prefill.end
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=1:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=16:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=32:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=48:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=64:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=80:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=96:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=112:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=128:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=144:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=160:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=176:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=192:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=208:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=224:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=240:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=256:maxN=260
+[COSY-WARM-PASS-STAGE] llm.max_length:N=260
+[COSY-WARM-PASS-STAGE] llm.generate.end:N=260
+[COSY-WARM-PASS-STAGE] acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.begin:N=260
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.conditions.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.651875
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.652
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.829834
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.830
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.673541
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.674
+[COSY-WARM-PASS-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.f0.begin:G=520
+[COSY-WARM-PASS-STAGE] acoustic.f0.end:G=520
+[COSY-WARM-PASS-STAGE] acoustic.hift.begin:G=520:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.667667
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.668
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.begin:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.end:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.end:G=520:samples=249600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":10.019625,"decoder":517.523416,"f0":20.553750000000001,"flow":907.48562400000014,"flow.shard.0":502.85358400000001,"flow.shard.1":404.66391700000003},"firstCallMs":{"conditions":10.019625,"decoder":517.523416,"f0":20.553750000000001,"flow":99.664833000000002,"flow.shard.0":99.667165999999995,"flow.shard.1":65.799291999999994},"modelLoadMs":2.8229169999999995,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.end:N=260:samples=249600
+[COSY-PHASE] summary totalMs=4855.271125 referencePrepareMs=2.538959 frontendMs=0.694667 llmLoadMs=122.825334 llmMs=3265.415541 acousticLoadMs=2.8229169999999995 acousticExecuteMs=1458.657958 samples=249600 steps=6
+[COSY-WARM-PASS-STAGE] synthesis.end:N=260:samples=249600
+[COSY-WARM-PASS] SHARDS=2 request=3 totalMs=4864.855166 thermal=nominal
+[COSY-WARM-PASS-STAGE] synthesis.begin
+[COSY-WARM-PASS-STAGE] prepare.begin
+[COSY-WARM-PASS-STAGE] prepare.end:warmed=0
+[COSY-WARM-PASS-STAGE] frontend.begin
+[COSY-WARM-PASS-STAGE] frontend.end:logicalPrefix=54:minN=26:maxN=260
+[COSY-WARM-PASS-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-WARM-PASS-STAGE] llm.load.end
+[COSY-WARM-PASS-STAGE] llm.generate.begin:maxN=260
+[COSY-WARM-PASS-STAGE] llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42
+[COSY-WARM-PASS-STAGE] llm.prefill.begin
+[COSY-WARM-PASS-STAGE] llm.prefill.end
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=1:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=16:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=32:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=48:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=64:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=80:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=96:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=112:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=128:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=144:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=160:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=176:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=192:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=208:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=224:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=240:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=256:maxN=260
+[COSY-WARM-PASS-STAGE] llm.max_length:N=260
+[COSY-WARM-PASS-STAGE] llm.generate.end:N=260
+[COSY-WARM-PASS-STAGE] acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.begin:N=260
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.conditions.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.616334
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.616
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.806959
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.807
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.710875
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.711
+[COSY-WARM-PASS-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.f0.begin:G=520
+[COSY-WARM-PASS-STAGE] acoustic.f0.end:G=520
+[COSY-WARM-PASS-STAGE] acoustic.hift.begin:G=520:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.660541
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.661
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.begin:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.end:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.end:G=520:samples=249600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":10.963623999999999,"decoder":516.59062600000004,"f0":20.582625,"flow":912.03545800000018,"flow.shard.0":508.36341700000003,"flow.shard.1":403.70799899999997},"firstCallMs":{"conditions":10.963623999999999,"decoder":516.59062600000004,"f0":20.582625,"flow":101.744,"flow.shard.0":101.747,"flow.shard.1":65.694084000000004},"modelLoadMs":2.7947090000000001,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.end:N=260:samples=249600
+[COSY-PHASE] summary totalMs=4858.531041 referencePrepareMs=2.626875 frontendMs=0.472625 llmLoadMs=123.877791 llmMs=3263.736209 acousticLoadMs=2.794709 acousticExecuteMs=1462.807041 samples=249600 steps=6
+[COSY-WARM-PASS-STAGE] synthesis.end:N=260:samples=249600
+[COSY-WARM-PASS] SHARDS=2 request=4 totalMs=4867.674333 thermal=nominal
+[COSY-WARM-PASS-STAGE] synthesis.begin
+[COSY-WARM-PASS-STAGE] prepare.begin
+[COSY-WARM-PASS-STAGE] prepare.end:warmed=0
+[COSY-WARM-PASS-STAGE] frontend.begin
+[COSY-WARM-PASS-STAGE] frontend.end:logicalPrefix=54:minN=26:maxN=260
+[COSY-WARM-PASS-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-WARM-PASS-STAGE] llm.load.end
+[COSY-WARM-PASS-STAGE] llm.generate.begin:maxN=260
+[COSY-WARM-PASS-STAGE] llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42
+[COSY-WARM-PASS-STAGE] llm.prefill.begin
+[COSY-WARM-PASS-STAGE] llm.prefill.end
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=1:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=16:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=32:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=48:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=64:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=80:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=96:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=112:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=128:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=144:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=160:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=176:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=192:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=208:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=224:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=240:maxN=260
+[COSY-WARM-PASS-STAGE] llm.decode.progress:N=256:maxN=260
+[COSY-WARM-PASS-STAGE] llm.max_length:N=260
+[COSY-WARM-PASS-STAGE] llm.generate.end:N=260
+[COSY-WARM-PASS-STAGE] acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.begin:N=260
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.conditions.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.581292
+[COSY-WARM-PASS-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.581
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.conditions.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.87475
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.875
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.726792
+[COSY-WARM-PASS-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.727
+[COSY-WARM-PASS-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.1.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.2.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.3.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.4.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.5.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.begin:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822
+[COSY-WARM-PASS-STAGE] acoustic.flow.step.6.6.end:N=260:T=822
+[COSY-WARM-PASS-STAGE] acoustic.f0.begin:G=520
+[COSY-WARM-PASS-STAGE] acoustic.f0.end:G=520
+[COSY-WARM-PASS-STAGE] acoustic.hift.begin:G=520:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/AE5FEC3A-C2F1-45C3-857C-3DA735F07CCA/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.647917
+[COSY-WARM-PASS-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.648
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.begin:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.prediction.end:samples=249600
+[COSY-WARM-PASS-STAGE] acoustic.hift.end:G=520:samples=249600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":10.948333,"decoder":523.16437499999995,"f0":20.973875,"flow":914.68450200000007,"flow.shard.0":505.10304200000002,"flow.shard.1":409.61125000000004},"firstCallMs":{"conditions":10.948333,"decoder":523.16437499999995,"f0":20.973875,"flow":98.375667000000007,"flow.shard.0":98.378249999999994,"flow.shard.1":66.216250000000002},"modelLoadMs":2.8307510000000002,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-WARM-PASS-STAGE] acoustic.synthesize.end:N=260:samples=249600
+[COSY-PHASE] summary totalMs=4846.762791 referencePrepareMs=2.791833 frontendMs=0.491833 llmLoadMs=129.095041 llmMs=3236.424209 acousticLoadMs=2.8307510000000002 acousticExecuteMs=1472.897707 samples=249600 steps=6
+[COSY-WARM-PASS-STAGE] synthesis.end:N=260:samples=249600
+[COSY-WARM-PASS] SHARDS=2 request=5 totalMs=4858.075125 thermal=nominal
+[COSY-AUTO-DONE] status=PASS warm decode pass SHARDS2 mode=repeat

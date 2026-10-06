@@ -1,0 +1,190 @@
+{
+  "schemaVersion": 1,
+  "candidate": "borrow immutableFP16logits withoutFloat scratch materialization",
+  "risk": "LOW given synchronousowner/readconversionproof; no semantic/API change proposed",
+  "status": "HOST_IDENTITY_PASS_NOT_ADOPTED_GAIN_BELOW_NOISE",
+  "performancePolicyClassification": "BIT_IDENTICAL_NO_MEASURABLE_SPEEDUP",
+  "classificationScope": "hosttokens/RNG replay + gainrelativephysicalbaselinevariance; no candidatepublicPCM/physicalspeedup claim",
+  "productionEditedForCandidate": false,
+  "acceptedEmbeddingCopyOptimizationPreserved": true,
+  "hostProof": {
+    "allFP16BitPatterns": 65536,
+    "syntheticDraws": 1024,
+    "actualPhysicalFrozenFrames": 260,
+    "sameSelectedTokensAndRNGStates": true,
+    "actualFixtureSHA256": "1971208c9470b0994b4e9cd9d85fd0abbc7abbd3372927d3d1856f5937fb50fe"
+  },
+  "compileOptions": "swiftc -O -whole-module-optimization",
+  "nonWMORows": [
+    {
+      "milliseconds": 24.967125,
+      "mode": "originalFloatScratch",
+      "pair": 0
+    },
+    {
+      "milliseconds": 414.8515,
+      "mode": "borrowedFP16",
+      "pair": 0
+    },
+    {
+      "milliseconds": 413.406583,
+      "mode": "borrowedFP16",
+      "pair": 1
+    },
+    {
+      "milliseconds": 24.902042,
+      "mode": "originalFloatScratch",
+      "pair": 1
+    },
+    {
+      "milliseconds": 24.964667,
+      "mode": "originalFloatScratch",
+      "pair": 2
+    },
+    {
+      "milliseconds": 414.090583,
+      "mode": "borrowedFP16",
+      "pair": 2
+    },
+    {
+      "milliseconds": 414.149708,
+      "mode": "borrowedFP16",
+      "pair": 3
+    },
+    {
+      "milliseconds": 25.047916,
+      "mode": "originalFloatScratch",
+      "pair": 3
+    },
+    {
+      "milliseconds": 25.335792,
+      "mode": "originalFloatScratch",
+      "pair": 4
+    },
+    {
+      "milliseconds": 420.176625,
+      "mode": "borrowedFP16",
+      "pair": 4
+    },
+    {
+      "milliseconds": 415.058542,
+      "mode": "borrowedFP16",
+      "pair": 5
+    },
+    {
+      "milliseconds": 24.919125,
+      "mode": "originalFloatScratch",
+      "pair": 5
+    },
+    {
+      "milliseconds": 24.951958,
+      "mode": "originalFloatScratch",
+      "pair": 6
+    },
+    {
+      "milliseconds": 420.054292,
+      "mode": "borrowedFP16",
+      "pair": 6
+    },
+    {
+      "milliseconds": 418.059209,
+      "mode": "borrowedFP16",
+      "pair": 7
+    },
+    {
+      "milliseconds": 24.941875,
+      "mode": "originalFloatScratch",
+      "pair": 7
+    }
+  ],
+  "WMOPairedRows": [
+    {
+      "milliseconds": 25.002125,
+      "mode": "originalFloatScratch",
+      "pair": 0
+    },
+    {
+      "milliseconds": 24.682209,
+      "mode": "borrowedFP16",
+      "pair": 0
+    },
+    {
+      "milliseconds": 24.965875,
+      "mode": "borrowedFP16",
+      "pair": 1
+    },
+    {
+      "milliseconds": 24.975667,
+      "mode": "originalFloatScratch",
+      "pair": 1
+    },
+    {
+      "milliseconds": 24.901166,
+      "mode": "originalFloatScratch",
+      "pair": 2
+    },
+    {
+      "milliseconds": 24.86325,
+      "mode": "borrowedFP16",
+      "pair": 2
+    },
+    {
+      "milliseconds": 24.945125,
+      "mode": "borrowedFP16",
+      "pair": 3
+    },
+    {
+      "milliseconds": 24.88725,
+      "mode": "originalFloatScratch",
+      "pair": 3
+    },
+    {
+      "milliseconds": 24.842875,
+      "mode": "originalFloatScratch",
+      "pair": 4
+    },
+    {
+      "milliseconds": 24.814208,
+      "mode": "borrowedFP16",
+      "pair": 4
+    },
+    {
+      "milliseconds": 24.815667,
+      "mode": "borrowedFP16",
+      "pair": 5
+    },
+    {
+      "milliseconds": 24.883958,
+      "mode": "originalFloatScratch",
+      "pair": 5
+    },
+    {
+      "milliseconds": 24.870708,
+      "mode": "originalFloatScratch",
+      "pair": 6
+    },
+    {
+      "milliseconds": 24.778667,
+      "mode": "borrowedFP16",
+      "pair": 6
+    },
+    {
+      "milliseconds": 24.764708,
+      "mode": "borrowedFP16",
+      "pair": 7
+    },
+    {
+      "milliseconds": 24.967292,
+      "mode": "originalFloatScratch",
+      "pair": 7
+    }
+  ],
+  "WMOOriginalMedianMs": 24.894208,
+  "WMOCandidateMedianMs": 24.8149375,
+  "WMOmedianPairedSavedMs": 0.05310349999999886,
+  "physicalLogitsFillTotalMs": 0.335964,
+  "rationale": "ComparableWMOhostgain~0.1ms; physicalLLMbaseline range~29ms; candidatebuffer27KB vs2.22GB footprint. Stopconditionrequested byuser applies. NonWMOgenericregressionnotrelabeledasproductionregression.",
+  "logicalWriteBytesPotentiallyRemoved": 7031440,
+  "physicalCandidateBenchmark": "NOT_RUN: stop criterion before production experiment; onlybaselinephysicallyvalidated",
+  "noNumericalMathSamplerOrPrecisionRewrite": true
+}

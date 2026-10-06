@@ -1,0 +1,233 @@
+CosyVoice3 warm decode pass report
+2026-10-06 America/New_York
+Conclusion: stopped under requested cost/noise rules; no newproduction optimization adopted.
+
+A. Baseline confirmation
+Accepted runtime source b65820d08e8ff64db41614dcf6512f08ad166cae; current library prior to measurement identical. Exact committed evidence: enumerated_embedding_copy_optimization.json and embedding-copy-20261006 receipt. Profile ios18-enumerated-n1-n450, frozen export ac31e117938ed50132365973a103cc8425942700, manifest2ddc7fa..., payload4750dba...; full input/package hashes in phase_a_static_audit.json. SHARDS2/Flow6/N260/n257_384/24kHz/249600 samples. Accepted first37850.952959ms, warm4957.739208ms, LLM3285.513791ms, acoustic1476.573793ms, LLMload175.73375ms, frontend0.897458ms, preparation3.653875ms, reference/modelprep cachehittrue, sampledfootprint2318847136, nominal->nominal. Existing259Data/464128byte embedding-copy elimination preserved.
+
+B. Decode-loop map
+One stateful prefill; 260 sampling draws, 259 decode calls. Previous MLFeatureProvider -> logits/logp/scores eager lookup -> count/dtype/shape checks -> FP16->Float scratch refill -> unchanged exact RAS -> stop/maxlength -> decodedappend -> scoped embedding borrow + cached RoPE -> lock/position/capacity -> incrementalattention mask -> exact x/cos/sin memcpy -> previous/currentwrite-mask two slots -> prediction with same MLState -> validLength increment/output replacement/autoreleasepool. No per-token MLMultiArray/provider/inputdict/KVstate creation, fullKV readback, task/actor hop or model specialization. CoreML-returned output object internals remain unknown.
+
+C. Allocation/copy inventory
+See inventory below and fullJSON: requestFloat scratch27044 bytes,260 refills7031440 logicalwritebytes. Embedding1792 +cos128+sin128 copied perdecode; embeddingtemporary alreadyremoved. Masks increment only2/4bytes, nofull copy. Three small RAS arrays constructed/draw; actual malloc behavior unknown. Metadata shape/name construction may be optimized/constant-folded. CoreML output provider/logits/hidden allocation and transfer opaque; cannot claim measured allocator counts from source.
+
+D. Memory timeline
+Memory lane: two actual requests,100ms utility sampler plus exact boundaries, caller retains2PCM arrays (~2MB). Only explicit memory lane observes3s/35s idle to measure30s shelf expiry, never a performance cooldown. Rawlogits3.51572MB perrequest and retainedbase64~4.68763MB/request accounted; not production retention. Beforeengine10.7168MB -> afterengine10.7496MB -> afterfirstpreparation37.7341MB -> frontend343.3123MB -> LLMload1805.1256MB -> firstgeneration1848.2811MB -> firstcompletion901.9588MB ->3s idle756.8621MB. Secondbefore756.8621MB -> LLMload2179.4193MB -> generation2223.2793MB -> completion894.3075MB ->35s idle415.1073MB. Four cacheexpiry console events observed. No monotonic completed-request growth in these two observations; NOT a confirmed leak or proof of no long-term leak. Exact per-model/CoreML/GPU/ANE allocation unknown. Disk compiled3.2GB is NOT RAM. Warm-generation overlap of current LLM and retainedacoustic models inferred from scope/expiry timeline, not exact componentbyte attribution.
+
+E. Candidate ranking
+Rank1 directimmutableFP16logitsview; rank2 request-local RASsmallarray reuse; rank3 lazyfeature/shape metadata; rank4 cacheimmutable diagnosticflags; rank5 exactcategoricalprobabilitycache (MEDIUM); rank6 CoreMLoutputBackings (MEDIUM despite SDK API); rank7 KV/storage/topology changes HIGH/out-of-scope. Rank1 chosen only as temporaryhostprototype. Mac reserve25 capacity26/insertion26 no expansion disproves speculative extra-reserve improvement.
+
+F. One candidate and identity proof
+No production implementation adopted. Temporary borrower generic collection keeps identical original Float(Float16(bits)) read value, all RAS arithmetic/index/tie/suppression/RNG order unchanged. Owner immutable scoped ML array/data; no pointer escape or sharedmutable tensor. 65536 FP16 bitpatterns +1024 synthetic draws +260 actualphysical FP16logits rows replay exactlymatch originalArray sampler tokens/RNG includingties/nonfinite/suppression/repetition. Host nonWMO prototype ~415ms vs25ms misleading specialization result; comparable WMO recheck originalmedian24.894208ms vsborrowed24.8149375ms, medianpairedwholeutterance saving0.0531035ms. Hostraw8pairs preserved. No candidatepublicPCM/physicalperformance result falselyclaimed.
+
+G. Physical measurements and acceptance
+Measurement-only native source50677fb135d0eab3e7978064e0b8fa1884ad92b5. All7public outputs haveidentical token sequences/PCM/WAV. Threeunprofiled measuredwarm totals[4864.855166, 4867.674333, 4858.075125], LLM[3265.415541, 3263.736209, 3236.424209]; totalmedian4864.855166ms/RTF0.467774535, LL Mmedian3263.736209ms, LLMrange28.991332ms. Allnominalstart/end. These are new baseline observations, NOT an optimization before/after. Profiledsecondgen: decode3253.983581ms, prefill32.620083ms, RAS24.085406ms, logitsfill0.335964ms, inputcopy0.093576ms, writemask0.017455ms. Profiler/observer/rawcapture overhead makes those timingbounds, not unprofiled speedup. No thermal/energy improvement claim; no newlongstress. Classification BIT_IDENTICAL_NO_MEASURABLE_SPEEDUP, no adoptedproductioncandidate.
+
+H. Stop condition and next scope
+Stop as explicitly instructed: dominant CoreMLprediction work ~98percent; completefill cost0.336ms and prototypegain0.053ms lie far below29ms physicalnoise. Scratch27KB immaterial to2.22GB sampledfootprint. Additional small bookkeeping or broad sampling/KV/graph/precision/placement changes are not justified. If future work is separately scoped, investigate actual CoreML dispatch/outputbacking cost or lifetime overlap with host/device identity tests; those are MEDIUM and not automaticallyimplemented here. Never alter2shards/Flow6, weaken hashes/validation, or call model-residency a leak. Existing LAST_KNOWN_GOOD and acceptedruntime remain reference; no catalog/HF/promotion.
+
+Detailed important allocation/copy entries:
+location: LLMRuntime44,81-94 FP16 logits fill
+frequency: 260 draws/request
+bytesPerOccurrence: 27044
+lifetime: one request-local Float scratch; overwritten each draw
+classification: reusable buffer already implemented
+risk: LOW
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Reads13522FP16 bytes/draw and writes27044Float bytes/draw;7031440 writtenbytes/request; next candidate borrowed immutable FP16 storage with identical Float conversion at reads.
+
+location: LLMRuntime82 names/compactMap and83 shape.map
+frequency: 260 draws
+bytesPerOccurrence: None
+lifetime: one draw
+classification: removable metadata/feature extraction temporaries
+risk: LOW
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Three feature lookups are eager; rank2 [Int] shape materialized even on success; exact feature priority and error shape must remain.
+
+location: RASampler39-80 best/indices/weights
+frequency: 260 sampling calls
+bytesPerOccurrence: {'bestLogical': 400, 'indicesMax': 200, 'weightsMax': 200}
+lifetime: one sampling draw
+classification: three small Array allocations per draw
+risk: LOW/MEDIUM
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: No full probability vector today. Mac reserve25 actualcapacity26; no observed grow at26; reserve-one-extra proposal rejected absentdevice evidence. Scratch reuse must remain request-local.
+
+location: RASampler88-108 categorical repeat
+frequency: data-dependent, need count
+bytesPerOccurrence: None
+lifetime: one draw
+classification: repeated exp/div recomputation
+risk: MEDIUM
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Original stats, normalized total and normalized cumulative scan repeat exp; caching exact Double intermediate possible but token logic/operation order risk needs separate proof, not first change.
+
+location: LLMRuntime53 decoded.append/sampler decoded suffix
+frequency: 260 appends
+bytesPerOccurrence: 2080
+lifetime: utterance; returned speech tokens
+classification: amortized-growth token Array
+risk: LOW
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: No reconstruct token[0:n] tensors. COW read only during sampler returns before append; few reallocations/request, small payoff.
+
+location: TokenConditioner.withEmbeddingFP16 / Session192
+frequency: 259 decode calls
+bytesPerOccurrence: 1792
+lifetime: scoped immutable owner borrow then owned x input
+classification: required memcpy; previous temporary Data eliminated
+risk: FROZEN
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: 259Data objects/464128extra-copybytes alreadyremoved; no undo. Pointer does not escape; inputxowned.
+
+location: TokenConditioner.ropeFP16 / Session193-194
+frequency: 259 calls
+bytesPerOccurrence: 256
+lifetime: cached immutableData rows; copied intoownedcos/sin
+classification: required FP16 input copies
+risk: FROZEN
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: 512cachedrows/64values percos/sin;66304copiedbytes/request; no per-token trig or row reconstruction.
+
+location: Session87-108 decode MLMultiArray/provider/inputDictionary
+frequency: once/session
+bytesPerOccurrence: {'x': 1792, 'cos': 128, 'sin': 128, 'attentionMask': 1024, 'writeMask': 1024}
+lifetime: utterance
+classification: preallocated model inputs/provider
+risk: KEEP
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: One fixed512provider, fiveFP16 arrays; six? feature values x/cos/sin/mask/write_mask total5. No per-token inputprovider/dictionary/shapeallocation; positiontensor nilhost-maskroute.
+
+location: Session188,199-203 mask writes
+frequency: 259 calls
+bytesPerOccurrence: {'attention': 2, 'write_mask': 4}
+lifetime: persistent input arrays duringutterance
+classification: incremental scalars
+risk: FROZEN
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: No full mask copies; one validattention slot and previous/currentwrite slots updated. No NSNumber in thesehot writes.
+
+location: Session83 MLState / 48KV buffers
+frequency: once/session
+bytesPerOccurrence: 6291456
+lifetime: utterance
+classification: required CoreML device state
+risk: HIGH
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Same MLState supplied to every prediction. State schema checkedonce. No host KVcopy/dict/wrapperrecreation; diagnosticSnapshot notcalled.
+
+location: Session181-208 NSLock/state guards/prediction
+frequency: 259 calls
+bytesPerOccurrence: None
+lifetime: sync call
+classification: required synchronization andCoreML output creation
+risk: KEEP
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Lock scope protectsstate; cannot remove safely. Prediction returns provider/logits/hidden, exact allocation/buffer/storage sizes privateunknown. No async/task hop per token.
+
+location: StageDiagnostics.begin / LLMprogress
+frequency: prediction259; progress~17
+bytesPerOccurrence: None
+lifetime: call/request
+classification: flags scans/signposts/progress strings
+risk: LOW
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Cache immutable diagnosticflags candidate but CPUcostunknown; productionprogressnil preservesnoformatting dueoptionalcall shortcircuit; validationprogress existingevery16 tokens staysvisible.
+
+location: Engine.reusableBaseFrontend/Conditioner/F0/staticbuffers
+frequency: once/engine
+bytesPerOccurrence: {'speechData': 12115712, 'textData': 'rows*896*2 frommanifest', 'FP64F0': 'weightfilebytes', 'excitationMax': 15552000}
+lifetime: engine lifetime
+classification: expected persistent immutable payloads
+risk: KEEP
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: SharedspeechData alreadyonecopy. Tokenizer/reference tensors/asset maps contribute. Exact loadedCoreML/CPU/GPU/ANE memory attribution unavailable.
+
+location: DynamicAcousticRuntime Flow p2 h/velocity/batchX
+frequency: 6steps*2 predictions
+bytesPerOccurrence: {'h': 6733824, 'velocity': 526080, 'batchX': 526080, 'x': 263040}
+lifetime: stage/request
+classification: owned outputs and requiredCFG/Euler buffers
+risk: MEDIUM
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Sixh copies~40402944bytes/request; PCM/Flowmathunchanged. No sharding change; owned-buffer reuse higherlifetime risk outsidefirstcandidate.
+
+location: HiFTDoubleF0 FP64 im2col/y
+frequency: 5layers/request
+bytesPerOccurrence: {'largestColumns': 6389760, 'output': 2129920}
+lifetime: one F0 stage
+classification: temporary required algorithm work
+risk: MEDIUM
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Do not changeFP64 math. Approx10.65MB peaklogical3buffers; exact allocator/BLASscratch/physicalfootprint unknown.
+
+location: Acoustic mel/phase/excitation/norm/PCM
+frequency: once/request
+bytesPerOccurrence: {'mel': 166400, 'phase': 18720, 'excitation': 8985600, 'norm': 998400, 'PCM': 998400}
+lifetime: request/returned PCM
+classification: required materialization, normcopyalreadyremoved
+risk: KEEP
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: First/second caller PCM retention deliberate; benchmark WAVencoding/hash excluded fromsynthesis timing; no benchmark optics optimization.
+
+location: AssetLoader validationModelShelf
+frequency: selectedfamilyfourmodels
+bytesPerOccurrence: unknown CoreMLmodelmemory
+lifetime: bounded30seconds afterlastuse
+classification: bounded validationcache
+risk: KEEP
+CPUCost: unknown; measured phase A needed
+allocatorPressure: logical object/buffer creation, not measured malloc counts
+DRAMTraffic: host byte counts only; accelerator transfer unknown
+peakContribution: estimate or unknown unless telemetry attributes it
+notes: Timerclosurecapturesweakself/key/token notmodels. Shelfownsdictionarymodels; expires. Engineotherreferencecacheunboundedbyuniquevoice, fixedbenchmarkonevoice. CoreMLprivatecache/mappingsunknown; notconfirmedleak.
+

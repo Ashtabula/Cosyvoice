@@ -1,0 +1,78 @@
+// main.swift
+// Requirement: temporary host proof, not production edit; compare original RAS and borrowedFP16 input.
+import Foundation
+struct FP16View:RandomAccessCollection {
+    let buffer:UnsafeBufferPointer<UInt16>
+    var startIndex:Int{0};var endIndex:Int{buffer.count};var indices:Range<Int>{0..<buffer.count}
+    func index(after i:Int)->Int{i+1};func index(before i:Int)->Int{i-1}
+    subscript(i:Int)->Float{Float(Float16(bitPattern:buffer[i]))}
+}
+struct RNG:RandomNumberGenerator {
+    var state:UInt64
+    mutating func next()->UInt64{state &+= 0x9e3779b97f4a7c15;var v=state;v=(v^(v>>30)) &* 0xbf58476d1ce4e5b9;v=(v^(v>>27)) &* 0x94d049bb133111eb;return v^(v>>31)}
+}
+let original=ReferenceArrayRASampler(),candidate=CosyVoice3RASampler()
+let all=(0..<65536).map{UInt16($0)}
+all.withUnsafeBufferPointer { bytes in
+    let view=FP16View(buffer:bytes)
+    for i in all.indices {precondition(view[i].bitPattern==Float(Float16(bitPattern:all[i])).bitPattern)}
+}
+for seed in 1...16 {
+    var a=RNG(state:UInt64(seed)),b=a,decoded=[Int]()
+    for frame in 0..<64 {
+        var bits=(0..<6761).map{Float16(Float(sin(Double($0+frame)*0.0137)*2)).bitPattern}
+        bits[1]=0x7e01;bits[2]=0x7c00;bits[3]=0xfc00;bits[42]=Float16(3).bitPattern;bits[43]=Float16(3).bitPattern
+        let floats=bits.map{Float(Float16(bitPattern:$0))}
+        let expected=try original.sample(logits:floats,decodedTokens:decoded,suppressSOS:frame<26,using:&a)
+        let actual=try bits.withUnsafeBufferPointer{try candidate.sample(logits:FP16View(buffer:$0),decodedTokens:decoded,suppressSOS:frame<26,using:&b)}
+        precondition(actual==expected && a.state==b.state);decoded.append(expected)
+    }
+}
+if CommandLine.arguments.count>2 {
+    let data=try Data(contentsOf:URL(fileURLWithPath:CommandLine.arguments[1]))
+    let expected=try JSONSerialization.jsonObject(with:Data(contentsOf:URL(fileURLWithPath:CommandLine.arguments[2]))) as! [Int]
+    var a=RNG(state:42),b=a,decoded=[Int]()
+    try data.withUnsafeBytes { raw in
+        let words=raw.bindMemory(to:UInt16.self);precondition(words.count%6761==0)
+        for frame in 0..<words.count/6761 {
+            let row=UnsafeBufferPointer(start:words.baseAddress!.advanced(by:frame*6761),count:6761)
+            let view=FP16View(buffer:row),floats=Array(view)
+            let x=try original.sample(logits:floats,decodedTokens:decoded,suppressSOS:frame<26,using:&a)
+            let y=try candidate.sample(logits:view,decodedTokens:decoded,suppressSOS:frame<26,using:&b)
+            precondition(x==y && a.state==b.state)
+            if frame<expected.count {precondition(x==expected[frame]);decoded.append(x)}
+        }
+    }
+    print("PASS actual physical260-frame token/RNG replay identity")
+}
+print("PASS65536FP16 patterns +1024 synthetic sampling draws, ties/nonfinite/suppression/repetition")
+// Purpose: independent originalArray RAS oracle vs genericborrow prototype; exact math/order/RNG unchanged.
+// Swift6/macOS; generated2026-10-06. Temporary files only; no model/API/production behavior changes.
+if CommandLine.arguments.count>2 {
+    let data=try Data(contentsOf:URL(fileURLWithPath:CommandLine.arguments[1]))
+    func replay(_ borrow:Bool)throws->Double {
+        let start=DispatchTime.now().uptimeNanoseconds
+        var rng=RNG(state:42),decoded=[Int](),scratch=borrow ? []:[Float](repeating:0,count:6761)
+        try data.withUnsafeBytes { raw in
+            let p=raw.bindMemory(to:UInt16.self)
+            for frame in 0..<p.count/6761 {
+                let row=UnsafeBufferPointer(start:p.baseAddress!.advanced(by:frame*6761),count:6761)
+                let token:Int
+                if borrow { token=try candidate.sample(logits:FP16View(buffer:row),decodedTokens:decoded,suppressSOS:frame<26,using:&rng) }
+                else {
+                    scratch.withUnsafeMutableBufferPointer { out in for i in 0..<6761 { out[i]=Float(Float16(bitPattern:row[i])) } }
+                    token=try original.sample(logits:scratch,decodedTokens:decoded,suppressSOS:frame<26,using:&rng)
+                }
+                decoded.append(token)
+            }
+        }
+        return Double(DispatchTime.now().uptimeNanoseconds-start)/1_000_000
+    }
+    _ = try replay(false);_ = try replay(true)
+    var rows=[[String:Any]]()
+    for pair in 0..<8 {
+        let order=pair%2==0 ? [false,true]:[true,false]
+        for borrow in order { rows.append(["pair":pair,"mode":borrow ? "borrowedFP16":"originalFloatScratch","milliseconds":try replay(borrow)]) }
+    }
+    print(String(data:try JSONSerialization.data(withJSONObject:rows,options:[.sortedKeys]),encoding:.utf8)!)
+}
