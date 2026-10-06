@@ -159,7 +159,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
         defer { if heldIdleTimerSetting == nil { UIApplication.shared.isIdleTimerDisabled = idleSetting } }
         do {
             let resources = try Self.generatedAssets()
-            if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            if CommandLine.arguments.contains("--validation-q4-decode-state-probe") { await runQ4DecodeStateProbe() }
+            else if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
             else if CommandLine.arguments.contains("--validation-llm-quantization-listening") { await runLLMQuantizationListening() }
             else if CommandLine.arguments.contains("--validation-llm-quantization") { await runLLMQuantization() }
             else if CommandLine.arguments.contains("--validation-resource-run") { await runResourceEfficiency() }
@@ -1944,3 +1945,89 @@ extension CosyVoice3SmokeModel {
 // Purpose: original block32 decode LEVEL A physical probe with hash/source/config binding.
 // Upstream: existing runANEComputePlans and quantizationRoot; Swift6/CoreML iPhone18,4/iOS27.2.
 // Generated 2026-10-06 America/New_York; changed plan role/source/provenance plus request-local streamed hashing only.
+// Diagnostic only: native model-owned Q4 state initialized from completed Q8 prefill.
+extension CosyVoice3SmokeModel {
+    func runQ4DecodeStateProbe() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let filename = "q4-decode-state-probe.json"
+        do {
+            let fixture = try Self.fixture()
+            let q8Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q8")
+            let q4Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q4")
+            let prefSource = q8Root.appendingPathComponent("models/cosyvoice-llm-q8-prefill.mlpackage")
+            let decSource = q4Root.appendingPathComponent("models/cosyvoice-llm-q4-decode.mlpackage")
+            let prefIdentity = try Self.probePackageIdentity(prefSource), decIdentity = try Self.probePackageIdentity(decSource)
+            guard prefIdentity["treeSha256"] as? String == "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+                  decIdentity["treeSha256"] as? String == "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7",
+                  Self.validationSourceCommit() == fixture.sourceCommit else { throw SmokeError("state probe identity mismatch") }
+            let prefURL = try await MLModel.compileModel(at: prefSource)
+            let decURL = try await MLModel.compileModel(at: decSource)
+            defer { try? FileManager.default.removeItem(at: prefURL); try? FileManager.default.removeItem(at: decURL) }
+            let config = MLModelConfiguration(); config.computeUnits = .cpuAndNeuralEngine
+            let prefill = try MLModel(contentsOf: prefURL, configuration: config)
+            let decode = try MLModel(contentsOf: decURL, configuration: config)
+            let names = prefill.modelDescription.stateDescriptionsByName.keys.sorted()
+            guard names.count == 48, Set(names) == Set(decode.modelDescription.stateDescriptionsByName.keys) else { throw SmokeError("state names mismatch") }
+            func array(_ shape: [Int]) throws -> MLMultiArray {
+                let a = try MLMultiArray(shape: shape.map { NSNumber(value: $0) }, dataType: .float16)
+                memset(a.dataPointer, 0, a.count * 2); return a
+            }
+            func fillRope(_ c: MLMultiArray, _ s: MLMultiArray, row: Int, position: Int) {
+                for i in 0..<32 {
+                    let angle = Double(position) / pow(1_000_000.0, Double(2*i)/64)
+                    for j in [i,i+32] {
+                        c.dataPointer.assumingMemoryBound(to: UInt16.self)[row*64+j] = Float16(cos(angle)).bitPattern
+                        s.dataPointer.assumingMemoryBound(to: UInt16.self)[row*64+j] = Float16(sin(angle)).bitPattern
+                    }
+                }
+            }
+            let embeddings = try Data(contentsOf: fixture.runtime.appendingPathComponent("embeddings/speech_embedding_fp16.bin"), options: .mappedIfSafe)
+            let x = try array([1,224,896]), c = try array([1,1,224,64]), s = try array([1,1,224,64]), mask = try array([1,1,224,224])
+            // A valid deterministic teacher-forced prefix: actual embedding rows and causal mask.
+            // This is a synthetic diagnostic prefix, never claimed as frozen public synthesis.
+            for row in 0..<224 {
+                let token = (row*37)%6561
+                _ = embeddings.withUnsafeBytes { memcpy(x.dataPointer.advanced(by: row*1792), $0.baseAddress!.advanced(by: token*1792), 1792) }
+                fillRope(c,s,row: row,position: row)
+                for j in 0..<224 { mask.dataPointer.assumingMemoryBound(to: UInt16.self)[row*224+j] = j <= row ? 0 : 0xfc00 }
+            }
+            let q8State = prefill.makeState()
+            let prefStart = Date()
+            _ = try prefill.prediction(from: MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":s,"mask":mask]), using: q8State)
+            let prefMs = Date().timeIntervalSince(prefStart)*1000
+            let q4State = decode.makeState()
+            var stateRows = [[String: Any]]()
+            for name in names {
+                try q8State.withMultiArray(for: name) { source in
+                    try q4State.withMultiArray(for: name) { destination in
+                        guard source.dataType == .float16, destination.dataType == .float16,
+                              source.shape.map({$0.intValue}) == [1,2,512,64], source.shape == destination.shape,
+                              source.strides.map({$0.intValue}) == [65536,32768,64,1], source.strides == destination.strides else { throw SmokeError("state layout mismatch") }
+                        let count = source.count*2
+                        memcpy(destination.dataPointer, source.dataPointer, count)
+                        let a = Data(bytes: source.dataPointer, count: count), b = Data(bytes: destination.dataPointer, count: count)
+                        guard a == b else { throw SmokeError("state transfer not byte identical") }
+                        stateRows.append(["name":name,"bytes":count,"sha256":SHA256.hash(data:a).map{String(format:"%02x",$0)}.joined(),"byteIdentical":true])
+                    }
+                }
+            }
+            let dx = try array([1,1,896]), dc = try array([1,1,1,64]), ds = try array([1,1,1,64]), dm = try array([1,1,1,512]), wm = try array([1,1,512,1])
+            _ = embeddings.withUnsafeBytes { memcpy(dx.dataPointer, $0.baseAddress!.advanced(by: 829*1792), 1792) }
+            fillRope(dc,ds,row:0,position:224)
+            for j in 0..<512 { dm.dataPointer.assumingMemoryBound(to:UInt16.self)[j] = j<=224 ? 0 : 0xfc00 }
+            wm.dataPointer.assumingMemoryBound(to:UInt16.self)[224] = Float16(1).bitPattern
+            let begin = Date()
+            let output = try decode.prediction(from: MLDictionaryFeatureProvider(dictionary:["x":dx,"cos":dc,"sin":ds,"mask":dm,"write_mask":wm]),using:q4State)
+            let ms = Date().timeIntervalSince(begin)*1000
+            guard let logits = output.featureValue(for:"logits")?.multiArrayValue, logits.count == 6761,
+                  (0..<logits.count).allSatisfy({logits[$0].floatValue.isFinite}) else { throw SmokeError("decode output nonfinite/wrong shape") }
+            _ = try Self.write(["status":"PASS_LEVEL_B_DIAGNOSTIC","sourceCommit":fixture.sourceCommit,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"requestedPlacement":"CPU_AND_NE","scope":"synthetic legitimate Q8 prefill -> public scoped byte-exact FP16 initialization of Q4-owned state; one diagnostic decode, NOT public synthesis","prefillIdentity":prefIdentity,"decodeIdentity":decIdentity,"stateTransfer":stateRows,"prefillMilliseconds":prefMs,"decodeMilliseconds":ms,"logitsFinite":true,"chargingConditions":"CHARGING_CONNECTED","actualResidency":"UNKNOWN","humanListening":"NOT_REACHED","publicQ4Selectable":false],to:Self.receiptURL(filename))
+            status = "PASS Q4 decode Level B diagnostic"
+        } catch { Self.recordFailure(error,filename:filename,into:self) }
+    }
+}
+// Purpose: prove supported model-owned state initialization, no cross-model MLState-object sharing.
+// Owner: request-local two model-owned states. Synchronous predictions finish before scoped views.
+// No pointers escape; FP16 bytes/shapes/strides validated; no production engine/session modification.
+// Upstream Apple makeState/withMultiArray documented APIs, existing diagnostic causal prefix; Swift6/iOS27.2.
+// Generated 2026-10-06 America/New_York; new isolated dispatch/function only.
