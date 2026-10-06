@@ -351,3 +351,9 @@ Actions: source/results commit791b256 pushed to origin experiment/ios-enumerated
 Validation:14tests PASS, physicalfourbucketA/B/C/idle/relaunch evidence preserved, no frozen/model/audio/tracebundle/HF/catalog/promotion changes.
 Files: append-only 历史工作记录.txt bookkeeping.
 GitHub Timeline: 已push code/results791b256 and verified remote; this final timeline record committed/pushed in the same closing step.
+
+Time: 2026-10-05 23:20 EDT America/New_York
+Prompt: actual ANE residency and isolated sustained thermal for LLM/Flow/HiFT.
+Actions: add native exact-request12stage diagnostics and Instruments prediction/stage signposts; capture SSA names and lossless partition plan paths. No graph/weights math change; production one iteration.
+Validation: initial sandbox Swift cache denied, escalated compile PASS; existing placement tests were stale CPU LLM/NE acoustic against accepted77 baseline, updated requested defaults only; final tests/build pending. No actual FULL_ANE claim.
+GitHub Timeline: baselinea2aed4f pushed; new diagnostic checkpoint未commit/未push before following commit.

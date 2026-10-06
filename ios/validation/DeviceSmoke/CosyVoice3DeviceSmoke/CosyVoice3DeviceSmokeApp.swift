@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-isolated-request") { await runIsolatedRequest() }
             else if CommandLine.arguments.contains("--validation-idle-bootstrap") { await runPersistentIdleBootstrap() }
             else if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
             else if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
@@ -171,6 +172,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("candidate-benchmark-mode.json").path) { await runCandidateBenchmark() }
             else { await runSmoke() }
         } catch { status = "FAIL \(String(describing: error))" }
+        print("[COSY-AUTO-DONE] status=\(status)")
     }
 
     func runSmoke() async {
@@ -996,6 +998,35 @@ final class CosyVoice3SmokeModel: ObservableObject {
         } catch { Self.recordFailure(error, filename:filename, into:self) }
     }
 
+    func runIsolatedRequest() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let filename = "isolated-request-receipt.json"
+        do {
+            let fixture = try Self.fixture()
+            let selected = CommandLine.arguments.filter { $0.hasPrefix("--validation-isolated-stage=") }
+            guard selected.count == 1, ["llm","flow","hift"].contains(String(selected[0].dropFirst("--validation-isolated-stage=".count))) else { throw SmokeError("one isolated stage required") }
+            let started = Date()
+            while ProcessInfo.processInfo.thermalState != .nominal && Date().timeIntervalSince(started) < 300 { try await Task.sleep(for: .seconds(5)) }
+            guard ProcessInfo.processInfo.thermalState == .nominal else { throw SmokeError("nominal start gate not reached") }
+            let engine = try CosyVoice3Engine(assetRoot: fixture.runtime, idleBucketPreparation: false)
+            await engine.setValidationSamplerSeed(42)
+            let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
+            try Self.validate(audio)
+            let raw = audio.samples.withUnsafeBytes { Data($0) }
+            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DIAGNOSTIC_REQUEST","sourceCommit":fixture.sourceCommit,
+                "processID":ProcessInfo.processInfo.processIdentifier,"deviceModelIdentifier":Self.machineIdentifier(),"systemVersion":UIDevice.current.systemVersion,
+                "assetPayloadTreeSha256":fixture.payloadTreeSHA256 ?? "","manifestSha256":SHA256.hash(data:try Data(contentsOf:fixture.runtime.appendingPathComponent("cosyvoice3_enumerated.json"))).map { String(format:"%02x",$0) }.joined(),
+                "textSha256":SHA256.hash(data:Data(fixture.text.utf8)).map { String(format:"%02x",$0) }.joined(),
+                "referenceWavSha256":SHA256.hash(data:try Data(contentsOf:fixture.reference.audioURL)).map { String(format:"%02x",$0) }.joined(),
+                "effectiveTranscriptSha256":SHA256.hash(data:Data(fixture.transcript.utf8)).map { String(format:"%02x",$0) }.joined(),
+                "seed":42,"flowSteps":fixture.parameters.flowSteps.rawValue,"samples":audio.samples.count,"sampleRate":audio.sampleRate,
+                "Float32PCMSha256":SHA256.hash(data:raw).map { String(format:"%02x",$0) }.joined(),"arguments":CommandLine.arguments,
+                "scope":"expanded isolated-stage diagnostic; full elapsed time excluded from production RTF","productionPromotion":false]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename)); status = "PASS isolated request"
+        } catch { Self.recordFailure(error,filename:filename,into:self) }
+        print("[COSY-DIAGNOSTIC-DONE] \(filename)")
+    }
+
     func runANEComputePlans() async {
         guard !running else { return }; running = true; defer { running = false }
         let filename = "ane-compute-plan-receipt.json"
@@ -1014,7 +1045,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let relative = paths[role] ?? (role.hasPrefix("flow") ? "enumerated-acoustic/flow-shard-\(role.dropFirst(4)).mlpackage" : "")
                 guard !relative.isEmpty else { throw SmokeError("unknown plan role \(role)") }
                 let single = CommandLine.arguments.contains("--validation-single-function=\(role)")
-                let source = single ? fixture.runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role).mlpackage") : fixture.runtime.appendingPathComponent(relative)
+                let partition = CommandLine.arguments.first { $0.hasPrefix("--validation-flow-partition=") }.flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
+                let source: URL
+                if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role).mlpackage") }
+                else if role.hasPrefix("flow"), partition != 6, let index = Int(role.dropFirst(4)), index < partition {
+                    source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions/p\(partition)/group-\(index).mlpackage")
+                } else { source = fixture.runtime.appendingPathComponent(relative) }
                 var row: [String: Any] = ["role": role, "path": source.path, "singleFunction": single, "requestedPlacement": Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE"), "stage": "compile", "status": "RUNNING"]
                 rows.append(row); try save("RUNNING")
                 do {
@@ -1042,7 +1078,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                                     counts[usage.preferred.description, default: 0] += 1
                                     let cost = plan.estimatedCost(of: op)?.weight ?? 0
                                     costs[usage.preferred.description, default: 0] += cost
-                                    operations.append(["operator": op.operatorName, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
+                                    operations.append(["operator": op.operatorName, "outputs":op.outputs.map { $0.name }, "inputs":op.inputs.mapValues { $0.bindings.map { $0.name ?? "<compile-time constant>" } }, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
                                 }
                                 for child in op.blocks { visit(child) }
                             }
@@ -1060,6 +1096,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 rows[rows.count-1] = row; try save("RUNNING")
             }
             try save("PASS_DIAGNOSTIC_COLLECTION"); status = "PASS diagnostic compute-plan collection"
+            print("[COSY-DIAGNOSTIC-DONE] ane-compute-plan-receipt.json")
         } catch { Self.recordFailure(error, filename: filename, into: self) }
     }
 
@@ -1253,3 +1290,5 @@ private extension Data {
 // Changes 2026-10-05: separate --ane-compute-plans diagnostic records supported/preferred devices/errors; baseline timing mode never loads a plan. Explicit validation reference cache reset; saved cold/warm WAVs for comparisons.
 
 // Changes 2026-10-05: Candidate actual-input identity and Float32 PCM hashes, bounded sustained loop without sleep between public syntheses; memory/thermal sampling remains diagnostic. Upstream public Engine; environment physical iPhone/Swift6.
+
+// Changes 2026-10-05 residency phase: real public-request isolated12stage diagnostic, signed input bindings and no production RTF claim; plan op SSA names and lossless partition paths. No model math changes. Swift6/iPhone27.2, upstream DeviceSmoke; line mapping via git diff.

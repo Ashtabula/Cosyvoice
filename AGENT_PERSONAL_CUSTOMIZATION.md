@@ -98,3 +98,7 @@
 ## 11. Persistent four-bucket readiness
 
 Production must preserve app-owned compiled artifacts/identity records across kill/relaunch. Bind actual model, manifest, payload, function, placement, OS/CoreML and ABI; disk marker alone never proves system execution-plan retention. Use backup-excluded Application Support for derived artifacts. After PCM return queue missing buckets for serial best-effort foreground idle/system-permitted background preparation, start only at thermal nominal, pause after current model when fair; no new work at serious/critical. Keep FIRST_EVER_COLD (explicit reset), PROCESS_RELAUNCH_COLD (no reset), IN_PROCESS_WARM distinct. Preserve frozen assets and algorithm; record physical process IDs, actual N/function, PCM hashes, thermal/memory/storage and failures.
+
+## 12. Actual residency phase
+
+LLM prefill/decode, Flow and HiFT claims require measured profiling evidence. MLComputePlan preferred/supported and CPU_AND_NE are planning/request evidence only; classify actual residency UNKNOWN when not attributed. Isolated/full sustained comparisons start nominal, use12 iterations with no inter-iteration delay or device copy/readback/hash during timed loops. Preserve algorithm, weights, four-function dedup and persistent/idle runtime.

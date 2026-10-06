@@ -121,7 +121,8 @@ public final class CosyVoice3FP16StatefulLLMSession {
 
     private func predict(_ model: MLModel, input: MLFeatureProvider, name: String) throws -> MLFeatureProvider {
         activityObserver?(name, true)
-        defer { activityObserver?(name, false) }
+        let interval = CosyVoice3StageDiagnostics.begin(name)
+        defer { activityObserver?(name, false); CosyVoice3StageDiagnostics.end(interval, name) }
         return try model.prediction(from: input, using: state)
     }
 
@@ -225,3 +226,5 @@ public final class CosyVoice3FP16StatefulLLMSession {
 // Purpose: reuse fixed-width decode mask/provider without changing attention, KV state, model bytes or sampling.
 // Upstream: original session with one mask/provider per prefix; environment: Swift 6 iOS18+/macOS15+.
 // Generated: 2026-10-05 America/New_York; changed lines 30-32, 94-112, fixed-mask helpers and decode selection.
+
+// Changes 2026-10-05 residency phase: Instruments intervals around native stateful prediction, identical model/state/input calls; Swift6/CoreML, no mathematical rewrite. Exact changed lines via git diff.

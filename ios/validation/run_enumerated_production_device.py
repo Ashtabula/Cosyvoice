@@ -235,7 +235,7 @@ def main() -> None:
         capture=True,
     ).splitlines()
     diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function) or args.acoustic_cache != "none" or args.flow_partition != 6
-    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift", "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift"}
+    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift", "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift", "ios/Sources/CosyVoice3Core/CosyVoice3StageDiagnostics.swift", "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift"}
     if runtime_changed and not (
         diagnostic_compute
         and set(runtime_changed).issubset(diagnostic_allowed_runtime_files)

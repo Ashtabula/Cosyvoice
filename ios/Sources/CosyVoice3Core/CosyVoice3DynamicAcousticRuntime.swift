@@ -253,6 +253,14 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             progress?("acoustic.flow.models.ready:count=\(flowModels.count):function=\(functionName ?? "<range>")")
             print("[COSY-FLOW-LIFECYCLE] constructors=\(flowModels.count) steps=\(flowStepCount) function=\(functionName ?? "<range>")")
 
+            try await CosyVoice3StageDiagnostics.gate("flow")
+            let initialX = CosyVoice3StageDiagnostics.count("flow") > 1 ? x : []
+            var repeatedX = [[Float]](); var flowRows = [[String: Any]]()
+            for iteration in 1...CosyVoice3StageDiagnostics.count("flow") {
+                if CosyVoice3StageDiagnostics.count("flow") > 1 { x = initialX; currentT = span[0]; dt = span[1] - span[0] }
+                let started = DispatchTime.now().uptimeNanoseconds
+                let cpu = CosyVoice3StageDiagnostics.count("flow") > 1 ? CosyVoice3StageDiagnostics.cpu() : 0, thermal = CosyVoice3StageDiagnostics.count("flow") > 1 ? CosyVoice3StageDiagnostics.thermal() : "unmeasured"
+                let interval = CosyVoice3StageDiagnostics.begin("flow")
             for step in 0..<flowStepCount {
                 progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).begin:N=\(n):T=\(tFrames)")
                 let batchPointer = batchX.dataPointer.assumingMemoryBound(to: Float.self)
@@ -299,6 +307,13 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                 if step < flowStepCount - 1 { dt = span[step + 2] - currentT }
                 progress?("acoustic.flow.step.\(step + 1).\(flowStepCount).end:N=\(n):T=\(tFrames)")
             }
+                CosyVoice3StageDiagnostics.end(interval, "flow")
+                if CosyVoice3StageDiagnostics.count("flow") > 1 {
+                    flowRows.append(CosyVoice3StageDiagnostics.row(iteration, since: started, cpuBefore: cpu, thermalBefore: thermal))
+                    repeatedX.append(x)
+                }
+            }
+            try CosyVoice3StageDiagnostics.save("flow", rows: flowRows, equal: repeatedX.allSatisfy { $0 == x })
         }
         await Task.yield()
         guard x.allSatisfy(\.isFinite) else { throw CosyVoice3AcousticError.nonFinite("flow") }
@@ -332,15 +347,18 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let excitation = try hiftExcitationPrefix(sampleCount: samplesCount)
         let norm = try overlapAddNorm(sampleCount: samplesCount)
         progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
-        let samples = try predictHiFT(
-            mel: mel,
-            f0: f0Values,
-            phase: phase,
-            excitation: excitation,
-            norm: norm,
-            samplesCount: samplesCount,
-            functionName: functionName
-        )
+        try await CosyVoice3StageDiagnostics.gate("hift")
+        var hiftOutputs = [[Float]](); var hiftRows = [[String: Any]]()
+        for iteration in 1...CosyVoice3StageDiagnostics.count("hift") {
+            let started = DispatchTime.now().uptimeNanoseconds
+            let cpu = CosyVoice3StageDiagnostics.count("hift") > 1 ? CosyVoice3StageDiagnostics.cpu() : 0, thermal = CosyVoice3StageDiagnostics.count("hift") > 1 ? CosyVoice3StageDiagnostics.thermal() : "unmeasured"
+            let interval = CosyVoice3StageDiagnostics.begin("hift")
+            hiftOutputs.append(try predictHiFT(mel: mel, f0: f0Values, phase: phase, excitation: excitation, norm: norm, samplesCount: samplesCount, functionName: functionName))
+            CosyVoice3StageDiagnostics.end(interval, "hift")
+            if CosyVoice3StageDiagnostics.count("hift") > 1 { hiftRows.append(CosyVoice3StageDiagnostics.row(iteration, since: started, cpuBefore: cpu, thermalBefore: thermal)) }
+        }
+        let samples = hiftOutputs[0]
+        try CosyVoice3StageDiagnostics.save("hift", rows: hiftRows, equal: hiftOutputs.allSatisfy { $0 == samples })
         await Task.yield()
         progress?("acoustic.hift.end:G=\(g):samples=\(samplesCount)")
         return .init(samples: samples, sampleRate: Self.sampleRate, channels: 1)
@@ -589,3 +607,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-05: production Flow lifecycle now constructs the six selected-function MLModel objects once per utterance, reuses them across all Euler steps, and releases the whole Flow set before F0/HiFT. This reduces the 6-step path from 36 Flow constructors to 6 without changing exact N/T/G, model bytes, scheduler math, CFG, noise, or function selection.
 
 // Changes 2026-10-05: validation-only 6/3/2/1 adjacent graph packages from separate FlowPartitions; four-family schema3 required. Full-group output velocity handled in existing solver, all6/8/10 Euler steps/math unchanged. Upstream frozen six-shard runtime; Swift6/iOS18+.
+
+// Changes 2026-10-05 residency phase: validation-only12 exact native Flow Euler trajectories or HiFT calls from actual public request, reset same initial noise/time each Flow repeat, all6steps/weights/inputs unchanged. Instruments stage intervals; boundary metrics are not peak/residency proof. Production one iteration. Lines via git diff.

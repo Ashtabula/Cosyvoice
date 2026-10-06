@@ -402,7 +402,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
         var llmModelLoadMilliseconds = 0.0
         var llmGenerationMilliseconds = 0.0
-        let speechTokens: [Int] = try {
+        let speechTokens: [Int] = try await {
             let loadStart = DispatchTime.now().uptimeNanoseconds
             let prefill = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmPrefill)
             let decode = try CosyVoice3AssetLoader.llmModel(root: assetRoot, path: manifest.llmDecode)
@@ -416,8 +416,19 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             llmModelLoadMilliseconds = Self.milliseconds(since: loadStart)
             validationProgress("llm.load.end")
             validationProgress("llm.generate.begin:maxN=\(prepared.maximumSpeechTokenCount)")
+            try await CosyVoice3StageDiagnostics.gate("llm")
             let generationStart = DispatchTime.now().uptimeNanoseconds
-            let tokens = try llm.generate(prepared)
+            var outputs = [[Int]](); var rows = [[String: Any]]()
+            for iteration in 1...CosyVoice3StageDiagnostics.count("llm") {
+                let started = DispatchTime.now().uptimeNanoseconds
+                let cpu = CosyVoice3StageDiagnostics.count("llm") > 1 ? CosyVoice3StageDiagnostics.cpu() : 0, thermal = CosyVoice3StageDiagnostics.count("llm") > 1 ? CosyVoice3StageDiagnostics.thermal() : "unmeasured"
+                let interval = CosyVoice3StageDiagnostics.begin("llm")
+                outputs.append(try llm.generate(prepared))
+                CosyVoice3StageDiagnostics.end(interval, "llm")
+                if CosyVoice3StageDiagnostics.count("llm") > 1 { rows.append(CosyVoice3StageDiagnostics.row(iteration, since: started, cpuBefore: cpu, thermalBefore: thermal)) }
+            }
+            let tokens = outputs[0]
+            try CosyVoice3StageDiagnostics.save("llm", rows: rows, equal: outputs.allSatisfy { $0 == tokens })
             llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
             validationProgress("llm.generate.end:N=\(tokens.count)")
             return tokens
@@ -1039,3 +1050,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-05: validation SPI can set an optional deterministic sampler seed; both public synthesis and Flow head-to-head LLM construction receive it. Normal SDK state remains nil and therefore uses SystemRandomNumberGenerator exactly as before.
 
 // Changes2026-10-05: validation SPI for idle selected-family constructor readiness; no prediction, sampling or state priming, bounded cache policy remains caller-controlled. Original public prepare/synthesize/defaults unchanged; upstream engine/AssetLoader; Swift6/iOS18+.
+
+// Changes 2026-10-05 residency phase: public diagnostic --validation-isolated-stage=llm repeats the identical seeded native generation12 times; production remainsone. Gate precedes timed loop; signpost and boundary selfCPU/thermal/memory only, no residency inference. Native prepared input/sampler unchanged. Lines identified by git diff.

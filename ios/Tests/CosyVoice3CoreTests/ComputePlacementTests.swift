@@ -5,21 +5,21 @@ import XCTest
 @testable import CosyVoice3Core
 
 final class ComputePlacementTests: XCTestCase {
-    func testStatefulLLMPlacementIsCPUOnly() {
-        XCTAssertEqual(CosyVoice3ModelComputePlacement.llm, .cpuOnly)
-        XCTAssertEqual(CosyVoice3ModelWarmSpec.llm("prefill.mlpackage").computeUnits, .cpuOnly)
-        XCTAssertEqual(CosyVoice3ModelWarmSpec.llm("decode.mlpackage").computeUnits, .cpuOnly)
+    func testStatefulLLMRequestsCPUAndNE() {
+        XCTAssertEqual(CosyVoice3ModelComputePlacement.llm, .cpuAndNeuralEngine)
+        XCTAssertEqual(CosyVoice3ModelWarmSpec.llm("prefill.mlpackage").computeUnits, .cpuAndNeuralEngine)
+        XCTAssertEqual(CosyVoice3ModelWarmSpec.llm("decode.mlpackage").computeUnits, .cpuAndNeuralEngine)
     }
 
-    func testAcousticDefaultPlacementRemainsCPUAndNE() {
-        XCTAssertEqual(CosyVoice3ModelComputePlacement.acoustic, .cpuAndNeuralEngine)
-        XCTAssertEqual(CosyVoice3ModelWarmSpec("flow.mlpackage").computeUnits, .cpuAndNeuralEngine)
+    func testAcousticDefaultRequestsCPUAndGPU() {
+        XCTAssertEqual(CosyVoice3ModelComputePlacement.acoustic, .cpuAndGPU)
+        XCTAssertEqual(CosyVoice3ModelWarmSpec("flow.mlpackage").computeUnits, .cpuAndGPU)
         XCTAssertFalse(CosyVoice3ModelWarmSpec("flow.mlpackage").reshapeFrequencyInfrequent)
     }
 
     func testDynamicAcousticProfilePinsInfrequentReshapeHint() {
         let spec = CosyVoice3ModelWarmSpec.dynamicAcoustic("flow.mlpackage")
-        XCTAssertEqual(spec.computeUnits, .cpuAndNeuralEngine)
+        XCTAssertEqual(spec.computeUnits, .cpuAndGPU)
         XCTAssertTrue(spec.reshapeFrequencyInfrequent)
     }
 
@@ -35,3 +35,5 @@ final class ComputePlacementTests: XCTestCase {
 // Changes: new placement regression test; requested compute units are not an accelerator residency claim.
 
 // Changes 2026-10-04: dynamic-acoustic warm specs must pin reshapeFrequencyInfrequent=true, matching the physical sweep configuration; generic/fixed acoustic default remains unchanged.
+
+// Changes2026-10-05: existing regression assertions updated to accepted FullLLM requestedNE placement; no claimactualANEresidency. Prior CPUexpectations stale against77e7334 baseline. XCTest/macOS; exactlines via gitdiff.
