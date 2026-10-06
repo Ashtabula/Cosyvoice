@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-warm-pass") { await runWarmDecodePass() }
             else if CommandLine.arguments.contains("--validation-listening-checkpoint") { await runListeningCheckpoint() }
             else if CommandLine.arguments.contains("--validation-isolated-request") { await runIsolatedRequest() }
             else if CommandLine.arguments.contains("--validation-idle-bootstrap") { await runPersistentIdleBootstrap() }
@@ -394,6 +395,61 @@ final class CosyVoice3SmokeModel: ObservableObject {
         } catch {
             Self.recordFailure(error, filename:"variable-public-api-smoke-receipt.json", into:self)
         }
+    }
+
+    func runWarmDecodePass() async {
+        guard !running else { return };running=true;defer{running=false}
+        let filename="warm-decode-pass-receipt.json"
+        do {
+            let mode=CommandLine.arguments.contains("--validation-warm-pass-mode=memory") ? "memory" : "repeat"
+            guard CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  !CommandLine.arguments.contains("--reset-cosy-cache"),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
+                  Self.thermalName(ProcessInfo.processInfo.thermalState)=="nominal" else {throw SmokeError("warm pass requires SHARDS2/unchanged placement/noreset/nominal start")}
+            let memory:WarmPassMemoryTimeline?=mode=="memory" ? WarmPassMemoryTimeline():nil
+            defer{_ = memory?.stop()}
+            memory?.record("before_fixture_and_package_checks")
+            let fixture=try Self.fixture(),experimental=try Self.validateExperimentalModels(runtime:fixture.runtime)
+            memory?.record("before_engine_creation")
+            let engine=try CosyVoice3Engine(assetRoot:fixture.runtime,idleBucketPreparation:false)
+            memory?.record("after_engine_creation")
+            await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver { phase in
+                if phase.hasPrefix("prepare.end") || phase.hasPrefix("frontend.end") || phase.hasPrefix("llm.load.end") || phase.hasPrefix("llm.prefill") || phase.hasPrefix("llm.decode.progress") || phase.hasPrefix("llm.generate.end") || phase.hasPrefix("acoustic.synthesize.end") || phase.hasPrefix("synthesis.end") {memory?.record(phase)}
+                print("[COSY-WARM-PASS-STAGE] \(phase)")
+            }
+            let count=mode=="memory" ? 2:5
+            var outputs=[CosyVoice3Audio](),rows=[[String:Any]]()
+            for request in 1...count {
+                memory?.record(request==2 ? "before_second_warm_request":"before_request_\(request)")
+                let thermal=Self.thermalName(ProcessInfo.processInfo.thermalState),cpu=Self.processCPUMilliseconds(),start=ContinuousClock.now
+                let audio=try await engine.synthesize(fixture.text,parameters:fixture.parameters)
+                let ms=Self.seconds(start.duration(to:ContinuousClock.now))*1000,cpuMs=Self.processCPUMilliseconds()-cpu
+                memory?.record("request_\(request)_completion")
+                try Self.validate(audio)
+                guard audio.samples.count==249600,let report=await engine.lastSynthesisReport(),report.flowSteps == .steps6 else {throw SmokeError("frozen warmpass invariant")}
+                outputs.append(audio)
+                rows.append(["request":request,"label":request==1 ? "first":(request==2 ? "warm_priming":"measured_warm"),"SHARDS":2,"flowSteps":6,"totalMilliseconds":ms,"RTF":ms/10400,"selfProcessCPUMilliseconds":cpuMs,"stages":Self.reportDictionary(report),"boundaryPhysicalFootprintBytes":Self.processFootprint(),"callerRetainedPCMBytes":outputs.count*249600*4,"thermalStart":thermal,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState)])
+                print("[COSY-WARM-PASS] SHARDS=2 request=\(request) totalMs=\(ms) thermal=\(Self.thermalName(ProcessInfo.processInfo.thermalState))")
+                if mode=="memory" {
+                    memory?.record("idle_after_request_\(request)")
+                    // Only the explicit memory lane observes normal idle/30s cache expiry.
+                    // No idle delay is used in performance repeats or reported as cooling.
+                    try await Task.sleep(for:.seconds(request==1 ? 3:35))
+                    memory?.record("idle_observation_end_\(request)")
+                }
+            }
+            let timeline=memory?.stop() ?? []
+            let pcmHashes=outputs.map { audio in audio.samples.withUnsafeBytes { SHA256.hash(data:Data($0)).map{String(format:"%02x",$0)}.joined() } }
+            guard pcmHashes.allSatisfy({$0=="909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694"}) else{throw SmokeError("STOP PCM identity differs")}
+            let wav=Self.wavData(outputs.last!),wavSHA=SHA256.hash(data:wav).map{String(format:"%02x",$0)}.joined()
+            guard wavSHA=="a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888" else{throw SmokeError("STOP WAV identity differs")}
+            try wav.write(to:Self.receiptURL("warm-decode-pass.wav"),options:.atomic)
+            let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
+            let receipt:[String:Any]=["schemaVersion":1,"status":"PASS_BIT_IDENTICAL_WARM_PASS","mode":mode,"SHARDS":2,"flowSteps":6,"N":260,"function":"n257_384","sampleRate":24000,"samples":249600,"sourceCommit":fixture.sourceCommit,"processID":ProcessInfo.processInfo.processIdentifier,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"rows":rows,"memoryTimeline":timeline,"memoryMeaning":"100ms sampled process footprint, not exact peak/per-model attribution; diagnostic fixtures and retained caller PCM included","memoryIdleMeaning":"memory lane only observes3s then35s idle/cache expiry; NOT performance cooldown/throttle","PCM_SHA256":pcmHashes,"WAV_SHA256":wavSHA,"publicAPI":"CosyVoice3Engine.synthesize()","inputText":fixture.text,"inputTextSHA256":SHA256.hash(data:Data(fixture.text.utf8)).map{String(format:"%02x",$0)}.joined(),"referenceWAVSHA256":SHA256.hash(data:try Data(contentsOf:fixture.reference.audioURL)).map{String(format:"%02x",$0)}.joined(),"payloadTreeSHA256":fixture.payloadTreeSHA256 ?? "","experimentalModelIdentity":experimental,"persistentRuntime":snapshot,"noFileIOInsideTimedLoops":true,"noPlayback":true]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename))
+            status="PASS warm decode pass SHARDS2 mode=\(mode)"
+        } catch {Self.recordFailure(error,filename:filename,into:self)}
     }
 
     // Validation/export only: unchanged public synthesis, serial fixed corpus, exact device WAV.
@@ -1376,3 +1432,32 @@ private extension Data {
 // Change2026-10-06: additive validation-only six-sample listening/export lane; public synthesize/math untouched.
 // Upstream existing DeviceSmoke fixture/WAV/report utilities; Swift6/iOS18+ physical device; generated07:48 EDT America/New_York.
 // Changed regions: runAutoMode dispatch and new runListeningCheckpoint before candidate benchmark.
+
+// Measurement-only process telemetry. Rows/stage are lock protected; no tensors/pointers retained.
+private final class WarmPassMemoryTimeline: @unchecked Sendable {
+    private let lock=NSLock()
+    private var stage="launch"
+    private var rows=[[String:Any]]()
+    private var timer:DispatchSourceTimer?
+    private var closed=false
+    init() {
+        let timer=DispatchSource.makeTimerSource(queue:.global(qos:.utility))
+        timer.schedule(deadline:.now(),repeating:.milliseconds(100))
+        timer.setEventHandler { [weak self] in self?.record(nil) }
+        self.timer=timer;timer.resume()
+    }
+    func record(_ boundary:String?) {
+        var info=task_vm_info_data_t();var count=mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size/MemoryLayout<integer_t>.size)
+        let result=withUnsafeMutablePointer(to:&info) { p in p.withMemoryRebound(to:integer_t.self,capacity:Int(count)) { task_info(mach_task_self_,task_flavor_t(TASK_VM_INFO),$0,&count) } }
+        lock.lock();defer { lock.unlock() };guard !closed,rows.count<5000 else{return}
+        if let boundary { stage=boundary }
+        rows.append(["uptimeNanoseconds":DispatchTime.now().uptimeNanoseconds,"stage":stage,"boundary":boundary != nil,"physicalFootprintBytes":result==KERN_SUCCESS ? info.phys_footprint:0,"thermalState":ProcessInfo.processInfo.thermalState.rawValue])
+    }
+    func stop()->[[String:Any]] { timer?.cancel();timer=nil;record("sampler_stop");lock.lock();defer{lock.unlock()};closed=true;return rows }
+    deinit { timer?.cancel() }
+}
+// Purpose:100ms validation memory timeline, not exact peak/per-model attribution. Swift6/iOS18+;
+// generated2026-10-06; dictionary/token/logit audit storage is accounted separately from inference state.
+
+// PhaseA2026-10-06: validation-only public warm/memory lane; sampling/state/input algorithm unchanged.
+// Native memory idle observation separate from no-delay performance repeats; exact line map git diff.

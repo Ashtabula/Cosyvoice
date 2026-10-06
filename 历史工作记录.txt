@@ -526,3 +526,10 @@ Actions: inspectexactcommittedevidence/source; noiosSourcesdiffsinceb65820d. Sav
 Files: warm_decode_pass_20261006/phase_a_static_audit.json.
 Validation: static/sourcehashPASS; physicalmemory/substage measurementnext, noalgorithm/model/placement/SHARDS/Flowchange.
 GitHub Timeline:c17581falreadypushed; phaseAaudit未commit.
+
+Time:2026-10-06 08:59 EDT America/New_York
+Prompt: PhaseAaudit/measurementfirst onaccepted2-shard decode.
+Actions: additiveopt-in substage observer/rawFP16logits/token capture;100ms boundary memorytimeline with2requests andexplicit3s/35s memory-onlyidle observing30s shelfexpiry. No publicAPI/algorithm/weights/placement/Flow/embedding-copy undo. Performance repeats have noidle delay; capturedcallerPCM/diagnosticfixtures accountedseparately.
+Files: LLMRuntime/Engine/StageDiagnostics andDeviceSmoke validationonlyhelper.
+Validation:20relevantSwiftPASS; signedRelease/physicalPhaseAnext.
+GitHub Timeline:5bd8afeaudit committednotpushed; measurementcommitnext.

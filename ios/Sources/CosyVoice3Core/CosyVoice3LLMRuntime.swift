@@ -11,6 +11,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     private let conditioner:CosyVoice3TokenConditioner
     private let sampler:CosyVoice3RASampler
     private let validationSeed:UInt64?
+    private(set) var validationDecodeAudit = [String:Any]()
     private let progress:(@Sendable (String)->Void)?
     init(
         prefillModel:MLModel,
@@ -37,14 +38,24 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
     }
     private func generate<R:RandomNumberGenerator>(_ prepared:CosyVoice3PreparedRequest,using rng:inout R) throws -> [Int] {
         progress?("llm.session.begin:logicalPrefix=\(prepared.logicalPrefixLength):maxN=\(prepared.maximumSpeechTokenCount):validationSeed=\(validationSeed.map { String($0) } ?? "<system>")")
-        let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
+        let audit=CosyVoice3WarmDecodeAudit.enabled ? CosyVoice3WarmDecodeAudit(maximumDraws:prepared.maximumSpeechTokenCount) : nil
+        var decoded=[Int]()
+        defer { if let audit { validationDecodeAudit=audit.snapshot(tokens:decoded,minimum:prepared.minimumSpeechTokenCount,maximum:prepared.maximumSpeechTokenCount) } }
+        let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,activityObserver:audit.map { observer in { name,begin in observer.observe(name,begin) } },diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
         progress?("llm.prefill.begin")
-        var output=try session.prefill(prepared.prefillInput), decoded:[Int]=[]
+        var output=try session.prefill(prepared.prefillInput)
         progress?("llm.prefill.end")
         var logits=[Float](repeating:0,count:CosyVoice3TokenSemantics.logitsCount)
         for step in 0..<prepared.maximumSpeechTokenCount {
-            try Self.fillLogits(output,into:&logits)
-            let token=try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount,using:&rng)
+            let token:Int
+            if let audit {
+                try audit.measure("logits.fill") { try Self.fillLogits(output,into:&logits) }
+                token=try audit.measure("RAS.sample") { try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount,using:&rng) }
+                audit.capture(output)
+            } else {
+                try Self.fillLogits(output,into:&logits)
+                token=try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount,using:&rng)
+            }
             if CosyVoice3TokenSemantics.isStop(token) {
                 guard token<CosyVoice3TokenSemantics.logitsCount else { throw RuntimeError.unexpectedStop(token) }
                 progress?("llm.stop:step=\(step):token=\(token):N=\(decoded.count)")
@@ -130,3 +141,6 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 // Purpose: avoid intermediate embedding Data; copy exact bytes once into existing decode tensor.
 // Upstream: same RAS/stateful generation above; Swift6/CoreML; generated2026-10-06 08:14 EDT America/New_York.
 // Changed generation embedding/decode block only; autoreleasepool/order/position/math unchanged.
+
+// Change2026-10-06 PhaseA: opt-in validation-only substage timing/raw-logits snapshot; original math/default storage unchanged.
+// Owner synchronous generation, no escaping input/output pointer; exact line map git diff.

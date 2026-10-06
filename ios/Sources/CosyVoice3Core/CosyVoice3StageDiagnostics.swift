@@ -1,6 +1,7 @@
 // CosyVoice3StageDiagnostics.swift
 // Requirement: validation-only actual-request stage repetition and Instruments intervals; never infer residency from requested placement.
 import Foundation
+import CoreML
 import os
 import Darwin
 
@@ -96,3 +97,39 @@ final class CosyVoice3StageSampler: @unchecked Sendable {
     deinit { timer?.cancel() }
 }
 // Purpose: exact native stage repeats, boundary metrics and trace correlation. Upstream native Engine/Flow/HiFT; Swift6/CoreML iOS18+/macOS15+. Generated 2026-10-05 America/New_York. New validation helper; graph, weights and production iteration counts unchanged.
+
+// Validation-only synchronous observer; never active in an ordinary production request.
+@available(iOS 18.0, macOS 15.0, *)
+final class CosyVoice3WarmDecodeAudit {
+    static let enabled = CommandLine.arguments.contains("--validation-decode-audit")
+    private var starts = [String: UInt64]()
+    private var totals = [String: UInt64]()
+    private var calls = [String: Int]()
+    private var logits = Data()
+    init(maximumDraws: Int) { logits.reserveCapacity(maximumDraws * 6761 * 2) }
+    func observe(_ name: String, _ begin: Bool) {
+        if begin { starts[name] = DispatchTime.now().uptimeNanoseconds }
+        else if let started = starts.removeValue(forKey:name) {
+            totals[name,default:0] += DispatchTime.now().uptimeNanoseconds-started
+            calls[name,default:0] += 1
+        }
+    }
+    func measure<T>(_ name: String, _ body: () throws -> T) rethrows -> T {
+        observe(name,true); defer { observe(name,false) }; return try body()
+    }
+    func capture(_ provider: MLFeatureProvider) {
+        guard let a=provider.featureValue(for:"logits")?.multiArrayValue,a.dataType == .float16,a.count == 6761 else { return }
+        logits.append(contentsOf:UnsafeBufferPointer(start:a.dataPointer.assumingMemoryBound(to:UInt8.self),count:a.count*2))
+    }
+    func snapshot(tokens:[Int], minimum:Int, maximum:Int) -> [String:Any] {
+        ["scope":"validation timing/raw logits adds overhead; not an unprofiled performance result",
+         "milliseconds":totals.mapValues { Double($0)/1_000_000 },"calls":calls,"tokens":tokens,
+         "minimumSpeechTokens":minimum,"maximumSpeechTokens":maximum,
+         "termination":tokens.count == maximum ? "MAX_LENGTH" : "STOP_TOKEN",
+         "logitsFP16Base64":logits.base64EncodedString(),"logitsBytes":logits.count,
+         "diagnosticRetentionBytes":logits.count + tokens.count*MemoryLayout<Int>.size]
+    }
+}
+// Purpose: measurement-only decode breakdown/raw-logits identity fixture. Upstream native loop/session observer.
+// Swift6/CoreML/iOS18+/macOS15+; generated2026-10-06 America/New_York. Owner one synchronous generation;
+// no timer/actor sharing or escaping pointers; snapshot diagnostics explicitly account for retained fixture bytes.

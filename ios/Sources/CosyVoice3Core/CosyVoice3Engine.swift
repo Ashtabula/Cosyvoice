@@ -37,6 +37,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private var lastSynthesisReportValue: CosyVoice3SynthesisReport?
     private var validationProgressObserver: (@Sendable (String) -> Void)?
     private var validationSamplerSeed: UInt64?
+    private var validationWarmPassRecords = [[String:Any]]()
     private let idleBucketPreparationEnabled: Bool
     private var activeSynthesisCount = 0
     private var idleTask: Task<Void, Never>?
@@ -110,6 +111,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     "ready":try CosyVoice3PersistentRuntimeStore.shared.familyReady(function:family.functionName,identities:identities)] as [String: Any]
             }
         }
+        if CommandLine.arguments.contains("--validation-warm-pass") { result["validationWarmPassRecords"] = validationWarmPassRecords }
         return String(decoding: try JSONSerialization.data(withJSONObject: result, options: [.sortedKeys]), as: UTF8.self)
     }
 
@@ -431,6 +433,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let tokens = outputs[0]
             try CosyVoice3StageDiagnostics.save("llm", rows: rows, equal: outputs.allSatisfy { $0 == tokens }, telemetry: stageSampler.stop())
             llmGenerationMilliseconds = Self.milliseconds(since: generationStart)
+            if CommandLine.arguments.contains("--validation-warm-pass"), validationWarmPassRecords.count < 16 {
+                validationWarmPassRecords.append(["tokens":tokens,"audit":llm.validationDecodeAudit])
+            }
             validationProgress("llm.generate.end:N=\(tokens.count)")
             return tokens
         }()
@@ -1062,3 +1067,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Purpose: reuse immutable frontend speech embedding bytes in the decoder conditioner; standalone fallback preserved.
 // Upstream: reusableBaseFrontend/reusableConditioner; environment Swift6/iOS18+/macOS15+; generated2026-10-06 07:32 EDT America/New_York.
 // Changed region736-749 only; no weights/reference/cache/placement/public API change.
+
+// Change2026-10-06 PhaseA: bounded opt-in token/audit records via existing snapshot API; no public signature or production behavior change.
