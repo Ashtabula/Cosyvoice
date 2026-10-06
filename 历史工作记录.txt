@@ -461,3 +461,8 @@ Prompt: permanent SHARDS2 primary + mandatory periodic exported human listening.
 Actions: protocol/workflow fixed6-sample corpus and PENDING_HUMAN/nullLAST_KNOWN_GOOD; default optimization runners SHARDS2/no automatic sustained. Add validation-only physical public corpus lane and exact WAV pull/checksum runner; no production runtime/model changes. Generated WAV ignored bygit, local durable workspace required.
 Validation: PythonASTPASS; signed iOSbuild/SHARDS2 frozen run/listening corpus next. User alone can approve listening; no more invasive optimization or long thermal test.
 GitHub Timeline: b8367b4 pushed; currenttooling/docs未commit.
+
+Time:2026-10-06 07:49 EDT America/New_York
+Actions: initial additive listening lane compile failed FlowSteps enum vsInt; corrected .steps6 guard, explicit SHARDS in normalbenchmark receipt. Retained full diagnostic /private/tmp/cosy-listening-compile.log. No production runtime change.
+Validation: build retry next; no listeningPASS inferred.
+GitHub Timeline:533b765 committednotpushed; toolingcompilefix nextcommit.

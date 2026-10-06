@@ -435,7 +435,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let elapsed = Self.seconds(start.duration(to:ContinuousClock.now))*1000
                 let cpuMs = Self.processCPUMilliseconds()-cpu
                 try Self.validate(audio)
-                guard audio.samples.count % 960 == 0, let stages = await engine.lastSynthesisReport(), stages.flowSteps == 6 else { throw SmokeError("listening shape/Flow invariant") }
+                guard audio.samples.count % 960 == 0, let stages = await engine.lastSynthesisReport(), stages.flowSteps == .steps6 else { throw SmokeError("listening shape/Flow invariant") }
                 let n = audio.samples.count/960
                 if let expected = entry["expectedSamples"] as? Int, expected != audio.samples.count { throw SmokeError("listening expected sample count mismatch") }
                 let pcmSHA = audio.samples.withUnsafeBytes { sha(Data($0)) }
@@ -445,12 +445,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 try wav.write(to:Self.receiptURL(filename),options:.atomic)
                 rows.append(["id":id,"text":text,"textSHA256":sha(Data(text.utf8)),"SHARDS":2,"flowSteps":6,"N":n,"functionName":variable.functionName(for:n) ?? "","samples":audio.samples.count,"sampleRate":audio.sampleRate,"audioSeconds":Self.audioDuration(audio),"totalMs":elapsed,"RTF":elapsed/1000/Self.audioDuration(audio),"processCPUMs":cpuMs,"stages":Self.reportDictionary(stages),"PCM_SHA256":pcmSHA,"WAV_SHA256":sha(wav),"WAV":filename,"outputClass":entry["previousSamePlacementPCMSHA256"].map { _ in "BIT_IDENTICAL" as Any } ?? NSNull(),"comparison":"FIRST_CORPUS_BASELINE_PENDING_HUMAN","thermalStart":thermal,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"boundaryPhysicalFootprintBytes":Self.processFootprint()])
                 receipt["samples"] = rows
-                try Self.write(receipt,to:Self.receiptURL(receiptName))
+                _ = try Self.write(receipt,to:Self.receiptURL(receiptName))
                 print("[COSY-LISTENING] SHARDS=2 exported device WAV \(filename) N=\(n)")
             }
             receipt["status"] = "PASS_DEVICE_CORPUS_PENDING_HUMAN"
             receipt["persistentRuntime"] = try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
-            try Self.write(receipt,to:Self.receiptURL(receiptName))
+            _ = try Self.write(receipt,to:Self.receiptURL(receiptName))
             status = "PASS listening corpus SHARDS=2 PENDING_HUMAN; WAV export to Mac still required"
         } catch { Self.recordFailure(error,filename:receiptName,into:self) }
     }
@@ -577,6 +577,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 receipt["idleReadinessPredictions"] = false
             }
             receipt["materializeExistingTEOutput"] = CommandLine.arguments.contains("--validation-materialize-te")
+            receipt["SHARDS"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }).flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
             receipt["flowPartition"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }) ?? "6"
             receipt["sustainedRuns"] = sustained
             receipt["inputIdentity"] = inputIdentity
