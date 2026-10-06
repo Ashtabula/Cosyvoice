@@ -181,10 +181,20 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
     }
 
     func familyReady(function: String, identities: [[String: String]]) throws -> Bool {
+        lock.lock(); defer { lock.unlock() }
         let keys = try identities.map { try key($0) }.sorted()
         let identity = ["functionName":function,"models":keys.joined(separator: ","),"runtimeVersion":Self.runtimeVersion]
         let file = try directory("Buckets").appendingPathComponent(try key(identity) + ".json")
         guard let data = try? Data(contentsOf: file), let record = try JSONSerialization.jsonObject(with: data) as? [String: Any] else { return false }
+        for model in identities {
+            let modelFile = try directory("ModelPlans").appendingPathComponent(try key(model) + ".json")
+            guard let bytes = try? Data(contentsOf: modelFile), let modelRecord = try JSONSerialization.jsonObject(with: bytes) as? [String: Any],
+                  modelRecord["identity"] as? [String: String] == model,
+                  modelRecord["status"] as? String == "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+                  let artifact = modelRecord["compiledArtifact"] as? String,
+                  artifact == URL(fileURLWithPath:artifact).lastPathComponent,
+                  FileManager.default.fileExists(atPath:try directory("CompiledModels").appendingPathComponent(artifact).path) else { return false }
+        }
         return record["identity"] as? [String: String] == identity &&
             ["LOAD_READY_SYSTEM_STATE_NOT_ASSUMED", "SUCCESSFUL_PUBLIC_SYNTHESIS"].contains(record["status"] as? String ?? "")
     }

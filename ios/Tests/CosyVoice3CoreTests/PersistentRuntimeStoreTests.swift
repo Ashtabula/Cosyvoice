@@ -31,6 +31,10 @@ final class PersistentRuntimeStoreTests: XCTestCase {
         let root = try temporary()
         let store = CosyVoice3PersistentRuntimeStore(storageRootOverride: root)
         let model = ["functionName":"n257_384","modelPackageSHA256":"test-content","requestedPlacement":"1","manifestSHA256":"manifest","payloadTreeSHA256":"payload","runtimeVersion":"version","modelABI":"2"]
+        let compiled = try store.directory("CompiledModels").appendingPathComponent("test.mlmodelc")
+        try FileManager.default.createDirectory(at:compiled,withIntermediateDirectories:true)
+        // Simulated metadata load receipt, never a Core ML execution claim.
+        try store.validatedLoad(identity:model,compiled:compiled,milliseconds:1,compiledHit:false)
         try store.family(root:root,function:"n257_384",identities:[model],state:"PENDING_IDLE",n:nil)
         XCTAssertFalse(try store.familyReady(function:"n257_384",identities:[model]))
         try store.family(root:root,function:"n257_384",identities:[model],state:"SUCCESSFUL_PUBLIC_SYNTHESIS",n:260)
@@ -44,6 +48,8 @@ final class PersistentRuntimeStoreTests: XCTestCase {
             XCTAssertFalse(try restarted.familyReady(function:"n257_384",identities:[changed]), field)
         }
         XCTAssertEqual(try restarted.snapshot()["excludedFromBackup"] as? Bool, true)
+        try FileManager.default.removeItem(at:compiled)
+        XCTAssertFalse(try restarted.familyReady(function:"n257_384",identities:[model]), "marker cannot outlive app artifact presence")
     }
 
     func testCanonicalAndAliasPathsHaveTheSameContentIdentity() throws {

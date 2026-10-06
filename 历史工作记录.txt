@@ -331,3 +331,9 @@ Prompt: foreground-idle physical preparation validation.
 Actions: idle-bootstrap validation holds screen awake until all four current identities load-ready, then restores original idle-timer setting; solely foreground test-window control, not thermal throttling or background forever.
 Validation: source691160e signed buildPASS; UI-only timer fix rebuild next.
 GitHub Timeline:691160e local; through0a669e5 pushed; no algorithm/default hint/asset change.
+
+Time: 2026-10-05T22:36:19.121563-04:00
+Prompt: first PCM→persistent four-bucket idle and actual restart.
+Actions: source14c8831 singleN260public first39246.59ms, PCM returned before idle;24 serial released constructors preparedthree remainingfuncs in22358.53ms, nominal→nominal, sampledidlepeak1175834000bytes; then actualPID4777→4781 allfourcurrentidentitiesready afterrelaunch, noidleevents,warmRTF0.471918. Strengthen bucket readiness requires allmodelrecords +appcompiledartifact presence; artifact-delete test rejectsstale marker.
+Validation:3 persistenttests PASS incl byteidentity/alias/pending/artifactabsence; newcode device recheck next.
+GitHub Timeline: through14c8831 pushed; readiness guard/idle evidence checkpoint next; no models/HF/catalog/promotion.
