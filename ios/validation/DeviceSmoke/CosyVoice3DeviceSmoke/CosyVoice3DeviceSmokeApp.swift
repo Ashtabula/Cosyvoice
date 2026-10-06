@@ -1078,7 +1078,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                                     counts[usage.preferred.description, default: 0] += 1
                                     let cost = plan.estimatedCost(of: op)?.weight ?? 0
                                     costs[usage.preferred.description, default: 0] += cost
-                                    operations.append(["operator": op.operatorName, "outputs":op.outputs.map { $0.name }, "inputs":op.inputs.mapValues { $0.bindings.map { $0.name ?? "<compile-time constant>" } }, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
+                                    operations.append(["operator": op.operatorName, "outputs":op.outputs.map { $0.name }, "inputs":op.inputs.mapValues { $0.bindings.map { binding in switch binding { case .name(let name): return name; case .value: return "<compile-time constant>" } } }, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
                                 }
                                 for child in op.blocks { visit(child) }
                             }

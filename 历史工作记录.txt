@@ -357,3 +357,9 @@ Prompt: actual ANE residency and isolated sustained thermal for LLM/Flow/HiFT.
 Actions: add native exact-request12stage diagnostics and Instruments prediction/stage signposts; capture SSA names and lossless partition plan paths. No graph/weights math change; production one iteration.
 Validation: initial sandbox Swift cache denied, escalated compile PASS; existing placement tests were stale CPU LLM/NE acoustic against accepted77 baseline, updated requested defaults only; final tests/build pending. No actual FULL_ANE claim.
 GitHub Timeline: baselinea2aed4f pushed; new diagnostic checkpoint未commit/未push before following commit.
+
+Time: 2026-10-05 23:22 EDT America/New_York
+Prompt: physical diagnostic build gate.
+Actions: preserve f88a488 iOSbuild failure; Swift MLModelStructure Binding is enum .name/.value, repair SSA extraction accordingly.
+Validation:11 Swift tests PASS after stale acceptedplacement assertion correction; iOSbuild failed1081 binding API, rebuild next. Complete log/private/tmp/cosy-residency-device-build.log.
+GitHub Timeline: f88a488已commit未push; repair checkpoint next; frozen assets unchanged.
