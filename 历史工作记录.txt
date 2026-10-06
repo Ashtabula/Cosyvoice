@@ -545,3 +545,10 @@ Time:2026-10-06 09:22 EDT America/New_York
 Actions: removeunusedfutureidentity/ab modes fromwarmcollection CLI; nativeguardexplicitlyallowsmemory/repeatonly, no unsupportedmode silently treatedasrepeat. Candidateprototypewasnotadopted; physicalABnotperformed dueuserstoprule. Previousbd848f3 reports/sourcepushedverified; packagingparseronlyfinalbuildnext.
 Validation: allactualcollectedmodesmemory/repeat remainunchanged; no model/runtime numerical change.
 GitHub Timeline:已pushbd848f3; toolguardfinalcommitnext.
+
+Time:2026-10-06 09:26 EDT America/New_York
+Prompt: close rigorous LOW-RISK/BIT-IDENTICAL warm decode pass.
+Actions: final unsupported-mode guard signed iOS Release build PASS; preserve accepted b65820d inference and listening baseline; no production candidate adopted.
+Files: append-only 历史工作记录.txt; all detailed evidence in ios/validation/evidence/warm_decode_pass_20261006.
+Validation: final xcodebuild BUILD SUCCEEDED in /private/tmp/cosy-warm-pass-final-compile.log; prior 20 relevant Swift tests and 7 physical identical requests retained.
+GitHub Timeline: bd848f3 已push并核对; e4956be 已commit未push; this closing log and guard push next.
