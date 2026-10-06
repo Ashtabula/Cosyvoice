@@ -1,0 +1,5 @@
+{
+  "sourceCommit": "1f2799526289314126d25c2c137027008516b603",
+  "buildMarkerSHA256": "9ee6844584d3427652a6ab8292feecf6ab11433ac650f7797251ab68b67c30cc",
+  "purpose": "Current/Q8 physical API controls; Q4 disabled after failed physical validation"
+}

@@ -44,5 +44,14 @@
       "promotionAllowed": false,
       "classification": "Q8_RESOURCE_WIN"
     }
+  },
+  "experimentalCandidateValidation": {
+    "Q4": {
+      "objectiveStatus": "Q4_UNSUPPORTED_OR_INCOMPATIBLE",
+      "humanListening": "NOT_REACHED",
+      "inferenceSelectable": false,
+      "evidence": "ios/validation/evidence/q4_validation_20261006/q4/objective_status.json",
+      "reason": "physical prefill CPU_AND_NE execution-plan -14 before PCM; not a human quality FAIL"
+    }
   }
 }

@@ -1,0 +1,30 @@
+{
+  "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/llm-q4-20261006/failed-device-prefill.mlmodelc",
+  "compiledBytes": 205588953,
+  "compiledContentTreeSHA256": "d8c32bef3c8144e5415a7aaf7d1eb06da7915ece2657593427301409396153a4",
+  "files": [
+    {
+      "path": "analytics/coremldata.bin",
+      "bytes": 243,
+      "sha256": "245e382a827754124ba92097ce1c2a2219ea8fd8b5bbfe369151d4a611ecbd07"
+    },
+    {
+      "path": "coremldata.bin",
+      "bytes": 2139,
+      "sha256": "b24fe5688e19a312d6590da4dd9ccafc4c6ea2e13bc7d0e85a3f6d56f7001de8"
+    },
+    {
+      "path": "model.mil",
+      "bytes": 703801,
+      "sha256": "befdf5c7a72ef5e9541400dc41afd7fcddf094399dd02295ceefe66dba8b1333"
+    },
+    {
+      "path": "weights/weight.bin",
+      "bytes": 204882770,
+      "sha256": "903397b26e9cc0f273fcf06069fc486fca1096fea26d6b53ccb6823e9a5380b8"
+    }
+  ],
+  "meaning": "compiled directory bytes exist; NOT a successful MLModel load/ANE specialization/prediction",
+  "artifactFilenameKey": "19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779",
+  "filenameKeyIsNotContentSHA": true
+}

@@ -1,0 +1,29 @@
+Metric | Current | Q8 | Q4
+--- | --- | --- | ---
+LLM source weight blobs bytes | 1455911588 | same frozen source | same frozen source
+Prefill package bytes | 728609297 | 365380226 | 205558862
+Decode package bytes | 728542251 | 365290677 | 205469334
+Total LLM package bytes | 1457151548 | 730670903 | 411028196
+Runtime payload bytes | 3530215890 | 2803735289 | 2484092582
+Shared P2 additional bytes | 664612462 | 664612462 | 664612462
+LLM compression ratio vs Current | 1.000000 | 0.501438 | 0.282076
+Model load ms | 142.989 | 137.649 | N/A load failed
+Prefill ms | 31.581 | 29.011 | N/A
+Decode ms/token | 12.474724 | 7.138513 | N/A
+Total LLM ms | 3297.950 | 1911.714 | N/A
+Acoustic synthesis ms | 1482.430 | 1496.806 | N/A
+Total synthesis ms | 4928.747 | 3555.845 | N/A
+Warm RTF | 0.473918 | 0.341908 | N/A
+Sampled warm peak bytes | 2328939680 | 1600883896 | N/A
+Request5 completion footprint bytes | 872975520 | 853265592 | N/A
+Idle35s footprint bytes | 418269336 | 404588792 | N/A
+CPU-only mJ/audio-second | 119.028 | 126.242 | N/A
+Whole-device energy/sustained thermal | NOT_RUN | NOT_RUN | NOT_RUN
+Historical observed ANE intervals/prediction | 1 | 1 | N/A no prediction
+Historical longest ANE interval warm mean ms | 11.727224 | 6.679200 | N/A
+Recorded internal gap ms | 0 | 0 | N/A
+Topology classification | MOSTLY_CONTIGUOUS_ANE | MOSTLY_CONTIGUOUS_ANE | INSUFFICIENT_TRACE_EVIDENCE
+N / function | 260 / n257_384 | 260 / n257_384 | N/A
+Frozen tokens divergence | reference | 257/260 vs Current | N/A physical
+Human listening | PASS prior accepted corpus | PASS prior3Englishpairs | NOT_REACHED
+API availability | selectable | experimental/selectable | blocked profileNotValidated

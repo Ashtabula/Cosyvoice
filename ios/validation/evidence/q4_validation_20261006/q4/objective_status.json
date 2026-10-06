@@ -21,5 +21,6 @@
   "stopConditionApplied": true,
   "noPlacementFallbackOrSecondCandidate": true,
   "assetsPreserved": true,
-  "Q4PublicProfileSelectable": false
+  "Q4PublicProfileSelectable": false,
+  "existingLoaderArtifactRepair": "Existing model loader automatically removes/recompiles identical compiled artifact once after authoritative-load failure and retries unchanged bytes/placement. Final error propagated; no manual second variant or policy fallback."
 }

@@ -1,0 +1,43 @@
+{
+  "sharedEngine": true,
+  "publicInitializer": "CosyVoice3Engine(assetRoot:profile:idleBucketPreparation:)",
+  "oldInitializerDefault": "Current, previous compatibility routing retained",
+  "explicitProfileRuntime": "accepted SHARDS2 schema3 multifunction, CLI not required",
+  "selectableProfiles": [
+    "current",
+    "q8"
+  ],
+  "blockedProfiles": {
+    "q4": "profileNotValidated; physical CoreML plan -14"
+  },
+  "metadata": [
+    "id",
+    "displayName",
+    "weightCompression",
+    "modelAssetIdentity",
+    "isExperimental",
+    "isSelectableForInference"
+  ],
+  "wrongProfileAndMixedTreeFailClosed": true,
+  "cacheKeys": "manifest+payload+package+function+placement+OS/CoreML/ABI already bind profile content; no global mutable selection",
+  "Swift6Tests": {
+    "count": 24,
+    "failed": 0,
+    "skipped": 0
+  },
+  "signedBuild": "PASS final gated1f27995 source",
+  "usageExampleTypecheck": "PASS exact Xcode27.2SDK and transitive yyjson modulemap",
+  "physicalControls": {
+    "Current": {
+      "requests": 5,
+      "PCM_WAV_Tokens": "BIT_IDENTICAL to frozen baseline"
+    },
+    "Q8": {
+      "requests": 5,
+      "PCM_WAV_Tokens": "BIT_IDENTICAL to prior Q8"
+    }
+  },
+  "NPU_engines_DemoModified": false,
+  "Q4BenchmarkHandoffReady": false,
+  "CurrentQ8BenchmarkHandoffReady": true
+}

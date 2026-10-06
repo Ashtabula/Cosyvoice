@@ -1,0 +1,18 @@
+{
+  "specificationVersion": 9,
+  "function": "main",
+  "block": "CoreML8",
+  "operator": "constexpr_blockwise_shift_scale",
+  "attributes": {
+    "name": {
+      "dtype": "STRING",
+      "shape": []
+    }
+  },
+  "inputs": {
+    "scale": "arguments {\n  value {\n    type {\n      tensorType {\n        dataType: FLOAT16\n        rank: 2\n        dimensions {\n          constant {\n            size: 896\n          }\n        }\n        dimensions {\n          constant {\n            size: 28\n          }\n        }\n      }\n    }\n    blobFileValue {\n ",
+    "data": "arguments {\n  value {\n    type {\n      tensorType {\n        dataType: INT4\n        rank: 2\n        dimensions {\n          constant {\n            size: 896\n          }\n        }\n        dimensions {\n          constant {\n            size: 896\n          }\n        }\n      }\n    }\n    blobFileValue {\n   "
+  },
+  "stateCount": 48,
+  "outputFP16": true
+}

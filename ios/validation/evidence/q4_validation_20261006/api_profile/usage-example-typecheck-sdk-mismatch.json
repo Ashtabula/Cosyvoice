@@ -1,0 +1,15 @@
+{
+  "command": [
+    "swiftc",
+    "-typecheck",
+    "-swift-version",
+    "6",
+    "-I",
+    "ios/.build/out/Products/Debug",
+    "-target",
+    "arm64-apple-macosx15.0",
+    "ios/validation/examples/WeightProfileUsage.swift"
+  ],
+  "exitCode": 1,
+  "initialFailure": "wrong include path ios/.build/arm64-apple-macosx/debug/Modules; actual SwiftPM module layout is ios/.build/out/Products/Debug"
+}

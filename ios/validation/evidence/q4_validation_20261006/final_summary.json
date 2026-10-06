@@ -1,0 +1,198 @@
+{
+  "schemaVersion": 1,
+  "classification": "Q4_UNSUPPORTED_OR_INCOMPATIBLE",
+  "taskOutcome": "Q4 conversion/host numerical/physical failed-load evidence complete; valid Q4 synthesis/topology/listening not reached; Current/Q8 SDK handoff validated",
+  "Q4HumanListening": "NOT_REACHED_NO_Q4_AUDIO",
+  "Q4InferenceSelectable": false,
+  "Q4ProductionPromotion": false,
+  "CurrentQ8AndLAST_KNOWN_GOODPreserved": true,
+  "Q4ConversionSourceCommit": "4a9366f8f0e42a150edf3af42eda2ef396860474",
+  "Q4FailedPhysicalSourceCommit": "217fd97db5cae2b4a687f5280b1a0711bf929992",
+  "finalSDKPhysicalSourceCommit": "1f2799526289314126d25c2c137027008516b603",
+  "Q4ManifestSHA256": "092d9fbe3c8ad8fe556dd788a0824128200aec1f2fafba410ecb65b10a1ae31a",
+  "Q4PayloadTreeSHA256": "bca74138e3d7112f2e9e6bd0b0370401cc79be4ee27c7c2c09cc0ddf644f86d1",
+  "frozenParentTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "device": "iPhone18,4",
+  "iOS": "27.2 (24B5089g)",
+  "CoreML": "3600.25.2",
+  "toolchain": "coremltools9.0/Xcode27.2 (27B5019j)",
+  "Q4Recipe": {
+    "API": "linear_quantize_weights",
+    "mode": "linear_symmetric",
+    "dtype": "int4",
+    "granularity": "per_block",
+    "block_size": 32,
+    "weights": 169,
+    "exclusions": "bias/normalization/activation/KV/masks/RoPE/reference/acoustic",
+    "inputWeights": "original CoreMLFP16, sourcePTcheckpointFP32",
+    "outputStorage": "INT4 data plus FP16 scales, FP16 IO/48MLState, actual ANE arithmetic UNKNOWN",
+    "specificationVersion": 9,
+    "deployment": "iOS18/CoreML8"
+  },
+  "host": {
+    "allFinite": true,
+    "commonTeacherForcedSteps": 64,
+    "Q4vsCurrentTop1": 0.984375,
+    "Q4vsQ8Top1": 0.984375,
+    "scope": "synthetic common input characterization, not physical generation or audible quality"
+  },
+  "Q4PhysicalFailure": {
+    "classification": "Q4_UNSUPPORTED_OR_INCOMPATIBLE",
+    "candidate": "INT4_WEIGHT_ONLY_PER_BLOCK32",
+    "humanListening": "NOT_REACHED_NO_Q4_AUDIO",
+    "topologyClassification": "INSUFFICIENT_TRACE_EVIDENCE",
+    "sourceCommit": "217fd97db5cae2b4a687f5280b1a0711bf929992",
+    "device": "iPhone18,4",
+    "iOS": "27.2",
+    "chargingOnly": true,
+    "failedStage": "prefill MLModel construction/execution-plan creation before prediction",
+    "exactError": "compiledCache(\"MLModel load failed path=models/cosyvoice-llm-q4-prefill.mlpackage function=<default> computeUnits=MLComputeUnits(rawValue: 3) reshapeFrequencyInfrequent=false compiled=19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc source=/var/mobile/Containers/Data/Application/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11/Documents/LLMQuantization/Q4/Runtime/models/cosyvoice-llm-q4-prefill.mlpackage error=Error Domain=com.apple.CoreML Code=0 \\\"Failed to build the model execution plan using a model architecture file \\'/private/var/mobile/Containers/Data/Application/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc/model.mil\\' with error code: -14.\\\" UserInfo={NSLocalizedDescription=Failed to build the model execution plan using a model architecture file \\'/private/var/mobile/Containers/Data/Application/019A1D4C-C6C5-40E6-89C9-AFEC144E3C11/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc/model.mil\\' with error code: -14.}\")",
+    "CoreMLUnderlyingPlanCode": -14,
+    "completedPublicRequests": 0,
+    "Q4PredictionCount": 0,
+    "PCMGenerated": false,
+    "stageTimingRTFMemoryPerAudioEnergy": null,
+    "hostCPUThreeWayFinite": true,
+    "compileVsLoad": "package compile produced mlmodelc; requested CPU_AND_NE model execution-plan load failed",
+    "rootPayloadTreeSHA256": "bca74138e3d7112f2e9e6bd0b0370401cc79be4ee27c7c2c09cc0ddf644f86d1",
+    "reasonUnknown": "specific unsupported operator/compiler cause not exposed; does not prove all Q4 graphs/devices cannot use ANE",
+    "stopConditionApplied": true,
+    "noPlacementFallbackOrSecondCandidate": true,
+    "assetsPreserved": true,
+    "Q4PublicProfileSelectable": false,
+    "existingLoaderArtifactRepair": "Existing model loader automatically removes/recompiles identical compiled artifact once after authoritative-load failure and retries unchanged bytes/placement. Final error propagated; no manual second variant or policy fallback."
+  },
+  "Q4RAMRTFEnergyTopology": null,
+  "sizes": {
+    "sourceCheckpointBytes": 2024669519,
+    "CurrentPrefillPackageBytes": 728609297,
+    "CurrentDecodePackageBytes": 728542251,
+    "CurrentLLMPackageBytes": 1457151548,
+    "Q8LLMPackageBytes": 730670903,
+    "Q4PrefillPackageBytes": 205558862,
+    "Q4DecodePackageBytes": 205469334,
+    "Q4LLMPackageBytes": 411028196,
+    "CurrentRuntimeBytes": 3530215890,
+    "Q8RuntimeBytes": 2803735289,
+    "Q4RuntimeBytes": 2484092582,
+    "sharedP2Bytes": 664612462,
+    "Q8VsCurrentRatio": 0.5014378250518113,
+    "Q4VsCurrentRatio": 0.2820764913328013,
+    "Q4VsQ8Ratio": 0.5625353278916596,
+    "Q4ReductionVsCurrentFraction": 0.7179235086671987,
+    "Q4ReductionVsQ8Fraction": 0.4374646721083404,
+    "noPhysicalRAMInference": true
+  },
+  "CurrentAPIControl": {
+    "summary": "current/physical_summary.json",
+    "warmMedian": {
+      "totalMs": 4928.747125,
+      "RTF": 0.47391799278846153,
+      "llmLoadMs": 142.989417,
+      "LLMms": 3297.95025,
+      "acousticMs": 1482.4296669999999,
+      "CPUms": 436.7420000000002,
+      "CPUOnlyEnergyPerAudioSecondMJ": 119.0275014423077,
+      "prefillMs": 31.581417,
+      "decodeTotalMs": 3230.953592,
+      "decodeMeanMs": 12.474724293436292,
+      "sampledPeakBytes": 2328939680
+    },
+    "warmNominalCount": 3,
+    "sourceCommit": "1f2799526289314126d25c2c137027008516b603"
+  },
+  "Q8APIControl": {
+    "summary": "q8/physical_summary.json",
+    "warmMedian": {
+      "totalMs": 3555.8455,
+      "RTF": 0.34190822115384617,
+      "llmLoadMs": 137.648666,
+      "LLMms": 1911.714125,
+      "acousticMs": 1496.8055410000002,
+      "CPUms": 444.1300000000001,
+      "CPUOnlyEnergyPerAudioSecondMJ": 126.24223009615383,
+      "prefillMs": 29.010542,
+      "decodeTotalMs": 1848.874784,
+      "decodeMeanMs": 7.13851267953668,
+      "sampledPeakBytes": 1600883896
+    },
+    "warmNominalCount": 3,
+    "sourceCommit": "1f2799526289314126d25c2c137027008516b603"
+  },
+  "historicalTopologyBindings": {
+    "Current": {
+      "sourceCommit": "8d9050e7108d74b8e35470e85714107f34c5f93f",
+      "compiledName": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99",
+      "recordCount": 1295,
+      "topology": "MOSTLY_CONTIGUOUS_ANE",
+      "notNewQ4Trace": true
+    },
+    "Q8": {
+      "sourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+      "compiledName": "e8b92aac9d916f5460dace1a2cc39b3f3260d3f71e51a4246cd458c2f4c819bf",
+      "recordCount": 1295,
+      "topology": "MOSTLY_CONTIGUOUS_ANE",
+      "notNewQ4Trace": true
+    }
+  },
+  "API": {
+    "sharedEngine": true,
+    "publicInitializer": "CosyVoice3Engine(assetRoot:profile:idleBucketPreparation:)",
+    "oldInitializerDefault": "Current, previous compatibility routing retained",
+    "explicitProfileRuntime": "accepted SHARDS2 schema3 multifunction, CLI not required",
+    "selectableProfiles": [
+      "current",
+      "q8"
+    ],
+    "blockedProfiles": {
+      "q4": "profileNotValidated; physical CoreML plan -14"
+    },
+    "metadata": [
+      "id",
+      "displayName",
+      "weightCompression",
+      "modelAssetIdentity",
+      "isExperimental",
+      "isSelectableForInference"
+    ],
+    "wrongProfileAndMixedTreeFailClosed": true,
+    "cacheKeys": "manifest+payload+package+function+placement+OS/CoreML/ABI already bind profile content; no global mutable selection",
+    "Swift6Tests": {
+      "count": 24,
+      "failed": 0,
+      "skipped": 0
+    },
+    "signedBuild": "PASS final gated1f27995 source",
+    "usageExampleTypecheck": "PASS exact Xcode27.2SDK and transitive yyjson modulemap",
+    "physicalControls": {
+      "Current": {
+        "requests": 5,
+        "PCM_WAV_Tokens": "BIT_IDENTICAL to frozen baseline"
+      },
+      "Q8": {
+        "requests": 5,
+        "PCM_WAV_Tokens": "BIT_IDENTICAL to prior Q8"
+      }
+    },
+    "NPU_engines_DemoModified": false,
+    "Q4BenchmarkHandoffReady": false,
+    "CurrentQ8BenchmarkHandoffReady": true
+  },
+  "wholeDeviceEnergy": null,
+  "sustainedBenchmark": "OUT_OF_SCOPE_NOT_RUN",
+  "charging": "all actual physical screens CHARGING_CONNECTED nominal, no unplugging request",
+  "NPU_engines_DemoChanges": false,
+  "HFOrReleaseCatalogChanges": false,
+  "noAdditionalQ4VariantOrPlacementFallback": true,
+  "allQ4ArtifactsRetained": true,
+  "artifactCollection": "ios/.work/weight-profile-sdk-20261006",
+  "currentQ8WAVControls": "artifacts/listening/llm_q4_20261006/api_controls",
+  "Q4WAVs": [],
+  "tests": {
+    "Swift6Selected": 24,
+    "failures": 0,
+    "skips": 0,
+    "usageExampleTypecheck": "PASS"
+  },
+  "remaining": "Compatible physically running Q4 candidate required before Q4 topology/listening/runner handoff; no promotion."
+}

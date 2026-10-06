@@ -1,0 +1,20 @@
+{
+  "sourceCheckpointBytes": 2024669519,
+  "CurrentPrefillPackageBytes": 728609297,
+  "CurrentDecodePackageBytes": 728542251,
+  "CurrentLLMPackageBytes": 1457151548,
+  "Q8LLMPackageBytes": 730670903,
+  "Q4PrefillPackageBytes": 205558862,
+  "Q4DecodePackageBytes": 205469334,
+  "Q4LLMPackageBytes": 411028196,
+  "CurrentRuntimeBytes": 3530215890,
+  "Q8RuntimeBytes": 2803735289,
+  "Q4RuntimeBytes": 2484092582,
+  "sharedP2Bytes": 664612462,
+  "Q8VsCurrentRatio": 0.5014378250518113,
+  "Q4VsCurrentRatio": 0.2820764913328013,
+  "Q4VsQ8Ratio": 0.5625353278916596,
+  "Q4ReductionVsCurrentFraction": 0.7179235086671987,
+  "Q4ReductionVsQ8Fraction": 0.4374646721083404,
+  "noPhysicalRAMInference": true
+}

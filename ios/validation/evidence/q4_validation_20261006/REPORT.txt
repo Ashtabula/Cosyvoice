@@ -1,0 +1,91 @@
+CosyVoice3 Q4 validation + shared SDK weight-profile API — 2026-10-06 America/New_York
+Final objective classification: Q4_UNSUPPORTED_OR_INCOMPATIBLE.
+Human Q4 status: NOT_REACHED_NO_Q4_AUDIO. No Q4 promotion, no second Q4 variant, no placement fallback.
+
+A. Authoritative baseline / task boundary
+Read accepted FP16 baseline, Q8 conversion/numerical/physical/memory/listening, latest Q8 human PASS receipt, post-quantization program-interval audit and accepted HiFT/F0 FP64 reuse evidence. Latest Q8 status is Q8_RESOURCE_WIN/HUMAN_PASS for the3Englishpairs; earlier immutable report still says pending and is superseded by its latest_status.json. Current/FP16 remains shipping LAST_KNOWN_GOOD. This task does not change NPU_engines_Demo, build a runner UI or run whole-device sustained benchmarking.
+Frozen parent exportac31e117938ed50132365973a103cc8425942700, tree4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa, manifest2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee. Accepted semantics1b62aa8607f6e48f05dd8d4741dbf98328777509, existing embedding copy preserved. Reference/text/instruction/seed42, SHARDS2/Flow6/N260/n257_384/249600samples/24000Hz/10.4s fixed in valid Current/Q8 controls. No6shard physical comparison, quantized acoustic/KV, algorithm/state/sampling/placement/precision/weights update to Current/Q8.
+Device iPhone18,4 physical/wired/connected iOS27.2(24B5089g), CoreML3600.25.2, Xcode27.2(27B5019j). All screens CHARGING_CONNECTED as explicitly required by user. Nominal short controls, no whole-device/older-iPhone compatibility inference.
+
+B. Actual Q4 mechanism / isolated assets
+Conversion source4a9366f8f0e42a150edf3af42eda2ef396860474. Actual coremltools9.0 optimize.coreml.linear_quantize_weights, OpLinearQuantizerConfig(linear_symmetric,dtype=int4,granularity=per_block,block_size=32,weight_threshold=2048). Only169 const inputs to linear.weight per package selected. Bias/norm/mask/RoPE/activation/48MLState/reference/acoustic excluded; no QAT/fine-tuning/reconversion fromTorch/topology rewrite. Original CoreML matrix weightsFP16; source llm.pt independently identifiedFP32 in prior evidence. DeploymentiOS18/CoreML8/spec9 preserved. IO/state serialized descriptions byte-identical and major linear/matmul/read_state/write_state/select/softmax counts unchanged. Each adds169constexpr_blockwise_shift_scale; actual first encoded data INT4[896,896], scaleFP16[896,28], giving input-axis groups32. IO/48states/outputlogits+hiddenFP16. This is 4-bit stored weights, not proof of 4-bit ANE arithmetic.
+Q4packages prefilla434a6d7ff3102ed5ba708a45f62677762acefceed53f6f8e9eb79dc5a509ce7 (205558862B), decodebbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7 (205469334B). New root treebca74138e3d7112f2e9e6bd0b0370401cc79be4ee27c7c2c09cc0ddf644f86d1/manifests092d9fbe3c8ad8fe556dd788a0824128200aec1f2fafba410ecb65b10a1ae31a. Exactly57unchangednonLLMfiles reused device-local read-only hardlinks; both P2 multifunction packages unchanged. GenericFROZEN_PACKAGE log means immutable active package, not original FP16 production. Actual Q4 path/manifest/payload identity binds changed asset explicitly.
+TotalLLM411028196B vsCurrent1457151548B vsQ8730670903B:71.79235%smallerCurrent,43.74647%smallerQ8. Runtime2484092582B plussharedP2664612462B. Disk size is not measured RAM. OriginalCurrent/Q8roots/models/receipts/WAVs unchanged. Newcomplete localcollection ios/.work/weight-profile-sdk-20261006 supports stable logical current/q8/q4 installation; Q4 files present but NOT validated/selectable. No HF/catalog update.
+
+C. Host numerical characterization
+One common deterministic synthetic speech-embedding prefill224 +64teacherforceddecode, all3variants macOSCPU_ONLY, each oneprefillMLState sharedwithcorrespondingdecode. Actual source fixture bytes same; diagnostic is NOT production instruction/reference prefix54 or sampled speech generation. All outputs/states finite. Q4vsCurrent and Q4vsQ8 decode top1agreement63/64=.984375. Prefill Q4vsCurrent logits maxAbs6.0,meanAbs1.300559,RMSE1.662745,cosine.943646,top20overlap.55; hidden maxAbs7.884277,RMSE1.130244,cosine.844439. Mean decode logits RMSE1.910037vsCurrent/1.908037vsQ8. All65rows/top20/hidden/48state errors in host_numerical_summary. High top1agreement is not acoustic quality proof. Pythonread_statefloat32bridgeviews do not imply nativeKV precision changed; encoded/nativeABI remainsFP16.
+Initial baseline host compilation could not create normal system temporary working directory under sandbox, preserved failure then escalated same-input retry passed; this was not a Q4 numerical compatibility failure.
+
+D. Actual physical Q4 failure / stop
+Q4 attempted signed Release source217fd97db5cae2b4a687f5280b1a0711bf929992 through public CosyVoice3Engine(profile:.q4). Actual staged root/payload verifiedbca74138... . CPU_AND_NErequested/defaultmain/no extracted package. Prefill MLModel constructor failed execution-plan construction, outerCoreMLCode0 with underlying -14, before prediction/MLState/generation/acoustic/PCM. Existing loader automatically removes/recompiles identical compiled artifact once and retries unchanged bytes/configuration/placement, then propagates finalfailure. No manualsecondvariant/CPU_ONLYrescue/changedhints/groupsearch.
+Exact error/fullconsole/partial100msmemoryCPU/thermal timeline/rawreceipt retained q4/physical-a. Failedcompiledartifact readback after timedcontrols:205588953B, actualcontenttreed8c32bef3c8144e5415a7aaf7d1eb06da7915ece2657593427301409396153a4; filename key19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779 is a content+runtime cache key, NOT compiled-contentSHA. Compiled files existing do not prove model-plan load/inference/ANE success. Decode package physically not reached. Host CPU load/predict does not substitute for required physical execution.
+Applied user stop condition immediately.0completedQ4requests,0generatedtokens/noPCM/noWAV. Q4N/EOS/divergence/repetition/duration/RTF/inferenceRAM/energyperaudio all N/A. Partial failed-preparation counters are not synthesis performance or memory benefits. Exact unsupported op/compiler cause UNKNOWN; this does not prove allQ4models/devices cannot use ANE.
+
+E. ANE topology / quality gate
+Q4 topologyINSUFFICIENT_TRACE_EVIDENCE; no validdecode prediction to trace, so do not claim CPU_ONLY/fullANE/fragmented/zero internal hardware gaps. No newQ4trace or graphrewrite. PriorFP16/Q8SHA-bound1295prediction traces preserved: each1observed ANEprograminterval, warmmean11.727224/6.679200ms, recordedinternalgaps0. Historicaltraces source8d9050e/c882fb3; currentLLM/session/modelbytes/placement unchanged and freshcontrols reproduce tokens/PCM. These remain historical program-level evidence, not a new fullper-optrace for finalAPI source. Oneinterval does not prove internal uninterruptedkernels or fullANEresidency.
+Current original6samples humanPASS; Q8 selected3Englishpairs explicituser“语音全部通过”14:32PASS. Corpus unchanged sample01/02/04. Q4 never reached listening; cannot manufacture a nine-WAV Current/Q8/Q4 presentation. Previous sixinlineWAVs remain onworkspace; newCurrent/Q8frozencontrolWAVs exported/hashverified. No subjectiveQ4PASS/FAIL declared. No newhuman gate needed for bit-identical Current/Q8 control outputs.
+
+F. Shared public API / safe gating
+Public CosyVoice3WeightProfile.current/.q8/.q4 with immutable Sendable metadata id/displayName/weightCompression/modelAssetIdentity/isExperimental/isSelectableForInference. One shared actor implementation; no three separate engines and no mutable global selector. Public explicitinitializer CosyVoice3Engine(assetRoot:profile:idleBucketPreparation:) resolves installed selectedroot or logicalprofilecollection. Client does not know CoreML/privatefilenames or conversion revisions. No shard CLI required for explicitprofile acceptedP2 route. Old CosyVoice3Engine(assetRoot:) remainsCurrent and preserves previous legacy/validation routing; no silentdefaultpromotion.
+Sourcef7ab8edinitialsignedbuild passed but staticpreflight found directtwo-path argument violated existing six-source manifestguard. Fixed separate immutableP2override while preserving guard/default; solver/prediction math body bytes identical. Source217fd97used for actualQ4failedattempt. Afterfailure final1f2799526289314126d25c2c137027008516b603 marksQ4non-selectable: .q4 immediatelythrowsCosyVoice3WeightProfileError.profileNotValidated(profileID:"q4"), never substitutesCurrent/Q8. Its metadata/diagnostic assets remain discoverable. Current/Q8 selectable for engineering use; Q8 remains experimental and not release-promoted.
+Exact manifest/payload/prefill/decode/P2hashes checked before model loads; stale/mixed/wrongasset roots failclosed. Existing cache/readiness/shelf keys bindmanifest+payload+package+function+placement+runtimeOS/ABI, disjointprofilecontentidentities. Identical acoustic compiledarchives intentionally dedup, but model-shelf/readiness identity disjoint. Root/source bytes immutable duringengine/processlifetime, everynewprocess actualrehash; no hotreload/lossy caching. Per-engineactor-owned validationBool synchronous before prediction, MLState fresh per request, no shared mutable tensor/profile globals.
+24Swift testsPASS/0skip including10profiletests, original publicFlow[6,8,10]/default6/enumeratedbounds/cacheinvalidation/frozenFP64 parity. InitialonefixtureURLdirectory-trailing-flag assertion failure preserved and corrected, not tolerance relaxation. Final signedReleasebuildPASS. Completepublic usageexample typecheckedPASS against actualXcode-betaSDK27.2 module+yyjson C modulemap; initialwronginclude/SDK27.0/omittedmodulemap failures retained, no dependency installs. No longstress/6-shard exploration.
+
+G. Final API physical controls
+Finalsource1f27995, each5publicrequests first/primer/3nominal measuredwarm, CHARGING_CONNECTED/foregroundbrightness.2/no playback/same5PCMretention. No shard CLI. Actualconsoleconstructors2,Flow6,N260,n257_384,249600/24000; allCurrenttoken5227.../PCM909a.../WAVa04f... identical to original frozen baseline. AllQ8tokenb9e9.../PCMf48d.../WAV101d... identical to priorQ8. Thus APIrouting does not alter accepted Current/Q8 output and successful controls localize Q4failure to candidateplanpath ratherthan a broken sharedcontroller/environment. Differentfailed-vsgatedsourcecommits explicitly bound; availabilitygate onlyaffectsQ4 constructor.
+FreshCurrent/Q8median warmtotal4928.747/3555.846ms,RTF.473918/.341908,LLM3297.950/1911.714ms,decode12.474724/7.138513ms/token,acoustic1482.430/1496.806ms, sampledpeak2328939680/1600883896B. Fullboundaries/rawruns in physical_summary/receipts. CPU-only119.0275/126.2422mJ/audio-sec, excludesANE/GPU/wholedevice, noenergywinclaim. Allstart/endnominalcharging; ambientunknown, no sustained/wholedevice/olderdeviceclaim.100ms sampledpeaknotexact instantaneous/permodelbytes. Newcontroltimings observations, notnewoptimizationclaim vsolderQ8medians.
+
+H. Comparison
+Metric | Current | Q8 | Q4
+--- | --- | --- | ---
+LLM source weight blobs bytes | 1455911588 | same frozen source | same frozen source
+Prefill package bytes | 728609297 | 365380226 | 205558862
+Decode package bytes | 728542251 | 365290677 | 205469334
+Total LLM package bytes | 1457151548 | 730670903 | 411028196
+Runtime payload bytes | 3530215890 | 2803735289 | 2484092582
+Shared P2 additional bytes | 664612462 | 664612462 | 664612462
+LLM compression ratio vs Current | 1.000000 | 0.501438 | 0.282076
+Model load ms | 142.989 | 137.649 | N/A load failed
+Prefill ms | 31.581 | 29.011 | N/A
+Decode ms/token | 12.474724 | 7.138513 | N/A
+Total LLM ms | 3297.950 | 1911.714 | N/A
+Acoustic synthesis ms | 1482.430 | 1496.806 | N/A
+Total synthesis ms | 4928.747 | 3555.845 | N/A
+Warm RTF | 0.473918 | 0.341908 | N/A
+Sampled warm peak bytes | 2328939680 | 1600883896 | N/A
+Request5 completion footprint bytes | 872975520 | 853265592 | N/A
+Idle35s footprint bytes | 418269336 | 404588792 | N/A
+CPU-only mJ/audio-second | 119.028 | 126.242 | N/A
+Whole-device energy/sustained thermal | NOT_RUN | NOT_RUN | NOT_RUN
+Historical observed ANE intervals/prediction | 1 | 1 | N/A no prediction
+Historical longest ANE interval warm mean ms | 11.727224 | 6.679200 | N/A
+Recorded internal gap ms | 0 | 0 | N/A
+Topology classification | MOSTLY_CONTIGUOUS_ANE | MOSTLY_CONTIGUOUS_ANE | INSUFFICIENT_TRACE_EVIDENCE
+N / function | 260 / n257_384 | 260 / n257_384 | N/A
+Frozen tokens divergence | reference | 257/260 vs Current | N/A physical
+Human listening | PASS prior accepted corpus | PASS prior3Englishpairs | NOT_REACHED
+API availability | selectable | experimental/selectable | blocked profileNotValidated
+
+Table source: fresh3nominalwarmcontrols forruntime/memory; historicalprogramtraces explicitly labeled forANE intervals; Q4physical cellsN/A. Hostsynthetic numbers not inserted into physical rows. Idle/completion processmemory includes persistentCoreML/private resources/callerretention, not exactmodel attribution.
+
+I. Explicit17questions
+1: coremltools9 linear_quantize_weights, symmetricINT4per_block32,169linear matrices only; FP16activation/KVunchanged.
+2: Q4LLM411028196B vsCurrent1457151548B,71.79%smaller.
+3: Q4LLM411028196B vsQ8730670903B,43.75%smaller.
+4: Q4physicalinferencepeakN/A:prefillplanloadfailedbeforeprediction.
+5: RAMsavedvsCurrentN/A; notinferredfromdisk/failedloadfootprint.
+6: RAMsavedvsQ8N/A.
+7: Q4physicaldecode ms/tokenN/A.
+8: Q4RTFN/A.
+9: UNKNOWN/INSUFFICIENT_TRACE_EVIDENCE, noQ4decode interval to classify.
+10: No validprediction; meaningfulCPUfallbackcannotbeestablished. LoadfailureisnotCPU_ONLY/fragmentationevidence.
+11: N/A validprocessenergy/audio; partialfailedpreparation countersretained, notaudio-normalized. Wholedeviceoutofscope.
+12: CurrentPASSexistingacceptedcorpus, Q8PASSexplicit3Englishpairs, Q4NOT_REACHED/noWAV/nohumanverdict.
+13: CosyVoice3Engine(assetRoot:profile:) withCosyVoice3WeightProfile.current/q8/q4; q4currentlyfailsprofileNotValidated. Completeusageexample+handoffdocumentprovided.
+14: YES weightdefaultremainsCurrent; oldinitializercompatibilityroutingunchanged, explicitprofilesuseacceptedP2internally.
+15: YES manifest/payload/package/P2pinning+wrongprofiletests; Q4blockedbeforeload, nosilentfallback.
+16: Q4NOTREADYforNPU_engines_Demo; Current/Q8publicAPIhandoffvalidated. Demo/runnernotmodified.
+17: AcompatiblephysicalQ4candidate mustfirstload/predictunderfrozenplacement/state, then repeatedsynthesis/token/PCM/memory/performance/topology and actualthreewaylistening/usergate. Finalrunnerenergy/thermal andolderdeviceproof remainseparate; noQ4productionpromotion.
+
+J. Preservation / recommendation
+KeepCurrentshippingLG andQ8human-approvedexperimentalprofile. RetainfailedQ4block32packages/compiledreadback/rawfailure/hostnumerical forlaterauthorizeddiagnosis. DoNOTenableQ4merelybecausefilesare smaller orhosttop1high; doNOTforceCPUplacement, graphrewrite,mixedprecision oranothergroupvariantinthisstoppedtask. WholedevicebenchmarkbelongsfutureDemo task. Q4 scope ended atphysicalstopcondition; downstreamtopology/listening unavailable honestlyreported. All originalCurrent/Q8assets/manifests/receipts/listening/HF/catalog preserved; unrelated.gitignore/reports/tools/voxcpm2changes untouched.

@@ -1,0 +1,36 @@
+{
+  "info" : {
+    "arguments" : [
+      "devicectl",
+      "device",
+      "copy",
+      "from",
+      "--device",
+      "00008150-000A05CA1440401C",
+      "--domain-type",
+      "appDataContainer",
+      "--domain-identifier",
+      "com.actacomes.cosyvoice3.candidatebenchmark",
+      "--source",
+      "Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc",
+      "--destination",
+      "ios/.work/llm-q4-20261006/failed-device-prefill.mlmodelc",
+      "--json-output",
+      "ios/validation/evidence/q4_validation_20261006/q4/failed-compiled-readback.json"
+    ],
+    "commandType" : "devicectl.device.copy.from",
+    "environment" : {
+      "TERM" : "dumb"
+    },
+    "jsonVersion" : 5,
+    "outcome" : "success",
+    "version" : "651.13.2"
+  },
+  "result" : {
+    "destination" : "file:///Volumes/WD/Codes/Cosyvoice/ios/.work/llm-q4-20261006/failed-device-prefill.mlmodelc",
+    "deviceIdentifier" : "FD701839-6A88-59F5-9AFF-A3362B91B2A5",
+    "domain" : "appDataContainer",
+    "domainIdentifier" : "com.actacomes.cosyvoice3.candidatebenchmark",
+    "source" : "Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/19ecd39e05da9204ffe8635a6d77091176fc60f051192c55a74dc27e2cf5d779.mlmodelc"
+  }
+}

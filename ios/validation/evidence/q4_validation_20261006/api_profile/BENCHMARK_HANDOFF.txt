@@ -1,0 +1,63 @@
+CosyVoice3 weight-profile API handoff — 2026-10-06
+
+One shared CosyVoice3Engine implementation. Public selection is:
+  try CosyVoice3Engine(assetRoot: installedAssetsURL, profile: .current)
+  try CosyVoice3Engine(assetRoot: installedAssetsURL, profile: .q8)
+  try CosyVoice3Engine(assetRoot: installedAssetsURL, profile: .q4)
+
+The third call currently FAILS CLOSED with
+  CosyVoice3WeightProfileError.profileNotValidated(profileID: "q4")
+because the exact INT4 block32 candidate failed physical prefill CPU_AND_NE
+execution-plan construction (-14) on iPhone18,4/iOS27.2 before prediction.
+It never selects Current/Q8 as a substitute. Q4 metadata is discoverable but
+isSelectableForInference=false. This is not a general claim about all Q4
+graphs/devices, and the candidate has no physical listening/RTF/RAM result.
+
+Default old initializer CosyVoice3Engine(assetRoot:) remains Current and retains
+its previous legacy/validation routing. Explicit profiles select the accepted
+schema3/P2 configuration internally, without requiring a shard CLI flag. This
+distinction preserves existing callers and exposes the primary SHARDS2 lane
+for the new runner API. All comparable runs use SHARDS2/Flow6. No new sharding,
+partition tuning, operator rewrite or fewer Flow steps is introduced.
+
+installedAssetsURL may be a complete selected-profile root or a collection
+containing stable logical current/q8/q4 profile directories. The SDK owns
+internal model mapping and validates manifest/payload/model/P2 content hashes;
+the client never needs CoreML filenames, private package paths or conversion
+revision names. Immutable file bytes must not change during engine/process
+lifetime; a new process rehashes actual bytes through existing storage logic.
+
+Local complete asset collection:
+/Volumes/WD/Codes/Cosyvoice/ios/.work/weight-profile-sdk-20261006
+Current/Q8 complete, Q4 artifacts retained for diagnosis only. Receipt
+complete_profile_collection.json verifies all three trees; file availability
+does NOT make Q4 inference validated/selectable. No HF/catalog promotion.
+
+Public metadata:
+  profile.metadata.id / displayName / weightCompression
+  profile.metadata.modelAssetIdentity / isExperimental
+  profile.metadata.isSelectableForInference
+The metadata distinguishes storage compression from unknown ANE arithmetic.
+Current remains production default. Q8 experimental despite user listening
+PASS; Q4 experimental and blocked. No mutable global profile selection.
+
+Cache safety: existing plan/shelf keys bind actual manifest+payload+package+
+function+placement+OS/runtime/ABI. These identities are disjoint for all three
+profiles. Byte-identical acoustic compiled archives may be shared deliberately;
+validated readiness/shelf keys remain profile-content specific. MLState is
+fresh per request and never shared across profile/engine instances.
+
+Use identical public CosyVoice3Parameters (Flow=.steps6, same reference,
+instruction/text/settings) for any later Current/Q8 comparison. Select one
+profile per process for controlled peak-memory tests; do not retain multiple
+engines/outputs differently and claim a memory improvement. Sampling must use
+the same existing deterministic validation mechanism when benchmarking;
+profile selection does not change or add sampling semantics.
+
+Future NPU_engines_Demo readiness: Current/Q8 API handoff only after the
+associated physical control receipts PASS. Q4 NOT READY until a separate
+authorized compatible candidate passes physical inference/topology/listening.
+No Demo source/UI/runner integration or sustained whole-device test performed
+in this task. Charging screens are not whole-device energy/thermal evidence.
+
+Complete small usage example is ios/validation/examples/WeightProfileUsage.swift.

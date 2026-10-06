@@ -1,0 +1,9 @@
+Command:['swiftc', '-typecheck', '-swift-version', '6', '-I', 'ios/.build/out/Products/Debug', '-target', 'arm64-apple-macosx15.0', 'ios/validation/examples/WeightProfileUsage.swift']
+Exit:1
+ios/validation/examples/WeightProfileUsage.swift:4:8: error: cannot load module 'CosyVoice3Core' built with SDK 'macosx27.2' when using SDK 'macosx27.0': /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Debug/CosyVoice3Core.swiftmodule/arm64-apple-macos.swiftmodule
+ 2 | // Requirement: future client selects a validated weight profile through one public engine, without model filenames, conversion scripts or shard CLI flags.
+ 3 | import Foundation
+ 4 | import CosyVoice3Core
+   |        `- error: cannot load module 'CosyVoice3Core' built with SDK 'macosx27.2' when using SDK 'macosx27.0': /Volumes/WD/Codes/Cosyvoice/ios/.build/out/Products/Debug/CosyVoice3Core.swiftmodule/arm64-apple-macos.swiftmodule
+ 5 | 
+ 6 | enum WeightProfileUsage {

@@ -795,3 +795,24 @@ Actions:physicalsource217fd97/actualQ4treebca74138...verified;firstprefillCPU_AN
 Files:Q4objective_status/physical-a,evidence;WeightProfileavailability/Engineguard/test。
 Validation:hostthreewayfinite/specABIpass,signed217buildpass;physical0completedQ4requests. NoQ4RTF/memory/audio fabricated;newgatedtestbuildsource next。
 GitHub Timeline:217fd97已commit未push；failedQ4/profilegatechange pendingcommit。
+
+Time:2026-10-06 15:47:40 EDT America/New_York
+Prompt: 用户截图明确要求对话内默认WAV播放卡片，拒绝网页/自制播放器替代。
+Actions: readactualreference screenshot; retrieved prior successful final response mediaembed syntax from Cosyvoice thread; verified5PCM16WAVSHA/header; switchfinaldelivery to ![filename.wav](absolute WAVpath). EarliercustomHTML retainedasunuseddiagnosticartifact; localhostbrowseraccessapprovaldismissedtwice/no bypass/noUIverifiedclaim.
+Files: reports/voxcpm2/listening_manifest.json; ignoredartifacts/voxcpm2/voxcpm2-plain-player.html andreference/listening_pcm16/index.html earliercreated; 历史工作记录.txtappend-only.
+Validation: all5WAVSHAunchanged/48kHzmonoPCM16; requestednativecardrenderstillrequiresactualuserconfirmation; qualityPENDING_HUMAN/noCoreMLorSDKchanges.
+GitHub Timeline:未commit、未push；本任务未要求push。
+
+Time:2026-10-06 15:56 EDT America/New_York
+Prompt:完成Q4严格validation +APIhandoff，physical失败按stopcondition结束。
+Actions:Q4classificationUNSUPPORTED_OR_INCOMPATIBLE，prefillCPU_AND_NEplan-14，旧loader已同bytes/placement自动重compile一次仍失败。NoQ4prediction/PCM/RTF/RAM/听音伪造；compiledfailure205588953B/tree d8c32bef...readback preservedaftertimedcontrols。NewSDKCurrent/Q8sharedprofiles selectable，Q4metadata discoverablebutprofileNotValidated failclosed。Completeimmutablelocalprofilecollection prepared，无HF/catalog/default promotion。
+Files:REPORT/final/table/24tests+signedbuild/sourcebindings/rawCurrentQ8controls/Q4failure/hostnumerical/compiledidentity/APIusage+handoff/quality-gatestatus。
+Validation:24Swift6testsPASS/0skip; signedfinal1f27995buildPASS；10Current/Q8publicrequests(no shard CLI) allsameN260/P2/Flow6/24000/249600 andeachpriorPCM/WAV/token identity。Current/Q8freshwarmmedianRTF.473918/.341908，sampledpeak2.328940/1.600884GB，仅charging短测/CPU-onlyenergy119.028/126.242mJperaudiosec，notwholedeviceenergy。UsageexampletypecheckPASS withsameXcode27.2SDK+yyjsonmodulemap，initialwrongpath/SDK/modulemapfailuresretained。Q4package411028196B (-71.79%Current,-43.75%Q8) notRAMproof。PriorQ8humanPASS/sourceassets/historyunchanged;noDemo/newQ4variant/mixed/longsustained/6shardtest。
+GitHub Timeline:4a9366f/f7ab8ed/217fd97/1f27995已commit未push；finalreport/evidence随后选择性commit/push。
+
+Time:2026-10-06T15:56:11.794495-04:00
+Prompt:都好；用户确认五项 upstream 音频均可接受。
+Actions:recordactualHUMAN_PASS/fixedWAVidentities/defaultnativecards; advanceoriginaltasktoactualarchitecture+goldenfixtures+incrementalCoreML. No SDK/VoxCPM1.5 changes.
+Files:reports/voxcpm2/human_review.json,listening_manifest.json,upstreamreport,feasibilityjson;历史工作记录.txtappend-only.
+Validation: upstream5pathHUMAN_PASS; futureCoreML/devicequalitynotapproved.
+GitHub Timeline:未commit、未push；本任务未要求push。

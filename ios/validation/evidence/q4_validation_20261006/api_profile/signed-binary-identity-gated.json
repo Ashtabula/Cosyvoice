@@ -1,0 +1,7 @@
+{
+  "bundleMarker": {
+    "sourceCommit": "1f2799526289314126d25c2c137027008516b603"
+  },
+  "binarySHA256": "4bf1fc5d8830b0e7762c8fbe49807abddcf4072abdbeda898cc0aae249ece1b3",
+  "purpose": "final SDK API Current/Q8 control, Q4 blocked"
+}

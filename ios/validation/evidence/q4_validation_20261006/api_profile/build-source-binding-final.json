@@ -1,0 +1,113 @@
+{
+  "sourceCommit": "217fd97db5cae2b4a687f5280b1a0711bf929992",
+  "files": [
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3AcousticRuntime.swift",
+      "sha256": "d35b62efeb43616448d2f9fab15322d7cf31de35c9437e959d888e2419de0492"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift",
+      "sha256": "9fc4e78b658f8a66eca8db626e6b83b999cf97da940dc543a5a24ef94a14228d"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+      "sha256": "7b68b811b297b7fb800bfc66ba20e2e6985f18908fc4b39bb5bda2c398826142"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3EmbeddingTables.swift",
+      "sha256": "c8180fd634f903186f08907ba486d0c733e6e12610b5d679908aadc3c8c04a57"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
+      "sha256": "feec32206524203e3f5248678c2821d156d145f51acff4aed61d659db36ba9f8"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift",
+      "sha256": "699df164db7ef9fca6c9158f729ba6d67adbd6e1ffdd3114fab1b4c8698044f0"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+      "sha256": "cd47ad736d9481781dcddef6032a10de92b39d6373edc44cc39ba2c7b9ee9899"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+      "sha256": "9893c0cc37e53fbf34a3d28293c85f5be52b616486f81b2fa0218c50005a52b9"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3ModelLifetimeAudit.swift",
+      "sha256": "dc6b8a83c067455ab5996797988f04cd20e3cb31659c1e88e31953b536f14a37"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3NativeFrontend.swift",
+      "sha256": "9fc4b2fc35f32d25f40c0301b35a9773f6c795eebeca0f44244d533378759452"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift",
+      "sha256": "4c13b601cfb8580fefd7adf213b250adcb67561699369312d2d151edbba9a2fc"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3RASampler.swift",
+      "sha256": "f608e942c8cee7278661d380f740fd55b413836b3a505832846ab24c4e12279c"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3ReferenceAudio.swift",
+      "sha256": "aad158a1644482d9e1b1c5a37c1b58bc4427aa7e212e0da8993adac302741f30"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3ReferenceConditioningDiskCache.swift",
+      "sha256": "c0cd3d98cc37ae99a3a0335e38ec8f5f956087c8e21fc53cfc62bb687d0267ea"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3ReferenceDSP.swift",
+      "sha256": "3bd0bce147a3bdb8226416ed32cf9b8ceab46815c74ddb911bfe1da830313406"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3ReferenceEncoder.swift",
+      "sha256": "d1f87c1d35423f830d76b423728cecfd1178c8e3250f8ffa3287183120176fd2"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3RuntimeContracts.swift",
+      "sha256": "a4f9e246e054f82dd3749d491e6609bf82917837abfc6589a0285ff90e1713b8"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3Stage1Runtime.swift",
+      "sha256": "0bb25a3e7a805dab397a69ca90c549cfdd5b9ca64940973890477290bd434e74"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3StageDiagnostics.swift",
+      "sha256": "0f5d3a5c218d7d5f5e3dec8a02a359a20c70feddb499bafadcd301bf733b48f8"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3TextFrontend.swift",
+      "sha256": "630716701d069ed2bf01feebbe5fd823995447d3d727d72dc785401dcb616c72"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3TokenConditioner.swift",
+      "sha256": "b932596641184812c6c255ce02516ea6fafadc4c251fa57beb0227f5db6f1ba7"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3TokenSemantics.swift",
+      "sha256": "ab0871448550248cb23544965cdfbdd112dc556456b6d755ba3434aa782dac35"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3TorchAudioResampler.swift",
+      "sha256": "c3d93ca291accf0a6e6307f31bd50b275da4a5c89654e5eaac421d3141629911"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3VoiceEngine.swift",
+      "sha256": "346b2fd1b05f9d85b52f9b6f505b393f58d722c091870e1710355f66f31c7d5b"
+    },
+    {
+      "path": "ios/Sources/CosyVoice3Core/CosyVoice3WeightProfile.swift",
+      "sha256": "3accd0437cd252f13da5675b9b329029b6a6fda9cbe483ebeec231fa47a1c863"
+    },
+    {
+      "path": "ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke/CosyVoice3DeviceSmokeApp.swift",
+      "sha256": "2300c64938e9c0b95dbd71b84c50815b9b6dab98339196f2fd9d4da3acbf9115"
+    }
+  ],
+  "buildMarkerSHA256": "be1696c105981d645eb5b61837daf637eda8705b895c0536485579167a3709d3",
+  "scheme": "CosyVoice3DeviceSmoke",
+  "configuration": "Release",
+  "device": "00008150-000A05CA1440401C"
+}

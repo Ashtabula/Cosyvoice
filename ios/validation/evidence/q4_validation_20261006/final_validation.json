@@ -1,0 +1,14 @@
+{
+  "reportSHA256": "f9752d7a9a5f575787b3bdac7e9b8698481b7c01b6a0ddc8133abcaf2c7e6cc3",
+  "summarySHA256": "f8976d837ae82a1bd1e9e7262e2763ebcfdd46d40b15cecb7ad09ca54bc514fd",
+  "sourceCodeCurrentCommit": "1f2799526289314126d25c2c137027008516b603",
+  "inferenceSourceUnchangedSincePhysicalGate": [
+    "CosyVoice3LLMRuntime",
+    "CosyVoice3FP16StatefulLLMSession",
+    "CosyVoice3HiFTDoubleF0"
+  ],
+  "Q4UnsupportedNotHumanFailure": true,
+  "all10ControlOutputsIdentityPASS": true,
+  "originalQ8EvidenceUnchanged": true,
+  "APIUsageTypecheckPASS": true
+}
