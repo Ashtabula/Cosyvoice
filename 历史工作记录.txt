@@ -473,3 +473,9 @@ Actions: fixed six-sample corpus synthesized onphysicaliPhone publicAPI, SHARDS2
 Files: workflow/corpus/state, validation-onlyexportlane/runner, listening_checkpoint_001 evidence, localignored6WAVs+referencevoice.
 Validation: signed4281cdc buildPASS; primarySHARDS2frozenfirstwarmPASS N260/n257_384/Flow6/249600/24kHz/PCM909 BIT_IDENTICAL/WAVa04f69...; warm5026.133125ms RTF0.48328203125 LLM3377.264958ms acousticLoad2.714207ms execute1472.633085ms selfCPU414.444ms. All6WAVexportsPASS, initialnewcorpus samples have no priorhuman-approvedcomparator. No6-shard rerun orlongthermaltest.
 GitHub Timeline: baselineb8367b4pushed; through4281cdc localcommittednotpushed; finalmetadata/docs/toolingpushnext. AudioWAVsremainlocalignored, NOTgitpayload.
+
+Time:2026-10-06 07:55 EDT America/New_York
+Prompt: completed permanent2-shard/listening export workflow push verification.
+Actions:00f2d280dad0d3e244bb064771b08dfdda5a3b9f source/tooling/corpus/evidence pushed andremoteHEADexactverified. AllsixoriginalcandidateWAVs physicallypresent inCodexworkspace withmatchingSHA; audioignoredbygit.
+Validation: SHARDS2/Flow6/frozenPCMbitidentityPASS; signedpublic corpusPASS+exportPASS; humanPENDING_HUMAN/LAST_KNOWN_GOODnull. No6-shard orlongthermaltest, no newproductionruntime/model/weights/sampling change.
+GitHub Timeline:已push00f2d28verified; append-onlyclosingtimelinecommitnext.
