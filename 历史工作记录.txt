@@ -880,3 +880,10 @@ Actions:pausedlengthwork;SHAverified26groups,242unusedduplicateweightcopies repl
 Files:storage_cleanup_20261006_1737tool/plan/242events/result/protectedverification;historyappend.
 Validation:protected5packageSHA+9WAVPASS;logicalduplicatebytes39530133490;actualWDfree+30617202688B/systemfree+2910806016B;remainingabout32.75/10.94GiB. APFS/backgrounddeltaexplicit;no model/evidence/audio deleted.
 GitHub Timeline:parentbb8e45cPUSHED;cleanupreceiptcommit/pushnext;unfinishedQ4lengthtool/protobuf-staticfailureskeptuncommittedforcontinuation.
+
+Time:2026-10-06T17:48:44.896681-04:00
+Prompt:Resume bounded Q4 prefill length audit after storage cleanup.
+Actions:Six length-only graph specializations pass MIL inferred-type checks;361 sequence constants classified289slice ends/48state write ends/24reshape shapes.169compressed weights and48states byte identical. Native hash-pinned CPU_AND_NE LEVEL_A roles only; no prediction/API/decode change.
+Files:specialize_q4_prefill_lengths.py;DeviceSmoke diagnostic roles;new append-only length evidence.
+Validation:static six PASS; previous tool API/count preflight failures retained; physical probes pending.
+GitHub Timeline:cleanup2a3735d committed not pushed; diagnostic checkpoint next.

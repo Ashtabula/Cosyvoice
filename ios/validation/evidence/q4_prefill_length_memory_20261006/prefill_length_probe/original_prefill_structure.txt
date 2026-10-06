@@ -1,0 +1,759 @@
+input {
+  name: "x"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 224
+      shape: 896
+      dataType: FLOAT16
+    }
+  }
+}
+input {
+  name: "cos"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 1
+      shape: 224
+      shape: 64
+      dataType: FLOAT16
+    }
+  }
+}
+input {
+  name: "sin"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 1
+      shape: 224
+      shape: 64
+      dataType: FLOAT16
+    }
+  }
+}
+input {
+  name: "mask"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 1
+      shape: 224
+      shape: 224
+      dataType: FLOAT16
+    }
+  }
+}
+output {
+  name: "logits"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 6761
+      dataType: FLOAT16
+    }
+  }
+}
+output {
+  name: "hidden"
+  type {
+    multiArrayType {
+      shape: 1
+      shape: 896
+      dataType: FLOAT16
+    }
+  }
+}
+state {
+  name: "keys_state_00"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_00"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_01"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_01"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_02"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_02"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_03"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_03"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_04"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_04"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_05"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_05"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_06"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_06"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_07"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_07"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_08"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_08"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_09"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_09"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_10"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_10"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_11"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_11"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_12"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_12"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_13"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_13"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_14"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_14"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_15"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_15"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_16"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_16"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_17"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_17"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_18"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_18"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_19"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_19"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_20"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_20"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_21"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_21"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_22"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_22"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "keys_state_23"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+state {
+  name: "values_state_23"
+  type {
+    stateType {
+      arrayType {
+        shape: 1
+        shape: 2
+        shape: 512
+        shape: 64
+        dataType: FLOAT16
+      }
+    }
+  }
+}
+metadata {
+  userDefined {
+    key: "com.github.apple.coremltools.version"
+    value: "9.0"
+  }
+  userDefined {
+    key: "com.github.apple.coremltools.source"
+    value: "torch==2.3.1"
+  }
+  userDefined {
+    key: "com.github.apple.coremltools.source_dialect"
+    value: "TorchScript"
+  }
+  userDefined {
+    key: "com.github.apple.coremltools.conversion_date"
+    value: "2026-09-30"
+  }
+}
+
+Counter({'const': 2269, 'mul': 314, 'slice_by_index': 289, 'add': 193, 'constexpr_blockwise_shift_scale': 169, 'linear': 169, 'reshape': 120, 'transpose': 96, 'read_state': 96, 'matmul': 96, 'concat': 72, 'pow': 49, 'reduce_mean': 49, 'rsqrt': 49, 'slice_update': 48, 'write_state': 48, 'softmax': 48, 'silu': 24, 'identity': 1})
