@@ -1,0 +1,27 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-resource-run",
+    "--validation-resource-lane=screen",
+    "--validation-resource-chunks=60",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-resource-allow-charging"
+  ],
+  "runnerSHA256": "4de9c39b20dd8e39b0415429e7fa88004471da9e8dff1ade6b7af0ebac7b26d4",
+  "sourceGitHEAD": "1b62aa8607f6e48f05dd8d4741dbf98328777509",
+  "virtualConsumption": "one chunk ahead /24kHz PCM clock, not physical speaker proof",
+  "formalUnpluggedRequired": false,
+  "noDeviceReadbackDuringFormal": true
+}

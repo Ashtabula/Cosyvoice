@@ -1,0 +1,33 @@
+CosyVoice3 sequential Flow and HiFT/F0 buffer pass — final2026-10-06 America/New_York
+1. Scope/order/provenance
+Acceptedsemanticreference b65820d08e8ff64db41614dcf6512f08ad166cae; startsource3e74158a6cef926b02e16ae04b9a2fb0ec2eabb3. Read acceptedembedding-copy, warmdecode, residency, LLMexecution, resourceefficiency and humancheckpoint001evidence. No acceptedearlierresidencymodelchange undone.
+Flow prototypef23988e, readiness55499bc; rejection/rawevidence frozenf23445e before anyFP64edit. FP64accepted/testedsource1b62aa8607f6e48f05dd8d4741dbf98328777509; built_app_source andreceipts independentlyretained. Only finalproductionsourcechanged is CosyVoice3HiFTDoubleF0.swift; DynamicAcousticRuntime exactpreexperimentbytes restored. No LLM/graphs/weights/quantization/placement/residency/publicAPI/reference/Flowmathchange. AllresultsSHARDS2/Flow6/N260/n257_384.
+
+2. Separate phase deliverables
+Flow: flow/REPORT.txt A-Q, ownership_audit.json, final_summary.json, raw5groups25publicoutputs+2foregroundpreinferencefailures, fullcommands/receipts/timeline/build/tests. Classification BIT_IDENTICAL_BUT_REGRESSION; productionREJECT. Experimental5allocationsremoved/33.669MBlogicalallocatedbytes but0copiesremoved, no meaningfulphysicalpeakwin. NominalpairedFlowCPU116.336->127.404ms triggeredconservativerejection. IMPORTANT laterrestoredoldFlow measured126.942ms inFP64baseline, so attributiontohreuseUNKNOWN; seeappend-only interpretation_follow_up. No robustcausalCPUregression/energyclaim.
+HiFT/F0: hift_f0/REPORT.txt A-Q, ownership_audit.json, final_summary.json, frozenweightSHA, originaloracle/pointertests,4groups20publicoutputs. Classification BIT_IDENTICAL_RESOURCE_WIN; productionACCEPTrequestlocalFP64workspace only. Exactrequireddata/Doublemath/BLAScallorderingunchanged; reuse5columns+5yallocations asonecolumns+oney; detachpreviousx afterpacking beforeymutation. COWaddressparity andwholefrozenoutput verified.
+
+3. Resource measurements and limits
+ChargingCONNECTED/fullbattery only; foregroundscreenbrightness0.2 lowpowerfalse ambientunknown; no unpluggedclaim. Pretestnominalreadinesswaits outsidetimedrequest, no inter-requestthrottle. Somegroupswentfair, rawrowsretainedandexcludedstrictnominalcomparison. Wholedeviceenergy/thermalfinaltestdelegatedupgradedNPU_engines_Demo benchmark, notperformedhere. CPU-onlyRecount is notANE/GPU orwholedeviceenergy. Footprint100ms+exactboundaries maymiss~24msF0peak; privateCoreML residencyunknown, callerPCM same5outputsretainedbothpolicies.
+AcceptedFP64nominalbefore/after total 4983.235/5005.734ms, RTF0.479157/0.481321, acoustic1482.284/1483.333ms, F024.101/22.996ms. Small2baseline/5candidate nominalrows, no formalstatisticalspeedupclaim; pipelinevariationdominates~22ms difference.
+F0CPU32.416/31.566ms, CPU-onlyF0energy46.375/45.506mJ. No measuredenergyimprovementclaim. Overallsampledpeak2325769352/2325220464bytes (difference~0.52MiB, notmaterial/causal). F0absolute sampledpeaks essentiallysame; stagepeak-minus-before increment8.962048/6.864896MB descriptivelylower, notproofinstantaneouspeak.
+
+4. Frozen identities/quality
+Token 5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d
+PCM 909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694
+WAV a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888
+249600samples/24000Hz=10.4s; all45completedphysicalrequests BIT_IDENTICAL. Frozenasset payload 4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa, manifest 2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee, package/fullinputidentities in parentprotocol andeachphysicalreceipt. FP64hostrealweights6lengths*2requests outputFloatbitsPASS, 5layerworkspaceaddressesstable;16relevanttestsPASS+signedbuildPASS. LayerDoublevectorsnotexported, no strongerunmeasuredclaim. Samealgorithm/arithmeticoperationorder verifiedsource. Originalfreshoracle retainedvalidationonly, nopublicmodelmode added.
+Humancheckpoint001PASS unchanged; candidateWAVphysicallyexported /Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/f0-candidate.wav. Bitidentitygate followsusercurrentno-newsubjectivegate rule; no newhumanPASSdeclared. AcceptedLOWcounter2; periodiclisteningafter3-5 stillrequired.
+
+5. Final answers (11)
+1: AcceptedFP64 removes8largeworkspaceallocations/request (10->2). Flowexperimentremoved5butwasrejected, finalFlowallocationcountunchanged.
+2: 0requiredcopiedbytes/request removed. FP64removes29,020,160logicalallocatedbytes/request; this is NOT copybytes ormeasuredDRAMtraffic. Sameim2colinputs/hcopy/PCMmaterialization retained.
+3: Flowphysicalpeakdecrease NOT demonstrated; Flowcandidatewithdrawn.
+4: FP64logicalworkspacepeak10,649,600->8,519,680bytes (-2,129,920/~2.03MiB). SampledF0relativeincrementlower butabsoluteinstantaneousphysicalpeakdecrease NOT proven. CoreMLHiFT unchanged.
+5: Overallprocesspeakmaterialdecrease NOT demonstrated; ~2.32GB residencydominates.
+6: FP64F0 CPU32.416->31.566ms smallobserved signal; wholeCPU470.737->459.316ms confoundedotherstagevariation. No supportedgeneralCPUimprovementclaim. FlowCPU attributionUNKNOWN despiteinitialrejection signal.
+7: CPU-onlyF0energy46.375->45.506mJ tinyobserved difference, not validatedenergybenefit; totaldevice/ANE/GPU N/A.
+8: FP64warmRTF.479157->.481321, ~22.5ms totaldifference withinobservedrunrange. No measurablespeedup/regressionclaim; goalallocation/lifetime notRTF.
+9: YES all45completedphysicaltoken/PCM/WAV identitiesexact;2startupfailures hadnoinferenceoutputandremainfailures. Everyacceptedcandidate preservesfrozenalgorithm/weights/precision/placement/KV/sampling/reference.
+10: KeepFP64workspace reuse asallocation/logical-lifetime win; keeporiginalFlow path. Noasset/catalog/publicreleasepromotion performed.
+11: No thirdarea orfurtherbuffer micro work now. Validatewholedeviceenergy/sustainedthermal throughNPU_engines_Demo; meaningfulremainingbenefitnotestablished. PreservefailedFlowprototypefor futurecontrolledinvestigationratherthanassertingitmustharm.

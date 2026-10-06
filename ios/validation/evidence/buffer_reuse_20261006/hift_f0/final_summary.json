@@ -1,0 +1,451 @@
+{
+  "status": "PHASE2_FROZEN_ACCEPTED_ALLOCATION_LIFETIME_WIN",
+  "classification": "BIT_IDENTICAL_RESOURCE_WIN",
+  "classificationScope": "proved hostallocation/COW/lifetime mechanism, not measuredwholedeviceenergy/physicalprocesspeakwin",
+  "productionChangeAccepted": true,
+  "candidateSourceSHA": "1b62aa8607f6e48f05dd8d4741dbf98328777509",
+  "parentPhase1EvidenceCommit": "f23445e",
+  "algorithmUnchanged": true,
+  "weightsUnchanged": true,
+  "generationSemanticsUnchanged": true,
+  "KVStateBehaviorUnchanged": true,
+  "placementUnchanged": true,
+  "FP64MathAndPrecisionUnchanged": true,
+  "BLASArgumentsAndAlgorithmConfigurationUnchanged": true,
+  "FlowSourceRestoredAndUnchanged": true,
+  "FlowSourceSHA256": "732916a0aca63d442c9cb111ad8653f5b351593504af00ae02bed9552df026cd",
+  "productionChangedFile": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+  "changedRegions": "lines19-72 defaultdispatch/reusedrequestworkspace; lines73-85 exactoriginalvalidationoracle",
+  "baseline": {
+    "count": 2,
+    "totalMs": 4983.2351045,
+    "RTF": 0.4791572215865385,
+    "CPUms": 470.7365,
+    "CPUOnlyEnergyMJ": 904.262354,
+    "peakBytes": 2325769352.0,
+    "acousticMs": 1482.2837295,
+    "f0": {
+      "wallMs": 24.1013955,
+      "CPUms": 32.415500000000065,
+      "CPUOnlyEnergyMJ": 46.3746345,
+      "beforeBytes": 746777688.0,
+      "peakBytes": 755739736.0,
+      "afterBytes": 755739736.0
+    },
+    "hift": {
+      "wallMs": 522.6012085,
+      "CPUms": 41.59699999999975,
+      "CPUOnlyEnergyMJ": 48.347492,
+      "beforeBytes": 760761456.0,
+      "peakBytes": 869551216.0,
+      "afterBytes": 866299016.0
+    },
+    "sampledF0PeakMinusBeforeBytes": 8962048.0
+  },
+  "candidate": {
+    "count": 5,
+    "totalMs": 5005.734041,
+    "RTF": 0.4813205808653846,
+    "CPUms": 459.3160000000007,
+    "CPUOnlyEnergyMJ": 901.448504,
+    "peakBytes": 2325220464,
+    "acousticMs": 1483.332916,
+    "f0": {
+      "wallMs": 22.996,
+      "CPUms": 31.565999999999804,
+      "CPUOnlyEnergyMJ": 45.50601,
+      "beforeBytes": 748932160,
+      "peakBytes": 755797056,
+      "afterBytes": 755797056
+    },
+    "hift": {
+      "wallMs": 523.593208,
+      "CPUms": 41.55400000000009,
+      "CPUOnlyEnergyMJ": 47.691897,
+      "beforeBytes": 764497008,
+      "peakBytes": 870960216,
+      "afterBytes": 863423624
+    },
+    "sampledF0PeakMinusBeforeBytes": 6864896
+  },
+  "rawNominalBaselineRows": [
+    {
+      "request": 3,
+      "peakBytes": 2324581512,
+      "CPUms": 475.1130000000003,
+      "CPUOnlyEnergyMJ": 904.063099,
+      "publicReportMs": 4994.253667,
+      "publicWrapperMs": 5005.973916,
+      "LLMms": 3354.135541,
+      "acousticMs": 1488.62925,
+      "RTF": 0.48021669875,
+      "stages": {
+        "flow": {
+          "wallMs": 932.1925,
+          "beforeBytes": 1911573568,
+          "peakBytes": 1911573568,
+          "afterBytes": 744934464,
+          "CPUms": 126.94200000000001,
+          "CPUOnlyEnergyMJ": 138.201324,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.27875,
+          "beforeBytes": 744934464,
+          "peakBytes": 754666560,
+          "afterBytes": 754666560,
+          "CPUms": 32.66200000000026,
+          "CPUOnlyEnergyMJ": 46.33174,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 520.570959,
+          "beforeBytes": 764710000,
+          "peakBytes": 873499760,
+          "afterBytes": 870288520,
+          "CPUms": 41.84099999999944,
+          "CPUOnlyEnergyMJ": 54.01656,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "baseline-b"
+    },
+    {
+      "request": 4,
+      "peakBytes": 2326957192,
+      "CPUms": 466.3599999999997,
+      "CPUOnlyEnergyMJ": 904.461609,
+      "publicReportMs": 4972.216542,
+      "publicWrapperMs": 4983.966958,
+      "LLMms": 3343.17375,
+      "acousticMs": 1475.938209,
+      "RTF": 0.47809774442307695,
+      "stages": {
+        "flow": {
+          "wallMs": 915.476542,
+          "beforeBytes": 1858702448,
+          "peakBytes": 1858702448,
+          "afterBytes": 748620912,
+          "CPUms": 120.52900000000045,
+          "CPUOnlyEnergyMJ": 139.380181,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.924041,
+          "beforeBytes": 748620912,
+          "peakBytes": 756812912,
+          "afterBytes": 756812912,
+          "CPUms": 32.16899999999987,
+          "CPUOnlyEnergyMJ": 46.417529,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 524.631458,
+          "beforeBytes": 756812912,
+          "peakBytes": 865602672,
+          "afterBytes": 862309512,
+          "CPUms": 41.353000000000065,
+          "CPUOnlyEnergyMJ": 42.678424,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "baseline-b"
+    }
+  ],
+  "rawNominalCandidateRows": [
+    {
+      "request": 3,
+      "peakBytes": 2329611400,
+      "CPUms": 464.52399999999943,
+      "CPUOnlyEnergyMJ": 914.6137,
+      "publicReportMs": 5007.875875,
+      "publicWrapperMs": 5019.480167000001,
+      "LLMms": 3370.943375,
+      "acousticMs": 1483.332916,
+      "RTF": 0.48152652644230765,
+      "stages": {
+        "flow": {
+          "wallMs": 926.158875,
+          "beforeBytes": 1850543216,
+          "peakBytes": 1850543216,
+          "afterBytes": 747932784,
+          "CPUms": 115.96800000000076,
+          "CPUOnlyEnergyMJ": 150.270327,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.631666,
+          "beforeBytes": 747949168,
+          "peakBytes": 754502768,
+          "afterBytes": 754502768,
+          "CPUms": 31.992999999999483,
+          "CPUOnlyEnergyMJ": 45.630677,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 521.207834,
+          "beforeBytes": 764497008,
+          "peakBytes": 873270384,
+          "afterBytes": 854903944,
+          "CPUms": 42.01099999999951,
+          "CPUOnlyEnergyMJ": 49.188055,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "candidate-a"
+    },
+    {
+      "request": 4,
+      "peakBytes": 2325925000,
+      "CPUms": 457.1790000000001,
+      "CPUOnlyEnergyMJ": 901.448504,
+      "publicReportMs": 4985.869583,
+      "publicWrapperMs": 4997.647833,
+      "LLMms": 3361.24525,
+      "acousticMs": 1476.022499,
+      "RTF": 0.47941053682692303,
+      "stages": {
+        "flow": {
+          "wallMs": 917.848042,
+          "beforeBytes": 1940425840,
+          "peakBytes": 1940425840,
+          "afterBytes": 750963824,
+          "CPUms": 116.32300000000032,
+          "CPUOnlyEnergyMJ": 139.380696,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 22.903625,
+          "beforeBytes": 750963824,
+          "peakBytes": 757877872,
+          "afterBytes": 757877872,
+          "CPUms": 31.280000000000655,
+          "CPUOnlyEnergyMJ": 54.289274,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 523.593208,
+          "beforeBytes": 757877872,
+          "peakBytes": 866651248,
+          "afterBytes": 863423624,
+          "CPUms": 41.55400000000009,
+          "CPUOnlyEnergyMJ": 60.857227,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "candidate-a"
+    },
+    {
+      "request": 3,
+      "peakBytes": 2323352664,
+      "CPUms": 459.3160000000007,
+      "CPUOnlyEnergyMJ": 894.12323,
+      "publicReportMs": 4968.195541,
+      "publicWrapperMs": 4979.867916,
+      "LLMms": 3343.460333,
+      "acousticMs": 1473.15129,
+      "RTF": 0.47771110971153846,
+      "stages": {
+        "flow": {
+          "wallMs": 915.266125,
+          "beforeBytes": 1792625704,
+          "peakBytes": 1792625704,
+          "afterBytes": 745573440,
+          "CPUms": 114.16700000000037,
+          "CPUOnlyEnergyMJ": 139.497539,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.084584,
+          "beforeBytes": 745573440,
+          "peakBytes": 752143424,
+          "afterBytes": 752143424,
+          "CPUms": 31.662999999999556,
+          "CPUOnlyEnergyMJ": 44.817068,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 523.282833,
+          "beforeBytes": 762154072,
+          "peakBytes": 870960216,
+          "afterBytes": 867863664,
+          "CPUms": 43.277000000000044,
+          "CPUOnlyEnergyMJ": 45.349573,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "candidate-b"
+    },
+    {
+      "request": 4,
+      "peakBytes": 2325220464,
+      "CPUms": 482.72599999999966,
+      "CPUOnlyEnergyMJ": 909.012044,
+      "publicReportMs": 5014.039917,
+      "publicWrapperMs": 5025.600292,
+      "LLMms": 3359.396083,
+      "acousticMs": 1497.024084,
+      "RTF": 0.48211922278846153,
+      "stages": {
+        "flow": {
+          "wallMs": 941.871458,
+          "beforeBytes": 746015832,
+          "peakBytes": 768805976,
+          "afterBytes": 762514520,
+          "CPUms": 140.1770000000006,
+          "CPUOnlyEnergyMJ": 125.25263,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 22.996,
+          "beforeBytes": 762514520,
+          "peakBytes": 769428568,
+          "afterBytes": 769428568,
+          "CPUms": 31.565999999999804,
+          "CPUOnlyEnergyMJ": 45.004464,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 523.67825,
+          "beforeBytes": 769428568,
+          "peakBytes": 861441112,
+          "afterBytes": 858229872,
+          "CPUms": 40.99499999999989,
+          "CPUOnlyEnergyMJ": 46.445662,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "candidate-b"
+    },
+    {
+      "request": 5,
+      "peakBytes": 2312834136,
+      "CPUms": 455.2390000000005,
+      "CPUOnlyEnergyMJ": 897.772916,
+      "publicReportMs": 5005.734041,
+      "publicWrapperMs": 5017.387833,
+      "LLMms": 3369.421208,
+      "acousticMs": 1489.5498329999998,
+      "RTF": 0.4813205808653846,
+      "stages": {
+        "flow": {
+          "wallMs": 923.502334,
+          "beforeBytes": 1847970880,
+          "peakBytes": 1847970880,
+          "afterBytes": 748932160,
+          "CPUms": 118.51699999999983,
+          "CPUOnlyEnergyMJ": 138.555091,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 22.883042,
+          "beforeBytes": 748932160,
+          "peakBytes": 755797056,
+          "afterBytes": 755797056,
+          "CPUms": 31.347999999999956,
+          "CPUOnlyEnergyMJ": 45.50601,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 530.859,
+          "beforeBytes": 765824088,
+          "peakBytes": 880004208,
+          "afterBytes": 864865392,
+          "CPUms": 38.59900000000016,
+          "CPUOnlyEnergyMJ": 47.691897,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      },
+      "group": "candidate-b"
+    }
+  ],
+  "excludedFromNominalComparison": [
+    {
+      "group": "baseline-a",
+      "request": 3,
+      "thermalStart": "nominal",
+      "thermalEnd": "fair"
+    },
+    {
+      "group": "baseline-a",
+      "request": 4,
+      "thermalStart": "fair",
+      "thermalEnd": "fair"
+    },
+    {
+      "group": "baseline-a",
+      "request": 5,
+      "thermalStart": "fair",
+      "thermalEnd": "fair"
+    },
+    {
+      "group": "baseline-b",
+      "request": 5,
+      "thermalStart": "nominal",
+      "thermalEnd": "fair"
+    },
+    {
+      "group": "candidate-a",
+      "request": 5,
+      "thermalStart": "nominal",
+      "thermalEnd": "fair"
+    }
+  ],
+  "testOrder": [
+    "baseline-a",
+    "candidate-a",
+    "baseline-b",
+    "candidate-b"
+  ],
+  "physicalRequestsIdentityPASS": 20,
+  "sampleRate": 24000,
+  "samples": 249600,
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "N": 260,
+  "function": "n257_384",
+  "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+  "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "allocationsBefore": 10,
+  "allocationsAfter": 2,
+  "allocationsRemoved": 8,
+  "logicalAllocatedBytesRemoved": 29020160,
+  "logicalWorkspacePeakBeforeBytes": 10649600,
+  "logicalWorkspacePeakAfterBytes": 8519680,
+  "logicalWorkspacePeakRemovedBytes": 2129920,
+  "copiedBytesRemoved": 0,
+  "hostValidation": "16testsPASS; frozenweights6lengths1,3,17,128,520,900 each2differentrequests. F0Floatbitsoriginalvsnewallidentical. Bothbufferaddressesstable5layers/noCOW. IntermediateDoublebitvectorsnotexported; exactloopmath/BLAScontractpreservedsource.",
+  "signedBuild": "PASS",
+  "physicalConditions": "CHARGING_CONNECTED batteryfull, foreground brightness0.2 lowPowerfalse ambientunknown; nominalwarmstart/endfilter; allrawfairrowsretained",
+  "physicalMemoryInterpretation": "sampled100ms+boundaries maymiss~24msF0transient. Smallprocesspeaks/deltas notcausalpermodelattribution, nooverallphysicalpeakwinproven. Logical~2.03MiB reductionprovenownership+stableaddresses.",
+  "timingInterpretation": "rawnominal2baseline/5candidate smallsample; total/f0changesdescriptivewithinrawvariation, noformalstatisticalgain/regression claim",
+  "energyInterpretation": "CPU-onlyRecount/context-switchaccounting; noenergyimprovementclaim, totalANE/GPU/wholedeviceN/A; finalenergy/thermalcomparisondelegatedNPU_engines_Demo sustainedplayback",
+  "thermalInterpretation": "somewarmrowsnominal->fair andfairretained/excludedmatchedcomparison, nothermalwin/enduranceclaim",
+  "noThirdArea": true,
+  "listening": "BIT_IDENTICAL linkedcheckpoint001 accepted sample06; no newhumanPASS claimed, no additionalgate requiredpercurrenttask",
+  "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/f0-candidate.wav"
+}

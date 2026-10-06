@@ -1,0 +1,67 @@
+{
+  "files": [
+    {
+      "path": "f0-0-bias.bin",
+      "bytes": 4096,
+      "sha256": "f2f04948183ffd666bd0cdae06e288889b97f3711a48556f4568886241fa6398"
+    },
+    {
+      "path": "f0-0-weight.bin",
+      "bytes": 1310720,
+      "sha256": "c79c050c686aed35b78418ba5276b301e5fc06595cde70b4c7684fa934b2b3d4"
+    },
+    {
+      "path": "f0-1-bias.bin",
+      "bytes": 4096,
+      "sha256": "193d259f0e60b7b34365059dacda00825c4c2e4f8dfa2e1a6e3bc77b5b4165ab"
+    },
+    {
+      "path": "f0-1-weight.bin",
+      "bytes": 6291456,
+      "sha256": "fc486b2a4148ed151d3e552bb3860046a51849acabc17c28fed31d93db9fdea0"
+    },
+    {
+      "path": "f0-2-bias.bin",
+      "bytes": 4096,
+      "sha256": "0304426c4427a9954aabdc03691f9741a95c7379b14cfc57282bb08fb3c6782e"
+    },
+    {
+      "path": "f0-2-weight.bin",
+      "bytes": 6291456,
+      "sha256": "730c540cdb0423cda4a484e4c475563876e904f1b854f37fbd14ec1cc304ce57"
+    },
+    {
+      "path": "f0-3-bias.bin",
+      "bytes": 4096,
+      "sha256": "1d4a00044f3c1c3605b2e870aabef6c7707b9bfc7fba14f6dbb28cc094bb4e29"
+    },
+    {
+      "path": "f0-3-weight.bin",
+      "bytes": 6291456,
+      "sha256": "2fb0e654d632b8f9625c1cd1a588f8612814679055b72c4796b17b7b12fe2e14"
+    },
+    {
+      "path": "f0-4-bias.bin",
+      "bytes": 4096,
+      "sha256": "ec884970bf7560e95028b7228ce27cb6b55b4375a7278db9cc54997846a053f0"
+    },
+    {
+      "path": "f0-4-weight.bin",
+      "bytes": 6291456,
+      "sha256": "be97e7d547f6b8d8925c5c97daca4280da08033acbe78f01374513ce4aabcfb4"
+    },
+    {
+      "path": "f0-classifier-bias.bin",
+      "bytes": 8,
+      "sha256": "6f02405f7bfee38ac0c84044d5a4423e67517e14235f5fa472e2c7f2a312c177"
+    },
+    {
+      "path": "f0-classifier-weight.bin",
+      "bytes": 4096,
+      "sha256": "56fb75b37a0f03cde2479442498ef32b726a2d85d9ab07ed1404b4a3ebafa104"
+    }
+  ],
+  "bytes": 26501128,
+  "precision": "FP64 rawweightbytesunchanged",
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa"
+}

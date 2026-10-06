@@ -615,3 +615,10 @@ Actions: auditF0 FP64 shapes/lifetimes; chooseONErequestlocalmaxcolumns+yworkspa
 Files: HiFTDoubleF0, F0WorkspaceParityTests, collectorF0baselineflag, hift_f0ownership_audit.
 Validation:16hosttestsPASS; frozenweights6lengths1/3/17/128/520/900 withtwoinputrequests perlength bytesidentical;5layeraddressesstable noCOWcopy. Signedbuild/physicalshortbenchmarkpending; noacceptanceyet.
 GitHub Timeline:f23445e已commit未push；FP64candidate未commit。
+
+Time:2026-10-06 12:04 EDT America/New_York
+Prompt: stopaftersequentialFlow+HiFT/F0 andreportresource/identity.
+Actions: Phase1f23445e frozeconservativeFlowrejection/restoredsource; appendlatercounterevidence oldFlowCPU126.9ms meansinitialregressioncausalityUNKNOWN, notoverwritefrozenhistory. Phase2ONEFP64workspaceaccepted BIT_IDENTICAL_RESOURCE_WIN (allocation/logicallifetimeonly);8allocations/29.020MBlogicalallocatedbytesremoved,2.12992MBlogicaloverlapremoved,0copybytes. No meaningfuloverallphysicalpeak/wholeenergygainclaimed. Stopdevice tests/no thirdarea. UpdateLOWqualitycounter2andlinkknowncheckpoint identicalWAV.
+Files: hift_f0A-Q/raw4groups/summary/build/tests/weights; combined11answerREPORT; Flowinterpretationfollowup; qualitygate. CandidateWAVlocalartifactsignored.
+Validation:16hosttestsPASS, signedReleasePASS,20FP64physicalrequests +25Flow allfrozen token/PCM/WAV BIT_IDENTICAL. SameSHARDS2/Flow6/N260, CPU/GPUplacement/weights/FP64/reference unchanged. ChargingCONNECTEDonly, rawfairrowspreservedandexcludednominalcomparison. Wholeenergy/thermalfinalbenchmarkdeferredNPU_engines_Demo.
+GitHub Timeline:f23988e/55499bc/f23445e/1b62aa8已commit未push；finalevidencecommit/pushnext.

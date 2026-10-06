@@ -1,0 +1,635 @@
+{
+  "sourceCommit": "1b62aa8607f6e48f05dd8d4741dbf98328777509",
+  "processID": 5677,
+  "condition": {
+    "ambientTemperatureC": null,
+    "batteryLevel": 1,
+    "batteryStateRaw": 3,
+    "chargingConnected": true,
+    "foreground": true,
+    "idleTimerDisabled": true,
+    "lowPowerMode": false,
+    "screenBrightness": 0.20000000298023224,
+    "thermalState": "nominal"
+  },
+  "status": "PASS_FROZEN_RESOURCE_RUN",
+  "rawRows": [
+    {
+      "audioSeconds": 10.4,
+      "averageTotalActivePowerMilliwatts": null,
+      "callerRetainedPCMBytes": 998400,
+      "completionPhysicalFootprintBytes": 863161432,
+      "computeDutyCycle": 0.9347587660576924,
+      "cpuMilliseconds": 4298.952,
+      "CPUOnlyAttributedEnergyNanojoules": 7419874029,
+      "CPUOnlyEnergyPerPlaybackSecondMillijoules": 713.4494258653846,
+      "elapsedSeconds": 9.721558583,
+      "energyPerPlaybackSecondMillijoules": null,
+      "environmentEnd": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "environmentStart": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "flowSteps": 6,
+      "function": "n257_384",
+      "idleHeadroom": 0.06524123394230763,
+      "N": 260,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "readyDeadlineLatenessSeconds": 0,
+      "request": 1,
+      "RTF": 0.9347587660576924,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "stageTimings": {
+        "acousticModelLoadMilliseconds": 1718.735874,
+        "acousticSynthesisMilliseconds": 1991.1934179999998,
+        "flowSteps": 6,
+        "frontendMilliseconds": 313.5605,
+        "llmGenerationMilliseconds": 3349.729042,
+        "llmModelLoadMilliseconds": 146.362791,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 2182.870125,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 9705.591667,
+        "warmedModelCount": 0
+      },
+      "thermalEnd": "nominal",
+      "thermalStart": "nominal",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "totalMilliseconds": 9721.491167,
+      "virtualStarvation": false
+    },
+    {
+      "audioSeconds": 10.4,
+      "averageTotalActivePowerMilliwatts": null,
+      "callerRetainedPCMBytes": 1996800,
+      "completionPhysicalFootprintBytes": 866192472,
+      "computeDutyCycle": 0.47941280855769236,
+      "cpuMilliseconds": 458.1139999999996,
+      "CPUOnlyAttributedEnergyNanojoules": 900440011,
+      "CPUOnlyEnergyPerPlaybackSecondMillijoules": 86.58077028846154,
+      "elapsedSeconds": 14.708311,
+      "energyPerPlaybackSecondMillijoules": null,
+      "environmentEnd": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "environmentStart": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "flowSteps": 6,
+      "function": "n257_384",
+      "idleHeadroom": 0.5205871914423077,
+      "N": 260,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "readyDeadlineLatenessSeconds": 0,
+      "request": 2,
+      "RTF": 0.47941280855769236,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "stageTimings": {
+        "acousticModelLoadMilliseconds": 3.177042,
+        "acousticSynthesisMilliseconds": 1462.018541,
+        "flowSteps": 6,
+        "frontendMilliseconds": 1.04375,
+        "llmGenerationMilliseconds": 3348.85825,
+        "llmModelLoadMilliseconds": 152.283333,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.524542,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4973.780125,
+        "warmedModelCount": 0
+      },
+      "thermalEnd": "nominal",
+      "thermalStart": "nominal",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "totalMilliseconds": 4985.893209000001,
+      "virtualStarvation": false
+    },
+    {
+      "audioSeconds": 10.4,
+      "averageTotalActivePowerMilliwatts": null,
+      "callerRetainedPCMBytes": 2995200,
+      "completionPhysicalFootprintBytes": 867863664,
+      "computeDutyCycle": 0.4788334534615385,
+      "cpuMilliseconds": 459.3160000000007,
+      "CPUOnlyAttributedEnergyNanojoules": 894123230,
+      "CPUOnlyEnergyPerPlaybackSecondMillijoules": 85.9733875,
+      "elapsedSeconds": 19.689073291,
+      "energyPerPlaybackSecondMillijoules": null,
+      "environmentEnd": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "environmentStart": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "flowSteps": 6,
+      "function": "n257_384",
+      "idleHeadroom": 0.5211665465384615,
+      "N": 260,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "readyDeadlineLatenessSeconds": 0,
+      "request": 3,
+      "RTF": 0.4788334534615385,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "stageTimings": {
+        "acousticModelLoadMilliseconds": 3.14446,
+        "acousticSynthesisMilliseconds": 1473.15129,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.590625,
+        "llmGenerationMilliseconds": 3343.460333,
+        "llmModelLoadMilliseconds": 141.518417,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.496791,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4968.195541,
+        "warmedModelCount": 0
+      },
+      "thermalEnd": "nominal",
+      "thermalStart": "nominal",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "totalMilliseconds": 4979.867916,
+      "virtualStarvation": false
+    },
+    {
+      "audioSeconds": 10.4,
+      "averageTotalActivePowerMilliwatts": null,
+      "callerRetainedPCMBytes": 3993600,
+      "completionPhysicalFootprintBytes": 856673368,
+      "computeDutyCycle": 0.4832307973076923,
+      "cpuMilliseconds": 482.72599999999966,
+      "CPUOnlyAttributedEnergyNanojoules": 909012044,
+      "CPUOnlyEnergyPerPlaybackSecondMillijoules": 87.40500423076922,
+      "elapsedSeconds": 24.716373458,
+      "energyPerPlaybackSecondMillijoules": null,
+      "environmentEnd": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "environmentStart": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "flowSteps": 6,
+      "function": "n257_384",
+      "idleHeadroom": 0.5167692026923076,
+      "N": 260,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "readyDeadlineLatenessSeconds": 0,
+      "request": 4,
+      "RTF": 0.4832307973076923,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "stageTimings": {
+        "acousticModelLoadMilliseconds": 4.763083,
+        "acousticSynthesisMilliseconds": 1497.024084,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.603625,
+        "llmGenerationMilliseconds": 3359.396083,
+        "llmModelLoadMilliseconds": 139.553833,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.346583,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 5014.039917,
+        "warmedModelCount": 0
+      },
+      "thermalEnd": "nominal",
+      "thermalStart": "nominal",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "totalMilliseconds": 5025.600292,
+      "virtualStarvation": false
+    },
+    {
+      "audioSeconds": 10.4,
+      "averageTotalActivePowerMilliwatts": null,
+      "callerRetainedPCMBytes": 4992000,
+      "completionPhysicalFootprintBytes": 864865392,
+      "computeDutyCycle": 0.48244113778846154,
+      "cpuMilliseconds": 455.2390000000005,
+      "CPUOnlyAttributedEnergyNanojoules": 897772916,
+      "CPUOnlyEnergyPerPlaybackSecondMillijoules": 86.32431884615384,
+      "elapsedSeconds": 29.734611083,
+      "energyPerPlaybackSecondMillijoules": null,
+      "environmentEnd": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "environmentStart": {
+        "ambientTemperatureC": null,
+        "batteryLevel": 1,
+        "batteryStateRaw": 3,
+        "chargingConnected": true,
+        "foreground": true,
+        "idleTimerDisabled": true,
+        "lowPowerMode": false,
+        "screenBrightness": 0.20000000298023224,
+        "thermalState": "nominal"
+      },
+      "flowSteps": 6,
+      "function": "n257_384",
+      "idleHeadroom": 0.5175588622115385,
+      "N": 260,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "readyDeadlineLatenessSeconds": 0,
+      "request": 5,
+      "RTF": 0.48244113778846154,
+      "sampleRate": 24000,
+      "samples": 249600,
+      "SHARDS": 2,
+      "stageTimings": {
+        "acousticModelLoadMilliseconds": 3.3112920000000003,
+        "acousticSynthesisMilliseconds": 1489.5498329999998,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.56675,
+        "llmGenerationMilliseconds": 3369.421208,
+        "llmModelLoadMilliseconds": 136.659625,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.3755,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 5005.734041,
+        "warmedModelCount": 0
+      },
+      "thermalEnd": "nominal",
+      "thermalStart": "nominal",
+      "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+      "totalMilliseconds": 5017.387833,
+      "virtualStarvation": false
+    }
+  ],
+  "sampleCount": 837,
+  "requestedPolicy": "selected-family",
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "totalEnergy": "N/A; CPU-onlyRecount available",
+  "identity": {
+    "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+    "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+    "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa"
+  },
+  "perRequest": [
+    {
+      "request": 1,
+      "peakBytes": 1865844696,
+      "CPUms": 4298.952,
+      "CPUOnlyEnergyMJ": 7419.874029,
+      "publicReportMs": 9705.591667,
+      "publicWrapperMs": 9721.491167,
+      "LLMms": 3349.729042,
+      "acousticMs": 1991.1934179999998,
+      "RTF": 0.9332299679807693,
+      "stages": {
+        "flow": {
+          "wallMs": 1314.487,
+          "beforeBytes": 549997416,
+          "peakBytes": 605703088,
+          "afterBytes": 594152368,
+          "CPUms": 498.48199999999997,
+          "CPUOnlyEnergyMJ": 991.351704,
+          "samples": 50,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.876041,
+          "beforeBytes": 594152368,
+          "peakBytes": 600066992,
+          "afterBytes": 600066992,
+          "CPUms": 33.629000000000815,
+          "CPUOnlyEnergyMJ": 44.489958,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 805.947291,
+          "beforeBytes": 600705968,
+          "peakBytes": 881101912,
+          "afterBytes": 863013976,
+          "CPUms": 289.8099999999995,
+          "CPUOnlyEnergyMJ": 669.119927,
+          "samples": 15,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 2,
+      "peakBytes": 2339343448,
+      "CPUms": 458.1139999999996,
+      "CPUOnlyEnergyMJ": 900.440011,
+      "publicReportMs": 4973.780125,
+      "publicWrapperMs": 4985.893209000001,
+      "LLMms": 3348.85825,
+      "acousticMs": 1462.018541,
+      "RTF": 0.4782480889423077,
+      "stages": {
+        "flow": {
+          "wallMs": 915.415417,
+          "beforeBytes": 2192477272,
+          "peakBytes": 2192477272,
+          "afterBytes": 734809128,
+          "CPUms": 113.13200000000052,
+          "CPUOnlyEnergyMJ": 146.215424,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.179292,
+          "beforeBytes": 734809128,
+          "peakBytes": 741379112,
+          "afterBytes": 741379112,
+          "CPUms": 31.30999999999949,
+          "CPUOnlyEnergyMJ": 43.849387,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 520.172334,
+          "beforeBytes": 750373952,
+          "peakBytes": 869387328,
+          "afterBytes": 866192472,
+          "CPUms": 44.110999999999876,
+          "CPUOnlyEnergyMJ": 47.385172,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 3,
+      "peakBytes": 2323352664,
+      "CPUms": 459.3160000000007,
+      "CPUOnlyEnergyMJ": 894.12323,
+      "publicReportMs": 4968.195541,
+      "publicWrapperMs": 4979.867916,
+      "LLMms": 3343.460333,
+      "acousticMs": 1473.15129,
+      "RTF": 0.47771110971153846,
+      "stages": {
+        "flow": {
+          "wallMs": 915.266125,
+          "beforeBytes": 1792625704,
+          "peakBytes": 1792625704,
+          "afterBytes": 745573440,
+          "CPUms": 114.16700000000037,
+          "CPUOnlyEnergyMJ": 139.497539,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.084584,
+          "beforeBytes": 745573440,
+          "peakBytes": 752143424,
+          "afterBytes": 752143424,
+          "CPUms": 31.662999999999556,
+          "CPUOnlyEnergyMJ": 44.817068,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 523.282833,
+          "beforeBytes": 762154072,
+          "peakBytes": 870960216,
+          "afterBytes": 867863664,
+          "CPUms": 43.277000000000044,
+          "CPUOnlyEnergyMJ": 45.349573,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 4,
+      "peakBytes": 2325220464,
+      "CPUms": 482.72599999999966,
+      "CPUOnlyEnergyMJ": 909.012044,
+      "publicReportMs": 5014.039917,
+      "publicWrapperMs": 5025.600292,
+      "LLMms": 3359.396083,
+      "acousticMs": 1497.024084,
+      "RTF": 0.48211922278846153,
+      "stages": {
+        "flow": {
+          "wallMs": 941.871458,
+          "beforeBytes": 746015832,
+          "peakBytes": 768805976,
+          "afterBytes": 762514520,
+          "CPUms": 140.1770000000006,
+          "CPUOnlyEnergyMJ": 125.25263,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 22.996,
+          "beforeBytes": 762514520,
+          "peakBytes": 769428568,
+          "afterBytes": 769428568,
+          "CPUms": 31.565999999999804,
+          "CPUOnlyEnergyMJ": 45.004464,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 523.67825,
+          "beforeBytes": 769428568,
+          "peakBytes": 861441112,
+          "afterBytes": 858229872,
+          "CPUms": 40.99499999999989,
+          "CPUOnlyEnergyMJ": 46.445662,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 5,
+      "peakBytes": 2312834136,
+      "CPUms": 455.2390000000005,
+      "CPUOnlyEnergyMJ": 897.772916,
+      "publicReportMs": 5005.734041,
+      "publicWrapperMs": 5017.387833,
+      "LLMms": 3369.421208,
+      "acousticMs": 1489.5498329999998,
+      "RTF": 0.4813205808653846,
+      "stages": {
+        "flow": {
+          "wallMs": 923.502334,
+          "beforeBytes": 1847970880,
+          "peakBytes": 1847970880,
+          "afterBytes": 748932160,
+          "CPUms": 118.51699999999983,
+          "CPUOnlyEnergyMJ": 138.555091,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 22.883042,
+          "beforeBytes": 748932160,
+          "peakBytes": 755797056,
+          "afterBytes": 755797056,
+          "CPUms": 31.347999999999956,
+          "CPUOnlyEnergyMJ": 45.50601,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 530.859,
+          "beforeBytes": 765824088,
+          "peakBytes": 880004208,
+          "afterBytes": 864865392,
+          "CPUms": 38.59900000000016,
+          "CPUOnlyEnergyMJ": 47.691897,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    }
+  ],
+  "warmSelection": "requests3-5 identicalprimingselection",
+  "median": {
+    "peakBytes": 2323352664,
+    "CPUms": 459.3160000000007,
+    "CPUOnlyEnergyMJ": 897.772916,
+    "publicReportMs": 5005.734041,
+    "publicWrapperMs": 5017.387833,
+    "LLMms": 3359.396083,
+    "acousticMs": 1489.5498329999998,
+    "RTF": 0.4813205808653846
+  },
+  "ranges": {
+    "peakBytes": [
+      2312834136,
+      2325220464
+    ],
+    "CPUms": [
+      455.2390000000005,
+      482.72599999999966
+    ],
+    "CPUOnlyEnergyMJ": [
+      894.12323,
+      909.012044
+    ],
+    "publicReportMs": [
+      4968.195541,
+      5014.039917
+    ],
+    "publicWrapperMs": [
+      4979.867916,
+      5025.600292
+    ],
+    "LLMms": [
+      3343.460333,
+      3369.421208
+    ],
+    "acousticMs": [
+      1473.15129,
+      1497.024084
+    ],
+    "RTF": [
+      0.47771110971153846,
+      0.48211922278846153
+    ]
+  },
+  "stageMedian": {
+    "flow": {
+      "wallMs": 923.502334,
+      "beforeBytes": 1792625704,
+      "peakBytes": 1792625704,
+      "afterBytes": 748932160,
+      "CPUms": 118.51699999999983,
+      "CPUOnlyEnergyMJ": 138.555091
+    },
+    "f0": {
+      "wallMs": 22.996,
+      "beforeBytes": 748932160,
+      "peakBytes": 755797056,
+      "afterBytes": 755797056,
+      "CPUms": 31.565999999999804,
+      "CPUOnlyEnergyMJ": 45.004464
+    },
+    "hift": {
+      "wallMs": 523.67825,
+      "beforeBytes": 765824088,
+      "peakBytes": 870960216,
+      "afterBytes": 864865392,
+      "CPUms": 40.99499999999989,
+      "CPUOnlyEnergyMJ": 46.445662
+    }
+  },
+  "allThermalStates": [
+    0,
+    1
+  ]
+}

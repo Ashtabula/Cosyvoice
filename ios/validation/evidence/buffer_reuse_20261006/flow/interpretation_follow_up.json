@@ -1,0 +1,8 @@
+{
+  "writtenAfterPhase2": "2026-10-06 12:04 EDT America/New_York",
+  "exactPhase1PhysicalComparisonSourceSHA": "55499bc59fc45608d305d79ef4c27ae14828dfe2",
+  "phase1FrozenDecisionUnchanged": "REJECT, productionFlowrestored",
+  "importantCausalCaveat": "LaterPhase2 baseline-b withrestoredoldFlow also measuredFlowCPUmedian126.942ms. Thus phase1observedadverseCPUband is notproofthat hreusecausedCPUregression; OS/CoreML/privatecache/DVFS/order remainconfounders. Conservative rejectionstandsbecause meaningfulphysicalresourcegain wasnotestablished and evidencewasambiguous; not an assertion thatall Flowreuse is harmful. No thirdFlowexperiment orcodechangefollowed.",
+  "phase1Classification": "BIT_IDENTICAL_BUT_REGRESSION observedcomparison only, causal attribution UNKNOWN",
+  "rawCounterEvidence": "hift_f0/baseline-b/analysis.json"
+}
