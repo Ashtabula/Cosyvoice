@@ -61,6 +61,15 @@ final class CosyVoice3TokenConditioner: @unchecked Sendable {
         return embeddings.subdata(in:start..<start+bytes)
     }
 
+    /// Scoped read-only row. The pointer must not escape the synchronous body.
+    func withEmbeddingFP16<Result>(token:Int,_ body:(UnsafeRawBufferPointer)throws->Result) throws -> Result {
+        guard token >= 0 && token < CosyVoice3TokenSemantics.logitsCount else { throw CosyVoice3TokenConditionerError.invalidToken(token) }
+        let bytes=Self.embeddingWidth*2, start=token*bytes
+        return try embeddings.withUnsafeBytes { all in
+            try body(UnsafeRawBufferPointer(rebasing:all[start..<start+bytes]))
+        }
+    }
+
     func ropeFP16(position:Int) throws -> (cos:Data,sin:Data) {
         guard position>=0 && position<rope.maximumPosition else { throw CosyVoice3TokenConditionerError.invalidPosition(position) }
         return (cosRows[position],sinRows[position])
@@ -76,3 +85,7 @@ final class CosyVoice3TokenConditioner: @unchecked Sendable {
 // Purpose: accept the existing immutable frontend speech table by Data value sharing; keep standalone URL initialization.
 // Upstream: original conditioner, exact byte-count validation/RoPE/row math; environment Swift6/iOS18+/macOS15+.
 // Generated2026-10-06 07:32 EDT America/New_York; changed initializer22-31 only, no token or position semantics.
+
+// Purpose: remove intermediate per-token embedding Data allocation/copy using scoped immutable row borrowing.
+// Upstream: original embeddingFP16 byte slice; Swift6/iOS18+/macOS15+; generated2026-10-06 08:14 EDT America/New_York.
+// Added withEmbeddingFP16 before ropeFP16 only; original API/guards/table/RoPE unchanged.

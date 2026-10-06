@@ -493,3 +493,10 @@ Actions: humanPASS forcheckpoint001, immutable acceptedbaseline bindsall6retaine
 Files: accepted_baseline/human_review/checkpoint_status.json, quality_gate_state.json.
 Validation: all6localWAVSHAverified; humanPASS comesfromactualuserreply, nothashes.
 GitHub Timeline:4217380already pushed; acceptancecommitnext.
+
+Time:2026-10-06 08:16 EDT America/New_York
+Prompt: afterhumanPASS resume authorizedLOW optimization, SHARDS2only.
+Actions: implement preauditedLOW embedding row borrowing; eliminates intermediate1792-byte Data+copy eachdecode; existing publicData APIdelegates tosame state/lock/mask/prediction body. NoKV/statebehavior/sampling/RoPE/weights/Flow/placement change.
+Files: TokenConditioner.swift, LLMRuntime.swift, FP16StatefulLLMSession.swift, newBorrowedEmbeddingTests.swift.
+Validation:24SwiftPASS includingall6761rows originalData/control andactualinputcopy exact, invalidbound/error guards. SignedRelease/physicalSHARDS2next; unexpectedPCMchangewillrevert.
+GitHub Timeline:fdffa40acceptance committednotpushed; runtimecandidatecommitnext.

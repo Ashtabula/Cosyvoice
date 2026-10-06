@@ -142,6 +142,12 @@ public final class CosyVoice3FP16StatefulLLMSession {
         }
     }
 
+    static func copyEmbeddingBytes(_ bytes: UnsafeRawBufferPointer, to array: MLMultiArray) throws {
+        let expected = array.count * MemoryLayout<UInt16>.size
+        guard bytes.count == expected else { throw SessionError.invalidInputBytes(expected:expected,actual:bytes.count) }
+        if let source = bytes.baseAddress { memcpy(array.dataPointer,source,expected) }
+    }
+
     /// Call from a worker thread. Models persist across sessions; a session owns one utterance's KV.
     public func prefill(_ input: MLFeatureProvider) throws -> MLFeatureProvider {
         lock.lock()
@@ -164,6 +170,14 @@ public final class CosyVoice3FP16StatefulLLMSession {
     /// FP16 little-endian embedding and cached absolute-position RoPE. Sampling remains the caller's original RAS.
     public func decode(embedding: Data, cos: Data, sin: Data, absolutePosition: Int,
                        diagnosticModelOverride: MLModel? = nil) throws -> MLFeatureProvider {
+        try embedding.withUnsafeBytes { bytes in
+            try decode(embeddingBytes:bytes,cos:cos,sin:sin,absolutePosition:absolutePosition,diagnosticModelOverride:diagnosticModelOverride)
+        }
+    }
+
+    // Internal synchronous input-copy route; same state guard/lock/masks/prediction as Data API.
+    func decode(embeddingBytes: UnsafeRawBufferPointer, cos: Data, sin: Data, absolutePosition: Int,
+                diagnosticModelOverride: MLModel? = nil) throws -> MLFeatureProvider {
         lock.lock()
         defer { lock.unlock() }
         guard !invalidated else { throw SessionError.invalidatedAfterPredictionError }
@@ -175,7 +189,7 @@ public final class CosyVoice3FP16StatefulLLMSession {
         activityObserver?("llm.decode.input_copy", true)
         do {
             defer { activityObserver?("llm.decode.input_copy", false) }
-            try Self.copy(embedding, to: x)
+            try Self.copyEmbeddingBytes(embeddingBytes, to: x)
             try Self.copy(cos, to: self.cos)
             try Self.copy(sin, to: self.sin)
         }
@@ -228,3 +242,8 @@ public final class CosyVoice3FP16StatefulLLMSession {
 // Generated: 2026-10-05 America/New_York; changed lines 30-32, 94-112, fixed-mask helpers and decode selection.
 
 // Changes 2026-10-05 residency phase: Instruments intervals around native stateful prediction, identical model/state/input calls; Swift6/CoreML, no mathematical rewrite. Exact changed lines via git diff.
+
+// Purpose: accept scoped immutable embedding bytes for the same validated preallocated x memcpy.
+// Upstream: original decode body; locks/state/masks/position/error handling/prediction/RoPE copies unchanged.
+// Environment Swift6/iOS18+/macOS15+; generated2026-10-06 08:14 EDT America/New_York.
+// Added copyEmbeddingBytes and internal decode overload; public Data decode delegates, exact line map via git diff.

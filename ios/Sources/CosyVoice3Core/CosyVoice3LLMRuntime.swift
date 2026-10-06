@@ -64,14 +64,16 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
                 return decoded
             }
 
-            let embedding=try conditioner.embeddingFP16(token:token), rope=try conditioner.ropeFP16(position:prepared.logicalPrefixLength+step)
-            output=try autoreleasepool {
-                try session.decode(
-                    embedding:embedding,
-                    cos:rope.cos,
-                    sin:rope.sin,
-                    absolutePosition:prepared.logicalPrefixLength+step
-                )
+            output=try conditioner.withEmbeddingFP16(token:token) { embedding in
+                let rope=try conditioner.ropeFP16(position:prepared.logicalPrefixLength+step)
+                return try autoreleasepool {
+                    try session.decode(
+                        embeddingBytes:embedding,
+                        cos:rope.cos,
+                        sin:rope.sin,
+                        absolutePosition:prepared.logicalPrefixLength+step
+                    )
+                }
             }
         }
         return decoded
@@ -124,3 +126,7 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 // Upstream: original FP16-to-Float conversion and unchanged RAS in this file; no sampler/RNG/state/placement changes.
 // Environment: Swift6/iOS18+/macOS15+ CoreML; generated2026-10-06 07:23 EDT America/New_York.
 // Changed regions: generation44-47 and fillLogits79-96; exact line map in git diff. Output provider lifetime remains original.
+
+// Purpose: avoid intermediate embedding Data; copy exact bytes once into existing decode tensor.
+// Upstream: same RAS/stateful generation above; Swift6/CoreML; generated2026-10-06 08:14 EDT America/New_York.
+// Changed generation embedding/decode block only; autoreleasepool/order/position/math unchanged.
