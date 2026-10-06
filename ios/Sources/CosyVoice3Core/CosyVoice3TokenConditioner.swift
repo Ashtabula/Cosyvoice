@@ -19,9 +19,13 @@ final class CosyVoice3TokenConditioner: @unchecked Sendable {
     private let cosRows:[Data]
     private let sinRows:[Data]
 
-    init(embeddingURL:URL, rope:CosyVoice3RoPEConfiguration) throws {
+    convenience init(embeddingURL:URL, rope:CosyVoice3RoPEConfiguration) throws {
         try rope.validate()
-        let data=try Data(contentsOf:embeddingURL)
+        try self.init(embeddingData:Data(contentsOf:embeddingURL),rope:rope)
+    }
+
+    init(embeddingData data:Data, rope:CosyVoice3RoPEConfiguration) throws {
+        try rope.validate()
         let expected=CosyVoice3TokenSemantics.logitsCount*Self.embeddingWidth*2
         guard data.count==expected else { throw CosyVoice3TokenConditionerError.invalidEmbeddingAsset(data.count) }
         embeddings=data
@@ -68,3 +72,7 @@ final class CosyVoice3TokenConditioner: @unchecked Sendable {
 // Runtime asset: full 6761-row speech_embedding_fp16.bin plus rope theta/max-position in the SDK asset contract; rows6561/6563 are used for SOS/TASK prefill.
 // Generated: 2026-10-02 America/New_York.
 // Changes 2026-10-02: precompute all 512 immutable FP16 RoPE rows once when the cached conditioner is created instead of repeating pow/cos/sin for every autoregressive token.
+
+// Purpose: accept the existing immutable frontend speech table by Data value sharing; keep standalone URL initialization.
+// Upstream: original conditioner, exact byte-count validation/RoPE/row math; environment Swift6/iOS18+/macOS15+.
+// Generated2026-10-06 07:32 EDT America/New_York; changed initializer22-31 only, no token or position semantics.

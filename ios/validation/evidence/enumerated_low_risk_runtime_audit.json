@@ -24,14 +24,14 @@
       "function": "generate/logits",
       "codeRegion": "44-45,77-84",
       "currentBehavior": "Every output copies 6761 FP32 logits to a Swift Array; FP16 expands to Float. Full distribution is consumed by unchanged RAS.",
-      "inefficiency": "Frozen outputs are FP16. Each draw allocates 27044-byte Float materialization; required conversion stays, repeated allocations can be removed. 261 draws at N260 allocate7058484 bytes cumulatively.",
-      "frequency": "once/token including final stop draw",
-      "expectedImpact": "260 fewer 27044-byte Float buffer allocations at N260; no claim of removed tensor copy or measured speedup",
+      "inefficiency": "Frozen outputs FP16; each draw allocates27044-byte Float materialization. This workload reaches max-length260:260 sampling draws/259 decode predictions,7031440 cumulative original allocation bytes. Required conversion remains.",
+      "frequency": "once/sampling draw;260 on this max-length workload",
+      "expectedImpact": "259 fewer27044-byte buffer allocations,7004396 fewer cumulative allocation bytes at this frozen N260; no copy/transfer/speedup claim",
       "latencyEstimate": "unknown; benchmark required",
       "risk": "LOW",
       "proposedChange": "Preallocate one request-local [Float] scratch; refill with identical original FP16 bitPattern -> Float conversion in index order. Keep unchanged sampler/RNG. FP32 path copies into same scratch. No borrowed pointer API or sampler rewrite.",
       "validation": "Array vs borrowed buffer exact token and RNG state tests including ties/nonfinite/suppression/repetition; signed physical full API identical PCM SHA/N260/Flow6/249600 samples.",
-      "allocationClass": "B reusable allocation; A FP16 conversion required"
+      "allocationClass": "B reusable allocation; A FP16 conversion"
     },
     {
       "id": "decode-embedding-copy",
@@ -41,8 +41,8 @@
       "codeRegion": "53-57",
       "currentBehavior": "subdata creates 1792-byte embedding Data then session memcpy into preallocated x. RoPE is already cached.",
       "inefficiency": "one avoidable intermediate allocation/copy before required input write",
-      "frequency": "260 decode calls/request",
-      "expectedImpact": "~465920 bytes avoidable copy plus allocations",
+      "frequency": "259 decode calls on this max-length260 workload",
+      "expectedImpact": "464128-byte avoidable intermediate copy plus259 allocations",
       "latencyEstimate": "unknown; benchmark required",
       "risk": "LOW",
       "proposedChange": "Add scoped borrowed row accessor and synchronous session input copy, preserving byte-count/error guards; separate commit if pursued.",
@@ -54,7 +54,7 @@
       "priority": "P0",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
       "function": "predictFlowShard/ownedFloat32Output",
-      "codeRegion": "432-461,496-511",
+      "codeRegion": "432-461,493-507",
       "currentBehavior": "Each shard output is copied to new contiguous owned FP32 MLMultiArray; no intermediate Swift Array or host FP16 conversion. h[2,822,1024] is 6733824 bytes.",
       "inefficiency": "Five h copies/step in 6-shard = 202014720 bytes/request; p3 two h copies/step=80805888; p2 one=40402944. Boundary copies can force CPU materialization. Actual transfer cost unknown.",
       "frequency": "6 steps * partition shard count",
@@ -86,7 +86,7 @@
       "priority": "P1",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift",
       "function": "model/compute placement",
-      "codeRegion": "24-27,361-454",
+      "codeRegion": "12-15,361-454",
       "currentBehavior": "Production acoustic default CPU_AND_GPU. HiFT requested NE diagnostic measured CPU execution, zero matched ANE. CPU_ONLY candidate uses same frozen graph.",
       "inefficiency": "Requesting NE may pay specialization overhead without hardware benefit; fastest NE CPU fallback vs CPU_ONLY differs empirically.",
       "frequency": "once/request",
@@ -95,14 +95,15 @@
       "risk": "MEDIUM",
       "proposedChange": "Keep placement unchanged. Controlled HiFT CPU_ONLY vs currently selected placement; GPU comparison has numerical rather than bit-identical PCM historically.",
       "validation": "Signed full public API, identical inputs/weights; BIT_IDENTICAL vs existing NE fallback or explicit numerical qualification against GPU; thermal/latency measurement.",
-      "allocationClass": "A prediction"
+      "allocationClass": "A prediction",
+      "riskReason": "Current production requests GPU, while CPU_ONLY evidence is for requested-NE fallback. Placement can change rounding vs GPU; existing NE-vs-CPU evidence supports a diagnostic candidate but not a bit-identical production placement switch or a latency/thermal benefit."
     },
     {
       "id": "hift-norm-temporary",
       "priority": "P2",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
       "function": "overlapAddNorm",
-      "codeRegion": "538-562",
+      "codeRegion": "532-555",
       "currentBehavior": "249600 Float weights Array then same-sized MLMultiArray and full copy. Summation order deterministic.",
       "inefficiency": "998400-byte temporary and 998400-byte copy/request",
       "frequency": "once/request",
@@ -212,7 +213,8 @@
   ],
   "implementationCandidates": [
     "decode-logits-allocation",
-    "hift-norm-temporary"
+    "hift-norm-temporary",
+    "duplicate-speech-table"
   ],
   "honestLimits": [
     "Static byte counts are host copy volume, not measured accelerator transfer/joules or speedup.",
@@ -264,5 +266,87 @@
     "flow": "input/output FP32; h[2,T,1024], te[2,1024], velocity[2,80,T]. CPU host ownership copy at each boundary, model internal casts unchanged. No Swift h Array roundtrip.",
     "hift": "mel[1,80,G], f0[1,G], phase[1,G,9], excitation[1,960N,9], norm[1,1,960N] FP32; owned PCM [Float] once",
     "deviceTransfers": "actual dispatch/transfer bytes not obtained from static code; cannot infer zero-copy or CPU-GPU transfer solely from shared MLMultiArray."
-  }
+  },
+  "implementationStatus": {
+    "decode-logits-allocation": {
+      "commit": "8dfe09966a2327e2b61b177ff1ee7921dd6b1d38",
+      "hostTests": "19 PASS",
+      "signedReleaseBuild": "PASS",
+      "physicalEndpoint": "BIT_IDENTICAL",
+      "originalAllocationCountAtN260": 260,
+      "optimizedAllocationCount": 1,
+      "floatScratchBytes": 27044,
+      "removedCumulativeBufferAllocationBytes": 7004396,
+      "unchangedConversionAndCopy": "FP16 still converted every draw; no total GPU/ANE transfer claim",
+      "decodeCallsAtN260": 259
+    },
+    "hift-norm-temporary": {
+      "commit": "201d90c",
+      "hostTests": "20 PASS including all bucket boundaries",
+      "physicalEndpoint": "PENDING"
+    }
+  },
+  "recommendedNextTarget": "Measure owned Flow h output allocation/copy and explore bounded alternating owned buffers, with explicit CoreML producer/consumer lifetime/stride proof. This is MEDIUM and not implemented. A separate small immutable speech table sharing change can reduce retained memory without hot-loop math change.",
+  "pipelineDependencyEdges": [
+    [
+      "reference assets/cache",
+      "reference conditioning"
+    ],
+    [
+      "text + transcript + instruction + tokenizer/embeddings",
+      "prefill tensors"
+    ],
+    [
+      "prefill tensors + LLM models",
+      "utterance MLState prefill"
+    ],
+    [
+      "previous logits + unchanged RAS/RNG + tokens",
+      "next token"
+    ],
+    [
+      "next token + RoPE + incremental masks + same MLState",
+      "decode prediction"
+    ],
+    [
+      "EOS speech N",
+      "selected bucket + Conditions"
+    ],
+    [
+      "Conditions + exact frozen noise",
+      "Flow step1"
+    ],
+    [
+      "Flow step i velocity + previous x + dt",
+      "Flow step i+1 for i1..5"
+    ],
+    [
+      "Flow step6 x",
+      "cropped mel"
+    ],
+    [
+      "mel",
+      "FP64 F0"
+    ],
+    [
+      "F0",
+      "phase"
+    ],
+    [
+      "N + frozen excitation + original window",
+      "noise/norm"
+    ],
+    [
+      "mel + F0 + phase + noise/norm",
+      "HiFT PCM"
+    ],
+    [
+      "PCM + report",
+      "public return"
+    ],
+    [
+      "public return + nominal idle + no active synth",
+      "serial missing bucket preparation"
+    ]
+  ]
 }

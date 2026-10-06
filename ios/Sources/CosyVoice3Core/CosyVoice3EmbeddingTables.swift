@@ -11,6 +11,8 @@ final class CosyVoice3FP16EmbeddingTable: @unchecked Sendable {
     let rows: Int
     let width: Int
     private let data: Data
+    // Read-only value sharing retains Data storage; neither consumer mutates it.
+    var rawFP16Data: Data { data }
 
     init(url: URL, rows: Int, width: Int = 896) throws {
         let bytes = try Data(contentsOf: url)
@@ -35,3 +37,7 @@ final class CosyVoice3FP16EmbeddingTable: @unchecked Sendable {
 // Upstream: llm.model.model.embed_tokens.weight and llm.speech_embedding.weight at CosyVoice3_NPU@8789402.
 // Runtime: pure Swift.
 // Generated: 2026-10-02 America/New_York.
+
+// Purpose: share immutable speech table storage with the decoder conditioner instead of loading identical bytes twice.
+// Upstream: existing FP16 embedding table; environment Swift6/iOS18+/macOS15+; generated2026-10-06 07:32 EDT America/New_York.
+// Changed lines14-16: internal read-only Data accessor; row/error semantics unchanged.

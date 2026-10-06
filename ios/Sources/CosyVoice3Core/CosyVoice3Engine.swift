@@ -734,10 +734,15 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
     private func reusableConditioner() throws -> CosyVoice3TokenConditioner {
         if let cached = conditionerCache { return cached }
-        let loaded = try CosyVoice3TokenConditioner(
-            embeddingURL: assetRoot.appendingPathComponent(manifest.speechEmbedding),
-            rope: rope
-        )
+        let loaded: CosyVoice3TokenConditioner
+        if let table = speechEmbeddingsCache {
+            loaded = try CosyVoice3TokenConditioner(embeddingData: table.rawFP16Data, rope: rope)
+        } else {
+            loaded = try CosyVoice3TokenConditioner(
+                embeddingURL: assetRoot.appendingPathComponent(manifest.speechEmbedding),
+                rope: rope
+            )
+        }
         conditionerCache = loaded
         return loaded
     }
@@ -1053,3 +1058,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes2026-10-05: validation SPI for idle selected-family constructor readiness; no prediction, sampling or state priming, bounded cache policy remains caller-controlled. Original public prepare/synthesize/defaults unchanged; upstream engine/AssetLoader; Swift6/iOS18+.
 
 // Changes 2026-10-05 residency phase: public diagnostic --validation-isolated-stage=llm repeats the identical seeded native generation12 times; production remainsone. Gate precedes timed loop; signpost and boundary selfCPU/thermal/memory only, no residency inference. Native prepared input/sampler unchanged. Lines identified by git diff.
+
+// Purpose: reuse immutable frontend speech embedding bytes in the decoder conditioner; standalone fallback preserved.
+// Upstream: reusableBaseFrontend/reusableConditioner; environment Swift6/iOS18+/macOS15+; generated2026-10-06 07:32 EDT America/New_York.
+// Changed region736-749 only; no weights/reference/cache/placement/public API change.

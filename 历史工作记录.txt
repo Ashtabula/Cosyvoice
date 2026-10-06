@@ -435,3 +435,10 @@ Actions: logits-only8dfe099 signed Release and physical p3 full first/warm PASS;
 Files: DynamicAcousticRuntime.swift, new norm parity test; evidence pending.
 Validation: first optimization19SwiftPASS/signedReleasePASS/physicalBIT_IDENTICAL; second tests/build/physical pending.
 GitHub Timeline:8dfe099已commit未push; norm未commit.
+
+Time:2026-10-06 07:32 EDT America/New_York
+Prompt: independent LOW memory optimization and exact workload validation.
+Actions: norm-only increment signed201d90c p3 PCM578 BIT_IDENTICAL; defaultp6/no retained models PCM909 BIT_IDENTICAL/warmRTF0.57816366. Correct frozen max-length draw counts260/259 fromactualconsole. Share immutable frontend speech Data with conditioner, standaloneURL fallback/error checks preserved; eliminates duplicate12115712-byte read/storage.
+Files: Engine.swift, EmbeddingTables.swift, TokenConditioner.swift, source allowlist/audit; new shared-table parity test next.
+Validation: prior20SwiftPASS; signed2builds/physicalbothvariantsPASS. Third tests/build/device pending. Initial default-sandbox device inventory timedout CoreDeviceService; elevated signed install andactualruns succeeded, infrastructure not model failure.
+GitHub Timeline:through201d90c已commit未push; sharing未commit.
