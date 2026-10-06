@@ -46,6 +46,10 @@ This checklist freezes exactly three Runner candidates. The failed Full-Q4-prefi
 
 The accepted P2 acoustic partition identities are shared and byte-identical across the three profiles. Profile/content identity participates in asset validation and the existing runtime cache identity. No profile selection uses a mutable global.
 
+The stable public profile metadata now exposes content identities for the profile manifest, prefill model and decode model, plus prefill/decode representation, state-bridge mode, SHARDS=2 and Flow6. These are hashes/descriptions only; private Core ML filenames and conversion paths remain engine-internal.
+
+For Runner staging, the preferred layout is one immutable collection root containing `current/q8/q4` plus shared `FlowPartitions`. The three logical Runner providers may share this collection on disk because each formal measurement starts a fresh process and the SDK resolves/validates only the requested profile child.
+
 ## Matched physical comparison already available
 
 Matched source `1b1d3426d1188d5e45da40b81c02152b5461251f`, physical iPhone, N=260, SHARDS=2, Flow6, short nominal runs, charging-connected development telemetry:
