@@ -21,12 +21,17 @@ class Table:
         start=self.number(row.find('start-time'));return start,start+self.number(row.find('duration'))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--prefix',type=Path,required=True);p.add_argument('--request',type=Path,required=True);p.add_argument('--output',type=Path,required=True)
+    p=argparse.ArgumentParser();p.add_argument('--prefix',type=Path,required=True);p.add_argument('--request',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--additional-model-identities',type=Path)
     a=p.parse_args();receipt=json.loads(a.request.read_text());pid=str(receipt['processID'])
     graphs=json.loads((Path('/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/enumerated_ane_graph_audit.json')).read_text())['models']
     role_by_sha={v['identity']['treeSha256']:role for role,v in graphs.items()}
     quant=json.loads(Path('/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/llm_quantization_20261006/q8/conversion_receipt.json').read_text())
     role_by_sha.update({v['outputIdentity']['treeSha256']:'llm'+role.capitalize() for role,v in quant['models'].items()})
+    if a.additional_model_identities:
+        additional=json.loads(a.additional_model_identities.read_text())
+        for role,entry in additional.items():
+            assert role in ['llmPrefill','llmDecode'] and len(entry['treeSha256'])==64
+            role_by_sha[entry['treeSha256']]=role
     models={}
     records={r['key']:r for r in receipt['persistentRuntime']['records'] if 'compiledArtifact' in r}
     for event in receipt['persistentRuntime']['processLoadEvents']:
@@ -81,3 +86,5 @@ def main():
 
 if __name__=='__main__':main()
 # Purpose: reproducible physical profiling attribution without source-only claims. Upstream Instruments XML and signed app receipts; Python3.11/macOS, generated2026-10-05 America/New_York. New file; UNKNOWN retained when per-op actual devices absent.
+
+# Rescue2026-10-06: optional explicit model-role identity receipt; retains exact actualprocessload/hash/nativePID gates, no hardcodedalias or fallback.

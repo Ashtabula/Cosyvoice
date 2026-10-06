@@ -84,6 +84,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                   CommandLine.arguments.contains("--validation-flow-partition=2"),
                   identity.manifest == "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
                   identity.payload == "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" else { throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a") }
+            for (path, expected) in CosyVoice3WeightProfile.validatedFlowPackages {
+                guard try CosyVoice3PersistentRuntimeStore.shared.packageSHA(assetRoot.appendingPathComponent(path)) == expected else {
+                    throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a")
+                }
+            }
         } else {
             try profile.validateManifest(root: assetRoot, manifest: manifest, requireValidatedRuntime: validatedProfile)
         }
@@ -1154,3 +1159,5 @@ extension CosyVoice3Engine {
 // Purpose: authorize only exact experimental hybrid manifest for supported state copy; payload checked by normal asset loader.
 // Upstream accepted public engine; default/profile routing/API unchanged; Swift6/iOS27.2,2026-10-06 America/New_York.
 // Changed two internal LLM constructors plus private hash/flag guard. No production availability/pinning relaxation.
+
+// Finalguard2026-10-06: Validation SPI additionally pins unchanged P2 sibling package hashes itself; normalprofileguards/math/modelcalls unchanged.
