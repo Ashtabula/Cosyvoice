@@ -699,3 +699,10 @@ Actions: report/rawintervals/sourceprovenance/tests pushed; noproductionchange.
 Files:append-onlyGitHubTimeline.
 Validation:6testsPASS/all2590joinsPASS/diffcheckPASS; unrelated.gitignore/reports/tools/voxcpm2 preservedunstaged.
 GitHub Timeline:6a978ab/e22fc09已push至origin/experiment/ios-enumerated-ane-optimization；本同步记录随后commit/push。
+
+Time:2026-10-06 14:32 EDT America/New_York
+Prompt:用户“语音全部通过”。
+Actions:recordexplicitHUMAN_PASS forallthreeFP16/Q8pairs, bindexactsixWAVhashes/corpus/package/physicalsource;candidate-specificacceptedlisteningreference. LatestclassificationQ8_RESOURCE_WIN;priorpendingreports/receiptsimmutable. ShippingFP16LG/promotion/assetsunchanged;wholedeviceenergy/sustainedthermalstillN/A,charging-onlyscreen. NoQ4/newdeviceworkstarted.
+Files:q8/human_review.json,accepted_listening_reference.json,latest_status.json,quality_gate_stateexperimentalreviewentry,appendhistory.
+Validation:all6workspaceWAVSHA/header/rate/framechecksPASS;noaudiomodification/runtimecodechange.
+GitHub Timeline:e4868a2已push；humanreview更新未commit，随后选择性commit/push。

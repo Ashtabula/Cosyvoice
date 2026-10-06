@@ -1,0 +1,105 @@
+{
+  "schemaVersion": 1,
+  "timestampAmericaNewYork": "2026-10-06 14:32 EDT",
+  "reviewer": "human user",
+  "userStatement": "语音全部通过",
+  "decision": "PASS",
+  "scope": "All three FP16/Q8 listening pairs presented in this conversation; Q8 displayed samples01/02/03 correspond to corpus01/02/04. Not blanket approval of untested texts/Q4/Mixed.",
+  "candidate": "Q8",
+  "candidatePhysicalSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+  "candidatePayloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+  "candidateManifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+  "corpusSHA256": "5825cceeefe50f38ea88b38fa29190eb6a70707833440a894b7db22f0c90ba54",
+  "inlineManifestPath": "ios/validation/evidence/llm_quantization_20261006/inline_audio_manifest.json",
+  "inlineManifestSHA256": "f438de4c9ff45b1d34d04cf072484b9a350c8109b1ec171a45d93c1820adcebe",
+  "samples": [
+    {
+      "sample": 1,
+      "sourceCorpusID": "sample01",
+      "humanListening": "PASS",
+      "userStatement": "语音全部通过",
+      "candidatePCM_SHA256": "96db27335c19e24a7009064e2601ac376a9295828eefefb892e3efd36e41f97f",
+      "candidateTokenSequenceSHA256": "a1b7d0f75fb88fde3127b7a839a3a970ee80d67837692f06e3d7c6a949494950",
+      "candidateN": 160,
+      "candidateFunction": "n129_256",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "artifacts": [
+        {
+          "variant": "FP16",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+          "WAV_SHA256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b",
+          "frames": 153600,
+          "sampleRate": 24000
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_q8.wav",
+          "WAV_SHA256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241",
+          "frames": 153600,
+          "sampleRate": 24000
+        }
+      ]
+    },
+    {
+      "sample": 2,
+      "sourceCorpusID": "sample02",
+      "humanListening": "PASS",
+      "userStatement": "语音全部通过",
+      "candidatePCM_SHA256": "ab37d3c9f020880901501a9900daf1b7210f3716a20ae3559a325ea1994b14ed",
+      "candidateTokenSequenceSHA256": "1d284f8bf19b070b7fe6d840238949bf99015337fb4d3bfbb9b19d74712b5b29",
+      "candidateN": 294,
+      "candidateFunction": "n257_384",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "artifacts": [
+        {
+          "variant": "FP16",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+          "WAV_SHA256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644",
+          "frames": 378240,
+          "sampleRate": 24000
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_q8.wav",
+          "WAV_SHA256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd",
+          "frames": 282240,
+          "sampleRate": 24000
+        }
+      ]
+    },
+    {
+      "sample": 3,
+      "sourceCorpusID": "sample04",
+      "humanListening": "PASS",
+      "userStatement": "语音全部通过",
+      "candidatePCM_SHA256": "bc3185ba1f53b0da05a2b217df8b62890ea6b5a0d71375ef2babf1ad0c3c3257",
+      "candidateTokenSequenceSHA256": "0491464041edd9e3c352c1d89445cf9bbb56af7924cd607708658e09795c826e",
+      "candidateN": 442,
+      "candidateFunction": "n385_450",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "artifacts": [
+        {
+          "variant": "FP16",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+          "WAV_SHA256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6",
+          "frames": 374400,
+          "sampleRate": 24000
+        },
+        {
+          "variant": "Q8",
+          "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_q8.wav",
+          "WAV_SHA256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a",
+          "frames": 424320,
+          "sampleRate": 24000
+        }
+      ]
+    }
+  ],
+  "productionPromotion": false,
+  "agentDeclaredHumanPass": false,
+  "decisionAuthority": "explicit user message",
+  "noNewDeviceRuns": true
+}

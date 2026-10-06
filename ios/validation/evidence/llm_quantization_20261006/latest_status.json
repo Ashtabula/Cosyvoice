@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 1,
+  "timestampAmericaNewYork": "2026-10-06 14:32 EDT",
+  "classification": "Q8_RESOURCE_WIN",
+  "humanListening": "PASS",
+  "classificationReason": "Explicit user PASS for all three listening pairs; previously measured physical memory reduction31.53% and warmRTF0.347558. Whole-device energy and sustained thermal remain unmeasured, so not STRONG_RESOURCE_WIN or automatic production promotion.",
+  "humanReview": "ios/validation/evidence/llm_quantization_20261006/q8/human_review.json",
+  "humanReviewSHA256": "64fad6ac3e6d4254f4879e15ddc3426d0e6671c38e5f63ba80ad3efe4594bebb",
+  "acceptedListeningReference": "ios/validation/evidence/llm_quantization_20261006/q8/accepted_listening_reference.json",
+  "acceptedListeningReferenceSHA256": "5294ba61a829042a0c151fb27af0bea86ec8b697e5b30ca0ef0dcfb107ada498",
+  "historicalPreReviewSummary": "ios/validation/evidence/llm_quantization_20261006/final_summary.json",
+  "historicalPreReviewSummarySHA256": "8bbd8c24bbfdc6fd23326c12c59ac218c08e2e58ac0c934f8c7ebee8edbef254",
+  "historicalSummaryPreserved": true,
+  "assetIdentity": {
+    "payloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+    "manifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+    "physicalSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8"
+  },
+  "warmRTF": 0.34755770836538463,
+  "sampledWarmPeakBytes": 1594133688,
+  "wholeDeviceEnergy": null,
+  "sustainedThermal": "NOT_RUN",
+  "physicalConditions": "CHARGING_CONNECTED screening only",
+  "productionPromotion": false,
+  "shippingLAST_KNOWN_GOODUnchanged": true,
+  "Q4Tested": false,
+  "mixedTested": false,
+  "nextValidation": "Runner benchmark whole-device/resource evaluation; Q4 remains separate conditional experiment, not automatically started by this review."
+}

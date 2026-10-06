@@ -33,5 +33,16 @@
   "currentFrozenOutputClass": "BIT_IDENTICAL",
   "nextPeriodicListeningCheckpoint": "after3-5 accepted LOW changes, or any specified immediate trigger",
   "latestBitIdenticalWorkspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/f0-candidate.wav",
-  "gateOverrideForCurrentTask": "User explicitly waives newsubjectivegate forBIT_IDENTICAL memory-lifetime changes; existinghumancheckpointPASS unchanged, periodicgate stillrequired"
+  "gateOverrideForCurrentTask": "User explicitly waives newsubjectivegate forBIT_IDENTICAL memory-lifetime changes; existinghumancheckpointPASS unchanged, periodicgate stillrequired",
+  "experimentalCandidateHumanReviews": {
+    "Q8": {
+      "status": "PASS",
+      "review": "ios/validation/evidence/llm_quantization_20261006/q8/human_review.json",
+      "reviewSHA256": "64fad6ac3e6d4254f4879e15ddc3426d0e6671c38e5f63ba80ad3efe4594bebb",
+      "acceptedListeningReference": "ios/validation/evidence/llm_quantization_20261006/q8/accepted_listening_reference.json",
+      "scope": "three English corpus01/02/04 pairs",
+      "promotionAllowed": false,
+      "classification": "Q8_RESOURCE_WIN"
+    }
+  }
 }
