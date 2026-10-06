@@ -169,7 +169,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         guard [1,2,3,6].contains(count) else { throw CosyVoice3AcousticError.invalidShape("flow_partition", [count]) }
         if count != 6 {
             guard case .enumerated = contract else { throw CosyVoice3AcousticError.invalidShape("partition_requires_schema3", []) }
-            self.flowShardPaths = (0..<count).map { "../FlowPartitions/p\(count)/group-\($0).mlpackage" }
+            let folder = count == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(count)"
+            self.flowShardPaths = (0..<count).map { "../FlowPartitions/\(folder)/group-\($0).mlpackage" }
         } else { self.flowShardPaths = flowShardPaths }
         self.hiftPath = hiftPath
         self.f0 = f0

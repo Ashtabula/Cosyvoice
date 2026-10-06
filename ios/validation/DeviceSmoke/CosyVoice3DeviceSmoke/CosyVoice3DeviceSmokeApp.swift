@@ -456,6 +456,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 receipt["referenceValidationPrewarm"] = true
                 receipt["idleReadinessPredictions"] = false
             }
+            receipt["materializeExistingTEOutput"] = CommandLine.arguments.contains("--validation-materialize-te")
             receipt["flowPartition"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }) ?? "6"
             receipt["sustainedRuns"] = sustained
             receipt["inputIdentity"] = inputIdentity
@@ -991,12 +992,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
         if partition != 6 {
             let folder = runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
             let data = try Data(contentsOf: folder.appendingPathComponent("partition-export-receipt.json"))
-            guard let receipt = try JSONSerialization.jsonObject(with: data) as? [String: Any], let variants = receipt["variants"] as? [String: [String: Any]], let variant = variants[String(partition)], let packages = variant["packages"] as? [[String: Any]], packages.count == partition else { throw SmokeError("partition export receipt missing") }
+            guard let receipt = try JSONSerialization.jsonObject(with: data) as? [String: Any], let variants = receipt["variants"] as? [String: [String: Any]], let variant = variants[partition == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "1-te" : String(partition)], let packages = variant["packages"] as? [[String: Any]], packages.count == partition else { throw SmokeError("partition export receipt missing") }
             for (index,package) in packages.enumerated() {
                 guard let identity = package["identity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], package["weightBytesUnchanged"] as? Bool == true else { throw SmokeError("partition identity missing") }
                 for file in files {
                     guard let path = file["path"] as? String, let bytes = file["bytes"] as? Int, let expected = file["sha256"] as? String else { throw SmokeError("partition file identity missing") }
-                    let contents = try Data(contentsOf: folder.appendingPathComponent("p\(partition)/group-\(index).mlpackage/\(path)"), options: .mappedIfSafe)
+                    let contents = try Data(contentsOf: folder.appendingPathComponent("\(partition == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(partition)")/group-\(index).mlpackage/\(path)"), options: .mappedIfSafe)
                     let actual = SHA256.hash(data: contents).map { String(format: "%02x", $0) }.joined()
                     guard contents.count == bytes, actual == expected else { throw SmokeError("partition payload SHA mismatch") }
                 }

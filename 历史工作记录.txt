@@ -279,3 +279,10 @@ Actions: host twelve N1/260/450 cases6/3/2/1 all bit-identical; p3/p2/p1 public 
 Files: Engine/DeviceSmoke/device runner and equivalent receipts.
 Validation: public contract6tests PASS; first physical partitions all PASS; no frozen bytes/default/algorithm change. CPU/idle/profiling and repeated candidate gates pending.
 GitHub Timeline: 5ad9a9c committed locally; prior0bc1402 pushed; commit/push incremental source/evidence next, no models/audio.
+
+Time: 2026-10-05T20:44:00.401137-04:00
+Prompt: investigate failed equivalent fullFlow without math changes.
+Actions: fullFlowCPU host exact but iPhoneGPU PCM hash differs; not accepted as equivalent. Diagnostic exposes existing FP32 te output to preserve backend materialization, adds no math op/weight/type change. Need host/physical parity before candidate acceptance.
+Files: runtime/DeviceSmoke/device runner/partition export receipt.
+Validation: public contract6tests PASS from prior idle/CPU change; fullFlow fail preserved.
+GitHub Timeline: ac6632f pushed; commit next for materialization diagnostic binding, no promotion.

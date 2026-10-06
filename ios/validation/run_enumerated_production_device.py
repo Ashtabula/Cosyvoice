@@ -169,6 +169,7 @@ def main() -> None:
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--materialize-te", action="store_true")
     parser.add_argument("--capture-pcm", action="store_true")
     parser.add_argument("--idle-readiness", action="store_true")
     parser.add_argument("--flow-partition", choices=(1,2,3,6), type=int, default=6)
@@ -359,6 +360,8 @@ def main() -> None:
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":
                 candidate_args.append("--validation-enumerated-cpu-only")
+            if args.materialize_te:
+                candidate_args.append("--validation-materialize-te")
             if args.idle_readiness:
                 candidate_args.append("--validation-idle-readiness")
             candidate_args.append("--validation-flow-partition=" + str(args.flow_partition))
