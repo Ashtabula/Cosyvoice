@@ -51,13 +51,16 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
     }
 
     private func contentTree(_ root: URL, excludingExportReceipt: Bool) throws -> String {
+        let canonicalRoot = root.resolvingSymlinksInPath()
         let keys: [URLResourceKey] = [.isRegularFileKey, .fileSizeKey]
-        guard let enumerator = FileManager.default.enumerator(at: root, includingPropertiesForKeys: keys) else {
+        guard let enumerator = FileManager.default.enumerator(at: canonicalRoot, includingPropertiesForKeys: keys) else {
             throw CosyVoice3AssetError.compiledCache("cannot enumerate content identity: \(root.path)")
         }
         var rows = [(String, Int, String)]()
         for case let file as URL in enumerator {
-            let relative = String(file.path.dropFirst(root.path.count + 1))
+            let canonicalFile = file.resolvingSymlinksInPath()
+            guard canonicalFile.path.hasPrefix(canonicalRoot.path + "/") else { throw CosyVoice3AssetError.compiledCache("asset file escaped canonical identity root") }
+            let relative = String(canonicalFile.path.dropFirst(canonicalRoot.path.count + 1))
             if excludingExportReceipt && (file.lastPathComponent == "enumerated-production-export-receipt.json" || relative.split(separator: "/").contains(".family-build")) { continue }
             let values = try file.resourceValues(forKeys: Set(keys))
             guard values.isRegularFile == true else { continue }

@@ -313,3 +313,9 @@ Actions: preserve A/B signal9 failure receipts; matched215356 Jetsam target Cosy
 Files: PersistentRuntimeStore, DeviceSmoke, enumerated_persistent_failures.json, new A/B/C matrix helper/evidence.
 Validation: persistent identity tests PASS after hash buffer fix; physical retry pending, no inference crash attribution.
 GitHub Timeline: aed1691 local, through4fa112d pushed; repair checkpoint commit next; no frozen bytes changed.
+
+Time: 2026-10-05T22:07:26.684523-04:00
+Prompt: persistent source identity fail-closed audit.
+Actions: full current phone Runtime readback64files/3530215890bytes unchanged frozen4750 tree/2ddc manifest, no changed files. Bad14b985 tree exactly original rows with Runtime/ prefix; normalize /var and /private/var canonical roots before relative path hashing.
+Validation:3 persistent tests PASS incl alias/canonical equivalence; A/B retry pending; prior hash-fail cases and Jetsam remain preserved.
+GitHub Timeline: through0a669e5 pushed; new fix checkpoint local next; no frozen file changes.

@@ -45,6 +45,17 @@ final class PersistentRuntimeStoreTests: XCTestCase {
         }
         XCTAssertEqual(try restarted.snapshot()["excludedFromBackup"] as? Bool, true)
     }
+
+    func testCanonicalAndAliasPathsHaveTheSameContentIdentity() throws {
+        let root = try temporary()
+        let source = root.appendingPathComponent("actual.mlpackage")
+        try FileManager.default.createDirectory(at: source, withIntermediateDirectories: true)
+        try Data([7,8,9]).write(to: source.appendingPathComponent("weight.bin"))
+        let alias = root.appendingPathComponent("alias")
+        try FileManager.default.createSymbolicLink(at: alias, withDestinationURL: source)
+        let store = CosyVoice3PersistentRuntimeStore(storageRootOverride: root)
+        XCTAssertEqual(try store.packageSHA(source), try store.packageSHA(alias))
+    }
 }
 // Purpose: storage/invalidation semantics only, not physical Core ML execution proof.
 // Upstream persistent runtime store; Swift6/XCTest/macOS/iOS. Generated2026-10-05 America/New_York; new file.

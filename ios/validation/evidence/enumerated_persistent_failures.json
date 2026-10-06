@@ -48,5 +48,13 @@
       }
     ],
     "scope": "prepare identity hash phase before native model constructors; initialRoot streaming lacked per-chunk autoreleasepool; repaired without model/math changes"
+  },
+  "repair": "4MiB per-read autoreleasepool; SHA algorithm/bytes unchanged; source checkpoint0a669e5",
+  "aliasIdentityFailure": {
+    "actualPhoneHash": "14b985ce038379cffdaebede7c547e4f6ef8a1956a56b32fd996ff2de60fedb0",
+    "cause": "Foundation enumeration canonical /private/var vs supplied /var prefix; erroneously prepended Runtime/ to every row",
+    "sourcePayloadUnchanged": true,
+    "actualDevicePayloadSHA": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "repair": "resolve root and file symlinks before relative paths; alias unit test PASS"
   }
 }
