@@ -16,6 +16,7 @@ public struct CosyVoice3WeightProfileMetadata: Sendable, Equatable {
     public let stateBridgeMode: String
     public let acousticShards: Int
     public let flowSteps: Int
+    public let requestedLLMPlacement: String
     public let isExperimental: Bool
     public let isSelectableForInference: Bool
 }
@@ -70,6 +71,7 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
             stateBridgeMode: stateBridgeMode,
             acousticShards: 2,
             flowSteps: 6,
+            requestedLLMPlacement: "CPU_AND_NE",
             isExperimental: self != .current,
             isSelectableForInference: true
         )
