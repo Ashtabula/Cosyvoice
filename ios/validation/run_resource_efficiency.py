@@ -19,11 +19,12 @@ def collect(out,policy,mode):
   assert row['sampleRate']==24000 and row['samples']==249600 and row['N']==260
  return r
 def main():
- p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--mode',choices=['screen','continuous'],required=True);p.add_argument('--policy',choices=['selected-family','decoder','none'],required=True);p.add_argument('--collect-only',action='store_true');p.add_argument('--allow-charging',action='store_true');p.add_argument('--chunks',type=int,default=60);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--mode',choices=['screen','continuous'],required=True);p.add_argument('--policy',choices=['selected-family','decoder','none'],required=True);p.add_argument('--collect-only',action='store_true');p.add_argument('--f0-workspace-baseline',action='store_true');p.add_argument('--allow-charging',action='store_true');p.add_argument('--chunks',type=int,default=60);a=p.parse_args()
  a.output.mkdir(parents=True,exist_ok=True)
  if a.collect_only:
   collect(a.output,a.policy,a.mode);return
  flags=['--no-playback','--validation-resource-run',f'--validation-resource-lane={a.mode}',f'--validation-resource-chunks={a.chunks}','--validation-flow-partition=2',f'--validation-acoustic-cache={a.policy}']
+ if a.f0_workspace_baseline:flags+=['--validation-f0-workspace-baseline']
  if a.allow_charging:flags+=['--validation-resource-allow-charging']
  cmd=['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing']
  if a.mode=='screen':cmd+=['--console']

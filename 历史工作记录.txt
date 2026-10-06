@@ -608,3 +608,10 @@ Actions:25completedchargingpublicrequests allBIT_IDENTICAL,2foregroundfailures p
 Files: flowevidence/analysis/fullreceipts/logs/sourcecommitrefs, runtime restoration, collectorflagremoval; exportedcandidateWAV ignoredlocalartifacts.
 Validation:16hosttestsPASS/buildPASS; token5227/PCM909/WAVa04 all25PASS; nowholedeviceenergy/thermalimprovementclaim, mixedfairrows excludedcomparison.
 GitHub Timeline:f23988e/55499bc已commit未push；Flowrejectionevidence未commit。
+
+Time:2026-10-06 11:51 EDT America/New_York
+Prompt: Phase2 afterFlow f23445e frozen/rejected.
+Actions: auditF0 FP64 shapes/lifetimes; chooseONErequestlocalmaxcolumns+yworkspace. Packallcolumnsincludingpadding, detachpreviousxreadalias beforeyzero/refill; identicalFP64dgemm/ELU/classifierorder. Originalfreshmethod retainedvalidationoracle. Eightallocationsremoved/29.020MBlogicalallocatedbytes, logicalpeak10.6496->8.51968MB; copybytesunchanged. NoFlow/HiFTCoreML/precision/placementchange.
+Files: HiFTDoubleF0, F0WorkspaceParityTests, collectorF0baselineflag, hift_f0ownership_audit.
+Validation:16hosttestsPASS; frozenweights6lengths1/3/17/128/520/900 withtwoinputrequests perlength bytesidentical;5layeraddressesstable noCOWcopy. Signedbuild/physicalshortbenchmarkpending; noacceptanceyet.
+GitHub Timeline:f23445e已commit未push；FP64candidate未commit。

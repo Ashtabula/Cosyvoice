@@ -1,0 +1,105 @@
+{
+  "status": "OWNERSHIP_AUDIT_COMPLETE_BEFORE_IMPLEMENTATION",
+  "parentFrozenFlowEvidenceCommit": "f23445e60b93430f130ed26c2994573af0bd4bc8",
+  "flowDecision": "REJECT; production DynamicAcousticRuntime restoredexact3e74158",
+  "scope": "FP64 CPU F0 workspace only; CoreMLHiFT graph/prediction unchanged",
+  "G": 520,
+  "layers": [
+    {
+      "index": 0,
+      "inputs": 80,
+      "outputs": 512,
+      "kernel": 4,
+      "columnsCount": 166400,
+      "columnsBytes": 1331200,
+      "yCount": 266240,
+      "yBytes": 2129920,
+      "padding": "righttap offset for0, causaloffsettap-2 forothers"
+    },
+    {
+      "index": 1,
+      "inputs": 512,
+      "outputs": 512,
+      "kernel": 3,
+      "columnsCount": 798720,
+      "columnsBytes": 6389760,
+      "yCount": 266240,
+      "yBytes": 2129920,
+      "padding": "righttap offset for0, causaloffsettap-2 forothers"
+    },
+    {
+      "index": 2,
+      "inputs": 512,
+      "outputs": 512,
+      "kernel": 3,
+      "columnsCount": 798720,
+      "columnsBytes": 6389760,
+      "yCount": 266240,
+      "yBytes": 2129920,
+      "padding": "righttap offset for0, causaloffsettap-2 forothers"
+    },
+    {
+      "index": 3,
+      "inputs": 512,
+      "outputs": 512,
+      "kernel": 3,
+      "columnsCount": 798720,
+      "columnsBytes": 6389760,
+      "yCount": 266240,
+      "yBytes": 2129920,
+      "padding": "righttap offset for0, causaloffsettap-2 forothers"
+    },
+    {
+      "index": 4,
+      "inputs": 512,
+      "outputs": 512,
+      "kernel": 3,
+      "columnsCount": 798720,
+      "columnsBytes": 6389760,
+      "yCount": 266240,
+      "yBytes": 2129920,
+      "padding": "righttap offset for0, causaloffsettap-2 forothers"
+    }
+  ],
+  "baseline": {
+    "initialDoubleMelBytes": 332800,
+    "columnsAllocations": 5,
+    "columnsAllocatedBytes": 26890240,
+    "yAllocations": 5,
+    "yAllocatedBytes": 10649600,
+    "logicalSimultaneousWorkspacePeak": 10649600,
+    "copyBytes": "im2col writes inputvalues, x=y COWalias no forceddeepcopy; FP32->Doublemelmap required; no bulkoutputcopy untilFloatresult"
+  },
+  "candidateRanking": [
+    "one request-localmaxcolumns+maxy workspace LOW withdetachpreviousx aftercolumnsfilled; preserveallDouble math/BLASargs",
+    "columnsonlyreuse LOW butcannoteliminatepreviousx+yoverlap, lowerbenefit",
+    "pingpongy LOW butrequires2buffersvsdetach/readthenoverwrite",
+    "Floatprecisionconversion forbidden"
+  ],
+  "selectedCandidate": "ONE request-local FP64 workspace (columns+y) reuse; noothercandidate",
+  "lifetimes": {
+    "columns": "ownedDoubleArray inputs*k*G packedrowmajor; everyvalidandpaddingelementfilledbefore synchronousdgemm; previouscontentsnotconsumedafterdgemmreturns",
+    "output": "previousy is currentx; allx reads finish whilefillingcolumns; then x=[] detachesalias beforezeroing/refillingy; no consumerpreviousxaftercolumnscomplete",
+    "BLAS": "cblas_dgemm synchronous; exactlysameRowMajorNoTransdimensions/lda/ldb/ldc/alpha1/beta0; pointersinsideclosures neverescape",
+    "zeroing": "baselinecolzeroallocation+validstores; candidateexplicitzero forinvalidpaddings, requiredregionalloverwritten; yzeroeverylayer asoriginal despite beta0 toavoidassumptions",
+    "alias": "x=y onlyreadalias; detachx beforemutatingy preventsCOWcopy/oldinputoverwrite; nootherrefsescape",
+    "result": "FloatMLMultiArray classifier resultunchanged, allDoubleadditionorderunchanged"
+  },
+  "expected": {
+    "allocationsRemoved": 8,
+    "logicalAllocatedBytesRemoved": 29020160,
+    "logicalWorkspacePeakBeforeBytes": 10649600,
+    "logicalWorkspacePeakAfterBytes": 8519680,
+    "logicalPeakReductionBytes": 2129920,
+    "copyBytesRemoved": 0,
+    "physicalPeakReduction": "UNKNOWN untilmeasured; malloc/CoreML residency maymask~2.13MBlogicalpeak"
+  },
+  "Swift6Safety": "localsperprediction, immutableweights sharedreadonly, syncBLAS noTask/actor/newsharedstate; arraybuffersborrowed scoped; no unsafe lifetimeextension",
+  "requiredValidation": [
+    "independentoriginalfreshallocationvsreuseFloatbitparity full520+paddingboundarylengths usingfrozenweights",
+    "pointer/capacityidentity noCOW proofinhostdebugobserver",
+    "signedbuild/contracts",
+    "physicaltokenPCM/WAV samehash",
+    "chargingbaseline/candidate shortgroups, memory100msmaymiss20msF0peak; cannotclaimwholedeviceenergy"
+  ]
+}
