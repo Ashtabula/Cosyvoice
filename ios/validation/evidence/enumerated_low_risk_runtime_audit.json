@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "recordedAt": "2026-10-06 07:20 EDT America/New_York",
   "auditGitHEAD": "09f08274a2f23cc443f3acdd8c356efb14172dab",
-  "status": "STATIC_AUDIT_COMPLETE_BEFORE_IMPLEMENTATION",
+  "status": "FINAL_AUDIT_AND_LOW_RISK_IMPLEMENTATION_VERIFIED",
   "scope": "ios production CosyVoice3Engine.synthesize",
   "pushVerifiedHEAD": "09f08274a2f23cc443f3acdd8c356efb14172dab",
   "constraints": {
@@ -34,22 +34,6 @@
       "allocationClass": "B reusable allocation; A FP16 conversion"
     },
     {
-      "id": "decode-embedding-copy",
-      "priority": "P1",
-      "file": "ios/Sources/CosyVoice3Core/CosyVoice3TokenConditioner.swift",
-      "function": "embeddingFP16",
-      "codeRegion": "53-57",
-      "currentBehavior": "subdata creates 1792-byte embedding Data then session memcpy into preallocated x. RoPE is already cached.",
-      "inefficiency": "one avoidable intermediate allocation/copy before required input write",
-      "frequency": "259 decode calls on this max-length260 workload",
-      "expectedImpact": "464128-byte avoidable intermediate copy plus259 allocations",
-      "latencyEstimate": "unknown; benchmark required",
-      "risk": "LOW",
-      "proposedChange": "Add scoped borrowed row accessor and synchronous session input copy, preserving byte-count/error guards; separate commit if pursued.",
-      "validation": "All row bytes identical including special/token bounds; physical PCM hash and token trajectory unchanged.",
-      "allocationClass": "B reusable/C removable temporary"
-    },
-    {
       "id": "flow-owned-handoff",
       "priority": "P0",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
@@ -66,20 +50,36 @@
       "allocationClass": "B allocation reusable; A ownership currently required"
     },
     {
-      "id": "flow-provider",
-      "priority": "P2",
-      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
-      "function": "synthesize/predictFlowShard",
-      "codeRegion": "275-295,444",
-      "currentBehavior": "Dictionary and feature provider reconstructed for each prediction. batchX/time/mask allocated once/request; flow models loaded once before six steps.",
-      "inefficiency": "small per-dispatch Foundation allocations; not per-step model construction",
-      "frequency": "36 predictions/request for six shards;18/12 p3/p2",
-      "expectedImpact": "less object work; likely smaller than tensor copies",
+      "id": "decode-embedding-copy",
+      "priority": "P1",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3TokenConditioner.swift",
+      "function": "embeddingFP16",
+      "codeRegion": "53-57",
+      "currentBehavior": "subdata creates 1792-byte embedding Data then session memcpy into preallocated x. RoPE is already cached.",
+      "inefficiency": "one avoidable intermediate allocation/copy before required input write",
+      "frequency": "259 decode calls on this max-length260 workload",
+      "expectedImpact": "464128-byte avoidable intermediate copy plus259 allocations",
+      "latencyEstimate": "unknown; benchmark required",
+      "risk": "LOW",
+      "proposedChange": "Add scoped borrowed row accessor and synchronous session input copy, preserving byte-count/error guards; separate commit if pursued.",
+      "validation": "All row bytes identical including special/token bounds; physical PCM hash and token trajectory unchanged.",
+      "allocationClass": "B reusable/C removable temporary"
+    },
+    {
+      "id": "f0-boxing",
+      "priority": "P1",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+      "function": "prediction",
+      "codeRegion": "19-29",
+      "currentBehavior": "mel[NSNumber] -> Double array; five FP64 im2col/output buffers, unchanged Accelerate math.",
+      "inefficiency": "41600 NSNumber reads for G520; five repeated large buffer allocations",
+      "frequency": "once/request;5 layers",
+      "expectedImpact": "pointer reads/scratch reuse could reduce CPU work; math must stay FP64",
       "latencyEstimate": "unknown; benchmark required",
       "risk": "MEDIUM",
-      "proposedChange": "Evaluate mutable provider with explicit current output ownership, thread confinement and synchronization; no automatic implementation.",
-      "validation": "Exact all six velocity tensors and PCM; prove provider updates visible with all placements.",
-      "allocationClass": "B reusable"
+      "proposedChange": "Contiguous Float pointer conversion with guarded fallback; reuse zeroed scratch after reentrancy/lifetime proof. No Float32 math rewrite.",
+      "validation": "Exact F0 bits, padding/ELU/GEMM order, host variable-length and physical PCM tests.",
+      "allocationClass": "A FP64 math; B buffers"
     },
     {
       "id": "hift-placement",
@@ -99,38 +99,6 @@
       "riskReason": "Current production requests GPU, while CPU_ONLY evidence is for requested-NE fallback. Placement can change rounding vs GPU; existing NE-vs-CPU evidence supports a diagnostic candidate but not a bit-identical production placement switch or a latency/thermal benefit."
     },
     {
-      "id": "hift-norm-temporary",
-      "priority": "P2",
-      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
-      "function": "overlapAddNorm",
-      "codeRegion": "532-555",
-      "currentBehavior": "249600 Float weights Array then same-sized MLMultiArray and full copy. Summation order deterministic.",
-      "inefficiency": "998400-byte temporary and 998400-byte copy/request",
-      "frequency": "once/request",
-      "expectedImpact": "less memory/copy; latency unknown",
-      "latencyEstimate": "unknown; benchmark required",
-      "risk": "LOW",
-      "proposedChange": "Fill zero-initialized MLMultiArray pointer directly using identical loop/index/order; no cross-request cache required.",
-      "validation": "All norm Float bit patterns compare across boundary N1/128/129/256/257/384/385/450; physical PCM hash.",
-      "allocationClass": "C removable temporary"
-    },
-    {
-      "id": "f0-boxing",
-      "priority": "P1",
-      "file": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
-      "function": "prediction",
-      "codeRegion": "19-29",
-      "currentBehavior": "mel[NSNumber] -> Double array; five FP64 im2col/output buffers, unchanged Accelerate math.",
-      "inefficiency": "41600 NSNumber reads for G520; five repeated large buffer allocations",
-      "frequency": "once/request;5 layers",
-      "expectedImpact": "pointer reads/scratch reuse could reduce CPU work; math must stay FP64",
-      "latencyEstimate": "unknown; benchmark required",
-      "risk": "MEDIUM",
-      "proposedChange": "Contiguous Float pointer conversion with guarded fallback; reuse zeroed scratch after reentrancy/lifetime proof. No Float32 math rewrite.",
-      "validation": "Exact F0 bits, padding/ELU/GEMM order, host variable-length and physical PCM tests.",
-      "allocationClass": "A FP64 math; B buffers"
-    },
-    {
       "id": "reference-unbounded",
       "priority": "P1",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
@@ -145,22 +113,6 @@
       "proposedChange": "Bound reference cache with explicit policy; keep content hashing correctness. Do not substitute path/mtime as SHA identity.",
       "validation": "Many references, edited same-path WAV invalidation, exact enrollment and endpoint parity; eviction correctness.",
       "allocationClass": "D potentially retained unexpectedly"
-    },
-    {
-      "id": "orchestration-overlap",
-      "priority": "P3",
-      "file": "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
-      "function": "synthesize",
-      "codeRegion": "354-445,445-550",
-      "currentBehavior": "Preparation/frontend/reference -> LLM -> selected-family Conditions -> Flow -> F0/HiFT -> PCM. Exact bucket unknown before LLM stop. LLM model refs dropped before acoustic.",
-      "inefficiency": "Independent noise/mask metadata could overlap but model constructors serialized after measured -14; overlap may increase residency/CPU contention",
-      "frequency": "once/request",
-      "expectedImpact": "unknown; do not infer safe concurrency from independent metadata alone",
-      "latencyEstimate": "unknown; benchmark required",
-      "risk": "HIGH",
-      "proposedChange": "Document dependencies; preserve constructor gate, actor/idle priority, cancellation/yield and staged lifetime. No concurrency change.",
-      "validation": "Dependency proof plus concurrency/peak-memory/thermal and deterministic physical endpoint validation.",
-      "allocationClass": "A dependencies/lifetime"
     },
     {
       "id": "diagnostic-retention",
@@ -190,9 +142,41 @@
       "expectedImpact": "~11.55MiB potential retained-memory reduction; warm latency unchanged",
       "latencyEstimate": "unknown; benchmark required",
       "risk": "LOW",
-      "proposedChange": "Share one immutable embedding table between frontend and conditioner in a separate follow-up; preserve row validation/errors and Data ownership. Deferred from this hot-loop change to keep commits/physical attribution independent.",
+      "proposedChange": "Implemented shared immutable Data storage from existing frontend table; standalone URL fallback and original guards retained.",
       "validation": "all token row bytes exact and invalid-token errors unchanged; engine lifetime/memory and physical PCM hash",
       "allocationClass": "C removable duplicate immutable table"
+    },
+    {
+      "id": "flow-provider",
+      "priority": "P2",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+      "function": "synthesize/predictFlowShard",
+      "codeRegion": "275-295,444",
+      "currentBehavior": "Dictionary and feature provider reconstructed for each prediction. batchX/time/mask allocated once/request; flow models loaded once before six steps.",
+      "inefficiency": "small per-dispatch Foundation allocations; not per-step model construction",
+      "frequency": "36 predictions/request for six shards;18/12 p3/p2",
+      "expectedImpact": "less object work; likely smaller than tensor copies",
+      "latencyEstimate": "unknown; benchmark required",
+      "risk": "MEDIUM",
+      "proposedChange": "Evaluate mutable provider with explicit current output ownership, thread confinement and synchronization; no automatic implementation.",
+      "validation": "Exact all six velocity tensors and PCM; prove provider updates visible with all placements.",
+      "allocationClass": "B reusable"
+    },
+    {
+      "id": "hift-norm-temporary",
+      "priority": "P2",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+      "function": "overlapAddNorm",
+      "codeRegion": "532-555",
+      "currentBehavior": "249600 Float weights Array then same-sized MLMultiArray and full copy. Summation order deterministic.",
+      "inefficiency": "998400-byte temporary and 998400-byte copy/request",
+      "frequency": "once/request",
+      "expectedImpact": "less memory/copy; latency unknown",
+      "latencyEstimate": "unknown; benchmark required",
+      "risk": "LOW",
+      "proposedChange": "Fill zero-initialized MLMultiArray pointer directly using identical loop/index/order; no cross-request cache required.",
+      "validation": "All norm Float bit patterns compare across boundary N1/128/129/256/257/384/385/450; physical PCM hash.",
+      "allocationClass": "C removable temporary"
     },
     {
       "id": "minor-decode-bookkeeping",
@@ -209,6 +193,22 @@
       "proposedChange": "Do not spend substantial effort now. Keep current diagnostic information and guards; metadata optimization independent if measured.",
       "validation": "unchanged feature priority/errors and token/RNG output, physical parity",
       "allocationClass": "B reusable metadata"
+    },
+    {
+      "id": "orchestration-overlap",
+      "priority": "P3",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
+      "function": "synthesize",
+      "codeRegion": "354-445,445-550",
+      "currentBehavior": "Preparation/frontend/reference -> LLM -> selected-family Conditions -> Flow -> F0/HiFT -> PCM. Exact bucket unknown before LLM stop. LLM model refs dropped before acoustic.",
+      "inefficiency": "Independent noise/mask metadata could overlap but model constructors serialized after measured -14; overlap may increase residency/CPU contention",
+      "frequency": "once/request",
+      "expectedImpact": "unknown; do not infer safe concurrency from independent metadata alone",
+      "latencyEstimate": "unknown; benchmark required",
+      "risk": "HIGH",
+      "proposedChange": "Document dependencies; preserve constructor gate, actor/idle priority, cancellation/yield and staged lifetime. No concurrency change.",
+      "validation": "Dependency proof plus concurrency/peak-memory/thermal and deterministic physical endpoint validation.",
+      "allocationClass": "A dependencies/lifetime"
     }
   ],
   "implementationCandidates": [
@@ -281,9 +281,20 @@
       "decodeCallsAtN260": 259
     },
     "hift-norm-temporary": {
-      "commit": "201d90c",
+      "commit": "201d90c9d8a45ec84f5c06828aa1db8dcff3abf4",
       "hostTests": "20 PASS including all bucket boundaries",
-      "physicalEndpoint": "PENDING"
+      "physicalEndpoint": "BIT_IDENTICAL p3 and default p6",
+      "signedReleaseBuild": "PASS",
+      "removedTemporaryBytesAtN260": 998400,
+      "removedCopyBytesAtN260": 998400
+    },
+    "duplicate-speech-table": {
+      "commit": "d190364fd4d42b2e3685750d90f91c84f7817d62",
+      "hostTests": "23 PASS including standalone/shared bytes and RoPE/error checks",
+      "physicalEndpoint": "BIT_IDENTICAL default P6 and P3",
+      "removedRedundantReadAndTableBytes": 12115712,
+      "notMeasuredPeakFootprintClaim": true,
+      "signedReleaseBuild": "PASS"
     }
   },
   "recommendedNextTarget": "Measure owned Flow h output allocation/copy and explore bounded alternating owned buffers, with explicit CoreML producer/consumer lifetime/stride proof. This is MEDIUM and not implemented. A separate small immutable speech table sharing change can reduce retained memory without hot-loop math change.",
@@ -348,5 +359,8 @@
       "public return + nominal idle + no active synth",
       "serial missing bucket preparation"
     ]
-  ]
+  ],
+  "staticAuditCommittedBeforeRuntimeChanges": "cd87340",
+  "physicalFinalGitHEAD": "d190364fd4d42b2e3685750d90f91c84f7817d62",
+  "finalValidationEvidence": "ios/validation/evidence/enumerated_low_risk_runtime_validation.json"
 }

@@ -1,0 +1,204 @@
+CosyVoice3 iOS LOW-RISK audit and implementation report
+2026-10-06 07:40 EDT America/New_York
+Audit baseline HEAD: 09f08274a2f23cc443f3acdd8c356efb14172dab
+Final physical signed source HEAD: d190364fd4d42b2e3685750d90f91c84f7817d62
+Document-only Git HEAD is distinct from signed source.
+
+1: Pipeline dependency map
+Reference/cache preparation + native frontend -> prefill once -> incremental persistent MLState decode -> actual N/family -> Conditions -> exactly SIX Euler Flow steps (all shards each step) -> mel crop -> FP64 F0 -> phase + frozen excitation + norm -> HiFT -> owned PCM/public return -> serial thermally gated idle readiness. Exact bucket requires N. Each shard/step depends on preceding output/velocity; F0/phase depends on final mel. Constructor gate, actor ordering, staged lifetime and Task.yield remain unchanged; no overlap added.
+
+2: LLM decode hot loop
+Production uses one utterance MLState (48 KV buffers, 6291456 bytes), reused x/cos/sin/mask/write_mask/provider and cached RoPE. No per-token model load, Task hop, historical-token tensor rebuild, host KV readback or full KV copy. Existing decode autoreleasepool preserved. Frozen logits FP16[1,6761]; full distribution is required by unchanged RAS. This workload reaches max-length260:260 sampling draws,259 decode predictions. One request-local Float scratch replaces per-draw Array creation; exact original conversion/RNG/sampler preserved.
+
+3: Flow handoff
+All host interfaces remain FP32: h[2,T,1024],te[2,1024],velocity[2,80,T]. Each output is copied into an owned contiguous MLMultiArray; no Swift h Array or host FP16 roundtrip. At T822 h is6733824 bytes; six-shard six-step h copying is202014720 bytes, p3 is80805888, p2 is40402944. These are static host copy volumes, not measured accelerator transfers/latency. Removing ownership copies or mutating providers is MEDIUM and was not implemented. Models load once before all steps; CFG and Euler math unchanged.
+
+4: HiFT
+Production GPU placement unchanged. Historical requested-NE actual-CPU evidence is specific to that configuration, not proof that switching GPU production to CPU_ONLY preserves exact rounding or improves performance. No placement change. FP64 F0, phase, excitation and owned PCM semantics unchanged. Direct norm buffer filling removes one temporary Float Array and full copy; window/index/Float summation order verified bitwise.
+
+5: Allocations/lifetime
+Frontend/conditioner now share immutable speech Data instead of duplicate12115712-byte reads/storage. Per-engine referenceConditioningCache is unbounded with distinct references: MEDIUM future bounded-policy work, content SHA correctness must remain. Diagnostic repeated output retention may inflate footprint; prior LLM growth is NOT confirmed leak. Production count1, single replaced output, request-scoped KV and staged model references are retained as before. No claim of CoreML leak or lower authoritative peak.
+
+6: LOW changes implemented
+8dfe099: request-local6761 Float logits scratch;260 original buffer creations become1, removing259 logical27044-byte buffers (7004396 cumulative bytes), required conversion remains. 201d90c: norm directly into MLMultiArray, removes998400-byte temporary and998400-byte copy at N260. d190364: share immutable speech table, removes12115712-byte redundant read/storage. Counts are code-level logical buffer/storage counts, NOT Instruments allocator/joules measurements.
+
+7: Files changed
+Production: LLMRuntime.swift, DynamicAcousticRuntime.swift, EmbeddingTables.swift, TokenConditioner.swift, Engine.swift under ios/Sources/CosyVoice3Core. Tests: LogitsBufferTests.swift, OverlapAddNormTests.swift, SharedSpeechEmbeddingTests.swift. Validation source allowlist expanded narrowly; exact manifest/payload gates unchanged. Audit/validation JSON, this report, receipt/console metadata, personal protocol phase13 and append-only work history. Original sampler, model packages, primary benchmark app/runner semantics unchanged; temporary short-probe source snapshots archived.
+
+8: Tests/builds/correctness
+23 relevant Swift tests PASS, existing assertions unchanged. Three independent signed Release iOS builds/install PASS. Norm compared to independent original Array algorithm at N1/128/129/256/257/260/384/385/450, bit exact. Logits FP16/FP32 conversion bits, storage reuse, token/RNG checks PASS. Shared table rows/RoPE/error parity PASS. Six full physical first/warm lanes use same iPhone18,4/iOS27.2/text/reference/transcript/instruction/seed42/N260/functionn257_384/Flow6/249600samples/24kHz/10.4s/noPlayback. All BIT_IDENTICAL to their own existing placement baseline: p3+HiFTNE PCM578453..., defaultp6GPU PCM909a1b...; those baseline waveforms differ from each other. No reset, no sustained sweep/artificial cooldown, no device readback within timed work.
+
+9: Before/after measurements
+One warm observation per lane: no statistical speedup claim. P3 before4833.73775ms/RTF0.46478248 -> final4948.944709ms/0.47586007 (+115.206959ms). No proven latency/energy/thermal improvement. All first/warm thermal nominal start/end is not sustained thermal evidence. Sampled footprint spans different cold/reinstall/CoreML states; not authoritative peak or attributable12MB improvement. First times recorded but signed reinstall/container path/cache readiness prevents strict cold optimization comparison. P3 vs P6 differ partition/cache/HiFT placement and must not be compared as runtime-only optimization.
+
+10: Remaining MEDIUM/HIGH opportunities
+MEDIUM: Flow alternating owned buffers/direct retained output after lifetime/stride proof; mutable-provider update visibility; FP64 F0 boxing/scratch reuse; bounded reference cache; CPU_ONLY placement with actual same-placement correctness and timing/thermal controls. HIGH: construction/pipeline overlap without dependency, actor and memory-pressure proof. Deferred LOW:1792-byte embedding temporary per decode, minor reserve/feature metadata work; keep separate from validated changes.
+
+11: Recommended next target
+Short scoped allocation/CPU trace to quantify Flow h ownership allocation/copy overhead; evaluate two alternating owned h buffers. This remains MEDIUM until producer/consumer lifetime/stride, host boundary tensors, physical PCM and peak-memory evidence pass. Keep exact six Flow steps and all math. No additional ANE chasing, quantization, frozen asset overwrite, HF/catalog/release/promotion changes.
+
+Physical measurements (single warm observations):
+before-p3: signed=cca2923, warm=4833.737750ms RTF=0.464782476, LLM=3256.126208ms acLoad=3.414375ms acExecute=1392.448500ms, sampledPeak=2195737880bytes, thermal=nominal->nominal, PCM=57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4
+logits-p3: signed=8dfe099, warm=4873.442417ms RTF=0.468600232, LLM=3271.266958ms acLoad=3.358708ms acExecute=1414.794417ms, sampledPeak=2187463816bytes, thermal=nominal->nominal, PCM=57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4
+norm-p3: signed=201d90c, warm=4889.738667ms RTF=0.470167180, LLM=3273.023375ms acLoad=3.320708ms acExecute=1414.490667ms, sampledPeak=2188709048bytes, thermal=nominal->nominal, PCM=57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4
+final-production-p6: signed=201d90c, warm=6012.902083ms RTF=0.578163662, LLM=3275.474125ms acLoad=601.143793ms acExecute=1958.763124ms, sampledPeak=1974454472bytes, thermal=nominal->nominal, PCM=909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694
+shared-production-p6: signed=d190364, warm=6042.697958ms RTF=0.581028650, LLM=3253.667042ms acLoad=626.757084ms acExecute=1982.819541ms, sampledPeak=2011433184bytes, thermal=nominal->nominal, PCM=909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694
+shared-p3: signed=d190364, warm=4948.944709ms RTF=0.475860068, LLM=3366.009959ms acLoad=4.079667ms acExecute=1400.853333ms, sampledPeak=2153860304bytes, thermal=nominal->nominal, PCM=57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4
+
+Ranked findings: exact baseline code regions, estimates unmeasured unless stated.
+
+P0 decode-logits-allocation
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift
+FUNCTION: generate/logits
+LINE / CODE REGION: 44-45,77-84
+CURRENT BEHAVIOR: Every output copies 6761 FP32 logits to a Swift Array; FP16 expands to Float. Full distribution is consumed by unchanged RAS.
+WHY IT IS INEFFICIENT: Frozen outputs FP16; each draw allocates27044-byte Float materialization. This workload reaches max-length260:260 sampling draws/259 decode predictions,7031440 cumulative original allocation bytes. Required conversion remains.
+EXECUTION FREQUENCY: once/sampling draw;260 on this max-length workload
+EXPECTED IMPACT: 259 fewer27044-byte buffer allocations,7004396 fewer cumulative allocation bytes at this frozen N260; no copy/transfer/speedup claim
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: LOW
+PROPOSED CHANGE: Preallocate one request-local [Float] scratch; refill with identical original FP16 bitPattern -> Float conversion in index order. Keep unchanged sampler/RNG. FP32 path copies into same scratch. No borrowed pointer API or sampler rewrite.
+VALIDATION: Array vs borrowed buffer exact token and RNG state tests including ties/nonfinite/suppression/repetition; signed physical full API identical PCM SHA/N260/Flow6/249600 samples.
+
+P0 flow-owned-handoff
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift
+FUNCTION: predictFlowShard/ownedFloat32Output
+LINE / CODE REGION: 432-461,493-507
+CURRENT BEHAVIOR: Each shard output is copied to new contiguous owned FP32 MLMultiArray; no intermediate Swift Array or host FP16 conversion. h[2,822,1024] is 6733824 bytes.
+WHY IT IS INEFFICIENT: Five h copies/step in 6-shard = 202014720 bytes/request; p3 two h copies/step=80805888; p2 one=40402944. Boundary copies can force CPU materialization. Actual transfer cost unknown.
+EXECUTION FREQUENCY: 6 steps * partition shard count
+EXPECTED IMPACT: largest obvious memory-traffic opportunity; dispatch still required
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Investigate two alternating owned reusable h buffers or strongly retained direct output after proving CoreML lifetime/layout/alias safety. Do not remove ownership copies automatically.
+VALIDATION: Per-boundary dtype/shape/strides/lifetime tracing; original and candidate host exact tensors and physical PCM hash; memory peak and per-shard timing.
+
+P1 decode-embedding-copy
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3TokenConditioner.swift
+FUNCTION: embeddingFP16
+LINE / CODE REGION: 53-57
+CURRENT BEHAVIOR: subdata creates 1792-byte embedding Data then session memcpy into preallocated x. RoPE is already cached.
+WHY IT IS INEFFICIENT: one avoidable intermediate allocation/copy before required input write
+EXECUTION FREQUENCY: 259 decode calls on this max-length260 workload
+EXPECTED IMPACT: 464128-byte avoidable intermediate copy plus259 allocations
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: LOW
+PROPOSED CHANGE: Add scoped borrowed row accessor and synchronous session input copy, preserving byte-count/error guards; separate commit if pursued.
+VALIDATION: All row bytes identical including special/token bounds; physical PCM hash and token trajectory unchanged.
+
+P1 f0-boxing
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift
+FUNCTION: prediction
+LINE / CODE REGION: 19-29
+CURRENT BEHAVIOR: mel[NSNumber] -> Double array; five FP64 im2col/output buffers, unchanged Accelerate math.
+WHY IT IS INEFFICIENT: 41600 NSNumber reads for G520; five repeated large buffer allocations
+EXECUTION FREQUENCY: once/request;5 layers
+EXPECTED IMPACT: pointer reads/scratch reuse could reduce CPU work; math must stay FP64
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Contiguous Float pointer conversion with guarded fallback; reuse zeroed scratch after reentrancy/lifetime proof. No Float32 math rewrite.
+VALIDATION: Exact F0 bits, padding/ELU/GEMM order, host variable-length and physical PCM tests.
+
+P1 hift-placement
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift
+FUNCTION: model/compute placement
+LINE / CODE REGION: 12-15,361-454
+CURRENT BEHAVIOR: Production acoustic default CPU_AND_GPU. HiFT requested NE diagnostic measured CPU execution, zero matched ANE. CPU_ONLY candidate uses same frozen graph.
+WHY IT IS INEFFICIENT: Requesting NE may pay specialization overhead without hardware benefit; fastest NE CPU fallback vs CPU_ONLY differs empirically.
+EXECUTION FREQUENCY: once/request
+EXPECTED IMPACT: cold benefit uncertain; no automatic thermal or latency benefit
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Keep placement unchanged. Controlled HiFT CPU_ONLY vs currently selected placement; GPU comparison has numerical rather than bit-identical PCM historically.
+VALIDATION: Signed full public API, identical inputs/weights; BIT_IDENTICAL vs existing NE fallback or explicit numerical qualification against GPU; thermal/latency measurement.
+
+P1 reference-unbounded
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift
+FUNCTION: referenceConditioning/cachedReferenceConditioning
+LINE / CODE REGION: 32,901-930
+CURRENT BEHAVIOR: All distinct reference tensors retained in dictionary for engine lifetime, about98KB per reference; full WAV hashed repeatedly by cache descriptor.
+WHY IT IS INEFFICIENT: unbounded with number of user references; diagnostic LLM outputs alone do not establish leak
+EXECUTION FREQUENCY: per new reference; descriptor multiple times/request
+EXPECTED IMPACT: bounded memory would improve long-lived engine; repeated hash affects variable large references
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Bound reference cache with explicit policy; keep content hashing correctness. Do not substitute path/mtime as SHA identity.
+VALIDATION: Many references, edited same-path WAV invalidation, exact enrollment and endpoint parity; eviction correctness.
+
+P2 diagnostic-retention
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift
+FUNCTION: synthesize isolated diagnostics
+LINE / CODE REGION: 419-432; DynamicAcousticRuntime254-317,351-363
+CURRENT BEHAVIOR: Production diagnostic count1; isolated count12 retains token/flow/PCM outputs to compare later. decode outputs replaced, state owned per utterance; existing per-decode autoreleasepool.
+WHY IT IS INEFFICIENT: Replay buffers inflate diagnostic footprint; not confirmed production leak. Persistent events append only first unique identity except repeated invalidations.
+EXECUTION FREQUENCY: diagnostic repeated groups; normal productionone
+EXPECTED IMPACT: measurement interpretation rather than production speedup
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Attribute memory to replay/CoreML separately in a future short scoped allocation trace; do not redesign benchmark or call growth leak.
+VALIDATION: Object lifetime/allocations trace tied to PID and stage, repeat few requests without replay arrays.
+
+P2 duplicate-speech-table
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift
+FUNCTION: reusableBaseFrontend/reusableConditioner
+LINE / CODE REGION: 714-744; EmbeddingTables15-24; TokenConditioner22-27
+CURRENT BEHAVIOR: Frontend and decoder conditioner independently load identical manifest.speechEmbedding into two immutable Data objects.
+WHY IT IS INEFFICIENT: 6761*896*2=12115712 bytes duplicated per engine, plus duplicate disk read; independent cached RoPE rows are smaller.
+EXECUTION FREQUENCY: once/engine, retained engine lifetime
+EXPECTED IMPACT: ~11.55MiB potential retained-memory reduction; warm latency unchanged
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: LOW
+PROPOSED CHANGE: Implemented shared immutable Data storage from existing frontend table; standalone URL fallback and original guards retained.
+VALIDATION: all token row bytes exact and invalid-token errors unchanged; engine lifetime/memory and physical PCM hash
+
+P2 flow-provider
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift
+FUNCTION: synthesize/predictFlowShard
+LINE / CODE REGION: 275-295,444
+CURRENT BEHAVIOR: Dictionary and feature provider reconstructed for each prediction. batchX/time/mask allocated once/request; flow models loaded once before six steps.
+WHY IT IS INEFFICIENT: small per-dispatch Foundation allocations; not per-step model construction
+EXECUTION FREQUENCY: 36 predictions/request for six shards;18/12 p3/p2
+EXPECTED IMPACT: less object work; likely smaller than tensor copies
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: MEDIUM
+PROPOSED CHANGE: Evaluate mutable provider with explicit current output ownership, thread confinement and synchronization; no automatic implementation.
+VALIDATION: Exact all six velocity tensors and PCM; prove provider updates visible with all placements.
+
+P2 hift-norm-temporary
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift
+FUNCTION: overlapAddNorm
+LINE / CODE REGION: 532-555
+CURRENT BEHAVIOR: 249600 Float weights Array then same-sized MLMultiArray and full copy. Summation order deterministic.
+WHY IT IS INEFFICIENT: 998400-byte temporary and 998400-byte copy/request
+EXECUTION FREQUENCY: once/request
+EXPECTED IMPACT: less memory/copy; latency unknown
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: LOW
+PROPOSED CHANGE: Fill zero-initialized MLMultiArray pointer directly using identical loop/index/order; no cross-request cache required.
+VALIDATION: All norm Float bit patterns compare across boundary N1/128/129/256/257/384/385/450; physical PCM hash.
+
+P3 minor-decode-bookkeeping
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift
+FUNCTION: generate/fillLogits
+LINE / CODE REGION: 42,77-84 baseline
+CURRENT BEHAVIOR: Decoded tokens Array grows amortized; three logits feature-name lookups/compactMap and shape map each draw; RAS tiny topK/weights allocations. Session inputs/providers/shapes preallocated, RoPE cached, no per-token Task/model lookup/fullKV readback.
+WHY IT IS INEFFICIENT: small object/metadata work; repeated logit shape only needed for error, decoded reserve can avoid few growth allocations
+EXECUTION FREQUENCY: once/token
+EXPECTED IMPACT: minor bookkeeping compared with full sampling/model prediction; prioritize actual materialization/handoff traffic
+LATENCY ESTIMATE: <5 ms/request is a hypothesis; benchmark required
+RISK: LOW
+PROPOSED CHANGE: Do not spend substantial effort now. Keep current diagnostic information and guards; metadata optimization independent if measured.
+VALIDATION: unchanged feature priority/errors and token/RNG output, physical parity
+
+P3 orchestration-overlap
+FILE: ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift
+FUNCTION: synthesize
+LINE / CODE REGION: 354-445,445-550
+CURRENT BEHAVIOR: Preparation/frontend/reference -> LLM -> selected-family Conditions -> Flow -> F0/HiFT -> PCM. Exact bucket unknown before LLM stop. LLM model refs dropped before acoustic.
+WHY IT IS INEFFICIENT: Independent noise/mask metadata could overlap but model constructors serialized after measured -14; overlap may increase residency/CPU contention
+EXECUTION FREQUENCY: once/request
+EXPECTED IMPACT: unknown; do not infer safe concurrency from independent metadata alone
+LATENCY ESTIMATE: unknown; benchmark required
+RISK: HIGH
+PROPOSED CHANGE: Document dependencies; preserve constructor gate, actor/idle priority, cancellation/yield and staged lifetime. No concurrency change.
+VALIDATION: Dependency proof plus concurrency/peak-memory/thermal and deterministic physical endpoint validation.

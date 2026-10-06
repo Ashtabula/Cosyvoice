@@ -1,0 +1,2525 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_BIT_IDENTICAL_LOW_RISK_RUNTIME_CHANGES",
+  "recordedAt": "2026-10-06 07:38 EDT America/New_York",
+  "auditStartGitHEAD": "09f08274a2f23cc443f3acdd8c356efb14172dab",
+  "physicalFinalGitHEAD": "d190364fd4d42b2e3685750d90f91c84f7817d62",
+  "inputIdentity": {
+    "effectiveReferenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
+    "instructionSha256": "f798a16e21fda49d5bc17b461a28f317506559983e8fbc9397c1c2c3317264d3",
+    "manifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "referenceTranscriptFileSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "text": "This is a CosyVoice3 public API reference voice validation.",
+    "textSha256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed"
+  },
+  "algorithmUnchanged": true,
+  "weightsUnchanged": true,
+  "placementUnchanged": true,
+  "flowSteps": 6,
+  "publicEntryPoint": "CosyVoice3Engine.synthesize()",
+  "runs": [
+    {
+      "name": "before-p3",
+      "signedSourceGitHEAD": "cca2923a9ba9c92ec1d3475b682c43c3f77fbbbd",
+      "receiptSHA256": "632ff53ad21b20c4a0ea17e315a18549305c9250c003a04db474a23c65806a81",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/before-p3/candidate-benchmark-receipt.json",
+      "consoleSHA256": "404012ae19f7d387fc76cef0e601d2cb8fe76536ca6fcb67db36fa6aca1d0830",
+      "processID": 5331,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_NE",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=3",
+      "cacheStrategy": "--validation-acoustic-cache=selected-family",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 39269.750792000006,
+      "firstRTF": 3.7759375761538463,
+      "warmMs": 4833.73775,
+      "warmRTF": 0.46478247596153843,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 3.414375,
+        "acousticSynthesisMilliseconds": 1392.4485,
+        "flowSteps": 6,
+        "frontendMilliseconds": 1.232583,
+        "llmGenerationMilliseconds": 3256.126208,
+        "llmModelLoadMilliseconds": 162.222334,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 4.613167,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4822.339875,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1181.2819999999992,
+      "sampledPeakFootprintBytes": 2195737880,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "speechTokenizer",
+          "logicalPath": "reference/speech-tokenizer-fixed605.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/reference/speech-tokenizer-fixed605.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "campPlus",
+          "logicalPath": "reference/campplus-fixed604.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/reference/campplus-fixed604.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "../FlowPartitions/p3/group-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/FlowPartitions/p3/group-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "../FlowPartitions/p3/group-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/FlowPartitions/p3/group-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "../FlowPartitions/p3/group-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/FlowPartitions/p3/group-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/706C0F66-3886-4B84-BDA4-C32FE9D06311/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "8977.0505",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1683.699458",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+            "packageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "6725.933583",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "243.219542",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+            "packageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "266.582917",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2239.390958",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+            "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2133.946583",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+            "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1651.792958",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+            "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "6937.945333",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {
+        "group0": {
+          "bytes": 247383000,
+          "files": [
+            {
+              "bytes": 866351,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+            },
+            {
+              "bytes": 128965248,
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+            }
+          ],
+          "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+        },
+        "group1": {
+          "bytes": 235907098,
+          "files": [
+            {
+              "bytes": 804913,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+            }
+          ],
+          "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+        },
+        "group2": {
+          "bytes": 181331598,
+          "files": [
+            {
+              "bytes": 642053,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "bytes": 63138144,
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+            }
+          ],
+          "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
+        }
+      },
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    },
+    {
+      "name": "logits-p3",
+      "signedSourceGitHEAD": "8dfe09966a2327e2b61b177ff1ee7921dd6b1d38",
+      "receiptSHA256": "491628ceb33945e66831e49d5bcb8e43aeb204ea1d808ce97b1d15a57a7b545b",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/logits-p3/candidate-benchmark-receipt.json",
+      "consoleSHA256": "3c7f852ca256d1c8fb721f28e43b5f98008e7e1bd9bb7c1f726e55fb8822676e",
+      "processID": 5340,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_NE",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=3",
+      "cacheStrategy": "--validation-acoustic-cache=selected-family",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 38645.17775,
+      "firstRTF": 3.7158824759615383,
+      "warmMs": 4873.442416999999,
+      "warmRTF": 0.46860023240384613,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 3.358708,
+        "acousticSynthesisMilliseconds": 1414.794417,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.808375,
+        "llmGenerationMilliseconds": 3271.266958,
+        "llmModelLoadMilliseconds": 163.816583,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 4.049333,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4860.411917,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1205.4070000000029,
+      "sampledPeakFootprintBytes": 2187463816,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "speechTokenizer",
+          "logicalPath": "reference/speech-tokenizer-fixed605.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/reference/speech-tokenizer-fixed605.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "campPlus",
+          "logicalPath": "reference/campplus-fixed604.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/reference/campplus-fixed604.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "../FlowPartitions/p3/group-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/FlowPartitions/p3/group-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "../FlowPartitions/p3/group-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/FlowPartitions/p3/group-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "../FlowPartitions/p3/group-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/FlowPartitions/p3/group-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/182F5207-2B05-43EE-9CF6-8ED5ABBEB8CA/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "8448.041",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1697.758125",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+            "packageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "6345.488167",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "231.705166",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+            "packageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "230.86475",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2287.223625",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+            "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2084.508666",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+            "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1724.064542",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+            "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "7055.791",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {
+        "group0": {
+          "bytes": 247383000,
+          "files": [
+            {
+              "bytes": 866351,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+            },
+            {
+              "bytes": 128965248,
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+            }
+          ],
+          "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+        },
+        "group1": {
+          "bytes": 235907098,
+          "files": [
+            {
+              "bytes": 804913,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+            }
+          ],
+          "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+        },
+        "group2": {
+          "bytes": 181331598,
+          "files": [
+            {
+              "bytes": 642053,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "bytes": 63138144,
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+            }
+          ],
+          "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
+        }
+      },
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    },
+    {
+      "name": "norm-p3",
+      "signedSourceGitHEAD": "201d90c9d8a45ec84f5c06828aa1db8dcff3abf4",
+      "receiptSHA256": "b1d773eb3759800441c35e41cdfd34609c795e3aaf68c5508f18529c4738d1d6",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/norm-p3/candidate-benchmark-receipt.json",
+      "consoleSHA256": "b7232ffcca5c44878566df78899715690c0261235915c94a7331b3dd6312cc31",
+      "processID": 5350,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_NE",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=3",
+      "cacheStrategy": "--validation-acoustic-cache=selected-family",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 38544.542208000006,
+      "firstRTF": 3.706205981538462,
+      "warmMs": 4889.738667,
+      "warmRTF": 0.4701671795192307,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 3.3207079999999998,
+        "acousticSynthesisMilliseconds": 1414.490667,
+        "flowSteps": 6,
+        "frontendMilliseconds": 1.036791,
+        "llmGenerationMilliseconds": 3273.023375,
+        "llmModelLoadMilliseconds": 174.173375,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 5.119209,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4873.539083,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1222.2649999999994,
+      "sampledPeakFootprintBytes": 2188709048,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "speechTokenizer",
+          "logicalPath": "reference/speech-tokenizer-fixed605.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/reference/speech-tokenizer-fixed605.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "campPlus",
+          "logicalPath": "reference/campplus-fixed604.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/reference/campplus-fixed604.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "../FlowPartitions/p3/group-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/FlowPartitions/p3/group-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "../FlowPartitions/p3/group-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/FlowPartitions/p3/group-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "../FlowPartitions/p3/group-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/FlowPartitions/p3/group-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "8192.832375",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1649.2825",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+            "packageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "6445.579416",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "228.519583",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+            "packageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "230.789667",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2318.057583",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+            "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2105.107792",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+            "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1739.089625",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+            "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "7098.943459",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {
+        "group0": {
+          "bytes": 247383000,
+          "files": [
+            {
+              "bytes": 866351,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+            },
+            {
+              "bytes": 128965248,
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+            }
+          ],
+          "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+        },
+        "group1": {
+          "bytes": 235907098,
+          "files": [
+            {
+              "bytes": 804913,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+            }
+          ],
+          "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+        },
+        "group2": {
+          "bytes": 181331598,
+          "files": [
+            {
+              "bytes": 642053,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "bytes": 63138144,
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+            }
+          ],
+          "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
+        }
+      },
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    },
+    {
+      "name": "final-production-p6",
+      "signedSourceGitHEAD": "201d90c9d8a45ec84f5c06828aa1db8dcff3abf4",
+      "receiptSHA256": "9326a2d08510449712557990ad1157221edf37de499e619b9c3d3ac9e66fc170",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/final-production-p6/candidate-benchmark-receipt.json",
+      "consoleSHA256": "5956d46926406abbbecc872fcbced286745de49325b067e58024d2806a5bd93a",
+      "processID": 5351,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_GPU",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=6",
+      "cacheStrategy": "--validation-acoustic-cache=none",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 15918.403790999999,
+      "firstRTF": 1.5306157491346153,
+      "warmMs": 6012.902083,
+      "warmRTF": 0.578163661826923,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 601.143793,
+        "acousticSynthesisMilliseconds": 1958.7631239999998,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.501958,
+        "llmGenerationMilliseconds": 3275.474125,
+        "llmModelLoadMilliseconds": 152.626458,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 2.744,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 5993.504792,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1480.5830000000005,
+      "sampledPeakFootprintBytes": 1974454472,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "enumerated-acoustic/flow-shard-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "enumerated-acoustic/flow-shard-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "enumerated-acoustic/flow-shard-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow3",
+          "logicalPath": "enumerated-acoustic/flow-shard-3.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-3.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow4",
+          "logicalPath": "enumerated-acoustic/flow-shard-4.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-4.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow5",
+          "logicalPath": "enumerated-acoustic/flow-shard-5.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-5.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/662D65B2-A674-4A49-B621-F6CC8E10EEEE/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "80.948417",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "61.157125",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "11.146417",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1183.47675",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+            "packageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1051.155167",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+            "packageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1048.079542",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+            "packageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1056.416",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+            "packageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1099.956",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+            "packageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "744.550417",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+            "packageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1965.633208",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {},
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    },
+    {
+      "name": "shared-production-p6",
+      "signedSourceGitHEAD": "d190364fd4d42b2e3685750d90f91c84f7817d62",
+      "receiptSHA256": "6ddec5574b35814782dfad70903023c0e34dba149e4ccc69daf46a1c14e55d7a",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/shared-production-p6/candidate-benchmark-receipt.json",
+      "consoleSHA256": "cd4c6e1de20812e3168ce95e333be4229ae31c8eb6403423a555ce6fb6eacc55",
+      "processID": 5368,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_GPU",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=6",
+      "cacheStrategy": "--validation-acoustic-cache=none",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 34097.3385,
+      "firstRTF": 3.278590240384615,
+      "warmMs": 6042.697958,
+      "warmRTF": 0.5810286498076923,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 626.757084,
+        "acousticSynthesisMilliseconds": 1982.8195410000003,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.495917,
+        "llmGenerationMilliseconds": 3253.667042,
+        "llmModelLoadMilliseconds": 154.2585,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.456958,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 6023.728666,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1524.1939999999995,
+      "sampledPeakFootprintBytes": 2011433184,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "speechTokenizer",
+          "logicalPath": "reference/speech-tokenizer-fixed605.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/reference/speech-tokenizer-fixed605.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "campPlus",
+          "logicalPath": "reference/campplus-fixed604.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 0)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/reference/campplus-fixed604.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "enumerated-acoustic/flow-shard-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "enumerated-acoustic/flow-shard-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "enumerated-acoustic/flow-shard-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow3",
+          "logicalPath": "enumerated-acoustic/flow-shard-3.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-3.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow4",
+          "logicalPath": "enumerated-acoustic/flow-shard-4.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-4.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow5",
+          "logicalPath": "enumerated-acoustic/flow-shard-5.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/flow-shard-5.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "8483.14625",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1704.618458",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+            "packageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "6498.820125",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "238.232792",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+            "packageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "232.331375",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1304.932542",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+            "packageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1116.297792",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+            "packageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1055.872459",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+            "packageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1091.575167",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+            "packageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1107.266875",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+            "packageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "754.43375",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+            "packageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2058.066542",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {},
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    },
+    {
+      "name": "shared-p3",
+      "signedSourceGitHEAD": "d190364fd4d42b2e3685750d90f91c84f7817d62",
+      "receiptSHA256": "44b4dfa8d701a361aa1816e6994ef232d1159bdeda15c32b70c9d13a1b3c3041",
+      "receiptPath": "ios/validation/evidence/low-risk-runtime-20261006/shared-p3/candidate-benchmark-receipt.json",
+      "consoleSHA256": "e3d9f634b834b65ae24c3d1fd237a5682a130f7d53f69b93c433af5ac702ede7",
+      "processID": 5369,
+      "runtimeRoot": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime",
+      "profile": "ios18-enumerated-n1-n450",
+      "device": "iPhone18,4",
+      "os": "27.2",
+      "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "placement": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_NE",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "partition": "--validation-flow-partition=3",
+      "cacheStrategy": "--validation-acoustic-cache=selected-family",
+      "function": "n257_384",
+      "N": 260,
+      "T": 822,
+      "G": 520,
+      "samples": 249600,
+      "sampleRate": 24000,
+      "audioSeconds": 10.4,
+      "firstMs": 20981.571458000002,
+      "firstRTF": 2.0174587940384616,
+      "warmMs": 4948.944709,
+      "warmRTF": 0.4758600681730769,
+      "warmStages": {
+        "acousticModelLoadMilliseconds": 4.079667000000001,
+        "acousticSynthesisMilliseconds": 1400.853333,
+        "flowSteps": 6,
+        "frontendMilliseconds": 0.5375,
+        "llmGenerationMilliseconds": 3366.009959,
+        "llmModelLoadMilliseconds": 159.129417,
+        "modelPreparationCacheHit": true,
+        "preparationMilliseconds": 3.250292,
+        "referenceCacheHit": true,
+        "totalMilliseconds": 4936.603958,
+        "warmedModelCount": 0
+      },
+      "warmSelfCPUMs": 1208.683000000001,
+      "sampledPeakFootprintBytes": 2153860304,
+      "thermalStart": "nominal",
+      "thermalEnd": "nominal",
+      "pcmSHA256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
+      "correctness": "BIT_IDENTICAL_TO_SAME_PLACEMENT_BASELINE",
+      "actualPackagePaths": [
+        {
+          "role": "llmPrefill",
+          "logicalPath": "models/llm-opt-perlayer-prefill.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "llmDecode",
+          "logicalPath": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+          "selectedFunction": "<nil:main>",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "false",
+          "extracted": "false"
+        },
+        {
+          "role": "conditions",
+          "logicalPath": "enumerated-acoustic/conditions.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow0",
+          "logicalPath": "../FlowPartitions/p3/group-0.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/FlowPartitions/p3/group-0.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow1",
+          "logicalPath": "../FlowPartitions/p3/group-1.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/FlowPartitions/p3/group-1.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "flow2",
+          "logicalPath": "../FlowPartitions/p3/group-2.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 1)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/FlowPartitions/p3/group-2.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION",
+          "multifunction": "true",
+          "extracted": "false"
+        },
+        {
+          "role": "hift",
+          "logicalPath": "enumerated-acoustic/hift.mlpackage",
+          "requestedComputeUnits": "MLComputeUnits(rawValue: 3)",
+          "actualPath": "/var/mobile/Containers/Data/Application/91BD6535-9017-44F9-BC4B-98AC22CAD23C/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage",
+          "selectedFunction": "n257_384",
+          "variant": "FROZEN_PACKAGE",
+          "multifunction": "true",
+          "extracted": "false"
+        }
+      ],
+      "actualProcessLoadIdentities": [
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "82.037041",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "61.751792",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "10.347917",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+            "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2197.422709",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+            "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "2067.5095",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+            "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "1761.967125",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+            "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        },
+        {
+          "event": {
+            "authoritativeLoadMilliseconds": "7115.596334",
+            "compiledArtifactHit": "true",
+            "functionName": "n257_384",
+            "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
+            "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "persistentModelRecordHit": "true"
+          },
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        }
+      ],
+      "experimentalPackageFileIdentity": {
+        "group0": {
+          "bytes": 247383000,
+          "files": [
+            {
+              "bytes": 866351,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+            },
+            {
+              "bytes": 128965248,
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+            }
+          ],
+          "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+        },
+        "group1": {
+          "bytes": 235907098,
+          "files": [
+            {
+              "bytes": 804913,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+            }
+          ],
+          "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+        },
+        "group2": {
+          "bytes": 181331598,
+          "files": [
+            {
+              "bytes": 642053,
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+            },
+            {
+              "bytes": 117550784,
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "bytes": 63138144,
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "bytes": 617,
+              "path": "Manifest.json",
+              "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+            }
+          ],
+          "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
+        }
+      },
+      "fullPublicAPI": true,
+      "noReadbackDuringTimedWork": true
+    }
+  ],
+  "hostTests": {
+    "count": 23,
+    "failures": 0,
+    "groups": [
+      "SharedSpeechEmbeddingTests",
+      "EmbeddingTableTests",
+      "OverlapAddNormTests",
+      "LogitsBufferTests",
+      "RASamplerTests",
+      "PersistentRuntimeStoreTests",
+      "EnumeratedAcousticContractTests",
+      "ComputePlacementTests"
+    ]
+  },
+  "signedReleaseBuilds": {
+    "8dfe09966a2327e2b61b177ff1ee7921dd6b1d38": "PASS",
+    "201d90c9d8a45ec84f5c06828aa1db8dcff3abf4": "PASS",
+    "d190364fd4d42b2e3685750d90f91c84f7817d62": "PASS"
+  },
+  "allocationEvidence": {
+    "scope": "code-level logical element/storage counts, not measured system allocator/joules",
+    "logitsOriginalDraws": 260,
+    "decodeCalls": 259,
+    "logitsBuffersBefore": 260,
+    "logitsBuffersAfter": 1,
+    "logitsCumulativeAllocationBytesRemoved": 7004396,
+    "normTemporaryBytesRemoved": 998400,
+    "normMemcpyBytesRemoved": 998400,
+    "duplicateSpeechTableBytesRemoved": 12115712
+  },
+  "limitations": [
+    "No measured speedup: p3 single warm before vs final increased; repeated controlled performance A/B is required.",
+    "No energy/thermal improvement proven; no sustained sweep conducted. All paired first/warm receipts nominal start/end.",
+    "Sampled footprint includes cold/CoreML/validation state, not authoritative peak or proof of leak.",
+    "Signed reinstall changes container path and CoreML cache readiness; first times are recorded but not strict cold optimization comparison.",
+    "P3 and default P6 use different partition/cache/HiFT placement; never directly compare them as runtime-only speedup.",
+    "GPU PCM909 and tested NE/CPU HiFT PCM578 are different existing placement baselines; each candidate matches its own baseline bitwise.",
+    "Initial default-sandbox CoreDevice inventory timed out; elevated builds/device runs succeeded. No model failure inferred.",
+    "Discarded FP32 borrow proposal did not target frozen FP16 outputs and was not shipped; sampler unchanged."
+  ],
+  "p3SingleWarmComparison": {
+    "beforeMs": 4833.73775,
+    "afterMs": 4948.944709,
+    "deltaAfterMinusBeforeMs": 115.2069590000001,
+    "beforeRTF": 0.46478247596153843,
+    "afterRTF": 0.4758600681730769,
+    "speedupProven": false
+  }
+}

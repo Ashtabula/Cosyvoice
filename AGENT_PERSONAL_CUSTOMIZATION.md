@@ -102,3 +102,7 @@ Production must preserve app-owned compiled artifacts/identity records across ki
 ## 12. Actual residency phase
 
 LLM prefill/decode, Flow and HiFT claims require measured profiling evidence. MLComputePlan preferred/supported and CPU_AND_NE are planning/request evidence only; classify actual residency UNKNOWN when not attributed. Isolated/full sustained comparisons start nominal, use12 iterations with no inter-iteration delay or device copy/readback/hash during timed loops. Preserve algorithm, weights, four-function dedup and persistent/idle runtime.
+
+## 13. Low-risk inference audit phase (2026-10-06)
+
+Static production code-path audit and reviewable findings precede runtime changes. Prioritize per-token decode allocations, Flow handoff traffic and HiFT input/output ownership; preserve weights/math/sampling/API/cache identity and fixed benchmark Flow6. Only LOW-risk changes auto-implement in independent commits with signed iOS build, relevant unchanged tests and physical PCM/hash validation; revert unexpected output changes. Existing LLM NE and Flow GPU evidence does not justify full-ANE claims or forced placement. Do not start a long sustained test or artificial cooldown as the first audit action. Byte/allocation counts are not measured latency, joules or thermal improvement; report unknown when unproven.

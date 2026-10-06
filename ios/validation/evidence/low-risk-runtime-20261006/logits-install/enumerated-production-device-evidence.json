@@ -1,0 +1,29 @@
+{
+  "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+  "bundle": "com.actacomes.cosyvoice3.candidatebenchmark",
+  "completedAtUnix": 1791285905,
+  "device": "00008150-000A05CA1440401C",
+  "diagnosticEnumeratedCompute": "cpu-gpu",
+  "diagnosticRuntimeChangedFiles": [
+    "ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift",
+    "ios/Sources/CosyVoice3Core/CosyVoice3StageDiagnostics.swift"
+  ],
+  "experimentalSingleFunctionRoles": [],
+  "exportReceiptSha256": "0eccfc865857e7240916d433e9e777ab04ff52848191c92a35faa052add8c49a",
+  "payloadBytes": 3530215890,
+  "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "productionPromotion": false,
+  "profile": "ios18-enumerated-n1-n450",
+  "requestedRoleOverrides": [],
+  "runs": {},
+  "runtimeManifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "schemaVersion": 1,
+  "sourceCommit": "8dfe09966a2327e2b61b177ff1ee7921dd6b1d38",
+  "stagingReused": true,
+  "status": "PASS_ENUMERATED_DIAGNOSTIC_DEVICE_VALIDATION"
+}
