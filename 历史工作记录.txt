@@ -917,3 +917,10 @@ Validation:24Swift6testsPASS/0skip;signed0d7c975PASS. Matchedsame-source fullpea
 Profiling:initialstop-save60stimeout/secondboot-timeoutpreserved. OfficialAppleimportactualATRC recovered5prefill+1295decodeexactmodelANEhardwarecounts;native/CoreMLsignpostsnotrecovered,perPIDcontainment/fallback/gaps/fullANEUNKNOWN. No donortracecopied.
 Audio:new3actualiPhoneWAVpulledworkspace,all12Current/Q8/hybrid/fullreferencesSHAverified;newfullN160/413/442,userreviewrequired;priorhybridHUMAN_PASSnottransferred. DecisionQ4_PREFILL_RESCUED_AWAITING_HUMAN. Normal.q4 remainsacceptedhybrid;Currentdefault/Q8/Demo/HF/catalog/releaseunchanged;nochunk/newdecode/CPUfallback/newquantizationsweep.
 GitHub Timeline:sourcecheckpoints2a3735d/d5bd163/35a7393/34c067b/0d7c975 committednotpushed;finalselectiveevidencecommit/pushnext;unrelated.gitignore/Vox/reportsuntouched.
+
+Time:2026-10-06T18:22:46.417617-04:00
+Prompt:Complete cleanup/Q4prefill audit evidence push.
+Actions:all6 source/evidence checkpoints throughbb3bcac successfullyPUSHED toorigin/experiment/ios-enumerated-ane-optimization. Physicalsource0d7c975 preserved; newfullValidationSPIonly/HUMAN_PENDING;ordinaryq4acceptedhybridunchanged.
+Files:github_push_receipt.json;historyappend-only.
+Validation:10fullrequests same tokensPCM/WAV;matched187.484MiBpeakreduction;12actualworkspaceWAVsready;24tests/signedbuildPASS;hardware5pref/1295decode partialmodelmatch withperopUNKNOWN. No model/WAV/traceuploaded.
+GitHub Timeline:bb3bcacalreadyPUSHED confirmedlocalremoteSHA;completionrecordnextcommit/push. Unrelated.gitignore/Vox/reportsuntouched.
