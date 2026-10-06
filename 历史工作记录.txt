@@ -580,3 +580,10 @@ Actions: stopped follow-on candidate/formal device runs; baseline screen already
 Files: resource_efficiency_20261006 REPORT/final_summary/protocol/raw screenreceipt/events/console/binding/build/tests; collector charging message; candidate WAV exported artifacts/listening/2shard/resource_efficiency_20261006/current-charging.wav ignored/notgit.
 Validation: physicalsourceeeefd77 signedReleasePASS;19existingtestsPASS;5fullpublicSHARDS2/Flow6/N260 requests frozen token/PCM/WAV BIT_IDENTICAL; screennominalthroughout. No10-20minrun/candidatecomparison/resourcewinner. Pythonpy_compile initially failed restrictedexternalbytecodecachedir; ASTsyntaxvalidationPASS withoutwritingoutsideworkspace.
 GitHub Timeline:eeefd77已commit未push; reportcommit/pushnext.
+
+Time:2026-10-06 11:09 EDT America/New_York
+Prompt: report/push completion.
+Actions: append correction: preceding11:14entry was a timestamp drafting error; actual report completion/push11:09EDT. Preserved oldentry append-only. Added raw screenconsole explicitly through existinglogignore.
+Files: 历史工作记录.txt; resource_efficiency_20261006/screen_current/console.log.
+Validation:76a5545 localHEAD andorigin trackingSHA match; no further device tests.
+GitHub Timeline:eeefd77和76a5545已push至experiment/ios-enumerated-ane-optimization；本条记录和console随后commit/push。
