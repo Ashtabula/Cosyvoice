@@ -1,0 +1,30 @@
+{
+  "status": "PROPOSED_NOT_EXPORTED",
+  "hypothesis": "Input-axis block-scale layout may constrain CPU_AND_NE specialization. Test INT4 per-output-channel scales matching successful Q8 broadcast shape, not another block-size sweep.",
+  "evidence": [
+    "Original block32 prefill -14",
+    "Original block32 decode physical load PASS but 169 linear ops supported CPU only; 1714 preferred CPU ops",
+    "Original Q4 scales [Cout,Cin/32], successful Q8 scales [Cout,1]",
+    "All169 source Cin dimensions divisible32; no selected matrix skipped"
+  ],
+  "unknowns": [
+    "Exact prefill -14 cause not exposed",
+    "Dtype and scale layout differ together between existing Q8 and Q4; attribution not proven",
+    "Changing granularity changes quantized values; mandatory numerical/audio/user gates if physical success"
+  ],
+  "configuration": {
+    "dtype": "int4",
+    "mode": "linear_symmetric",
+    "granularity": "per_channel",
+    "weight_threshold": 2048,
+    "selected": "same169linear matrices"
+  },
+  "budget": {
+    "newCandidatesMaximum": 2,
+    "candidateA": 1,
+    "candidateB": "NOT_AUTHORIZED_WITHOUT_NEW_EVIDENCE"
+  },
+  "noPlacementFallback": true,
+  "publicQ4RemainsDisabled": true,
+  "toolchainConfigFileSHA256": "d41f94d72cad5e183add5741fea04f592516a72432d50b16552ba5f391ddfeb3"
+}
