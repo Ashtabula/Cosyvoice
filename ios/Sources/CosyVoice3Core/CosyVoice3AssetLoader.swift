@@ -25,6 +25,9 @@ enum CosyVoice3ValidationPlacement {
         if name.contains("decode") { return "llmDecode" }
         if name.contains("speech-tokenizer") { return "speechTokenizer" }
         if name.contains("campplus") { return "campPlus" }
+        if path.hasPrefix("../FlowPartitions/") {
+            if let index = Int(name.replacingOccurrences(of: "group-", with: "").replacingOccurrences(of: ".mlpackage", with: "")) { return "flow\(index)" }
+        }
         if path.hasPrefix("enumerated-acoustic/") {
             if name == "conditions.mlpackage" { return "conditions" }
             if name == "hift.mlpackage" { return "hift" }
@@ -367,8 +370,8 @@ enum CosyVoice3AssetLoader {
         let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
-        let enumeratedGPU = path.hasPrefix("enumerated-acoustic/") && CommandLine.arguments.contains("--validation-enumerated-cpu-gpu")
-        let enumeratedCPU = path.hasPrefix("enumerated-acoustic/") && CommandLine.arguments.contains("--validation-enumerated-cpu-only")
+        let enumeratedGPU = (path.hasPrefix("enumerated-acoustic/") || path.hasPrefix("../FlowPartitions/")) && CommandLine.arguments.contains("--validation-enumerated-cpu-gpu")
+        let enumeratedCPU = (path.hasPrefix("enumerated-acoustic/") || path.hasPrefix("../FlowPartitions/")) && CommandLine.arguments.contains("--validation-enumerated-cpu-only")
         if enumeratedGPU && enumeratedCPU {
             throw CosyVoice3AssetError.compiledCache("conflicting enumerated validation compute overrides")
         }

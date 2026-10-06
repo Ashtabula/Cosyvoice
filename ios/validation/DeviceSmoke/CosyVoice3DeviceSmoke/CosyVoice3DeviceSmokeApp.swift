@@ -435,6 +435,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             let thermalEnd = ProcessInfo.processInfo.thermalState
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false,"validationCacheReset":validationCacheReset,"validationSamplerSeed":validationSamplerSeed,"matchedDeterministicSpeechLength":true,"matchedDeterministicWav":true,"firstWavSha256":firstWAVSHA256,"repeatWavSha256":repeatWAVSHA256]
+            receipt["flowPartition"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }) ?? "6"
             receipt["sustainedRuns"] = sustained
             receipt["inputIdentity"] = inputIdentity
             receipt["acousticCacheStrategy"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-acoustic-cache=") }) ?? "none"
@@ -957,12 +958,29 @@ final class CosyVoice3SmokeModel: ObservableObject {
     }
 
     private static func validateExperimentalModels(runtime: URL) throws -> [String: Any] {
+        let partition = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }).flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
+        var partitionIdentity = [String: Any]()
+        if partition != 6 {
+            let folder = runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
+            let data = try Data(contentsOf: folder.appendingPathComponent("partition-export-receipt.json"))
+            guard let receipt = try JSONSerialization.jsonObject(with: data) as? [String: Any], let variants = receipt["variants"] as? [String: [String: Any]], let variant = variants[String(partition)], let packages = variant["packages"] as? [[String: Any]], packages.count == partition else { throw SmokeError("partition export receipt missing") }
+            for (index,package) in packages.enumerated() {
+                guard let identity = package["identity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], package["weightBytesUnchanged"] as? Bool == true else { throw SmokeError("partition identity missing") }
+                for file in files {
+                    guard let path = file["path"] as? String, let bytes = file["bytes"] as? Int, let expected = file["sha256"] as? String else { throw SmokeError("partition file identity missing") }
+                    let contents = try Data(contentsOf: folder.appendingPathComponent("p\(partition)/group-\(index).mlpackage/\(path)"), options: .mappedIfSafe)
+                    let actual = SHA256.hash(data: contents).map { String(format: "%02x", $0) }.joined()
+                    guard contents.count == bytes, actual == expected else { throw SmokeError("partition payload SHA mismatch") }
+                }
+                partitionIdentity["group\(index)"] = identity
+            }
+        }
         let roles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
-        if roles.isEmpty { return [:] }
+        if roles.isEmpty { return partitionIdentity }
         let folder = runtime.deletingLastPathComponent().appendingPathComponent("ANEExperimental")
         let exportData = try Data(contentsOf: folder.appendingPathComponent("export-receipt.json"))
         guard let receipt = try JSONSerialization.jsonObject(with: exportData) as? [String: Any], let models = receipt["models"] as? [String: [String: Any]] else { throw SmokeError("experimental export receipt missing") }
-        var result = [String: Any]()
+        var result = partitionIdentity
         for role in roles {
             guard let model = models[role], let identity = model["experimentalIdentity"] as? [String: Any], let files = identity["files"] as? [[String: Any]], model["graphIdentical"] as? Bool == true, model["weightsIdentical"] as? Bool == true else { throw SmokeError("single-function graph identity missing: \(role)") }
             for file in files {

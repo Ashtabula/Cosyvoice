@@ -159,7 +159,18 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
         self.assetRoot = assetRoot
         self.conditionsPath = conditionsPath
-        self.flowShardPaths = flowShardPaths
+        let partitionArgs = CommandLine.arguments.filter { $0.hasPrefix("--validation-flow-partition=") }
+        guard partitionArgs.count <= 1 else { throw CosyVoice3AcousticError.invalidShape("duplicate_flow_partition", []) }
+        let count: Int
+        if let argument = partitionArgs.first {
+            guard let value = Int(argument.dropFirst("--validation-flow-partition=".count)) else { throw CosyVoice3AcousticError.invalidShape("invalid_flow_partition", []) }
+            count = value
+        } else { count = 6 }
+        guard [1,2,3,6].contains(count) else { throw CosyVoice3AcousticError.invalidShape("flow_partition", [count]) }
+        if count != 6 {
+            guard case .enumerated = contract else { throw CosyVoice3AcousticError.invalidShape("partition_requires_schema3", []) }
+            self.flowShardPaths = (0..<count).map { "../FlowPartitions/p\(count)/group-\($0).mlpackage" }
+        } else { self.flowShardPaths = flowShardPaths }
         self.hiftPath = hiftPath
         self.f0 = f0
         self.contract = contract
@@ -234,7 +245,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             let flowModels = try flowShardPaths.enumerated().map { index, path in
                 try loadModel(
                     path: path,
-                    stage: "acoustic.flow.shard.\(index + 1).6.model",
+                    stage: "acoustic.flow.shard.\(index + 1).\(flowShardPaths.count).model",
                     functionName: functionName
                 )
             }
@@ -404,11 +415,11 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             recordPhase("flow.shard.\(index)", since: phaseStarted, loadBefore: loadBefore)
         }
         return try autoreleasepool {
-            let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).6"
+            let label = "acoustic.flow.step.\(flowStep + 1).\(flowStepCount).shard.\(index + 1).\(flowShardPaths.count)"
             progress?("\(label).prediction.begin:T=\(tFrames)")
             let result = try model.prediction(from: try MLDictionaryFeatureProvider(dictionary: feed))
             let stage: FlowShardStage
-            if index == 0 {
+            if index == 0 && flowShardPaths.count > 1 {
                 let h = try ownedFloat32Output(result, "h")
                 let te = try ownedFloat32Output(result, "te")
                 guard h.shape.map(\.intValue) == [2,tFrames,1024] else { throw CosyVoice3AcousticError.invalidShape("h", h.shape.map(\.intValue)) }
@@ -569,3 +580,5 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-05: production enumerated lane selects one exact-shape multifunction family after real EOS determines N. N/T/G/PCM stay exact; no bucket padding or crop is introduced. Schema-2 RangeDim remains available only as the frozen comparison path.
 
 // Changes 2026-10-05: production Flow lifecycle now constructs the six selected-function MLModel objects once per utterance, reuses them across all Euler steps, and releases the whole Flow set before F0/HiFT. This reduces the 6-step path from 36 Flow constructors to 6 without changing exact N/T/G, model bytes, scheduler math, CFG, noise, or function selection.
+
+// Changes 2026-10-05: validation-only 6/3/2/1 adjacent graph packages from separate FlowPartitions; four-family schema3 required. Full-group output velocity handled in existing solver, all6/8/10 Euler steps/math unchanged. Upstream frozen six-shard runtime; Swift6/iOS18+.

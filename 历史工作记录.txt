@@ -265,3 +265,10 @@ Actions: pushed preserved diagnostic/source receipts at0bc1402; add actual devic
 Files: AssetLoader.swift, DeviceSmokeApp.swift, device runner, AGENT_PERSONAL_CUSTOMIZATION.md.
 Validation: placement3 tests PASS; physical new identity baseline pending. No frozen bytes or algorithms changed; no release/HF promotion.
 GitHub Timeline: 0bc1402 pushed; current new changes uncommitted, commit next for signed source binding.
+
+Time: 2026-10-05T20:23:36.567113-04:00
+Prompt: unchanged-math acoustic optimization.
+Actions: actual-input-bound f25a449 physical baseline warmRTF0.578356; small/decoder/selected-family cache all Float32 bit-identical; selected-family warmRTF0.485488, acoustic load1.72ms, bounded30s eviction, peak2.43GiB-ish; 3/2/1 partition export retains all four functions/all source ops/casts/raw weight bytes. Validation-only runtime partition switch leaves frozen six-path manifest intact.
+Files: DynamicAcousticRuntime/AssetLoader/DeviceSmoke, diagnostic runners/export/parity JSON and protocol.
+Validation: schema3 four contract tests PASS; hostN1 partitions6/3 exact zero delta so far, rest running; physical partition gate pending. All Flow solver steps6, no math/weights/reference/sampling changes.
+GitHub Timeline: f25a449 committed locally, earlier0bc1402 pushed; new partition changes uncommitted until current cache matrix completed; next commit for exact signed source binding.

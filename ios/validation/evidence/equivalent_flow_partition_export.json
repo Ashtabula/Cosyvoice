@@ -1,0 +1,2356 @@
+{
+  "algorithmUnchanged": true,
+  "families": [
+    "n001_128",
+    "n129_256",
+    "n257_384",
+    "n385_450"
+  ],
+  "productionPromotion": false,
+  "schemaVersion": 1,
+  "scope": "serialized MIL concatenation only; all boundary casts preserved; original weight files kept byte identical; no conversion/reprecision",
+  "sourceCommit": "f25a449831e8a60e53266140fb95a751cac4445c",
+  "sourcePackages": {
+    "flow0": {
+      "bytes": 129406616,
+      "files": [
+        {
+          "bytes": 440751,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "05339c2fb395a217029c93a49d7c60c0ea97bd198caaa6105a5b5638d5bfcb24"
+        },
+        {
+          "bytes": 128965248,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "92e4f842814a8a02b94117ab87c230c1da315200871ff154b97a463066677de5"
+        }
+      ],
+      "treeSha256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55"
+    },
+    "flow1": {
+      "bytes": 117934006,
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "b195ba197830e53de4506d8d3c82a3c571957eb4d8a97c2f204ab36053d3e6b8"
+        }
+      ],
+      "treeSha256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa"
+    },
+    "flow2": {
+      "bytes": 117934006,
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "ad52f8881c3a5021ae509b73a520747ff6c34ec1eb784fe0c91be9a244f9f260"
+        }
+      ],
+      "treeSha256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea"
+    },
+    "flow3": {
+      "bytes": 117934006,
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "635736f2f2f580fcb70990425c95d9ab448c0f2b8dd4f6e803acd4afda5533f4"
+        }
+      ],
+      "treeSha256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af"
+    },
+    "flow4": {
+      "bytes": 117934006,
+      "files": [
+        {
+          "bytes": 382605,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "61f658b5c9275beb88276129cb965ebe6e768061e1396c30af509d1eb863c03b"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "5733618d53d7fa4524af23ff484cde0bb722e03cdc32a500f356130def6c905b"
+        }
+      ],
+      "treeSha256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9"
+    },
+    "flow5": {
+      "bytes": 63368318,
+      "files": [
+        {
+          "bytes": 229557,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "6540761c469d0e19d455ff2bd364ac23d27ccad12e4aa94d0e13ad35ee1653df"
+        },
+        {
+          "bytes": 63138144,
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "d48584d4549317e5594cd10c5b489f7b500b90b441374227fe66fd95dc6a5e2b"
+        }
+      ],
+      "treeSha256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a"
+    }
+  },
+  "variants": {
+    "1": {
+      "groups": [
+        [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      ],
+      "packages": [
+        {
+          "identity": {
+            "bytes": 664603185,
+            "files": [
+              {
+                "bytes": 2296040,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "88914442ab4bc5a2364d320743757d3fb2d5d5a7f2b4f482678b38ed2bfe2e97"
+              },
+              {
+                "bytes": 128965248,
+                "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+                "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+                "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+                "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+                "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+                "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+              },
+              {
+                "bytes": 63138144,
+                "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+                "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "9e100f853f81149cd87d11b7b715d97cb895175d98c17092a0b92dfd4e53ce2d"
+              }
+            ],
+            "treeSha256": "f655e1be1aee57ee18d84ba782001d5db94c2135d70c372d885db94b324a82d6"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 179,
+                "cast": 46,
+                "concat": 53,
+                "const": 1883,
+                "conv": 2,
+                "cos": 7,
+                "equal": 1,
+                "expand_dims": 148,
+                "gather": 6,
+                "gelu": 22,
+                "layer_norm": 45,
+                "linear": 159,
+                "logical_not": 6,
+                "matmul": 6,
+                "mul": 231,
+                "pad": 2,
+                "range_1d": 6,
+                "real_div": 1,
+                "reshape": 200,
+                "scaled_dot_product_attention": 22,
+                "select": 23,
+                "shape": 6,
+                "silu": 7,
+                "sin": 7,
+                "slice_by_index": 124,
+                "softplus": 2,
+                "split": 67,
+                "squeeze": 88,
+                "stack": 50,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 94
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p1/group-0.mlpackage",
+          "weightBytesUnchanged": true
+        }
+      ],
+      "status": "EXPORTED_HOST_PARITY_PENDING"
+    },
+    "2": {
+      "groups": [
+        [
+          0,
+          1,
+          2
+        ],
+        [
+          3,
+          4,
+          5
+        ]
+      ],
+      "packages": [
+        {
+          "identity": {
+            "bytes": 365331932,
+            "files": [
+              {
+                "bytes": 1264499,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "0a8db6db9b17c840f6f8a13282b1fd28ade0eaf0f5ade88718a16b0a3f3e6b29"
+              },
+              {
+                "bytes": 128965248,
+                "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+                "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+                "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+                "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "4a6b770bca31a5a6cbe42bb211fb48a39dedae72d66508c87cc31ccefcbf90ab"
+              }
+            ],
+            "treeSha256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 97,
+                "cast": 25,
+                "concat": 30,
+                "const": 1030,
+                "conv": 2,
+                "cos": 4,
+                "equal": 1,
+                "expand_dims": 80,
+                "gather": 3,
+                "gelu": 12,
+                "layer_norm": 24,
+                "linear": 87,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 127,
+                "pad": 2,
+                "range_1d": 3,
+                "real_div": 1,
+                "reshape": 108,
+                "scaled_dot_product_attention": 12,
+                "select": 13,
+                "shape": 3,
+                "silu": 4,
+                "sin": 4,
+                "slice_by_index": 66,
+                "softplus": 2,
+                "split": 36,
+                "squeeze": 48,
+                "stack": 27,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 53
+              },
+              "sourceShardIndices": [
+                0,
+                1,
+                2
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p2/group-0.mlpackage",
+          "weightBytesUnchanged": true
+        },
+        {
+          "identity": {
+            "bytes": 299280530,
+            "files": [
+              {
+                "bytes": 1040201,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "fc716adf701b9590fe9d96f4fd8f61426eb06fd0fb0a485c6c4bc18e72274b54"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+                "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+                "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+              },
+              {
+                "bytes": 63138144,
+                "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+                "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "34f44bde36e27b2accfd001ce4c1bd18cdfe31c4b742903d4e606d911e1228c1"
+              }
+            ],
+            "treeSha256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "sourceShardIndices": [
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "sourceShardIndices": [
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "sourceShardIndices": [
+                3,
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 82,
+                "cast": 21,
+                "concat": 23,
+                "const": 853,
+                "cos": 3,
+                "expand_dims": 68,
+                "gather": 3,
+                "gelu": 10,
+                "layer_norm": 21,
+                "linear": 72,
+                "logical_not": 3,
+                "matmul": 3,
+                "mul": 104,
+                "range_1d": 3,
+                "reshape": 92,
+                "scaled_dot_product_attention": 10,
+                "select": 10,
+                "shape": 3,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 58,
+                "split": 31,
+                "squeeze": 40,
+                "stack": 23,
+                "transpose": 41
+              },
+              "sourceShardIndices": [
+                3,
+                4,
+                5
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p2/group-1.mlpackage",
+          "weightBytesUnchanged": true
+        }
+      ],
+      "status": "EXPORTED_HOST_PARITY_PENDING"
+    },
+    "3": {
+      "groups": [
+        [
+          0,
+          1
+        ],
+        [
+          2,
+          3
+        ],
+        [
+          4,
+          5
+        ]
+      ],
+      "packages": [
+        {
+          "identity": {
+            "bytes": 247383000,
+            "files": [
+              {
+                "bytes": 866351,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+              },
+              {
+                "bytes": 128965248,
+                "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+                "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+                "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+              }
+            ],
+            "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "sourceShardIndices": [
+                0,
+                1
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "sourceShardIndices": [
+                0,
+                1
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "sourceShardIndices": [
+                0,
+                1
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "x",
+                "mask",
+                "mu",
+                "t",
+                "spks",
+                "cond"
+              ],
+              "optimizedOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "outputNames": [
+                "h",
+                "te"
+              ],
+              "sourceOperationCounts": {
+                "add": 65,
+                "cast": 18,
+                "concat": 21,
+                "const": 703,
+                "conv": 2,
+                "cos": 3,
+                "equal": 1,
+                "expand_dims": 54,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 59,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 86,
+                "pad": 2,
+                "range_1d": 2,
+                "real_div": 1,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 9,
+                "shape": 2,
+                "silu": 3,
+                "sin": 3,
+                "slice_by_index": 44,
+                "softplus": 2,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "tanh": 2,
+                "tile": 1,
+                "transpose": 37
+              },
+              "sourceShardIndices": [
+                0,
+                1
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p3/group-0.mlpackage",
+          "weightBytesUnchanged": true
+        },
+        {
+          "identity": {
+            "bytes": 235907098,
+            "files": [
+              {
+                "bytes": 804913,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+                "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+                "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+              }
+            ],
+            "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "outputNames": [
+                "h_out"
+              ],
+              "sourceOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "sourceShardIndices": [
+                2,
+                3
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "outputNames": [
+                "h_out"
+              ],
+              "sourceOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "sourceShardIndices": [
+                2,
+                3
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "outputNames": [
+                "h_out"
+              ],
+              "sourceOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "sourceShardIndices": [
+                2,
+                3
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "outputNames": [
+                "h_out"
+              ],
+              "sourceOperationCounts": {
+                "add": 64,
+                "cast": 14,
+                "concat": 18,
+                "const": 654,
+                "cos": 2,
+                "expand_dims": 52,
+                "gather": 2,
+                "gelu": 8,
+                "layer_norm": 16,
+                "linear": 56,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 82,
+                "range_1d": 2,
+                "reshape": 72,
+                "scaled_dot_product_attention": 8,
+                "select": 8,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 44,
+                "split": 24,
+                "squeeze": 32,
+                "stack": 18,
+                "transpose": 32
+              },
+              "sourceShardIndices": [
+                2,
+                3
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p3/group-1.mlpackage",
+          "weightBytesUnchanged": true
+        },
+        {
+          "identity": {
+            "bytes": 181331598,
+            "files": [
+              {
+                "bytes": 642053,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+              },
+              {
+                "bytes": 117550784,
+                "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+                "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+              },
+              {
+                "bytes": 63138144,
+                "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+                "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+              }
+            ],
+            "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
+          },
+          "partitionMapping": [
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n001_128",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "sourceShardIndices": [
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n129_256",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "sourceShardIndices": [
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n257_384",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "sourceShardIndices": [
+                4,
+                5
+              ]
+            },
+            {
+              "allSourceOperationsPreserved": true,
+              "boundaryCastsPreserved": true,
+              "function": "n385_450",
+              "inputNames": [
+                "h",
+                "te",
+                "mask"
+              ],
+              "optimizedOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "outputNames": [
+                "velocity"
+              ],
+              "sourceOperationCounts": {
+                "add": 50,
+                "cast": 14,
+                "concat": 14,
+                "const": 526,
+                "cos": 2,
+                "expand_dims": 42,
+                "gather": 2,
+                "gelu": 6,
+                "layer_norm": 13,
+                "linear": 44,
+                "logical_not": 2,
+                "matmul": 2,
+                "mul": 63,
+                "range_1d": 2,
+                "reshape": 56,
+                "scaled_dot_product_attention": 6,
+                "select": 6,
+                "shape": 2,
+                "silu": 2,
+                "sin": 2,
+                "slice_by_index": 36,
+                "split": 19,
+                "squeeze": 24,
+                "stack": 14,
+                "transpose": 25
+              },
+              "sourceShardIndices": [
+                4,
+                5
+              ]
+            }
+          ],
+          "path": "/private/tmp/cosy-flow-partitions-20261005/p3/group-2.mlpackage",
+          "weightBytesUnchanged": true
+        }
+      ],
+      "status": "EXPORTED_HOST_PARITY_PENDING"
+    }
+  }
+}
