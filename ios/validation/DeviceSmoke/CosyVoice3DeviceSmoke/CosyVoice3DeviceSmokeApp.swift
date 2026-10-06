@@ -1725,10 +1725,10 @@ extension CosyVoice3SmokeModel {
         return bytes
     }
     private static func quantizationRoot(base: URL, variant: String) throws -> URL {
-        guard ["q8","q4","q4_hybrid"].contains(variant) else {throw SmokeError("unknown weight variant")}
+        guard ["q8","q4","q4_hybrid","q4_full"].contains(variant) else {throw SmokeError("unknown weight variant")}
         let fm=FileManager.default
         let docs=try fm.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true)
-        let candidate=docs.appendingPathComponent(variant == "q4_hybrid" ? "Q4CompatibilityRescue/Hybrid/Runtime" : "LLMQuantization/\(variant.uppercased())/Runtime")
+        let candidate=docs.appendingPathComponent(variant == "q4_full" ? "Q4PrefillLength/Full/Runtime" : variant == "q4_hybrid" ? "Q4CompatibilityRescue/Hybrid/Runtime" : "LLMQuantization/\(variant.uppercased())/Runtime")
         let recipeURL=candidate.deletingLastPathComponent().appendingPathComponent("quantization-recipe.json")
         let recipe=try JSONSerialization.jsonObject(with:Data(contentsOf:recipeURL)) as? [String:Any]
         guard recipe?["parentPayloadTreeSHA256"] as? String == "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
@@ -1770,7 +1770,7 @@ extension CosyVoice3SmokeModel {
         let oldBrightness=UIScreen.main.brightness;UIScreen.main.brightness=0.2
         UIDevice.current.isBatteryMonitoringEnabled=true;defer{UIScreen.main.brightness=oldBrightness}
         do {
-            guard ["baseline","q8","q4","q4_hybrid"].contains(variant),
+            guard ["baseline","q8","q4","q4_hybrid","q4_full"].contains(variant),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   CommandLine.arguments.contains("--validation-warm-pass"),CommandLine.arguments.contains("--validation-execution-audit"),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
@@ -1783,7 +1783,7 @@ extension CosyVoice3SmokeModel {
             let manifest=try JSONSerialization.jsonObject(with:Data(contentsOf:manifestURL)) as! [String:Any]
             monitor.record("before_engine_creation")
             let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
-            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false)
+            let engine=try variant == "q4_full" ? CosyVoice3Engine(validationQ4FullPrefillRoot:root) : CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false)
             monitor.record("after_engine_creation")
             await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in monitor.record(phase)}
@@ -1835,10 +1835,10 @@ extension CosyVoice3SmokeModel {
             let export=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("enumerated-production-export-receipt.json"))) as! [String:Any]
             receipt["payloadTreeSHA256"]=export["payloadTreeSha256"]
             receipt["weightProfileID"]=engine.weightProfile.rawValue
-            receipt["experimentalProfileID"]=variant == "q4_hybrid" ? "q4_decode_hybrid_a" : engine.weightProfile.rawValue
+            receipt["experimentalProfileID"]=variant == "q4_full" ? "q4_full_prefill_a" : variant == "q4_hybrid" ? "q4_decode_hybrid_a" : engine.weightProfile.rawValue
             receipt["publicQ4Selectable"]=CosyVoice3WeightProfile.q4.metadata.isSelectableForInference
-            receipt["profileModelAssetIdentity"]=variant == "q4_hybrid" ? "q4_decode_hybrid_a:manifest=4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8:payload=3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" : engine.profileMetadata.modelAssetIdentity
-            receipt["publicProfileAPI"]=variant == "q4_hybrid" ? "CosyVoice3Engine(assetRoot:profile:.q4); public synthesize; acceptedQ4decodehybrid; no shard/state-copy CLI required" : "CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
+            receipt["profileModelAssetIdentity"]=variant == "q4_full" ? "q4_full_prefill_a:manifest=e586d5fab1253ef1c420dd829840ac0a833483794dc073cd78d758f0c3b67603:payload=11e06330cb1f8c205a870b3d02c54eaa1dd53ea277319e6e3537888486ab1895" : variant == "q4_hybrid" ? "q4_decode_hybrid_a:manifest=4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8:payload=3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" : engine.profileMetadata.modelAssetIdentity
+            receipt["publicProfileAPI"]=variant == "q4_full" ? "Validation SPI constructor + public CosyVoice3Engine.synthesize(); experimental full-A, not ordinary q4 profile" : variant == "q4_hybrid" ? "CosyVoice3Engine(assetRoot:profile:.q4); public synthesize; acceptedQ4decodehybrid; no shard/state-copy CLI required" : "CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
             _ = try Self.write(receipt,to:Self.receiptURL(filename))
             // Plan inspection is after measured inference/idle, never included in resource timings.
             var planRows=[[String:Any]]()
@@ -1882,7 +1882,7 @@ extension CosyVoice3SmokeModel {
         let filename="llm-quantization-listening-\(variant)-receipt.json"
         var rows=[[String:Any]]()
         do {
-            guard ["baseline","q8","q4","q4_hybrid"].contains(variant),
+            guard ["baseline","q8","q4","q4_hybrid","q4_full"].contains(variant),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
@@ -1897,7 +1897,7 @@ extension CosyVoice3SmokeModel {
             let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime,variant:variant)
             let packages=try Self.validateExperimentalModels(runtime:root,partitionOverride:2),info=try Self.variableManifestInfo(runtime:root)
             let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
-            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
+            let engine=try variant == "q4_full" ? CosyVoice3Engine(validationQ4FullPrefillRoot:root) : CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in print("[COSY-Q8-LISTENING-STAGE] \(phase)")}
             let start=ContinuousClock.now
             while UIApplication.shared.applicationState != .active || ProcessInfo.processInfo.thermalState != .nominal {
@@ -2058,3 +2058,5 @@ extension CosyVoice3SmokeModel {
 // Rescue A2026-10-06: two hash-pinned diagnostic plan roles for per-channel package pair. CPU_AND_NE only; public profile guard unchanged; no fallback or graph edit.
 
 // Length audit2026-10-06: fullPrefill flag switches only hash-pinned diagnostic pref224; prediction completes before frozen decode constructor. No production routing changes.
+
+// Full Q4 prefill2026-10-06: separate opt-in diagnostic root+SPI; no replacement of accepted hybrid, same public synthesize/P2/Flow6/seed/placement.

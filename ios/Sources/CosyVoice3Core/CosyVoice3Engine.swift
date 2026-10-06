@@ -13,6 +13,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public nonisolated let weightProfile: CosyVoice3WeightProfile
     public nonisolated var profileMetadata: CosyVoice3WeightProfileMetadata { weightProfile.metadata }
     private let usesValidatedWeightProfileAssets: Bool
+    private let usesValidationQ4FullPrefill: Bool
     private var weightProfileAssetsValidated = false
     private let manifest: CosyVoice3AssetManifest
     private let capabilitiesValue: CosyVoice3Capabilities
@@ -72,21 +73,25 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         try self.init(assetRoot: validationQ4HybridRoot, profile: .q4, validatedProfile: false, idleBucketPreparation: false, validationHybrid: true)
     }
 
-    private init(assetRoot: URL, profile: CosyVoice3WeightProfile, validatedProfile: Bool, idleBucketPreparation: Bool, validationHybrid: Bool = false) throws {
+    @_spi(Validation) public init(validationQ4FullPrefillRoot: URL) throws {
+        try self.init(assetRoot: validationQ4FullPrefillRoot, profile: .q4, validatedProfile: false, idleBucketPreparation: false, validationFullPrefill: true)
+    }
+
+    private init(assetRoot: URL, profile: CosyVoice3WeightProfile, validatedProfile: Bool, idleBucketPreparation: Bool, validationHybrid: Bool = false, validationFullPrefill: Bool = false) throws {
         var isDirectory: ObjCBool = false
         guard FileManager.default.fileExists(atPath: assetRoot.path, isDirectory: &isDirectory), isDirectory.boolValue else {
             throw CosyVoice3EngineError.assetRootMissing(assetRoot.path)
         }
         let manifest = try CosyVoice3AssetLoader.loadManifest(root: assetRoot)
-        if validationHybrid {
+        if validationHybrid || validationFullPrefill {
             let identity = try CosyVoice3PersistentRuntimeStore.shared.rootIdentity(assetRoot)
-            guard CommandLine.arguments.contains("--validation-q4-hybrid-state-copy"),
+            guard CommandLine.arguments.contains(validationFullPrefill ? "--validation-q4-full-prefill" : "--validation-q4-hybrid-state-copy"),
                   CommandLine.arguments.contains("--validation-flow-partition=2"),
-                  identity.manifest == "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
-                  identity.payload == "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" else { throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a") }
+                  identity.manifest == (validationFullPrefill ? "e586d5fab1253ef1c420dd829840ac0a833483794dc073cd78d758f0c3b67603" : "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8"),
+                  identity.payload == (validationFullPrefill ? "11e06330cb1f8c205a870b3d02c54eaa1dd53ea277319e6e3537888486ab1895" : "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9") else { throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: validationFullPrefill ? "q4_full_prefill_a" : "q4_decode_hybrid_a") }
             for (path, expected) in CosyVoice3WeightProfile.validatedFlowPackages {
                 guard try CosyVoice3PersistentRuntimeStore.shared.packageSHA(assetRoot.appendingPathComponent(path)) == expected else {
-                    throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: "q4_decode_hybrid_a")
+                    throw CosyVoice3WeightProfileError.assetIdentityMismatch(profileID: validationFullPrefill ? "q4_full_prefill_a" : "q4_decode_hybrid_a")
                 }
             }
         } else {
@@ -95,6 +100,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         self.assetRoot = assetRoot
         self.weightProfile = profile
         self.usesValidatedWeightProfileAssets = validatedProfile
+        self.usesValidationQ4FullPrefill = validationFullPrefill
         self.idleBucketPreparationEnabled = idleBucketPreparation
         self.manifest = manifest
         self.capabilitiesValue = CosyVoice3Capabilities(
@@ -1146,6 +1152,7 @@ extension CosyVoice3Engine {
 // Internal validation experiment; cannot make public .q4 selectable or bypass any profile guard.
 extension CosyVoice3Engine {
     private func validationQ4HybridStateBridgeEnabled() throws -> Bool {
+        if usesValidationQ4FullPrefill { return true }
         if usesValidatedWeightProfileAssets && weightProfile == .q4 { return true }
         guard CommandLine.arguments.contains("--validation-q4-hybrid-state-copy") else { return false }
         let bytes = try Data(contentsOf: assetRoot.appendingPathComponent("cosyvoice3_enumerated.json"))
@@ -1164,3 +1171,5 @@ extension CosyVoice3Engine {
 // Finalguard2026-10-06: Validation SPI additionally pins unchanged P2 sibling package hashes itself; normalprofileguards/math/modelcalls unchanged.
 
 // Human-approved publicq4 profile automatically uses the identical validated one-time model-owned state copy; no CLI needed. Current/Q8 flags remainfalse; weights/sampler/Flow/placement unchanged.2026-10-06.
+
+// Q4 prefill length audit2026-10-06: opt-in Validation SPI pins independent full-A manifest/payload/P2; same supported one-time state bridge. Ordinary Current/Q8/accepted hybrid profile/API remain unchanged.

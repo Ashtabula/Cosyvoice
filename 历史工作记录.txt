@@ -901,3 +901,10 @@ Actions:176PASS followedby224PASS again; isolated224FAIL whileisolated128PASS. N
 Files:DeviceSmoke LevelB selector and finite gates;threshold rawreceipt.
 Validation:35a7393 signedPASS;176+224 actualLevelAPASS/nominalcharging. Fullpref identity/prediction pending.
 GitHub Timeline:35a7393 committed not pushed; boundedLevelB checkpoint next.
+
+Time:2026-10-06T18:01:49.572607-04:00
+Prompt:Conditional full-Q4 prefill physical RAM validation after LevelB.
+Actions:original A224 legitimate synthetic prefill finite logits/hidden/48states PASS; 6291456byte state transfer bitexact; frozenAdecode predictionPASS. Independent full-A root+hash-gated Validation SPI, same public synthesize/P2/Flow6/runtime/statecopy; normal q4stillacceptedhybrid.
+Files:assemble_q4_full_prefill_candidate.py;Engine validationSPI;DeviceSmoke/collector q4_full;full asset/stategate receipts.
+Validation:24Swift6testsPASS/0skip; source/decode/acoustic unchanged. Conditional fivepublicrequests andmemorypending; newaudiohumanpending if produced.
+GitHub Timeline:34c067b committed not pushed; fullcandidate checkpoint next.
