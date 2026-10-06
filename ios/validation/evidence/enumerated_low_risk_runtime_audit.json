@@ -18,20 +18,20 @@
   "dependencyProof": "Flow mu/cond and exact family require generated N; next shard h and next Euler x depend on current prediction; F0/phase require final mel. Model overlap violates known constructor/lifetime constraints. Independent noise/mask preparation is possible only after N but payoff/pressure unproven.",
   "findings": [
     {
-      "id": "decode-logits-copy",
+      "id": "decode-logits-allocation",
       "priority": "P0",
       "file": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
       "function": "generate/logits",
       "codeRegion": "44-45,77-84",
       "currentBehavior": "Every output copies 6761 FP32 logits to a Swift Array; FP16 expands to Float. Full distribution is consumed by unchanged RAS.",
-      "inefficiency": "FP32 allocation and 27044-byte copy per draw; 261 draws at N260 = 7058484 bytes copied, excluding cache traffic.",
+      "inefficiency": "Frozen outputs are FP16. Each draw allocates 27044-byte Float materialization; required conversion stays, repeated allocations can be removed. 261 draws at N260 allocate7058484 bytes cumulatively.",
       "frequency": "once/token including final stop draw",
-      "expectedImpact": "less allocation/copy; no claimed thermal or latency win",
+      "expectedImpact": "260 fewer 27044-byte Float buffer allocations at N260; no claim of removed tensor copy or measured speedup",
       "latencyEstimate": "unknown; benchmark required",
       "risk": "LOW",
-      "proposedChange": "Borrow contiguous FP32 output synchronously while strongly retaining MLMultiArray. Keep FP16 materialization and identical RAS loop order/RNG.",
+      "proposedChange": "Preallocate one request-local [Float] scratch; refill with identical original FP16 bitPattern -> Float conversion in index order. Keep unchanged sampler/RNG. FP32 path copies into same scratch. No borrowed pointer API or sampler rewrite.",
       "validation": "Array vs borrowed buffer exact token and RNG state tests including ties/nonfinite/suppression/repetition; signed physical full API identical PCM SHA/N260/Flow6/249600 samples.",
-      "allocationClass": "C removable FP32 copy; A FP16 conversion"
+      "allocationClass": "B reusable allocation; A FP16 conversion required"
     },
     {
       "id": "decode-embedding-copy",
@@ -179,7 +179,7 @@
     }
   ],
   "implementationCandidates": [
-    "decode-logits-copy",
+    "decode-logits-allocation",
     "hift-norm-temporary"
   ],
   "honestLimits": [
@@ -192,5 +192,12 @@
     "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
     "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
     "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee"
-  }
+  },
+  "interfaceVerification": {
+    "verifiedAt": "2026-10-06 07:22 EDT",
+    "prefillLogits": "FP16[1,6761]",
+    "decodeLogits": "FP16[1,6761]",
+    "source": "frozen serialized model description; no model change"
+  },
+  "correction": "Initial FP32 borrowing proposal excluded before shipping: actual frozen outputs are FP16. Implementation narrowed to request-local scratch reuse."
 }

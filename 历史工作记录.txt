@@ -421,3 +421,10 @@ Actions: Verified GitHub09f0827 exact; audited incremental KV/preallocated provi
 Files: ios/validation/evidence/enumerated_low_risk_runtime_audit.json
 Validation: source-level audit, byte counts only; no invented latency/thermal benefits.
 GitHub Timeline: 已push09f0827; audit未commit; no model/asset change.
+
+Time: 2026-10-06 07:24 EDT America/New_York
+Prompt: implement only LOW-risk production hot-path changes after audit.
+Actions: frozen protobuf shows both logits outputs FP16; excluded initial FP32 borrowing proposal before shipping. Reuse one request-local6761 Float buffer with identical FP16 conversion; original sampler unchanged. Added original conversion bit/RNG/storage identity tests; extended diagnostic runtime source allowlist narrowly.
+Files: LLMRuntime.swift, LogitsBufferTests.swift, runtime audit JSON, device validation source allowlist.
+Validation: physical unchanged baseline p3/HiFTNE N260 Flow6 249600 warmRTF0.46478248 PCM578453...; candidate tests/build/device pending.
+GitHub Timeline: auditcd87340已commit未push; optimization未commit.

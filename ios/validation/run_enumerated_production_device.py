@@ -235,7 +235,7 @@ def main() -> None:
         capture=True,
     ).splitlines()
     diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function) or args.acoustic_cache != "none" or args.flow_partition != 6
-    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift", "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift", "ios/Sources/CosyVoice3Core/CosyVoice3StageDiagnostics.swift", "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift"}
+    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift", "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift", "ios/Sources/CosyVoice3Core/CosyVoice3StageDiagnostics.swift", "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift", "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift"}
     if runtime_changed and not (
         diagnostic_compute
         and set(runtime_changed).issubset(diagnostic_allowed_runtime_files)
@@ -507,3 +507,6 @@ if __name__ == "__main__":
 # Changes 2026-10-05: add explicit non-promotable schema-3 compute-placement probes (cpu-gpu/cpu-only). Diagnostic mode may cross only the known AssetLoader validation-probe source diff, records that diff and placement in evidence, reuses identical asset bytes, and never labels the run Production validation.
 
 # Changes 2026-10-05 19:15 America/New_York: argparse/main allow independent role overrides, exact installed host reuse, and verify frozen staging identity before marker update. Purpose: placement diagnostics; upstream existing enumerated device runner; environment macOS/Xcode/physical iPhone.
+
+# Change2026-10-06 07:24 EDT: authorize explicit audited request-local logits scratch reuse in diagnostic source binding.
+# Frozen asset SHA gates remain exact; no asset rebuild/algorithm change. Upstream this validation runner; Python3/macOS/Xcode.

@@ -41,8 +41,10 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         progress?("llm.prefill.begin")
         var output=try session.prefill(prepared.prefillInput), decoded:[Int]=[]
         progress?("llm.prefill.end")
+        var logits=[Float](repeating:0,count:CosyVoice3TokenSemantics.logitsCount)
         for step in 0..<prepared.maximumSpeechTokenCount {
-            let logits=try Self.logits(output), token=try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount,using:&rng)
+            try Self.fillLogits(output,into:&logits)
+            let token=try sampler.sample(logits:logits,decodedTokens:decoded,suppressSOS:step<prepared.minimumSpeechTokenCount,using:&rng)
             if CosyVoice3TokenSemantics.isStop(token) {
                 guard token<CosyVoice3TokenSemantics.logitsCount else { throw RuntimeError.unexpectedStop(token) }
                 progress?("llm.stop:step=\(step):token=\(token):N=\(decoded.count)")
@@ -74,12 +76,19 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         }
         return decoded
     }
-    private static func logits(_ output:MLFeatureProvider) throws -> [Float] {
+    static func fillLogits(_ output:MLFeatureProvider,into logits:inout [Float]) throws {
         let names=["logits","logp","scores"]; guard let array=names.compactMap({output.featureValue(for:$0)?.multiArrayValue}).first else { throw RuntimeError.missingLogits }
         let shape=array.shape.map(\.intValue); guard array.count==CosyVoice3TokenSemantics.logitsCount else { throw RuntimeError.invalidLogitsShape(shape) }
+        guard logits.count==array.count else { throw RuntimeError.invalidLogitsShape([logits.count]) }
         switch array.dataType {
-        case .float32: let p=array.dataPointer.bindMemory(to:Float.self,capacity:array.count); return Array(UnsafeBufferPointer(start:p,count:array.count))
-        case .float16: let p=array.dataPointer.bindMemory(to:UInt16.self,capacity:array.count); return (0..<array.count).map { Float(Float16(bitPattern:p[$0])) }
+        case .float32:
+            let p=array.dataPointer.bindMemory(to:Float.self,capacity:array.count)
+            logits.withUnsafeMutableBufferPointer { $0.baseAddress!.update(from:p,count:array.count) }
+        case .float16:
+            let p=array.dataPointer.bindMemory(to:UInt16.self,capacity:array.count)
+            logits.withUnsafeMutableBufferPointer { buffer in
+                for index in 0..<array.count { buffer[index]=Float(Float16(bitPattern:p[index])) }
+            }
         default: throw RuntimeError.invalidLogitsShape(shape)
         }
     }
@@ -110,3 +119,8 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 // Changes 2026-10-05: add nil-default validationSeed. Production remains SystemRandomNumberGenerator; validation can use local SplitMix64 so repeated public synthesize calls receive identical sampling draws/N without changing logits, RAS math, EOS, or the public API.
 
 // Changes 2026-10-05: use an explicit UInt64-to-String closure in validation progress logging to avoid overloaded String.init inference at Swift 6 compile time.
+
+// Purpose: reuse one request-local logits buffer instead of allocating6761 Floats for each sampling draw.
+// Upstream: original FP16-to-Float conversion and unchanged RAS in this file; no sampler/RNG/state/placement changes.
+// Environment: Swift6/iOS18+/macOS15+ CoreML; generated2026-10-06 07:23 EDT America/New_York.
+// Changed regions: generation44-47 and fillLogits79-96; exact line map in git diff. Output provider lifetime remains original.
