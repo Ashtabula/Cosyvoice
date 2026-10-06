@@ -344,3 +344,10 @@ Actions: finalize three main JSON, runtime architecture doc and failures/Root ac
 Validation:14 relevanttestsPASS; frozenphone64files/3530215890bytes4750tree/2ddcmanifestunchanged; all acceptedphysics Float32PCMexact. CoreAItrace294ANEintervals/5104GPUstateintervals, per-modelCoreAIrows0, per-opresidencynotproven. Sustained12loops serious; COOLESTnotproven. No modelprecision/weights/algorithms/promotion/HF/catalogchanges.
 Files: enumerated_ane_optimization.json/enumerated_acoustic_equivalent_optimization.json/enumerated_persistent_cold_start.json and supportingmetadata/docs/runners.
 GitHub Timeline: through14c8831 pushed;77e7334 local; finalresults selectiveto commit/push next, model/audio/tracebundlesignored.
+
+Time: 2026-10-05T23:06:11.577484-04:00
+Prompt: final push verification.
+Actions: source/results commit791b256 pushed to origin experiment/ios-enumerated-ane-optimization; git ls-remote exactly791b256d399d2e3526b16033f735b56fdd3bb844 and worktree clean before this timeline append.
+Validation:14tests PASS, physicalfourbucketA/B/C/idle/relaunch evidence preserved, no frozen/model/audio/tracebundle/HF/catalog/promotion changes.
+Files: append-only 历史工作记录.txt bookkeeping.
+GitHub Timeline: 已push code/results791b256 and verified remote; this final timeline record committed/pushed in the same closing step.
