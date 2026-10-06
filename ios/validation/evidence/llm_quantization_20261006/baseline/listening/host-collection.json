@@ -1,0 +1,47 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-variant=baseline",
+    "--validation-warm-pass",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-llm-quantization-listening"
+  ],
+  "runnerSHA256": "df35c1b53d5ffca12ed99589816e34fabc4d139ee962d02815a59de4038d0ef9",
+  "physicalSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+  "sourceGitHEADAtCollection": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+  "artifactFilename": "checkpoint_001_sample03_fp16.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+  "artifacts": [
+    {
+      "filename": "checkpoint_001_sample01_fp16.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample01_fp16.wav",
+      "sha256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b"
+    },
+    {
+      "filename": "checkpoint_001_sample02_fp16.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample02_fp16.wav",
+      "sha256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644"
+    },
+    {
+      "filename": "checkpoint_001_sample03_fp16.wav",
+      "path": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/checkpoint_001_sample03_fp16.wav",
+      "sha256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6"
+    }
+  ],
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}

@@ -1,0 +1,3 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-AUTO-DONE] status=FAIL Error Domain=NSCocoaErrorDomain Code=260 "The file “partition-export-receipt.json” couldn’t be opened because there is no such file." UserInfo={NSFilePath=/var/mobile/Containers/Data/Application/21A4BEE8-3E44-4248-B17D-26FF8A1C0D01/Documents/LLMQuantization/Q8/FlowPartitions/partition-export-receipt.json, NSURL=file:///var/mobile/Containers/Data/Application/21A4BEE8-3E44-4248-B17D-26FF8A1C0D01/Documents/LLMQuantization/Q8/FlowPartitions/partition-export-receipt.json, NSUnderlyingError=0x10842cc00 {Error Domain=NSPOSIXErrorDomain Code=2 "No such file or directory"}}

@@ -1,0 +1,22 @@
+Metric | FP16 | Q8 | Q4 | Mixed
+--- | --- | --- | --- | ---
+LLM packages GB | 1.457152 | 0.730671 | NOT_RUN | NOT_RUN
+LLM compiled GB | 1.457191 | 0.730722 | — | —
+Runtime payload GB | 3.530216 | 2.803735 | — | —
+P2 sibling payload GB | 0.664612 | 0.664612 unchanged | — | —
+LLM load ms | 137.338 | 134.210 | — | —
+Prefill ms | 29.557 | 27.112 | — | —
+Decode ms/token | 12.438 | 7.425 | — | —
+Decode total ms | 3221.524 | 1923.191 | — | —
+LLM total ms | 3283.928 | 1984.718 | — | —
+Acoustic ms | 1480.302 | 1491.801 | — | —
+Synthesis warm ms | 4948.871 | 3614.600 | — | —
+Warm RTF | 0.475853 | 0.347558 | — | —
+Sampled warm peak GB | 2.328088 | 1.594134 | — | —
+Idle35s footprint GB | 0.411208 | 0.395037 | — | —
+Process CPU-only mJ/audio-sec | 122.818 | 122.712 | — | —
+Whole-device mJ/audio-sec | N/A | N/A | — | —
+Thermal | charging5requests nominal | charging5requests nominal | — | —
+Sustained thermal | NOT_RUN | NOT_RUN | — | —
+Frozen token divergence | reference | 257/260,firstzeroindex2 | — | —
+Human listening | priorPASS,sameWAV | PENDING_HUMAN 3inlinepairs | — | —

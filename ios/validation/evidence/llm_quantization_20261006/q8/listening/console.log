@@ -1,0 +1,369 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-Q8-LISTENING-STAGE] synthesis.begin
+[COSY-Q8-LISTENING-STAGE] prepare.begin
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98
+[COSY-Q8-LISTENING-STAGE] prepare.end:warmed=0
+[COSY-Q8-LISTENING-STAGE] frontend.begin
+[COSY-Q8-LISTENING-STAGE] frontend.end:logicalPrefix=49:minN=16:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/cosyvoice-llm-q8-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/cosyvoice-llm-q8-decode.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-decode.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-Q8-LISTENING-STAGE] llm.load.end
+[COSY-Q8-LISTENING-STAGE] llm.generate.begin:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.session.begin:logicalPrefix=49:maxN=160:validationSeed=42
+[COSY-Q8-LISTENING-STAGE] llm.prefill.begin
+[COSY-Q8-LISTENING-STAGE] llm.prefill.end
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=1:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=16:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=32:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=48:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=64:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=80:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=96:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=112:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=128:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=144:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=160:maxN=160
+[COSY-Q8-LISTENING-STAGE] llm.max_length:N=160
+[COSY-Q8-LISTENING-STAGE] llm.generate.end:N=160
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.begin:N=160:mode=enumerated:function=n129_256:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.end:N=160:mode=enumerated:function=n129_256:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.begin:N=160
+[COSY-ENUMERATED] N=160 T=622 G=320 function=n129_256
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n129_256
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n129_256 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|d78bb80db00708074940134967433ed5a8cfcdbc0f430b912b4ca00f668f6a71
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n129_256 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=14.775625
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=14.776
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n129_256
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n129_256 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|eaffdc90382ff9e8b9e160b0fdc93740ed78149772c641f72e92897e3f4a9739
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n129_256 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=579.283958
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=579.284
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n129_256
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n129_256 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|6cdc302b0797a38aefa480bc279f0f51bef0f579bb2ad233779999a2c44e1914
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n129_256 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=549.684958
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=549.685
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.models.ready:count=2:function=n129_256
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n129_256
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.begin:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.end:N=160:T=622
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.begin:G=320
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.end:G=320
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.begin:G=320:samples=153600
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n129_256
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n129_256 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|bddd6d6491f2821d572c1d81b0e90017ea34049483a4961fbede0d7fb092ea44
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n129_256 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=163.212459
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=163.212
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.begin:samples=153600
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.end:samples=153600
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.end:G=320:samples=153600
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":8.2883750000000003,"decoder":393.89529099999993,"f0":14.403584,"flow":979.21579000000008,"flow.shard.0":550.707582,"flow.shard.1":428.52420999999998},"firstCallMs":{"conditions":8.2883750000000003,"decoder":393.89529099999993,"f0":14.403584,"flow":254.023583,"flow.shard.0":254.026791,"flow.shard.1":181.45925},"modelLoadMs":1306.9570000000001,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.end:N=160:samples=153600
+[COSY-PHASE] summary totalMs=6098.86725 referencePrepareMs=1629.14775 frontendMs=240.995708 llmLoadMs=343.709958 llmMs=1164.313375 acousticLoadMs=1306.957 acousticExecuteMs=1411.2116249999997 samples=153600 steps=6
+[COSY-Q8-LISTENING-STAGE] synthesis.end:N=160:samples=153600
+[COSY-Q8-LISTENING] variant=q8 corpus=sample01 WAV=checkpoint_001_sample01_q8.wav N=160
+[COSY-Q8-LISTENING-STAGE] synthesis.begin
+[COSY-Q8-LISTENING-STAGE] prepare.begin
+[COSY-Q8-LISTENING-STAGE] prepare.end:warmed=0
+[COSY-Q8-LISTENING-STAGE] frontend.begin
+[COSY-Q8-LISTENING-STAGE] frontend.end:logicalPrefix=66:minN=50:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/cosyvoice-llm-q8-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/cosyvoice-llm-q8-decode.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-decode.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-Q8-LISTENING-STAGE] llm.load.end
+[COSY-Q8-LISTENING-STAGE] llm.generate.begin:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.session.begin:logicalPrefix=66:maxN=446:validationSeed=42
+[COSY-Q8-LISTENING-STAGE] llm.prefill.begin
+[COSY-Q8-LISTENING-STAGE] llm.prefill.end
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=1:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=16:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=32:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=48:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=64:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=80:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=96:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=112:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=128:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=144:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=160:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=176:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=192:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=208:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=224:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=240:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=256:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=272:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=288:maxN=446
+[COSY-Q8-LISTENING-STAGE] llm.stop:step=294:token=6562:N=294
+[COSY-Q8-LISTENING-STAGE] llm.generate.end:N=294
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.begin:N=294:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.end:N=294:mode=enumerated:function=n257_384:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.begin:N=294
+[COSY-ENUMERATED] N=294 T=890 G=588 function=n257_384
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|1ddae5d38f98a2d2b1fddf6c21ffc91a44633a1601a621c8489fe45c9fefa9ed
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=41.740917
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=41.741
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|6306ed966534d8e6c450253d909c61fb5c184777d3c5f24babd85289972cad1e
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=417.618083
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=417.618
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|b8a919afc7eb6aa2be42b8ca36f1395a5bb50d59c341bc65e870bf810818c88a
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=424.402208
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=424.402
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.models.ready:count=2:function=n257_384
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.begin:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.end:N=294:T=890
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.begin:G=588
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.end:G=588
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.begin:G=588:samples=282240
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|6bba544a388c61fd49d5459bfc8c2aac707abb9be2920b72b3ded30c637defb8
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=157.424292
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=157.424
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.begin:samples=282240
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.end:samples=282240
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.end:G=588:samples=282240
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":7.5162079999999989,"decoder":686.30612399999995,"f0":22.606916999999999,"flow":1348.6667920000002,"flow.shard.0":777.39650000000006,"flow.shard.1":571.30016599999999},"firstCallMs":{"conditions":7.5162079999999989,"decoder":686.30612399999995,"f0":22.606916999999999,"flow":347.78470800000002,"flow.shard.0":347.78691600000002,"flow.shard.1":210.72999999999999},"modelLoadMs":1041.1855,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.end:N=294:samples=282240
+[COSY-PHASE] summary totalMs=5350.512333 referencePrepareMs=3.897542 frontendMs=0.563333 llmLoadMs=116.071542 llmMs=2117.30925 acousticLoadMs=1041.1855 acousticExecuteMs=2068.554833 samples=282240 steps=6
+[COSY-Q8-LISTENING-STAGE] synthesis.end:N=294:samples=282240
+[COSY-Q8-LISTENING] variant=q8 corpus=sample02 WAV=checkpoint_001_sample02_q8.wav N=294
+[COSY-Q8-LISTENING-STAGE] synthesis.begin
+[COSY-Q8-LISTENING-STAGE] prepare.begin
+[COSY-Q8-LISTENING-STAGE] prepare.end:warmed=0
+[COSY-Q8-LISTENING-STAGE] frontend.begin
+[COSY-Q8-LISTENING-STAGE] frontend.end:logicalPrefix=70:minN=58:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.load.begin
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/cosyvoice-llm-q8-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/cosyvoice-llm-q8-decode.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/models/cosyvoice-llm-q8-decode.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-Q8-LISTENING-STAGE] llm.load.end
+[COSY-Q8-LISTENING-STAGE] llm.generate.begin:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.session.begin:logicalPrefix=70:maxN=442:validationSeed=42
+[COSY-Q8-LISTENING-STAGE] llm.prefill.begin
+[COSY-Q8-LISTENING-STAGE] llm.prefill.end
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=1:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=16:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=32:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=48:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=64:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=80:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=96:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=112:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=128:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=144:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=160:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=176:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=192:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=208:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=224:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=240:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=256:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=272:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=288:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=304:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=320:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=336:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=352:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=368:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=384:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=400:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=416:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.decode.progress:N=432:maxN=442
+[COSY-Q8-LISTENING-STAGE] llm.max_length:N=442
+[COSY-Q8-LISTENING-STAGE] llm.generate.end:N=442
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.begin:N=442:mode=enumerated:function=n385_450:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.runtime.end:N=442:mode=enumerated:function=n385_450:lifetime=sequential
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.begin:N=442
+[COSY-ENUMERATED] N=442 T=1186 G=884 function=n385_450
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n385_450
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n385_450 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|0e28df3e38bd1f319b922a004042048b2d5e9f41f45dd8f8f237309f360ce9bf
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n385_450 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=42.956167
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=42.956
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.conditions.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n385_450
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n385_450 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|b84c00f3060df5976d92486628c3165ad098b397c64abd6ce270745e20ed94c7
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n385_450 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=420.488625
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=420.489
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n385_450
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n385_450 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|5c7be8dfb2534d7fbd68d303c080e802fa7aa16c922b7e86f004e142e8ccb4ec
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n385_450 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=336.724792
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=336.725
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.models.ready:count=2:function=n385_450
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n385_450
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.1.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.2.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.3.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.4.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.5.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.begin:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.1.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.shard.2.2.prediction.end:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.flow.step.6.6.end:N=442:T=1186
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.begin:G=884
+[COSY-Q8-LISTENING-STAGE] acoustic.f0.end:G=884
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.begin:G=884:samples=424320
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n385_450
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n385_450 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|69d7dd250ca9ab4ca1fae511b51fde1a469d9d046dd2d4338288dad90ab20e51
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n385_450 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=163.364667
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=163.365
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.begin:samples=424320
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.prediction.end:samples=424320
+[COSY-Q8-LISTENING-STAGE] acoustic.hift.end:G=884:samples=424320
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":7.7683329999999984,"decoder":1030.8152909999999,"f0":46.761958,"flow":1727.9325010000002,"flow.shard.0":966.59825099999989,"flow.shard.1":761.37725},"firstCallMs":{"conditions":7.7683329999999984,"decoder":1030.8152909999999,"f0":46.761958,"flow":324.38175000000001,"flow.shard.0":324.38850000000002,"flow.shard.1":245.49854199999999},"modelLoadMs":963.53425100000004,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-Q8-LISTENING-STAGE] acoustic.synthesize.end:N=442:samples=424320
+[COSY-PHASE] summary totalMs=7098.164167 referencePrepareMs=3.933958 frontendMs=1.0195 llmLoadMs=126.362292 llmMs=3179.647708 acousticLoadMs=963.534251 acousticExecuteMs=2821.220874 samples=424320 steps=6
+[COSY-Q8-LISTENING-STAGE] synthesis.end:N=442:samples=424320
+[COSY-Q8-LISTENING] variant=q8 corpus=sample04 WAV=checkpoint_001_sample03_q8.wav N=442
+[COSY-AUTO-DONE] status=PASS threeEnglishWAVs q8, humanpending

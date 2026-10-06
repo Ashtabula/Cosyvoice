@@ -1,0 +1,223 @@
+{
+  "baseline": [
+    {
+      "request": 3,
+      "count": 259,
+      "meanMs": 12.630772984555984,
+      "medianMs": 12.641375,
+      "minMs": 11.720458,
+      "maxMs": 15.159708,
+      "slopeMsPerContextToken": 0.0023811340099874957,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 12.639022727272726,
+          "medianMs": 12.712333
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 12.427383453125,
+          "medianMs": 12.5482295
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 12.3468111875,
+          "medianMs": 12.4512495
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 12.9805644375,
+          "medianMs": 12.7945625
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 12.786363785714286,
+          "medianMs": 12.7438955
+        }
+      }
+    },
+    {
+      "request": 4,
+      "count": 259,
+      "meanMs": 12.420819015444016,
+      "medianMs": 12.519375,
+      "minMs": 11.73625,
+      "maxMs": 13.32575,
+      "slopeMsPerContextToken": 3.944266720080683e-05,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 12.711098454545455,
+          "medianMs": 12.838291
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 12.363061171875,
+          "medianMs": 12.466000000000001
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 12.40298375,
+          "medianMs": 12.505916500000001
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 12.47542840625,
+          "medianMs": 12.6002915
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 12.387781232142856,
+          "medianMs": 12.485125
+        }
+      }
+    },
+    {
+      "request": 5,
+      "count": 259,
+      "meanMs": 12.438317733590734,
+      "medianMs": 12.525917,
+      "minMs": 11.711209,
+      "maxMs": 13.880125,
+      "slopeMsPerContextToken": -0.0004617383261615808,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 12.902200727272728,
+          "medianMs": 12.968333
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 12.50362109375,
+          "medianMs": 12.659896
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 12.339615875,
+          "medianMs": 12.448896
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 12.3008835625,
+          "medianMs": 12.44825
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 12.54243519642857,
+          "medianMs": 12.629978999999999
+        }
+      }
+    }
+  ],
+  "Q8": [
+    {
+      "request": 3,
+      "count": 259,
+      "meanMs": 7.45958483011583,
+      "medianMs": 7.415667,
+      "minMs": 6.358917,
+      "maxMs": 9.071542,
+      "slopeMsPerContextToken": -0.0018594652426768706,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 7.910200727272727,
+          "medianMs": 7.950708
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 7.940933625,
+          "medianMs": 7.960729000000001
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 7.139808015625,
+          "medianMs": 7.2852915
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 6.99805728125,
+          "medianMs": 7.1008335
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 7.713877357142857,
+          "medianMs": 7.829708500000001
+        }
+      }
+    },
+    {
+      "request": 4,
+      "count": 259,
+      "meanMs": 7.425447061776062,
+      "medianMs": 7.414209,
+      "minMs": 6.387375,
+      "maxMs": 8.9825,
+      "slopeMsPerContextToken": 0.0010370971570855293,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 7.83575,
+          "medianMs": 7.798
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 7.26506315625,
+          "medianMs": 7.4161455
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 7.073065046875,
+          "medianMs": 7.231812
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 7.924257125,
+          "medianMs": 8.1358955
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 7.360801392857143,
+          "medianMs": 7.4880625
+        }
+      }
+    },
+    {
+      "request": 5,
+      "count": 259,
+      "meanMs": 7.336311316602316,
+      "medianMs": 7.393209,
+      "minMs": 6.375084,
+      "maxMs": 8.768958,
+      "slopeMsPerContextToken": -0.003367132873097992,
+      "groups": {
+        "54-64": {
+          "count": 11,
+          "meanMs": 7.902189272727273,
+          "medianMs": 7.79975
+        },
+        "65-128": {
+          "count": 64,
+          "meanMs": 7.647702515625,
+          "medianMs": 7.675583
+        },
+        "129-192": {
+          "count": 64,
+          "meanMs": 7.488647234375,
+          "medianMs": 7.5687085
+        },
+        "193-256": {
+          "count": 64,
+          "meanMs": 7.009772734375,
+          "medianMs": 7.196896
+        },
+        "257-312": {
+          "count": 56,
+          "meanMs": 7.068369821428571,
+          "medianMs": 7.374333
+        }
+      }
+    }
+  ],
+  "interpretation": "descriptive sequentialcontext/time correlation only; fixed512attentiongraph; no causal scalingclaim orpvalue"
+}

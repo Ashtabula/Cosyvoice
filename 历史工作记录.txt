@@ -664,3 +664,10 @@ Actions: firstQ8failedbeforeEngine/inference duemissinglinkedpartitionreceipt; p
 Files: DeviceSmokequantizationRoot canonicalpathhelper.
 Validation: rebuild/retrypending; parentassetunchanged.
 GitHub Timeline:7bb0265已commit未push；stagingfix未commit。
+
+Time:2026-10-06 14:14 EDT America/New_York
+Prompt: updatedLLM-onlyQ8quantization with3nativeinlineEnglishA/Bplayers; qualityhumanonly.
+Actions: objectiveQ8validationcomplete; finalclassificationQ8_AWAITING_HUMAN_LISTENING. SameN260/root2shardFlow6/ref/text/seed/placement; warmnominalmedianRTF.475853->.347558,LLM3283.928->1984.718ms,decode12.438->7.425ms; measuredsampledpeak2.328->1.594GB(-31.53%). CPU-onlymJ/audiosec122.818->122.712essentiallyunchanged, totalenergy/sustainedthermalN/Achargingonly.5pref+1295decodeactualANEhardwarematchedcompiledSHA/PID/nativeintervals, perop/arithmeticUNKNOWN. SourcecheckpointactualFP32dedupstorage2024593920B;CoreMLweights/activation/KVFP16baseline. Q8 only169weightmatrices eachpkgcompressionnotINT8ALUproof. ThreeEnglishaccepted01/02/04 generatedbothFP16/Q8 andactual6WAVexported/hash/headerverified;FP16newWAVsamehumancheckpoint. Q8sample02EOS294vs394;sample03MAX_LENGTH442vsbaselineEOS390 flaggedforlistening. StopatHUMANgate, noQ4/mixed/promotion.
+Files: separatebaseline/Q8rawevidence,REPORT/contextlatency/table/finalsummary/inlineaudio_manifest,traceattribution/sourcehelpers,correctedcollectorWAVhashfield. Models/privateTmp731MB,rawtrace/XMLlocalnotgit;WAVworkspaceartifactsignorednotgit. ProductionSwiftSources/defaultassets/catalog/HF/LAST_KNOWN_GOOD unchanged.
+Validation:16existingcontract/FP64testsPASS;signedReleasePASS;CPU-onlyhost64teachernumericalfinite/top1match1.0/top20.935,notqualityPASS. Physical5baseline+5Q8+3baselineEnglish+3Q8English+5profileQ8 complete,profilingnotperformancegroup. InitialSwift6asynciteratorbuildfailure,Q8preinferencepartitionlinkfailure,andafter-WAVcopycollectorKeyError preserved/corrected;nofakeinference rerun orsilentfallback. Instrumentsbackupd dylibmappingwarningretained, requiredtablesexported5/1295complete.
+GitHub Timeline:c882fb3及前序toolcommits已commit未push；finalreportscommit/pushnext。

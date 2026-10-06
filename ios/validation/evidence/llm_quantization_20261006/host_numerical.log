@@ -1,0 +1,11 @@
+[Q8-HOST] load baseline
+[Q8-HOST] baseline decode 16
+[Q8-HOST] baseline decode 32
+[Q8-HOST] baseline decode 48
+[Q8-HOST] baseline decode 64
+[Q8-HOST] load q8
+[Q8-HOST] q8 decode 16
+[Q8-HOST] q8 decode 32
+[Q8-HOST] q8 decode 48
+[Q8-HOST] q8 decode 64
+[Q8-HOST] complete 1.0

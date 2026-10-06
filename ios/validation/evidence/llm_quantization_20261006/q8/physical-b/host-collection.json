@@ -1,0 +1,12 @@
+{
+  "physicalSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+  "runnerSHA256": "7a6e9003f84e79088ede2df2f26fa7ac940dca5abc1c1d59b925f697d7f30685",
+  "runnerSourceCommit": "c882fb3",
+  "artifactFilename": "cosyvoice_llm_q8.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/cosyvoice_llm_q8.wav",
+  "WAV_SHA256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1",
+  "exportRecovery": "originalcopy succeeded; collector bookkeeping KeyError preserved, existingactualfile SHA verifiedaftercompletion, no inference rerun",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "SCREENING_ONLY",
+  "noTimedReadback": true
+}

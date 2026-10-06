@@ -1,0 +1,64 @@
+CosyVoice3 LLM Q8 controlled asset experiment — 2026-10-06 America/New_York
+Status/classification:Q8_AWAITING_HUMAN_LISTENING. No production promotion, noQ4/mixed.
+A Baseline precision/assets
+Currentacceptedembeddingb65820d andFP64reuse1b62aa8 preserved, rejectedFlowrestored. Baselinestartb144e06, physicalbaseline3c77e8e431adc4c414e3cee56088b4c67c6c8b3d, Q8physicalc882fb316cf353d970ed9f7395e7c7697da488e8. Frozenexportac31e117... tree4750dba..., prefill3fe257e...,decodec5207c.... Fullmodel/input/sourceSHA infeasibility/recipes/receipts. Source llm.pt actualFP32 (configBF16notactualstorage),2024669519B/unique2024593920B,aliasesdedup; exportedMLProgramweights/arithmeticFP16/spec9/iOS18/CoreML8,24layers896hidden14Q/2KVheads64dim,48FP16states[1,2,512,64]/6291456B. Separateprefill/decode duplicatedmatrixblobs, nofilesystemsharedLLMstorage.169linear weights dominate727955794B/blob. State/masks/RoPE/sampling/EOS/API/acoustic unchanged.
+B Available mechanisms
+Installedct9.0 optimize.coreml.linear_quantize_weights supportsint8/int4 perchannel/perblock andpalettizationalternatives. ActualAPIs/configs inspected; noinventedAPI. Compressionconsts producefloatingweights/intermediates, notproofINT8/INT4ANEarithmetic. Officialhttps://apple.github.io/coremltools/docs-guides/source/opt-quantization-api.html andopt-overview.html. Runtimeweightmaterialization/decompressionstrategyhardwaredependentUNKNOWN. Toolingreadonlyexistingvenv; no packageinstall/sourcePTreconversion.
+C Q8method
+ONEperchannelsymmetricINT8 compression candidate, weight_threshold2048,169constlinear.weight opnamesonly. Bias/normalization/mask/shape/activation/KV excluded. Newconstexpr_blockwise_shift_scale169each, unchangedIO/statedescriptionserializedbytes andmainoperationcounts. NoQAT/fine-tuning/layout/attention/state-change. Sourceconversion62b0dfad69d423ea423157f832f3451762c440ff, scripts/packageSHA recorded.
+D Size/isolation
+Packages1.457151548->.730670903GB (~49.86%smaller), compiled1.457190718->.730721925GB. Runtime3.530215890->2.803735289GB;P2siblings.664612462GB unchanged. Parentprodrootuntouched. Q8actualroot /var/mobile/Containers/Data/Application/364D9241-FC76-4E1D-A7A0-AFCF42F4D11E/Documents/LLMQuantization/Q8/Runtime, newtree150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98, manifesta276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5. Device-localhardlinksreuseonlynonLLMimmutablefiles, neverwriteparents; sourceRootactualhashguard4750 andcandidateactual150c bothverified. GenericloaderFROZEN_PACKAGE logtagmeansimmutableactivepackage, notprooforiginalproduction; filenames/Q8receipt/tree areauthoritative. Noquantizedassetdefault/HF/catalogupdate. GeneratedpackagesprivateTmp; notgitlargeweights.
+E Numerical
+ControlledmacOSCPU_ONLY speech-embeddingprefill224+commonteacherforced64decode (notactualinstructionprefix54); top1agreement1.0/top20mean.93515625. Prefilllogitsmaxabs.602539,meanabs.121793,RMSE.156183,cosine.999509; fullhidden/statedeviations numerical_summary. Pythonread_statefloat32bridgeview doesnotquantize/stateFP16storage; nativeFP16ABIvalidated. Hostdiagnostic NOT qualityPASS andnooldbit-paritytolerancerepurposed.
+F Token divergence/termination
+Frozenpublicinputsseed42bothN260/samples249600/24kHz/10.4s/functionn257_384/Flow6/SHARDS2; bothMAX_LENGTH normalexistingdefinition. Q8firstdivergence zeroindex2,257/260positionalmismatch (.988462), lengthdrift0. Speechcodetokenstatsnotworderrors; runmaxbaseline2/Q83, noobvioussinglecodetokensevereloop, notlinguisticproof. Corpus02EOS6562base394/Q8294; corpus04baseEOS390/Q8MAX_LENGTH442; quality/endingriskmusthumanlisten. ReferenceWAV/transcript/instruction/text exactidentities bound.
+G Physical memory
+Nominalwarm3rows each,100ms+exactboundarysamples:2.328087736->1.594133688GB, -733954048B/~699.95MiB/31.53%. Perrequeststagesbeforeengine/afterprep/load/prefill/decode/postLLM/acoustic/completion/idle inrawtimelines andphysical_summary. NoRAMinferencefromdisk. CoreMLprivatebytes/permodelallocationexactUNKNOWN; profilesnotmerged. Idle35s411.208->395.037MB singleobservationnotsteady-statewinproof. Bothretain5PCM sameN/count, nobenchmarkoptics.
+H Performance
+Repeated3nominalwarmmedians:total4948.871->3614.600ms,RTF.475853->.347558, LLM3283.928->1984.718ms,load137.338->134.210ms,prefill29.557->27.112ms,decode3221.524->1923.191ms/259calls,12.438->7.425ms/call,acoustic1480.302->1491.801ms. Rawranges retained, noonepairtiny-speedclaim. Firstobservedbaseline/Q8publictimings andcachehitsraw; noreset andnewQ8compile meansnotmatchedFIRST_EVER_COLDsavings. Contextgroups/slopes recorded(context_latency), fixed512attentionworkstatic, no causalattention-scalingclaim. Profilingmeasurementexcluded.
+I Process energy
+CPU-onlyRecount122.818->122.712mJ/audiosecond effectivelyunchanged; CPU421.831->443.899ms observedincrease, notenergyimprovement. Context-switchcountergranularity/clock/thermal/sourceorderlimits. NeitherANE/GPUenergy norwholephone. Noenergyclaimfromshortertime.
+J Whole-device/sustained
+N/A/NOT_RUN. CHARGING_CONNECTED fullbattery,foregroundbrightness.2,lowpowerfalse,ambientunknown; unprofiledgroupsnominal. Useronlychargingconditionsallowed. LocalNPU_engines_Demo inspectedreadonly, noeligibleunplugged/wirelessPowerProfilersustainedprotocolhere, no modificationsdirtyDemo files. Wholeenergy/thermal/battery/underruns deferred, not fabricated.
+K Execution
+RequestedCPU_AND_NEsameprefill/decode, acousticCPU_AND_GPUsame. Q8computeplanreported1761pref/1714decodeopsANEpreferred (baseline1761/1762), not100%residency. Exactstatefused/opomissions/kerneltransitionsUNKNOWN. CoreAI5pref+1295decANEhardwarejobs matchedactualcompiledSHA/process5825/nativeintervals, allcontained; noLLMCPU/GPUbackendevents recorded. SupportsrealANEactivity, notINT8ALUprecision/fullperopplacement. RuntimeNs/mathunchanged. Backupdframeworkdylibwarningretained butallrequiredtablesexportedandcountscomplete.
+L Listening
+ThreeacceptedEnglishids01/02/04 (mappeddisplay01/02/03),samecorpusSHA5825c.../voice/text/seed/config, sixactualWAVspulled/readable/24kmono16bit/headerframes/SHAvalidated. FP16currentPCM/WAVexactacceptedhumancheckpoint. Q8finite/unclipped; subjectivequalityunknown. Nativeinlineplayers MUSTappearfinalresponse. Olddownloadlinks/path-only notprimarymechanism. Artifactfilenames/SHAs inline_audio_manifest. NeverdeclareHUMAN_PASS.
+M Classification/ladder
+Q8_AWAITING_HUMAN_LISTENING. Objectivephysicalpeak/runtimebenefitmaterial, notallproductprioritiesproven. Q4nowhasplausibleresourcejustification butnotperformedbeforeexplicitQ8humangate. Mixednotjustifiedwithoutquality/sensitivitytrigger. ProductionLAST_KNOWN_GOOD unchanged anddefault/catalog/HF untouched. Stopatgate.
+
+Metric | FP16 | Q8 | Q4 | Mixed
+--- | --- | --- | --- | ---
+LLM packages GB | 1.457152 | 0.730671 | NOT_RUN | NOT_RUN
+LLM compiled GB | 1.457191 | 0.730722 | — | —
+Runtime payload GB | 3.530216 | 2.803735 | — | —
+P2 sibling payload GB | 0.664612 | 0.664612 unchanged | — | —
+LLM load ms | 137.338 | 134.210 | — | —
+Prefill ms | 29.557 | 27.112 | — | —
+Decode ms/token | 12.438 | 7.425 | — | —
+Decode total ms | 3221.524 | 1923.191 | — | —
+LLM total ms | 3283.928 | 1984.718 | — | —
+Acoustic ms | 1480.302 | 1491.801 | — | —
+Synthesis warm ms | 4948.871 | 3614.600 | — | —
+Warm RTF | 0.475853 | 0.347558 | — | —
+Sampled warm peak GB | 2.328088 | 1.594134 | — | —
+Idle35s footprint GB | 0.411208 | 0.395037 | — | —
+Process CPU-only mJ/audio-sec | 122.818 | 122.712 | — | —
+Whole-device mJ/audio-sec | N/A | N/A | — | —
+Thermal | charging5requests nominal | charging5requests nominal | — | —
+Sustained thermal | NOT_RUN | NOT_RUN | — | —
+Frozen token divergence | reference | 257/260,firstzeroindex2 | — | —
+Human listening | priorPASS,sameWAV | PENDING_HUMAN 3inlinepairs | — | —
+
+Finalquestions11
+1: YES measuredsampledpeaklower31.53%, notdiskinference; exactinstantaneous/permodelbytesunknown.
+2: Totalenergy UNKNOWN; CPU-onlynormalizedenergyessentiallyunchanged, noenergywinclaim.
+3: SustainedthermalUNKNOWN, onlynominalcharging5-requestscreens.
+4: Q8warmRTFmedian.347558 onfrozen10.4s workload.
+5: AWAITING_HUMAN_LISTENING, notHUMAN_PASS/FAIL.
+6: ActualresourcebenefitmakesfutureQ4studyjustifiedinprinciple; notexecutedbecauseQ8humanreviewfirst.
+7: NOT_TESTED, nobetterQ4Paretoassertion.
+8: Notyetjustified, nosensitivityanalysis/noqualitydecision.
+9: Q8isobjectivememory/runtimecandidate; acceptedFP16remainstheproductionchoiceuntilqualityandresourcegatescomplete.
+10: NOquantizedpromotionnow; explicituserlisteningPASSrequired, sustainedenergy/thermalstillunproven.
+11: Userlisten3nativeA/Bpairsespeciallyshorterlongsentenceandcappedstressending; ifPASS thendecideconditionalQ4andNPU_engines_Demo sustainedwholedevicecomparison.

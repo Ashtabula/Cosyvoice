@@ -1,0 +1,22 @@
+{
+  "rawTrace": "/private/tmp/cosy-llm-q8-20261006-CoreAI.trace",
+  "exportedTables": [
+    {
+      "path": "/private/tmp/cosy-q8-trace-OSSignpostIntervals.xml",
+      "bytes": 689069,
+      "sha256": "6ab81b10709fb5dca9abd03f42c9cb0bfca252658254da55ff05bba8e0f80441"
+    },
+    {
+      "path": "/private/tmp/cosy-q8-trace-coreml-os-signpost.xml",
+      "bytes": 4953962,
+      "sha256": "6b054d230b068afb538c9384c0774e2852c6bc130621236eae46f8bc06c59f2d"
+    },
+    {
+      "path": "/private/tmp/cosy-q8-trace-ane-hw-intervals.xml",
+      "bytes": 346762,
+      "sha256": "2e3e09d4a3a7e12ea239c6638d26afa31f008eb6308cc1a3d7e7fb0df8651102"
+    }
+  ],
+  "warning": "xctrace backupdMobileBackupdylibmappingoverlap; tablesexportedSUCCESS;5prefill/1295decode matchedcompiledidentity+PIDsignposts+hardwarecontainment",
+  "largeTraceNotCommitted": true
+}

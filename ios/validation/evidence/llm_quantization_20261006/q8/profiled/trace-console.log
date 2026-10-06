@@ -1,0 +1,8 @@
+Starting recording with the Core AI template and Core ML, Points of Interest Instruments. Targeting All Processes. Time limit: 180.0 s
+Ctrl-C to stop the recording
+Stopping recording...
+Timeline modification failed -- dylibs overlap by 0x18a0:
+    0x2d27ff000-0x2d28008a0 [0x18a0] (6285365847202-9223372036854775807) /Volumes/WD/DeveloperData/Xcode/DeviceSupport/iPhone18,4 27.2 (24B5089g)/arm64e/Symbols/usr/lib/libSystem.B.dylib
+    0x2d27ff000-0x2d28008a0 [0x18a0] (0-9223372036854775807) /usr/lib/libSystem.B.dylib
+Recording completed. Saving output file...
+Output file saved as: cosy-llm-q8-20261006-CoreAI.trace

@@ -1,0 +1,32 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-llm-quantization",
+    "--validation-llm-variant=baseline",
+    "--validation-warm-pass",
+    "--validation-execution-audit",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family"
+  ],
+  "runnerSHA256": "5df9bdcfdfdb57648b19fd9206d6aac228f0ba81a1df3690e1e12ebf22ca0ca0",
+  "physicalSourceCommit": "3c77e8e431adc4c414e3cee56088b4c67c6c8b3d",
+  "sourceGitHEADAtCollection": "3c77e8e431adc4c414e3cee56088b4c67c6c8b3d",
+  "artifactFilename": "cosyvoice_baseline_fp16.wav",
+  "artifactAbsolutePath": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/llm_quantization_20261006/cosyvoice_baseline_fp16.wav",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "taskArtifactMechanism": "Codex native Markdown audio embed withabsolute localfile, displayedfilename notfilesystemnavigation",
+  "humanListening": "PENDING_HUMAN",
+  "charging": "screeningonly",
+  "noTimedReadback": true
+}
