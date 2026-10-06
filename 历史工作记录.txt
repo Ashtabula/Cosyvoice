@@ -319,3 +319,9 @@ Prompt: persistent source identity fail-closed audit.
 Actions: full current phone Runtime readback64files/3530215890bytes unchanged frozen4750 tree/2ddc manifest, no changed files. Bad14b985 tree exactly original rows with Runtime/ prefix; normalize /var and /private/var canonical roots before relative path hashing.
 Validation:3 persistent tests PASS incl alias/canonical equivalence; A/B retry pending; prior hash-fail cases and Jetsam remain preserved.
 GitHub Timeline: through0a669e5 pushed; new fix checkpoint local next; no frozen file changes.
+
+Time: 2026-10-05T22:26:55.775428-04:00
+Prompt: four-bucket physical persistent evidence and first-PCM idle bootstrap.
+Actions: source448c99a A/B/C physicalPASS forN260/100/200/420, actualPID changes and Float32 PCM identity; N355 wrong-bucket experiment preserved. Add dedicated single-public-call bootstrap (no fabricated warm) with PCM return boundary before idle; optional enum fastPrediction/infrequent reshape identity-bound hints, defaults unchanged.
+Validation:14tests PASS. N260first-ever40342.27ms, relaunch8919.32ms/RTF0.857627,warm0.47614; remaining relaunch hash/load overhead explicit, no claim warm-equivalent cold. Four-function storage derived3.195GB excludedbackup; idle/p2/hints device gates next.
+GitHub Timeline: through0a669e5 pushed;448c99a local; checkpoint next, no model/HF/catalog/promotion.

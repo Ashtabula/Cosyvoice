@@ -172,6 +172,8 @@ def main() -> None:
     parser.add_argument("--reuse-compiled-caches", action="store_true")
     parser.add_argument("--workload-text")
     parser.add_argument("--persistent-idle", action="store_true")
+    parser.add_argument("--enumerated-fast-prediction", action="store_true")
+    parser.add_argument("--enumerated-infrequent-reshape", action="store_true")
     parser.add_argument("--materialize-te", action="store_true")
     parser.add_argument("--capture-pcm", action="store_true")
     parser.add_argument("--idle-readiness", action="store_true")
@@ -367,6 +369,10 @@ def main() -> None:
                 candidate_args.append("--validation-workload-text=" + args.workload_text)
             if args.persistent_idle:
                 candidate_args.append("--validation-persistent-idle")
+            if args.enumerated_fast_prediction:
+                candidate_args.append("--validation-enumerated-fast-prediction")
+            if args.enumerated_infrequent_reshape:
+                candidate_args.append("--validation-enumerated-infrequent-reshape")
             if args.diagnostic_enumerated_compute == "cpu-gpu":
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":

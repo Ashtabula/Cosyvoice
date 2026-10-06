@@ -404,12 +404,15 @@ enum CosyVoice3AssetLoader {
         let packageVariant = single ? "EXTRACTED_SINGLE_FUNCTION_DIAGNOSTIC" : (path.hasPrefix("../FlowPartitions/") ? "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION" : "FROZEN_PACKAGE")
         print("[COSY-ACTUAL-PACKAGE] sourcePath=\(source.standardizedFileURL.path) selectedFunctionName=\(config.functionName ?? "<nil:main>") variant=\(packageVariant) multifunction=\(!single && functionName != nil) extractedSingleFunction=\(single)")
         if effectiveUnits != computeUnits || single { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(effectiveUnits) singleFunction=\(single) validationOnly=YES") }
-        if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
-        if reshapeFrequencyInfrequent {
+        let enumeratedPath = path.hasPrefix("enumerated-acoustic/") || path.hasPrefix("../FlowPartitions/")
+        let fast = preferFastPrediction || (enumeratedPath && CommandLine.arguments.contains("--validation-enumerated-fast-prediction"))
+        let infrequent = reshapeFrequencyInfrequent || (enumeratedPath && CommandLine.arguments.contains("--validation-enumerated-infrequent-reshape"))
+        if fast { config.optimizationHints.specializationStrategy = .fastPrediction }
+        if infrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
         }
         let persistent = CosyVoice3PersistentRuntimeStore.shared
-        let identity = try persistent.identity(root: root, source: source, function: config.functionName, units: effectiveUnits, reshape: reshapeFrequencyInfrequent)
+        let identity = try persistent.identity(root: root, source: source, function: config.functionName, units: effectiveUnits, reshape: infrequent, fastPrediction: fast)
         let expectedCompiled = try persistent.directory("CompiledModels").appendingPathComponent(try persistent.artifactKey(source: source) + ".mlmodelc")
         let compiledHit = source.pathExtension == "mlmodelc" || FileManager.default.fileExists(atPath: expectedCompiled.path)
         let compiled = try compiledModelURL(source: source)
@@ -437,7 +440,7 @@ enum CosyVoice3AssetLoader {
         let retain = allowValidationRetention && acousticRole && (strategy == "selected-family" || (strategy == "small" && role == "conditions") || (strategy == "decoder" && ["conditions", "hift"].contains(role ?? "")))
         do {
             if retain {
-                let key = compiled.path + "|" + String(describing: effectiveUnits) + "|" + (config.functionName ?? "main")
+                let key = compiled.path + "|" + (try persistent.key(identity))
                 return try CosyVoice3ValidationModelShelf.shared.model(key: key, family: functionName ?? "default") {
                     try construct()
                 }
@@ -485,7 +488,9 @@ enum CosyVoice3AssetLoader {
         let base: MLComputeUnits = CommandLine.arguments.contains("--validation-enumerated-cpu-only") ? .cpuOnly : .cpuAndGPU
         let overrides = try CosyVoice3ValidationPlacement.overrides()
         let units = role.flatMap { overrides[$0] } ?? base
-        return try CosyVoice3PersistentRuntimeStore.shared.identity(root: root, source: source, function: single ? nil : function, units: units, reshape: false)
+        return try CosyVoice3PersistentRuntimeStore.shared.identity(root: root, source: source, function: single ? nil : function, units: units,
+            reshape: CommandLine.arguments.contains("--validation-enumerated-infrequent-reshape"),
+            fastPrediction: CommandLine.arguments.contains("--validation-enumerated-fast-prediction"))
     }
 
     static func warmModels(

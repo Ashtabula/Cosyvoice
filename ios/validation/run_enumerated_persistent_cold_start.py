@@ -10,7 +10,7 @@ CASES = [
     ('n257_384', 'This is a CosyVoice3 public API reference voice validation.'),
     ('n001_128', 'This is a test.'),
     ('n129_256', 'This is a public reference voice test for today.'),
-    ('n385_450', 'This is a longer public API reference voice validation for the CosyVoice3 engine on this phone.'),
+    ('n385_450', 'International communication requires professional preparation and accurate pronunciation during comprehensive experimental performance validation and mathematical precision on this physical phone.'),
 ]
 
 def main():

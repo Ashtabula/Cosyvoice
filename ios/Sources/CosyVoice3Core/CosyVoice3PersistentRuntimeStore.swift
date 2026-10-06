@@ -113,12 +113,14 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
         return result
     }
 
-    func identity(root: URL, source: URL, function: String?, units: MLComputeUnits, reshape: Bool) throws -> [String: String] {
+    func identity(root: URL, source: URL, function: String?, units: MLComputeUnits, reshape: Bool, fastPrediction: Bool = false) throws -> [String: String] {
         let rootIdentity = try rootIdentity(root)
-        return ["manifestSHA256":rootIdentity.manifest, "payloadTreeSHA256":rootIdentity.payload,
+        var result = ["manifestSHA256":rootIdentity.manifest, "payloadTreeSHA256":rootIdentity.payload,
             "schema":rootIdentity.schema, "modelPackageSHA256":try packageSHA(source),
             "functionName":function ?? "<default:main>", "requestedPlacement":String(units.rawValue),
             "reshapeInfrequent":String(reshape), "runtimeVersion":Self.runtimeVersion, "modelABI":"CoreML-MLProgram-source-content-v2"]
+        if fastPrediction { result["specializationStrategy"] = "fastPrediction" }
+        return result
     }
 
     func key(_ identity: [String: String]) throws -> String {

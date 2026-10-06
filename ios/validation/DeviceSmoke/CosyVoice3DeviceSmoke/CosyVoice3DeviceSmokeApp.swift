@@ -154,6 +154,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-idle-bootstrap") { await runPersistentIdleBootstrap() }
             else if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
             else if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("variable-public-api-smoke-mode.json").path)
@@ -566,6 +567,41 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 resumePersistentIdleIfEnabled()
             }
         } catch { Self.recordFailure(error, filename:"candidate-benchmark-receipt.json", into:self) }
+    }
+
+    func runPersistentIdleBootstrap() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let filename = "persistent-bootstrap-receipt.json"
+        do {
+            let waitStarted = Date()
+            while ProcessInfo.processInfo.thermalState != .nominal && Date().timeIntervalSince(waitStarted) < 300 {
+                _ = try Self.write(["status":"RUNNING","phase":"THERMAL_START_GATE","recordedAtUnix":Int(Date().timeIntervalSince1970)],to:Self.receiptURL(filename))
+                try await Task.sleep(for: .seconds(5))
+            }
+            guard ProcessInfo.processInfo.thermalState == .nominal else { throw SmokeError("idle bootstrap nominal start gate not reached") }
+            let reset = try Self.resetValidationCosyVoiceCachesIfRequested()
+            let fixture = try Self.fixture()
+            let engine = try CosyVoice3Engine(assetRoot:fixture.runtime,idleBucketPreparation:false)
+            await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver { print("[PERSISTENT-BOOTSTRAP] \($0)") }
+            let clock = ContinuousClock(); let started = clock.now
+            let pcm = try await engine.synthesize(fixture.text,parameters:fixture.parameters)
+            let elapsed = Self.seconds(started.duration(to:clock.now))*1000
+            try Self.validate(pcm)
+            let snapshot = try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
+            let receipt: [String:Any] = ["status":"PASS_PUBLIC_FIRST_SYNTHESIS_IDLE_QUEUED","recordedAtUnix":Int(Date().timeIntervalSince1970),
+                "sourceCommit":fixture.sourceCommit,"processID":ProcessInfo.processInfo.processIdentifier,"cacheReset":reset,
+                "publicAPI":"CosyVoice3Engine.synthesize()","text":fixture.text,"seed":42,"flowSteps":6,
+                "samples":pcm.samples.count,"sampleRate":pcm.sampleRate,"firstSynthesisMilliseconds":elapsed,
+                "firstRTF":elapsed/1000/Self.audioDuration(pcm),"Float32PCMSHA256":SHA256.hash(data:pcm.samples.withUnsafeBytes { Data($0) }).map { String(format:"%02x",$0) }.joined(),
+                "PCMReturnedToHostBeforeIdle":true,"secondSynthesisPerformed":false,"sameProcessWarmRTF":NSNull(),
+                "thermalStart":"nominal","thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"persistentBeforeIdle":snapshot,
+                "backgroundModel":"foreground idle + finite beginBackgroundTask window; thermal nominal start only"]
+            _ = try Self.write(receipt,to:Self.receiptURL(filename))
+            persistentIdleEngine = engine
+            resumePersistentIdleIfEnabled()
+            status = "PASS first PCM returned; idle bucket preparation pending"
+        } catch { Self.recordFailure(error,filename:filename,into:self) }
     }
 
     func runFlowStepHeadToHead() async {
