@@ -1,0 +1,267 @@
+{
+  "schemaVersion": 1,
+  "scope": "independent macOS CPU processes; synthetic component inputs, not physical or endpoint parity",
+  "N": 260,
+  "models": {
+    "conditions": {
+      "status": "PASS",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "7ee54e9639046fe4fa8138155b1fcbcfe4df29b3727f13a529474437989c5b5f"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "7ee54e9639046fe4fa8138155b1fcbcfe4df29b3727f13a529474437989c5b5f"
+        }
+      ],
+      "outputs": {
+        "mu": {
+          "maxAbs": 0.0,
+          "relativeL2": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        },
+        "spks": {
+          "maxAbs": 0.0,
+          "relativeL2": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80
+          ]
+        },
+        "cond": {
+          "maxAbs": 0.0,
+          "relativeL2": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        }
+      }
+    },
+    "flow0": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "59508eb329e2fd3c2b73696edfa781b36428cec405a364293ae3c8aecda54d0a"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: BNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 38>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 34>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 34>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>Error(s) occurred reshaping a BNNS Op:\nBNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 38>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts[BnnsCpuInferenceOperation]: BNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 38>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 34>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 34>Error(s) occurred reshaping a BNNS Op:\nBNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 38>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts",
+          "outputsSHA256": "0bdb91859a946e402ff13dfe56347d670d383e74dde9d7ff8ec9e7dc5a9b7e5a"
+        }
+      ],
+      "outputs": {
+        "h": {
+          "maxAbs": 0.9227294921875,
+          "relativeL2": 0.016428720252138387,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        },
+        "te": {
+          "maxAbs": 0.001953125,
+          "relativeL2": 0.00048283567065084815,
+          "finite": true,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      }
+    },
+    "flow1": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "Missing E5 bundle resource required for loading ExecutionStreamOperation. Must re-compile the E5. Resource path = /Users/ziqizhu/Library/Caches/org.python.python/com.apple.e5rt.e5bundlecache/26A5353q/E355D2CD412598B0814AC12B4260EF1FA11CB15061A7C9D682023BE08F5CA0EC/B5E10FFEBFDFEA9794192307EE7148C63E9B55DE789F27E579962C2A3F1D72DE.bundle/H16G.bundle/n257_384_00562477/n257_384_classic_cpu/model.espresso.net @ PrepareOpForEncode",
+          "outputsSHA256": "e2eee8d4b2f30d06226a14b3027c8f7ef7c4bbfce650c06f475df07ed898e29d"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>Error(s) occurred reshaping a BNNS Op:\nBinary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>Tensor size cannot be queried because all dimensions are not known. @ GetSize",
+          "outputsSHA256": "7a4033a1b648e716a4e5a62008c4a0ac2f14359af7cbef0a77e7d79f6cea0c1e"
+        }
+      ],
+      "outputs": {
+        "h_out": {
+          "maxAbs": 775.71875,
+          "relativeL2": 0.01752999551113063,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow2": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "dfbad85817cf646a694ba0b0f11daefa87967ac7d70d26614df9d67ce0179ad9"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>Tensor size cannot be queried because all dimensions are not known. @ GetSize[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>Tensor size cannot be queried because all dimensions are not known. @ GetSize",
+          "outputsSHA256": "451b17ae53195e90f5265e9ee9dc3ae40299227e0eb4b30f4f019b7ac5065412"
+        }
+      ],
+      "outputs": {
+        "h_out": {
+          "maxAbs": 6.694732666015625,
+          "relativeL2": 0.012599878326827036,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow3": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "2f0a26284c0fd5a59ff5d89ddee7252580de727dfb103444f3dd05b836198d7d"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>Tensor size cannot be queried because all dimensions are not known. @ GetSize[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>Tensor size cannot be queried because all dimensions are not known. @ GetSize",
+          "outputsSHA256": "da7f44aa99dc55a76929db47debb054ef73e2d2ddb3c799b8cfdbe204c860e6e"
+        }
+      ],
+      "outputs": {
+        "h_out": {
+          "maxAbs": 23.280731201171875,
+          "relativeL2": 0.012195064567347641,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow4": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "53eb3f7a734377d6928622160fd28027f259770784cb4cdc34798d406284e200"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>Tensor size cannot be queried because all dimensions are not known. @ GetSize[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 43>Tensor size cannot be queried because all dimensions are not known. @ GetSize",
+          "outputsSHA256": "157c727ea3280b6e5ed5dc4aa0b526b282d837200c7e4d9c8c758da1ec54ff1b"
+        }
+      ],
+      "outputs": {
+        "h_out": {
+          "maxAbs": 45.32527160644531,
+          "relativeL2": 0.23598764571443134,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow5": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "6fce692c6fceb43d966ed7d9d28d910c674767c1979d1913f7a672bce967d80b"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 48>Tensor size cannot be queried because all dimensions are not known. @ GetSize[BnnsCpuInferenceOperation]: Binary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>Error(s) occurred reshaping a BNNS Op:\nBinary arithmetic shape deduction: operands could not be broadcast together at axis 2 with dimensions 64 and 0\nOp info: <operation 39>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts",
+          "outputsSHA256": "18c04c701fe2ea5b5575fc3eeb500fff493b25c4cd937d91da16ca9073b340ab"
+        }
+      ],
+      "outputs": {
+        "velocity": {
+          "maxAbs": 0.70703125,
+          "relativeL2": 0.03226949519745349,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        }
+      }
+    },
+    "hift": {
+      "status": "FAIL",
+      "runs": [
+        {
+          "variant": "control",
+          "returnCode": 0,
+          "console": "",
+          "outputsSHA256": "f1c90eb3739a7f0adcc05a5238cf7f43afe67963e09d6595546f5f319884c37f"
+        },
+        {
+          "variant": "candidate",
+          "returnCode": 0,
+          "console": "[BnnsCpuInferenceOperation]: BNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 1>Error(s) occurred reshaping a BNNS Op:\nBNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 1>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts[BnnsCpuInferenceOperation]: BNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 1>Error(s) occurred reshaping a BNNS Op:\nBNNS convolution: Error in shape deduction: dilated kernel size should not be smaller than padded input.\nOp info: <operation 1>\n @ ReshapeBnnsGraphContextBasedOnE5InputPorts",
+          "outputsSHA256": "52c127ffaffb0303ab16b9c4db9c99e50e606c72904b29a93155639680955cb6"
+        }
+      ],
+      "outputs": {
+        "pcm": {
+          "maxAbs": 0.023182690143585205,
+          "relativeL2": 0.00018626362145874047,
+          "finite": true,
+          "shape": [
+            1,
+            249600
+          ]
+        }
+      }
+    }
+  },
+  "status": "FAIL_HOST_PARITY"
+}

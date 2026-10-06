@@ -382,3 +382,10 @@ Prompt: no-I/O nominal sustained validation and numerical diagnostic follow-up.
 Actions: defer WAVencoding/hash until12group end; optionalnominal gate precedes whole sustainedgroup; raw isolatedPCM writtenafterloop. StaticHiFTNE12nominal butPCM578 differsGPU909, no production parityclaim; Flowstatic isolatedprocessparitystillFAIL preserved.
 Validation: Python syntaxPASS viaAST; py_compile sandbox usercachewrite denied, no codeerror. Latest Swift11testsPASS; nativeappbuildnext.
 GitHub Timeline:926f0ce已commit未push; evidence/source checkpointnext; noFrozen/promotion/HFchanges.
+
+Time: 2026-10-06 00:40 EDT America/New_York
+Prompt: actualresidency/stage12/thermalcontinued.
+Actions: Source655eb88 physicalCPU/GPU/NE diagnosticmatrix preserved; noextra devicecopy/hash withinmeasurementloops. LLMCPU/GPU changedendpoint rejected; NEendpointbitwise909. HiFTfrozenMFNE/CPUsame PCM vsGPU maxAbs2.6427e-5 relativeL21.7725e-5, no graph/weight/dtypechange. P2GPUfullwarm.48584/seriousiteration10; P3GPU.46949/serious7;6GPU.47416/serious6. P2HiFTNEfrozenMFwarm.46843/serious7, notcoolethermal.
+Validation: CPUFlow2 signal9 beforesecondctorend/notprediction; Jetsamreasonunproven. NEFlowloadfailures andtimeouts preserved; staticFlowhostparity/oneenumfailuresrejected. Exact model/PID trace joins12prefill+3108decodeANEcalls; noactualperopmap, FULL_ANEclaimsnone. SignatureJSONsource-only tensor shapesdistinguishedfromruntime.
+Files: residency/thermalJSON RUNNINGcohort, trace/signatures/parity/helpers.
+GitHub Timeline: througha2aed4f pushed; through655eb88 localcommits未push; currentresultsnextcheckpoint; noHF/catalog/promotion.

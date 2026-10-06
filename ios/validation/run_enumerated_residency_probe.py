@@ -1,7 +1,7 @@
 # run_enumerated_residency_probe.py
 # Requirement: launch the hash-bound installed diagnostic app, wait on console completion, copy evidence only after timed work has finished.
 from pathlib import Path
-import argparse, json, subprocess, threading, time, hashlib
+import argparse, json, subprocess, threading, time, hashlib, signal
 
 DEVICE = '00008150-000A05CA1440401C'
 BUNDLE = 'com.actacomes.cosyvoice3.candidatebenchmark'
@@ -19,6 +19,8 @@ def main():
     parser.add_argument('--static-n260', action='store_true')
     parser.add_argument('--timeout', type=int, default=1200)
     args = parser.parse_args()
+    if args.mode == "plan" and args.timeout == 1200: args.timeout = 180
+    if args.mode == "isolated" and args.stage == "flow" and any(value.startswith("flow") and value.endswith(":CPU_AND_NE") for value in args.placement): args.timeout = min(args.timeout, 240)
     args.output.mkdir(parents=True, exist_ok=True)
     flags = ['--no-playback','--validation-acoustic-cache=selected-family',f'--validation-flow-partition={args.partition}']
     if args.mode == 'isolated':
@@ -30,7 +32,7 @@ def main():
         files = ['ane-compute-plan-receipt.json']
     else:
         flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD','--wait-thermal-nominal','--validation-sustained-count=12','--validation-sustained-nominal-gate']
-        files = ['candidate-benchmark-receipt.json']
+        files = ['candidate-benchmark-receipt.json','candidate-warm.f32']
     flags += [f'--validation-placement={value}' for value in args.placement]
     flags += [f'--validation-single-function={value}' for value in args.single_function]
     if args.static_n260:
@@ -42,7 +44,7 @@ def main():
         trace_path = Path('/private/tmp') / (args.output.name + '-CoreAI.trace')
         ready = threading.Event()
         trace = subprocess.Popen(['xcrun','xctrace','record','--template','Core AI','--instrument','Core ML','--instrument','Points of Interest',
-                                  '--device',DEVICE,'--time-limit','180s','--output',str(trace_path),'--all-processes'],
+                                  '--device',DEVICE,'--time-limit','1200s','--output',str(trace_path),'--all-processes'],
                                  stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
         def trace_output():
             with (args.output/'trace-console.log').open('w') as log:
@@ -65,7 +67,14 @@ def main():
     while not done.wait(30):
         print('[RESIDENCY-PROBE] waiting on completion console; no device readback',flush=True)
         if process.poll() is not None or time.monotonic()>deadline:
+            if args.mode == 'plan':
+                partial=args.output/'timeout-partial-plan.json'
+                subprocess.run(['xcrun','devicectl','device','copy','from','--device',DEVICE,'--domain-type','appDataContainer','--domain-identifier',BUNDLE,'--source','Documents/ane-compute-plan-receipt.json','--destination',str(partial)])
+                (args.output/'probe-timeout.json').write_text(json.dumps(dict(status='DIAGNOSTIC_TIMEOUT_OR_PROCESS_ENDED',elapsedSeconds=args.timeout,noResidencyInference=True,command=command),indent=2)+'\n')
             raise RuntimeError('app console ended or diagnostic deadline exceeded; no receipt treated as current PASS')
+    if trace:
+        trace.send_signal(signal.SIGINT)
+        trace.wait()
     receipts = {}
     for name in files:
         destination = args.output/name
@@ -82,7 +91,7 @@ def main():
             receipts[name] = dict(sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),receipt=value)
     identity = dict(schemaVersion=1,command=command,receipts=receipts,profiled=args.profile,
                     noReadbackDuringTimedWork=True,actualResidency='UNKNOWN_RESIDENCY',
-                    hostGitHEAD=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
+                    runnerSHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),hostGitHEAD=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
     (args.output/'probe-receipt.json').write_text(json.dumps(identity,indent=2)+'\n')
     print('[RESIDENCY-PROBE] evidence collected',flush=True)
     if trace:

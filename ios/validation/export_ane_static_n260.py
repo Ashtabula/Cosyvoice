@@ -10,6 +10,7 @@ def main():
     parser.add_argument('--source',type=Path,required=True)
     parser.add_argument('--output',type=Path,required=True)
     parser.add_argument('--static-program-inputs',action='store_true')
+    parser.add_argument('--single-enumerated-shape',action='store_true')
     args=parser.parse_args()
     if args.output.exists(): raise RuntimeError('never overwrite existing diagnostic assets')
     args.output.mkdir(parents=True)
@@ -26,6 +27,7 @@ def main():
                 if len(value.enumeratedShapes.shapes)!=128: raise RuntimeError('unexpected enumerated bucket size')
                 shape=list(value.enumeratedShapes.shapes[3].shape)
                 value.ClearField('enumeratedShapes');value.ClearField('shapeRange')
+                if args.single_enumerated_shape:value.enumeratedShapes.shapes.add().shape.extend(shape)
                 del value.shape[:];value.shape.extend(shape)
             shapes[feature.name]=list(value.shape)
         if args.static_program_inputs:
@@ -44,7 +46,7 @@ def main():
         if weights(before)!=weights(after):raise RuntimeError('weight payload changed')
         receipt['models'][role]=dict(source=binding['source'],sourceIdentity=binding['sourceIdentity'],
                                     extractedSourceIdentity=before,experimentalIdentity=after,graphIdentical=not args.static_program_inputs,weightsIdentical=True,operatorBlocksByteIdentical=True,programInputTypesStatic=args.static_program_inputs,
-                                    inputShapes=shapes,status='EXPORTED_HOST_AND_PHYSICAL_GATES_PENDING')
+                                    inputShapes=shapes,singleEnumeratedShape=args.single_enumerated_shape,status='EXPORTED_HOST_AND_PHYSICAL_GATES_PENDING')
         (args.output/'export-receipt.json').write_text(json.dumps(receipt,indent=2)+'\n')
         print('[ANE-STATIC-EXPORT]',role,shapes,'operator blocks/weights byte-identical',flush=True)
 
