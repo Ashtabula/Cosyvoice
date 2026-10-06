@@ -519,3 +519,10 @@ Actions: evidence-by-evidence completion audit: notallgoalsachieved. Distinguish
 Files: workflow_completion_status.json, updatedenumerated_ane_optimization/acoustic_equivalent_optimization summaryrecommendationmetadata.
 Validation: read-only source/evidence check; no newdevice/model/runtime/benchmarkchange. Currentfrozen2-shardwarmRTF0.47670569, humancheckpoint001PASS/counter1.
 GitHub Timeline:28b23afalready pushed; consistency/statusmetadata commit/pushnext.
+
+Time:2026-10-06 08:41 EDT America/New_York
+Prompt: rigorous warmLLM/token allocation/memory pass; acceptedb65820d semanticbaseline frozen.
+Actions: inspectexactcommittedevidence/source; noiosSourcesdiffsinceb65820d. Savepublicpipeline/decode259/allocation-copy/lifetime/concurrency maps and7rankedcandidates beforeproductionedits. Maccapacityprobe reserve25actual26/insert26nogrowth rejects speculativeoptimization. LocalSDKoutputbackingAPI exists butactualuse/lifetimehigher-risk.
+Files: warm_decode_pass_20261006/phase_a_static_audit.json.
+Validation: static/sourcehashPASS; physicalmemory/substage measurementnext, noalgorithm/model/placement/SHARDS/Flowchange.
+GitHub Timeline:c17581falreadypushed; phaseAaudit未commit.
