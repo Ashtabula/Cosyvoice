@@ -1,0 +1,84 @@
+CosyVoice3 post-quantization ANE execution-topology audit
+2026-10-06 America/New_York
+Decision: NO_GRAPH_REWRITE_NEEDED.
+Both candidates: MOSTLY_CONTIGUOUS_ANE at recorded program-interval resolution. Per-op actual residency UNKNOWN_RESIDENCY.
+AUDIT ONLY, reused existing physical evidence; zero new device tests, no production/runtime/asset/placement changes, no Q4/Mixed, no promotion. Q8 human listening remains PENDING_HUMAN.
+
+1. Quantization predecessor and exact provenance
+Read complete llm_quantization_20261006 REPORT/final/physical_summary, conversion/recipe, both physical receipts, listening manifest and both actual attribution exports. Q8 reached valid public physical execution. Failed initial Q8 staging did not reach inference and was excluded. Q4/Mixed never generated or physically tested; not inferred from filenames and not audited.
+Accepted runtime semantic source1b62aa8607f6e48f05dd8d4741dbf98328777509; audit parent2306fbd29b8a163df6b0e4d885339a559576f6f5. Quantization FP16 physical3c77e8e431adc4c414e3cee56088b4c67c6c8b3d; Q8 physicalc882fb316cf353d970ed9f7395e7c7697da488e8; conversion62b0dfad69d423ea423157f832f3451762c440ff.
+Frozen production tree4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa, manifest2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee, exportac31e117938ed50132365973a103cc8425942700. Q8 experimental tree150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98, manifesta276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5. Full package/function ABI/OS/placement identities and frozen inputs in final_summary and each variant summary; Q8 source/output package identities in original conversion_receipt, referenced unchanged.
+Physical device iPhone18,4 / iOS27.2 (24B5089g) / CoreML3600.25.2. Xcode/xctrace27.2 (27B5019j), verified installed tooling and capture TOCs. SHARDS2/Flow6/N260/n257_384/249600samples/24000Hz/10.4s/publicCosyVoice3Engine.synthesize/no playback unchanged. Both request CPU_AND_NE for LLM; acoustic CPU_AND_GPU retained.
+FP16 trace physically captured earlier at8d9050e7108d74b8e35470e85714107f34c5f93f, PID5566. Q8 trace atc882fb3, PID5825. Historical FP16 F0 workspace differs downstream from accepted current FP64 reuse, so do not compare traced end-to-end RTF/peak as an optimization delta. Both LLMRuntime and FP16StatefulLLMSession source bytes exactly match historicalFP16/currentQ8/currentHEAD, freshly verified; package decode identity matches current frozen FP16. StageDiagnostics changed only a validation CPU-reader enabling condition for another mode; prediction signposts and audited execution path unchanged. Thus reuse is appropriate for LLM topology, not a perfectly simultaneous/control-matched full-pipeline trace comparison.
+
+2. Profiling method and identity gates
+Both CoreAI+CoreML+PointsOfInterest, all-processes; historicalFP16 additionally TimeProfiler. Native CosyStage llm.decode.prediction os_signpost wraps synchronous MLModel prediction, same session/MLState/preallocated inputs. Inputs/outputs/sampling/masks unchanged. Signpost definition source CosyVoice3StageDiagnostics.swift:17/22; callsite FP16StatefulLLMSession.predict; source/source-SHA bindings preserved.
+Exported XML includes model CoreML Prediction, ANE hardware intervals and PID-bound native signposts. Compiled archive hashes: FP16 decode da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99, Q8 decode e8b92aac9d916f5460dace1a2cc39b3f3260d3f71e51a4246cd458c2f4c819bf. Normalize numeric model-instance suffixes only; exact compiled SHA matches actual process load identity, not filename guessing.
+Each export file SHA freshly matches committed attribution. Each prediction is contained in exactly its ordered PID-native stage, does not overlap the next; all matching hardware rows contained, no cross-boundary row and no row attributed twice. Each variant1295 predictions/1295 matched ANE rows, complete unique attribution. Hardware table lacks PID; exact compiled identity plus unique native containment provides attribution, not blanket attribution of system ANE activity.
+All5requests retained including first/primer. Warm descriptive subset requests3/4/5 =777 predictions each; early20 (indices1..20), middle20 (120..139), late20 (240..259),180 warm representatives each, as well as allcalls retained. FP16 validcontext54..312 before /55..313after bound to actual per-token diagnostic. Q8 profile receipt lacks exported per-token diagnostic: index and validcontext derived from fixed prefix54 and ordered synchronous259-call frozen request, explicitly labeled derived; thermal Q8 request boundaries nominal, intra-call thermal not separately sampled. Not inventing measurement resolution.
+Raw trace inventory files hashed and canonical inventory SHA saved in raw_trace_identity; large traces remain workspace/privateTmp and not git. Existing backupd dylib mapping warning retained; required tables exported with valid hashes and all matches. No profiling rerun.
+
+3. Interval accounting and resolution
+predictionWallMilliseconds uses CoreML event clock; native wrapper clock separately retained. For each matched hardware interval record start/end offsets relative to CoreML prediction, duration, label, raw nanoseconds. Merge overlapping/nested/touching intervals for coverage to avoid double counting; preserve original count. Internal gap only BETWEEN disjoint intervals. CPU preparation before first and output/dispatch after final interval explicitly excluded. All observed ANE rows one main__Op0_AneInference Prediction per model call; no internal event islands in these tables.
+FP16 warm mean wall12.497491ms, ANE11.727224ms, pre0.676206ms/post0.094061ms. Q8 mean wall7.458053ms, ANE6.679200ms, pre0.705224ms/post0.073629ms. ALL1295 in both variants one interval, zero recorded internal gaps; no scoped LLM CPU/GPU backend event in CoreML rows. Average coverage93.8651%/89.6263% is descriptive time fraction, NOT utilization, op share, occupancy or integer-arithmetic proof. Q8 lower fraction follows shorter ANE span with similar ~0.78ms boundary, not new measured internal fragmentation.
+Critical limit: ANE hardware interval is PROGRAM-level activity. One long event cannot expose hidden kernel stalls, internal waits, undocumented compiler partitions or per-op CPU work. Zero recorded internal gap does not prove zero hidden synchronization. This is why classification is conservative MOSTLY_CONTIGUOUS_ANE, rather than claiming full/kernel-proven CLEAN or100%ANE. Observed topology approximately CPU boundary -> one dominant ANE program interval -> CPU boundary. Exact CPU content of boundary and inner kernels UNKNOWN. No CPU fallback cause can be named from absence/presence of ordinary host dispatch.
+Observed internal-gap recoverable budget0ms at this resolution. Actual hidden recoverable cost UNKNOWN. ~0.77-0.78ms external boundary is not automatically removable and not a graph-fragmentation budget. No concrete op/state/dequantization boundary with recoverable milliseconds found.
+
+4. Context-length and repetition
+All5x259 both candidates retain interval count1/internal gaps0 from early to late. Warm early/middle/late wall means FP16 12.838349/12.439351/12.480480ms, longest intervals11.964557/11.688548/11.700571ms. Q8 wall8.100234/7.111144/7.770254ms, longest7.240069/6.375010/6.948149ms. Thus Q8 has latency variation, not a measured increase in fragmentation. Context groups55..64/65..128/129..192/193..256/257..313 recorded separately.
+Within-request wall slopes FP16 approx[-0.000194,-0.000309,-0.000728,-0.000689,+0.000051]ms/token; Q8[-0.001116,-0.000649,+0.006423,-0.004138,-0.004137]. One Q8 warm request positive, others negative; no consistent monotonically increasing context-dependent latency. Trace timing cannot disentangle context from elapsed time/DVFS/system contention; nominal thermal does not imply fixed clock. Fixed512 attention shapes/math remain same. Do not claim causal no-scaling or quantization altered attention complexity.
+
+5. Uninstrumented controls and product metrics
+Use quantization predecessor unprofiled repeated nominal warm medians for RTF/memory/energy; traced timings only topology. Unprofiled per-call medians of request means FP16 12.438318ms [12.420819,12.630773], Q8 7.425447ms [7.336311,7.459585]. Traced warm average12.497491/7.458053, descriptively+0.059173/+0.032606ms (~0.48%/~0.44%). Different dates/clock boundaries/instrument sets and correlated calls mean these are NOT isolated measurements of profiler overhead. Prior FP16 control-vsmeasurement audit available unchanged. Agreement supports representative decode shape/time scale; instrumentation appreciably raises app CPU/whole-request cost and must not enter energy/performance comparison.
+Current unprofiled FP16/Q8 RTF0.475853/0.347558; sampled peak2328087736/1594133688B, -733954048B (~699.95MiB/-31.53%), independently measured100ms+boundaries, not inferred from interval/file size. CoreML private/per-model exact bytes UNKNOWN. Full load/generation/acoustic/completion/idle timeline in prior physical_summary and receipts. Idle35s411207856/395036896B single observation, not sustained/steady memory claim. Both retained same5PCMoutputs; no benchmark optics.
+CPU-only Recount122.818012/122.711543mJ/playback-second effectively unchanged, CPU421.831/443.899ms. These exclude ANE/GPU/wholephone. No evidence relating zero observed gaps to total energy savings; no totalpower/energy/sustained thermal measurement. CHARGING_CONNECTED short-screen conditions nominal; ambient unknown, foreground brightness0.2/batteryfull, lowpowerfalse. No new long thermal run and no uncharged implication. Faster ANE span does not itself prove lower joules.
+Quality: FP16 current listening3WAVs match accepted baseline humanPASS. Q8 changed token/PCM, humanPENDING, candidate status Q8_AWAITING_HUMAN_LISTENING unchanged. Existing3inlinepairs in artifacts/listening/llm_quantization_20261006 unchanged. Q8 corpus02 shorterEOS and corpus04 MAX_LENGTH flagged in original report; execution audit grants no qualityPASS/promotion/Q4 authorization beyond existing gate.
+
+6. Graph/op interpretation and rewrite decision
+REQUESTED CPU_AND_NE; PLANNED FP16decode1762/1762 andQ8decode1714/1714 reported ops ANEpreferred; these counts are plan-reported ops, not allserialized constants/op-total denominator. OBSERVED exact model one ANE program interval/allcalls, no matched model CPU/GPU backendevents. INFERRED quantization preserves coarse CPU->ANE->CPU execution topology while reducing ANE program duration. UNKNOWN per-op assignment, physical weight decoding/arithmetic, actual kernel segmentation/state-buffer traffic, hidden synchronization and totalenergy.
+No observed new quantization CPU island/dequantization event or internal gap. Compiler plan count reduction not proof which operators fused/ranonwhatdevice. Existing fixed512/state-select graph already static; no model modified. No graph surgery for absent recorded gap or the ordinary host boundary. NO_GRAPH_REWRITE_NEEDED closes placement/fragmentation optimization lane under available evidence; does not assert theoretical optimality or forbid reopening with new finer evidence. Future work should be human quality review and runner product-resource evaluation, not speculative rewrite. No exact boundary prototype justified.
+
+7. Comparison table
+Metric | FP16 | Q8 | Q4 | Mixed
+--- | --- | --- | --- | ---
+Requested compute units | CPU_AND_NE | CPU_AND_NE | NOT_TESTED | NOT_TESTED
+MLComputePlan decode ANE-preferred / reported ops | 1762 / 1762 | 1714 / 1714 | NOT_TESTED | NOT_TESTED
+Profiled warm CoreML wall mean ms | 12.497491 | 7.458053 | NOT_TESTED | NOT_TESTED
+Recorded ANE intervals / prediction | 1 (all1295) | 1 (all1295) | NOT_TESTED | NOT_TESTED
+Warm total ANE interval mean ms | 11.727224 | 6.679200 | NOT_TESTED | NOT_TESTED
+Warm longest interval mean ms | 11.727224 | 6.679200 | NOT_TESTED | NOT_TESTED
+Warm longest interval maximum ms | 12.722125 | 9.760500 | NOT_TESTED | NOT_TESTED
+Warm contiguous ANE fraction mean | 0.938651 | 0.896263 | NOT_TESTED | NOT_TESTED
+Recorded internal gap count | 0 | 0 | NOT_TESTED | NOT_TESTED
+Recorded internal gap ms | 0 | 0 | NOT_TESTED | NOT_TESTED
+Recorded fragmentation ratio | 0 | 0 | NOT_TESTED | NOT_TESTED
+Pre-ANE boundary mean ms | 0.676206 | 0.705224 | NOT_TESTED | NOT_TESTED
+Post-ANE boundary mean ms | 0.094061 | 0.073629 | NOT_TESTED | NOT_TESTED
+Unprofiled decode ms/token, median request means | 12.438318 | 7.425447 | NOT_TESTED | NOT_TESTED
+Unprofiled warm RTF median | 0.475853 | 0.347558 | NOT_TESTED | NOT_TESTED
+Unprofiled sampled warm peak bytes | 2328087736 | 1594133688 | NOT_TESTED | NOT_TESTED
+Unprofiled CPU-only mJ/playback-second | 122.818012 | 122.711543 | NOT_TESTED | NOT_TESTED
+Whole-device mJ/playback-second | N/A | N/A | NOT_TESTED | NOT_TESTED
+Thermal | charging nominal short screen | charging nominal short screen | NOT_TESTED | NOT_TESTED
+Sustained thermal | NOT_RUN | NOT_RUN | NOT_TESTED | NOT_TESTED
+Human listening | priorPASS; exact known-good WAV | PENDING_HUMAN | NOT_TESTED | NOT_TESTED
+Observed topology classification | MOSTLY_CONTIGUOUS_ANE | MOSTLY_CONTIGUOUS_ANE | NOT_TESTED | NOT_TESTED
+
+Table notes: traced means use777 warmcalls/variant; unprofiled medians use3nominal requests/variant. NOT_TESTED is not failure/zero. Energy CPU-only and wholedevice separate. No precision/residency extrapolation.
+
+8. Exact12 final questions
+1: YES approximately clean CPU->one ANE program interval->CPU at exposed trace resolution; classification MOSTLY_CONTIGUOUS_ANE, kernel/per-op fullycontiguous notproven.
+2: Exactly1 observed hardware interval perFP16decode,1295/1295, including early/middle/late.
+3: Warm FP16 longest interval mean11.727224ms, median11.820542ms, max12.722125ms. Q8mean6.679200ms,median6.639583ms,max9.760500ms.
+4: Recorded INTERNAL interval gaps0ms/0count; hidden CPU/synchronization unknown. External~0.770267ms FP16/~0.778853ms Q8 not internal fragmentation.
+5: Counts/gaps stay1/0 at allcontext; wallduration varies with no reproducible monotonic growth acrossrequests. Causalcontextdependence UNKNOWN.
+6: Q8PRESERVES observed topology and shortens ANE interval; no new measured fragmentation. Coveragefractionlower from similarexternaloverhead/shorterANEspan, notworse fragmentation.
+7: Q4NOT_TESTED, no topology claim; MixedNOT_TESTED.
+8: No meaningful quantizedCPUfallback event observed inQ8; cannotprove everyopANE orabsenceof hiddenfallback.
+9: NO evidence of internal fragmentation materially affecting energy/thermal; observedbudgetzero,wholedevice/sustainedN/A,CPU-onlyenergynearlysame.
+10: NO graphrewrite justified; decisionNO_GRAPH_REWRITE_NEEDED.
+11: No exact boundary identified; no targeted prototype.
+12: YES close placement/fragmentation optimization under current evidence forFP16/Q8, retainUNKNOWNinternals, preservequalitygate andproductKPIwork.
+
+9. Validation / changes / preservation
+New audit_decode_fragmentation.py, test_decode_fragmentation.py and dedicated evidence only.6syntheticaccountingtestsPASS(single/prepost,multipleislands,nested,overlap/touch,missing,crossboundary), all2590physicaljoins/hash/containment assertionsPASS. No production Swift/model changes therefore no new signed build/inference necessary or claimed. Existing acceptedbuild/device receipts remain authoritative. No overwritten quantization/history/listening/release/HF data. Historical source identities distinguished from current reportcommit. Allrawinterval JSON+CSV and summaries retained; no newproduction optimization accepted or manufactured.

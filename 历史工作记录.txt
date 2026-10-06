@@ -678,3 +678,10 @@ Actions: alltooling/Q8report/evidence pushed; noquantizedpromotion/Q4/mixed/defa
 Files: 历史工作记录.txt append-onlytimeline.
 Validation:HEAD2dbc1f094c904a04fcdbdb0792ecf5da0072dbf9 equalsoriginbranch, cleanworkspace beforethisappend; productionSwiftSources unchangedsinceb144e06.
 GitHub Timeline:62b0dfa/dce5d85/3c77e8e/7bb0265/c882fb3/2dbc1f0已push至experiment/ios-enumerated-ane-optimization；本条同步记录随后commit/push。
+
+Time:2026-10-06 14:30 EDT America/New_York
+Prompt: post-quantization physical ANE fragmentation audit FP16/Q8, preserve production and quantization/listening gates.
+Actions: reuse SHA-bound actual traces (FP16source8d9050e/PID5566,Q8c882fb3/PID5825); all1295decodeeach uniquelyjoin native/core/hardware. Everycalloneprograminterval, zero recorded internalgap; warmANEmean11.727224/6.679200ms, wall12.497491/7.458053ms. ClassMOSTLY_CONTIGUOUS_ANE; perop/kernelhiddenworkUNKNOWN. DecisionNO_GRAPH_REWRITE_NEEDED, closeobservedfragmentationlane; noQ4/Mixed/newdevice/graph/placement/runtimechange. Q8PENDING_HUMANunchanged. PriorunprofiledproductRTF/memory/CPU-onlyenergyseparate, chargingnominalscreen notwholeenergy/sustainedproof.
+Files: audit_decode_fragmentation.py; test_decode_fragmentation.py; dedicatedpost_quantization_fragmentation_20261006 REPORT/table/final/rawintervalCSVJSON/sourceinputhashes/rawtraceinventories.
+Validation:6intervalaccountingtestsPASS;2590joins/sourcehash/tablehash/containmentchecksPASS;currentLLMRuntime/Sessionbytesmatchbothcapturedsources. NoSwiftedits/buildrerunrequired. Externalconcurrent.gitignore/reports/tools/voxcpm2changes preserved/notincluded.
+GitHub Timeline:previous2306fbd已push；本次audit未commit，随后选择性commit/push。

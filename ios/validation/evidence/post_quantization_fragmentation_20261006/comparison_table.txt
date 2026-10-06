@@ -1,0 +1,24 @@
+Metric | FP16 | Q8 | Q4 | Mixed
+--- | --- | --- | --- | ---
+Requested compute units | CPU_AND_NE | CPU_AND_NE | NOT_TESTED | NOT_TESTED
+MLComputePlan decode ANE-preferred / reported ops | 1762 / 1762 | 1714 / 1714 | NOT_TESTED | NOT_TESTED
+Profiled warm CoreML wall mean ms | 12.497491 | 7.458053 | NOT_TESTED | NOT_TESTED
+Recorded ANE intervals / prediction | 1 (all1295) | 1 (all1295) | NOT_TESTED | NOT_TESTED
+Warm total ANE interval mean ms | 11.727224 | 6.679200 | NOT_TESTED | NOT_TESTED
+Warm longest interval mean ms | 11.727224 | 6.679200 | NOT_TESTED | NOT_TESTED
+Warm longest interval maximum ms | 12.722125 | 9.760500 | NOT_TESTED | NOT_TESTED
+Warm contiguous ANE fraction mean | 0.938651 | 0.896263 | NOT_TESTED | NOT_TESTED
+Recorded internal gap count | 0 | 0 | NOT_TESTED | NOT_TESTED
+Recorded internal gap ms | 0 | 0 | NOT_TESTED | NOT_TESTED
+Recorded fragmentation ratio | 0 | 0 | NOT_TESTED | NOT_TESTED
+Pre-ANE boundary mean ms | 0.676206 | 0.705224 | NOT_TESTED | NOT_TESTED
+Post-ANE boundary mean ms | 0.094061 | 0.073629 | NOT_TESTED | NOT_TESTED
+Unprofiled decode ms/token, median request means | 12.438318 | 7.425447 | NOT_TESTED | NOT_TESTED
+Unprofiled warm RTF median | 0.475853 | 0.347558 | NOT_TESTED | NOT_TESTED
+Unprofiled sampled warm peak bytes | 2328087736 | 1594133688 | NOT_TESTED | NOT_TESTED
+Unprofiled CPU-only mJ/playback-second | 122.818012 | 122.711543 | NOT_TESTED | NOT_TESTED
+Whole-device mJ/playback-second | N/A | N/A | NOT_TESTED | NOT_TESTED
+Thermal | charging nominal short screen | charging nominal short screen | NOT_TESTED | NOT_TESTED
+Sustained thermal | NOT_RUN | NOT_RUN | NOT_TESTED | NOT_TESTED
+Human listening | priorPASS; exact known-good WAV | PENDING_HUMAN | NOT_TESTED | NOT_TESTED
+Observed topology classification | MOSTLY_CONTIGUOUS_ANE | MOSTLY_CONTIGUOUS_ANE | NOT_TESTED | NOT_TESTED

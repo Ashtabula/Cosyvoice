@@ -1,0 +1,555 @@
+You are continuing work on:
+
+Ashtabula/Cosyvoice
+
+This task MUST run AFTER the LLM quantization prompt has completed enough testing to produce the current FP16 baseline and any Q8/Q4 candidate that actually reached physical-device execution.
+
+Do not replace the quantization task. This is a follow-on execution-topology audit.
+
+MISSION
+
+Determine whether each physical Core ML autoregressive decode prediction follows a clean execution topology approximately like:
+
+CPU preparation / Core ML dispatch
+        ↓
+one long contiguous ANE execution interval
+        ↓
+CPU output handling / token selection
+
+rather than a fragmented topology like:
+
+CPU
+→ ANE
+→ CPU
+→ ANE
+→ CPU
+→ ANE
+→ CPU
+
+The objective is NOT to maximize an abstract "ANE percentage."
+
+The objective is to determine whether repeated CPU↔ANE transitions, synchronization gaps, or graph fragmentation exist inside a decode prediction and whether quantization changes that topology.
+
+This audit must compare the current production FP16 model against every quantized candidate that reached valid physical execution.
+
+At minimum:
+
+FP16 baseline
+
+and, if available:
+
+Q8
+
+and, only if Q4 was justified and physically tested:
+
+Q4
+
+and, only if a mixed candidate was justified and physically tested:
+
+Mixed
+
+==================================================
+1. READ THE QUANTIZATION RESULTS FIRST
+==================================================
+
+Read the complete output/evidence from the immediately preceding quantization task.
+
+Determine:
+
+- exact FP16 source/asset identity
+- exact Q8 identity
+- exact Q4 identity if tested
+- exact mixed identity if tested
+- device model
+- iOS version
+- Core ML model identities
+- Core ML compute-unit request
+- MLComputePlan results
+- physical RTF
+- decode latency
+- memory
+- energy evidence
+- human-listening status
+
+Do not reconstruct candidate identities from filenames alone.
+
+Do not test a quantized candidate that failed before physical execution.
+
+==================================================
+2. PRESERVE PRODUCTION
+==================================================
+
+This task is measurement/audit first.
+
+Do NOT:
+
+- rewrite the LLM
+- reconvert the model merely to make profiling easier
+- change quantization
+- change SHARDS
+- change Flow steps
+- change KV/MLState semantics
+- change sampling/RAS
+- change compute placement
+- change model outputs
+- change public API
+- overwrite production assets
+
+Use the exact candidate assets produced by the quantization task.
+
+==================================================
+3. PRIMARY QUESTION
+==================================================
+
+For one incremental LLM decode prediction, determine whether execution is approximately:
+
+CPU → ONE LONG ANE INTERVAL → CPU
+
+or:
+
+CPU → MULTIPLE ANE ISLANDS SEPARATED BY CPU/SYNCHRONIZATION GAPS → CPU
+
+Do not answer this from MLComputePlan alone.
+
+"ANE preferred" is not proof of one contiguous physical ANE interval.
+
+==================================================
+4. REQUESTED VS OBSERVED
+==================================================
+
+For every candidate distinguish:
+
+REQUESTED
+- Core ML computeUnits
+- MLComputePlan preferred device
+
+OBSERVED
+- physical hardware intervals / Instruments evidence
+
+INFERRED
+- interpretation supported by timing correlation
+
+UNKNOWN
+- details Apple tooling does not expose
+
+Never convert "ANE preferred" into "100% physically executed on ANE."
+
+==================================================
+5. PHYSICAL HARDWARE TRACE
+==================================================
+
+Use the strongest Apple-supported physical-device profiling evidence available in the installed Xcode environment.
+
+Prefer actual hardware execution intervals / Core ML / ANE instrumentation where available.
+
+Correlate each selected Core ML prediction with its physical execution interval(s).
+
+Use stable signposts around the decode prediction if needed.
+
+Do not fabricate ANE utilization percentages.
+
+Do not use CPU process time alone to infer accelerator topology.
+
+==================================================
+6. REPRESENTATIVE DECODE SAMPLE
+==================================================
+
+Profile enough decode predictions to characterize topology without making profiling overhead dominate execution.
+
+Target approximately 50-100 representative incremental decode predictions if practical.
+
+Include:
+
+- early context
+- middle context
+- late context
+
+For example:
+
+early: first ~10-20 selected predictions
+middle: representative predictions around the middle
+late: representative predictions near the final quarter
+
+If the tooling can safely capture all ~259 calls without materially distorting behavior, retaining all calls is acceptable.
+
+Compare instrumented and uninstrumented controls.
+
+==================================================
+7. PER-PREDICTION INTERVAL ACCOUNTING
+==================================================
+
+For every profiled prediction record where observable:
+
+- prediction index
+- valid context length
+- prediction wall time
+- number of ANE hardware intervals
+- start/end of each ANE interval relative to prediction start
+- duration of each ANE interval
+- total ANE interval duration
+- longest contiguous ANE interval
+- total internal gap duration between ANE intervals
+- number of internal gaps
+- maximum internal gap
+- CPU/process activity during gaps where observable
+- thermal state
+
+Do not count the expected CPU work before the first ANE interval or after the final ANE interval as "internal fragmentation."
+
+The key metric is what happens BETWEEN accelerator intervals inside one prediction.
+
+==================================================
+8. DERIVED FRAGMENTATION METRICS
+==================================================
+
+For each prediction derive:
+
+aneIntervalCount
+
+longestANEIntervalMilliseconds
+
+totalANEIntervalMilliseconds
+
+internalGapCount
+
+internalGapMilliseconds
+
+maxInternalGapMilliseconds
+
+predictionWallMilliseconds
+
+aneIntervalCoverage =
+totalANEIntervalMilliseconds / predictionWallMilliseconds
+
+contiguousANEFraction =
+longestANEIntervalMilliseconds / predictionWallMilliseconds
+
+fragmentationRatio =
+internalGapMilliseconds / predictionWallMilliseconds
+
+Use these as descriptive metrics.
+
+Do NOT call aneIntervalCoverage "ANE utilization."
+
+==================================================
+9. CLEAN-BOUNDARY CLASSIFICATION
+==================================================
+
+Classify each candidate using evidence, not arbitrary aesthetics.
+
+Possible classifications:
+
+CLEAN_CPU_ANE_CPU
+MOSTLY_CONTIGUOUS_ANE
+MEANINGFUL_INTERNAL_FRAGMENTATION
+SEVERE_INTERNAL_FRAGMENTATION
+INSUFFICIENT_TRACE_EVIDENCE
+
+CLEAN_CPU_ANE_CPU should require evidence that most representative predictions contain essentially one dominant contiguous ANE interval with no meaningful internal CPU gaps.
+
+Do not require mathematically zero micro-gaps caused by trace timestamp granularity.
+
+==================================================
+10. BASELINE FP16 FIRST
+==================================================
+
+Audit FP16 before interpreting Q8/Q4.
+
+The previous audit reportedly found:
+
+- all non-constant decode operations ANE-preferred in MLComputePlan
+- approximately 12.56 ms/prediction
+- approximately 11.73 ms associated with matching ANE hardware execution
+
+Verify against current evidence/tooling.
+
+The missing question is:
+
+Was that ~11.73 ms one long ANE interval or many separate intervals?
+
+Answer this explicitly.
+
+==================================================
+11. QUANTIZATION TOPOLOGY COMPARISON
+==================================================
+
+For Q8/Q4/Mixed compare against FP16:
+
+- ANE intervals per prediction
+- longest contiguous interval
+- internal gap count
+- internal gap time
+- prediction wall time
+- decode ms/token
+- requested/preferred compute device
+- any new CPU fallback evidence
+
+A quantized candidate must not be considered automatically better merely because:
+
+- model files are smaller
+- total ANE interval time is shorter
+- RTF is lower
+
+If it introduces substantial ANE↔CPU fragmentation, flag that explicitly.
+
+==================================================
+12. IMPORTANT PRODUCT INTERPRETATION
+==================================================
+
+The product priority is:
+
+- sustained thermal
+- energy/playback-second
+- memory
+- acceptable RTF
+
+Therefore a small amount of additional fragmentation is not automatically disqualifying if the candidate produces a clearly superior whole-device energy/thermal/memory result.
+
+Likewise, a "cleaner" ANE topology is not automatically better if energy or thermal behavior worsens.
+
+Execution topology is a mechanism/explanation metric, not the final product KPI.
+
+==================================================
+13. CONTEXT-LENGTH DEPENDENCE
+==================================================
+
+Determine whether fragmentation changes as valid context grows.
+
+Compare early/middle/late predictions.
+
+Questions:
+
+- Does ANE interval count stay constant?
+- Does the longest interval grow?
+- Do internal CPU gaps grow?
+- Does prediction latency increase?
+- Does quantization alter this scaling?
+
+If no meaningful dependence exists, say so.
+
+==================================================
+14. IDENTIFY INTERNAL CPU ISLANDS IF THEY EXIST
+==================================================
+
+If meaningful internal gaps exist, attempt to correlate them with Core ML graph/operator boundaries.
+
+Investigate possible causes such as:
+
+- state read/write
+- gather/scatter
+- dynamic slice
+- mask operations
+- unsupported quantized operators
+- dequantization/materialization
+- output transfer
+- synchronization
+- graph partition boundaries
+
+Do not claim operator-level causality without evidence.
+
+If exact mapping is unavailable, mark the cause UNKNOWN.
+
+==================================================
+15. DO NOT CHASE TINY GAPS
+==================================================
+
+Do not propose graph surgery for tiny trace gaps that are:
+
+- near profiler resolution
+- a very small fraction of prediction time
+- not associated with meaningful energy/thermal cost
+- not reproducible
+
+The goal is not a visually perfect trace.
+
+The goal is to find meaningful avoidable device-boundary overhead.
+
+==================================================
+16. ENERGY CORRELATION
+==================================================
+
+Where quantization evidence contains process or whole-device energy, correlate topology with:
+
+- energy/playback-second
+- active synthesis power
+- sustained average power
+- thermal trajectory
+
+Do not infer energy savings solely from fewer intervals.
+
+If final whole-device energy evidence is unavailable, state that.
+
+==================================================
+17. MEMORY CORRELATION
+==================================================
+
+Compare topology with:
+
+- LLM load footprint
+- decode peak
+- process peak
+- steady memory
+
+Do not infer memory from fragmentation alone.
+
+==================================================
+18. NO AUTOMATIC REWRITE
+==================================================
+
+Even if fragmentation exists, DO NOT immediately rewrite the graph.
+
+First quantify:
+
+- how many internal transitions
+- how many milliseconds they cost
+- whether quantization caused them
+- plausible maximum recoverable time
+- plausible energy mechanism
+
+Only then decide whether a graph rewrite is worth a separate task.
+
+==================================================
+19. REWRITE DECISION
+==================================================
+
+Choose exactly one final decision:
+
+NO_GRAPH_REWRITE_NEEDED
+
+TARGETED_BOUNDARY_CLEANUP_PLAUSIBLE
+
+TARGETED_BOUNDARY_CLEANUP_STRONGLY_JUSTIFIED
+
+QUANTIZATION_INTRODUCES_PROBLEMATIC_FRAGMENTATION
+
+INSUFFICIENT_PHYSICAL_TRACE_EVIDENCE
+
+A rewrite is STRONGLY_JUSTIFIED only if there is reproducible meaningful internal fragmentation with a concrete plausible boundary/cause and meaningful recoverable cost.
+
+Do not justify rewriting merely because 100% ANE was not achieved.
+
+==================================================
+20. IF CLEAN CPU→ANE→CPU IS ALREADY PRESENT
+==================================================
+
+If FP16 is already approximately:
+
+CPU preparation
+→ one long contiguous ANE interval
+→ CPU token selection
+
+then explicitly close the placement/fragmentation optimization lane for FP16.
+
+If Q8/Q4 preserve that topology, record that as a strong positive property.
+
+Do not keep searching for imaginary CPU fallback.
+
+==================================================
+21. IF Q8/Q4 BREAK THE CLEAN TOPOLOGY
+==================================================
+
+If FP16 is clean but a quantized candidate becomes fragmented:
+
+- identify the first evidence-supported difference
+- preserve candidate assets
+- do not overwrite production
+- include the fragmentation result in the quantization candidate's final classification
+- compare against its actual memory/energy/thermal benefit
+
+Do not automatically reject unless the fragmentation creates a material product regression.
+
+==================================================
+22. EVIDENCE OUTPUT
+==================================================
+
+Create a dedicated follow-on evidence directory.
+
+Record:
+
+- source SHA
+- asset identity for every candidate
+- device/OS
+- Xcode/tool versions
+- profiling method
+- signpost definitions
+- raw trace identity/path
+- prediction indices sampled
+- raw interval data
+- derived fragmentation metrics
+- context-length groups
+- requested/preferred compute device
+- physical observations
+- energy/thermal correlation where available
+
+Do not overwrite quantization evidence.
+
+==================================================
+23. FINAL COMPARISON TABLE
+==================================================
+
+Produce:
+
+Metric | FP16 | Q8 | Q4 | Mixed
+
+Include where available:
+
+requested compute units
+MLComputePlan ANE-preferred ops / total
+prediction wall ms
+ANE intervals/prediction
+total ANE interval ms
+longest contiguous ANE interval ms
+contiguous ANE fraction
+internal gap count
+internal gap ms
+fragmentation ratio
+decode ms/token
+RTF
+peak memory
+energy/playback-second
+thermal result
+human listening status
+topology classification
+
+Do not fill unavailable cells with estimates.
+
+==================================================
+24. FINAL QUESTIONS
+==================================================
+
+Answer explicitly:
+
+1. Is FP16 already approximately clean CPU→ANE→CPU?
+2. How many ANE hardware intervals occur per representative FP16 decode prediction?
+3. What is the longest contiguous ANE interval?
+4. How much internal CPU/synchronization gap time exists?
+5. Does fragmentation change with context length?
+6. Does Q8 preserve, improve, or worsen the execution topology?
+7. If Q4 was tested, does it preserve, improve, or worsen topology?
+8. Does any quantized candidate introduce meaningful CPU fallback?
+9. Is there evidence that internal fragmentation materially affects energy or thermal behavior?
+10. Is any graph rewrite justified?
+11. If yes, what exact boundary should a future targeted prototype address?
+12. If no, should placement/fragmentation optimization be closed?
+
+==================================================
+25. FINAL RULE
+==================================================
+
+The desired architecture is NOT "100% ANE at all costs."
+
+The desired architecture is:
+
+minimal necessary CPU preparation
+→ long contiguous ANE inference
+→ minimal necessary CPU output/token selection
+
+while optimizing the real product objectives:
+
+thermal
+energy/playback-second
+memory
+quality
+and acceptable RTF.
+
+Do not trade a better real product result for a cosmetically perfect ANE trace.

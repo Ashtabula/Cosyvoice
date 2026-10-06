@@ -1,0 +1,355 @@
+{
+  "schemaVersion": 1,
+  "decision": "NO_GRAPH_REWRITE_NEEDED",
+  "status": "AUDIT_COMPLETE_EXISTING_PHYSICAL_TRACES_REANALYZED",
+  "auditParentSourceCommit": "2306fbd29b8a163df6b0e4d885339a559576f6f5",
+  "acceptedSemanticSource": "1b62aa8607f6e48f05dd8d4741dbf98328777509",
+  "device": "iPhone18,4",
+  "iOS": "27.2 (24B5089g)",
+  "CoreML": "3600.25.2",
+  "XcodeAndInstruments": "27.2 (27B5019j)",
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "N": 260,
+  "function": "n257_384",
+  "sampleRate": 24000,
+  "samples": 249600,
+  "variants": {
+    "FP16": {
+      "traceSummary": "ios/validation/evidence/post_quantization_fragmentation_20261006/fp16/summary.json",
+      "traceSourceCommit": "8d9050e7108d74b8e35470e85714107f34c5f93f",
+      "traceProcessID": 5566,
+      "traceModelIdentity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledName": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99",
+      "topology": "MOSTLY_CONTIGUOUS_ANE",
+      "unprofiledSourceCommit": "3c77e8e431adc4c414e3cee56088b4c67c6c8b3d",
+      "unprofiledManifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+      "unprofiledPayloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+      "unprofiledWAVSHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+      "unprofiledWarmNominalMedian": {
+        "totalMs": 4948.871375,
+        "RTF": 0.47585301682692305,
+        "llmLoadMs": 137.338,
+        "LLMms": 3283.928083,
+        "acousticMs": 1480.302125,
+        "CPUms": 421.83100000000013,
+        "CPUOnlyEnergyPerAudioSecondMJ": 122.81801182692307,
+        "prefillMs": 29.557042,
+        "decodeTotalMs": 3221.524293,
+        "decodeMeanMs": 12.438317733590733,
+        "sampledPeakBytes": 2328087736
+      },
+      "unprofiledRawWarmRange": {
+        "totalMs": [
+          4901.335833,
+          4957.313916
+        ],
+        "RTF": [
+          0.4712822916346154,
+          0.4766647996153846
+        ],
+        "llmLoadMs": [
+          133.163208,
+          146.204917
+        ],
+        "LLMms": [
+          3278.967917,
+          3332.020417
+        ],
+        "acousticMs": [
+          1478.959499,
+          1509.2299580000001
+        ],
+        "CPUms": [
+          406.8230000000003,
+          438.78899999999885
+        ],
+        "CPUOnlyEnergyPerAudioSecondMJ": [
+          120.90453942307693,
+          127.01461086538461
+        ],
+        "prefillMs": [
+          29.400709,
+          29.614333
+        ],
+        "decodeTotalMs": [
+          3216.992125,
+          3271.370203
+        ],
+        "decodeMeanMs": [
+          12.420819015444016,
+          12.630772984555984
+        ],
+        "sampledPeakBytes": [
+          2322828448,
+          2338180232
+        ]
+      },
+      "profiledWarmCoreMLMeanMs": 12.49749109009009,
+      "profiledMinusUnprofiledMs": 0.05917335649935751,
+      "controlComparisonLimitation": "different clock boundaries/dates/instrument sets; descriptive agreement, not measured overhead or energy comparison",
+      "contextSlopeMsPerTokenByRequest": {
+        "1": -0.0001935065464391051,
+        "2": -0.00030930542612635757,
+        "3": -0.000728355447192657,
+        "4": -0.0006887255993535059,
+        "5": 5.0890638965057665e-05
+      },
+      "humanListening": "prior human PASS, current WAV hash-identical",
+      "requestedComputeUnits": "CPU_AND_NE",
+      "preferredDecodeOpsANE": 1762,
+      "preferredDecodeOpsReportedTotal": 1762,
+      "actualPerOpResidency": "UNKNOWN_RESIDENCY",
+      "thermal": "CHARGING short screening nominal; sustained NOT_RUN",
+      "wholeDeviceEnergyPerPlaybackSecond": null,
+      "newDeviceTests": 0,
+      "LLMModelIdentities": {
+        "llmPrefill": {
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "compiledName": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d",
+          "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
+          "actualProcessLoadEvent": {
+            "authoritativeLoadMilliseconds": "77.027709",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+            "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "persistentModelRecordHit": "true"
+          }
+        },
+        "llmDecode": {
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "compiledName": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99",
+          "compiledArtifact": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99.mlmodelc",
+          "actualProcessLoadEvent": {
+            "authoritativeLoadMilliseconds": "625.449875",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+            "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "persistentModelRecordHit": "true"
+          }
+        }
+      }
+    },
+    "Q8": {
+      "traceSummary": "ios/validation/evidence/post_quantization_fragmentation_20261006/q8/summary.json",
+      "traceSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+      "traceProcessID": 5825,
+      "traceModelIdentity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "ce2beac8170a210f3c4d24e4a15b487f5135df69f6a32fdac516183b4ed7c7f5",
+        "payloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledName": "e8b92aac9d916f5460dace1a2cc39b3f3260d3f71e51a4246cd458c2f4c819bf",
+      "topology": "MOSTLY_CONTIGUOUS_ANE",
+      "unprofiledSourceCommit": "c882fb316cf353d970ed9f7395e7c7697da488e8",
+      "unprofiledManifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+      "unprofiledPayloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+      "unprofiledWAVSHA256": "101d79a17a663d9e95c2c549b96f6efb909ad68abc0a472d78fab6c508bee4a1",
+      "unprofiledWarmNominalMedian": {
+        "totalMs": 3614.600167,
+        "RTF": 0.34755770836538463,
+        "llmLoadMs": 134.210458,
+        "LLMms": 1984.717791,
+        "acousticMs": 1491.800877,
+        "CPUms": 443.89899999999943,
+        "CPUOnlyEnergyPerAudioSecondMJ": 122.71154346153845,
+        "prefillMs": 27.11225,
+        "decodeTotalMs": 1923.190789,
+        "decodeMeanMs": 7.425447061776062,
+        "sampledPeakBytes": 1594133688
+      },
+      "unprofiledRawWarmRange": {
+        "totalMs": [
+          3613.50875,
+          3622.302958
+        ],
+        "RTF": [
+          0.34745276442307693,
+          0.3482983613461539
+        ],
+        "llmLoadMs": [
+          131.028625,
+          136.861917
+        ],
+        "LLMms": [
+          1957.414333,
+          1994.254125
+        ],
+        "acousticMs": [
+          1476.831167,
+          1507.5295409999999
+        ],
+        "CPUms": [
+          424.79299999999967,
+          445.10399999999936
+        ],
+        "CPUOnlyEnergyPerAudioSecondMJ": [
+          119.39519403846154,
+          125.29687375
+        ],
+        "prefillMs": [
+          23.154833,
+          27.737458
+        ],
+        "decodeTotalMs": [
+          1900.104631,
+          1932.032471
+        ],
+        "decodeMeanMs": [
+          7.336311316602316,
+          7.45958483011583
+        ],
+        "sampledPeakBytes": [
+          1592085688,
+          1594133688
+        ]
+      },
+      "profiledWarmCoreMLMeanMs": 7.458053437580437,
+      "profiledMinusUnprofiledMs": 0.03260637580437553,
+      "controlComparisonLimitation": "different clock boundaries/dates/instrument sets; descriptive agreement, not measured overhead or energy comparison",
+      "contextSlopeMsPerTokenByRequest": {
+        "1": -0.0011156197249639107,
+        "2": -0.0006489354894633969,
+        "3": 0.006422546652530371,
+        "4": -0.004137942084942082,
+        "5": -0.004136956778168405
+      },
+      "humanListening": "PENDING_HUMAN",
+      "requestedComputeUnits": "CPU_AND_NE",
+      "preferredDecodeOpsANE": 1714,
+      "preferredDecodeOpsReportedTotal": 1714,
+      "actualPerOpResidency": "UNKNOWN_RESIDENCY",
+      "thermal": "CHARGING short screening nominal; sustained NOT_RUN",
+      "wholeDeviceEnergyPerPlaybackSecond": null,
+      "newDeviceTests": 0,
+      "LLMModelIdentities": {
+        "llmPrefill": {
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+            "payloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "compiledName": "377bb9024732d4bdc4352959ad3cef9c5b0d1cbf7ee6393d78c1f8ecb379c3a4",
+          "compiledArtifact": "377bb9024732d4bdc4352959ad3cef9c5b0d1cbf7ee6393d78c1f8ecb379c3a4.mlmodelc",
+          "actualProcessLoadEvent": {
+            "authoritativeLoadMilliseconds": "77.47325",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "8942375c2feb0592ad4daf148751c592397a2eb7967524bcf69a8d4703c69cf7",
+            "packageSHA256": "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+            "persistentModelRecordHit": "true"
+          }
+        },
+        "llmDecode": {
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ce2beac8170a210f3c4d24e4a15b487f5135df69f6a32fdac516183b4ed7c7f5",
+            "payloadTreeSHA256": "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "compiledName": "e8b92aac9d916f5460dace1a2cc39b3f3260d3f71e51a4246cd458c2f4c819bf",
+          "compiledArtifact": "e8b92aac9d916f5460dace1a2cc39b3f3260d3f71e51a4246cd458c2f4c819bf.mlmodelc",
+          "actualProcessLoadEvent": {
+            "authoritativeLoadMilliseconds": "60.127709",
+            "compiledArtifactHit": "true",
+            "functionName": "<default:main>",
+            "key": "ac4ba4ddd6b0d714d49de92e2ece4f1cd6957ffc7c6cc95ecbfb53132860fb56",
+            "packageSHA256": "ce2beac8170a210f3c4d24e4a15b487f5135df69f6a32fdac516183b4ed7c7f5",
+            "persistentModelRecordHit": "true"
+          }
+        }
+      }
+    }
+  },
+  "Q4": {
+    "status": "NOT_TESTED_NOT_AUDITED"
+  },
+  "Mixed": {
+    "status": "NOT_TESTED_NOT_AUDITED"
+  },
+  "sourceVerification": {
+    "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift": {
+      "currentSHA256": "699df164db7ef9fca6c9158f729ba6d67adbd6e1ffdd3114fab1b4c8698044f0",
+      "matchesFP16TraceSource8d9050e": true,
+      "matchesQ8TraceSourcec882fb3": true
+    },
+    "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift": {
+      "currentSHA256": "9893c0cc37e53fbf34a3d28293c85f5be52b616486f81b2fa0218c50005a52b9",
+      "matchesFP16TraceSource8d9050e": true,
+      "matchesQ8TraceSourcec882fb3": true
+    }
+  },
+  "productionAndQuantizationEvidenceUnchanged": true,
+  "newModelAssets": false,
+  "newDeviceRuns": 0,
+  "requestedPromptSHA256": "8992728a0e7b549b5006bcc799cb6ada1fc4dc67b463e7bdc87ea2c1089b9cea",
+  "analyzerSHA256": "ee1098f7361a2bef0cf208ce60e520ee23e8ac9d9393def8c930a3a84c851e95",
+  "tests": {
+    "intervalAccounting": "6 PASS",
+    "physicalTraceJoinAssertions": "2590 predictions/all exported SHA validated/unique native containment/unique complete hardware attribution PASS",
+    "iOSBuild": "NOT_RERUN: no Swift/runtime/model edits"
+  },
+  "interpretation": "Both preserve one observed program-level ANE interval per prediction; no recorded internal gap. Close observed boundary-fragmentation lane. Hidden kernel stalls/per-op fallback/arithmetic/bandwidth remain UNKNOWN, not grounds for speculative graph surgery.",
+  "qualityGate": "Q8_AWAITING_HUMAN_LISTENING unchanged; audit does not grant promotion",
+  "CPUOnlyEnergyMeaning": "prior unprofiled CPU Recount counters exclude ANE/GPU; profiling energy not used",
+  "frozenInputs": {
+    "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "RuntimeRoot": "/var/mobile/Containers/Data/Application/0234AA1E-59B4-4C2B-BA58-E1D93C03DBDE/Documents/GeneratedAssets/Runtime",
+    "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+    "frozenText": "This is a CosyVoice3 public API reference voice validation.",
+    "frozenTextSHA256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed",
+    "referenceWAVSHA256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "referenceTranscriptSHA256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2"
+  },
+  "auditCompletedAmericaNewYork": "2026-10-06 14:30 EDT"
+}

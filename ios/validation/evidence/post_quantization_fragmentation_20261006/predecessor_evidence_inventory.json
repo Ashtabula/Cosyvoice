@@ -1,0 +1,472 @@
+[
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/REPORT.txt",
+    "bytes": 21171,
+    "sha256": "af72ca98852a2f46b01ffb0dee30ddaa8b52faf606fd5907bb92d7f21976e272"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/analyze_current_llm_trace.source.txt",
+    "bytes": 6303,
+    "sha256": "5a376d9e37b1dd95abe77ca5ebd6058bddf0aa89767687a4570cdfcdeac63c09"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/analyze_execution_cpu_trace.source.txt",
+    "bytes": 2925,
+    "sha256": "7a44adde3178f3c2e8435aaf3a6de7110204142ea5e4784681567cc0b53ab74e"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/analyze_llm_execution.source.txt",
+    "bytes": 7287,
+    "sha256": "1609fa5e492c71faa40f8067b07db4ea164add26225dd2a0fb1953bba76c4310"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/checkpoint_provenance.json",
+    "bytes": 1405,
+    "sha256": "5c434c39d8a1e0cc28c11e957b3ba2fbb66550450ba40379002817f4ee7c5263"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/control-1/console.log",
+    "bytes": 63626,
+    "sha256": "dbcc092e9cbb96fb51fcef9fec0b22679d5e26d8d58e661fcb069cf1f9f586a8"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/control-1/host-collection.json",
+    "bytes": 646,
+    "sha256": "4d43d06e1a464583943a2182aa6b6e303bd524a912ae86ed3a38d956f08c1b54"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/control-1/per_token_predictions.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/control-1/stage_counter_windows.json",
+    "bytes": 3,
+    "sha256": "37517e5f3dc66819f61f5a7bb8ace1921282415f10551d2defa5c3eb0985b570"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/control-1/warm-decode-pass-receipt.json",
+    "bytes": 371323,
+    "sha256": "cd90f417ff8cba04624577479d8f557420b7f087e81e5a1eab660024a1d46ffc"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/cpu_trace_summary.json",
+    "bytes": 826922,
+    "sha256": "dbac5c0e355c4e23e85b1ca7c11b860972e63b1be84d8ec3f8accf639758006c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/current_trace_attribution.json",
+    "bytes": 230350,
+    "sha256": "bc32c7a79cbde235ce4dd175ac43832c0076b54d89a26b7cdd9e5cf4b414c231"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/export_source_identity.json",
+    "bytes": 1398,
+    "sha256": "2a617d1f60f77ab77d66cf8a17b0e2bd7b70d1d935d165c36f51065ef53a8b3b"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/file_integrity.json",
+    "bytes": 7449,
+    "sha256": "b0f56a90d5402c10de96755a5a21ce2366fda3e145c8aa4a8d9c38039d415f28"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/final_summary.json",
+    "bytes": 25280,
+    "sha256": "c8c0c49f71b39fd90cdee2210c5592c813abe3c5d2ab22be9a318f4945eb261f"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/finalize_llm_execution.source.txt",
+    "bytes": 30814,
+    "sha256": "0e830b3633e8bab7ea7525e51209b23e6a4ec85556f94098685bc7e0783d682c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/graph_audit_summary.json",
+    "bytes": 273407,
+    "sha256": "2fb7277b13a521d514d2eafba29c714fb3b82c53e1fc9a7f5c6fde2bb96aab51"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/initial_trace_attribution_instance_suffix_undercount.json",
+    "bytes": 230303,
+    "sha256": "9c94089f56be24e0d2bc9ec52c4686501137fd292d13925aa3bc590910f0e92e"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/inspect_llm_graph.source.txt",
+    "bytes": 2392,
+    "sha256": "c276b75a46b3c80adec64b2f455fc323d8b4c0cdb180156bef48d6054278ec96"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/console.log",
+    "bytes": 60196,
+    "sha256": "65d805c25d6c23ecf381c53466578c0302655f8171492e7920935ac40046fb34"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/host-collection.json",
+    "bytes": 682,
+    "sha256": "c9a7fc6d642f923ab256e11beb7e35102a0c6d40eabc26ae1a3f4cf081368fd1"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/per_token_predictions.csv",
+    "bytes": 138148,
+    "sha256": "b1fa2b68a6b7bdbb6dd63826598133d7c4f161d77822067bcab807a2cbcc4efc"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/per_token_predictions.json",
+    "bytes": 519987,
+    "sha256": "7d2e8055d0fa47e2316e01cac086e39cb00dda3ebedbd2fc6f4513018f776bb9"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/stage_counter_windows.json",
+    "bytes": 35160,
+    "sha256": "7c35b2adabdc18b3c3c2cb1793be60ea26dd439a8e8545ede116d6ba2050a8c3"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/measured-1/warm-decode-pass-receipt.json",
+    "bytes": 1322515,
+    "sha256": "218cfbec3f4e802683001c3c5a76d790a30ce6ba1703e4d683fe5237efad8971"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/opportunity_matrix.json",
+    "bytes": 3113,
+    "sha256": "48381af6b279bd777579f3f5349fb1f8a20dfa8d895fb3ca89df05647684b13a"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/optional_plot-unavailable.log",
+    "bytes": 172,
+    "sha256": "da0ab63c0821063c69bd7157e3126105769c5a5ed2e752af1a811da10433c0c0"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/optional_plot.source.txt",
+    "bytes": 1219,
+    "sha256": "b8f83ba4edcaddb8b79f50ab65a40d095a946e153b1fa782f159d36fc4aaa4e3"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/physical-plan-ane-compute-plan-receipt.json",
+    "bytes": 2213732,
+    "sha256": "b460c9f5040f04511d5b9a6a4552184c571d5cb25191b54bfa0bad4fcadb35df"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/physical-plan-console.log",
+    "bytes": 465,
+    "sha256": "83986db2485c62caeb628c3701b2b266f99e1a2faa87ba1e84fd713adece9ffb"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/physical-plan-probe-receipt.json",
+    "bytes": 1147,
+    "sha256": "d367422b470000dba264202610866d7973f5140568b8f6f2b3fa8af4718f9996"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/physical_analysis.json",
+    "bytes": 149484,
+    "sha256": "0257c9cb65b8cd7959a4740c10516316a82f47142ec8ceac44178bba29947be6"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profile-trace-binding.json",
+    "bytes": 717,
+    "sha256": "7501ac63a23e44c61f695660b2e1c06fd58f02eb15ac121db1910fac57e06426"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profile-trace-console.log",
+    "bytes": 307,
+    "sha256": "b94954476f332740e61fc97e431f97b0a38723dd521df7c5f122e7d918196298"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profile-trace-toc.xml",
+    "bytes": 39565,
+    "sha256": "7a2cb1845941e92c32d99084020a92c5594569dbac07893ffc4a56ea54eed3ca"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profile_collector.source.txt",
+    "bytes": 4180,
+    "sha256": "d9a10037e65c17f56efe9fb36fd53156d6cc8856b0327075d9e025b866cd607f"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/console.log",
+    "bytes": 60184,
+    "sha256": "66274970bdb3273fdd63fdd4a590f1d00cb625969553d10ba9f83f62c2260f2f"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/host-collection.json",
+    "bytes": 718,
+    "sha256": "dda5269f4096d7cfd8c1eb61f2516f4e35b70b29907d142d454639dcf3c25872"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/per_token_predictions.csv",
+    "bytes": 138112,
+    "sha256": "fe2fa1584694475628c9455b6f25fc9e462fd49891eb90c559e3b696585c1726"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/per_token_predictions.json",
+    "bytes": 519951,
+    "sha256": "1861a8c3f14d2d480bef258946206fd36526076a816c619b9f78651b9e72d1cd"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/stage_counter_windows.json",
+    "bytes": 35157,
+    "sha256": "aa433994ac0349c0a46b46425b8e75057be942105ebc6b6268403859b34d4660"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/profiled/warm-decode-pass-receipt.json",
+    "bytes": 1325623,
+    "sha256": "d9c105eaa342340846c8fb96022f67b5693dd20c2e95349ef26f4301a63622f1"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/raw_graph_workspace_artifacts.json",
+    "bytes": 719,
+    "sha256": "77bdc20c8944ff317858b5274a14326e8dff983aa21a08fb634a2abdb293ffa7"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/raw_profiler_export_identity.json",
+    "bytes": 1086,
+    "sha256": "fb63c54aa277cf10f73722b16643980b06e6f4e8f0be5beeea2028eebaa67f56"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/requested_audit.txt",
+    "bytes": 16667,
+    "sha256": "4e247399c66bb54d7e0149f23c7e130c7144522d073076fd6289dfc833576624"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/run_llm_execution_trace.source.txt",
+    "bytes": 2425,
+    "sha256": "ac75f8916818ca0b5f027dc652506141bc165f2f4fa83dfb460b4b5f1248d3d8"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/signed-build.log",
+    "bytes": 123025,
+    "sha256": "4901699fa1572981d79a59d67d1caed93e20b52ec581ea6cb98e2afa8fb83083"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/static_index_dependency_audit.json",
+    "bytes": 422,
+    "sha256": "27d0d1aeb9b7075dedecbd9c1e9ca325545d76d50828623a2fca555be83010c6"
+  },
+  {
+    "path": "ios/validation/evidence/llm_execution_audit_20261006/swift-tests.log",
+    "bytes": 4583,
+    "sha256": "2636ede8855f48feddea6955551a24b34d86977e7f7001ee8833d9c2ec49e986"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/REPORT.txt",
+    "bytes": 8798,
+    "sha256": "8bc39c08a3c8c11e53a21917892cabffb5f378bb2d656b237e53537852461d53"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/listening/console.log",
+    "bytes": 41384,
+    "sha256": "fd2f26fa28e72976a8fb0bb1159c7c2eb8e37da0c2dfdc9838385c406ad8da69"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/listening/host-collection.json",
+    "bytes": 1970,
+    "sha256": "957b8e0f2bde05b0ad5c7d26b076ebe89e85b12f84a73a5a4d6cb716b5a1622c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/listening/llm-quantization-listening-baseline-receipt.json",
+    "bytes": 19143,
+    "sha256": "f6cf310ddd8f84327f13d54a4896f2b30c439131cdb31332685aa09aafd7ac5a"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/physical-a/console.log",
+    "bytes": 33307,
+    "sha256": "a0fad9ac69ff631199d94e992f2004b38f0e05819de2ae3200a7915f73d947f8"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/physical-a/host-collection.json",
+    "bytes": 1227,
+    "sha256": "8f413b96aa0bfee7538138529627d0823bb598d8b73e49e5730a933ec0e72308"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/baseline/physical-a/llm-quantization-baseline-receipt.json",
+    "bytes": 2659235,
+    "sha256": "1e3f8f5c4fc7443ef23b062722c3443f74aee199ccf25f35c714d1d26048a419"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/build-initial-failed.log",
+    "bytes": 81714,
+    "sha256": "081499c8c76cce1af2ba9933a471ab3437fbf00a75f70fb78df9b0fd0533a805"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/comparison_table.txt",
+    "bytes": 1154,
+    "sha256": "daa345b8ce55cf6cfdc2a31fd9a47d2664b5f1fe45cbfb37670b3555395a51da"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/context_latency.json",
+    "bytes": 5379,
+    "sha256": "9f72f45a46fb7d350b5c2099f4995fbf1f40ef656be4bbc547328e7a865bff61"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/contract-tests.log",
+    "bytes": 5249,
+    "sha256": "5b8bb772724069eff2fc934d032a7f32e2d21ecb14047a5f60a71178f1e5cf32"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/conversion.log",
+    "bytes": 13565,
+    "sha256": "eb4238d000c685cb99e9457cc2ab544ba9b929078e3429b8d616bab2c75e4858"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/export-bookkeeping-error.log",
+    "bytes": 34226,
+    "sha256": "34277d0200dea9ee765efb1daedc03bfee4ada81d73ce23473d182e13f7dca3c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/feasibility_audit.json",
+    "bytes": 194577,
+    "sha256": "124191f80d5641f0fe465df420f9bb2d308ac1d80e930d1a910c4b29be0d25b8"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/final_summary.json",
+    "bytes": 1361703,
+    "sha256": "8bbd8c24bbfdc6fd23326c12c59ac218c08e2e58ac0c934f8c7ebee8edbef254"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/host_numerical.log",
+    "bytes": 273,
+    "sha256": "1a2bae872447fa295e4dafb5d112eee3f27899b004718aebeee367c838b03c1a"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/inline-build.log",
+    "bytes": 69266,
+    "sha256": "dc756d590a38d284f0467608ae7bf22436b798669f176c44aeacb61a40d7b218"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/inline_audio_manifest.json",
+    "bytes": 39428,
+    "sha256": "f438de4c9ff45b1d34d04cf072484b9a350c8109b1ec171a45d93c1820adcebe"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/physical_summary.json",
+    "bytes": 1288506,
+    "sha256": "83bb4d476f2293cee76bac3268ebc40e2cd3c2e6ddf70c8698769092600da010"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/asset_recipe.json",
+    "bytes": 35974,
+    "sha256": "3fd910ca858f952412375066868f3ca2844a5019517623d735b7366122cfcc0c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/conversion_receipt.json",
+    "bytes": 23698,
+    "sha256": "158a682f184c2a6abb06078a5f5dc7b47f3776c189430e8861f6b61862781b23"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/execution_trace_attribution.json",
+    "bytes": 228743,
+    "sha256": "e92ad051a87c0b1f78c928e457d590acee0e792836677e38558172ec3e4c08f5"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/failed-staging-a/console.log",
+    "bytes": 740,
+    "sha256": "be60c1f53d0c96b8b6146ff4bd8b058db86918b2d683a572d88b07e71e0f492b"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/failed-staging-a/llm-quantization-q8-receipt.json",
+    "bytes": 1988,
+    "sha256": "417f747b38f58b06e5dcc49ec3de3ccfce6ebd59d24fa7eeeae200345829859a"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/host_numerical_fixture.json",
+    "bytes": 3099,
+    "sha256": "6b9a5d562e89f85a8263c47143cd3121a6b0dcae5cea5eb7fc2d31c0eeb50def"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/host_numerical_summary.json",
+    "bytes": 35563,
+    "sha256": "c853f3005da67af2de68ef8e9f2ac7e795215ec1a36afa64b999c365c3ca803f"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/listening/console.log",
+    "bytes": 37640,
+    "sha256": "450c72b335a5dfe039c3f783b9652151963370f9e6a2dea497de8382d77ae7ae"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/listening/host-collection.json",
+    "bytes": 1948,
+    "sha256": "7d14e27f42c3e18167e75e63cf93b5d75088c2083cfe43d3b161605abe1c7d9b"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/listening/llm-quantization-listening-q8-receipt.json",
+    "bytes": 18539,
+    "sha256": "82a12d2658274a70163a25965dedc3f994057cb1d68e9d17e46f7f97fc59c5d8"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/physical-b/console.log",
+    "bytes": 33308,
+    "sha256": "7638499593054382acba1a42fc608df2d583aa1981af2c45315419a71e6bd550"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/physical-b/host-collection.json",
+    "bytes": 700,
+    "sha256": "efe95fd1717cfcf38b51cb3d9e49e58c13b825464d522c721e9a0d24b7d33a60"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/physical-b/llm-quantization-q8-receipt.json",
+    "bytes": 2639199,
+    "sha256": "2db4e9e1c9b3be00ed017c4db8861107d14b21c2db20cb0a7163287942403261"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profile_collector.source.txt",
+    "bytes": 3834,
+    "sha256": "9fb03ab8f658c71686dc2e73ddf37412ef89d21d9aab314d94eba249c5c603d4"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profile_runner.source.txt",
+    "bytes": 2000,
+    "sha256": "890560f54a915f47890fd0264b5fa90a1b823dd737de63ba66d56da3acef99fb"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/console.log",
+    "bytes": 30520,
+    "sha256": "6313078ad729ca132dd31d9be967f4ecc943efbcf4072973159bb01509c31161"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/host-collection.json",
+    "bytes": 1462,
+    "sha256": "b341f092fc5dd302c6f91e755560c65d84e3e6b1e2243b9ed0e84fbb0829e574"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/llm-quantization-q8-receipt.json",
+    "bytes": 2566760,
+    "sha256": "7a4bd6b60e74bea6c926d4eb1fb639f5e0ff14eaa8373f4f840cff18ae9fae1c"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/trace-binding.json",
+    "bytes": 646,
+    "sha256": "8c7ce1d98574e9d5dd53211ce9dee949dbbf9d5964c6c1b5f0ac946da44cb418"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/trace-console.log",
+    "bytes": 618,
+    "sha256": "6932310f069c932ba71322bb1fb2c6e62beb0dd51ebbf5306e21014a24547b3f"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/profiled/trace-toc.xml",
+    "bytes": 45665,
+    "sha256": "c61200a5e08471af058d7c548db2ac866b8121641e7dca7e2932e10d5667bc94"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/q8/raw_trace_workspace_identity.json",
+    "bytes": 848,
+    "sha256": "8b159448e2df33a5ec70e5851c8871b76cb2f8356623d2efa088a02ddddb56a7"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/requested_task.txt",
+    "bytes": 11008,
+    "sha256": "f973acb25897ef855c265bc79eeb7b4e4b6c5a5bb15f21e6f581dcca2e9c35a5"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/requested_task_updated_inline.txt",
+    "bytes": 12749,
+    "sha256": "e16fce6dc0460deb4f62fc09b73961ee1a428a17daf80deab0c8c824c659f07e"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/signed-build.log",
+    "bytes": 68201,
+    "sha256": "6e1ece7d42a5d05c1a4d8bb2d4e9d0bf4d1b25f87b35dc16f4bacb3eadaaea7b"
+  },
+  {
+    "path": "ios/validation/evidence/llm_quantization_20261006/source_checkpoint_dtype.json",
+    "bytes": 403,
+    "sha256": "d37cb129c86921dc140a3f1272f7908250ae6663d5ecd79ad574739e5cc34355"
+  }
+]
