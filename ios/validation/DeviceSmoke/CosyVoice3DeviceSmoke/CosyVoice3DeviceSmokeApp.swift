@@ -478,8 +478,14 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             let firstDuration = Self.audioDuration(first); let repeatDuration = Self.audioDuration(repeatAudio); let firstStats = Self.stats(first); let repeatStats = Self.stats(repeatAudio)
             var sustained = [[String: Any]]()
+            var sustainedAudio = [CosyVoice3Audio]()
             let sustainedCount = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-sustained-count=") }).flatMap { Int($0.dropFirst("--validation-sustained-count=".count)) } ?? 0
             guard (0...20).contains(sustainedCount) else { throw SmokeError("invalid sustained count") }
+            if sustainedCount > 0 && CommandLine.arguments.contains("--validation-sustained-nominal-gate") {
+                let started = Date()
+                while ProcessInfo.processInfo.thermalState != .nominal && Date().timeIntervalSince(started) < 300 { try await Task.sleep(for: .seconds(5)) }
+                guard ProcessInfo.processInfo.thermalState == .nominal else { throw SmokeError("sustained group nominal start gate failed") }
+            }
             for index in 0..<sustainedCount {
                 let thermalBefore = Self.thermalName(ProcessInfo.processInfo.thermalState)
                 let cpuStart = Self.processCPUMilliseconds()
@@ -487,15 +493,19 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
                 let ms = Self.seconds(start.duration(to: clock.now))*1000
                 try Self.validate(audio)
-                let hash = SHA256.hash(data: Self.wavData(audio)).map { String(format: "%02x", $0) }.joined()
-                guard hash == repeatWAVSHA256 else { throw SmokeError("sustained deterministic output diverged") }
+                sustainedAudio.append(audio)
                 let stages = await engine.lastSynthesisReport()
-                var row: [String: Any] = ["index": index, "totalMilliseconds": ms, "RTF":ms/1000/Self.audioDuration(audio), "samples":audio.samples.count,"thermalStart":thermalBefore,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"wavSha256":hash,"physicalFootprintBytes":Self.processFootprint(),"interRequestDelay":false]
+                var row: [String: Any] = ["index": index, "totalMilliseconds": ms, "RTF":ms/1000/Self.audioDuration(audio), "samples":audio.samples.count,"thermalStart":thermalBefore,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"physicalFootprintBytes":Self.processFootprint(),"interRequestDelay":false,"hashingDeferredUntilGroupEnd":true]
                 row["processCPUMilliseconds"] = Self.processCPUMilliseconds()-cpuStart
                 if let stages { row["stages"] = Self.reportDictionary(stages) }
                 sustained.append(row)
             }
             let thermalEnd = ProcessInfo.processInfo.thermalState
+            for (index,audio) in sustainedAudio.enumerated() {
+                let hash = SHA256.hash(data: Self.wavData(audio)).map { String(format:"%02x",$0) }.joined()
+                guard hash == repeatWAVSHA256 else { throw SmokeError("sustained deterministic output diverged") }
+                sustained[index]["wavSha256"] = hash
+            }
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false,"validationCacheReset":validationCacheReset,"validationSamplerSeed":validationSamplerSeed,"matchedDeterministicSpeechLength":true,"matchedDeterministicWav":true,"firstWavSha256":firstWAVSHA256,"repeatWavSha256":repeatWAVSHA256]
             receipt["warmProcessCPUMilliseconds"] = warmCPUMilliseconds
             receipt["CPUTimeMeaning"] = "getrusage self user+system CPU; excludes driver/services outside process, no GPU/ANE power claim"
@@ -1013,6 +1023,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
             try Self.validate(audio)
             let raw = audio.samples.withUnsafeBytes { Data($0) }
+            try raw.write(to:Self.receiptURL("isolated-output.f32"),options:.atomic)
             let persistent = try JSONSerialization.jsonObject(with:Data((await engine.persistentRuntimeSnapshotJSON()).utf8))
             let receipt: [String: Any] = ["persistentRuntime":persistent,"schemaVersion":1,"status":"PASS_DIAGNOSTIC_REQUEST","sourceCommit":fixture.sourceCommit,
                 "processID":ProcessInfo.processInfo.processIdentifier,"deviceModelIdentifier":Self.machineIdentifier(),"systemVersion":UIDevice.current.systemVersion,
@@ -1293,3 +1304,5 @@ private extension Data {
 // Changes 2026-10-05: Candidate actual-input identity and Float32 PCM hashes, bounded sustained loop without sleep between public syntheses; memory/thermal sampling remains diagnostic. Upstream public Engine; environment physical iPhone/Swift6.
 
 // Changes 2026-10-05 residency phase: real public-request isolated12stage diagnostic, signed input bindings and no production RTF claim; plan op SSA names and lossless partition paths. No model math changes. Swift6/iPhone27.2, upstream DeviceSmoke; line mapping via git diff.
+
+// Changes2026-10-05 thermal phase: noWAVhash during sustainedloop; retain12smallPCM buffers thenverifyaftergroup. Optionalnominalgate onlybeforegroup, nointeriterationwait. IsolatedrawPCM savedafterloopfornumericparity, no playback. Swift6/iPhone27.2; upstreamvalidationlane, changedlines gitdiff.

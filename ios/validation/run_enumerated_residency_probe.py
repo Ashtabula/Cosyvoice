@@ -24,12 +24,12 @@ def main():
     if args.mode == 'isolated':
         if not args.stage: parser.error('--stage required')
         flags += ['--validation-isolated-request',f'--validation-isolated-stage={args.stage}']
-        files = ['isolated-request-receipt.json',f'isolated-{args.stage}-receipt.json']
+        files = ['isolated-request-receipt.json',f'isolated-{args.stage}-receipt.json','isolated-output.f32']
     elif args.mode == 'plan':
         flags += ['--ane-compute-plans'] + [f'--validation-plan-role={role}' for role in args.role]
         files = ['ane-compute-plan-receipt.json']
     else:
-        flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD','--wait-thermal-nominal','--validation-sustained-count=12']
+        flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD','--wait-thermal-nominal','--validation-sustained-count=12','--validation-sustained-nominal-gate']
         files = ['candidate-benchmark-receipt.json']
     flags += [f'--validation-placement={value}' for value in args.placement]
     flags += [f'--validation-single-function={value}' for value in args.single_function]
@@ -72,6 +72,8 @@ def main():
         result = subprocess.run(['xcrun','devicectl','device','copy','from','--device',DEVICE,'--domain-type','appDataContainer',
                                  '--domain-identifier',BUNDLE,'--source','Documents/'+name,'--destination',str(destination)])
         if result.returncode == 0:
+            if destination.suffix=='.f32':
+                receipts[name]=dict(sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),bytes=destination.stat().st_size);continue
             value=json.loads(destination.read_text())
             if args.mode == 'isolated' and name != 'isolated-request-receipt.json':
                 parent=receipts.get('isolated-request-receipt.json',{}).get('receipt',{})
