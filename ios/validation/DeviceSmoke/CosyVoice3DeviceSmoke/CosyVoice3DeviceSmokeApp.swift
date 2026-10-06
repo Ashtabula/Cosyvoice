@@ -1175,7 +1175,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         var rows = [[String: Any]]()
         do {
             let fixture = try Self.fixture()
-            let paths = ["llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage", "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage", "conditions": "enumerated-acoustic/conditions.mlpackage", "hift": "enumerated-acoustic/hift.mlpackage", "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage", "campPlus": "reference/campplus-fixed604.mlpackage"]
+            let paths = ["llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage", "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage", "q4Decode": "models/cosyvoice-llm-q4-decode.mlpackage", "conditions": "enumerated-acoustic/conditions.mlpackage", "hift": "enumerated-acoustic/hift.mlpackage", "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage", "campPlus": "reference/campplus-fixed604.mlpackage"]
             let selected = CommandLine.arguments.filter { $0.hasPrefix("--validation-plan-role=") }.map { String($0.dropFirst("--validation-plan-role=".count)) }
             let roles = selected.isEmpty ? ["llmPrefill", "llmDecode", "conditions", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5", "hift", "speechTokenizer", "campPlus"] : selected
             func save(_ status: String) throws {
@@ -1191,16 +1191,30 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 let planFolderOption = CommandLine.arguments.first { $0.hasPrefix("--validation-plan-directory=") }.map { String($0.dropFirst("--validation-plan-directory=".count)) }
                 if let option = planFolderOption { guard single && ["ANEFlowP2","ANEFlowP3"].contains(option) else { throw SmokeError("invalid isolated plan directory") } }
                 let source: URL
-                if single, let option = planFolderOption { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(option)/\(role).mlpackage") }
+                if role == "q4Decode" {
+                    guard !single, Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE") == "CPU_AND_NE" else { throw SmokeError("Q4 decode probe forbids placement fallback/extracted package") }
+                    source = try Self.quantizationRoot(base: fixture.runtime, variant: "q4").appendingPathComponent(relative)
+                }
+                else if single, let option = planFolderOption { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(option)/\(role).mlpackage") }
                 else if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role).mlpackage") }
                 else if role.hasPrefix("flow"), partition != 6, let index = Int(role.dropFirst(4)), index < partition {
                     source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions/p\(partition)/group-\(index).mlpackage")
                 } else { source = fixture.runtime.appendingPathComponent(relative) }
                 var row: [String: Any] = ["role": role, "path": source.path, "singleFunction": single, "requestedPlacement": Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE"), "stage": "compile", "status": "RUNNING"]
+                if role == "q4Decode" {
+                    let identity = try Self.probePackageIdentity(source)
+                    guard identity["treeSha256"] as? String == "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7" else { throw SmokeError("original Q4 decode package identity mismatch") }
+                    row["packageIdentity"] = identity
+                    row["scope"] = "LEVEL_A_ONLY; no MLState or prediction; diagnostic, not public synthesis"
+                    row["chargingConditions"] = "CHARGING_CONNECTED"
+                    row["signedBuildSourceCommit"] = Self.validationSourceCommit() ?? "UNKNOWN"
+                    guard Self.validationSourceCommit() == fixture.sourceCommit else { throw SmokeError("probe source binding mismatch") }
+                }
                 rows.append(row); try save("RUNNING")
                 do {
                     let compiled = try await MLModel.compileModel(at: source)
-                    defer { try? FileManager.default.removeItem(at: compiled) }
+                    defer { if role != "q4Decode" { try? FileManager.default.removeItem(at: compiled) } }
+                    if role == "q4Decode" { row["compiledPath"] = compiled.path }
                     let config = MLModelConfiguration()
                     let policy = Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE")
                     switch policy {
@@ -1210,6 +1224,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     default: throw SmokeError("invalid compute policy \(policy)")
                     }
                     config.functionName = relative.hasPrefix("enumerated-acoustic/") && !single ? "n257_384" : nil
+                    if role == "q4Decode" { row["compiledIdentity"] = try Self.probePackageIdentity(compiled) }
                     row["stage"] = "model-load"; rows[rows.count-1] = row; try save("RUNNING")
                     try autoreleasepool { _ = try MLModel(contentsOf: compiled, configuration: config) }
                     row["modelLoadStatus"] = "PASS"
@@ -1900,3 +1915,28 @@ extension CosyVoice3SmokeModel {
 }
 // Purpose: reuse acceptedcorpus01/02/04 asEnglishpairedthree-samplequantizationlistening; no corpus/reference/settings drift.
 // Upstream existing listeningcheckpoint/quantizationroot/publicEngine; Swift6/iOS18+, generated2026-10-06 America/New_York.
+
+// Q4 compatibility rescue: streamed identity before diagnostic compile/load; no production change.
+extension CosyVoice3SmokeModel {
+    private static func probePackageIdentity(_ folder: URL) throws -> [String: Any] {
+        let fm = FileManager.default
+        guard let enumerator = fm.enumerator(at: folder, includingPropertiesForKeys: [.isRegularFileKey]) else { throw SmokeError("package enumeration failed") }
+        var files = [[String: Any]]()
+        for case let file as URL in enumerator {
+            guard try file.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile == true else { continue }
+            let handle = try FileHandle(forReadingFrom: file)
+            var digest = SHA256(), bytes = 0
+            do {
+                while let chunk = try handle.read(upToCount: 4 * 1024 * 1024), !chunk.isEmpty { digest.update(data: chunk); bytes += chunk.count }
+                try handle.close()
+            } catch { try? handle.close(); throw error }
+            files.append(["path": file.pathComponents.dropFirst(folder.pathComponents.count).joined(separator: "/"), "bytes": bytes, "sha256": digest.finalize().map { String(format: "%02x", $0) }.joined()])
+        }
+        files.sort { ($0["path"] as! String) < ($1["path"] as! String) }
+        let canonical = files.map { "\($0["path"] as! String)\0\($0["bytes"] as! Int)\0\($0["sha256"] as! String)\n" }.joined()
+        return ["treeSha256": SHA256.hash(data: Data(canonical.utf8)).map { String(format: "%02x", $0) }.joined(), "bytes": files.reduce(0) { $0 + ($1["bytes"] as! Int) }, "files": files]
+    }
+}
+// Purpose: original block32 decode LEVEL A physical probe with hash/source/config binding.
+// Upstream: existing runANEComputePlans and quantizationRoot; Swift6/CoreML iPhone18,4/iOS27.2.
+// Generated 2026-10-06 America/New_York; changed plan role/source/provenance plus request-local streamed hashing only.

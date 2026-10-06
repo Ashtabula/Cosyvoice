@@ -823,3 +823,10 @@ Actions:4a9366f/f7ab8ed/217fd97/1f27995/599acd5全部已push；未promoteQ4/未�
 Files:log_view_normalization.json/4个TXT视图、appendhistory。
 Validation:Q4stopcondition完成；24tests/CurrentQ8各5physicalidentityPASS；签名source1f27995保持。
 GitHub Timeline:599acd5已push；日志视图规范化/发布记录随后commit/push。
+
+Time:2026-10-06T16:09:16.031955-04:00
+Prompt:Q4 compatibility rescue; first original decode LEVEL A probe.
+Actions:existing diagnostic plan collector adds hash-pinned q4Decode role, CPU_AND_NE only, no MLState/prediction/public guard changes.
+Files:DeviceSmoke source; new append-only q4_compatibility_rescue_20261006 evidence.
+Validation:source static review; signed physical build/run pending; original Q4 failure and Current/Q8 untouched.
+GitHub Timeline:未commit、未push；source checkpoint next.
