@@ -1,0 +1,20 @@
+{
+  "root": "/Volumes/WD/Codes/Cosyvoice/ios/.work/q4-rescue-20261006/Hybrid/Runtime",
+  "P2": [
+    {
+      "role": "group-0",
+      "SHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+      "method": "same-volumeimmutablehardlinks,noexpandedweights"
+    },
+    {
+      "role": "group-1",
+      "SHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+      "method": "same-volumeimmutablehardlinks,noexpandedweights"
+    }
+  ],
+  "manifestSHA256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+  "payloadSHA256": "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9",
+  "profile": "q4_decode_hybrid_a",
+  "ordinaryPublicQ4Selectable": false,
+  "noShippingPromotion": true
+}
