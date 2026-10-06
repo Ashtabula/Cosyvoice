@@ -1993,7 +1993,7 @@ extension CosyVoice3SmokeModel {
             }
             let q8State = prefill.makeState()
             let prefStart = Date()
-            _ = try prefill.prediction(from: MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":s,"mask":mask]), using: q8State)
+            _ = try await prefill.prediction(from: MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":s,"mask":mask]), using: q8State)
             let prefMs = Date().timeIntervalSince(prefStart)*1000
             let q4State = decode.makeState()
             var stateRows = [[String: Any]]()
@@ -2017,7 +2017,7 @@ extension CosyVoice3SmokeModel {
             for j in 0..<512 { dm.dataPointer.assumingMemoryBound(to:UInt16.self)[j] = j<=224 ? 0 : 0xfc00 }
             wm.dataPointer.assumingMemoryBound(to:UInt16.self)[224] = Float16(1).bitPattern
             let begin = Date()
-            let output = try decode.prediction(from: MLDictionaryFeatureProvider(dictionary:["x":dx,"cos":dc,"sin":ds,"mask":dm,"write_mask":wm]),using:q4State)
+            let output = try await decode.prediction(from: MLDictionaryFeatureProvider(dictionary:["x":dx,"cos":dc,"sin":ds,"mask":dm,"write_mask":wm]),using:q4State)
             let ms = Date().timeIntervalSince(begin)*1000
             guard let logits = output.featureValue(for:"logits")?.multiArrayValue, logits.count == 6761,
                   (0..<logits.count).allSatisfy({logits[$0].floatValue.isFinite}) else { throw SmokeError("decode output nonfinite/wrong shape") }
