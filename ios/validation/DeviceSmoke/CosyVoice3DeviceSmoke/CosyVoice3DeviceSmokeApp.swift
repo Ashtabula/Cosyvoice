@@ -1203,6 +1203,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 var row: [String: Any] = ["role": role, "path": source.path, "singleFunction": single, "requestedPlacement": Self.requestedRolePlacement(role, defaultValue: "CPU_AND_NE"), "stage": "compile", "status": "RUNNING"]
                 if role == "q4Decode" {
                     let identity = try Self.probePackageIdentity(source)
+                    print("[Q4-PROBE-IDENTITY] \(identity)")
                     guard identity["treeSha256"] as? String == "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7" else { throw SmokeError("original Q4 decode package identity mismatch") }
                     row["packageIdentity"] = identity
                     row["scope"] = "LEVEL_A_ONLY; no MLState or prediction; diagnostic, not public synthesis"
@@ -1920,7 +1921,8 @@ extension CosyVoice3SmokeModel {
 extension CosyVoice3SmokeModel {
     private static func probePackageIdentity(_ folder: URL) throws -> [String: Any] {
         let fm = FileManager.default
-        guard let enumerator = fm.enumerator(at: folder, includingPropertiesForKeys: [.isRegularFileKey]) else { throw SmokeError("package enumeration failed") }
+        let canonicalRoot = folder.resolvingSymlinksInPath()
+        guard let enumerator = fm.enumerator(at: canonicalRoot, includingPropertiesForKeys: [.isRegularFileKey]) else { throw SmokeError("package enumeration failed") }
         var files = [[String: Any]]()
         for case let file as URL in enumerator {
             guard try file.resourceValues(forKeys: [.isRegularFileKey]).isRegularFile == true else { continue }
@@ -1930,7 +1932,9 @@ extension CosyVoice3SmokeModel {
                 while let chunk = try handle.read(upToCount: 4 * 1024 * 1024), !chunk.isEmpty { digest.update(data: chunk); bytes += chunk.count }
                 try handle.close()
             } catch { try? handle.close(); throw error }
-            files.append(["path": file.pathComponents.dropFirst(folder.pathComponents.count).joined(separator: "/"), "bytes": bytes, "sha256": digest.finalize().map { String(format: "%02x", $0) }.joined()])
+            let canonicalFile = file.resolvingSymlinksInPath()
+            guard canonicalFile.path.hasPrefix(canonicalRoot.path + "/") else { throw SmokeError("probe file escaped root") }
+            files.append(["path": String(canonicalFile.path.dropFirst(canonicalRoot.path.count + 1)), "bytes": bytes, "sha256": digest.finalize().map { String(format: "%02x", $0) }.joined()])
         }
         files.sort { ($0["path"] as! String) < ($1["path"] as! String) }
         let canonical = files.map { "\($0["path"] as! String)\0\($0["bytes"] as! Int)\0\($0["sha256"] as! String)\n" }.joined()
