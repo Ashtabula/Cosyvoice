@@ -594,3 +594,10 @@ Actions: auditedcurrent2shardFlow6 ownership; T822 h6733824bytes*6copies40402944
 Files: DynamicAcousticRuntime scope/helper; FlowOwnedBufferTests; collectorbaselineflag; flowownership_audit.
 Validation:16relevanttestsPASS including6refillbyteparity/stridedfallback/shapemismatch. Initialsandboxcachedenial preservedinconsole, rerunwithauthorizedcacheaccessPASS. Signedbuild/chargingphysicalgatepending; noacceptanceyet.
 GitHub Timeline:3e74158已push；本次候选未commit。
+
+Time:2026-10-06 11:37 EDT America/New_York
+Prompt: Flow singlecandidate physicalvalidation.
+Actions: baseline5PASS/nominal. Candidate2launches refusedbeforeinference because SwiftUI task precedessceneactive whenpersistentprepfast. Preservefailures. Validation-onlypretestwaitsceneactive max5s, exactforegroundguardremains; no productioninferencealgorithm/cachechange.
+Files: DeviceSmoke initialforegroundreadinessgate.
+Validation: nextsignedbuild/physicalretry; no candidatepromotionyet.
+GitHub Timeline:f23988e已commit未push；readinessfix未commit。

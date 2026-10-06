@@ -1539,6 +1539,11 @@ extension CosyVoice3SmokeModel {
                 guard Self.seconds(gateStart.duration(to:.now))<1800 else{throw SmokeError("formal gate timeout; no charged/hot result silently accepted")}
                 try await Task.sleep(for:.seconds(5))
             }
+            // Launch may deliver SwiftUI.task before the scene is active. Readiness only, outside timed inference.
+            let foregroundDeadline = ContinuousClock.now.advanced(by: .seconds(5))
+            while UIApplication.shared.applicationState != .active, ContinuousClock.now < foregroundDeadline {
+                try await Task.sleep(for: .milliseconds(20))
+            }
             guard UIApplication.shared.applicationState == .active else{throw SmokeError("foreground screen-on required")}
             let environmentStart=Self.resourceEnvironment()
             monitor.record("formal_begin")
@@ -1674,3 +1679,6 @@ private final class ResourceEfficiencyTimeline:@unchecked Sendable {
 // actor-scoped serialsynthesis; timer weakcapture; latesttokens/callerPCM bounded equallyacrosspolicies.
 // Upstream existingpublic Engine/DeviceSmoke/OSCPUCounters; Swift6/iOS18+; generated2026-10-06 America/New_York.
 // Changed runAutoMode dispatch andaddedresourcehelper only. Post-expirywait outside formalwindow.
+
+// Validation-only2026-10-06: await initialsceneactive up5s beforetimedresource inference; timeoutstillFAIL, notthermal throttle.
+// Upstream DeviceSmoke resourcegate; Swift6/iOS18+; changedrunResourceEfficiency initialforegroundguard only.
