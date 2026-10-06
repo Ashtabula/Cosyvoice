@@ -1,0 +1,25 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--ane-compute-plans",
+    "--validation-plan-role=q4PrefillL1",
+    "--validation-plan-role=q4PrefillL16",
+    "--validation-plan-role=q4PrefillL32",
+    "--validation-plan-role=q4PrefillL64",
+    "--validation-plan-role=q4PrefillL128",
+    "--validation-plan-role=q4PrefillL224"
+  ],
+  "charging": "CHARGING_CONNECTED",
+  "scope": "LEVEL_A_ONLY_NO_STATE_NO_PREDICTION"
+}

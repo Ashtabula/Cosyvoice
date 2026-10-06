@@ -887,3 +887,10 @@ Actions:Six length-only graph specializations pass MIL inferred-type checks;361 
 Files:specialize_q4_prefill_lengths.py;DeviceSmoke diagnostic roles;new append-only length evidence.
 Validation:static six PASS; previous tool API/count preflight failures retained; physical probes pending.
 GitHub Timeline:cleanup2a3735d committed not pushed; diagnostic checkpoint next.
+
+Time:2026-10-06T17:55:07.313243-04:00
+Prompt:Q4 prefill bounded length diagnosis.
+Actions:initial6 CPU_AND_NE load/plan PASS; exact224 newprocess reloadFAIL_-14; isolated128PASS. Preserve contradictory observations; add176 threshold midpoint only. No synthesis/API/decode changed.
+Files:DeviceSmoke diagnostic hash list;prefill_threshold/static;physical receipts.
+Validation:d5bd163signedbuildPASS;24testsPASS/0skip; all6thermalnominalcharging. Package224identical, compiled difference onlycoremldata.bin.
+GitHub Timeline:d5bd163 committed not pushed; refinement checkpoint next.

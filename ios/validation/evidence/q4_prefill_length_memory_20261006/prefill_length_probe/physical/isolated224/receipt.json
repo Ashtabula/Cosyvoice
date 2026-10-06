@@ -1,0 +1,82 @@
+{
+  "deviceModelIdentifier" : "iPhone18,4",
+  "meaning" : "MLComputePlan preferred\/supported devices; not measured runtime residency",
+  "models" : [
+    {
+      "chargingConditions" : "CHARGING_CONNECTED",
+      "compiledIdentity" : {
+        "bytes" : 183467766,
+        "files" : [
+          {
+            "bytes" : 243,
+            "path" : "analytics\/coremldata.bin",
+            "sha256" : "f5d71084b65b1905593e28d1f433d8ba32f836117ca521967eae2e9b9d3a4971"
+          },
+          {
+            "bytes" : 2139,
+            "path" : "coremldata.bin",
+            "sha256" : "6089abafa3fd45e724632ee7305e80d5a88eee2fb783e0d227be17e215b3ddfa"
+          },
+          {
+            "bytes" : 703574,
+            "path" : "model.mil",
+            "sha256" : "a8090c6b5db920405ba4e9909fe89e2d9512af4e0dce5f25c02fa5d31130679e"
+          },
+          {
+            "bytes" : 182761810,
+            "path" : "weights\/weight.bin",
+            "sha256" : "5c68077a731d36f7c98882184d033b36555cd633457ccb670fb31f101ea49c1a"
+          }
+        ],
+        "treeSha256" : "ff398222408f11ac372077fb4b9260a26342bb1238c888402729e848cf47fa56"
+      },
+      "compiledPath" : "\/private\/var\/mobile\/Containers\/Data\/Application\/CFC324EC-28DF-4C33-82A1-541BC1B18597\/tmp\/prefill-l224_02E2F73C-0B9A-4093-92C9-F2042C116C72.mlmodelc",
+      "diagnosticWallMilliseconds" : 1515.0989294052124,
+      "error" : {
+        "code" : 0,
+        "description" : "Failed to build the model execution plan using a model architecture file '\/private\/var\/mobile\/Containers\/Data\/Application\/CFC324EC-28DF-4C33-82A1-541BC1B18597\/tmp\/prefill-l224_02E2F73C-0B9A-4093-92C9-F2042C116C72.mlmodelc\/model.mil' with error code: -14.",
+        "domain" : "com.apple.CoreML",
+        "userInfo" : "[\"NSLocalizedDescription\": Failed to build the model execution plan using a model architecture file '\/private\/var\/mobile\/Containers\/Data\/Application\/CFC324EC-28DF-4C33-82A1-541BC1B18597\/tmp\/prefill-l224_02E2F73C-0B9A-4093-92C9-F2042C116C72.mlmodelc\/model.mil' with error code: -14.]"
+      },
+      "footprintAfterProbe" : 201164616,
+      "footprintBeforeCompile" : 195151640,
+      "packageIdentity" : {
+        "bytes" : 183437878,
+        "files" : [
+          {
+            "bytes" : 675451,
+            "path" : "Data\/com.apple.CoreML\/model.mlmodel",
+            "sha256" : "1fee745df2cfbd37179b76aa1327ba4313fff22232a2d3ce37174b9794303b58"
+          },
+          {
+            "bytes" : 182761810,
+            "path" : "Data\/com.apple.CoreML\/weights\/weight.bin",
+            "sha256" : "5c68077a731d36f7c98882184d033b36555cd633457ccb670fb31f101ea49c1a"
+          },
+          {
+            "bytes" : 617,
+            "path" : "Manifest.json",
+            "sha256" : "5a4f8d400ff7edfeb4ec66e2c4e05271fd7244ec32a1cf2ba000b9a99f745348"
+          }
+        ],
+        "treeSha256" : "905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4"
+      },
+      "path" : "\/var\/mobile\/Containers\/Data\/Application\/CFC324EC-28DF-4C33-82A1-541BC1B18597\/Documents\/Q4PrefillLength\/initial\/models\/prefill-l224.mlpackage",
+      "requestedPlacement" : "CPU_AND_NE",
+      "role" : "q4PrefillL224",
+      "scope" : "LEVEL_A_ONLY; no MLState or prediction; diagnostic, not public synthesis",
+      "signedBuildSourceCommit" : "d5bd16312e60fadf01b7ffcb7b854c2a1c0e5690",
+      "singleFunction" : false,
+      "stage" : "model-load",
+      "status" : "FAIL_COMPUTE_PLAN",
+      "thermalEnd" : 0,
+      "thermalStart" : 0
+    }
+  ],
+  "payloadTreeSha256" : "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "recordedAtUnix" : 1791323606,
+  "schemaVersion" : 1,
+  "sourceCommit" : "d5bd16312e60fadf01b7ffcb7b854c2a1c0e5690",
+  "status" : "PASS_DIAGNOSTIC_COLLECTION",
+  "systemVersion" : "27.2"
+}
