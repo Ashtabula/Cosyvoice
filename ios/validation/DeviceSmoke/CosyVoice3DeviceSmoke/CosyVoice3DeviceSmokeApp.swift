@@ -401,7 +401,10 @@ final class CosyVoice3SmokeModel: ObservableObject {
         guard !running else { return };running=true;defer{running=false}
         let filename="warm-decode-pass-receipt.json"
         do {
-            let mode=CommandLine.arguments.contains("--validation-warm-pass-mode=memory") ? "memory" : "repeat"
+            let modes=CommandLine.arguments.filter{$0.hasPrefix("--validation-warm-pass-mode=")}
+            guard modes.count==1 else {throw SmokeError("warm pass requires exactly one mode")}
+            let mode=String(modes[0].dropFirst("--validation-warm-pass-mode=".count))
+            guard ["memory","repeat"].contains(mode) else {throw SmokeError("unsupported warm pass mode; no fallback")}
             guard CommandLine.arguments.contains("--validation-flow-partition=2"),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),

@@ -5,11 +5,10 @@ import argparse,base64,hashlib,json,subprocess,threading,time
 DEVICE='00008150-000A05CA1440401C';BUNDLE='com.actacomes.cosyvoice3.candidatebenchmark'
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat','identity','ab'],required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat'],required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     out=a.output;out.mkdir(parents=True,exist_ok=True)
     flags=['--no-playback','--validation-warm-pass',f'--validation-warm-pass-mode={a.mode}','--validation-flow-partition=2','--validation-acoustic-cache=selected-family']
     if a.mode=='memory':flags+=['--validation-decode-audit']
-    if a.mode=='ab':flags+=['--validation-logits-order=BBBC CBBC'.replace(' ','')]
     cmd=['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing','--console',BUNDLE,'--',*flags]
     print('[WARM-DECODE-PASS] SHARDS=2',cmd,flush=True)
     proc=subprocess.Popen(cmd,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);done=threading.Event()
@@ -35,5 +34,5 @@ def main():
     (out/'host-collection.json').write_text(json.dumps(dict(command=cmd,runnerSHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),noTimedReadback=True,SHARDS=2,receiptSHA256=hashlib.sha256((out/'warm-decode-pass-receipt.json').read_bytes()).hexdigest()),indent=2)+'\n')
     print('[WARM-DECODE-PASS] complete',out,flush=True)
 if __name__=='__main__':main()
-# Purpose: hash-bound PhaseA/identity/short alternating benchmark collection; upstream native warm lane.
+# Purpose: hash-bound PhaseA memory and baseline warm-repeat collection; upstream native warm lane.
 # Python3/macOS/Xcode/iPhone; generated2026-10-06. No cold cache reset, placement/graph/shard/Flow change.
