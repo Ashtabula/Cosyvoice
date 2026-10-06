@@ -18,21 +18,20 @@ Runner may retain only stable public profile facts:
 - profile ID/display name;
 - compression description;
 - experimental/default status;
-- SDK-provided model asset identity;
+- SDK-provided model, manifest, prefill and decode content identities;
 - immutable staged tree/source provenance supplied by clean-room automation;
 - SHARDS=2 and Flow6 benchmark contract;
 - state bridge description for Hybrid4.
 
 Runner must not encode Core ML filenames, conversion recipes, private shard paths, or bridge implementation code.
 
-## Asset roots
+## Asset collection
 
-Formal Runner staging uses three distinct generic folders:
-- `VoiceAssets/cosyfull`
-- `VoiceAssets/cosy8bit`
-- `VoiceAssets/cosyhybrid4`
+Formal Runner staging uses one frozen generic collection root, e.g. `VoiceAssets/cosyprofiles`. The three logical benchmark providers all receive this same collection URL, then construct the public SDK with `.current`, `.q8`, or `.q4`.
 
-Each folder contains the exact corresponding immutable profile root. The SDK validates manifest/payload/model/P2 identities and fails closed. No fallback to another Cosy profile is permitted.
+The collection contains the three immutable profile children plus their shared byte-identical P2 acoustic assets. The SDK resolves only the requested child and validates manifest/payload/prefill/decode/P2 identities before prediction. Missing, stale, mixed, or wrong-profile contents fail closed; no fallback to another profile is permitted.
+
+Sharing collection bytes is storage deduplication only. Formal comparison still launches one profile per fresh process, so loaded models, MLState, process memory and thermal history are not shared across measurements.
 
 ## Process isolation
 
