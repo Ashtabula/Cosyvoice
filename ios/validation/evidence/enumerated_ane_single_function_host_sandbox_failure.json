@@ -1,0 +1,308 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL_HOST_PACKAGING_PARITY",
+  "scope": "HOST_COMPONENT_SYNTHETIC_INPUT_ONLY_NOT_PHYSICAL_OR_ENDPOINT_PARITY",
+  "N": 260,
+  "models": {
+    "conditions": {
+      "inputs": {
+        "tokens": {
+          "shape": [
+            1,
+            260
+          ],
+          "dtype": "int32"
+        },
+        "prompt_tokens": {
+          "shape": [
+            1,
+            151
+          ],
+          "dtype": "int32"
+        },
+        "prompt_feat": {
+          "shape": [
+            1,
+            302,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "speaker": {
+          "shape": [
+            1,
+            192
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow0": {
+      "inputs": {
+        "x": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mu": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "t": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32"
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow1": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow2": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow3": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow4": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "flow5": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    },
+    "hift": {
+      "inputs": {
+        "mel": {
+          "shape": [
+            1,
+            80,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "f0": {
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "phase": {
+          "shape": [
+            1,
+            520,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "noise": {
+          "shape": [
+            1,
+            249600,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "norm": {
+          "shape": [
+            1,
+            1,
+            249600
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/\"."
+      ]
+    }
+  }
+}

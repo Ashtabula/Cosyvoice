@@ -23,7 +23,7 @@ def main():
   spec.description.input.extend(selected.input);spec.description.output.extend(selected.output);spec.description.state.extend(selected.state)
   spec.description.ClearField('functions');spec.description.ClearField('defaultFunctionName')
   function=copy.deepcopy(source.mlProgram.functions['n257_384']);spec.mlProgram.ClearField('functions');spec.mlProgram.functions['main'].CopyFrom(function)
-  spec.specificationVersion=8
+  spec.specificationVersion=source.specificationVersion
   assert spec.mlProgram.functions['main'].SerializeToString(deterministic=True)==source.mlProgram.functions['n257_384'].SerializeToString(deterministic=True)
   ct.models.MLModel(spec,weights_dir=original.weights_dir,skip_model_load=True).save(str(destination))
   before=fingerprint(a.asset_root/paths[role]);after=fingerprint(destination)

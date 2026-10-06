@@ -1,0 +1,350 @@
+{
+  "schemaVersion": 1,
+  "status": "FAIL_HOST_PACKAGING_PARITY",
+  "scope": "HOST_COMPONENT_SYNTHETIC_INPUT_ONLY_NOT_PHYSICAL_OR_ENDPOINT_PARITY",
+  "N": 260,
+  "models": {
+    "conditions": {
+      "inputs": {
+        "tokens": {
+          "shape": [
+            1,
+            260
+          ],
+          "dtype": "int32"
+        },
+        "prompt_tokens": {
+          "shape": [
+            1,
+            151
+          ],
+          "dtype": "int32"
+        },
+        "prompt_feat": {
+          "shape": [
+            1,
+            302,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "speaker": {
+          "shape": [
+            1,
+            192
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        0.39953729198896326,
+        0.27352904199506156
+      ],
+      "status": "PASS",
+      "outputs": {
+        "mu": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        },
+        "spks": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80
+          ]
+        },
+        "cond": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        }
+      }
+    },
+    "flow0": {
+      "inputs": {
+        "x": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mu": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "t": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32"
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        8.31734324998979
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [cond, mask, mu, x].\"."
+      ]
+    },
+    "flow1": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.387336541010882
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [h, mask].\"."
+      ]
+    },
+    "flow2": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.368402541993419
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [h, mask].\"."
+      ]
+    },
+    "flow3": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.365976957997191
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [h, mask].\"."
+      ]
+    },
+    "flow4": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.392277874998399
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [h, mask].\"."
+      ]
+    },
+    "flow5": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        2.999808791995747
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [h, mask].\"."
+      ]
+    },
+    "hift": {
+      "inputs": {
+        "mel": {
+          "shape": [
+            1,
+            80,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "f0": {
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "phase": {
+          "shape": [
+            1,
+            520,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "noise": {
+          "shape": [
+            1,
+            249600,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "norm": {
+          "shape": [
+            1,
+            1,
+            249600
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        2.418947415993898
+      ],
+      "status": "FAIL",
+      "errors": [
+        "Error compiling model: \"compiler error: Encountered an error while compiling a model: A model supports up to one input feature with enumerated shapes, but it configures these input features to use the enumerated shape flexibility: [f0, mel, noise, norm, phase].\"."
+      ]
+    }
+  }
+}

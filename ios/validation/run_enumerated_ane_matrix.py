@@ -38,7 +38,7 @@ def main():
     def run_variant(name, ne, attempt=0):
         placement = {**BASE, **{r:'CPU_AND_NE' for r in ne}}
         out = args.output / (name if attempt == 0 else name+f"-thermal-attempt{attempt}")
-        command = ['python3',str(IOS/'validation/run_enumerated_production_device.py'),'--asset-root',str(args.asset_root),'--device','00008150-000A05CA1440401C','--reference-wav','/Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.wav','--reference-transcript','/Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.txt','--host-receipt',str(IOS/'.work/reference-release/coreml/reference_host_parity_receipt.json'),'--output',str(out),'--team','H5R282PV62','--reuse-staging','--reset-reference-conditioning','--skip-build','--skip-variable-smoke','--diagnostic-enumerated-compute','cpu-gpu','--timeout','600']
+        command = ['python3',str(IOS/'validation/run_enumerated_production_device.py'),'--asset-root',str(args.asset_root),'--device','00008150-000A05CA1440401C','--reference-wav','/Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.wav','--reference-transcript','/Volumes/WD/Codes/dub/dub_ios/ios/ExpressionHeadToHead/GeneratedAssets/leijun-1.txt','--host-receipt',str(IOS/'.work/reference-release/coreml/reference_host_parity_receipt.json'),'--output',str(out),'--team','H5R282PV62','--reuse-staging','--wait-thermal-nominal','--reset-reference-conditioning','--skip-build','--skip-variable-smoke','--diagnostic-enumerated-compute','cpu-gpu','--timeout','600']
         for r in ne: command += ['--placement',r+':CPU_AND_NE']
         out.mkdir(parents=True,exist_ok=True)
         print(f'[ANE-MATRIX] START {name} {placement}',flush=True)

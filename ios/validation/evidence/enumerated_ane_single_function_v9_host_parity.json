@@ -1,0 +1,420 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_HOST_PACKAGING_PARITY",
+  "scope": "HOST_COMPONENT_SYNTHETIC_INPUT_ONLY_NOT_PHYSICAL_OR_ENDPOINT_PARITY",
+  "N": 260,
+  "models": {
+    "conditions": {
+      "inputs": {
+        "tokens": {
+          "shape": [
+            1,
+            260
+          ],
+          "dtype": "int32"
+        },
+        "prompt_tokens": {
+          "shape": [
+            1,
+            151
+          ],
+          "dtype": "int32"
+        },
+        "prompt_feat": {
+          "shape": [
+            1,
+            302,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "speaker": {
+          "shape": [
+            1,
+            192
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        0.43223462501191534,
+        0.27079275000141934
+      ],
+      "status": "PASS",
+      "outputs": {
+        "mu": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        },
+        "spks": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80
+          ]
+        },
+        "cond": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        }
+      }
+    },
+    "flow0": {
+      "inputs": {
+        "x": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "mu": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        },
+        "t": {
+          "shape": [
+            2
+          ],
+          "dtype": "float32"
+        },
+        "spks": {
+          "shape": [
+            2,
+            80
+          ],
+          "dtype": "float32"
+        },
+        "cond": {
+          "shape": [
+            2,
+            80,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        8.31142179199378,
+        7.208840167004382
+      ],
+      "status": "PASS",
+      "outputs": {
+        "h": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        },
+        "te": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            1024
+          ]
+        }
+      }
+    },
+    "flow1": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.299148874997627,
+        6.600371458000154
+      ],
+      "status": "PASS",
+      "outputs": {
+        "h_out": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow2": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.786509500001557,
+        6.592378249988542
+      ],
+      "status": "PASS",
+      "outputs": {
+        "h_out": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow3": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.296026791998884,
+        6.525973666997743
+      ],
+      "status": "PASS",
+      "outputs": {
+        "h_out": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow4": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        7.26627441700839,
+        6.57378283298749
+      ],
+      "status": "PASS",
+      "outputs": {
+        "h_out": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            822,
+            1024
+          ]
+        }
+      }
+    },
+    "flow5": {
+      "inputs": {
+        "h": {
+          "shape": [
+            2,
+            822,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "te": {
+          "shape": [
+            2,
+            1024
+          ],
+          "dtype": "float32"
+        },
+        "mask": {
+          "shape": [
+            2,
+            1,
+            822
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        2.9677689999953145,
+        2.747070209006779
+      ],
+      "status": "PASS",
+      "outputs": {
+        "velocity": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            2,
+            80,
+            822
+          ]
+        }
+      }
+    },
+    "hift": {
+      "inputs": {
+        "mel": {
+          "shape": [
+            1,
+            80,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "f0": {
+          "shape": [
+            1,
+            520
+          ],
+          "dtype": "float32"
+        },
+        "phase": {
+          "shape": [
+            1,
+            520,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "noise": {
+          "shape": [
+            1,
+            249600,
+            9
+          ],
+          "dtype": "float32"
+        },
+        "norm": {
+          "shape": [
+            1,
+            1,
+            249600
+          ],
+          "dtype": "float32"
+        }
+      },
+      "elapsedSeconds": [
+        2.373237457999494,
+        1.8122669580043294
+      ],
+      "status": "PASS",
+      "outputs": {
+        "pcm": {
+          "maxAbs": 0.0,
+          "finite": true,
+          "shape": [
+            1,
+            249600
+          ]
+        }
+      }
+    }
+  }
+}

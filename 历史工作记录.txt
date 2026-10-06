@@ -251,3 +251,10 @@ GitHub Timeline：已commit未push1f15521；当前增补未commit，下一步com
 修改文件：仅新增ios/validation/evidence/enumerated_multibucket_rtf_audit.json与本历史记录；审计期间未改model、asset、benchmark代码。已有未提交优化改动原样保留且未安装；停止时的额外host编译已完成但未安装。
 验证：实际device payloadTreeSha256=4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa，manifestSHA=2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee；8个acoustic均4-function MLProgram/n257_384，全部package SHA与冻结export一致；N260/T822/G520、249600/24000=10.4s、seed42、Flow6、public API lane、no playback、iPhone18,4/iOS27.2、nominal start一致，single-function roles=[]。严格结论INVALID_COMPARISON：历史两份receipt/console未记录实际text或text SHA；旧baseline也无reference bytes hash，不能按用户禁止source推断的标准认证完整输入identity；不是发现acoustic被替换。当前reference readback等于指定LeiJun SHA。Source执行HEAD=0bae3df51b27b0f5089330ff529739220b71b030，baselineHEAD782e79c。额外single-function诊断只在本地/private/tmp，未staged、未用于此run。
 GitHub Timeline：0bae3df已commit未push；本审计证据与日志当前未commit，随后只选择性commit这两项；不提交未完成优化code、不push。优化暂停，等待用户后续指令。
+
+时间：2026-10-05T20:03:31.626988-04:00
+用户 Prompt：push当前代码与结果；恢复严格algorithm unchanged的runtime/placement/cache/无损partition优化，保存精确输入identity与physical evidence。
+具体动作：审查暂停时未提交diagnostic代码与失败receipt，先选择性提交所有源码/JSON结果，不提交models/audio/cache。指定20:00已过，push后直接恢复当前chat任务，不另建chat或定时任务。
+修改文件：DeviceSmoke、device/matrix runner、single-function exporter与host parity runner、各JSON结果及历史记录。
+验证：新增诊断app在暂停前Release compile PASS（未安装）；single-function v9 host CPU包装对照8角色maxAbs0；v8和sandbox失败均保留。0.5866历史审计依然INVALID_COMPARISON，不补造输入哈希。
+GitHub Timeline：当前98e9e1e已commit未push；本条随后选择性commit与push当前optimization branch。

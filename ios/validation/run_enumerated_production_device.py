@@ -169,6 +169,7 @@ def main() -> None:
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--wait-thermal-nominal", action="store_true")
     parser.add_argument("--reset-reference-conditioning", action="store_true")
     parser.add_argument("--skip-build", action="store_true", help="reuse the already installed exact diagnostic host")
     parser.add_argument("--timeout", type=int, default=1800)
@@ -355,6 +356,8 @@ def main() -> None:
                 candidate_args.append("--validation-enumerated-cpu-only")
             candidate_args += ["--validation-placement=" + item for item in args.placement]
             candidate_args += ["--validation-single-function=" + item for item in args.single_function]
+            if args.wait_thermal_nominal:
+                candidate_args.append("--wait-thermal-nominal")
             if args.reset_reference_conditioning:
                 candidate_args.append("--reset-reference-conditioning")
             process = launch_with_console(

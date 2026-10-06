@@ -73,6 +73,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
     @Published var receiptJSON = ""
     @Published var availableFlowSteps = Set<Int>()
     var didAutoRun = false
+    private var benchmarkPeakFootprint: UInt64 = 0
     private var benchmarkThermalPeak = ProcessInfo.ThermalState.nominal
     private var player: AVAudioPlayer?
     private var flowStepAudios: [Int: CosyVoice3Audio] = [:]
@@ -112,7 +113,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
         defer { UIApplication.shared.isIdleTimerDisabled = idleSetting }
         do {
             let resources = try Self.generatedAssets()
-            if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
+            if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
             else if ProcessInfo.processInfo.arguments.contains("--candidate-benchmark") { await runCandidateBenchmark() }
             else if FileManager.default.fileExists(atPath: resources.appendingPathComponent("variable-public-api-smoke-mode.json").path)
                  || FileManager.default.fileExists(atPath: resources.appendingPathComponent("dynamic-public-api-smoke-mode.json").path) {
@@ -347,17 +349,29 @@ final class CosyVoice3SmokeModel: ObservableObject {
     func runCandidateBenchmark() async {
         guard !running else { return }; running = true; status = "RUNNING Candidate public-API cold/warm benchmark..."; defer { running = false }
         if let stale = try? Self.receiptURL("candidate-benchmark-receipt.json") { try? FileManager.default.removeItem(at: stale) }
+        benchmarkPeakFootprint = Self.processFootprint()
         benchmarkThermalPeak = ProcessInfo.processInfo.thermalState
         let thermalMonitor = Task { @MainActor in
             while !Task.isCancelled {
+                benchmarkPeakFootprint = max(benchmarkPeakFootprint, Self.processFootprint())
                 if ProcessInfo.processInfo.thermalState.rawValue > benchmarkThermalPeak.rawValue { benchmarkThermalPeak = ProcessInfo.processInfo.thermalState }
                 try? await Task.sleep(for: .seconds(1))
             }
         }
         defer { thermalMonitor.cancel() }
         do {
+            if CommandLine.arguments.contains("--wait-thermal-nominal") {
+                let started = Date()
+                while ProcessInfo.processInfo.thermalState != .nominal && Date().timeIntervalSince(started) < 300 {
+                    let waiting: [String: Any] = ["schemaVersion":1,"status":"RUNNING","phase":"THERMAL_WAIT","recordedAtUnix":Int(Date().timeIntervalSince1970),"thermalState":Self.thermalName(ProcessInfo.processInfo.thermalState)]
+                    _ = try Self.write(waiting, to: Self.receiptURL("candidate-benchmark-receipt.json"))
+                    try await Task.sleep(for: .seconds(5))
+                }
+            }
             let validationCacheReset = try Self.resetValidationCosyVoiceCachesIfRequested()
             let thermalStart = ProcessInfo.processInfo.thermalState
+            benchmarkThermalPeak = thermalStart
+            benchmarkPeakFootprint = Self.processFootprint()
             guard thermalStart == .nominal else {
                 throw SmokeError("Candidate benchmark requires thermal nominal at start; actual=\(Self.thermalName(thermalStart))")
             }
@@ -439,6 +453,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 receipt["signedHostBuildSourceCommit"] = value["sourceCommit"]
                 guard value["sourceCommit"] as? String == fixture.sourceCommit else { throw SmokeError("installed binary source binding mismatch") }
             }
+            receipt["sampledPeakPhysicalFootprintBytes"] = benchmarkPeakFootprint
+            receipt["memoryMeasurement"] = "task_info phys_footprint sampled at 1Hz; not exact transient peak"
             receipt["thermalPeak"] = Self.thermalName(benchmarkThermalPeak)
             receipt["requestedComputePlacementByRole"] = Self.requestedPlacements()
             receipt["residencyEvidence"] = "requested placement only, residency not proven"
@@ -755,6 +771,84 @@ final class CosyVoice3SmokeModel: ObservableObject {
         model.status="FAIL \(String(describing:error))"
     }
 
+    func runANEStatefulParity() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let filename = "ane-llm-parity-receipt.json"
+        do {
+            let fixture = try Self.fixture()
+            let cache = CosyVoice3CompiledModelCache()
+            let prefillURL = try cache.compiledURL(for: fixture.runtime.appendingPathComponent("models/llm-opt-perlayer-prefill.mlpackage"))
+            let decodeURL = try cache.compiledURL(for: fixture.runtime.appendingPathComponent("models/llm-opt-perlayer-decode-maskwrite512.mlpackage"))
+            defer { try? FileManager.default.removeItem(at: prefillURL); try? FileManager.default.removeItem(at: decodeURL) }
+            let textEmbeddings = try Data(contentsOf: fixture.runtime.appendingPathComponent("embeddings/text_embedding_fp16.bin"), options: .mappedIfSafe)
+            let speechEmbeddings = try Data(contentsOf: fixture.runtime.appendingPathComponent("embeddings/speech_embedding_fp16.bin"), options: .mappedIfSafe)
+            func array(_ shape: [Int]) throws -> MLMultiArray {
+                let a = try MLMultiArray(shape: shape.map(NSNumber.init(value:)), dataType: .float16)
+                memset(a.dataPointer, 0, a.count*2); return a
+            }
+            func rope(_ position: Int) -> (Data, Data) {
+                var c = [UInt16](repeating: 0, count: 64); var t = c
+                for i in 0..<32 {
+                    let angle = Double(position) / pow(1_000_000.0, Double(2*i)/64.0)
+                    c[i] = Float16(cos(angle)).bitPattern; c[i+32] = c[i]
+                    t[i] = Float16(sin(angle)).bitPattern; t[i+32] = t[i]
+                }
+                return (c.withUnsafeBytes { Data($0) }, t.withUnsafeBytes { Data($0) })
+            }
+            let x = try array([1,224,896]), c = try array([1,1,224,64]), t = try array([1,1,224,64]), mask = try array([1,1,224,224])
+            for position in 0..<224 {
+                if position < 54 {
+                    let token = (position*997)%151936; let data = textEmbeddings.subdata(in: token*1792..<(token+1)*1792)
+                    data.withUnsafeBytes { memcpy(x.dataPointer.advanced(by: position*1792), $0.baseAddress!, 1792) }
+                }
+                let r = rope(position)
+                r.0.withUnsafeBytes { memcpy(c.dataPointer.advanced(by: position*128), $0.baseAddress!, 128) }
+                r.1.withUnsafeBytes { memcpy(t.dataPointer.advanced(by: position*128), $0.baseAddress!, 128) }
+                for j in 0..<224 { mask.dataPointer.assumingMemoryBound(to: UInt16.self)[position*224+j] = j <= position && j < 54 ? 0 : 0xfc00 }
+            }
+            let provider = try MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":t,"mask":mask])
+            func run(_ prefillUnits: MLComputeUnits, _ decodeUnits: MLComputeUnits) throws -> [[Float]] {
+                try autoreleasepool {
+                    let pc = MLModelConfiguration(); pc.computeUnits = prefillUnits
+                    let dc = MLModelConfiguration(); dc.computeUnits = decodeUnits
+                    let prefill = try MLModel(contentsOf: prefillURL, configuration: pc)
+                    let decode = try MLModel(contentsOf: decodeURL, configuration: dc)
+                    let session = try CosyVoice3FP16StatefulLLMSession(prefillModel: prefill, decodeModel: decode, diagnosticHostWriteMask: true, logicalPrefixLength: 54)
+                    var logits = [[Float]]()
+                    func values(_ result: MLFeatureProvider) throws -> [Float] {
+                        guard let a = result.featureValue(for: "logits")?.multiArrayValue else { throw SmokeError("logits missing") }
+                        let count = 6761; let offset = 0
+                        guard a.count >= offset+count else { throw SmokeError("logits ABI mismatch") }
+                        return (0..<count).map { a[offset+$0].floatValue }
+                    }
+                    logits.append(try values(session.prefill(provider)))
+                    for step in 0..<260 {
+                        let token = (step*37)%6561; let embedding = speechEmbeddings.subdata(in: token*1792..<(token+1)*1792); let r = rope(54+step)
+                        let result = try session.decode(embedding: embedding, cos: r.0, sin: r.1, absolutePosition: 54+step)
+                        logits.append(try values(result))
+                    }
+                    return logits
+                }
+            }
+            let control = try run(.cpuOnly, .cpuOnly)
+            var rows = [[String: Any]]()
+            for (name,prefill,decode) in [("prefill-ne",MLComputeUnits.cpuAndNeuralEngine,MLComputeUnits.cpuOnly),("decode-ne",MLComputeUnits.cpuOnly,MLComputeUnits.cpuAndNeuralEngine),("full-llm-ne",MLComputeUnits.cpuAndNeuralEngine,MLComputeUnits.cpuAndNeuralEngine)] {
+                do {
+                    let candidate = try run(prefill,decode)
+                    var maxAbs = 0.0; var squaredError = 0.0; var squaredControl = 0.0; var finite = true; var top1Agreement = 0
+                    for (a,b) in zip(control,candidate) {
+                        let ai = a.indices.max(by: { a[$0] < a[$1] }); let bi = b.indices.max(by: { b[$0] < b[$1] })
+                        if ai == bi { top1Agreement += 1 }
+                        for (u,v) in zip(a,b) { let delta = Double(u)-Double(v); finite = finite && u.isFinite && v.isFinite; maxAbs = max(maxAbs,abs(delta)); squaredError += delta*delta; squaredControl += Double(u)*Double(u) }
+                    }
+                    rows.append(["variant":name,"status":finite ? "FINITE_NUMERICAL_DIAGNOSTIC" : "FAIL_NONFINITE","maxAbs":maxAbs,"relativeL2":sqrt(squaredError/max(squaredControl,1e-30)),"top1Agreement":top1Agreement,"logitSteps":control.count,"strictMaxAbs005Pass":finite && maxAbs <= 0.005])
+                } catch { rows.append(["variant":name,"status":"FAIL","error":String(describing:error)]) }
+            }
+            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DIAGNOSTIC_COLLECTION","recordedAtUnix":Int(Date().timeIntervalSince1970),"sourceCommit":fixture.sourceCommit,"payloadTreeSha256":fixture.payloadTreeSHA256 ?? "","deviceModelIdentifier":Self.machineIdentifier(),"systemVersion":UIDevice.current.systemVersion,"logicalPrefix":54,"physicalPrefill":224,"decodeSteps":260,"fixture":"deterministic actual embedding rows + native RoPE, common teacher forcing; synthetic prompt, no sampler; not speech quality or endpoint parity","models":rows,"productionPromotion":false]
+            _ = try Self.write(receipt, to: Self.receiptURL(filename)); status = "PASS numerical diagnostic collection"
+        } catch { Self.recordFailure(error, filename:filename, into:self) }
+    }
+
     func runANEComputePlans() async {
         guard !running else { return }; running = true; defer { running = false }
         let filename = "ane-compute-plan-receipt.json"
@@ -788,21 +882,28 @@ final class CosyVoice3SmokeModel: ObservableObject {
                     default: throw SmokeError("invalid compute policy \(policy)")
                     }
                     config.functionName = relative.hasPrefix("enumerated-acoustic/") && !single ? "n257_384" : nil
+                    row["stage"] = "model-load"; rows[rows.count-1] = row; try save("RUNNING")
+                    try autoreleasepool { _ = try MLModel(contentsOf: compiled, configuration: config) }
+                    row["modelLoadStatus"] = "PASS"
                     row["stage"] = "compute-plan"; rows[rows.count-1] = row; try save("RUNNING")
                     let plan = try await MLComputePlan.load(contentsOf: compiled, configuration: config)
-                    var counts = [String: Int](); var operations = [[String: Any]]()
+                    var costs = [String: Double](); var counts = [String: Int](); var operations = [[String: Any]]()
                     if case let .program(program) = plan.modelStructure {
                         func visit(_ block: MLModelStructure.Program.Block) {
                             for op in block.operations {
                                 if let usage = plan.deviceUsage(for: op) {
                                     counts[usage.preferred.description, default: 0] += 1
-                                    operations.append(["operator": op.operatorName, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
+                                    let cost = plan.estimatedCost(of: op)?.weight ?? 0
+                                    costs[usage.preferred.description, default: 0] += cost
+                                    operations.append(["operator": op.operatorName, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
                                 }
                                 for child in op.blocks { visit(child) }
                             }
                         }
-                        for function in program.functions.values { visit(function.block) }
+                        if let selected = program.functions[config.functionName ?? "main"] { visit(selected.block) }
+                        else { for function in program.functions.values { visit(function.block) } }
                     }
+                    row["estimatedCostByPreferredDevice"] = costs
                     row["preferredCounts"] = counts; row["operations"] = operations; row["status"] = "PASS_COMPUTE_PLAN"
                     print("[ANE-COMPUTE-PLAN] role=\(role) single=\(single) counts=\(counts)")
                 } catch {
@@ -813,6 +914,15 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             try save("PASS_DIAGNOSTIC_COLLECTION"); status = "PASS diagnostic compute-plan collection"
         } catch { Self.recordFailure(error, filename: filename, into: self) }
+    }
+
+    private static func processFootprint() -> UInt64 {
+        var info = task_vm_info_data_t()
+        var count = mach_msg_type_number_t(MemoryLayout<task_vm_info_data_t>.size / MemoryLayout<integer_t>.size)
+        let status = withUnsafeMutablePointer(to: &info) { pointer in
+            pointer.withMemoryRebound(to: integer_t.self, capacity: Int(count)) { task_info(mach_task_self_, task_flavor_t(TASK_VM_INFO), $0, &count) }
+        }
+        return status == KERN_SUCCESS ? info.phys_footprint : 0
     }
 
     private static func validateExperimentalModels(runtime: URL) throws -> [String: Any] {
