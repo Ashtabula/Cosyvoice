@@ -1,0 +1,24 @@
+# analyze_execution_cpu_trace.py
+# Requirement: filter current target PID CPU samples to exact nativeprediction windows, without inventing op assignments.
+from pathlib import Path
+import json,xml.etree.ElementTree as ET,collections,bisect,hashlib,importlib.util
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');E=ROOT/'ios/validation/evidence/llm_execution_audit_20261006'
+spec=importlib.util.spec_from_file_location('tracehelpers',ROOT/'ios/validation/analyze_enumerated_residency_trace.py');mod=importlib.util.module_from_spec(spec);spec.loader.exec_module(mod)
+x=json.loads((E/'current_trace_attribution.json').read_text());pid=str(x['processID']);spans=sorted((s['startNanoseconds'],s['endNanoseconds']) for s in x['stageIntervals'] if s['stage']=='llm.decode.prediction');starts=[s[0] for s in spans]
+t=mod.Table(Path('/private/tmp/cosy-llm-execution-time-profile.xml'));libs=collections.Counter();frames=collections.Counter();count=0;weighted=0;unsymbolicated=0;rows=[]
+for r in t.rows:
+ if '('+pid+')' not in t.text(r.find('process')):continue
+ ts=t.number(r.find('sample-time'));i=bisect.bisect_right(starts,ts)-1
+ if i<0 or ts>spans[i][1]:continue
+ if t.text(r.find('thread-state'))!='Running':continue
+ stack=t.node(r.find('tagged-backtrace'))
+ if stack is None:continue
+ fs=[t.node(f) for f in stack.findall('frame')];fs=[f for f in fs if f is not None]
+ w=t.number(r.find('weight'))/1e6;count+=1;weighted+=w
+ top=fs[0] if fs else None;name=top.get('name','unknown') if top is not None else 'unknown';binary=t.node(top.find('binary')) if top is not None else None;lib=binary.get('name','unknown') if binary is not None else 'unknown'
+ frames[name]+=w;libs[lib]+=w;unsymbolicated+=name.startswith('0x');rows.append({'timeNanoseconds':ts,'sampleWeightMs':w,'topFrame':name,'topLibrary':lib,'allFrameNames':[f.get('name','') for f in fs]})
+(E/'cpu_trace_summary.json').write_text(json.dumps({'sourceSHA':x['sourceCommit'],'processID':pid,'samplesInNativeDecodeWindows':count,'weightedRunningCPUms':weighted,'topLibrariesWeightedMs':dict(libs),'topFramesWeightedMs':dict(frames.most_common(30)),'unsymbolicatedTopFrameCount':unsymbolicated,'meaning':'statistical CPU samples; not exact per-op assignment/CPUfallback latency; sampleweight may overlap scheduler sampling; otherPIDCPUexcluded','rawXML':str(t.path),'rawXMLSHA256':hashlib.sha256(t.path.read_bytes()).hexdigest(),'sampleRows':rows},indent=2)+'\n')
+print('CPU samples',count,'ms',weighted,'libs',dict(libs),'unknownframes',unsymbolicated)
+for m in x['models']:
+ if m['role'] in ['llmDecode','llmPrefill']:
+  c=m['activityCounts']['Prediction'];print(m['role'],'counts',c,m['aneHardwarePredictionCount'],m['anePredictionsContainedInCoreMLPrediction'],'CoreMLavg',m['summedActivityMilliseconds']['Prediction']/c,'ANEintervalavg',m['aneHardwarePredictionMilliseconds']/c,'coverage',m['aneHardwarePredictionMilliseconds']/m['summedActivityMilliseconds']['Prediction'])

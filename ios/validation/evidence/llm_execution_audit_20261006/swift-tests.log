@@ -1,0 +1,56 @@
+Building for debugging...
+[Computing dependencies]
+[1 / 2] swift-transformers_Hub
+[2 / 12] CosyVoice3Core
+[6 / 16] CosyVoice3Core
+[10 / 20] CosyVoice3Core
+[12 / 22] CosyVoice3Core
+[16 / 21] CosyVoice3CoreTests-product
+[27 / 32] CosyVoice3CoreTests-product
+[29 / 32] CosyVoice3CoreTests-product
+[31 / 35] CosyVoice3CoreTests-product
+Build complete! (3.27 sec)
+Test Suite 'Selected tests' started at 2026-10-06 10:02:28.207.
+Test Suite 'CosyVoice3CoreTests.xctest' started at 2026-10-06 10:02:28.207.
+Test Suite 'EmbeddingTableTests' started at 2026-10-06 10:02:28.207.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableReadsExactRow]' started.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableReadsExactRow]' passed (0.002 seconds).
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableValidatesByteCount]' started.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableValidatesByteCount]' passed (0.000 seconds).
+Test Suite 'EmbeddingTableTests' passed at 2026-10-06 10:02:28.210.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.002 (0.002) seconds
+Test Suite 'EnumeratedAcousticContractTests' started at 2026-10-06 10:02:28.210.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' passed (0.000 seconds).
+Test Suite 'EnumeratedAcousticContractTests' passed at 2026-10-06 10:02:28.211.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'PublicContractTests' started at 2026-10-06 10:02:28.211.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' passed (0.000 seconds).
+Test Suite 'PublicContractTests' passed at 2026-10-06 10:02:28.211.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'SharedSpeechEmbeddingTests' started at 2026-10-06 10:02:28.211.
+Test Case '-[CosyVoice3CoreTests.SharedSpeechEmbeddingTests testSharedRowsAndRoPEMatchStandaloneURL]' started.
+Test Case '-[CosyVoice3CoreTests.SharedSpeechEmbeddingTests testSharedRowsAndRoPEMatchStandaloneURL]' passed (0.012 seconds).
+Test Suite 'SharedSpeechEmbeddingTests' passed at 2026-10-06 10:02:28.224.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.012) seconds
+Test Suite 'CosyVoice3CoreTests.xctest' passed at 2026-10-06 10:02:28.224.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.016 (0.017) seconds
+Test Suite 'Selected tests' passed at 2026-10-06 10:02:28.224.
+	 Executed 13 tests, with 0 failures (0 unexpected) in 0.016 (0.017) seconds

@@ -1,0 +1,17 @@
+[
+  {
+    "workspacePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/llm-execution-audit-20261006/graph-full/graph_inventory.json",
+    "bytes": 3954208,
+    "sha256": "623522b8315365cefd1a9aa98b2d0ff9633dff085c819eae248376fb5e59da81"
+  },
+  {
+    "workspacePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/llm-execution-audit-20261006/graph-full/llmDecode-operations.json",
+    "bytes": 4736379,
+    "sha256": "de939205bef20618a1d0a2eee6f81155464121fce9d78dc51e0ac379dfb9e841"
+  },
+  {
+    "workspacePath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/llm-execution-audit-20261006/graph-full/llmPrefill-operations.json",
+    "bytes": 5204512,
+    "sha256": "de13c9b6396c61031b2efe4706c34532fb4cae28ffb40908a8bfa65ad5365ea2"
+  }
+]

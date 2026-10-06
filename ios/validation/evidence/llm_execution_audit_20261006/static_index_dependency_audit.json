@@ -1,0 +1,12 @@
+{
+  "llmPrefill": {
+    "checkedShapeIndexBindings": 1132,
+    "nonConstantBindings": [],
+    "meaning": "serialized graph dependency proof; does not imply runtime compiler treats everyconstant aszero-cost"
+  },
+  "llmDecode": {
+    "checkedShapeIndexBindings": 1132,
+    "nonConstantBindings": [],
+    "meaning": "serialized graph dependency proof; does not imply runtime compiler treats everyconstant aszero-cost"
+  }
+}

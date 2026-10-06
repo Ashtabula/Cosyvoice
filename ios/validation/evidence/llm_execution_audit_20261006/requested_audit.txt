@@ -1,0 +1,540 @@
+You are working on:
+
+Ashtabula/Cosyvoice
+
+This task begins AFTER the current Model Residency / Peak Memory Optimization investigation is complete.
+
+Read the output and evidence from that task first. Do not undo any accepted low-risk residency optimization.
+
+Your next task is to perform a rigorous execution-level audit of the current CosyVoice3 iOS LLM prefill/decode Core ML implementation.
+
+The purpose is to determine whether the approximately 12.6 ms per autoregressive decode prediction can be materially improved, especially in ways that may reduce energy consumption and thermal load.
+
+This is an AUDIT FIRST.
+
+Do NOT immediately rewrite, reconvert, repartition, quantize, or replace the production LLM.
+Do NOT change production model assets during the initial audit.
+
+The first deliverable is an evidence-supported explanation of where Core ML decode time is going and whether an ANE-oriented LLM Decode v2 is technically justified.
+
+# 1. Read all current evidence first
+
+Before doing anything, inspect the latest committed evidence for:
+- accepted 2-shard runtime
+- embedding-copy optimization
+- warm-decode investigation
+- model-residency investigation
+- latest physical-device benchmark
+- latest memory timeline
+- current asset manifest
+- current Core ML conversion/export scripts
+- current LLM prefill model
+- current LLM decode model
+- current MLState/KV implementation
+- current compute-unit configuration
+- current listening checkpoint
+
+Do not rely only on this prompt. Trace the current production code and exact model artifacts.
+
+# 2. Frozen production baseline
+
+Treat the current accepted production runtime as immutable reference.
+
+Unless the residency task has produced a newly accepted baseline, the relevant frozen configuration is approximately:
+- SHARDS = 2
+- flowSteps = 6
+- N = 260
+- 259 autoregressive decode calls
+- function = n257_384
+- output sample rate = 24,000 Hz
+- output sample count = 249,600
+- warm total ≈ 4.86 s
+- warm RTF ≈ 0.468
+- warm LLM generation ≈ 3.26 s
+- Core ML decode prediction total ≈ 3.254 s
+- average Core ML decode prediction ≈ 12.56 ms
+- RAS total ≈ 24 ms
+- logits fill total ≈ 0.336 ms
+- input-copy total ≈ 0.094 ms
+- write-mask total ≈ 0.017 ms
+
+Use the latest accepted values from repository evidence if they differ.
+
+Core ML prediction dominates LLM generation. Do not reopen disproven host-side micro-optimization paths without new evidence.
+
+# 3. Primary question
+
+Answer: Why does one incremental LLM Core ML decode prediction require approximately 12.6 ms on the current physical iPhone?
+
+Determine whether the dominant limitation is primarily:
+- actual ANE compute
+- CPU compute or fallback
+- mixed CPU/ANE execution
+- graph partition boundaries
+- synchronization
+- MLState/KV handling
+- attention implementation
+- unsupported operations
+- tensor layout/conversion
+- model dispatch overhead
+- Core ML output materialization
+- memory bandwidth
+- model architecture
+- or some combination
+
+Do not guess. Mark unavailable distinctions UNKNOWN.
+
+# 4. Terminology
+
+Do not equate computeUnits=.cpuAndNeuralEngine with full ANE residency.
+
+Always distinguish:
+REQUESTED COMPUTE UNITS
+OBSERVED / PROFILED EXECUTION
+INFERRED EXECUTION
+UNKNOWN RESIDENCY
+
+Never invent ANE utilization percentages.
+
+# 5. Trace the exact decode graph
+
+Record:
+- source model and exact export/conversion scripts
+- coremltools version
+- deployment target
+- ML Program/model type
+- weight and activation precision where known
+- input/output shapes
+- state schema
+- context length
+- hidden size/layers/heads where source-supported
+- KV layout
+- batch/token dimensions
+- flexible/enumerated shapes
+- compute-unit configuration
+- optimization hints/specialization configuration
+
+# 6. Separate prefill and decode
+
+Measure prefill and incremental decode separately:
+- wall time
+- load time
+- state creation
+- prediction count
+- per-token latency distribution
+
+Do not infer decode efficiency from prefill.
+
+# 7. Measure all 259 decode predictions
+
+Capture with low-overhead instrumentation:
+- token index
+- prediction wall time
+- valid context length
+- thermal state
+- process CPU delta if reliable
+
+Optionally capture energy/memory/signposts if measurement overhead is controlled.
+
+Produce min, median, mean, p90, p95, p99, max and early/middle/late-token behavior. Compare instrumented runs with uninstrumented controls.
+
+# 8. Context-length dependence
+
+Group actual decode calls by context length (for example 1-32, 33-64, 65-128, 129-192, 193-260) and determine whether prediction time is constant or grows with validLength.
+
+If it grows, investigate whether attention/state work still scales with context despite KV caching.
+
+# 9. Core ML graph operator inventory
+
+Inspect the actual converted graph for:
+- matmul/linear
+- attention/softmax
+- RMSNorm/LayerNorm
+- RoPE
+- gather/scatter/slice/concat
+- reshape/transpose
+- state read/write
+- masking/comparisons/indexing
+- casts/reductions/elementwise operations
+- dynamic slicing/shape operations
+
+Identify actual operators that may reduce ANE-friendly execution. Do not rely on generic operator assumptions.
+
+# 10. Graph fragmentation
+
+Investigate whether execution resembles:
+ANE -> CPU -> ANE -> CPU state op -> ANE
+
+Look for:
+- execution segments
+- compute-device transitions
+- CPU fallback
+- synchronization boundaries
+- small CPU islands between large accelerator-compatible blocks
+
+If Apple tooling cannot reveal exact segmentation, state that.
+
+# 11. Apple profiling tools
+
+Use available Apple-supported tooling where practical:
+- Xcode Core ML performance reports
+- Instruments
+- Core ML signposts/instrumentation
+- model compilation diagnostics
+- ML Program inspection
+- Core ML performance APIs
+- device console diagnostics
+
+Do not fabricate unsupported placement claims.
+
+# 12. MLState/KV audit
+
+Verify directly that the runtime creates one MLState/session, reuses it, and does not perform full host KV readback/copy per token.
+
+Then inspect whether state reads/writes:
+- are static/contiguous
+- require dynamic slicing/scatter
+- appear accelerator-friendly
+- create graph boundaries/fallback
+
+Do not change state behavior during audit.
+
+# 13. Attention audit
+
+Determine:
+- whether Q/K/V are current-token only
+- how prior K/V are read
+- whether full fixed context is processed
+- how masking is represented
+- where RoPE occurs
+- whether layout transposes repeat per layer
+- whether tensor layout is plausibly ANE-friendly
+
+Prove behavior from graph/source.
+
+# 14. Static-shape audit
+
+Audit RangeDim, flexible/enumerated shapes, dynamic axes, dynamic slicing, sequence dimensions and shape-dependent branches.
+
+If host behavior is token=1/context=512 but graph remains unnecessarily dynamic, record this as a Decode v2 opportunity. Do not change it yet.
+
+# 15. Output materialization
+
+Trace all decode outputs:
+- logits
+- hidden
+- state-related outputs
+- diagnostics/intermediates
+
+Determine which are actually consumed, their size/frequency, and whether large CPU-visible outputs may be materialized unnecessarily.
+
+# 16. Hidden output
+
+Specifically determine whether `hidden` is required every token, only at the end, or merely exists for export convenience.
+
+A large unnecessary per-token hidden output may justify a Decode v2 experiment, but do not remove it during audit.
+
+# 17. Energy and thermal attribution
+
+Product priority is energy and thermal behavior.
+
+Where reliable OS process counters exist, measure separately:
+- LLM model load
+- prefill
+- autoregressive decode
+- acoustic model load
+- Flow
+- HiFT/F0
+- total synthesis
+
+Record when available:
+- wall time
+- process energy delta
+- average process power
+- process CPU time
+- thermal start/end
+
+Never estimate energy from battery percentage. Missing energy remains N/A.
+
+Primary energy KPI: mJ per generated audio second.
+Secondary: average synthesis power.
+Also retain RTF, thermal state and peak memory.
+
+# 18. Baseline table
+
+Produce a measured table:
+Stage | Wall ms | % synthesis time | Energy mJ | Avg mW | CPU ms | Execution evidence
+
+Include load/preparation, prefill, decode, Flow, HiFT/F0, other and total. Use N/A rather than estimates.
+
+# 19. Candidate risk classification
+
+Classify opportunities LOW/MEDIUM/HIGH.
+
+LOW/MEDIUM examples:
+- remove genuinely unused Core ML output
+- make unnecessarily dynamic shapes static
+- eliminate export-only outputs
+- constant-fold static graph metadata
+- improve specialization strategy
+
+MEDIUM:
+- operator decomposition
+- attention graph representation
+- state-update representation
+- repartitioning
+- tensor-layout changes
+
+HIGH:
+- precision/quantization changes
+- KV semantic changes
+- attention math/model architecture changes
+- generation/sampling changes
+
+Do not implement MEDIUM/HIGH changes in this audit.
+
+# 20. Decide whether ANE Decode v2 is justified
+
+Recommend a separate experimental ANE Decode v2 only if evidence shows material opportunity, such as:
+- significant CPU fallback
+- repeated ANE/CPU transitions
+- unnecessary dynamic shapes
+- state operations fragmenting execution
+- unnecessary output materialization
+- poor attention decomposition for ANE
+- avoidable layout conversions
+- clear specialization opportunity
+
+If current graph already appears highly efficient, say so.
+
+# 21. Proposal before implementation
+
+If Decode v2 is justified, first produce an engineering proposal:
+- exact graph issue
+- proposed change
+- latency mechanism
+- energy mechanism
+- thermal mechanism
+- numerical risk
+- reconversion/new-assets requirement
+- compatibility impact
+- validation requirements
+
+Do not implement it in this task.
+
+# 22. Preserve production assets
+
+Do NOT overwrite current models, manifests, Hugging Face assets, release catalog or accepted receipts.
+
+Current runtime remains LAST_KNOWN_GOOD.
+
+# 23. Future Decode v2 validation gate
+
+Define, but do not execute unless later authorized:
+1. source-model parity
+2. host numerical comparison
+3. token-by-token comparison
+4. long decode comparison
+5. MLState/KV validation
+6. EOS validation
+7. physical iPhone execution
+8. PCM validation
+9. listening test
+10. repeated warm benchmark
+11. energy comparison
+12. thermal comparison
+13. memory comparison
+
+If PCM differs, human listening becomes mandatory.
+
+# 24. Out of scope
+
+Do not revisit:
+- SHARDS
+- Flow steps
+- other engines
+- frontend/RAS/embedding-copy micro-optimization
+- generic Swift allocations
+- UI/benchmark presentation
+- Hugging Face publication
+
+# 25. Stop conditions
+
+Stop and report if:
+- tooling cannot expose stronger placement evidence
+- graph shows no obvious ANE-hostile behavior
+- decode is already well specialized
+- meaningful changes require high-risk numerical/architectural work without strong payoff
+- profiling overhead prevents reliable attribution
+
+Do not manufacture an ANE problem.
+
+# 26. Final report sections A-L
+
+A. Current production LLM architecture
+B. Physical decode baseline
+C. Core ML graph inventory
+D. Execution-placement evidence (REQUESTED/OBSERVED/INFERRED/UNKNOWN)
+E. Graph fragmentation
+F. MLState/KV audit
+G. Attention audit
+H. Static/dynamic shape audit
+I. Output materialization audit
+J. Energy attribution
+K. Thermal findings
+L. Optimization opportunity matrix
+
+For every candidate in L include:
+- bottleneck/evidence
+- expected latency/energy/thermal mechanism
+- risk
+- new assets required?
+- graph/numerical change?
+- listening gate required?
+- recommended/not recommended
+
+# 27. M. ANE Decode v2 decision
+
+Choose exactly ONE final classification:
+
+1. ANE_DECODE_V2_STRONGLY_JUSTIFIED
+2. ANE_DECODE_V2_PLAUSIBLE_NEEDS_TARGETED_PROTOTYPE
+3. CURRENT_DECODE_ALREADY_WELL_OPTIMIZED
+4. INSUFFICIENT_PLACEMENT_EVIDENCE
+5. NO_SAFE_MATERIAL_OPPORTUNITY_FOUND
+
+Explain the classification using measured evidence.
+
+Do not choose STRONGLY_JUSTIFIED merely because decode dominates wall time. Dominating wall time does not prove inefficient accelerator execution.
+
+For STRONGLY_JUSTIFIED, require at least one concrete, evidence-backed structural problem with a plausible material remedy.
+
+For PLAUSIBLE_NEEDS_TARGETED_PROTOTYPE, identify exactly one or two narrow prototypes that could answer the uncertainty without replacing the production runtime.
+
+For CURRENT_DECODE_ALREADY_WELL_OPTIMIZED, explain why the remaining ~12.6 ms appears dominated by necessary model compute rather than avoidable host/graph overhead.
+
+For INSUFFICIENT_PLACEMENT_EVIDENCE, specify what Apple tooling or additional instrumentation would be needed.
+
+For NO_SAFE_MATERIAL_OPPORTUNITY_FOUND, explicitly close low-value paths so future work does not repeat them.
+
+# 28. N. Recommended next experiment
+
+If and only if M selects STRONGLY_JUSTIFIED or PLAUSIBLE_NEEDS_TARGETED_PROTOTYPE, specify ONE next experiment.
+
+The experiment must:
+- live on a separate branch/profile
+- preserve LAST_KNOWN_GOOD
+- avoid overwriting current assets
+- have a clear hypothesis
+- change the smallest possible graph surface
+- have explicit success/failure criteria
+- include physical-device measurement
+- include energy/thermal measurement where available
+- include numerical/token/PCM comparison
+- require listening if PCM differs
+
+Examples of acceptable narrow experiments:
+- remove one proven-unused large output
+- create one static-shape decode export
+- replace one proven CPU-fragmenting state operation with an equivalent Core ML representation
+- test one alternate ANE-friendly operator decomposition
+
+Do not propose a broad "rewrite the whole LLM" as the first experiment.
+
+# 29. O. Quantitative success criteria for a future prototype
+
+Before implementing any future prototype, define acceptance thresholds relative to repeated baseline measurements.
+
+A prototype should be considered materially interesting only if it demonstrates one or more of:
+
+- decode latency reduction clearly larger than baseline physical noise
+- meaningful reduction in mJ/generated-audio-second
+- meaningful reduction in average synthesis power
+- improved thermal behavior under controlled repeated workloads
+- substantial memory reduction without latency/energy regression
+
+Do not hard-code an arbitrary required percentage if the measurement system cannot support it.
+
+However, improvements smaller than ordinary run-to-run noise must not be promoted as performance wins.
+
+Always report:
+- raw baseline runs
+- raw candidate runs
+- medians
+- ranges
+- order of execution
+- thermal start/peak/end
+- exact device/OS
+- source and asset identities
+
+# 30. P. Energy/thermal interpretation rules
+
+Do not claim lower heat merely from lower wall time.
+
+Do not claim lower energy merely from lower average power.
+
+Interpret together:
+Energy = power integrated over time.
+
+A candidate may:
+- run faster at higher power and still use less energy
+- run slower at lower power and use less energy
+- reduce energy but increase peak power
+- reduce peak power but increase total energy
+
+Report these tradeoffs explicitly.
+
+For the product use case, prioritize:
+1. energy per generated audio second
+2. sustained thermal behavior
+3. acceptable RTF
+4. peak/average power
+5. memory
+
+Do not sacrifice audio quality or stability for a small benchmark-only win.
+
+# 31. Q. Evidence preservation and repository discipline
+
+Store audit evidence separately from production release evidence.
+
+Preserve:
+- exact source SHA
+- exact model/asset tree identity
+- device identifier
+- OS version
+- frozen workload hashes
+- profiling configuration
+- raw per-token latency data
+- stage timing data
+- energy samples
+- thermal samples
+- Core ML graph inspection output
+- Instruments/Xcode exports when practical
+- console logs
+- analysis scripts
+- final summary
+
+Do not commit huge transient profiler artifacts unless repository policy already allows them; preserve a reproducible path/reference instead.
+
+Do not modify public SDK behavior merely to simplify profiling.
+
+Do not publish new Hugging Face assets during this audit.
+
+# 32. Final executive summary
+
+End the report with a concise executive summary answering exactly these questions:
+
+1. Is the current ~12.6 ms/token decode primarily known to be ANE compute, CPU/fallback, mixed execution, or UNKNOWN?
+2. Is there evidence of avoidable ANE↔CPU fragmentation?
+3. Does decode latency materially increase with context length?
+4. Is MLState/KV handling already efficient?
+5. Are any large decode outputs unnecessarily materialized?
+6. Which stage dominates measured synthesis energy?
+7. Which stage is the strongest thermal concern?
+8. Is ANE Decode v2 justified?
+9. What is the single highest-value next experiment?
+10. What should NOT be optimized further?
+
+The audit is successful even if the conclusion is that no ANE rewrite is justified.
+
+Evidence and restraint are more important than producing a code change.

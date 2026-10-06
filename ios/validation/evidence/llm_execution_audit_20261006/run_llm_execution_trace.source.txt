@@ -1,0 +1,26 @@
+# run_llm_execution_trace.py
+# Requirement: current-source frozen public requests under Apple CoreAI/CoreML/TimeProfiler signposts; no graph changes.
+from pathlib import Path
+import subprocess,threading,signal,json,hashlib,time
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');out=ROOT/'ios/.work/llm-execution-audit-20261006/profiled';out.mkdir(parents=True,exist_ok=True)
+trace=Path('/private/tmp/cosy-llm-execution-20261006-CoreAI.trace')
+command=['xcrun','xctrace','record','--template','Core AI','--instrument','Core ML','--instrument','Points of Interest','--instrument','Time Profiler','--device','00008150-000A05CA1440401C','--time-limit','180s','--output',str(trace),'--all-processes']
+proc=subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1);ready=threading.Event()
+def consume():
+ with (out/'trace-console.log').open('w') as f:
+  for line in proc.stdout:
+   print(line,end='',flush=True);f.write(line);f.flush()
+   if 'recording' in line.lower():ready.set()
+threading.Thread(target=consume,daemon=True).start()
+if not ready.wait(45):raise RuntimeError('profiling readiness failed, no request run')
+# Same collector but additive existing native signpost flag; retain exact script hash.
+s= (ROOT/'ios/validation/run_warm_decode_pass.py').read_text();s=s.replace("flags=['--no-playback'","flags=['--validation-stage-profiling','--no-playback'")
+p=Path('/private/tmp/run_warm_decode_profile.py');p.write_text(s)
+result=subprocess.run(['python3',str(p),'--mode','repeat','--execution-audit','--cache','selected-family','--output',str(out)])
+proc.send_signal(signal.SIGINT);code=proc.wait(timeout=60)
+r={'recordCommand':command,'tracePath':str(trace),'traceReturnCode':code,'requestRunnerReturnCode':result.returncode,'instrumentedNotPerformanceComparison':True,'noReadbackInsideTimedWork':True,'temporaryCollectorSHA256':hashlib.sha256(p.read_bytes()).hexdigest()}
+(out/'trace-binding.json').write_text(json.dumps(r,indent=2)+'\n')
+if code==0:subprocess.run(['xcrun','xctrace','export','--input',str(trace),'--toc','--output',str(out/'trace-toc.xml')],check=True)
+if result.returncode!=0:raise RuntimeError('profiled request refused/failed; no profilebenchmarkclaim')
+# Purpose: current frozen package/PID/modelactivity evidence; Python3/macOS/Xcode27.2 physicaliPhone27.2.
+# Upstream currentwarmcollector + AppleInstruments; generated2026-10-06. Derived trace stays local outsidegit.

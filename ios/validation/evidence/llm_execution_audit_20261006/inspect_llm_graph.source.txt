@@ -1,0 +1,28 @@
+from pathlib import Path
+import json,hashlib,collections,sys
+import coremltools as ct
+from google.protobuf.json_format import MessageToDict
+root=Path('/Volumes/WD/Codes/Cosyvoice');asset=root/'ios/.work/enumerated-n1-n450/generated-ac31e117938ed50132365973a103cc8425942700';out=root/'ios/validation/evidence/llm_execution_audit_20261006'
+prior=json.loads((root/'ios/validation/evidence/enumerated_ane_graph_audit.json').read_text())['models'];result={}
+for role in ['llmPrefill','llmDecode']:
+ path=asset/prior[role]['path'];rows=[]
+ for p in sorted(path.rglob('*')):
+  if p.is_file():
+   h=hashlib.sha256()
+   with p.open('rb') as f:
+    for chunk in iter(lambda:f.read(8*1024*1024),b''):h.update(chunk)
+   rows.append(dict(path=p.relative_to(path).as_posix(),bytes=p.stat().st_size,sha256=h.hexdigest()))
+ tree=hashlib.sha256(''.join(f"{r['path']}\0{r['bytes']}\0{r['sha256']}\n" for r in rows).encode()).hexdigest();assert tree==prior[role]['identity']['treeSha256']
+ m=ct.models.MLModel(str(path),skip_model_load=True);s=m.get_spec();ops=list(s.mlProgram.functions['main'].block_specializations['CoreML8'].operations)
+ full=[MessageToDict(o) for o in ops];types=collections.Counter();symbols=[];blocks=0
+ for o in full:
+  blocks+=len(o.get('blocks',[]))
+  for v in o.get('outputs',[]):
+   t=v.get('type',{}).get('tensorType',{});types[t.get('dataType','non-tensor')]+=1
+   for d in t.get('dimensions',[]):
+    if 'unknown' in d or 'symbol' in d:symbols.append(d)
+ (out/(role+'-operations.json')).write_text(json.dumps(full,indent=2)+'\n')
+ selected=[{'index':i,**o} for i,o in enumerate(full) if ops[i].type in ['linear','matmul','read_state','write_state','select','greater','transpose','reshape','softmax','reduce_mean','rsqrt','pow','slice_by_index']]
+ result[role]={'path':str(path),'identity':dict(treeSha256=tree,files=rows),'modelType':s.WhichOneof('Type'),'specificationVersion':s.specificationVersion,'functionInputs':MessageToDict(s.mlProgram.functions['main']).get('inputs',[]),'description':MessageToDict(s.description),'operationCounts':dict(collections.Counter(o.type for o in ops)),'tensorOutputDtypes':dict(types),'nonStaticOutputDimensions':symbols,'nestedBlockCount':blocks,'selectedOperationSignatures':selected}
+ print(role,'types',dict(types),'symbols',len(symbols),'ops',len(ops),flush=True)
+(out/'graph_inventory.json').write_text(json.dumps(result,indent=2)+'\n')

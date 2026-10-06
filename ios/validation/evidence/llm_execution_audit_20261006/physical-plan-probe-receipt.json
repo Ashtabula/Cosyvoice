@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "SHARDS": 2,
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--no-playback",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-flow-partition=2",
+    "--ane-compute-plans",
+    "--validation-plan-role=llmPrefill",
+    "--validation-plan-role=llmDecode"
+  ],
+  "receipts": {
+    "ane-compute-plan-receipt.json": {
+      "sha256": "b460c9f5040f04511d5b9a6a4552184c571d5cb25191b54bfa0bad4fcadb35df",
+      "receiptSummary": {
+        "status": "PASS_DIAGNOSTIC_COLLECTION",
+        "sourceCommit": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+        "fullReceiptSHA256": "b460c9f5040f04511d5b9a6a4552184c571d5cb25191b54bfa0bad4fcadb35df"
+      }
+    }
+  },
+  "profiled": false,
+  "noReadbackDuringTimedWork": true,
+  "actualResidency": "UNKNOWN_RESIDENCY",
+  "runnerSHA256": "7fbd86fee9a8e0889fe1d0e1b9325b1494dce53f9cae6d855af88a9b73177153",
+  "hostGitHEAD": "d1f9c68932a12e71a8794387e0b141a6c15b8c5b"
+}

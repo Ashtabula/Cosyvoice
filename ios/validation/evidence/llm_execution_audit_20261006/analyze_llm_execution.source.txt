@@ -1,0 +1,57 @@
+# analyze_llm_execution.py
+# Requirement: physical prediction distributions/context dependence and explicitly CPU-only counter deltas.
+from pathlib import Path
+import json,statistics,math,hashlib,csv,collections,shutil
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');WORK=ROOT/'ios/.work/llm-execution-audit-20261006';OUT=ROOT/'ios/validation/evidence/llm_execution_audit_20261006'
+def percentile(a,q):
+ a=sorted(a);p=(len(a)-1)*q;i=int(p);return a[i]+(a[min(i+1,len(a)-1)]-a[i])*(p-i)
+def summary(a):return {'count':len(a),'min':min(a),'median':statistics.median(a),'mean':statistics.mean(a),'p90':percentile(a,.9),'p95':percentile(a,.95),'p99':percentile(a,.99),'max':max(a),'sum':sum(a)}
+def regression(xs,ys):
+ xm,ym=statistics.mean(xs),statistics.mean(ys);xx=sum((x-xm)**2 for x in xs);yy=sum((y-ym)**2 for y in ys);xy=sum((x-xm)*(y-ym) for x,y in zip(xs,ys));return {'slopeMsPerContextToken':xy/xx,'pearsonR':xy/math.sqrt(xx*yy),'meaning':'descriptive; sequential temporal/clock/thermal correlation, not causal attention growth or independent p-value'}
+def counter_delta(a,b,key):
+ x,y=a.get(key),b.get(key)
+ return y-x if isinstance(x,(int,float)) and isinstance(y,(int,float)) and y>=x else None
+allout={}
+for case in ['control-1','measured-1','profiled']:
+ p=WORK/case/'warm-decode-pass-receipt.json'
+ if not p.exists():continue
+ r=json.loads(p.read_text());d=OUT/case;d.mkdir(parents=True,exist_ok=True)
+ if r.get('status')!='PASS_BIT_IDENTICAL_WARM_PASS':
+  (d/'failure-receipt.json').write_bytes(p.read_bytes());continue
+ for name in ['warm-decode-pass-receipt.json','console.log','host-collection.json']:
+  (d/name).write_bytes((WORK/case/name).read_bytes())
+ audits=r['persistentRuntime']['validationWarmPassRecords'];rows=[];flat=[];timeline=r['memoryTimeline'];stagewindows=[]
+ for row,audit in zip(r['rows'],audits):
+  tokens=audit['tokens'];sha=hashlib.sha256(json.dumps(tokens,separators=(',',':')).encode()).hexdigest();assert sha=='5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d'
+  pred=[x for x in audit.get('audit',{}).get('predictionRows',[]) if x['kind']=='llm.decode.prediction'];prefill=[x for x in audit.get('audit',{}).get('predictionRows',[]) if x['kind']=='llm.prefill.prediction']
+  result={**row,'tokenSequenceSHA256':sha}
+  if pred:
+   assert len(pred)==259 and [x['index'] for x in pred]==list(range(1,260)) and [x['validContextAfter'] for x in pred]==list(range(55,314))
+   lat=[x['wallMilliseconds'] for x in pred];result.update(decodeWallMs=summary(lat),prefill=prefill,logicalPrefix=54,cpuMilliseconds=sum(x['cpuMilliseconds'] for x in pred),CPUOnlyEnergyCounterDeltaNanojoules=sum(x['CPUOnlyEnergyNanojoules'] or 0 for x in pred),stateCreationMilliseconds=audit['audit']['milliseconds'].get('llm.make_state'),prefillCPUms=prefill[0]['cpuMilliseconds'])
+   result['segments']={label:summary([x['wallMilliseconds'] for x in pred if lo<=x['index']<=hi]) for label,lo,hi in [('first10',1,10),('middle11',125,135),('last10',250,259),('steps1_32',1,32),('steps33_64',33,64),('steps65_128',65,128),('steps129_192',129,192),('steps193_259',193,259)]}
+   result['contextGroups']={f'{lo}_{hi}':summary([x['wallMilliseconds'] for x in pred if lo<=x['validContextAfter']<=hi]) for lo,hi in [(55,64),(65,128),(129,192),(193,256),(257,313)]}
+   result['contextRegression']=regression([x['validContextAfter'] for x in pred],lat)
+   flat += [dict(request=row['request'],**x) for x in pred]
+  rows.append(result)
+  if timeline:
+   n=row['request'];start=next(x['uptimeNanoseconds'] for x in timeline if x['boundary'] and x['stage']==('before_second_warm_request' if n==2 else f'before_request_{n}'));end=next(x['uptimeNanoseconds'] for x in timeline if x['boundary'] and x['stage']==f'request_{n}_completion');samples=[x for x in timeline if start<=x['uptimeNanoseconds']<=end];bounds=[x for x in samples if x['boundary']]
+   pairs=[('total','before_second_warm_request' if n==2 else f'before_request_{n}',f'request_{n}_completion'),('preparation','prepare.begin','prepare.end'),('frontend/reference','frontend.begin','frontend.end'),('LLM load','llm.load.begin','llm.load.end'),('prefill','llm.prefill.begin','llm.prefill.end'),('LLM generation','llm.generate.begin','llm.generate.end'),('Flow execute','acoustic.flow.models.ready','acoustic.f0.begin'),('F0','acoustic.f0.begin','acoustic.f0.end'),('HiFT prediction','acoustic.hift.prediction.begin','acoustic.hift.prediction.end'),('conditions prediction','acoustic.conditions.prediction.begin','acoustic.conditions.prediction.end')]
+   for stage,a,b in pairs:
+    av=next((x for x in bounds if x['stage'].startswith(a)),None);bv=next((x for x in bounds if x['stage'].startswith(b)),None)
+    if not av or not bv:continue
+    wall=(bv['uptimeNanoseconds']-av['uptimeNanoseconds'])/1e6;energy=counter_delta(av,bv,'CPUOnlyEnergyNanojoules');cpu=counter_delta(av,bv,'cpuMilliseconds')
+    stagewindows.append({'request':n,'stage':stage,'wallMilliseconds':wall,'percentOfTotal':wall/row['totalMilliseconds']*100,'CPUms':cpu,'CPUOnlyEnergyCounterDeltaNanojoules':energy,'CPUOnlyCounterAvgMilliwatts':(energy/1e6)/(wall/1000) if energy is not None and wall else None,'totalEnergyMillijoules':None,'totalAverageMilliwatts':None,'thermalStartRaw':av['thermalState'],'thermalEndRaw':bv['thermalState'],'scope':'self-process CPU recount delta only; excludes ANE/GPU/other processes; fine attribution may include deferred accounting','sampledPeakFootprintBytes':max(x['physicalFootprintBytes'] for x in samples)})
+   # Each explicit acoustic constructor bracket contributes to load separately.
+   for av in bounds:
+    if av['stage'].startswith('acoustic.') and '.model.load.begin:' in av['stage']:
+     prefix=av['stage'].split('.load.begin:')[0]+'.load.end:';bv=next((x for x in bounds if x['uptimeNanoseconds']>=av['uptimeNanoseconds'] and x['stage'].startswith(prefix)),None)
+     if bv:stagewindows.append({'request':n,'stage':'acoustic model load','role':av['stage'],'wallMilliseconds':(bv['uptimeNanoseconds']-av['uptimeNanoseconds'])/1e6,'CPUms':counter_delta(av,bv,'cpuMilliseconds'),'CPUOnlyEnergyCounterDeltaNanojoules':counter_delta(av,bv,'CPUOnlyEnergyNanojoules'),'totalEnergyMillijoules':None})
+ (d/'per_token_predictions.json').write_text(json.dumps(flat,indent=2)+'\n');(d/'stage_counter_windows.json').write_text(json.dumps(stagewindows,indent=2)+'\n')
+ if flat:
+  with (d/'per_token_predictions.csv').open('w') as f:
+   writer=csv.DictWriter(f,fieldnames=list(flat[0]));writer.writeheader();writer.writerows(flat)
+ allout[case]={'sourceCommit':r['sourceCommit'],'processID':r['processID'],'device':r['device'],'iOS':r['iOS'],'rows':rows,'stageWindows':stagewindows,'profiled':case=='profiled','nominalMeasuredWarmRows':[x['request'] for x in rows[2:] if x['thermalStart']==x['thermalEnd']=='nominal'],'method':'percentiles linear interpolation; warmfirst+priming excluded; allrawretained; CPUenergy NOT total energy','allEndpointIdentityPass':True,'allCPUOnlyEnergyNoTotalClaim':True}
+(OUT/'physical_analysis.json').write_text(json.dumps(allout,indent=2)+'\n')
+for case,v in allout.items():
+ print(case,'nominalMeasuredWarm',v['nominalMeasuredWarmRows'])
+ for r in v['rows'][2:]:print(r['request'],r.get('decodeWallMs'),r.get('contextRegression'),r.get('CPUOnlyEnergyCounterDeltaNanojoules'))

@@ -1,0 +1,32 @@
+[
+  {
+    "path": "/private/tmp/cosy-llm-execution-coreml-os-signpost.xml",
+    "bytes": 4959801,
+    "sha256": "e349a3d0a463aa017b02abfecb5a09cb30022ac6bdedb86170aab8141bcfa26e"
+  },
+  {
+    "path": "/private/tmp/cosy-llm-execution-metal-gpu-intervals.xml",
+    "bytes": 3233323,
+    "sha256": "10193c73982a801e404a37ca24c8b6a837a4c7665470828488aa2179b2d2232a"
+  },
+  {
+    "path": "/private/tmp/cosy-llm-execution-ane-hw-intervals.xml",
+    "bytes": 347229,
+    "sha256": "b6cd289934161a7390ed5c9c4aca37db41e18407efc46a09576527ae5f51567f"
+  },
+  {
+    "path": "/private/tmp/cosy-llm-execution-OSSignpostIntervals.xml",
+    "bytes": 691177,
+    "sha256": "76d15560297b89e41ac23248c6af7ad6d5c45f2b465b9007a5465ee4d64a1aac"
+  },
+  {
+    "path": "/private/tmp/cosy-llm-execution-time-profile.xml",
+    "bytes": 14778407,
+    "sha256": "d2f995730411967232713bdb5fb0695ad61131ff0b7feeaf14dbadcb37bf3c5c"
+  },
+  {
+    "path": "/private/tmp/cosy-llm-execution-ProcessCPUUsage.xml",
+    "bytes": 63723548,
+    "sha256": "e8a22ff3349198ecdb78996dc0afbaee6182ae810ae409b1ce6e94f8b5516677"
+  }
+]

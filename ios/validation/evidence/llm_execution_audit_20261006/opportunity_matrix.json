@@ -1,0 +1,72 @@
+[
+  {
+    "candidate": "Remove external hidden output",
+    "risk": "LOW/MEDIUM",
+    "mechanism": "remove export-only1792B/token, cannot remove hidden computation because logits use it",
+    "expectedBenefit": "unknown; tiny output, no material transfer evidence",
+    "requiresNewAssets": true,
+    "numericalRisk": "compiler layout may differ, not assume BIT_IDENTICAL",
+    "listeningGate": "ifPCM changes / futuregraphcandidate gate",
+    "recommendation": "NOT_RECOMMENDED"
+  },
+  {
+    "candidate": "Static shape export",
+    "risk": "LOW/MEDIUM",
+    "mechanism": "remove unnecessary shape variability",
+    "expectedBenefit": "no applicable variability: all shapes/index metadata constant",
+    "requiresNewAssets": true,
+    "numericalRisk": "none proposed",
+    "listeningGate": "futureasset gate",
+    "recommendation": "NOT_APPLICABLE"
+  },
+  {
+    "candidate": "Default -> fastPrediction hint",
+    "risk": "LOW/MEDIUM",
+    "mechanism": "alter CoreML specialization/runtime plans",
+    "expectedBenefit": "unknown; no repeated per-token specialization observed",
+    "requiresNewAssets": false,
+    "numericalRisk": "internal compiler behavior/PCM must be validated",
+    "listeningGate": "ifPCM changes / placement-like experiment",
+    "recommendation": "NOT_RECOMMENDED_WITHOUT_NEW_EVIDENCE"
+  },
+  {
+    "candidate": "Rewrite state select/read/write",
+    "risk": "MEDIUM",
+    "mechanism": "reduce logicalfullstate traffic if compiler actually materializes it",
+    "expectedBenefit": "UNKNOWN physicaltraffic/latency; allstateops ANEpreferred",
+    "requiresNewAssets": true,
+    "numericalRisk": "could alter layout/state ordering; futureparity required",
+    "listeningGate": "mandatory futuregraph gate ifPCM differs",
+    "recommendation": "NOT_JUSTIFIED_NOW"
+  },
+  {
+    "candidate": "Rewire postwrite read_state to selected SSA tensor",
+    "risk": "MEDIUM",
+    "mechanism": "avoid apparent redundant state reads if not already optimized",
+    "expectedBenefit": "logical96reads vs48states is not measured copying; compiler alias/fusion unknown",
+    "requiresNewAssets": true,
+    "numericalRisk": "state/compiler compatibility requires explicitproof",
+    "listeningGate": "futureasset/PCM gate",
+    "recommendation": "NOT_JUSTIFIED_NOW"
+  },
+  {
+    "candidate": "Attention/linear layout or operator decomposition",
+    "risk": "MEDIUM",
+    "mechanism": "improve accelerator tiling/kernel lowering",
+    "expectedBenefit": "UNKNOWN; no CPU islands/unsupportedops proven; estimatedlinear cost not runtimeproof",
+    "requiresNewAssets": true,
+    "numericalRisk": "FP ordering may change",
+    "listeningGate": "futuregraph gate",
+    "recommendation": "NOT_JUSTIFIED_NOW"
+  },
+  {
+    "candidate": "KV precision/quantization/topology/attention math",
+    "risk": "HIGH",
+    "mechanism": "reduce necessary math or weighttraffic",
+    "expectedBenefit": "outside frozen audit; no experiment authorized",
+    "requiresNewAssets": true,
+    "numericalRisk": "YES semantics/precision change",
+    "listeningGate": "mandatory, butoutofscope",
+    "recommendation": "PROHIBITED"
+  }
+]

@@ -1,0 +1,28 @@
+{
+  "recordCommand": [
+    "xcrun",
+    "xctrace",
+    "record",
+    "--template",
+    "Core AI",
+    "--instrument",
+    "Core ML",
+    "--instrument",
+    "Points of Interest",
+    "--instrument",
+    "Time Profiler",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--time-limit",
+    "180s",
+    "--output",
+    "/private/tmp/cosy-llm-execution-20261006-CoreAI.trace",
+    "--all-processes"
+  ],
+  "tracePath": "/private/tmp/cosy-llm-execution-20261006-CoreAI.trace",
+  "traceReturnCode": 0,
+  "requestRunnerReturnCode": 0,
+  "instrumentedNotPerformanceComparison": true,
+  "noReadbackInsideTimedWork": true,
+  "temporaryCollectorSHA256": "d9a10037e65c17f56efe9fb36fd53156d6cc8856b0327075d9e025b866cd607f"
+}

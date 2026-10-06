@@ -1,0 +1,724 @@
+{
+  "schemaVersion": 1,
+  "status": "AUDIT_COMPLETE_NO_PRODUCTION_GRAPH_CHANGE",
+  "classification": "NO_SAFE_MATERIAL_OPPORTUNITY_FOUND",
+  "classificationReason": "No evidence-backed material remedy: static graph/indexing, tiny unusedoutput, all1762opsANEpreferred, one observedANEjob/prediction; internal arithmetic/bandwidth/state/sync split unavailable. This is not a proof of theoreticaloptimality.",
+  "productionBaselineSHA": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+  "parentResidencyEvidenceSourceSHA": "d1f9c68932a12e71a8794387e0b141a6c15b8c5b",
+  "physicalMeasurementSourceSHA": "8d9050e7108d74b8e35470e85714107f34c5f93f",
+  "physicalPlanSourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+  "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "frozenInputs": {
+    "effectiveReferenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
+    "instructionSha256": "f798a16e21fda49d5bc17b461a28f317506559983e8fbc9397c1c2c3317264d3",
+    "manifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "referenceTranscriptFileSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "runtimeRoot": "/var/mobile/Containers/Data/Application/9488DD0A-FCB7-4633-85D1-E53DF2187CFF/Documents/GeneratedAssets/Runtime",
+    "text": "This is a CosyVoice3 public API reference voice validation.",
+    "textSha256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed"
+  },
+  "modelPackages": {
+    "llmPrefill": {
+      "treeSha256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "bytes": 652886,
+          "sha256": "e571823e0a7bb6ed3c0fa92cdc6b5c6fc0eb0323433ea70f035891d956555e5c"
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "bytes": 727955794,
+          "sha256": "957378ee364c6bd72436efd2100dc53a80ece28e503f87c78cf1bb8fc0b52e0d"
+        },
+        {
+          "path": "Manifest.json",
+          "bytes": 617,
+          "sha256": "c762276679e3807dd561111b4c46d97cd1cf6221fd5b28f80b924c8d29a77f65"
+        }
+      ]
+    },
+    "llmDecode": {
+      "treeSha256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "bytes": 585840,
+          "sha256": "f9e9a6b08e31c2578462e79fbfcd398a626c511b03384242c98d86ce1739d3f3"
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "bytes": 727955794,
+          "sha256": "3310540b0f6ae95eb0319fe953cb51a74d01a6f279d3322b1a8dfb4ffb76e9a5"
+        },
+        {
+          "path": "Manifest.json",
+          "bytes": 617,
+          "sha256": "4dc83d7a463ec567e0df065e24099ea15b82a0e68ec32999ae520c5738d446c8"
+        }
+      ]
+    }
+  },
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "N": 260,
+  "decodeCalls": 259,
+  "function": "n257_384",
+  "sampleRate": 24000,
+  "samples": 249600,
+  "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+  "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "physicalRequestsBitIdentical": 15,
+  "requestedPlacement": "LLM CPU_AND_NE unchanged",
+  "observed": "current5prefill+1295decode ANE hardwarepredictions matchedcompiledSHA+PIDnativeintervals; noLLMCPU/GPU backendevents recorded",
+  "actualPerOpResidency": "UNKNOWN_RESIDENCY",
+  "currentCoreMLDecodeMeanMs": 12.487903976061766,
+  "currentANEHardwareIntervalMeanMs": 11.717268096525101,
+  "hardwareIntervalWallCoverageFraction": 0.9382894134184643,
+  "coverageMeaning": "temporal overlap, NOT hardware utilization or percentopsfullANE",
+  "wrapperActivityMeanMs": {
+    "Input Validation": 0.015038183783783675,
+    "Input Copy": 0.008226651737451794,
+    "Data Cast": 0.0020096679536679486,
+    "Output Transformation": 0.0024604525096525126
+  },
+  "fixedArithmeticVsBandwidthVsStateVsInternalSync": "UNKNOWN",
+  "exactBackendExecutionSegmentsAndTransitions": "UNKNOWN; observed1ANEhardwareprediction/call, not proof1internalkernel/segment",
+  "CPUTraceSampleWeightMs": 348.0,
+  "CPUTraceUnsymbolicatedTopFrames": 200,
+  "measuredWarmDecodeMeanOfMeansMs": 12.426570100386101,
+  "perRequestDistributions": [
+    {
+      "request": 3,
+      "distribution": {
+        "count": 259,
+        "min": 11.763708,
+        "median": 12.511208,
+        "mean": 12.381413281853282,
+        "p90": 12.8456002,
+        "p95": 12.962691,
+        "p99": 13.05651214,
+        "max": 13.344625,
+        "sum": 3206.7860399999986
+      },
+      "contextRegression": {
+        "slopeMsPerContextToken": -0.00018365143078166385,
+        "pearsonR": -0.030857048967186777,
+        "meaning": "descriptive; sequential temporal/clock/thermal correlation, not causal attention growth or independent p-value"
+      },
+      "earlyMiddleLate": {
+        "first10": {
+          "count": 10,
+          "min": 11.763708,
+          "median": 12.8057295,
+          "mean": 12.7387751,
+          "p90": 13.0387006,
+          "p95": 13.1916628,
+          "p99": 13.314032560000001,
+          "max": 13.344625,
+          "sum": 127.387751
+        },
+        "middle11": {
+          "count": 11,
+          "min": 11.79175,
+          "median": 12.571166,
+          "mean": 12.40894309090909,
+          "p90": 12.812083,
+          "p95": 12.9419585,
+          "p99": 13.0458589,
+          "max": 13.071834,
+          "sum": 136.49837399999998
+        },
+        "last10": {
+          "count": 10,
+          "min": 11.807125,
+          "median": 12.4918545,
+          "mean": 12.453570899999999,
+          "p90": 12.8114417,
+          "p95": 12.82749185,
+          "p99": 12.84033197,
+          "max": 12.843542,
+          "sum": 124.535709
+        },
+        "steps1_32": {
+          "count": 32,
+          "min": 11.763708,
+          "median": 12.525396,
+          "mean": 12.47935809375,
+          "p90": 12.9596827,
+          "p95": 12.99260845,
+          "p99": 13.239251040000001,
+          "max": 13.344625,
+          "sum": 399.339459
+        },
+        "steps33_64": {
+          "count": 32,
+          "min": 11.780458,
+          "median": 12.458812,
+          "mean": 12.30310025,
+          "p90": 12.793329499999999,
+          "p95": 12.9510273,
+          "p99": 13.00389277,
+          "max": 13.017791,
+          "sum": 393.699208
+        },
+        "steps65_128": {
+          "count": 64,
+          "min": 11.772625,
+          "median": 12.515958,
+          "mean": 12.38360025,
+          "p90": 12.8564874,
+          "p95": 12.94947065,
+          "p99": 13.043317459999999,
+          "max": 13.137791,
+          "sum": 792.5504159999998
+        },
+        "steps129_192": {
+          "count": 64,
+          "min": 11.784875,
+          "median": 12.5402705,
+          "mean": 12.383102859375,
+          "p90": 12.8204171,
+          "p95": 12.8415688,
+          "p99": 12.96901233,
+          "max": 13.071834,
+          "sum": 792.5185829999999
+        },
+        "steps193_259": {
+          "count": 67,
+          "min": 11.776292,
+          "median": 12.511208,
+          "mean": 12.368333940298507,
+          "p90": 12.8764584,
+          "p95": 12.9812082,
+          "p99": 13.03779928,
+          "max": 13.045417,
+          "sum": 828.678374
+        }
+      },
+      "contextGroups": {
+        "55_64": {
+          "count": 10,
+          "min": 11.763708,
+          "median": 12.8057295,
+          "mean": 12.7387751,
+          "p90": 13.0387006,
+          "p95": 13.1916628,
+          "p99": 13.314032560000001,
+          "max": 13.344625,
+          "sum": 127.387751
+        },
+        "65_128": {
+          "count": 64,
+          "min": 11.765167,
+          "median": 12.4705625,
+          "mean": 12.328496734375,
+          "p90": 12.8081794,
+          "p95": 12.91484545,
+          "p99": 12.98954621,
+          "max": 13.017791,
+          "sum": 789.0237909999996
+        },
+        "129_192": {
+          "count": 64,
+          "min": 11.79175,
+          "median": 12.515958,
+          "mean": 12.3849394375,
+          "p90": 12.874716900000001,
+          "p95": 12.961378550000001,
+          "p99": 13.09623809,
+          "max": 13.137791,
+          "sum": 792.636124
+        },
+        "193_256": {
+          "count": 64,
+          "min": 11.779542,
+          "median": 12.551624499999999,
+          "mean": 12.38777146875,
+          "p90": 12.8230832,
+          "p95": 12.86293485,
+          "p99": 12.95157908,
+          "max": 12.995417,
+          "sum": 792.8173740000002
+        },
+        "257_313": {
+          "count": 57,
+          "min": 11.776292,
+          "median": 12.510125,
+          "mean": 12.367035087719298,
+          "p90": 12.8310416,
+          "p95": 12.9672502,
+          "p99": 13.03895348,
+          "max": 13.045417,
+          "sum": 704.9210000000002
+        }
+      }
+    },
+    {
+      "request": 4,
+      "distribution": {
+        "count": 259,
+        "min": 11.729083,
+        "median": 12.459834,
+        "mean": 12.32361601930502,
+        "p90": 12.808024999999999,
+        "p95": 12.8909709,
+        "p99": 13.02545464,
+        "max": 13.277375,
+        "sum": 3191.8165489999997
+      },
+      "contextRegression": {
+        "slopeMsPerContextToken": -0.000999041270608713,
+        "pearsonR": -0.16691240522519485,
+        "meaning": "descriptive; sequential temporal/clock/thermal correlation, not causal attention growth or independent p-value"
+      },
+      "earlyMiddleLate": {
+        "first10": {
+          "count": 10,
+          "min": 11.816166,
+          "median": 12.848875,
+          "mean": 12.7490248,
+          "p90": 12.9732497,
+          "p95": 13.12531235,
+          "p99": 13.24696247,
+          "max": 13.277375,
+          "sum": 127.490248
+        },
+        "middle11": {
+          "count": 11,
+          "min": 11.755792,
+          "median": 12.435583,
+          "mean": 12.246988636363636,
+          "p90": 12.749583,
+          "p95": 12.758125,
+          "p99": 12.7649586,
+          "max": 12.766667,
+          "sum": 134.716875
+        },
+        "last10": {
+          "count": 10,
+          "min": 11.744875,
+          "median": 12.098749999999999,
+          "mean": 12.1390252,
+          "p90": 12.5565423,
+          "p95": 12.65029215,
+          "p99": 12.72529203,
+          "max": 12.744042,
+          "sum": 121.390252
+        },
+        "steps1_32": {
+          "count": 32,
+          "min": 11.777542,
+          "median": 12.678708499999999,
+          "mean": 12.5145260625,
+          "p90": 12.9293625,
+          "p95": 12.93817485,
+          "p99": 13.17262073,
+          "max": 13.277375,
+          "sum": 400.46483400000005
+        },
+        "steps33_64": {
+          "count": 32,
+          "min": 11.755875,
+          "median": 12.461020999999999,
+          "mean": 12.33860934375,
+          "p90": 12.803025,
+          "p95": 12.8959122,
+          "p99": 13.16893669,
+          "max": 13.245042,
+          "sum": 394.8354990000001
+        },
+        "steps65_128": {
+          "count": 64,
+          "min": 11.735417,
+          "median": 12.467708,
+          "mean": 12.356703171875,
+          "p90": 12.8167125,
+          "p95": 12.8437089,
+          "p99": 13.004778459999999,
+          "max": 13.017667,
+          "sum": 790.8290029999998
+        },
+        "steps129_192": {
+          "count": 64,
+          "min": 11.747208,
+          "median": 12.4516665,
+          "mean": 12.287839859375,
+          "p90": 12.7907464,
+          "p95": 12.8376312,
+          "p99": 12.93439596,
+          "max": 12.991542,
+          "sum": 786.4217510000002
+        },
+        "steps193_259": {
+          "count": 67,
+          "min": 11.729083,
+          "median": 12.434625,
+          "mean": 12.22784271641791,
+          "p90": 12.759866800000001,
+          "p95": 12.784174799999999,
+          "p99": 12.989184,
+          "max": 13.036209,
+          "sum": 819.265462
+        }
+      },
+      "contextGroups": {
+        "55_64": {
+          "count": 10,
+          "min": 11.816166,
+          "median": 12.848875,
+          "mean": 12.7490248,
+          "p90": 12.9732497,
+          "p95": 13.12531235,
+          "p99": 13.24696247,
+          "max": 13.277375,
+          "sum": 127.490248
+        },
+        "65_128": {
+          "count": 64,
+          "min": 11.735417,
+          "median": 12.4745205,
+          "mean": 12.354674484375,
+          "p90": 12.810375,
+          "p95": 12.8277687,
+          "p99": 13.09037637,
+          "max": 13.245042,
+          "sum": 790.6991669999999
+        },
+        "129_192": {
+          "count": 64,
+          "min": 11.746959,
+          "median": 12.4591045,
+          "mean": 12.34672925,
+          "p90": 12.8189294,
+          "p95": 12.916139399999999,
+          "p99": 13.004778459999999,
+          "max": 13.017667,
+          "sum": 790.190672
+        },
+        "193_256": {
+          "count": 64,
+          "min": 11.747208,
+          "median": 12.448937,
+          "mean": 12.2775540625,
+          "p90": 12.7831045,
+          "p95": 12.800501800000001,
+          "p99": 12.86896608,
+          "max": 12.900834,
+          "sum": 785.7634600000001
+        },
+        "257_313": {
+          "count": 57,
+          "min": 11.729083,
+          "median": 12.434625,
+          "mean": 12.239877228070176,
+          "p90": 12.7608168,
+          "p95": 12.798916799999999,
+          "p99": 12.996309,
+          "max": 13.036209,
+          "sum": 697.673002
+        }
+      }
+    },
+    {
+      "request": 5,
+      "distribution": {
+        "count": 259,
+        "min": 11.73675,
+        "median": 12.487375,
+        "mean": 12.574681,
+        "p90": 13.8073414,
+        "p95": 14.626091899999999,
+        "p99": 15.087871999999999,
+        "max": 15.141125,
+        "sum": 3256.8423790000006
+      },
+      "contextRegression": {
+        "slopeMsPerContextToken": 0.0053716836836325225,
+        "pearsonR": 0.4881742329295603,
+        "meaning": "descriptive; sequential temporal/clock/thermal correlation, not causal attention growth or independent p-value"
+      },
+      "earlyMiddleLate": {
+        "first10": {
+          "count": 10,
+          "min": 11.785583,
+          "median": 12.724521,
+          "mean": 12.6009708,
+          "p90": 12.9808286,
+          "p95": 13.1345603,
+          "p99": 13.25754566,
+          "max": 13.288292,
+          "sum": 126.00970799999999
+        },
+        "middle11": {
+          "count": 11,
+          "min": 11.738667,
+          "median": 12.438542,
+          "mean": 12.18748109090909,
+          "p90": 12.728917,
+          "p95": 12.74175,
+          "p99": 12.7520164,
+          "max": 12.754583,
+          "sum": 134.06229199999999
+        },
+        "last10": {
+          "count": 10,
+          "min": 13.132916,
+          "median": 14.279917000000001,
+          "mean": 14.2410665,
+          "p90": 15.1404869,
+          "p95": 15.14080595,
+          "p99": 15.14106119,
+          "max": 15.141125,
+          "sum": 142.410665
+        },
+        "steps1_32": {
+          "count": 32,
+          "min": 11.756791,
+          "median": 12.461749999999999,
+          "mean": 12.397299499999999,
+          "p90": 12.8506917,
+          "p95": 12.92684345,
+          "p99": 13.18238794,
+          "max": 13.288292,
+          "sum": 396.71358399999997
+        },
+        "steps33_64": {
+          "count": 32,
+          "min": 11.739875,
+          "median": 12.4461665,
+          "mean": 12.2292824375,
+          "p90": 12.7357164,
+          "p95": 12.77255365,
+          "p99": 12.789848,
+          "max": 12.791708,
+          "sum": 391.337038
+        },
+        "steps65_128": {
+          "count": 64,
+          "min": 11.742208,
+          "median": 12.4331045,
+          "mean": 12.261290375,
+          "p90": 12.759520700000001,
+          "p95": 12.817833,
+          "p99": 13.035528209999999,
+          "max": 13.236708,
+          "sum": 784.722584
+        },
+        "steps129_192": {
+          "count": 64,
+          "min": 11.73675,
+          "median": 12.465583500000001,
+          "mean": 12.335271562500001,
+          "p90": 12.7815037,
+          "p95": 12.8037894,
+          "p99": 13.08176967,
+          "max": 13.232208,
+          "sum": 789.4573800000001
+        },
+        "steps193_259": {
+          "count": 67,
+          "min": 11.751333,
+          "median": 13.078625,
+          "mean": 13.352414820895522,
+          "p90": 14.9557172,
+          "p95": 15.0684044,
+          "p99": 15.14065706,
+          "max": 15.141125,
+          "sum": 894.611793
+        }
+      },
+      "contextGroups": {
+        "55_64": {
+          "count": 10,
+          "min": 11.785583,
+          "median": 12.724521,
+          "mean": 12.6009708,
+          "p90": 12.9808286,
+          "p95": 13.1345603,
+          "p99": 13.25754566,
+          "max": 13.288292,
+          "sum": 126.00970799999999
+        },
+        "65_128": {
+          "count": 64,
+          "min": 11.739875,
+          "median": 12.4446875,
+          "mean": 12.273359984375,
+          "p90": 12.7529582,
+          "p95": 12.790808,
+          "p99": 13.035528209999999,
+          "max": 13.236708,
+          "sum": 785.495039
+        },
+        "129_192": {
+          "count": 64,
+          "min": 11.738667,
+          "median": 12.4377085,
+          "mean": 12.242763046875,
+          "p90": 12.7535333,
+          "p95": 12.765520500000001,
+          "p99": 12.82388587,
+          "max": 12.829084,
+          "sum": 783.5368349999997
+        },
+        "193_256": {
+          "count": 64,
+          "min": 11.73675,
+          "median": 12.477583500000001,
+          "mean": 12.34677415625,
+          "p90": 12.7815037,
+          "p95": 12.8037894,
+          "p99": 13.08176967,
+          "max": 13.232208,
+          "sum": 790.1935459999999
+        },
+        "257_313": {
+          "count": 57,
+          "min": 11.751333,
+          "median": 13.71275,
+          "mean": 13.536969315789474,
+          "p90": 14.979692,
+          "p95": 15.082592,
+          "p99": 15.14072796,
+          "max": 15.141125,
+          "sum": 771.6072510000002
+        }
+      }
+    }
+  ],
+  "contextDependence": "No repeatable lengthgrowth: two nominalrequests slopesnegative/negligible; one latejitterpositive, not reproduced inprofiledrequests. Full512attention workstatic, hiddenfrequency/DVFS unknown.",
+  "instrumentationControl": {
+    "controlNominalWarmCount": 2,
+    "controlLLMMedianMs": 3263.8475625,
+    "instrumentedNominalWarmCount": 3,
+    "instrumentedLLMMedianMs": 3269.14675,
+    "observedDeltaMs": 5.299187499999789,
+    "overheadMeaning": "within physicalvariation; no preciseoverhead orspeedupclaim; predictedtimer excludes counterreads, rowsappend/signposts except existingwrapperboundaries; faircontrol5 excluded"
+  },
+  "energyAttribution": {
+    "CPUOnlyOSCounter": "selfproc ri_energy_nj monotonic readable; CPUrecount only, not accelerators/other processes",
+    "referenceRequest3TotalCPUCounterMillijoules": 1347.271687,
+    "referenceRequest3DecodeCPUCounterMillijoules": 474.233263,
+    "totalSynthesisEnergyMillijoules": null,
+    "totalMillijoulesPerAudioSecond": null,
+    "totalAveragePowerMilliwatts": null,
+    "dominantTotalEnergyStage": "UNKNOWN",
+    "counterCaveat": "CPU-only Recount energy updates at threadcontext-switch granularity; shortinterleavedstage delta may chargeadjacentCPUwork; not exact componentjoules or totalANE/GPUenergy"
+  },
+  "thermal": "currentmeasured/profiled5-requestgroupsnominal throughout; controlrequest5 endsfair/excludedmatchedtiming. HistoricalisolatedLLM12 serious at11 afterfair1, unequalelapsed/coldcost prevents normalizedstage-energyattribution; no newendurance/thermalimprovementclaim",
+  "opportunities": [
+    {
+      "candidate": "Remove external hidden output",
+      "risk": "LOW/MEDIUM",
+      "mechanism": "remove export-only1792B/token, cannot remove hidden computation because logits use it",
+      "expectedBenefit": "unknown; tiny output, no material transfer evidence",
+      "requiresNewAssets": true,
+      "numericalRisk": "compiler layout may differ, not assume BIT_IDENTICAL",
+      "listeningGate": "ifPCM changes / futuregraphcandidate gate",
+      "recommendation": "NOT_RECOMMENDED"
+    },
+    {
+      "candidate": "Static shape export",
+      "risk": "LOW/MEDIUM",
+      "mechanism": "remove unnecessary shape variability",
+      "expectedBenefit": "no applicable variability: all shapes/index metadata constant",
+      "requiresNewAssets": true,
+      "numericalRisk": "none proposed",
+      "listeningGate": "futureasset gate",
+      "recommendation": "NOT_APPLICABLE"
+    },
+    {
+      "candidate": "Default -> fastPrediction hint",
+      "risk": "LOW/MEDIUM",
+      "mechanism": "alter CoreML specialization/runtime plans",
+      "expectedBenefit": "unknown; no repeated per-token specialization observed",
+      "requiresNewAssets": false,
+      "numericalRisk": "internal compiler behavior/PCM must be validated",
+      "listeningGate": "ifPCM changes / placement-like experiment",
+      "recommendation": "NOT_RECOMMENDED_WITHOUT_NEW_EVIDENCE"
+    },
+    {
+      "candidate": "Rewrite state select/read/write",
+      "risk": "MEDIUM",
+      "mechanism": "reduce logicalfullstate traffic if compiler actually materializes it",
+      "expectedBenefit": "UNKNOWN physicaltraffic/latency; allstateops ANEpreferred",
+      "requiresNewAssets": true,
+      "numericalRisk": "could alter layout/state ordering; futureparity required",
+      "listeningGate": "mandatory futuregraph gate ifPCM differs",
+      "recommendation": "NOT_JUSTIFIED_NOW"
+    },
+    {
+      "candidate": "Rewire postwrite read_state to selected SSA tensor",
+      "risk": "MEDIUM",
+      "mechanism": "avoid apparent redundant state reads if not already optimized",
+      "expectedBenefit": "logical96reads vs48states is not measured copying; compiler alias/fusion unknown",
+      "requiresNewAssets": true,
+      "numericalRisk": "state/compiler compatibility requires explicitproof",
+      "listeningGate": "futureasset/PCM gate",
+      "recommendation": "NOT_JUSTIFIED_NOW"
+    },
+    {
+      "candidate": "Attention/linear layout or operator decomposition",
+      "risk": "MEDIUM",
+      "mechanism": "improve accelerator tiling/kernel lowering",
+      "expectedBenefit": "UNKNOWN; no CPU islands/unsupportedops proven; estimatedlinear cost not runtimeproof",
+      "requiresNewAssets": true,
+      "numericalRisk": "FP ordering may change",
+      "listeningGate": "futuregraph gate",
+      "recommendation": "NOT_JUSTIFIED_NOW"
+    },
+    {
+      "candidate": "KV precision/quantization/topology/attention math",
+      "risk": "HIGH",
+      "mechanism": "reduce necessary math or weighttraffic",
+      "expectedBenefit": "outside frozen audit; no experiment authorized",
+      "requiresNewAssets": true,
+      "numericalRisk": "YES semantics/precision change",
+      "listeningGate": "mandatory, butoutofscope",
+      "recommendation": "PROHIBITED"
+    }
+  ],
+  "nextDecodeV2Prototype": null,
+  "futureValidationGate": [
+    "source-modelparity",
+    "hostnumerical",
+    "token-by-token",
+    "longdecode",
+    "MLState/KV",
+    "EOS",
+    "physicaliPhone",
+    "PCM",
+    "humanlistening ifPCM differs",
+    "repeatedwarm",
+    "totalenergy whenmeasurable",
+    "thermal",
+    "memory"
+  ],
+  "futureAcceptance": "paired repeated comparablethermal baseline/candidate; raworder/medians/ranges/identities; gain must exceed observednoise; no arbitrarypercentage/energy inferred fromwalltime",
+  "algorithmUnchanged": true,
+  "weightsUnchanged": true,
+  "generationSemanticsUnchanged": true,
+  "KVStateBehaviorUnchanged": true,
+  "placementUnchanged": true,
+  "precisionUnchanged": true,
+  "modelAssetsAndManifestUnchanged": true,
+  "noDecodeV2Created": true,
+  "LAST_KNOWN_GOOD": "checkpoint001 humanPASS unchanged; acceptedembeddingb65820d; no acceptedresidencychange",
+  "hostTests": "13existingtestsPASS",
+  "signedReleaseBuild": "PASS",
+  "traceParserCorrection": "initialoldparserhandledonly-1instance suffix, undercounted518CoreMLcalls; newanalysisnormalizesnumericinstancesuffixesandverifies1295/1295nativecontainment, oldoutputretainedasinvalidinitialanalysis",
+  "rawTraceWorkspace": "/private/tmp/cosy-llm-execution-20261006-CoreAI.trace",
+  "rawProfilerExports": "/private/tmp/cosy-llm-execution-*.xml; SHA-bound workspace references, not committedlargefiles",
+  "optionalPlot": "matplotlib unavailable in conversionandbundledPython; no dependency installed; rawCSV retained",
+  "WAVWorkspace": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/llm-execution-audit_20261006/baseline.wav",
+  "officialSources": [
+    "https://developer.apple.com/documentation/coreml/mlcomputeplan-1w21n",
+    "https://github.com/apple-oss-distributions/xnu/blob/main/doc/observability/recount.md",
+    "https://developer.apple.com/documentation/xcode/measuring-your-app-s-power-use-with-power-profiler"
+  ]
+}

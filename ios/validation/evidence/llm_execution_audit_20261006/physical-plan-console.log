@@ -1,0 +1,6 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[ANE-COMPUTE-PLAN] role=llmPrefill single=false counts=["<MLNeuralEngineComputeDevice: 0x10a599030>": 1761]
+[ANE-COMPUTE-PLAN] role=llmDecode single=false counts=["<MLNeuralEngineComputeDevice: 0x10a599030>": 1762]
+[COSY-DIAGNOSTIC-DONE] ane-compute-plan-receipt.json
+[COSY-AUTO-DONE] status=PASS diagnostic compute-plan collection

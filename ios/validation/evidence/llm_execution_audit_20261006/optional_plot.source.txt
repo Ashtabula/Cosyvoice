@@ -1,0 +1,15 @@
+# plot_llm_execution.py
+# Requirement: export actual259call latency/context plots; graph and synthesis unchanged.
+from pathlib import Path
+import json
+import matplotlib
+matplotlib.use('Agg')
+import matplotlib.pyplot as plt
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');E=ROOT/'ios/validation/evidence/llm_execution_audit_20261006';x=json.loads((E/'measured-1/per_token_predictions.json').read_text());fig,axs=plt.subplots(2,1,figsize=(10,7),constrained_layout=True)
+for req in [3,4,5]:
+ rows=[r for r in x if r['request']==req];xs=[r['validContextAfter'] for r in rows];ys=[r['wallMilliseconds'] for r in rows]
+ axs[0].plot(xs,ys,label=f'warm request {req}',linewidth=.65,alpha=.7);axs[1].hist(ys,bins=35,histtype='step',label=f'request {req}')
+axs[0].set(xlabel='Valid context after prediction (fixed graph attention length = 512)',ylabel='MLModel.prediction wall ms',title='Frozen N=260: 259 decode predictions per warm request; all nominal')
+axs[1].set(xlabel='Prediction wall ms',ylabel='Call count',title='Latency distribution; these are baseline measurements, no optimized graph')
+for a in axs:a.grid(alpha=.2);a.legend()
+fig.savefig(E/'decode_latency_context.svg');fig.savefig(E/'decode_latency_context.png',dpi=160)

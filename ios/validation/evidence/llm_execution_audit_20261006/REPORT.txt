@@ -1,0 +1,123 @@
+CosyVoice3 iOS LLM execution audit — 2026-10-06 America/New_York
+AUDIT ONLY. Decision: NO_SAFE_MATERIAL_OPPORTUNITY_FOUND. No Decode v2 created or production assets changed.
+
+A. Current production LLM architecture
+Accepted semantic source b65820d; residency audit accepted no replacement, preserved current selected-family2shard config. Current measurement signed source 8d9050e7108d74b8e35470e85714107f34c5f93f; plan measured source0ee8b5f. Device iPhone18,4/iOS27.2/CoreML3600.25.2; exactPID/source/input/model/compiledidentities in receipts/final_summary. Frozen payload4750dba..., manifest2ddc7fa..., acousticSHARDS2/Flow6/N260/n257_384, 249600/24000=10.4s.
+LLM source FunAudioLLM/Fun-CosyVoice3-0.5B-2512 revision29e01c4e8d000f4bcd70751be16fa94bf3d85a18; llm.pt SHA 69f43bd545131c30e98947fb360ea8b4dc9916d8e83dded7757c7ea4f5a24970. Wrapper SpeechLLM loads Qwen2Config and layer/norm/llm_decoder weights fromllm.pt. Actualgraph/source:24layers, hidden896, queryheads14, KVheads2, groups2x7, headdim64, FFN4864, speechhead6761. BaseQwen config vocab151936 and EOS151645 are NOT production speechhead/EOS; runtime speechEOS6562/stop6561..6760 unchanged. Source config BF16 does NOT mean productionBF16: encodedCoreML tensors/weightsFP16.
+Models are MLProgram,spec9/CoreML8,iOS18minimum, separate main functions (no multifunction/enumeratedLLM). Prefill x[1,224,896],cos/sin[1,1,224,64],mask[1,1,224,224]. Decode x[1,1,896],cos/sin[1,1,1,64],mask[1,1,1,512],write_mask[1,1,512,1], allFP16. Outputs logits[1,6761],hidden[1,896]FP16.48states keys/values_state_00..23 each[1,2,512,64]FP16,6291456logicalbytes. Batch1/currenttoken1; boundedcontext512, logicalprefix54 forfrozenrequest.
+All encoded arithmetic output tensors FP16;49FP32 outputs are constants only; actualANE accumulator precision UNKNOWN. No constexprquantizationops. Packageweightblob727955794B; linear weightMAC count363884416/currenttoken is static math accounting, NOT measured FLOPS/DRAM traffic.
+Export chain optimize_llm_decode.py --variant perlayer -> shape-counterfactual fixed449 -> export_llm_mask_write_probe staticselect449 -> export_llm_mask_write512 only449->512 bounds. Originalprefillmetadata CoreMLtools9.0/Torch2.3.1/TorchScript/2026-09-30; patcheddecode hasno metadata butct9 exportchainreceipts. Acousticconversion Torch2.7 environment is NOT inferredas originalLLM converter. Exactsource hashes/sanitizedprotobufhelperSHA in export_source_identity/checkpoint_provenance. Modeltrees prefill3fe257e.../decodec5207c... freshly rehashed exactly match acceptedgraphs.
+Runtime requestsCPU_AND_NE; exporttimeCPU_ONLY only governed export/load validation, not currentdeviceplacement. LLMfunctionName nil/main, reshape/specialization hintsdefault; no fastPrediction override inLLMpath. AssetLoaderpersistentcompiledcache/authoritativeconstructor outsideper-tokenloop. No per-token reconversion/specialization.
+
+B. Physical decode baseline
+Unprofiledcontrol + per-tokenmeasurement + currentInstruments trace; each5requests first+warmpriming+3measuredwarm, nointerrequestdelay/copy/readback/hash.15publicrequests all frozen token/PCM/WAV bit-identical. Prefill separated, oneMLState creation/request and259decodepredictions.
+Newinstrumented nominalwarm3/4/5 decode mean ofmeans 12.426570ms; totals/raw per-token/index/validcontext/token/CPU/CPUenergy/thermal CSV/JSON in measured-1. Percentiles uselinearinterpolation; pooling correlatedsamples is descriptive, not independentstatisticalproof.
+request3: count259,sum3206.786040ms,min11.763708,median12.511208,mean12.381413,p9012.845600,p9512.962691,p9913.056512,max13.344625; prefill31.557500ms, statecreate2.354916ms; decode selfCPU72.790ms.
+request4: count259,sum3191.816549ms,min11.729083,median12.459834,mean12.323616,p9012.808025,p9512.890971,p9913.025455,max13.277375; prefill31.209833ms, statecreate2.272209ms; decode selfCPU73.670ms.
+request5: count259,sum3256.842379ms,min11.736750,median12.487375,mean12.574681,p9013.807341,p9514.626092,p9915.087872,max15.141125; prefill29.813000ms, statecreate2.358417ms; decode selfCPU72.933ms.
+request3 first10/middle125..135/last10 means 12.738775/12.408943/12.453571ms; context slope -0.00018365ms/token, r=-0.0309.
+request4 first10/middle125..135/last10 means 12.749025/12.246989/12.139025ms; context slope -0.00099904ms/token, r=-0.1669.
+request5 first10/middle125..135/last10 means 12.600971/12.187481/14.241067ms; context slope 0.00537168ms/token, r=0.4882.
+Actualvalidcontext55..313; samplegroups55..64/65..128/129..192/193..256/257..313 count10/64/64/64/57. Full512attention math/staticshapes unchanged as maskvaluesexposeincrementalpositions. Two slopes negative/negligible; one latejitterpositive whilethermalstillnominal; currentprofiled3warm slopesnegative/negligible. NO repeatable substantial context-driven growth. HiddenDVFS/systemcontention not measured; nominal doesnotmeanfixedfrequency. This is not artificial alteredgeneration diagnostics.
+Controlnominalmeasuredn=2 LLMmedian3263.847563ms; measurednominaln=3 median3269.146750ms, delta5.299187ms insidephysicalranges/control35.008ms andmeasured62.957ms. No measurable overhead/speedupclaim; measurementcpu/energyreads outsidepredictionclock addrequestoverhead. Controlrequest5fair excluded, allrawpreserved. Per-tokenCPU represents wholeapp, not oneCoreMLworker; energyisCPU-only.
+
+C. Core ML graph inventory
+Decode3866ops including2104const/nonconst1762;169linear,96matmul,48softmax,49RMSNorm-family pow/reduce_mean/rsqrt,24silu,193add/314mul,120reshape/96transpose/72concat,289slice_by_index,96read_state/48write_state,48select/1greater/1identity. Prefill4199ops including2438const/nonconst1761,48slice_update instead48select/greater. No gather/scatter/while/cond/cast operation in these serializedfunctions. Naming _cast_fp16 doesnotmean actualcastop. Fullserializeddumps localSHAreferences; summary/signatures tracked.
+
+D. Execution-placement evidence
+REQUESTED:CPU_AND_NE, unchanged.
+PLANNED: physicalMLComputePlan prefersANE for all1761prefill/1762decode nonconstantops, normalizedcostsum1, includingstate/select/index/normalization. Estimatedlinear fractiondecode92.8178percent, NOT actualtiming or utilization. Apple MLComputePlan is resource/cost planning, not per-op measuredassignment: https://developer.apple.com/documentation/coreml/mlcomputeplan-1w21n .
+OBSERVED: currentcompiledartifactSHA/PID/nativeinterval joins5prefill+1295decode hardwareANEpredictions, ALL contained in corresponding1295CoreMLpredictionintervals. CoreMLdecodeavg12.487904ms, ANEhardwareintervalavg11.717268ms, gap0.770636ms; temporalcoverage93.829percent NOT ANEutilization/percentops. NoLLM CPU orGPU backendevent recorded. Historicalmatched3108decode/12prefill corroborates sameassets, but isolated12oldtimings not currentpublicRTF comparison.
+CPUprofiler:348 targetPIDRunning samples/weighted348.000ms across5x259predictions. Kernel/CoreFoundation/Espresso/ObjC/IOKit/malloc etc;200 topframesunsymbolicated. Statisticalsampling not per-op latency. No specificCPUfallbackop identified; cannotinferunsupportedop merelyfromlibraryname. OtherprocessCPUnotattributed.
+UNKNOWN: exact per-op actualdevices, ANE arithmetic vs weight/DRAM bandwidth vs compilerstatebuffertraffic vs internalhardware/runtime synchronization. No fullANE claim; no assertion~12.6ms theoreticallyunavoidable.
+
+E. Graph fragmentation
+One matchedANEhardwarePrediction perCoreMLdecode, allplannedopsANEpreferred; no measured evidence of avoidable alternatingANE/CPU islands. Exactinternalkernel/segmentcount/device-transition graph UNKNOWN. One program-level hardwareevent can hide internalwork; no fabricating compiler segmentation. Trace boundary averages InputValidation0.015038ms,InputCopy0.008227ms,DataCast0.002010ms,OutputTransformation0.002460ms/pred. Theseevents mayoverlap/nest; not sumasexclusivewholegap. Unattributed~0.771ms outsideANEinterval containswrapper/dispatch/synchronization andunknownruntimework; no evidence thatitcanallberemoved.
+Initialhistoricalparser onlyremovedinstance-1 undercounted518currentcalls; correctednumericinstance-suffix normalization yields1295CoreML/1295ANE/1295containment. Invalidinitialanalysis retained explicitly; correctedscriptSHA/source preserved. Rawtrace129MB/CPUXML61MB localonly, nohugeprofilercommit.
+
+F. MLState/KV
+Exactly oneMLState madeby prefillModel.makeState(), shared withsameABIdecode. Sessionlock protects orderedprediction, validLength increments onlyafter success; errorsinvalidate. No production state.withMultiArray/readback, no per-tokenhostKVcopy orstatewrapper reconstruction. diagnosticStateSnapshot is correctness-only, notcalledhere.48staticstate descriptors, logicalhoststridecontract[65536,32768,64,1]; actualinternalANEtiling UNKNOWN.
+Decode hasone shared write_mask>0.5 bool and48staticselect(oldState,newK/V) +write_state. No graphpositioninput or dynamicslice_update. NewK/V currenttokenonly (128FP16each perlayer); selectoutputs6291456logicalbytes/pred,96stateReads logical131072bytes/state; these arelogicaltensors NOT actualDRAMcopybytes. Compilerinplace/fusion/alias behavior UNKNOWN; allstateopsANEpreferred. Prefill48staticpositionslice_update writes224tokens; oneprefill only.
+Do notdrop prefillcreator whiledecoding: stateowner/supportedcreator lifetime notprovenindependent; noKV/storage/state architecture change. Frozencontext logically54 althoughphysicalprefill224; futurepaddedstate contents masked untiloverwrite, not assumedzero.
+
+G. Attention
+Qcurrenttoken14x64, K/Vcurrenttoken2x64; RoPEcos/sin bytes preparedhost perabsolute position, arithmetic x*cos+rotate_half(x)*sin inside24layers. Two rank4GQA groups7queryheads eachavoid physicallyrepeatingKV. Eachgroup QKmatmul -> scale0.125 -> full512hostmaskaddition -> softmax -> PVmatmul -> concatenate/transpose/reshape -> outputprojection/residual/SwiGLUFFN. Scores[1,7,1,512], result[1,7,1,64]; previousKVfromupdatedMLState. Fullfixed512 processed irrespectivevalidmask55..313. This is necessary currentgraphbehavior, not proveninefficiency; truncatingmaskedtail couldchangefloating-pointreductions/compilerordering andrequiresnewassets/numericalgate, notimplemented.
+
+H. Static/dynamic shapes
+AllmodelI/O/state shapes fixed, zeroRangeDim/enumerated/symbolic/outputunknownDimensions orshape-dependentblocks. Dependencyaudit1132shape/indexbindings eachprefill/decode ALL compile-timeconstant. Numeric mask/write_mask/cos/sin/x vary, butnotshapes.289sliceops useconstantindices; no evidence of unnecessarilydynamic decodeexport. CurrentfixedmodelalreadyremovedpriorlegacyRangeDim anddynamicstatewrite representation.
+Hostmaskfuture FP16 negativeinfinitybit0xfc00, validzero; one incremental slot unmasked, write_mask exactone FP16bit0x3c00 atactualposition. Values unchanged in audit.
+
+I. Outputs/materialization
+Onlylogits[1,6761]13522B andhidden[1,896]1792B. ProductionfillLogits/RASconsumeonlylogits; hidden isexport/parity convenience. Hiddenalreadyrequiredinternally by6761speechhead; removingexternaloutput cannot removeitscomputation. At259decodeextraexternallogicalhiddenbytes464128, not measuredcopytraffic/majorunusedtensor. State isMLState, notreturned fullKVfeatureoutput. No hugeunusedhidden/intermediatediagnostic output found.
+CurrenttraceOutputTransformationavg0.002460ms andInputCopy0.008227ms: no materialoutputtransfer bottleneck proven. Actualbacking/CPU↔ANEphysicalcopies UNKNOWN. Do not reconvert merely to remove1.8KB unusedoutput or reopenlogits/embedding/RAS micros.
+
+J. Stage energy / baseline table
+Reference measuredwarmrequest3, allnominal. Wallwindows definedbypublicprogress andpredictions; disjointtableavoidscountingLLMgeneration plusitschildren. OtherscontainsRAS/host/postPCM/windowgaps/measurement. CPUtime mayexceedwall forparallelthreads; N/A meansunavailable, NOT zero.
+
+Stage | Wall ms | % synthesis | Total Energy mJ | Total Avg mW | Process CPU ms | Execution evidence
+Preparation | 2.521541 | 0.052 | N/A | N/A | 2.507 | public automaticprepare/cache
+Frontend/reference | 0.485834 | 0.010 | N/A | N/A | 0.487 | reference cache hit
+LLM model load | 123.261166 | 2.525 | N/A | N/A | 92.501 | authoritative CoreML constructors
+Prefill | 31.557500 | 0.646 | N/A | N/A | 1.299 | matched ANE job; per-op UNKNOWN
+Decode259 | 3206.786040 | 65.678 | N/A | N/A | 72.790 | 1295matched ANE jobs in currenttrace
+Acoustic model load | 2.786708 | 0.057 | N/A | N/A | 4.278 | selected-family shelf hit
+Conditions | 10.148833 | 0.208 | N/A | N/A | 1.769 | CPU events; stage not optimized
+Flow window | 916.498916 | 18.771 | N/A | N/A | 113.911 | CPU/GPU activity in currenttrace
+F0 | 21.036417 | 0.431 | N/A | N/A | 29.236 | native FP64 CPU
+HiFT prediction | 522.025667 | 10.692 | N/A | N/A | 45.633 | coarse CPU events; placement remainsCPU_AND_GPU
+Other | 45.457920 | 0.931 | N/A | N/A | N/A | RAS/host scheduling/PCM/window gaps/measurement
+Total | 4882.566542 | 100.000 | N/A | N/A | 415.788 | public no-playback synthesis
+
+ReadableCPU-only counter snapshots (NOT totalmodelenergy):
+Stage | CPU-only accounted counter delta mJ | CPU-only delta/wall average mW
+LLM load | 413.495371 | 3354.628099
+prefill | 12.142094 | 384.555324
+LLM generation | 490.970806 | 150.182763
+Flow execute | 226.489299 | 247.124459
+F0 | 77.634606 | 3690.486170
+HiFT prediction | 81.074533 | 155.307561
+total | 1347.271687 | 275.934755
+Decode259 summed CPU-only accountedcounter delta474.233263mJ; peraudiosecond45.599352 CPU-onlymJ. Totalselfprocesscounter1347.271687mJ/10.4s audio; this is NOT wholepipeline mJ/audio. LLMloadCPUcounter413.495mJ isnear decode474.233mJ despite muchlesswalltime: do notinferenergysharefromtimeshare, or reopenresidency taskfromthissingleestimate.
+API:Applelibproc proc_pid_rusage iOS7+ signature, SDKrusage_info_v6. ri_energy_nj comesfromXNUCPUrecount; excludesANE/GPU/display/radio andwork inotherprocesses. UnsafeCpointer confinedOSreadscopedbuffer, no tensorpointer/state/mutabilityescape. Monotonicpositive guard; zeros/unsupportedN/A. Apple Recount tracks ARM energy at thread context-switch granularity (https://github.com/apple-oss-distributions/xnu/blob/main/doc/observability/recount.md); short-stagecounters canhave deferredaccounting/quantization; CPU-onlytableis rawaccountingdeltas, not calibratedcomponentjoules. https://github.com/apple-oss-distributions/xnu/blob/main/osfmk/kern/bsd_kern.c .
+PowerProfiler available butitsreported systemrelativebatteryusage/impact cannotbeconvertedto calibratedmJ withoutadditionalreliablehardwareenergydata: https://developer.apple.com/documentation/xcode/measuring-your-app-s-power-use-with-power-profiler . No batterypercentage-energy inference. Primarywholepipelineenergy/audiosecond andaveragepower remainN/A; dominantTOTALenergy stage UNKNOWN.
+
+K. Thermal
+Currentmeasurement andprofiling5-requestgroups start/endnominal; controlfirst4nominal,5endsfair. Rawthermal retained; no thermalimprovement/new12endurance claim. HistoricalisolatedLLM12 startsnominal,fairiteration1,seriousiteration11; Flow12 endsfair,HiFTGPU12nominal. Thosegroups unequalelapsed/coldloadconditions, so LLM isstrongsustained concern butnot provenlargestjoule/thermal contributor independentofcold. This auditdoesnotresumecache/Flow/placementorlongstressoptimization.
+
+L. Optimization opportunity matrix
+Candidate | Mechanism / evidence | Benefit | Risk | New assets | Numerical risk / listening | Recommendation
+Remove external hidden output | remove export-only1792B/token, cannot remove hidden computation because logits use it | unknown; tiny output, no material transfer evidence | LOW/MEDIUM | True | compiler layout may differ, not assume BIT_IDENTICAL; ifPCM changes / futuregraphcandidate gate | NOT_RECOMMENDED
+Static shape export | remove unnecessary shape variability | no applicable variability: all shapes/index metadata constant | LOW/MEDIUM | True | none proposed; futureasset gate | NOT_APPLICABLE
+Default -> fastPrediction hint | alter CoreML specialization/runtime plans | unknown; no repeated per-token specialization observed | LOW/MEDIUM | False | internal compiler behavior/PCM must be validated; ifPCM changes / placement-like experiment | NOT_RECOMMENDED_WITHOUT_NEW_EVIDENCE
+Rewrite state select/read/write | reduce logicalfullstate traffic if compiler actually materializes it | UNKNOWN physicaltraffic/latency; allstateops ANEpreferred | MEDIUM | True | could alter layout/state ordering; futureparity required; mandatory futuregraph gate ifPCM differs | NOT_JUSTIFIED_NOW
+Rewire postwrite read_state to selected SSA tensor | avoid apparent redundant state reads if not already optimized | logical96reads vs48states is not measured copying; compiler alias/fusion unknown | MEDIUM | True | state/compiler compatibility requires explicitproof; futureasset/PCM gate | NOT_JUSTIFIED_NOW
+Attention/linear layout or operator decomposition | improve accelerator tiling/kernel lowering | UNKNOWN; no CPU islands/unsupportedops proven; estimatedlinear cost not runtimeproof | MEDIUM | True | FP ordering may change; futuregraph gate | NOT_JUSTIFIED_NOW
+KV precision/quantization/topology/attention math | reduce necessary math or weighttraffic | outside frozen audit; no experiment authorized | HIGH | True | YES semantics/precision change; mandatory, butoutofscope | PROHIBITED
+
+M. Decision
+NO_SAFE_MATERIAL_OPPORTUNITY_FOUND.
+The present graph isalreadystatic/ANE-oriented and measureddecode wall predominantly overlapsa matchedANEprogram interval. No evidence-backed CPUisland/dynamicshape/largeoutput problem witha plausiblematerial remedy found. InternalANE arithmetic/bandwidth/state/dispatch attributionunknown, so neither theoreticaloptimality nor100percentper-opANE claimed. Theseuncertainties doNOTjustify manufacturingaDecodev2rewrite. No model rewritten/reconverted/repartitioned/quantized orassetschanged.
+
+N. Next experiment
+NOT_APPLICABLE: chosenM isnotSTRONGLY_JUSTIFIED orPLAUSIBLE_NEEDS_TARGETED_PROTOTYPE. No newDecodev2profile/branch/assets/prototype. Vendor/backendkernelcost/traffic counters couldpermitdeeperauditifavailablelater; currentApple APIsusedhere do notgive thatsplit.
+
+O. Future quantitative gates (defined, not executed)
+Any futureauthorizedcandidate mustliveinseparateexperimentalprofile/branch preservingfrozenLG. All13gates: sourcemodelparity,hostnumerical,token-by-token,longdecode,MLState/KV,EOS,physicaliPhone,PCM,listening,repeatedwarm,energy,thermal,memory. Changeorder/precision requires ownriskgate; humanlisteningmandatoryifPCMdiffers. Keeprawpairedbaseline/candidate order/medians/ranges/comparablethermal/device/OS/source/assets. Improvementmust exceed empiricallymeasurednoise orshow meaningfulreliableenergy/memorywithoutlatencyregression. No arbitrarypercentage/material-gainpromise fromestimatedcost. CurrentnominalcontrolLLMrange35.008ms vsmeasurement62.957ms illustratesnoise; fixedpercentage notsupersede identity orthermalchecks. FuturetotalenergycannotbevalidatedbyCPU-onlycounter orimpactscore.
+
+P. Energy/power interpretation
+Energyintegratedovertime, notpeakpower. CPU-onlycounter average约148mW forrequest3decode doesnotmeasureANEpower. AshortnativeF0CPUburst canhavelargerCPU-onlyinstantaveragepowerbutlessCPU-counterenergy; no componenttotalenergyrankingfromthat. Do notcalllowerwalltimelowerheat, orloweraveragepowerlowerenergy. Productprioritywholepipelinenergy/audiosecond,sustainedthermal,RTF,power,memory; qualityandstabilityunchanged.
+
+Q. Preservation / limitations
+Separateauditdirectory, frozenassets/manifests/HF/releasecatalog/historicalacceptedreceipts untouched. Rawprofilertrace/XML localSHA-bound paths; frozenprotobufs/operators/rawtokenCSV/energy/timelines preserved; no hugeprofilerupload. Optionalmatplotlib unavailable inboth conversion/bundledPython; no dependenciesinstalled ormissingplotclaimed.13existingtests andsignedReleasebuildPASS. Existingembeddingcopy optimizationandresidencydecisionunchanged; all15physicalpublicoutputsBIT_IDENTICAL, sameacceptedhumancheckpoint001. No newhumanlisteningPASS claimed orneededforunchangedPCM.
+
+Final executive summary (exact10questions)
+1: Primary observedwallcoverage isANEprograminterval (~93.8percent), NOT full-op residency/ANEcomputeutilization; arithmeticvsbandwidth/stateinternalsUNKNOWN. NoCPU-heavyexplanationproven.
+2: No evidence ofavoidableANE↔CPUfragmentation. Exactinternalsegments/optransitionsUNKNOWN.
+3: No repeatablematerial context-growth evidence; fixed512work, one latejitterepisode notreplicated.
+4: HostMLState/KVpersistentandincremental, nofullhostcopy/readback. CompileractualstatebuffertrafficUNKNOWN.
+5: No largeunusedoutput; externalhidden1792B unused butrequiredinternally forlogits.
+6: Dominanttotalenergy stageUNKNOWN. CPU-onlycountermeasured, nottotalANE/GPUenergy.
+7: LLM sustained12historicalserious isaconcern, butcold/unequaldurationspreventexactstageheatattribution. No newsustainedclaim.
+8: ANEDecodev2notjustifiedbycurrentmaterialevidence; M=NO_SAFE_MATERIAL_OPPORTUNITY_FOUND.
+9: No Decodev2prototype recommendedinthisaudit; strongerApple/vendorbackendtraffic/kernelattribution neededbeforeconcretegraphremedy.
+10: DoNOTreopenlogits/RAS/embedding/hostsmallcopies, alreadyfixedshapes, speculativehiddenoutputgain, blindANEplacementorKV/precision/architecture changes.

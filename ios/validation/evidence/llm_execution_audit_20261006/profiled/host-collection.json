@@ -1,0 +1,26 @@
+{
+  "command": [
+    "xcrun",
+    "devicectl",
+    "device",
+    "process",
+    "launch",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--terminate-existing",
+    "--console",
+    "com.actacomes.cosyvoice3.candidatebenchmark",
+    "--",
+    "--validation-stage-profiling",
+    "--no-playback",
+    "--validation-warm-pass",
+    "--validation-warm-pass-mode=repeat",
+    "--validation-flow-partition=2",
+    "--validation-acoustic-cache=selected-family",
+    "--validation-execution-audit"
+  ],
+  "runnerSHA256": "d9a10037e65c17f56efe9fb36fd53156d6cc8856b0327075d9e025b866cd607f",
+  "noTimedReadback": true,
+  "SHARDS": 2,
+  "receiptSHA256": "d9c105eaa342340846c8fb96022f67b5693dd20c2e95349ef26f4301a63622f1"
+}
