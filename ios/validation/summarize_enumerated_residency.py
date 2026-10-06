@@ -54,7 +54,7 @@ def main():
             failures.append(dict(case=run['name'],orchestrationStatus=run.get('status'),request=request,consoleSHA256=sha(console) if console.exists() else None,lastConsoleLines=lines[-25:],
                                  phase='model construction before Flow prediction' if run['name']=='flow-CPU_ONLY' else None,
                                  cause='UNKNOWN; signal9 alone is not Jetsam attribution' if run['name']=='flow-CPU_ONLY' else None))
-    common=dict(schemaVersion=1,recordedGitHEAD=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),physicalSignedSourceCommits=sorted(signed),
+    common=dict(schemaVersion=1,physicalRuntimeRoots=sorted({r['request'].get('persistentRuntime',{}).get('directory','').split('/Library/')[0]+'/Documents/GeneratedAssets/Runtime' for r in stages if r['request'].get('persistentRuntime')}),recordedGitHEAD=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),physicalSignedSourceCommits=sorted(signed),
                 device='iPhone18,4',iOS='27.2',assetExportSourceCommit='ac31e117938ed50132365973a103cc8425942700',frozenPayloadTreeSHA256=PAYLOAD,
                 manifestSHA256='2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee',promotion=False,algorithmWeightsAndFlowStepsUnchanged=True,
                 persistentCacheAndNominalSerialIdlePreserved=True,publicAPI='CosyVoice3Engine.synthesize()',N=260,T=822,G=520,functionName='n257_384',sampleRate=24000,samples=249600,seconds=10.4)
@@ -64,22 +64,22 @@ def main():
     thermal_evidence=dict(common,status='RECORDED_PHYSICAL_SUSTAINED_COMPARISONS_WITH_LIMITATIONS',isolatedStages=stages,fullPipelines=full,failures=failures,
                          FASTEST_EQUIVALENT=fastest['case'] if fastest else None,
                          COOLEST_EQUIVALENT_OBSERVED= coolest['case'] if coolest else None,
-                         COOLEST_EQUIVALENT='NOT_PROVEN_SUSTAINED_COOL',
+                         COOLEST_EQUIVALENT=coolest['case'] if coolest else None,COOLEST_QUALIFICATION='best measured within this nominal-start12cohort; not sustainedcool guarantee, all full variants reachedserious',
                          limitations=['Nominal indicator is coarse; residual first-use heat/system compiler work can affect attribution','Isolated12 groups have unequal elapsed duration, cannot compare temperature per equal joule/time','Self CPU excludes CoreML services, GPU and ANE power','First profiledLLM12 nominal vs laterunprofiled12 serious retained, not merged','No sleep/throttle between measured iterations; only pre-group nominal gate',
                                       'Unprofiled accelerator activity UNKNOWN; separate traces are evidence for traced configurations only'])
     (EVIDENCE/'enumerated_ane_thermal_attribution.json').write_text(json.dumps(thermal_evidence,indent=2)+'\n')
-    traces=[load(EVIDENCE/'enumerated_ane_llm_trace_attribution.json'),load(EVIDENCE/'enumerated_ane_hift_trace_attribution.json')]
-    residency=dict(common,status='ACTIVITY_PROVEN_FULL_PER_OP_RESIDENCY_NOT_PROVEN',classifications=dict(llmPrefill='UNKNOWN_RESIDENCY',llmDecode='UNKNOWN_RESIDENCY',Flow='UNKNOWN_RESIDENCY',HiFT='UNKNOWN_RESIDENCY'),
-                   FULL_ANE_COMPONENTS=[],PARTIAL_ANE_COMPONENTS=[],NON_ANE_COMPONENTS=[],UNKNOWN_COMPONENTS=['LLM prefill','LLM decode','Flow','HiFT'],
+    traces=[load(EVIDENCE/f'enumerated_ane_{kind}_trace_attribution.json') for kind in ['llm','hift','flow_p2','flow_p3','hift_multifunction']]
+    residency=dict(common,status='ACTIVITY_PROVEN_FULL_PER_OP_RESIDENCY_NOT_PROVEN',classifications=dict(llmPrefill='UNKNOWN_RESIDENCY',llmDecode='UNKNOWN_RESIDENCY',Flow='UNKNOWN_RESIDENCY',HiFT='CPU_ONLY'),
+                   FULL_ANE_COMPONENTS=[],PARTIAL_ANE_COMPONENTS=[],NON_ANE_COMPONENTS=['HiFT frozen multifunction requestedCPU_AND_NE: CPU backend observed in12 scoped predictions'],UNKNOWN_COMPONENTS=['LLM prefill per-op graph mapping','LLM decode per-op graph mapping','Flow per-op mapping; observed CPU/GPU mixture has no exact category in requested enum'],
                    observations=dict(LLM='Exact compiled artifact/PID/native intervals join12prefill and3108decode ANE hardware predictions; graph op mapping remains unavailable',
-                                     Flow='CPU and GPU Request partitions measured in frozen6trace; anticipated root cast/shape/cast CPU preferred in p2/p3plans, actual per-op mapping absent',
-                                     HiFT='Exact static-input diagnostic requestedNE trace12CPU prediction events, no matching ANE predictions; original multifunction NE plan632CPUpreferred; not an impossibility proof'),
+                                     Flow='P2 trace144CPU+144GPURequest and P3trace216CPU+216GPURequest for12six-step trajectories, noANE modelpredictions; rootcast/shape/cast CPUpreferred inplans, actual per-op assignment/latency absent',
+                                     HiFT='Original frozen multifunction requestedNE trace12 CPU prediction events covering5088ms of5121ms prediction intervals, zeroGPURequest and zero matchedANEpredictions; originalNE plan632CPUpreferred. CPU_ONLY for this tested config; no claim of inherent impossibility'),
                    traces=traces,physicalPlans=plans,operationSignatureEvidence='enumerated_ane_operation_signatures.json',
                    rewrites=[dict(name='input descriptor only staticN260',status='REJECT_COMPILE_INPUT_TYPE_MISMATCH'),dict(name='static program inputtypes',status='FLOW_REJECT_NUMERICAL_OR_CONTROL_FAILURE_HIFT_DIAGNOSTIC_ONLY'),dict(name='single enumerated shape',status='REJECT_HOST_COMPILE_OR_PREDICTION_FAILURE')],
-                   graphOrCompilerCausalFallbackBlockers='UNKNOWN; no unsupported operator inferred solely from preferred device',actualFallbackOpLatencyMilliseconds=None,
+                   graphOrCompilerCausalFallbackBlockers='UNKNOWN; no unsupported operator inferred solely from preferred device',actualFallbackOpLatencyMilliseconds=None,singleFunctionPartitionDiagnostics=[dict(partition=n,receipt=load(WORK/f'plan-single-p{n}-ne/ane-compute-plan-receipt.json')) for n in [2,3]],singleFunctionStagedIdentity='enumerated_flow_partition_single_staged_identity.json',singleFunctionHostParity='enumerated_flow_partition_single_host_parity.json',
                    officialPreferredDefinition='https://developer.apple.com/documentation/coreml/mlcomputeplandeviceusage',failures=failures)
     (EVIDENCE/'enumerated_ane_residency.json').write_text(json.dumps(residency,indent=2)+'\n')
-    current=load(EVIDENCE/'enumerated_ane_optimization.json');current['actualResidencyAndThermalPhase']=dict(common,status=residency['status'],residencyEvidence='enumerated_ane_residency.json',thermalEvidence='enumerated_ane_thermal_attribution.json',FASTEST_EQUIVALENT=fastest,COOLEST_EQUIVALENT='NOT_PROVEN_SUSTAINED_COOL',bestObservedThermalCase=coolest['case'] if coolest else None)
+    current=load(EVIDENCE/'enumerated_ane_optimization.json');current['actualResidencyAndThermalPhase']=dict(common,status=residency['status'],residencyEvidence='enumerated_ane_residency.json',thermalEvidence='enumerated_ane_thermal_attribution.json',FASTEST_EQUIVALENT=fastest,COOLEST_EQUIVALENT=coolest['case'] if coolest else None,COOLEST_QUALIFICATION='best measured within this nominal-start12cohort; not sustainedcool guarantee, all full variants reachedserious',bestObservedThermalCase=coolest['case'] if coolest else None)
     (EVIDENCE/'enumerated_ane_optimization.json').write_text(json.dumps(current,indent=2)+'\n')
     print('[RESIDENCY-SUMMARY] stages',len(stages),'full',len(full),'fastest',fastest['case'] if fastest else None,'warmRTF',fastest['warmRTF'] if fastest else None,'coolestObserved',coolest['case'] if coolest else None,flush=True)
 

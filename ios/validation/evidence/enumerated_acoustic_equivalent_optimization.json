@@ -122419,5 +122419,23 @@
       "warmRTF": 0.48218227961538457,
       "warmTotalMilliseconds": 5014.695707999999
     }
-  ]
+  ],
+  "actualResidencyPhase": {
+    "sourceEvidence": "enumerated_ane_residency.json",
+    "thermalEvidence": "enumerated_ane_thermal_attribution.json",
+    "algorithmWeightsPrecisionFlowStepsUnchanged": true,
+    "acceptedPlacementVariant": "frozen multifunction HiFT requestedCPU_AND_NE, measuredCPUbackend",
+    "physicalPCMMaxAbsVsGPU": 2.642720937728882e-05,
+    "physicalPCMRelativeL2VsGPU": 1.7724586276383372e-05,
+    "FASTEST_EQUIVALENT": "p3GPU+MFHiFTCPU_AND_NErequested",
+    "warmRTF": 0.46438149038461535,
+    "warmTotalMilliseconds": 4829.5675,
+    "acousticLoadMilliseconds": 3.382208,
+    "acousticExecutionMilliseconds": 1381.325834,
+    "COOLEST_EQUIVALENT_OBSERVED": "p2GPU+MFHiFTGPU",
+    "coolestWarmRTF": 0.48583669067307694,
+    "sustained12End": "serious",
+    "sustainedCoolAchieved": false,
+    "shippingPromotion": false
+  }
 }

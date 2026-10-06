@@ -1,0 +1,643 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "packages": [
+    {
+      "partition": 2,
+      "role": "flow0",
+      "expected": {
+        "treeSha256": "902ca9c4eb93c97e0b465b9b850d5295fae41f19fbd898341f32739d2e5946b7",
+        "bytes": 364384042,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 316609,
+            "sha256": "40f2a7ad0ca62c680cd875d105b2689fd122818d9d0fbe39ef8cfaf209da4f84"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+            "bytes": 128965248,
+            "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+            "bytes": 117550784,
+            "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+            "bytes": 117550784,
+            "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "c5a5c9685f25748000544bfe6cfa234b801167ac3e6ebc1dd7422b4a260a6231"
+          }
+        ]
+      },
+      "actual": {
+        "treeSha256": "902ca9c4eb93c97e0b465b9b850d5295fae41f19fbd898341f32739d2e5946b7",
+        "bytes": 364384042,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 316609,
+            "sha256": "40f2a7ad0ca62c680cd875d105b2689fd122818d9d0fbe39ef8cfaf209da4f84"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+            "bytes": 128965248,
+            "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+            "bytes": 117550784,
+            "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+            "bytes": 117550784,
+            "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "c5a5c9685f25748000544bfe6cfa234b801167ac3e6ebc1dd7422b4a260a6231"
+          }
+        ]
+      },
+      "exactMatch": true
+    },
+    {
+      "partition": 2,
+      "role": "flow1",
+      "expected": {
+        "treeSha256": "40d72d4f77cd9bba09b325970333d62d200074b94e142af2bd2db74febb06fde",
+        "bytes": 298500631,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 260302,
+            "sha256": "c0f6fd2895e9781cd9c69e887db56f84dbe2338575a6226f7e77809170fbf1bd"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+            "bytes": 117550784,
+            "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+            "bytes": 117550784,
+            "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+            "bytes": 63138144,
+            "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "8871496e940d620e2f45f238b7933a3d58aa9871fe51bfb48437df25e5573963"
+          }
+        ]
+      },
+      "actual": {
+        "treeSha256": "40d72d4f77cd9bba09b325970333d62d200074b94e142af2bd2db74febb06fde",
+        "bytes": 298500631,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 260302,
+            "sha256": "c0f6fd2895e9781cd9c69e887db56f84dbe2338575a6226f7e77809170fbf1bd"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+            "bytes": 117550784,
+            "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+            "bytes": 117550784,
+            "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+            "bytes": 63138144,
+            "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "8871496e940d620e2f45f238b7933a3d58aa9871fe51bfb48437df25e5573963"
+          }
+        ]
+      },
+      "exactMatch": true
+    },
+    {
+      "partition": 3,
+      "role": "flow0",
+      "expected": {
+        "treeSha256": "bf09a0656c9d5aca855a63018ac02c15740a509ae8147b88567a250caa70d76f",
+        "bytes": 246733721,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 217072,
+            "sha256": "687acdc4f4355ddd5c7a5436ab4ff2922ba92ed14088365d94bfc4f343be12a9"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+            "bytes": 128965248,
+            "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+            "bytes": 117550784,
+            "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "7b44d5eaa42cb697cd29058835571460eee9d93a1b0d0e570c92d5676b9948a6"
+          }
+        ]
+      },
+      "actual": {
+        "treeSha256": "bf09a0656c9d5aca855a63018ac02c15740a509ae8147b88567a250caa70d76f",
+        "bytes": 246733721,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 217072,
+            "sha256": "687acdc4f4355ddd5c7a5436ab4ff2922ba92ed14088365d94bfc4f343be12a9"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+            "bytes": 128965248,
+            "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+            "bytes": 117550784,
+            "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "7b44d5eaa42cb697cd29058835571460eee9d93a1b0d0e570c92d5676b9948a6"
+          }
+        ]
+      },
+      "exactMatch": true
+    },
+    {
+      "partition": 3,
+      "role": "flow1",
+      "expected": {
+        "treeSha256": "fca89595380d0b9b304b46d1722b9aa6fa5971dcd5bef68486dc6674f8be001a",
+        "bytes": 235303665,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 201480,
+            "sha256": "b6bcb53a6b35aad73e26f62551443a245d03a65bb0f93cf1da113b1b39364d78"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+            "bytes": 117550784,
+            "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+            "bytes": 117550784,
+            "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "9524dc7be2ed2a94b610a7641ffd230406b77adf7df8b6dbf3244bbccf993bea"
+          }
+        ]
+      },
+      "actual": {
+        "treeSha256": "fca89595380d0b9b304b46d1722b9aa6fa5971dcd5bef68486dc6674f8be001a",
+        "bytes": 235303665,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 201480,
+            "sha256": "b6bcb53a6b35aad73e26f62551443a245d03a65bb0f93cf1da113b1b39364d78"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+            "bytes": 117550784,
+            "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+            "bytes": 117550784,
+            "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "9524dc7be2ed2a94b610a7641ffd230406b77adf7df8b6dbf3244bbccf993bea"
+          }
+        ]
+      },
+      "exactMatch": true
+    },
+    {
+      "partition": 3,
+      "role": "flow2",
+      "expected": {
+        "treeSha256": "15f94d3630bb3e64c2ae1ef6ec28159fee375ecad63b73771de075f70e0cdd9d",
+        "bytes": 180850310,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 160765,
+            "sha256": "8908516fdf94a098f45fd44516fe6c948025e6cef2f9c1dc897d5f677315279a"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+            "bytes": 117550784,
+            "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+            "bytes": 63138144,
+            "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "370e034882decae5bf208ed07cbc003212beb58a746469f58544dc7084be8769"
+          }
+        ]
+      },
+      "actual": {
+        "treeSha256": "15f94d3630bb3e64c2ae1ef6ec28159fee375ecad63b73771de075f70e0cdd9d",
+        "bytes": 180850310,
+        "files": [
+          {
+            "path": "Data/com.apple.CoreML/model.mlmodel",
+            "bytes": 160765,
+            "sha256": "8908516fdf94a098f45fd44516fe6c948025e6cef2f9c1dc897d5f677315279a"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+            "bytes": 117550784,
+            "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+          },
+          {
+            "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+            "bytes": 63138144,
+            "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+          },
+          {
+            "path": "Manifest.json",
+            "bytes": 617,
+            "sha256": "370e034882decae5bf208ed07cbc003212beb58a746469f58544dc7084be8769"
+          }
+        ]
+      },
+      "exactMatch": true
+    }
+  ],
+  "exportSource": {
+    "schemaVersion": 1,
+    "status": "EXPORTED_NUMERICAL_AND_DEVICE_GATES_PENDING",
+    "packages": [
+      {
+        "partition": 2,
+        "role": "flow0",
+        "sourcePackage": "/private/tmp/cosy-flow-partitions-20261005/p2/group-0.mlpackage",
+        "sourceIdentity": {
+          "treeSha256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+          "bytes": 365331932,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 1264499,
+              "sha256": "0a8db6db9b17c840f6f8a13282b1fd28ade0eaf0f5ade88718a16b0a3f3e6b29"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "bytes": 128965248,
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "bytes": 117550784,
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "bytes": 117550784,
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "4a6b770bca31a5a6cbe42bb211fb48a39dedae72d66508c87cc31ccefcbf90ab"
+            }
+          ]
+        },
+        "package": "/private/tmp/cosy-flow-partition-single-20261006/p2/flow0.mlpackage",
+        "identity": {
+          "treeSha256": "902ca9c4eb93c97e0b465b9b850d5295fae41f19fbd898341f32739d2e5946b7",
+          "bytes": 364384042,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 316609,
+              "sha256": "40f2a7ad0ca62c680cd875d105b2689fd122818d9d0fbe39ef8cfaf209da4f84"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "bytes": 128965248,
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "bytes": 117550784,
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "bytes": 117550784,
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "c5a5c9685f25748000544bfe6cfa234b801167ac3e6ebc1dd7422b4a260a6231"
+            }
+          ]
+        },
+        "selectedFunctionByteIdentical": true,
+        "weightsByteIdentical": true,
+        "diagnosticOnly": true
+      },
+      {
+        "partition": 2,
+        "role": "flow1",
+        "sourcePackage": "/private/tmp/cosy-flow-partitions-20261005/p2/group-1.mlpackage",
+        "sourceIdentity": {
+          "treeSha256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+          "bytes": 299280530,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 1040201,
+              "sha256": "fc716adf701b9590fe9d96f4fd8f61426eb06fd0fb0a485c6c4bc18e72274b54"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "bytes": 117550784,
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "bytes": 117550784,
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "bytes": 63138144,
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "34f44bde36e27b2accfd001ce4c1bd18cdfe31c4b742903d4e606d911e1228c1"
+            }
+          ]
+        },
+        "package": "/private/tmp/cosy-flow-partition-single-20261006/p2/flow1.mlpackage",
+        "identity": {
+          "treeSha256": "40d72d4f77cd9bba09b325970333d62d200074b94e142af2bd2db74febb06fde",
+          "bytes": 298500631,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 260302,
+              "sha256": "c0f6fd2895e9781cd9c69e887db56f84dbe2338575a6226f7e77809170fbf1bd"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "bytes": 117550784,
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "bytes": 117550784,
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "bytes": 63138144,
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "8871496e940d620e2f45f238b7933a3d58aa9871fe51bfb48437df25e5573963"
+            }
+          ]
+        },
+        "selectedFunctionByteIdentical": true,
+        "weightsByteIdentical": true,
+        "diagnosticOnly": true
+      },
+      {
+        "partition": 3,
+        "role": "flow0",
+        "sourcePackage": "/private/tmp/cosy-flow-partitions-20261005/p3/group-0.mlpackage",
+        "sourceIdentity": {
+          "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+          "bytes": 247383000,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 866351,
+              "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "bytes": 128965248,
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "bytes": 117550784,
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+            }
+          ]
+        },
+        "package": "/private/tmp/cosy-flow-partition-single-20261006/p3/flow0.mlpackage",
+        "identity": {
+          "treeSha256": "bf09a0656c9d5aca855a63018ac02c15740a509ae8147b88567a250caa70d76f",
+          "bytes": 246733721,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 217072,
+              "sha256": "687acdc4f4355ddd5c7a5436ab4ff2922ba92ed14088365d94bfc4f343be12a9"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+              "bytes": 128965248,
+              "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+              "bytes": 117550784,
+              "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "7b44d5eaa42cb697cd29058835571460eee9d93a1b0d0e570c92d5676b9948a6"
+            }
+          ]
+        },
+        "selectedFunctionByteIdentical": true,
+        "weightsByteIdentical": true,
+        "diagnosticOnly": true
+      },
+      {
+        "partition": 3,
+        "role": "flow1",
+        "sourcePackage": "/private/tmp/cosy-flow-partitions-20261005/p3/group-1.mlpackage",
+        "sourceIdentity": {
+          "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+          "bytes": 235907098,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 804913,
+              "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "bytes": 117550784,
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "bytes": 117550784,
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+            }
+          ]
+        },
+        "package": "/private/tmp/cosy-flow-partition-single-20261006/p3/flow1.mlpackage",
+        "identity": {
+          "treeSha256": "fca89595380d0b9b304b46d1722b9aa6fa5971dcd5bef68486dc6674f8be001a",
+          "bytes": 235303665,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 201480,
+              "sha256": "b6bcb53a6b35aad73e26f62551443a245d03a65bb0f93cf1da113b1b39364d78"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+              "bytes": 117550784,
+              "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+              "bytes": 117550784,
+              "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "9524dc7be2ed2a94b610a7641ffd230406b77adf7df8b6dbf3244bbccf993bea"
+            }
+          ]
+        },
+        "selectedFunctionByteIdentical": true,
+        "weightsByteIdentical": true,
+        "diagnosticOnly": true
+      },
+      {
+        "partition": 3,
+        "role": "flow2",
+        "sourcePackage": "/private/tmp/cosy-flow-partitions-20261005/p3/group-2.mlpackage",
+        "sourceIdentity": {
+          "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+          "bytes": 181331598,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 642053,
+              "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "bytes": 117550784,
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "bytes": 63138144,
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
+            }
+          ]
+        },
+        "package": "/private/tmp/cosy-flow-partition-single-20261006/p3/flow2.mlpackage",
+        "identity": {
+          "treeSha256": "15f94d3630bb3e64c2ae1ef6ec28159fee375ecad63b73771de075f70e0cdd9d",
+          "bytes": 180850310,
+          "files": [
+            {
+              "path": "Data/com.apple.CoreML/model.mlmodel",
+              "bytes": 160765,
+              "sha256": "8908516fdf94a098f45fd44516fe6c948025e6cef2f9c1dc897d5f677315279a"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+              "bytes": 117550784,
+              "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+            },
+            {
+              "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+              "bytes": 63138144,
+              "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+            },
+            {
+              "path": "Manifest.json",
+              "bytes": 617,
+              "sha256": "370e034882decae5bf208ed07cbc003212beb58a746469f58544dc7084be8769"
+            }
+          ]
+        },
+        "selectedFunctionByteIdentical": true,
+        "weightsByteIdentical": true,
+        "diagnosticOnly": true
+      }
+    ],
+    "promotion": false
+  }
+}

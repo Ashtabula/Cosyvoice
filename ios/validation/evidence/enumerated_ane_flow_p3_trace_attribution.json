@@ -1,0 +1,2056 @@
+{
+  "schemaVersion": 1,
+  "status": "MODEL_AND_STAGE_ACTIVITY_OBSERVED_PER_OP_ASSIGNMENT_UNAVAILABLE",
+  "sourceCommit": "655eb88cf7dc462bb5a5b7b4ca53a88aa868fa43",
+  "processID": 5016,
+  "requestReceiptSHA256": "5db2977cca754f9efe2e4ea0b9c2775507253c7b318745bc5a2da832aa1d11cf",
+  "stageIntervals": [
+    {
+      "stage": "llm",
+      "startNanoseconds": 80814362375,
+      "endNanoseconds": 84219691916,
+      "wallMilliseconds": 3405.329541
+    },
+    {
+      "stage": "llm.prefill.prediction",
+      "startNanoseconds": 80818127458,
+      "endNanoseconds": 80851016250,
+      "wallMilliseconds": 32.888792
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80851146541,
+      "endNanoseconds": 80864772250,
+      "wallMilliseconds": 13.625709
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80864899958,
+      "endNanoseconds": 80878264208,
+      "wallMilliseconds": 13.36425
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80878442291,
+      "endNanoseconds": 80891766166,
+      "wallMilliseconds": 13.323875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80891893958,
+      "endNanoseconds": 80905015500,
+      "wallMilliseconds": 13.121542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80905195916,
+      "endNanoseconds": 80918651416,
+      "wallMilliseconds": 13.4555
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80918778416,
+      "endNanoseconds": 80932050791,
+      "wallMilliseconds": 13.272375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80932177541,
+      "endNanoseconds": 80945619416,
+      "wallMilliseconds": 13.441875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80945745958,
+      "endNanoseconds": 80959120791,
+      "wallMilliseconds": 13.374833
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80959484250,
+      "endNanoseconds": 80974005000,
+      "wallMilliseconds": 14.52075
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80974396875,
+      "endNanoseconds": 80988586125,
+      "wallMilliseconds": 14.18925
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 80988721375,
+      "endNanoseconds": 81002152583,
+      "wallMilliseconds": 13.431208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81002284250,
+      "endNanoseconds": 81015671791,
+      "wallMilliseconds": 13.387541
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81015845666,
+      "endNanoseconds": 81029309083,
+      "wallMilliseconds": 13.463417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81029437958,
+      "endNanoseconds": 81042723250,
+      "wallMilliseconds": 13.285292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81042842541,
+      "endNanoseconds": 81055969750,
+      "wallMilliseconds": 13.127209
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81056087958,
+      "endNanoseconds": 81068090541,
+      "wallMilliseconds": 12.002583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81068209416,
+      "endNanoseconds": 81081193625,
+      "wallMilliseconds": 12.984209
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81081311458,
+      "endNanoseconds": 81094393666,
+      "wallMilliseconds": 13.082208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81094511791,
+      "endNanoseconds": 81107491708,
+      "wallMilliseconds": 12.979917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81107615875,
+      "endNanoseconds": 81120812583,
+      "wallMilliseconds": 13.196708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81120931250,
+      "endNanoseconds": 81132970125,
+      "wallMilliseconds": 12.038875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81133088958,
+      "endNanoseconds": 81146211208,
+      "wallMilliseconds": 13.12225
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81146331041,
+      "endNanoseconds": 81159204416,
+      "wallMilliseconds": 12.873375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81159323750,
+      "endNanoseconds": 81172383666,
+      "wallMilliseconds": 13.059916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81172507208,
+      "endNanoseconds": 81185461041,
+      "wallMilliseconds": 12.953833
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81185579583,
+      "endNanoseconds": 81197482875,
+      "wallMilliseconds": 11.903292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81197606666,
+      "endNanoseconds": 81210698541,
+      "wallMilliseconds": 13.091875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81210822666,
+      "endNanoseconds": 81222853041,
+      "wallMilliseconds": 12.030375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81222971166,
+      "endNanoseconds": 81235961791,
+      "wallMilliseconds": 12.990625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81236079250,
+      "endNanoseconds": 81248128500,
+      "wallMilliseconds": 12.04925
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81248247958,
+      "endNanoseconds": 81261202666,
+      "wallMilliseconds": 12.954708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81261320333,
+      "endNanoseconds": 81274513875,
+      "wallMilliseconds": 13.193542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81274631750,
+      "endNanoseconds": 81287656333,
+      "wallMilliseconds": 13.024583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81287774333,
+      "endNanoseconds": 81300495833,
+      "wallMilliseconds": 12.7215
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81300616583,
+      "endNanoseconds": 81313825291,
+      "wallMilliseconds": 13.208708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81313943291,
+      "endNanoseconds": 81326647791,
+      "wallMilliseconds": 12.7045
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81326766000,
+      "endNanoseconds": 81340068291,
+      "wallMilliseconds": 13.302291
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81340186125,
+      "endNanoseconds": 81353550375,
+      "wallMilliseconds": 13.36425
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81353668166,
+      "endNanoseconds": 81366894125,
+      "wallMilliseconds": 13.225959
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81367011958,
+      "endNanoseconds": 81380082083,
+      "wallMilliseconds": 13.070125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81380199375,
+      "endNanoseconds": 81393381375,
+      "wallMilliseconds": 13.182
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81393500208,
+      "endNanoseconds": 81406779166,
+      "wallMilliseconds": 13.278958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81406896375,
+      "endNanoseconds": 81420415375,
+      "wallMilliseconds": 13.519
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81420533958,
+      "endNanoseconds": 81433651500,
+      "wallMilliseconds": 13.117542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81433769291,
+      "endNanoseconds": 81447042541,
+      "wallMilliseconds": 13.27325
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81447160041,
+      "endNanoseconds": 81460605583,
+      "wallMilliseconds": 13.445542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81460722541,
+      "endNanoseconds": 81474196666,
+      "wallMilliseconds": 13.474125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81474313333,
+      "endNanoseconds": 81487799500,
+      "wallMilliseconds": 13.486167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81487916875,
+      "endNanoseconds": 81500648375,
+      "wallMilliseconds": 12.7315
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81500772208,
+      "endNanoseconds": 81513508083,
+      "wallMilliseconds": 12.735875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81513625750,
+      "endNanoseconds": 81526849083,
+      "wallMilliseconds": 13.223333
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81526966208,
+      "endNanoseconds": 81539714583,
+      "wallMilliseconds": 12.748375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81539831958,
+      "endNanoseconds": 81553035875,
+      "wallMilliseconds": 13.203917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81553153625,
+      "endNanoseconds": 81566313125,
+      "wallMilliseconds": 13.1595
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81566432208,
+      "endNanoseconds": 81579512791,
+      "wallMilliseconds": 13.080583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81579629791,
+      "endNanoseconds": 81592716333,
+      "wallMilliseconds": 13.086542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81592833875,
+      "endNanoseconds": 81605816166,
+      "wallMilliseconds": 12.982291
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81605937625,
+      "endNanoseconds": 81618915458,
+      "wallMilliseconds": 12.977833
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81619033000,
+      "endNanoseconds": 81632261166,
+      "wallMilliseconds": 13.228166
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81632378000,
+      "endNanoseconds": 81645357333,
+      "wallMilliseconds": 12.979333
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81645474916,
+      "endNanoseconds": 81658219458,
+      "wallMilliseconds": 12.744542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81658335583,
+      "endNanoseconds": 81671361625,
+      "wallMilliseconds": 13.026042
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81671479208,
+      "endNanoseconds": 81684622750,
+      "wallMilliseconds": 13.143542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81684739208,
+      "endNanoseconds": 81697799583,
+      "wallMilliseconds": 13.060375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81697920875,
+      "endNanoseconds": 81710647166,
+      "wallMilliseconds": 12.726291
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81710770041,
+      "endNanoseconds": 81722771250,
+      "wallMilliseconds": 12.001209
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81722936791,
+      "endNanoseconds": 81736205333,
+      "wallMilliseconds": 13.268542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81736331708,
+      "endNanoseconds": 81749480666,
+      "wallMilliseconds": 13.148958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81749597375,
+      "endNanoseconds": 81762644958,
+      "wallMilliseconds": 13.047583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81762761666,
+      "endNanoseconds": 81775770750,
+      "wallMilliseconds": 13.009084
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81775887958,
+      "endNanoseconds": 81788588333,
+      "wallMilliseconds": 12.700375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81788706416,
+      "endNanoseconds": 81801810500,
+      "wallMilliseconds": 13.104084
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81801935125,
+      "endNanoseconds": 81815043291,
+      "wallMilliseconds": 13.108166
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81815160833,
+      "endNanoseconds": 81828241000,
+      "wallMilliseconds": 13.080167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81828358125,
+      "endNanoseconds": 81841436541,
+      "wallMilliseconds": 13.078416
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81841554000,
+      "endNanoseconds": 81854687833,
+      "wallMilliseconds": 13.133833
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81854805458,
+      "endNanoseconds": 81867031208,
+      "wallMilliseconds": 12.22575
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81867148041,
+      "endNanoseconds": 81880133083,
+      "wallMilliseconds": 12.985042
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81880249833,
+      "endNanoseconds": 81893364750,
+      "wallMilliseconds": 13.114917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81893485791,
+      "endNanoseconds": 81905467166,
+      "wallMilliseconds": 11.981375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81905590375,
+      "endNanoseconds": 81918399916,
+      "wallMilliseconds": 12.809541
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81918517083,
+      "endNanoseconds": 81930546500,
+      "wallMilliseconds": 12.029417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81930720541,
+      "endNanoseconds": 81943669250,
+      "wallMilliseconds": 12.948709
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81943787416,
+      "endNanoseconds": 81955799500,
+      "wallMilliseconds": 12.012084
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81955923583,
+      "endNanoseconds": 81969100000,
+      "wallMilliseconds": 13.176417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81969217708,
+      "endNanoseconds": 81981208166,
+      "wallMilliseconds": 11.990458
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81981326166,
+      "endNanoseconds": 81993372166,
+      "wallMilliseconds": 12.046
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 81993490875,
+      "endNanoseconds": 82006447125,
+      "wallMilliseconds": 12.95625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82006572333,
+      "endNanoseconds": 82018526708,
+      "wallMilliseconds": 11.954375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82018644083,
+      "endNanoseconds": 82030678541,
+      "wallMilliseconds": 12.034458
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82030795291,
+      "endNanoseconds": 82044117375,
+      "wallMilliseconds": 13.322084
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82044234500,
+      "endNanoseconds": 82057197041,
+      "wallMilliseconds": 12.962541
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82057314416,
+      "endNanoseconds": 82069364166,
+      "wallMilliseconds": 12.04975
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82069482916,
+      "endNanoseconds": 82082571958,
+      "wallMilliseconds": 13.089042
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82082689375,
+      "endNanoseconds": 82095519500,
+      "wallMilliseconds": 12.830125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82095643458,
+      "endNanoseconds": 82108593708,
+      "wallMilliseconds": 12.95025
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82108717541,
+      "endNanoseconds": 82121797041,
+      "wallMilliseconds": 13.0795
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82121919833,
+      "endNanoseconds": 82134812583,
+      "wallMilliseconds": 12.89275
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82134929166,
+      "endNanoseconds": 82146969375,
+      "wallMilliseconds": 12.040209
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82147089500,
+      "endNanoseconds": 82160226666,
+      "wallMilliseconds": 13.137166
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82160386166,
+      "endNanoseconds": 82173474041,
+      "wallMilliseconds": 13.087875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82173598416,
+      "endNanoseconds": 82185710291,
+      "wallMilliseconds": 12.111875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82185826625,
+      "endNanoseconds": 82198838583,
+      "wallMilliseconds": 13.011958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82198961583,
+      "endNanoseconds": 82211843875,
+      "wallMilliseconds": 12.882292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82212014041,
+      "endNanoseconds": 82225146875,
+      "wallMilliseconds": 13.132834
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82225267875,
+      "endNanoseconds": 82237236041,
+      "wallMilliseconds": 11.968166
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82237352541,
+      "endNanoseconds": 82250035000,
+      "wallMilliseconds": 12.682459
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82250151833,
+      "endNanoseconds": 82263405541,
+      "wallMilliseconds": 13.253708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82263522666,
+      "endNanoseconds": 82276301291,
+      "wallMilliseconds": 12.778625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82276420333,
+      "endNanoseconds": 82288484458,
+      "wallMilliseconds": 12.064125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82288602208,
+      "endNanoseconds": 82301770166,
+      "wallMilliseconds": 13.167958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82301894250,
+      "endNanoseconds": 82315043750,
+      "wallMilliseconds": 13.1495
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82315160750,
+      "endNanoseconds": 82327309750,
+      "wallMilliseconds": 12.149
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82327427666,
+      "endNanoseconds": 82339536916,
+      "wallMilliseconds": 12.10925
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82339653958,
+      "endNanoseconds": 82352727041,
+      "wallMilliseconds": 13.073083
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82352845333,
+      "endNanoseconds": 82365796958,
+      "wallMilliseconds": 12.951625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82365914375,
+      "endNanoseconds": 82378823666,
+      "wallMilliseconds": 12.909291
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82378990833,
+      "endNanoseconds": 82392199791,
+      "wallMilliseconds": 13.208958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82392317083,
+      "endNanoseconds": 82405462208,
+      "wallMilliseconds": 13.145125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82405585333,
+      "endNanoseconds": 82419158833,
+      "wallMilliseconds": 13.5735
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82419275166,
+      "endNanoseconds": 82432587791,
+      "wallMilliseconds": 13.312625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82432704166,
+      "endNanoseconds": 82445702666,
+      "wallMilliseconds": 12.9985
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82445819041,
+      "endNanoseconds": 82458717291,
+      "wallMilliseconds": 12.89825
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82458833458,
+      "endNanoseconds": 82472092958,
+      "wallMilliseconds": 13.2595
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82472209666,
+      "endNanoseconds": 82484932083,
+      "wallMilliseconds": 12.722417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82485049625,
+      "endNanoseconds": 82498051416,
+      "wallMilliseconds": 13.001791
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82498174791,
+      "endNanoseconds": 82511148708,
+      "wallMilliseconds": 12.973917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82511269208,
+      "endNanoseconds": 82524390416,
+      "wallMilliseconds": 13.121208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82524509208,
+      "endNanoseconds": 82536639750,
+      "wallMilliseconds": 12.130542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82536757166,
+      "endNanoseconds": 82549916041,
+      "wallMilliseconds": 13.158875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82550033708,
+      "endNanoseconds": 82562857458,
+      "wallMilliseconds": 12.82375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82562979500,
+      "endNanoseconds": 82575726250,
+      "wallMilliseconds": 12.74675
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82575844166,
+      "endNanoseconds": 82588695958,
+      "wallMilliseconds": 12.851792
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82588815125,
+      "endNanoseconds": 82601726375,
+      "wallMilliseconds": 12.91125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82601850583,
+      "endNanoseconds": 82615094583,
+      "wallMilliseconds": 13.244
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82615212458,
+      "endNanoseconds": 82628243750,
+      "wallMilliseconds": 13.031292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82628361250,
+      "endNanoseconds": 82641561208,
+      "wallMilliseconds": 13.199958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82641682250,
+      "endNanoseconds": 82653756208,
+      "wallMilliseconds": 12.073958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82653874041,
+      "endNanoseconds": 82667008333,
+      "wallMilliseconds": 13.134292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82667125458,
+      "endNanoseconds": 82680255583,
+      "wallMilliseconds": 13.130125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82680372291,
+      "endNanoseconds": 82692450291,
+      "wallMilliseconds": 12.078
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82692566875,
+      "endNanoseconds": 82705620666,
+      "wallMilliseconds": 13.053791
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82705744000,
+      "endNanoseconds": 82718771583,
+      "wallMilliseconds": 13.027583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82718888916,
+      "endNanoseconds": 82732084833,
+      "wallMilliseconds": 13.195917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82732202458,
+      "endNanoseconds": 82745312708,
+      "wallMilliseconds": 13.11025
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82745432000,
+      "endNanoseconds": 82758529125,
+      "wallMilliseconds": 13.097125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82758647500,
+      "endNanoseconds": 82770722833,
+      "wallMilliseconds": 12.075333
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82770839958,
+      "endNanoseconds": 82784065333,
+      "wallMilliseconds": 13.225375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82784182041,
+      "endNanoseconds": 82796823375,
+      "wallMilliseconds": 12.641334
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82796946958,
+      "endNanoseconds": 82809611458,
+      "wallMilliseconds": 12.6645
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82809735166,
+      "endNanoseconds": 82822923583,
+      "wallMilliseconds": 13.188417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82823041166,
+      "endNanoseconds": 82835116875,
+      "wallMilliseconds": 12.075709
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82835240083,
+      "endNanoseconds": 82848322333,
+      "wallMilliseconds": 13.08225
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82848442500,
+      "endNanoseconds": 82861580625,
+      "wallMilliseconds": 13.138125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82861699500,
+      "endNanoseconds": 82875176708,
+      "wallMilliseconds": 13.477208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82875294125,
+      "endNanoseconds": 82888252083,
+      "wallMilliseconds": 12.957958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82888369666,
+      "endNanoseconds": 82900308958,
+      "wallMilliseconds": 11.939292
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82900434666,
+      "endNanoseconds": 82912445375,
+      "wallMilliseconds": 12.010709
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82912563000,
+      "endNanoseconds": 82925455916,
+      "wallMilliseconds": 12.892916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82925572916,
+      "endNanoseconds": 82938766375,
+      "wallMilliseconds": 13.193459
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82938884125,
+      "endNanoseconds": 82950913250,
+      "wallMilliseconds": 12.029125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82951030083,
+      "endNanoseconds": 82964161541,
+      "wallMilliseconds": 13.131458
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82964279125,
+      "endNanoseconds": 82977312833,
+      "wallMilliseconds": 13.033708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82977431583,
+      "endNanoseconds": 82990550625,
+      "wallMilliseconds": 13.119042
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 82990668666,
+      "endNanoseconds": 83003587125,
+      "wallMilliseconds": 12.918459
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83003712791,
+      "endNanoseconds": 83016975958,
+      "wallMilliseconds": 13.263167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83017093791,
+      "endNanoseconds": 83029997291,
+      "wallMilliseconds": 12.9035
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83030115333,
+      "endNanoseconds": 83042092583,
+      "wallMilliseconds": 11.97725
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83042211291,
+      "endNanoseconds": 83055082958,
+      "wallMilliseconds": 12.871667
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83055200500,
+      "endNanoseconds": 83067955708,
+      "wallMilliseconds": 12.755208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83068072208,
+      "endNanoseconds": 83081186125,
+      "wallMilliseconds": 13.113917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83081302833,
+      "endNanoseconds": 83094470791,
+      "wallMilliseconds": 13.167958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83094587916,
+      "endNanoseconds": 83107179750,
+      "wallMilliseconds": 12.591834
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83107304708,
+      "endNanoseconds": 83120065416,
+      "wallMilliseconds": 12.760708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83120182875,
+      "endNanoseconds": 83133244875,
+      "wallMilliseconds": 13.062
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83133362208,
+      "endNanoseconds": 83146300625,
+      "wallMilliseconds": 12.938417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83146419250,
+      "endNanoseconds": 83158408250,
+      "wallMilliseconds": 11.989
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83158525958,
+      "endNanoseconds": 83171180208,
+      "wallMilliseconds": 12.65425
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83171297833,
+      "endNanoseconds": 83184445958,
+      "wallMilliseconds": 13.148125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83184563541,
+      "endNanoseconds": 83196475375,
+      "wallMilliseconds": 11.911834
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83196599875,
+      "endNanoseconds": 83209514000,
+      "wallMilliseconds": 12.914125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83209638208,
+      "endNanoseconds": 83222730791,
+      "wallMilliseconds": 13.092583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83222847791,
+      "endNanoseconds": 83234797791,
+      "wallMilliseconds": 11.95
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83234914541,
+      "endNanoseconds": 83246848958,
+      "wallMilliseconds": 11.934417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83246965416,
+      "endNanoseconds": 83259993916,
+      "wallMilliseconds": 13.0285
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83260153208,
+      "endNanoseconds": 83273160708,
+      "wallMilliseconds": 13.0075
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83273319791,
+      "endNanoseconds": 83286098666,
+      "wallMilliseconds": 12.778875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83286257833,
+      "endNanoseconds": 83299163375,
+      "wallMilliseconds": 12.905542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83299330083,
+      "endNanoseconds": 83312552208,
+      "wallMilliseconds": 13.222125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83312715750,
+      "endNanoseconds": 83325746208,
+      "wallMilliseconds": 13.030458
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83325862750,
+      "endNanoseconds": 83338816666,
+      "wallMilliseconds": 12.953916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83338981583,
+      "endNanoseconds": 83351667750,
+      "wallMilliseconds": 12.686167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83351832750,
+      "endNanoseconds": 83364925000,
+      "wallMilliseconds": 13.09225
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83365095625,
+      "endNanoseconds": 83377097416,
+      "wallMilliseconds": 12.001791
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83377213791,
+      "endNanoseconds": 83389955666,
+      "wallMilliseconds": 12.741875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83390072125,
+      "endNanoseconds": 83403503041,
+      "wallMilliseconds": 13.430916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83403622041,
+      "endNanoseconds": 83417121708,
+      "wallMilliseconds": 13.499667
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83417238583,
+      "endNanoseconds": 83430251166,
+      "wallMilliseconds": 13.012583
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83430368625,
+      "endNanoseconds": 83443393500,
+      "wallMilliseconds": 13.024875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83443513541,
+      "endNanoseconds": 83456480875,
+      "wallMilliseconds": 12.967334
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83456598958,
+      "endNanoseconds": 83469245458,
+      "wallMilliseconds": 12.6465
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83469363833,
+      "endNanoseconds": 83482034833,
+      "wallMilliseconds": 12.671
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83482152833,
+      "endNanoseconds": 83495248500,
+      "wallMilliseconds": 13.095667
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83495372125,
+      "endNanoseconds": 83508312458,
+      "wallMilliseconds": 12.940333
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83508436291,
+      "endNanoseconds": 83521696458,
+      "wallMilliseconds": 13.260167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83521813833,
+      "endNanoseconds": 83534888458,
+      "wallMilliseconds": 13.074625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83535005625,
+      "endNanoseconds": 83547987541,
+      "wallMilliseconds": 12.981916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83548105333,
+      "endNanoseconds": 83560802416,
+      "wallMilliseconds": 12.697083
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83560922333,
+      "endNanoseconds": 83573922041,
+      "wallMilliseconds": 12.999708
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83574040291,
+      "endNanoseconds": 83586737791,
+      "wallMilliseconds": 12.6975
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83586855458,
+      "endNanoseconds": 83599746291,
+      "wallMilliseconds": 12.890833
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83599870041,
+      "endNanoseconds": 83613005625,
+      "wallMilliseconds": 13.135584
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83613122583,
+      "endNanoseconds": 83625072541,
+      "wallMilliseconds": 11.949958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83625189833,
+      "endNanoseconds": 83637189750,
+      "wallMilliseconds": 11.999917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83637306708,
+      "endNanoseconds": 83650110083,
+      "wallMilliseconds": 12.803375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83650227166,
+      "endNanoseconds": 83662265166,
+      "wallMilliseconds": 12.038
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83662381875,
+      "endNanoseconds": 83675360291,
+      "wallMilliseconds": 12.978416
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83675478333,
+      "endNanoseconds": 83687485083,
+      "wallMilliseconds": 12.00675
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83687601500,
+      "endNanoseconds": 83700263000,
+      "wallMilliseconds": 12.6615
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83700386958,
+      "endNanoseconds": 83713322916,
+      "wallMilliseconds": 12.935958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83713441291,
+      "endNanoseconds": 83726466875,
+      "wallMilliseconds": 13.025584
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83726584833,
+      "endNanoseconds": 83739515791,
+      "wallMilliseconds": 12.930958
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83739633750,
+      "endNanoseconds": 83751675041,
+      "wallMilliseconds": 12.041291
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83751792791,
+      "endNanoseconds": 83764721541,
+      "wallMilliseconds": 12.92875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83764839500,
+      "endNanoseconds": 83777880041,
+      "wallMilliseconds": 13.040541
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83777997666,
+      "endNanoseconds": 83790803291,
+      "wallMilliseconds": 12.805625
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83790921375,
+      "endNanoseconds": 83803585625,
+      "wallMilliseconds": 12.66425
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83803707416,
+      "endNanoseconds": 83816668666,
+      "wallMilliseconds": 12.96125
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83816786416,
+      "endNanoseconds": 83828784416,
+      "wallMilliseconds": 11.998
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83828902000,
+      "endNanoseconds": 83841566916,
+      "wallMilliseconds": 12.664916
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83841684708,
+      "endNanoseconds": 83854794208,
+      "wallMilliseconds": 13.1095
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83854911208,
+      "endNanoseconds": 83868036458,
+      "wallMilliseconds": 13.12525
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83868154541,
+      "endNanoseconds": 83881483000,
+      "wallMilliseconds": 13.328459
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83881661625,
+      "endNanoseconds": 83894844000,
+      "wallMilliseconds": 13.182375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83894968041,
+      "endNanoseconds": 83907710000,
+      "wallMilliseconds": 12.741959
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83907833583,
+      "endNanoseconds": 83920571125,
+      "wallMilliseconds": 12.737542
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83920689666,
+      "endNanoseconds": 83933760541,
+      "wallMilliseconds": 13.070875
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83933877375,
+      "endNanoseconds": 83946965583,
+      "wallMilliseconds": 13.088208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83947081916,
+      "endNanoseconds": 83960106375,
+      "wallMilliseconds": 13.024459
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83960222875,
+      "endNanoseconds": 83972901541,
+      "wallMilliseconds": 12.678666
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83973098250,
+      "endNanoseconds": 83985904666,
+      "wallMilliseconds": 12.806416
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83986022708,
+      "endNanoseconds": 83998861875,
+      "wallMilliseconds": 12.839167
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 83998985833,
+      "endNanoseconds": 84012201750,
+      "wallMilliseconds": 13.215917
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84012318166,
+      "endNanoseconds": 84025004666,
+      "wallMilliseconds": 12.6865
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84025121083,
+      "endNanoseconds": 84037989416,
+      "wallMilliseconds": 12.868333
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84038106750,
+      "endNanoseconds": 84051068250,
+      "wallMilliseconds": 12.9615
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84051184916,
+      "endNanoseconds": 84063183916,
+      "wallMilliseconds": 11.999
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84063300500,
+      "endNanoseconds": 84075962708,
+      "wallMilliseconds": 12.662208
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84076128208,
+      "endNanoseconds": 84089218291,
+      "wallMilliseconds": 13.090083
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84089334791,
+      "endNanoseconds": 84102421208,
+      "wallMilliseconds": 13.086417
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84102538208,
+      "endNanoseconds": 84115642708,
+      "wallMilliseconds": 13.1045
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84115760125,
+      "endNanoseconds": 84128873583,
+      "wallMilliseconds": 13.113458
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84129042166,
+      "endNanoseconds": 84141709750,
+      "wallMilliseconds": 12.667584
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84141827666,
+      "endNanoseconds": 84154659708,
+      "wallMilliseconds": 12.832042
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84154778083,
+      "endNanoseconds": 84167457458,
+      "wallMilliseconds": 12.679375
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84167575541,
+      "endNanoseconds": 84180480375,
+      "wallMilliseconds": 12.904834
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84180598000,
+      "endNanoseconds": 84193679416,
+      "wallMilliseconds": 13.081416
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84193800125,
+      "endNanoseconds": 84206736166,
+      "wallMilliseconds": 12.936041
+    },
+    {
+      "stage": "llm.decode.prediction",
+      "startNanoseconds": 84206859500,
+      "endNanoseconds": 84219561833,
+      "wallMilliseconds": 12.702333
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 85891157875,
+      "endNanoseconds": 87233518625,
+      "wallMilliseconds": 1342.36075
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 87233543375,
+      "endNanoseconds": 88125584458,
+      "wallMilliseconds": 892.041083
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 88125595666,
+      "endNanoseconds": 89021680041,
+      "wallMilliseconds": 896.084375
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 89021694458,
+      "endNanoseconds": 89921828041,
+      "wallMilliseconds": 900.133583
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 89921839625,
+      "endNanoseconds": 90831176291,
+      "wallMilliseconds": 909.336666
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 90831188125,
+      "endNanoseconds": 91774368208,
+      "wallMilliseconds": 943.180083
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 91774381791,
+      "endNanoseconds": 92747999625,
+      "wallMilliseconds": 973.617834
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 92748013791,
+      "endNanoseconds": 93750160750,
+      "wallMilliseconds": 1002.146959
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 93750171125,
+      "endNanoseconds": 94794537750,
+      "wallMilliseconds": 1044.366625
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 94794551166,
+      "endNanoseconds": 95963142541,
+      "wallMilliseconds": 1168.591375
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 95963152250,
+      "endNanoseconds": 97114179708,
+      "wallMilliseconds": 1151.027458
+    },
+    {
+      "stage": "flow",
+      "startNanoseconds": 97114195208,
+      "endNanoseconds": 98196629541,
+      "wallMilliseconds": 1082.434333
+    },
+    {
+      "stage": "hift",
+      "startNanoseconds": 98228563833,
+      "endNanoseconds": 99126306625,
+      "wallMilliseconds": 897.742792
+    }
+  ],
+  "models": [
+    {
+      "role": "llmPrefill",
+      "identity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "422.797958",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+        "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 1,
+        "Input Validation": 2,
+        "Input Copy": 4,
+        "Data Cast": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 417.672125,
+        "Prediction": 32.87175,
+        "Input Validation": 0.052250000000000005,
+        "Input Copy": 0.054291,
+        "Data Cast": 0.005958,
+        "Output Transformation": 0.011583
+      },
+      "aneHardwarePredictionCount": 1,
+      "anePredictionsContainedInCoreMLPrediction": 1,
+      "aneHardwarePredictionMilliseconds": 30.946833,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 0,
+        "llm": 1,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 1
+      }
+    },
+    {
+      "role": "llmDecode",
+      "identity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "418.586875",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+        "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 259,
+        "Input Validation": 518,
+        "Input Copy": 1295,
+        "Data Cast": 259,
+        "Output Transformation": 259
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 417.803583,
+        "Prediction": 3334.7012490000016,
+        "Input Validation": 5.015084999999996,
+        "Input Copy": 2.623825999999986,
+        "Data Cast": 0.6343689999999991,
+        "Output Transformation": 0.8576749999999992
+      },
+      "aneHardwarePredictionCount": 259,
+      "anePredictionsContainedInCoreMLPrediction": 259,
+      "aneHardwarePredictionMilliseconds": 3098.9455060000037,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 0,
+        "llm": 259,
+        "llm.decode.prediction": 259,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "conditions",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "12.319667",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+        "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 1,
+        "Input Validation": 1,
+        "CPU": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 11.31575,
+        "Prediction": 6.2235,
+        "Input Validation": 0.007292,
+        "CPU": 5.69675,
+        "Output Transformation": 0.010833
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "diagnostic-or-partition",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "a4e39217476622391316dc017b51fc1e435daf0c4da2102ff579252fd4dba373.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "417.628583",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+        "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "a4e39217476622391316dc017b51fc1e435daf0c4da2102ff579252fd4dba373",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 72,
+        "Input Validation": 72,
+        "Input Copy": 360,
+        "CPU": 72,
+        "Prepare GPU Request": 72,
+        "GPU Request": 72,
+        "Output Transformation": 72
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 416.560084,
+        "Prediction": 4468.278243,
+        "Input Validation": 0.4569949999999999,
+        "Input Copy": 5.700367,
+        "CPU": 1.0951290000000005,
+        "Prepare GPU Request": 910.768869,
+        "GPU Request": 4249.383251,
+        "Output Transformation": 0.6530029999999999
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 72,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "diagnostic-or-partition",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "443d0b9c6f2ce1b31e50dd0ac897132ada9da7ec59e0719ed0336e3a9fd18007.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "383.535",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+        "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "443d0b9c6f2ce1b31e50dd0ac897132ada9da7ec59e0719ed0336e3a9fd18007",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 72,
+        "Input Validation": 72,
+        "Input Copy": 144,
+        "CPU": 72,
+        "Prepare GPU Request": 72,
+        "GPU Request": 72,
+        "Output Transformation": 72
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 382.430416,
+        "Prediction": 4415.425456000002,
+        "Input Validation": 0.26799999999999996,
+        "Input Copy": 0.5559069999999995,
+        "CPU": 18.391208999999996,
+        "Prepare GPU Request": 807.0944139999997,
+        "GPU Request": 4215.706374,
+        "Output Transformation": 1.2580399999999998
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 72,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "diagnostic-or-partition",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "4d086b101eaa81d157d6df9f46fae7f88cc18bcdeafc59d67e643ed856e93026.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "388.1865",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+        "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "4d086b101eaa81d157d6df9f46fae7f88cc18bcdeafc59d67e643ed856e93026",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 72,
+        "Input Validation": 72,
+        "Input Copy": 144,
+        "CPU": 72,
+        "Prepare GPU Request": 72,
+        "GPU Request": 72,
+        "Output Transformation": 72
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 386.946375,
+        "Prediction": 3334.439251,
+        "Input Validation": 0.5047090000000001,
+        "Input Copy": 0.8713339999999999,
+        "CPU": 22.008121000000003,
+        "Prepare GPU Request": 675.287002,
+        "GPU Request": 3155.3387930000013,
+        "Output Transformation": 0.49695999999999985
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 72,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "hift",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "215.34825",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+        "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1",
+      "activityCounts": {
+        "Load (cached)": 1,
+        "Prediction": 1,
+        "Input Validation": 1,
+        "Input Copy": 4,
+        "Prepare GPU Request": 1,
+        "CPU": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (cached)": 214.199791,
+        "Prediction": 677.484375,
+        "Input Validation": 0.009875,
+        "Input Copy": 1.2069159999999999,
+        "Prepare GPU Request": 10.667916,
+        "CPU": 13.483291,
+        "Output Transformation": 0.03
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 1,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    }
+  ],
+  "actualResidency": "UNKNOWN_RESIDENCY",
+  "meaning": "Measured activity joins do not turn MLComputePlan preferred devices into actual per-operation residency.",
+  "limitations": [
+    "CoreAIProfile per-model/op table unavailable; legacy CoreML activities are coarse",
+    "Hardware ANE rows lack PID; assignment uses exact compiled artifact hash plus native prediction containment",
+    "CPU event duration is a partition/event interval, not individual fallback op latency",
+    "Trace timings excluded from unprofiled performance comparison"
+  ],
+  "rawEvidence": [
+    {
+      "path": "/private/tmp/cosy-flow-p3-gpu-profile-OSSignpostIntervals.xml",
+      "sha256": "1f11239c44056498d17620dc7c67ff8270f2ae5f13483147758ef4f9fe39afa8",
+      "rowCount": 274
+    },
+    {
+      "path": "/private/tmp/cosy-flow-p3-gpu-profile-coreml-os-signpost.xml",
+      "sha256": "4bbdbd256f521a89d11690b0f42f8cca81cc6f8adccbaa4ae25944cb86759a81",
+      "rowCount": 4563
+    },
+    {
+      "path": "/private/tmp/cosy-flow-p3-gpu-profile-ane-hw-intervals.xml",
+      "sha256": "7e97a93cd07c45870cc75dde66b11a3963d2a48407cd99a6f72653e2b4a5c014",
+      "rowCount": 279
+    }
+  ]
+}

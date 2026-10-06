@@ -26,11 +26,15 @@ def main():
     graphs=json.loads((Path(__file__).parent/'evidence/enumerated_ane_graph_audit.json').read_text())['models']
     role_by_sha={v['identity']['treeSha256']:role for role,v in graphs.items()}
     models={}
-    for record in receipt['persistentRuntime']['records']:
-        if 'compiledArtifact' not in record:continue
+    records={r['key']:r for r in receipt['persistentRuntime']['records'] if 'compiledArtifact' in r}
+    for event in receipt['persistentRuntime']['processLoadEvents']:
+        record=records.get(event.get('key'))
+        if not record:continue
         identity=record.get('identity',{});key=record['compiledArtifact'].removesuffix('.mlmodelc')
         role=role_by_sha.get(identity.get('modelPackageSHA256'),'diagnostic-or-partition')
-        models[key]=dict(role=role,identity=identity,compiledArtifact=record['compiledArtifact'])
+        models[key]=dict(role=role,identity=identity,compiledArtifact=record['compiledArtifact'],actualProcessLoadEvent=event)
+    # Generic compiled archives are shared across placements/hints. Only this PID's
+    # actual load events may select an identity; old persistent records are not evidence.
     names=['OSSignpostIntervals','coreml-os-signpost','ane-hw-intervals']
     tables={name:Table(Path(str(a.prefix)+'-'+name+'.xml')) for name in names}
     stages=[]

@@ -1652,6 +1652,112 @@
   ],
   "models": [
     {
+      "role": "llmPrefill",
+      "identity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "9194.8415",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+        "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Load (cached)": 1,
+        "Prediction": 1,
+        "Input Validation": 2,
+        "Input Copy": 4,
+        "Data Cast": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 9194.076208,
+        "Load (cached)": 278.975625,
+        "Prediction": 33.984542,
+        "Input Validation": 0.043625,
+        "Input Copy": 0.055376,
+        "Data Cast": 0.005,
+        "Output Transformation": 0.009667
+      },
+      "aneHardwarePredictionCount": 1,
+      "anePredictionsContainedInCoreMLPrediction": 1,
+      "aneHardwarePredictionMilliseconds": 32.211,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 0,
+        "llm": 1,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 1
+      }
+    },
+    {
+      "role": "speechTokenizer",
+      "identity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "0",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "2815.668292",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+        "packageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Load (cached)": 1,
+        "Input Validation": 1,
+        "Prediction": 1,
+        "CPU": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 2812.163459,
+        "Load (cached)": 1.445875,
+        "Input Validation": 0.01525,
+        "Prediction": 1235.808,
+        "CPU": 1235.591042,
+        "Output Transformation": 0.030167
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
       "role": "llmDecode",
       "identity": {
         "functionName": "<default:main>",
@@ -1665,6 +1771,14 @@
         "schema": "3"
       },
       "compiledArtifact": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "8207.434125",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+        "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+        "persistentModelRecordHit": "true"
+      },
       "compiledName": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99",
       "activityCounts": {
         "Load (prepare and cache)": 1,
@@ -1698,39 +1812,43 @@
       }
     },
     {
-      "role": "flow1",
+      "role": "campPlus",
       "identity": {
-        "functionName": "n257_384",
+        "functionName": "<default:main>",
         "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
         "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+        "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
         "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "1",
+        "requestedPlacement": "0",
         "reshapeInfrequent": "false",
         "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
         "schema": "3"
       },
-      "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
-      "compiledName": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d",
+      "compiledArtifact": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "214.678417",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+        "packageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358",
       "activityCounts": {
         "Load (prepare and cache)": 1,
-        "Prediction": 6,
-        "Input Validation": 6,
-        "Input Copy": 12,
-        "CPU": 6,
-        "Prepare GPU Request": 6,
-        "GPU Request": 6,
-        "Output Transformation": 6
+        "Load (cached)": 1,
+        "Input Validation": 1,
+        "Prediction": 1,
+        "CPU": 1,
+        "Output Transformation": 1
       },
       "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 1132.9905,
-        "Prediction": 243.179417,
-        "Input Validation": 0.022374,
-        "Input Copy": 0.039669,
-        "CPU": 1.352957,
-        "Prepare GPU Request": 48.743624999999994,
-        "GPU Request": 174.83587599999998,
-        "Output Transformation": 0.073042
+        "Load (prepare and cache)": 213.594917,
+        "Load (cached)": 0.754292,
+        "Input Validation": 0.010417,
+        "Prediction": 13.190958,
+        "CPU": 12.289625,
+        "Output Transformation": 0.021208
       },
       "aneHardwarePredictionCount": 0,
       "anePredictionsContainedInCoreMLPrediction": 0,
@@ -1738,7 +1856,57 @@
       "perOperationActualDevices": null,
       "actualResidency": "UNKNOWN_RESIDENCY",
       "stageOverlapCounts": {
-        "flow": 6,
+        "flow": 0,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "conditions",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "235.683708",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+        "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Prediction": 1,
+        "Input Validation": 1,
+        "CPU": 1,
+        "Output Transformation": 1
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 234.629167,
+        "Prediction": 1.475625,
+        "Input Validation": 0.004917,
+        "CPU": 1.098209,
+        "Output Transformation": 0.008458
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 0,
         "hift": 0,
         "llm": 0,
         "llm.decode.prediction": 0,
@@ -1754,11 +1922,19 @@
         "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
         "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
         "requestedPlacement": "1",
-        "reshapeInfrequent": "true",
+        "reshapeInfrequent": "false",
         "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
         "schema": "3"
       },
       "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "1233.01",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+        "packageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+        "persistentModelRecordHit": "true"
+      },
       "compiledName": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b",
       "activityCounts": {
         "Load (prepare and cache)": 1,
@@ -1794,21 +1970,28 @@
       }
     },
     {
-      "role": "flow3",
+      "role": "flow1",
       "identity": {
         "functionName": "n257_384",
         "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
         "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+        "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
         "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
         "requestedPlacement": "1",
-        "reshapeInfrequent": "true",
+        "reshapeInfrequent": "false",
         "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3",
-        "specializationStrategy": "fastPrediction"
+        "schema": "3"
       },
-      "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
-      "compiledName": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2",
+      "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "1133.740084",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+        "packageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d",
       "activityCounts": {
         "Load (prepare and cache)": 1,
         "Prediction": 6,
@@ -1820,14 +2003,14 @@
         "Output Transformation": 6
       },
       "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 1090.673041,
-        "Prediction": 232.08445800000004,
-        "Input Validation": 0.021043,
-        "Input Copy": 0.04041600000000001,
-        "CPU": 1.3361659999999997,
-        "Prepare GPU Request": 43.448916,
-        "GPU Request": 169.87600000000003,
-        "Output Transformation": 0.057541
+        "Load (prepare and cache)": 1132.9905,
+        "Prediction": 243.179417,
+        "Input Validation": 0.022374,
+        "Input Copy": 0.039669,
+        "CPU": 1.352957,
+        "Prepare GPU Request": 48.743624999999994,
+        "GPU Request": 174.83587599999998,
+        "Output Transformation": 0.073042
       },
       "aneHardwarePredictionCount": 0,
       "anePredictionsContainedInCoreMLPrediction": 0,
@@ -1836,230 +2019,6 @@
       "actualResidency": "UNKNOWN_RESIDENCY",
       "stageOverlapCounts": {
         "flow": 6,
-        "hift": 0,
-        "llm": 0,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "diagnostic-or-partition",
-      "identity": {
-        "functionName": "<default:main>",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "1c305d31fa33ada566c4896ad94a0c160bb4fc8251a10877951bf107ad6bb559",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "3",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "486689d7221087d5bd40c54f88bee1ea2c5ea4e19c6c4dc0761ca3814b06669d.mlmodelc",
-      "compiledName": "486689d7221087d5bd40c54f88bee1ea2c5ea4e19c6c4dc0761ca3814b06669d",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Prediction": 12,
-        "Input Validation": 12,
-        "CPU": 12,
-        "Output Transformation": 12
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 365.975917,
-        "Prediction": 5832.537708,
-        "Input Validation": 0.055583,
-        "CPU": 5830.780500000001,
-        "Output Transformation": 0.2890829999999999
-      },
-      "aneHardwarePredictionCount": 0,
-      "anePredictionsContainedInCoreMLPrediction": 0,
-      "aneHardwarePredictionMilliseconds": 0,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 0,
-        "hift": 12,
-        "llm": 0,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "flow4",
-      "identity": {
-        "functionName": "n385_450",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "1",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
-      "compiledName": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Prediction": 6,
-        "Input Validation": 6,
-        "Input Copy": 12,
-        "CPU": 6,
-        "Prepare GPU Request": 6,
-        "GPU Request": 6,
-        "Output Transformation": 6
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 1131.334334,
-        "Prediction": 236.426666,
-        "Input Validation": 0.021332,
-        "Input Copy": 0.03933400000000001,
-        "CPU": 1.3775819999999999,
-        "Prepare GPU Request": 44.414085,
-        "GPU Request": 174.79333300000002,
-        "Output Transformation": 0.071167
-      },
-      "aneHardwarePredictionCount": 0,
-      "anePredictionsContainedInCoreMLPrediction": 0,
-      "aneHardwarePredictionMilliseconds": 0,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 6,
-        "hift": 0,
-        "llm": 0,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "conditions",
-      "identity": {
-        "functionName": "n385_450",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "1",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
-      "compiledName": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Prediction": 1,
-        "Input Validation": 1,
-        "CPU": 1,
-        "Output Transformation": 1
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 234.629167,
-        "Prediction": 1.475625,
-        "Input Validation": 0.004917,
-        "CPU": 1.098209,
-        "Output Transformation": 0.008458
-      },
-      "aneHardwarePredictionCount": 0,
-      "anePredictionsContainedInCoreMLPrediction": 0,
-      "aneHardwarePredictionMilliseconds": 0,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 0,
-        "hift": 0,
-        "llm": 0,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "flow5",
-      "identity": {
-        "functionName": "n385_450",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "1",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
-      "compiledName": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Prediction": 6,
-        "Input Validation": 6,
-        "Input Copy": 12,
-        "CPU": 6,
-        "Prepare GPU Request": 6,
-        "GPU Request": 6,
-        "Output Transformation": 6
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 784.828125,
-        "Prediction": 125.485125,
-        "Input Validation": 0.021792999999999996,
-        "Input Copy": 0.039249000000000006,
-        "CPU": 1.069294,
-        "Prepare GPU Request": 32.173165,
-        "GPU Request": 88.62141700000001,
-        "Output Transformation": 0.033707999999999995
-      },
-      "aneHardwarePredictionCount": 0,
-      "anePredictionsContainedInCoreMLPrediction": 0,
-      "aneHardwarePredictionMilliseconds": 0,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 6,
-        "hift": 0,
-        "llm": 0,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "speechTokenizer",
-      "identity": {
-        "functionName": "<default:main>",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "0",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b.mlmodelc",
-      "compiledName": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Load (cached)": 1,
-        "Input Validation": 1,
-        "Prediction": 1,
-        "CPU": 1,
-        "Output Transformation": 1
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 2812.163459,
-        "Load (cached)": 1.445875,
-        "Input Validation": 0.01525,
-        "Prediction": 1235.808,
-        "CPU": 1235.591042,
-        "Output Transformation": 0.030167
-      },
-      "aneHardwarePredictionCount": 0,
-      "anePredictionsContainedInCoreMLPrediction": 0,
-      "aneHardwarePredictionMilliseconds": 0,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 0,
         "hift": 0,
         "llm": 0,
         "llm.decode.prediction": 0,
@@ -2075,12 +2034,19 @@
         "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
         "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
         "requestedPlacement": "1",
-        "reshapeInfrequent": "true",
+        "reshapeInfrequent": "false",
         "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3",
-        "specializationStrategy": "fastPrediction"
+        "schema": "3"
       },
       "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "1192.70825",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+        "packageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+        "persistentModelRecordHit": "true"
+      },
       "compiledName": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550",
       "activityCounts": {
         "Load (prepare and cache)": 1,
@@ -2116,35 +2082,209 @@
       }
     },
     {
-      "role": "campPlus",
+      "role": "flow3",
       "identity": {
-        "functionName": "<default:main>",
+        "functionName": "n257_384",
         "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
         "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+        "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
         "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "0",
+        "requestedPlacement": "1",
         "reshapeInfrequent": "false",
         "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
         "schema": "3"
       },
-      "compiledArtifact": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358.mlmodelc",
-      "compiledName": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358",
+      "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "1091.433042",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+        "packageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2",
       "activityCounts": {
         "Load (prepare and cache)": 1,
-        "Load (cached)": 1,
-        "Input Validation": 1,
-        "Prediction": 1,
-        "CPU": 1,
-        "Output Transformation": 1
+        "Prediction": 6,
+        "Input Validation": 6,
+        "Input Copy": 12,
+        "CPU": 6,
+        "Prepare GPU Request": 6,
+        "GPU Request": 6,
+        "Output Transformation": 6
       },
       "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 213.594917,
-        "Load (cached)": 0.754292,
-        "Input Validation": 0.010417,
-        "Prediction": 13.190958,
-        "CPU": 12.289625,
-        "Output Transformation": 0.021208
+        "Load (prepare and cache)": 1090.673041,
+        "Prediction": 232.08445800000004,
+        "Input Validation": 0.021043,
+        "Input Copy": 0.04041600000000001,
+        "CPU": 1.3361659999999997,
+        "Prepare GPU Request": 43.448916,
+        "GPU Request": 169.87600000000003,
+        "Output Transformation": 0.057541
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 6,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "flow4",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "1132.123583",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+        "packageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Prediction": 6,
+        "Input Validation": 6,
+        "Input Copy": 12,
+        "CPU": 6,
+        "Prepare GPU Request": 6,
+        "GPU Request": 6,
+        "Output Transformation": 6
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 1131.334334,
+        "Prediction": 236.426666,
+        "Input Validation": 0.021332,
+        "Input Copy": 0.03933400000000001,
+        "CPU": 1.3775819999999999,
+        "Prepare GPU Request": 44.414085,
+        "GPU Request": 174.79333300000002,
+        "Output Transformation": 0.071167
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 6,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "flow5",
+      "identity": {
+        "functionName": "n257_384",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "1",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "785.88775",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+        "packageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+        "persistentModelRecordHit": "true"
+      },
+      "compiledName": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Prediction": 6,
+        "Input Validation": 6,
+        "Input Copy": 12,
+        "CPU": 6,
+        "Prepare GPU Request": 6,
+        "GPU Request": 6,
+        "Output Transformation": 6
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 784.828125,
+        "Prediction": 125.485125,
+        "Input Validation": 0.021792999999999996,
+        "Input Copy": 0.039249000000000006,
+        "CPU": 1.069294,
+        "Prepare GPU Request": 32.173165,
+        "GPU Request": 88.62141700000001,
+        "Output Transformation": 0.033707999999999995
+      },
+      "aneHardwarePredictionCount": 0,
+      "anePredictionsContainedInCoreMLPrediction": 0,
+      "aneHardwarePredictionMilliseconds": 0,
+      "perOperationActualDevices": null,
+      "actualResidency": "UNKNOWN_RESIDENCY",
+      "stageOverlapCounts": {
+        "flow": 6,
+        "hift": 0,
+        "llm": 0,
+        "llm.decode.prediction": 0,
+        "llm.prefill.prediction": 0
+      }
+    },
+    {
+      "role": "diagnostic-or-partition",
+      "identity": {
+        "functionName": "<default:main>",
+        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+        "modelABI": "CoreML-MLProgram-source-content-v2",
+        "modelPackageSHA256": "1c305d31fa33ada566c4896ad94a0c160bb4fc8251a10877951bf107ad6bb559",
+        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+        "requestedPlacement": "3",
+        "reshapeInfrequent": "false",
+        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+        "schema": "3"
+      },
+      "compiledArtifact": "486689d7221087d5bd40c54f88bee1ea2c5ea4e19c6c4dc0761ca3814b06669d.mlmodelc",
+      "actualProcessLoadEvent": {
+        "authoritativeLoadMilliseconds": "366.648292",
+        "compiledArtifactHit": "false",
+        "functionName": "<default:main>",
+        "key": "44c8b1e07f84da54fc6cd343dc8b007fdd9cc02845bad7e0135c2a02ba63ae3d",
+        "packageSHA256": "1c305d31fa33ada566c4896ad94a0c160bb4fc8251a10877951bf107ad6bb559",
+        "persistentModelRecordHit": "false"
+      },
+      "compiledName": "486689d7221087d5bd40c54f88bee1ea2c5ea4e19c6c4dc0761ca3814b06669d",
+      "activityCounts": {
+        "Load (prepare and cache)": 1,
+        "Prediction": 12,
+        "Input Validation": 12,
+        "CPU": 12,
+        "Output Transformation": 12
+      },
+      "summedActivityMilliseconds": {
+        "Load (prepare and cache)": 365.975917,
+        "Prediction": 5832.537708,
+        "Input Validation": 0.055583,
+        "CPU": 5830.780500000001,
+        "Output Transformation": 0.2890829999999999
       },
       "aneHardwarePredictionCount": 0,
       "anePredictionsContainedInCoreMLPrediction": 0,
@@ -2153,56 +2293,10 @@
       "actualResidency": "UNKNOWN_RESIDENCY",
       "stageOverlapCounts": {
         "flow": 0,
-        "hift": 0,
+        "hift": 12,
         "llm": 0,
         "llm.decode.prediction": 0,
         "llm.prefill.prediction": 0
-      }
-    },
-    {
-      "role": "llmPrefill",
-      "identity": {
-        "functionName": "<default:main>",
-        "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-        "modelABI": "CoreML-MLProgram-source-content-v2",
-        "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
-        "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-        "requestedPlacement": "3",
-        "reshapeInfrequent": "false",
-        "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
-        "schema": "3"
-      },
-      "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
-      "compiledName": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d",
-      "activityCounts": {
-        "Load (prepare and cache)": 1,
-        "Load (cached)": 1,
-        "Prediction": 1,
-        "Input Validation": 2,
-        "Input Copy": 4,
-        "Data Cast": 1,
-        "Output Transformation": 1
-      },
-      "summedActivityMilliseconds": {
-        "Load (prepare and cache)": 9194.076208,
-        "Load (cached)": 278.975625,
-        "Prediction": 33.984542,
-        "Input Validation": 0.043625,
-        "Input Copy": 0.055376,
-        "Data Cast": 0.005,
-        "Output Transformation": 0.009667
-      },
-      "aneHardwarePredictionCount": 1,
-      "anePredictionsContainedInCoreMLPrediction": 1,
-      "aneHardwarePredictionMilliseconds": 32.211,
-      "perOperationActualDevices": null,
-      "actualResidency": "UNKNOWN_RESIDENCY",
-      "stageOverlapCounts": {
-        "flow": 0,
-        "hift": 0,
-        "llm": 1,
-        "llm.decode.prediction": 0,
-        "llm.prefill.prediction": 1
       }
     }
   ],

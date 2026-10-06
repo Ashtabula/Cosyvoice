@@ -395,3 +395,16 @@ Prompt: exactp2/p3singlefunctiondiagnosis.
 Actions: independentCoreAI/CoreML/PointsOfInterest tracesp2/p3GPU andfrozenMFHiFTNEsaved; unprofiled6full12 configurationscomplete. Addplan-only whitelistforseparatestagedp2/p3exactfunctionpackages, publicloaderunchanged.
 Validation: singlepartitionstructuralGraph/weightsbyteidentical; hostnumericalgatenearingcompletion. Freshsignedhostplan-onlybuildnext; physicalbenchmarksource655 unchanged.
 GitHub Timeline:22122fb localcommittednotpushed; sourcecheckpointnext, noFrozen/HF/catalog/promotion.
+
+Time: 2026-10-06 01:21 EDT America/New_York
+Prompt: finalactualANE/thermalphaseevidence.
+Actions: physical6full12cases+9completedisolated12groups, explicitCPU/GPU/NEcontrols; FlowCPU2signal9 duringctor, MFNEfailure/timeouts andall5p2/p3singleNEexecution-plan-14 preserved. All5singlehostmaxAbs0 andphonefullreadbackSHAexact. TracejoinsuseactualPIDloadkeys ratherthanoldgenericartifactrecords; frozenHiFTNE12CPUevents5088/5121mspredictions/noGPURequest/noANE; LLm12prefill/3108decodehardwareANEobserved/peropUNKNOWN; p2/p3actualCPU+GPU partitions144/216predictions.
+Validation:11SwiftPASS, signedplansbuildPASS. FASTEST_EQUIVALENTp3GPU+frozenMFHiFTNECPUfallbackRTF.46438149/4829.5675ms/load3.382208/execute1381.325834ms; endpointmaxAbs2.6427e-5/relL21.7725e-5 normalFP32backendtolerance; CPU/GPU LLMchangedendpoint rejected. COOLESTobservedp2allGPUwarm.48583669/serious10vsfastestserious7; all12endserious, notsustainedcoolsuccess. Frozen4750/manifest2ddc untouched, noalgorithmweightsstepsprecisionchange/promotion/HF/catalog.
+Files: enumerated_ane_residency.json/enumerated_ane_thermal_attribution.json/updatedoptimization andfullsupportinghash-boundmetadata/scripts.
+GitHub Timeline: baselinea2aed4f pushed; throughcca2923local; finalsource/resultscommitandpushnext.
+
+Time: 2026-10-06 01:28 EDT America/New_York
+Prompt: finalizedresidency/thermal consistency andpush.
+Actions: All6full12runs identitytext/reference/transcript/instruction/seed42/N260/Flow6/sample249600/noPlayback validated. Stagedp2/p3singleall5SHAexact +hostall5zero; physicalall5Ne-14. FrozenMFHiFTCPUONLY claimboundactualprocessloadkey +12CPUevents/zeroANE/GPUrequests, peropactualmapstillunavailable. FASTEST3GPU+MFHiFTrequestedNE.46438149;COOLESTmeasured2GPU.48583669/serious10; allserious12. Numericbackendwaveparitygateexplicit, LLMCPU/GPUchangedendpointrejected. NoacceptedstaticFlowrewrite oranyFULL_ANEclaim.
+Validation:11SwiftPASS, PythonAST/evidenceidentity consistencyPASS, gitdiffcheckPASS; sourcephysicalbenchmark655eb88, latestsignedplanhostcca2923. Metadata/artifacts onlytosubmit, rawmodels/audio/tracebundlesremainlocalignored.
+GitHub Timeline: finalsource/resultscommittopushnext; noHF/catalog/promotion/frozenassetchange.

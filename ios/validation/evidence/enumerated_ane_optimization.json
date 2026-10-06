@@ -139554,7 +139554,10 @@
   ],
   "actualResidencyAndThermalPhase": {
     "schemaVersion": 1,
-    "recordedGitHEAD": "655eb88cf7dc462bb5a5b7b4ca53a88aa868fa43",
+    "physicalRuntimeRoots": [
+      "/var/mobile/Containers/Data/Application/A5CFACB2-696D-4D01-AE58-6B82C9387111/Documents/GeneratedAssets/Runtime"
+    ],
+    "recordedGitHEAD": "cca2923a9ba9c92ec1d3475b682c43c3f77fbbbd",
     "physicalSignedSourceCommits": [
       "655eb88cf7dc462bb5a5b7b4ca53a88aa868fa43"
     ],
@@ -139578,9 +139581,9 @@
     "residencyEvidence": "enumerated_ane_residency.json",
     "thermalEvidence": "enumerated_ane_thermal_attribution.json",
     "FASTEST_EQUIVALENT": {
-      "case": "full-p2-hift-CPU_AND_NE",
-      "receiptPath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-residency/matrix/full-p2-hift-CPU_AND_NE/candidate-benchmark-receipt.json",
-      "receiptSHA256": "2346658d8b53d6c969d49d9d1b6f0cbdd8bc62cf9194a42784951fe2ddefe3fc",
+      "case": "full-p3-hift-CPU_AND_NE",
+      "receiptPath": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ane-residency/matrix/full-p3-hift-CPU_AND_NE/candidate-benchmark-receipt.json",
+      "receiptSHA256": "0e1df342c387d6170a39c73f78b6c0b6e1235b297c6e73ed951ac0bc7b22b626",
       "receipt": {
         "acousticCacheStrategy": "--validation-acoustic-cache=selected-family",
         "acousticShapeMode": "ENUMERATED_EXACT",
@@ -139592,7 +139595,7 @@
         "CPUTimeMeaning": "getrusage self user+system CPU; excludes driver/services outside process, no GPU/ANE power claim",
         "device": "iPhone",
         "deviceModelIdentifier": "iPhone18,4",
-        "engineInitMilliseconds": 0.63625,
+        "engineInitMilliseconds": 0.518042,
         "enumeratedAcousticExecution": {
           "crop": false,
           "familyCount": 4,
@@ -139604,12 +139607,12 @@
         },
         "experimentalModelIdentity": {
           "group0": {
-            "bytes": 365331932,
+            "bytes": 247383000,
             "files": [
               {
-                "bytes": 1264499,
+                "bytes": 866351,
                 "path": "Data/com.apple.CoreML/model.mlmodel",
-                "sha256": "0a8db6db9b17c840f6f8a13282b1fd28ade0eaf0f5ade88718a16b0a3f3e6b29"
+                "sha256": "a2486843f165a48fc2068e2f1dc180740d3360edeebea7ec8d8fd2374612a780"
               },
               {
                 "bytes": 128965248,
@@ -139622,30 +139625,46 @@
                 "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
               },
               {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "09beaf7331543c833d88813eba936e2d8080b41d64de170f07a94ebb875714b4"
+              }
+            ],
+            "treeSha256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9"
+          },
+          "group1": {
+            "bytes": 235907098,
+            "files": [
+              {
+                "bytes": 804913,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "9e00ccbd13a161c26383142bf16f4e1033aae0e7b5dc43fd5fc6693e0d2e9305"
+              },
+              {
                 "bytes": 117550784,
                 "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
                 "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
               },
               {
-                "bytes": 617,
-                "path": "Manifest.json",
-                "sha256": "4a6b770bca31a5a6cbe42bb211fb48a39dedae72d66508c87cc31ccefcbf90ab"
-              }
-            ],
-            "treeSha256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a"
-          },
-          "group1": {
-            "bytes": 299280530,
-            "files": [
-              {
-                "bytes": 1040201,
-                "path": "Data/com.apple.CoreML/model.mlmodel",
-                "sha256": "fc716adf701b9590fe9d96f4fd8f61426eb06fd0fb0a485c6c4bc18e72274b54"
-              },
-              {
                 "bytes": 117550784,
                 "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
                 "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+              },
+              {
+                "bytes": 617,
+                "path": "Manifest.json",
+                "sha256": "5336445c198df8cd618a5206f973ddf9821a2177468355cfcca1cc2576866d06"
+              }
+            ],
+            "treeSha256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030"
+          },
+          "group2": {
+            "bytes": 181331598,
+            "files": [
+              {
+                "bytes": 642053,
+                "path": "Data/com.apple.CoreML/model.mlmodel",
+                "sha256": "95d58273643e30fea18621f8e22890e662bf4229fd8abbf5569145315d053e9c"
               },
               {
                 "bytes": 117550784,
@@ -139660,10 +139679,10 @@
               {
                 "bytes": 617,
                 "path": "Manifest.json",
-                "sha256": "34f44bde36e27b2accfd001ce4c1bd18cdfe31c4b742903d4e606d911e1228c1"
+                "sha256": "22599589e0bbc829c94ea7838dd7afe3f13e31947f880bfc2163494426306c18"
               }
             ],
-            "treeSha256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c"
+            "treeSha256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789"
           }
         },
         "experimentalSingleFunctionRoles": [],
@@ -139673,24 +139692,24 @@
         "firstFloat32PCMSha256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
         "firstPeakAbs": 0.8099603652954102,
         "firstRMS": 0.07664787697054705,
-        "firstRTF": 0.854202764423077,
+        "firstRTF": 0.8477442668269232,
         "firstSamples": 249600,
         "firstStages": {
-          "acousticModelLoadMilliseconds": 1426.137041,
-          "acousticSynthesisMilliseconds": 1813.716543,
+          "acousticModelLoadMilliseconds": 1410.585709,
+          "acousticSynthesisMilliseconds": 1770.9305829999998,
           "flowSteps": 6,
-          "frontendMilliseconds": 251.390625,
-          "llmGenerationMilliseconds": 3264.445,
-          "llmModelLoadMilliseconds": 115.393291,
+          "frontendMilliseconds": 246.613875,
+          "llmGenerationMilliseconds": 3260.0655,
+          "llmModelLoadMilliseconds": 114.413375,
           "modelPreparationCacheHit": false,
-          "preparationMilliseconds": 2003.5905,
+          "preparationMilliseconds": 2004.141583,
           "referenceCacheHit": true,
-          "totalMilliseconds": 8877.029917,
+          "totalMilliseconds": 8809.06725,
           "warmedModelCount": 2
         },
-        "firstSynthesisMilliseconds": 8883.70875,
+        "firstSynthesisMilliseconds": 8816.540375,
         "firstWavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff",
-        "flowPartition": "--validation-flow-partition=2",
+        "flowPartition": "--validation-flow-partition=3",
         "flowSteps": 6,
         "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
         "idleFamilyReadinessMilliseconds": 0,
@@ -139731,7 +139750,7 @@
                   "functionName": "n001_128",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139742,7 +139761,18 @@
                   "functionName": "n001_128",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139781,7 +139811,7 @@
                   "functionName": "n129_256",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139792,7 +139822,18 @@
                   "functionName": "n129_256",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139831,7 +139872,7 @@
                   "functionName": "n257_384",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139842,7 +139883,18 @@
                   "functionName": "n257_384",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139881,7 +139933,7 @@
                   "functionName": "n385_450",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139892,7 +139944,18 @@
                   "functionName": "n385_450",
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
-                  "modelPackageSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "1",
                   "reshapeInfrequent": "false",
@@ -139918,10 +139981,10 @@
           "excludedFromBackup": true,
           "idleEvents": [],
           "idlePauseReason": "not started",
-          "processID": 4978,
+          "processID": 4980,
           "processLoadEvents": [
             {
-              "authoritativeLoadMilliseconds": "76.762375",
+              "authoritativeLoadMilliseconds": "75.554208",
               "compiledArtifactHit": "true",
               "functionName": "<default:main>",
               "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
@@ -139929,7 +139992,7 @@
               "persistentModelRecordHit": "true"
             },
             {
-              "authoritativeLoadMilliseconds": "62.46025",
+              "authoritativeLoadMilliseconds": "60.673125",
               "compiledArtifactHit": "true",
               "functionName": "<default:main>",
               "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
@@ -139937,7 +140000,7 @@
               "persistentModelRecordHit": "true"
             },
             {
-              "authoritativeLoadMilliseconds": "11.298",
+              "authoritativeLoadMilliseconds": "11.238166",
               "compiledArtifactHit": "true",
               "functionName": "n257_384",
               "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
@@ -139945,23 +140008,31 @@
               "persistentModelRecordHit": "true"
             },
             {
-              "authoritativeLoadMilliseconds": "555.037125",
+              "authoritativeLoadMilliseconds": "377.276708",
               "compiledArtifactHit": "true",
               "functionName": "n257_384",
-              "key": "82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4",
-              "packageSHA256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a",
+              "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
+              "packageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
               "persistentModelRecordHit": "true"
             },
             {
-              "authoritativeLoadMilliseconds": "429.929791",
+              "authoritativeLoadMilliseconds": "330.310542",
               "compiledArtifactHit": "true",
               "functionName": "n257_384",
-              "key": "4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2",
-              "packageSHA256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c",
+              "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
+              "packageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
               "persistentModelRecordHit": "true"
             },
             {
-              "authoritativeLoadMilliseconds": "122.284333",
+              "authoritativeLoadMilliseconds": "266.054209",
+              "compiledArtifactHit": "true",
+              "functionName": "n257_384",
+              "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
+              "packageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+              "persistentModelRecordHit": "true"
+            },
+            {
+              "authoritativeLoadMilliseconds": "121.755084",
               "compiledArtifactHit": "true",
               "functionName": "n257_384",
               "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
@@ -142015,6 +142086,74 @@
               "status": "PENDING_IDLE"
             },
             {
+              "firstQueuedAt": 1791261629.069854,
+              "identity": {
+                "functionName": "n001_128",
+                "models": "744a9f26517617c5489507b37d6c42c2d850c065decb6a5d5b4b97d4c51e0238,7f8a36f124f99e6c6e03bbcc3c5b0dcc34bb35ca33cf1d15a718002d4ccab44b,9d54aebddde634c9395bb53d61df503989d84caf798b4c0a8c4b8b75fcc706cf,dad4a2196bfb24e013339fb184923f27c69a21862e1e6f0edfc49fdb6125e384,e8ddec3f5007a9adb3eb6d86e810294521ba7e5d2849582d144dcf810c4be647",
+                "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+              },
+              "lastUpdatedAt": 1791261700.719664,
+              "modelIdentities": [
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n001_128",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "3",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                }
+              ],
+              "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+              "status": "PENDING_IDLE"
+            },
+            {
               "firstCompletedAt": 1791254846.828434,
               "identity": {
                 "functionName": "n257_384",
@@ -142317,6 +142456,75 @@
                   "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
                   "modelABI": "CoreML-MLProgram-source-content-v2",
                   "modelPackageSHA256": "1c305d31fa33ada566c4896ad94a0c160bb4fc8251a10877951bf107ad6bb559",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "3",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                }
+              ],
+              "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+              "status": "SUCCESSFUL_PUBLIC_SYNTHESIS"
+            },
+            {
+              "firstCompletedAt": 1791261629.0679312,
+              "identity": {
+                "functionName": "n257_384",
+                "models": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167,1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3,3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2,4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331,811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
+                "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+              },
+              "lastSuccessfulSpeechTokenCount": 260,
+              "lastUpdatedAt": 1791261700.712759,
+              "modelIdentities": [
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n257_384",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
                   "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
                   "requestedPlacement": "3",
                   "reshapeInfrequent": "false",
@@ -142638,6 +142846,74 @@
               ],
               "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
               "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+            },
+            {
+              "firstQueuedAt": 1791261629.071868,
+              "identity": {
+                "functionName": "n129_256",
+                "models": "0888e3b8496e105b8aad4a27ad8703423e9856e479f95683ecd319bf54b15d26,467d774914214337d07f169dd04420a918877f36489649e784628638ce24c103,a8b9eda32a94ea51c56cbcb60ea9585a5d74d20cf59f73cde225c48292d650e7,c95e926f39712f5faa406a3818a6573e8e15c7a86ea46d1348e6c3eedd983037,eed961e672e33cef6aa941701369f99da8063bb0545660ce291b91c1967a82f7",
+                "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+              },
+              "lastUpdatedAt": 1791261700.725634,
+              "modelIdentities": [
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n129_256",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "3",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                }
+              ],
+              "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+              "status": "PENDING_IDLE"
             },
             {
               "firstCompletedAt": 1791253881.050877,
@@ -143334,6 +143610,74 @@
               "status": "PENDING_IDLE"
             },
             {
+              "firstQueuedAt": 1791261629.073673,
+              "identity": {
+                "functionName": "n385_450",
+                "models": "1c9563a181fde8f9d372d6ea655470021a29fc13bf1e6b66b2cdf46cc3b27bb5,b79466e21b98244874d0b538c1e31b7f9d256152bee2f23cf822d8339ffa637e,bae6fdefd03ea53410db3003deb6a372ce2c573235aaf0ea8e6e1ec0b8109226,ed8b04bf100251e455879beb5cc51861f478524d5d1db6b273af190257cc8ed4,facd06823481727043bf411d5a1120367be01261a64726bf2f8a9dbb26e647b3",
+                "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+              },
+              "lastUpdatedAt": 1791261700.731492,
+              "modelIdentities": [
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "b67b341949ca9eeac85cd2516f4810bc35e0b51def5195c3ba3f5341709b74c9",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "535957b9aa0d225e4879988db5de4d80d8f9f735b0cce38a8d15af4ded3b4030",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "3cb3f0b65e62d012399c3e9338297df467d8f533c12537f9cd80b57cd8964789",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "1",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                },
+                {
+                  "functionName": "n385_450",
+                  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+                  "modelABI": "CoreML-MLProgram-source-content-v2",
+                  "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+                  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+                  "requestedPlacement": "3",
+                  "reshapeInfrequent": "false",
+                  "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+                  "schema": "3"
+                }
+              ],
+              "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+              "status": "PENDING_IDLE"
+            },
+            {
               "firstQueuedAt": 1791254846.831293,
               "identity": {
                 "functionName": "n001_128",
@@ -143618,8 +143962,8 @@
                 "schema": "3"
               },
               "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
-              "lastAuthoritativeLoadMilliseconds": 85.918333,
-              "lastValidatedAt": 1791261437.441,
+              "lastAuthoritativeLoadMilliseconds": 85.865959,
+              "lastValidatedAt": 1791261692.875505,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -143739,8 +144083,8 @@
                 "schema": "3"
               },
               "key": "4ed49981a57b15d3dce64d8a8b4bc394977836f7cb4b42a0e61c77a73ea26331",
-              "lastAuthoritativeLoadMilliseconds": 268.844166,
-              "lastValidatedAt": 1791260832.1208038,
+              "lastAuthoritativeLoadMilliseconds": 266.054209,
+              "lastValidatedAt": 1791261627.188058,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -144061,8 +144405,8 @@
                 "schema": "3"
               },
               "key": "0db42c415d355ff40e058e2643d54b512109482378b15f04874a117bded2b167",
-              "lastAuthoritativeLoadMilliseconds": 386.570709,
-              "lastValidatedAt": 1791260831.3585958,
+              "lastAuthoritativeLoadMilliseconds": 377.276708,
+              "lastValidatedAt": 1791261626.41994,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -144123,8 +144467,8 @@
                 "schema": "3"
               },
               "key": "1d8ee2da988c699b1af0dbaea392f9a8a55d444be3fd9fd6f50693eb45584ba3",
-              "lastAuthoritativeLoadMilliseconds": 328.242333,
-              "lastValidatedAt": 1791260831.7799869,
+              "lastAuthoritativeLoadMilliseconds": 330.310542,
+              "lastValidatedAt": 1791261626.8474998,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -144244,8 +144588,8 @@
                 "schema": "3"
               },
               "key": "811303c49cd53c237adb6d1d2453ad65c12a9012862d68697080017bd8dc5d2c",
-              "lastAuthoritativeLoadMilliseconds": 122.284333,
-              "lastValidatedAt": 1791261373.082693,
+              "lastAuthoritativeLoadMilliseconds": 121.755084,
+              "lastValidatedAt": 1791261628.577962,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -144384,8 +144728,8 @@
                 "schema": "3"
               },
               "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
-              "lastAuthoritativeLoadMilliseconds": 11.298,
-              "lastValidatedAt": 1791261370.40202,
+              "lastAuthoritativeLoadMilliseconds": 11.238166,
+              "lastValidatedAt": 1791261625.9108438,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -144912,8 +145256,8 @@
                 "schema": "3"
               },
               "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
-              "lastAuthoritativeLoadMilliseconds": 81.875875,
-              "lastValidatedAt": 1791261437.352682,
+              "lastAuthoritativeLoadMilliseconds": 82.162875,
+              "lastValidatedAt": 1791261692.7872438,
               "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             },
@@ -145080,35 +145424,35 @@
               "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
             }
           ],
-          "storageBytes": 4594851972,
+          "storageBytes": 4594864550,
           "systemExecutionPlanPersistence": "not assumed; every process performs authoritative MLModel load when the model is used"
         },
         "playbackDuringBenchmark": false,
-        "processID": 4978,
+        "processID": 4980,
         "profile": "ios18-enumerated-n1-n450",
-        "recordedAtUnix": 1791261445,
+        "recordedAtUnix": 1791261700,
         "referenceConditioningCacheReset": false,
         "referenceTranscriptCharacters": 32,
         "referenceValidationPrewarm": false,
         "repeatAudioSeconds": 10.4,
         "repeatPeakAbs": 0.8099603652954102,
         "repeatRMS": 0.07664787697054705,
-        "repeatRTF": 0.46843107375000004,
+        "repeatRTF": 0.46438149038461535,
         "repeatSamples": 249600,
         "repeatStages": {
-          "acousticModelLoadMilliseconds": 2.778791,
-          "acousticSynthesisMilliseconds": 1442.3500840000002,
+          "acousticModelLoadMilliseconds": 3.382208,
+          "acousticSynthesisMilliseconds": 1381.325834,
           "flowSteps": 6,
-          "frontendMilliseconds": 0.502583,
-          "llmGenerationMilliseconds": 3269.385959,
-          "llmModelLoadMilliseconds": 138.423292,
+          "frontendMilliseconds": 0.48975,
+          "llmGenerationMilliseconds": 3283.278167,
+          "llmModelLoadMilliseconds": 142.229292,
           "modelPreparationCacheHit": true,
-          "preparationMilliseconds": 2.910833,
+          "preparationMilliseconds": 2.895375,
           "referenceCacheHit": true,
-          "totalMilliseconds": 4858.733166,
+          "totalMilliseconds": 4815.895833,
           "warmedModelCount": 0
         },
-        "repeatSynthesisMilliseconds": 4871.683167,
+        "repeatSynthesisMilliseconds": 4829.567499999999,
         "repeatWavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff",
         "requestedComputePlacement": {
           "acoustic": "CPU_AND_GPU",
@@ -145134,7 +145478,7 @@
         "residencyEvidence": "requested placement only, residency not proven",
         "sameProcessWarmLane": "IN_PROCESS_WARM",
         "sameSampleCount": true,
-        "sampledPeakPhysicalFootprintBytes": 2123566192,
+        "sampledPeakPhysicalFootprintBytes": 2211908792,
         "sampleRate": 24000,
         "schemaVersion": 1,
         "signedHostBuildSourceCommit": "655eb88cf7dc462bb5a5b7b4ca53a88aa868fa43",
@@ -145149,312 +145493,312 @@
             "hashingDeferredUntilGroupEnd": true,
             "index": 0,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 640601200,
-            "processCPUMilliseconds": 1258.6230000000005,
-            "RTF": 0.4675750079807692,
+            "physicalFootprintBytes": 717245624,
+            "processCPUMilliseconds": 1208.2529999999997,
+            "RTF": 0.46706886615384613,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 2.8757089999999996,
-              "acousticSynthesisMilliseconds": 1454.100916,
+              "acousticModelLoadMilliseconds": 3.552167,
+              "acousticSynthesisMilliseconds": 1413.399958,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.726125,
-              "llmGenerationMilliseconds": 3246.507291,
-              "llmModelLoadMilliseconds": 141.182084,
+              "frontendMilliseconds": 0.756125,
+              "llmGenerationMilliseconds": 3282.563166,
+              "llmModelLoadMilliseconds": 139.224,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 3.708417,
+              "preparationMilliseconds": 3.067333,
               "referenceCacheHit": true,
-              "totalMilliseconds": 4851.468625,
+              "totalMilliseconds": 4844.902958,
               "warmedModelCount": 0
             },
             "thermalEnd": "nominal",
             "thermalStart": "nominal",
-            "totalMilliseconds": 4862.780083,
+            "totalMilliseconds": 4857.516208,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 1,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 639585392,
-            "processCPUMilliseconds": 1363.6170000000002,
-            "RTF": 0.4770800320192307,
+            "physicalFootprintBytes": 716000440,
+            "processCPUMilliseconds": 1304.768,
+            "RTF": 0.48373056086538463,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 2.7232060000000002,
-              "acousticSynthesisMilliseconds": 1532.2608360000002,
+              "acousticModelLoadMilliseconds": 4.168208,
+              "acousticSynthesisMilliseconds": 1487.7588759999999,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.548042,
-              "llmGenerationMilliseconds": 3265.370458,
-              "llmModelLoadMilliseconds": 142.990792,
+              "frontendMilliseconds": 0.557458,
+              "llmGenerationMilliseconds": 3376.617667,
+              "llmModelLoadMilliseconds": 140.485292,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 3.265375,
+              "preparationMilliseconds": 3.486166,
               "referenceCacheHit": true,
-              "totalMilliseconds": 4949.515625,
+              "totalMilliseconds": 5016.018417,
               "warmedModelCount": 0
             },
             "thermalEnd": "nominal",
             "thermalStart": "nominal",
-            "totalMilliseconds": 4961.632333,
+            "totalMilliseconds": 5030.7978330000005,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 2,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 638159984,
-            "processCPUMilliseconds": 1370.0640000000003,
-            "RTF": 0.4808903766346153,
+            "physicalFootprintBytes": 710937784,
+            "processCPUMilliseconds": 1350.0919999999987,
+            "RTF": 0.4838828204807692,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.277417,
-              "acousticSynthesisMilliseconds": 1529.261291,
+              "acousticModelLoadMilliseconds": 4.2146230000000005,
+              "acousticSynthesisMilliseconds": 1494.710085,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.615458,
-              "llmGenerationMilliseconds": 3298.821667,
-              "llmModelLoadMilliseconds": 141.818166,
+              "frontendMilliseconds": 0.658,
+              "llmGenerationMilliseconds": 3365.319834,
+              "llmModelLoadMilliseconds": 148.207958,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 3.70225,
+              "preparationMilliseconds": 4.231958,
               "referenceCacheHit": true,
-              "totalMilliseconds": 4980.424,
+              "totalMilliseconds": 5020.209625,
               "warmedModelCount": 0
             },
             "thermalEnd": "fair",
             "thermalStart": "nominal",
-            "totalMilliseconds": 5001.259916999999,
+            "totalMilliseconds": 5032.381333,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 3,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 638880880,
-            "processCPUMilliseconds": 1410.196,
-            "RTF": 0.490949266826923,
+            "physicalFootprintBytes": 716704952,
+            "processCPUMilliseconds": 1273.9740000000002,
+            "RTF": 0.48109037663461535,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.262791,
-              "acousticSynthesisMilliseconds": 1538.1788339999998,
+              "acousticModelLoadMilliseconds": 4.098208,
+              "acousticSynthesisMilliseconds": 1468.8707920000002,
               "flowSteps": 6,
-              "frontendMilliseconds": 1.001542,
-              "llmGenerationMilliseconds": 3362.44,
-              "llmModelLoadMilliseconds": 179.663417,
+              "frontendMilliseconds": 0.551375,
+              "llmGenerationMilliseconds": 3368.245416,
+              "llmModelLoadMilliseconds": 140.191583,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 6.432,
+              "preparationMilliseconds": 3.468959,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5093.947708,
+              "totalMilliseconds": 4988.340542,
               "warmedModelCount": 0
             },
             "thermalEnd": "fair",
             "thermalStart": "fair",
-            "totalMilliseconds": 5105.872375,
+            "totalMilliseconds": 5003.339917,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 4,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 639437936,
-            "processCPUMilliseconds": 1442.0550000000003,
-            "RTF": 0.4997643108653846,
+            "physicalFootprintBytes": 717294776,
+            "processCPUMilliseconds": 1279.2360000000008,
+            "RTF": 0.4831471915384615,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.329918,
-              "acousticSynthesisMilliseconds": 1579.9437070000001,
+              "acousticModelLoadMilliseconds": 4.137333,
+              "acousticSynthesisMilliseconds": 1473.58175,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.599666,
-              "llmGenerationMilliseconds": 3436.474666,
-              "llmModelLoadMilliseconds": 152.074166,
+              "frontendMilliseconds": 0.652792,
+              "llmGenerationMilliseconds": 3372.358458,
+              "llmModelLoadMilliseconds": 152.3535,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 3.717459,
+              "preparationMilliseconds": 4.156209,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5179.051167,
+              "totalMilliseconds": 5010.147084,
               "warmedModelCount": 0
             },
             "thermalEnd": "fair",
             "thermalStart": "fair",
-            "totalMilliseconds": 5197.548833,
+            "totalMilliseconds": 5024.730791999999,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 5,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 639093872,
-            "processCPUMilliseconds": 1378.9559999999983,
-            "RTF": 0.49006683096153847,
+            "physicalFootprintBytes": 710937784,
+            "processCPUMilliseconds": 1319.798999999999,
+            "RTF": 0.4851649078846154,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.301582,
-              "acousticSynthesisMilliseconds": 1520.225334,
+              "acousticModelLoadMilliseconds": 4.104792,
+              "acousticSynthesisMilliseconds": 1511.553125,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.987792,
-              "llmGenerationMilliseconds": 3373.495292,
-              "llmModelLoadMilliseconds": 175.4275,
+              "frontendMilliseconds": 0.653416,
+              "llmGenerationMilliseconds": 3354.444792,
+              "llmModelLoadMilliseconds": 152.93475,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 5.430209,
+              "preparationMilliseconds": 4.186125,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5081.791584,
+              "totalMilliseconds": 5030.78225,
               "warmedModelCount": 0
             },
             "thermalEnd": "fair",
             "thermalStart": "fair",
-            "totalMilliseconds": 5096.695042,
+            "totalMilliseconds": 5045.715042000001,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 6,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 638995568,
-            "processCPUMilliseconds": 1491.8459999999995,
-            "RTF": 0.4988391667307692,
+            "physicalFootprintBytes": 718638264,
+            "processCPUMilliseconds": 1380.6589999999997,
+            "RTF": 0.4906583374038461,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.332999,
-              "acousticSynthesisMilliseconds": 1624.619543,
+              "acousticModelLoadMilliseconds": 4.188167,
+              "acousticSynthesisMilliseconds": 1562.593375,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.727917,
-              "llmGenerationMilliseconds": 3376.37725,
-              "llmModelLoadMilliseconds": 154.983,
+              "frontendMilliseconds": 0.642542,
+              "llmGenerationMilliseconds": 3360.787458,
+              "llmModelLoadMilliseconds": 152.961417,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 4.725875,
+              "preparationMilliseconds": 4.173458,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5167.68975,
+              "totalMilliseconds": 5088.226417,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "fair",
-            "totalMilliseconds": 5187.927334,
+            "totalMilliseconds": 5102.8467089999995,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 7,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 640240752,
-            "processCPUMilliseconds": 1451.949999999999,
-            "RTF": 0.535218601826923,
+            "physicalFootprintBytes": 717622456,
+            "processCPUMilliseconds": 1446.5780000000013,
+            "RTF": 0.5533007251923077,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.573583,
-              "acousticSynthesisMilliseconds": 1999.282375,
+              "acousticModelLoadMilliseconds": 4.46525,
+              "acousticSynthesisMilliseconds": 2202.2077919999997,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.852542,
-              "llmGenerationMilliseconds": 3361.912167,
-              "llmModelLoadMilliseconds": 177.704208,
+              "frontendMilliseconds": 0.638041,
+              "llmGenerationMilliseconds": 3379.438125,
+              "llmModelLoadMilliseconds": 145.901584,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 5.347833,
+              "preparationMilliseconds": 4.206125,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5551.545792,
+              "totalMilliseconds": 5739.722375,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "serious",
-            "totalMilliseconds": 5566.273459,
+            "totalMilliseconds": 5754.327542,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 8,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 643173488,
-            "processCPUMilliseconds": 1474.0479999999989,
-            "RTF": 0.5465970232692308,
+            "physicalFootprintBytes": 718294200,
+            "processCPUMilliseconds": 1424.635000000002,
+            "RTF": 0.5495577884615385,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.626833,
-              "acousticSynthesisMilliseconds": 2063.327501,
+              "acousticModelLoadMilliseconds": 4.414126,
+              "acousticSynthesisMilliseconds": 2149.279749,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.756041,
-              "llmGenerationMilliseconds": 3402.019916,
-              "llmModelLoadMilliseconds": 192.62,
+              "frontendMilliseconds": 0.647084,
+              "llmGenerationMilliseconds": 3364.859833,
+              "llmModelLoadMilliseconds": 172.942458,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 4.683125,
+              "preparationMilliseconds": 4.178875,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5669.907917,
+              "totalMilliseconds": 5699.2425,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "serious",
-            "totalMilliseconds": 5684.609042,
+            "totalMilliseconds": 5715.401,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 9,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 644910192,
-            "processCPUMilliseconds": 1465.7109999999993,
-            "RTF": 0.5462276322115385,
+            "physicalFootprintBytes": 718621880,
+            "processCPUMilliseconds": 1422.7469999999994,
+            "RTF": 0.5446690745192307,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.5646250000000004,
-              "acousticSynthesisMilliseconds": 2102.659167,
+              "acousticModelLoadMilliseconds": 4.4399169999999994,
+              "acousticSynthesisMilliseconds": 2058.131625,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.742875,
-              "llmGenerationMilliseconds": 3370.506208,
-              "llmModelLoadMilliseconds": 180.445167,
+              "frontendMilliseconds": 0.730125,
+              "llmGenerationMilliseconds": 3384.457417,
+              "llmModelLoadMilliseconds": 192.949083,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 4.752583,
+              "preparationMilliseconds": 4.752584,
               "referenceCacheHit": true,
-              "totalMilliseconds": 5665.581334,
+              "totalMilliseconds": 5648.38025,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "serious",
-            "totalMilliseconds": 5680.767375,
+            "totalMilliseconds": 5664.5583750000005,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 10,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 643599472,
-            "processCPUMilliseconds": 1440.9710000000014,
-            "RTF": 0.6160255489423077,
+            "physicalFootprintBytes": 719539384,
+            "processCPUMilliseconds": 1486.4789999999994,
+            "RTF": 0.6295714983653845,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 3.726083,
-              "acousticSynthesisMilliseconds": 2771.090417,
+              "acousticModelLoadMilliseconds": 5.032126,
+              "acousticSynthesisMilliseconds": 2906.731249,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.734542,
-              "llmGenerationMilliseconds": 3413.092,
-              "llmModelLoadMilliseconds": 196.928875,
+              "frontendMilliseconds": 0.761875,
+              "llmGenerationMilliseconds": 3419.821375,
+              "llmModelLoadMilliseconds": 192.671167,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 4.711833,
+              "preparationMilliseconds": 4.842083,
               "referenceCacheHit": true,
-              "totalMilliseconds": 6393.272875,
+              "totalMilliseconds": 6533.100459,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "serious",
-            "totalMilliseconds": 6406.665709,
+            "totalMilliseconds": 6547.543583,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           },
           {
             "hashingDeferredUntilGroupEnd": true,
             "index": 11,
             "interRequestDelay": false,
-            "physicalFootprintBytes": 644582512,
-            "processCPUMilliseconds": 1724.1080000000002,
-            "RTF": 0.7777792749038461,
+            "physicalFootprintBytes": 718539960,
+            "processCPUMilliseconds": 1654.3479999999981,
+            "RTF": 0.7724510176923077,
             "samples": 249600,
             "stages": {
-              "acousticModelLoadMilliseconds": 7.158583999999999,
-              "acousticSynthesisMilliseconds": 3933.8680830000003,
+              "acousticModelLoadMilliseconds": 8.980915,
+              "acousticSynthesisMilliseconds": 3975.748877,
               "flowSteps": 6,
-              "frontendMilliseconds": 0.656167,
-              "llmGenerationMilliseconds": 3943.551667,
-              "llmModelLoadMilliseconds": 172.481375,
+              "frontendMilliseconds": 0.651292,
+              "llmGenerationMilliseconds": 3833.021792,
+              "llmModelLoadMilliseconds": 172.725083,
               "modelPreparationCacheHit": true,
-              "preparationMilliseconds": 4.172958,
+              "preparationMilliseconds": 4.171083,
               "referenceCacheHit": true,
-              "totalMilliseconds": 8067.90775,
+              "totalMilliseconds": 8011.061042,
               "warmedModelCount": 0
             },
             "thermalEnd": "serious",
             "thermalStart": "serious",
-            "totalMilliseconds": 8088.904459,
+            "totalMilliseconds": 8033.490584000001,
             "wavSha256": "0910d00559cdbcb50374e7d495a35f4c746364fcf7d661a74f553e66dff1b7ff"
           }
         ],
@@ -145467,7 +145811,7 @@
         "validationSamplerSeed": 42,
         "warmDefinition": "second identical public synthesize call on the same engine instance after automatic preparation",
         "warmFloat32PCMSha256": "57845395783525c4462bbf8de394ad9d348c1ddf9e6ee1984d7b24ed4e8abcf4",
-        "warmProcessCPUMilliseconds": 1253.3599999999997
+        "warmProcessCPUMilliseconds": 1169.8779999999997
       },
       "numericalEndpoint": {
         "status": "PASS_NORMAL_NUMERICAL_TOLERANCE",
@@ -145480,9 +145824,9 @@
         "meaning": "same PCM sample alignment; backend FP32 rounding accepted under explicit normal tolerance, not bit identity"
       },
       "eligibleEquivalent": true,
-      "warmRTF": 0.46843107375000004,
-      "steadyMedianRTF": 0.49930173879807693,
-      "steadyWorstRTF": 0.7777792749038461,
+      "warmRTF": 0.46438149038461535,
+      "steadyMedianRTF": 0.48791162264423077,
+      "steadyWorstRTF": 0.7724510176923077,
       "thermal": {
         "start": "nominal",
         "end": "serious",
@@ -145497,7 +145841,8 @@
       "requestedPlacement": null,
       "actualPerOpResidency": "UNKNOWN_RESIDENCY"
     },
-    "COOLEST_EQUIVALENT": "NOT_PROVEN_SUSTAINED_COOL",
+    "COOLEST_EQUIVALENT": "full-p2",
+    "COOLEST_QUALIFICATION": "best measured within this nominal-start12cohort; not sustainedcool guarantee, all full variants reachedserious",
     "bestObservedThermalCase": "full-p2"
   }
 }

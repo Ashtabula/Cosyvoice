@@ -1,0 +1,133 @@
+{
+  "schemaVersion": 1,
+  "N": 260,
+  "T": 822,
+  "functionName": "n257_384",
+  "scope": "host components from frozen conditioning/noise, one Flow evaluation t0.25; no physical endpoint/solver parity claim",
+  "models": [
+    {
+      "partition": 2,
+      "role": "flow0",
+      "status": "PASS",
+      "outputs": {
+        "h": {
+          "maxAbs": 0.0,
+          "finite": true
+        },
+        "te": {
+          "maxAbs": 0.0,
+          "finite": true
+        }
+      },
+      "runs": [
+        {
+          "variant": "multifunction",
+          "returnCode": 0,
+          "console": ""
+        },
+        {
+          "variant": "single",
+          "returnCode": 0,
+          "console": ""
+        }
+      ]
+    },
+    {
+      "partition": 2,
+      "role": "flow1",
+      "status": "PASS",
+      "outputs": {
+        "velocity": {
+          "maxAbs": 0.0,
+          "finite": true
+        }
+      },
+      "runs": [
+        {
+          "variant": "multifunction",
+          "returnCode": 0,
+          "console": ""
+        },
+        {
+          "variant": "single",
+          "returnCode": 0,
+          "console": ""
+        }
+      ]
+    },
+    {
+      "partition": 3,
+      "role": "flow0",
+      "status": "PASS",
+      "outputs": {
+        "h": {
+          "maxAbs": 0.0,
+          "finite": true
+        },
+        "te": {
+          "maxAbs": 0.0,
+          "finite": true
+        }
+      },
+      "runs": [
+        {
+          "variant": "multifunction",
+          "returnCode": 0,
+          "console": ""
+        },
+        {
+          "variant": "single",
+          "returnCode": 0,
+          "console": ""
+        }
+      ]
+    },
+    {
+      "partition": 3,
+      "role": "flow1",
+      "status": "PASS",
+      "outputs": {
+        "h_out": {
+          "maxAbs": 0.0,
+          "finite": true
+        }
+      },
+      "runs": [
+        {
+          "variant": "multifunction",
+          "returnCode": 0,
+          "console": ""
+        },
+        {
+          "variant": "single",
+          "returnCode": 0,
+          "console": ""
+        }
+      ]
+    },
+    {
+      "partition": 3,
+      "role": "flow2",
+      "status": "PASS",
+      "outputs": {
+        "velocity": {
+          "maxAbs": 0.0,
+          "finite": true
+        }
+      },
+      "runs": [
+        {
+          "variant": "multifunction",
+          "returnCode": 0,
+          "console": ""
+        },
+        {
+          "variant": "single",
+          "returnCode": 0,
+          "console": ""
+        }
+      ]
+    }
+  ],
+  "status": "PASS_HOST_SELECTED_FUNCTION_PARITY"
+}
