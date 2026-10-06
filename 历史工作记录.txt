@@ -466,3 +466,10 @@ Time:2026-10-06 07:49 EDT America/New_York
 Actions: initial additive listening lane compile failed FlowSteps enum vsInt; corrected .steps6 guard, explicit SHARDS in normalbenchmark receipt. Retained full diagnostic /private/tmp/cosy-listening-compile.log. No production runtime change.
 Validation: build retry next; no listeningPASS inferred.
 GitHub Timeline:533b765 committednotpushed; toolingcompilefix nextcommit.
+
+Time:2026-10-06 07:53 EDT America/New_York
+Prompt: permanent2-shard primary and first exported listening checkpoint.
+Actions: fixed six-sample corpus synthesized onphysicaliPhone publicAPI, SHARDS2/Flow6/seed42/same frozen reference+transcript/LLMNE/acousticGPU. Pulled all6 originaldevice WAVs to artifacts/listening/2shard/checkpoint_001 andverifieddeviceSHA/rate/channels/count; copiedspeakerreference forlistening. Archivemetadata/expectedcounts separately, corpus bytesunchanged. HumanPENDING; LAST_KNOWN_GOODnull; no invasiveoptimization orpromotion.
+Files: workflow/corpus/state, validation-onlyexportlane/runner, listening_checkpoint_001 evidence, localignored6WAVs+referencevoice.
+Validation: signed4281cdc buildPASS; primarySHARDS2frozenfirstwarmPASS N260/n257_384/Flow6/249600/24kHz/PCM909 BIT_IDENTICAL/WAVa04f69...; warm5026.133125ms RTF0.48328203125 LLM3377.264958ms acousticLoad2.714207ms execute1472.633085ms selfCPU414.444ms. All6WAVexportsPASS, initialnewcorpus samples have no priorhuman-approvedcomparator. No6-shard rerun orlongthermaltest.
+GitHub Timeline: baselineb8367b4pushed; through4281cdc localcommittednotpushed; finalmetadata/docs/toolingpushnext. AudioWAVsremainlocalignored, NOTgitpayload.

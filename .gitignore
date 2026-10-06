@@ -88,6 +88,4 @@ ios/experiments/dynamic-acoustic/DeviceProbe/GeneratedAssets/
 ios/experiments/dynamic-acoustic/DeviceProbe/DynamicAcousticProbe.xcodeproj/project.xcworkspace/
 
 # Physical listening audio is local durable user-review material, never a Git payload.
-artifacts/listening/**/*.wav
-artifacts/listening/**/*.f32
-artifacts/listening/**/.private/
+/artifacts/listening/

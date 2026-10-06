@@ -1,0 +1,8 @@
+{
+  "status": "FIXED_VALIDATION_TOOLING_COMPILE_ERROR",
+  "sourceCommit": "533b765b4f8f9b43d9e38a7f4e5ed5f02f4c5113",
+  "stage": "Swift compile, not inference",
+  "error": "CosyVoice3FlowSteps cannot compare to Int at listening guard; corrected to .steps6",
+  "fullLog": "/private/tmp/cosy-listening-compile.log",
+  "productionRuntimeChanged": false
+}
