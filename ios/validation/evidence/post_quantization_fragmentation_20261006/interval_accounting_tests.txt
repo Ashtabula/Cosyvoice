@@ -1,0 +1,11 @@
+test_missing_intervals_not_implicitly_clean (test_decode_fragmentation.IntervalAccounting) ... ok
+test_multiple_islands (test_decode_fragmentation.IntervalAccounting) ... ok
+test_nested_rows_do_not_double_count (test_decode_fragmentation.IntervalAccounting) ... ok
+test_overlapping_and_touching_rows (test_decode_fragmentation.IntervalAccounting) ... ok
+test_reject_cross_boundary (test_decode_fragmentation.IntervalAccounting) ... ok
+test_single_interval_excludes_boundaries (test_decode_fragmentation.IntervalAccounting) ... ok
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.000s
+
+OK

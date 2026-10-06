@@ -685,3 +685,10 @@ Actions: reuse SHA-bound actual traces (FP16source8d9050e/PID5566,Q8c882fb3/PID5
 Files: audit_decode_fragmentation.py; test_decode_fragmentation.py; dedicatedpost_quantization_fragmentation_20261006 REPORT/table/final/rawintervalCSVJSON/sourceinputhashes/rawtraceinventories.
 Validation:6intervalaccountingtestsPASS;2590joins/sourcehash/tablehash/containmentchecksPASS;currentLLMRuntime/Sessionbytesmatchbothcapturedsources. NoSwiftedits/buildrerunrequired. Externalconcurrent.gitignore/reports/tools/voxcpm2changes preserved/notincluded.
 GitHub Timeline:previous2306fbd已push；本次audit未commit，随后选择性commit/push。
+
+Time:2026-10-06 14:32 EDT America/New_York
+Prompt: finalizepostquantizationauditpublication.
+Actions:CSVdefaultCRLFtriggeredgitwhitespacecheck;normalizeLFandsetwriterlineterminator, numericaldataunchanged. Preserve6testfulloutputastrackedTXT.
+Files:auditCSVwriter, twoCSVnewlineencoding,analyzerSHA,testoutput,appendhistory.
+Validation:allphysicalmetricsunchanged;diffcheckrepeatedbeforepush.
+GitHub Timeline:6a978ab已commit未push；LF修复随后独立commit。

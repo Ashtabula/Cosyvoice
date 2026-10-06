@@ -157,7 +157,7 @@ def audit(attribution_path, receipt_path, output, variant, diagnostics_path=None
     (output / 'predictions.json').write_text(json.dumps(rows, indent=2) + '\n')
     columns = ['request', 'predictionIndex', 'validContextBefore', 'validContextAfter', 'thermal'] + list(interval_metrics(0, 10, [(2, 8)]))
     with (output / 'predictions.csv').open('w') as handle:
-        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction='ignore')
+        writer = csv.DictWriter(handle, fieldnames=columns, extrasaction='ignore', lineterminator='\n')
         writer.writeheader()
         writer.writerows(rows)
     print(variant, classification, 'predictions', len(rows), 'warm', result['warmPredictions'], flush=True)
