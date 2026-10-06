@@ -1965,15 +1965,17 @@ extension CosyVoice3SmokeModel {
     func runQ4DecodeStateProbe() async {
         guard !running else { return }; running = true; defer { running = false }
         let rescueA = CommandLine.arguments.contains("--validation-q4-rescue-a-state-probe")
-        let filename = rescueA ? "q4-rescue-a-state-probe.json" : "q4-decode-state-probe.json"
+        let fullPrefill = CommandLine.arguments.contains("--validation-q4-full-prefill-state-probe")
+        let filename = fullPrefill ? "q4-full-prefill-state-probe.json" : rescueA ? "q4-rescue-a-state-probe.json" : "q4-decode-state-probe.json"
         do {
             let fixture = try Self.fixture()
             let q8Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q8")
             let q4Root = try Self.quantizationRoot(base: fixture.runtime, variant: "q4")
-            let prefSource = q8Root.appendingPathComponent("models/cosyvoice-llm-q8-prefill.mlpackage")
+            guard !fullPrefill || rescueA else { throw SmokeError("full prefill requires frozen rescue-A decode") }
+            let prefSource = fullPrefill ? try Self.receiptURL("Q4PrefillLength/initial/models/prefill-l224.mlpackage") : q8Root.appendingPathComponent("models/cosyvoice-llm-q8-prefill.mlpackage")
             let decSource = rescueA ? try Self.receiptURL("Q4CompatibilityRescue/A/models/cosyvoice-llm-q4-decode.mlpackage") : q4Root.appendingPathComponent("models/cosyvoice-llm-q4-decode.mlpackage")
             let prefIdentity = try Self.probePackageIdentity(prefSource), decIdentity = try Self.probePackageIdentity(decSource)
-            guard prefIdentity["treeSha256"] as? String == "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+            guard prefIdentity["treeSha256"] as? String == (fullPrefill ? "905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4" : "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280"),
                   decIdentity["treeSha256"] as? String == (rescueA ? "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46" : "bbdcec87ea37686a46e6c2fc16b30868fa42414098f7844e28bf20d7d812f0b7"),
                   Self.validationSourceCommit() == fixture.sourceCommit else { throw SmokeError("state probe identity mismatch") }
             let prefURL = try await MLModel.compileModel(at: prefSource)
@@ -1981,9 +1983,8 @@ extension CosyVoice3SmokeModel {
             defer { try? FileManager.default.removeItem(at: prefURL); try? FileManager.default.removeItem(at: decURL) }
             let config = MLModelConfiguration(); config.computeUnits = .cpuAndNeuralEngine
             let prefill = try MLModel(contentsOf: prefURL, configuration: config)
-            let decode = try MLModel(contentsOf: decURL, configuration: config)
             let names = prefill.modelDescription.stateDescriptionsByName.keys.sorted()
-            guard names.count == 48, Set(names) == Set(decode.modelDescription.stateDescriptionsByName.keys) else { throw SmokeError("state names mismatch") }
+            guard names.count == 48 else { throw SmokeError("state names mismatch") }
             func array(_ shape: [Int]) throws -> MLMultiArray {
                 let a = try MLMultiArray(shape: shape.map { NSNumber(value: $0) }, dataType: .float16)
                 memset(a.dataPointer, 0, a.count * 2); return a
@@ -2009,8 +2010,13 @@ extension CosyVoice3SmokeModel {
             }
             let q8State = prefill.makeState()
             let prefStart = Date()
-            _ = try await prefill.prediction(from: MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":s,"mask":mask]), using: q8State)
+            let prefOutput = try await prefill.prediction(from: MLDictionaryFeatureProvider(dictionary: ["x":x,"cos":c,"sin":s,"mask":mask]), using: q8State)
             let prefMs = Date().timeIntervalSince(prefStart)*1000
+            for (name,count) in [("logits",6761),("hidden",896)] {
+                guard let value = prefOutput.featureValue(for:name)?.multiArrayValue, value.count == count, (0..<count).allSatisfy({value[$0].floatValue.isFinite}) else { throw SmokeError("prefill output nonfinite or ABI mismatch") }
+            }
+            let decode = try MLModel(contentsOf: decURL, configuration: config)
+            guard Set(names) == Set(decode.modelDescription.stateDescriptionsByName.keys) else { throw SmokeError("decode state names mismatch") }
             let q4State = decode.makeState()
             var stateRows = [[String: Any]]()
             for name in names {
@@ -2020,6 +2026,7 @@ extension CosyVoice3SmokeModel {
                               source.shape.map({$0.intValue}) == [1,2,512,64], source.shape == destination.shape,
                               source.strides.map({$0.intValue}) == [65536,32768,64,1], source.strides == destination.strides else { throw SmokeError("state layout mismatch") }
                         let count = source.count*2
+                        guard (0..<source.count).allSatisfy({source[$0].floatValue.isFinite}) else { throw SmokeError("prefill state nonfinite") }
                         memcpy(destination.dataPointer, source.dataPointer, count)
                         let a = Data(bytes: source.dataPointer, count: count), b = Data(bytes: destination.dataPointer, count: count)
                         guard a == b else { throw SmokeError("state transfer not byte identical") }
@@ -2037,7 +2044,7 @@ extension CosyVoice3SmokeModel {
             let ms = Date().timeIntervalSince(begin)*1000
             guard let logits = output.featureValue(for:"logits")?.multiArrayValue, logits.count == 6761,
                   (0..<logits.count).allSatisfy({logits[$0].floatValue.isFinite}) else { throw SmokeError("decode output nonfinite/wrong shape") }
-            _ = try Self.write(["status":"PASS_LEVEL_B_DIAGNOSTIC","sourceCommit":fixture.sourceCommit,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"requestedPlacement":"CPU_AND_NE","scope":"synthetic legitimate Q8 prefill -> public scoped byte-exact FP16 initialization of Q4-owned state; one diagnostic decode, NOT public synthesis","prefillIdentity":prefIdentity,"decodeIdentity":decIdentity,"stateTransfer":stateRows,"prefillMilliseconds":prefMs,"decodeMilliseconds":ms,"logitsFinite":true,"chargingConditions":"CHARGING_CONNECTED","actualResidency":"UNKNOWN","humanListening":"NOT_REACHED","publicQ4Selectable":false],to:Self.receiptURL(filename))
+            _ = try Self.write(["status":"PASS_LEVEL_B_DIAGNOSTIC","sourceCommit":fixture.sourceCommit,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"requestedPlacement":"CPU_AND_NE","scope":fullPrefill ? "synthetic legitimate full Q4 length224 prefill -> supported byte-exact owned state initialization -> frozen Q4 decode; NOT public synthesis" : "synthetic legitimate Q8 prefill -> supported Q4 owned state initialization; NOT public synthesis","prefillIdentity":prefIdentity,"decodeIdentity":decIdentity,"stateTransfer":stateRows,"prefillMilliseconds":prefMs,"decodeMilliseconds":ms,"logitsFinite":true,"chargingConditions":"CHARGING_CONNECTED","actualResidency":"UNKNOWN","humanListening":"NOT_REACHED","publicQ4Selectable":CosyVoice3WeightProfile.q4.metadata.isSelectableForInference,"newFullQ4CandidatePromoted":false,"prefillOutputsFinite":true,"all48StatesFinite":true],to:Self.receiptURL(filename))
             status = "PASS Q4 decode Level B diagnostic"
         } catch { Self.recordFailure(error,filename:filename,into:self) }
     }
@@ -2049,3 +2056,5 @@ extension CosyVoice3SmokeModel {
 // Generated 2026-10-06 America/New_York; new isolated dispatch/function only.
 
 // Rescue A2026-10-06: two hash-pinned diagnostic plan roles for per-channel package pair. CPU_AND_NE only; public profile guard unchanged; no fallback or graph edit.
+
+// Length audit2026-10-06: fullPrefill flag switches only hash-pinned diagnostic pref224; prediction completes before frozen decode constructor. No production routing changes.

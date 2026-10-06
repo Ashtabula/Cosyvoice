@@ -1,0 +1,21 @@
+{
+  "sourcePackageIdentical": true,
+  "passedSource": "d5bd16312e60fadf01b7ffcb7b854c2a1c0e5690",
+  "failedSource": "d5bd16312e60fadf01b7ffcb7b854c2a1c0e5690",
+  "compiledDifferences": [
+    {
+      "path": "coremldata.bin",
+      "pass": {
+        "bytes": 2139,
+        "path": "coremldata.bin",
+        "sha256": "b24fe5688e19a312d6590da4dd9ccafc4c6ea2e13bc7d0e85a3f6d56f7001de8"
+      },
+      "fail": {
+        "bytes": 2139,
+        "path": "coremldata.bin",
+        "sha256": "6089abafa3fd45e724632ee7305e80d5a88eee2fb783e0d227be17e215b3ddfa"
+      }
+    }
+  ],
+  "conclusion": "Same source224 passes in first serial collection, fails isolated relaunch. Only observed compiled-content difference coremldata.bin; causality UNKNOWN, no stable production claim."
+}

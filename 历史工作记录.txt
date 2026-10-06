@@ -894,3 +894,10 @@ Actions:initial6 CPU_AND_NE load/plan PASS; exact224 newprocess reloadFAIL_-14; 
 Files:DeviceSmoke diagnostic hash list;prefill_threshold/static;physical receipts.
 Validation:d5bd163signedbuildPASS;24testsPASS/0skip; all6thermalnominalcharging. Package224identical, compiled difference onlycoremldata.bin.
 GitHub Timeline:d5bd163 committed not pushed; refinement checkpoint next.
+
+Time:2026-10-06T17:57:36.125230-04:00
+Prompt:Q4 prefill memory audit conditional fullpref gate.
+Actions:176PASS followedby224PASS again; isolated224FAIL whileisolated128PASS. No stablethreshold or length-onlycausality. Add hash-pinned full224legitimate synthetic prefill/state/frozenAdecode diagnostic; no publicprofilechange.
+Files:DeviceSmoke LevelB selector and finite gates;threshold rawreceipt.
+Validation:35a7393 signedPASS;176+224 actualLevelAPASS/nominalcharging. Fullpref identity/prediction pending.
+GitHub Timeline:35a7393 committed not pushed; boundedLevelB checkpoint next.
