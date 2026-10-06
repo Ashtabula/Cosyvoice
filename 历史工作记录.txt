@@ -428,3 +428,10 @@ Actions: frozen protobuf shows both logits outputs FP16; excluded initial FP32 b
 Files: LLMRuntime.swift, LogitsBufferTests.swift, runtime audit JSON, device validation source allowlist.
 Validation: physical unchanged baseline p3/HiFTNE N260 Flow6 249600 warmRTF0.46478248 PCM578453...; candidate tests/build/device pending.
 GitHub Timeline: auditcd87340已commit未push; optimization未commit.
+
+Time: 2026-10-06 07:27 EDT America/New_York
+Prompt: independent LOW-risk allocation/copy reduction, physical correctness before retention.
+Actions: logits-only8dfe099 signed Release and physical p3 full first/warm PASS; N260/Flow6/249600 and PCM578453... BIT_IDENTICAL. Warm0.468600 vs baseline0.464782, single runs do not prove speedup; report honestly. Second independent change fills norm MLMultiArray directly in original order, removes998400-byte temporary+copy at N260.
+Files: DynamicAcousticRuntime.swift, new norm parity test; evidence pending.
+Validation: first optimization19SwiftPASS/signedReleasePASS/physicalBIT_IDENTICAL; second tests/build/physical pending.
+GitHub Timeline:8dfe099已commit未push; norm未commit.

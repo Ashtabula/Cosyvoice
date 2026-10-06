@@ -346,7 +346,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         }
 
         let excitation = try hiftExcitationPrefix(sampleCount: samplesCount)
-        let norm = try overlapAddNorm(sampleCount: samplesCount)
+        let norm = try Self.overlapAddNorm(sampleCount: samplesCount)
         progress?("acoustic.hift.begin:G=\(g):samples=\(samplesCount)")
         try await CosyVoice3StageDiagnostics.gate("hift")
         let hiftSampler = CosyVoice3StageSampler(stage: "hift")
@@ -529,9 +529,11 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         return result
     }
 
-    private func overlapAddNorm(sampleCount: Int) throws -> MLMultiArray {
+    static func overlapAddNorm(sampleCount: Int) throws -> MLMultiArray {
         let window = (0..<16).map { Float(0.5 - 0.5 * cos(2 * Double.pi * Double($0) / 16)) }
-        var weights = [Float](repeating: 0, count: sampleCount)
+        let result = try MLMultiArray(shape: [1,1,NSNumber(value:sampleCount)], dataType: .float32)
+        let weights = result.dataPointer.assumingMemoryBound(to:Float.self)
+        weights.initialize(repeating:0,count:sampleCount)
         for sample in 0..<sampleCount {
             let position = sample + 8
             let low = max(0, (position - 12) / 4)
@@ -542,10 +544,6 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
                     if index >= 0, index < 16 { weights[sample] += window[index] * window[index] }
                 }
             }
-        }
-        let result = try MLMultiArray(shape: [1,1,NSNumber(value:sampleCount)], dataType: .float32)
-        weights.withUnsafeBufferPointer {
-            result.dataPointer.assumingMemoryBound(to: Float.self).update(from: $0.baseAddress!, count: weights.count)
         }
         return result
     }
@@ -611,3 +609,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Changes 2026-10-05: validation-only 6/3/2/1 adjacent graph packages from separate FlowPartitions; four-family schema3 required. Full-group output velocity handled in existing solver, all6/8/10 Euler steps/math unchanged. Upstream frozen six-shard runtime; Swift6/iOS18+.
 
 // Changes 2026-10-05 residency phase: validation-only12 exact native Flow Euler trajectories or HiFT calls from actual public request, reset same initial noise/time each Flow repeat, all6steps/weights/inputs unchanged. Instruments stage intervals; boundary metrics are not peak/residency proof. Production one iteration. Lines via git diff.
+
+// Purpose: write identical overlap-add norm directly into its owned MLMultiArray, removing temporary Float Array and full copy.
+// Upstream: original overlapAddNorm loop; window/summation/index order unchanged.
+// Environment: Swift6/iOS18+/macOS15+ CoreML; generated2026-10-06 07:27 EDT America/New_York.
+// Changed regions: synthesis norm call349 and overlapAddNorm538-563; exact line map in git diff.

@@ -176,6 +176,38 @@
       "proposedChange": "Attribute memory to replay/CoreML separately in a future short scoped allocation trace; do not redesign benchmark or call growth leak.",
       "validation": "Object lifetime/allocations trace tied to PID and stage, repeat few requests without replay arrays.",
       "allocationClass": "D diagnostic retention; A persistent state"
+    },
+    {
+      "id": "duplicate-speech-table",
+      "priority": "P2",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift",
+      "function": "reusableBaseFrontend/reusableConditioner",
+      "codeRegion": "714-744; EmbeddingTables15-24; TokenConditioner22-27",
+      "currentBehavior": "Frontend and decoder conditioner independently load identical manifest.speechEmbedding into two immutable Data objects.",
+      "inefficiency": "6761*896*2=12115712 bytes duplicated per engine, plus duplicate disk read; independent cached RoPE rows are smaller.",
+      "frequency": "once/engine, retained engine lifetime",
+      "expectedImpact": "~11.55MiB potential retained-memory reduction; warm latency unchanged",
+      "latencyEstimate": "unknown; benchmark required",
+      "risk": "LOW",
+      "proposedChange": "Share one immutable embedding table between frontend and conditioner in a separate follow-up; preserve row validation/errors and Data ownership. Deferred from this hot-loop change to keep commits/physical attribution independent.",
+      "validation": "all token row bytes exact and invalid-token errors unchanged; engine lifetime/memory and physical PCM hash",
+      "allocationClass": "C removable duplicate immutable table"
+    },
+    {
+      "id": "minor-decode-bookkeeping",
+      "priority": "P3",
+      "file": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+      "function": "generate/fillLogits",
+      "codeRegion": "42,77-84 baseline",
+      "currentBehavior": "Decoded tokens Array grows amortized; three logits feature-name lookups/compactMap and shape map each draw; RAS tiny topK/weights allocations. Session inputs/providers/shapes preallocated, RoPE cached, no per-token Task/model lookup/fullKV readback.",
+      "inefficiency": "small object/metadata work; repeated logit shape only needed for error, decoded reserve can avoid few growth allocations",
+      "frequency": "once/token",
+      "expectedImpact": "minor bookkeeping compared with full sampling/model prediction; prioritize actual materialization/handoff traffic",
+      "latencyEstimate": "<5 ms/request is a hypothesis; benchmark required",
+      "risk": "LOW",
+      "proposedChange": "Do not spend substantial effort now. Keep current diagnostic information and guards; metadata optimization independent if measured.",
+      "validation": "unchanged feature priority/errors and token/RNG output, physical parity",
+      "allocationClass": "B reusable metadata"
     }
   ],
   "implementationCandidates": [
@@ -199,5 +231,38 @@
     "decodeLogits": "FP16[1,6761]",
     "source": "frozen serialized model description; no model change"
   },
-  "correction": "Initial FP32 borrowing proposal excluded before shipping: actual frozen outputs are FP16. Implementation narrowed to request-local scratch reuse."
+  "correction": "Initial FP32 borrowing proposal excluded before shipping: actual frozen outputs are FP16. Implementation narrowed to request-local scratch reuse.",
+  "allocationInventory": {
+    "required": [
+      "utterance MLState 48 KV arrays 6291456 bytes, incremental device state",
+      "prefill x/cos/sin/mask request inputs",
+      "FP16 -> Float logits conversion for existing RAS",
+      "CFG duplicated x + CPU Euler update after each Flow velocity",
+      "cropped mel and FP64 F0 math",
+      "PCM materialization to public owned [Float]"
+    ],
+    "reusable": [
+      "request-local logits scratch",
+      "Flow owned intermediate buffers subject to safe lifecycle",
+      "F0 im2col/output scratch subject to reentrancy",
+      "metadata/providers subject to CoreML mutation proof"
+    ],
+    "removable": [
+      "norm intermediate weights Array + copy",
+      "duplicate immutable speech table",
+      "temporary embedding row Data with borrowed synchronous copy"
+    ],
+    "potentialRetention": [
+      "engine reference dictionary unbounded with unique user references",
+      "diagnostic isolated outputs retained through group",
+      "CoreML process footprint growth unknown, not confirmed leak",
+      "persistent identity maps across arbitrary roots; fixed install/models ordinarily bounded; invalidation events can grow"
+    ]
+  },
+  "handoffDtypes": {
+    "conditions": "owned contiguous FP32 mu[2,80,T], cond[2,80,T], spks[2,80]",
+    "flow": "input/output FP32; h[2,T,1024], te[2,1024], velocity[2,80,T]. CPU host ownership copy at each boundary, model internal casts unchanged. No Swift h Array roundtrip.",
+    "hift": "mel[1,80,G], f0[1,G], phase[1,G,9], excitation[1,960N,9], norm[1,1,960N] FP32; owned PCM [Float] once",
+    "deviceTransfers": "actual dispatch/transfer bytes not obtained from static code; cannot infer zero-copy or CPU-GPU transfer solely from shared MLMultiArray."
+  }
 }
