@@ -671,3 +671,10 @@ Actions: objectiveQ8validationcomplete; finalclassificationQ8_AWAITING_HUMAN_LIS
 Files: separatebaseline/Q8rawevidence,REPORT/contextlatency/table/finalsummary/inlineaudio_manifest,traceattribution/sourcehelpers,correctedcollectorWAVhashfield. Models/privateTmp731MB,rawtrace/XMLlocalnotgit;WAVworkspaceartifactsignorednotgit. ProductionSwiftSources/defaultassets/catalog/HF/LAST_KNOWN_GOOD unchanged.
 Validation:16existingcontract/FP64testsPASS;signedReleasePASS;CPU-onlyhost64teachernumericalfinite/top1match1.0/top20.935,notqualityPASS. Physical5baseline+5Q8+3baselineEnglish+3Q8English+5profileQ8 complete,profilingnotperformancegroup. InitialSwift6asynciteratorbuildfailure,Q8preinferencepartitionlinkfailure,andafter-WAVcopycollectorKeyError preserved/corrected;nofakeinference rerun orsilentfallback. Instrumentsbackupd dylibmappingwarningretained, requiredtablesexported5/1295complete.
 GitHub Timeline:c882fb3及前序toolcommits已commit未push；finalreportscommit/pushnext。
+
+Time:2026-10-06 14:17 EDT America/New_York
+Prompt: finishQ8objectiveexperiment atinlineaudio HUMAN gate.
+Actions: alltooling/Q8report/evidence pushed; noquantizedpromotion/Q4/mixed/default/HF/catalogchange. Preserveactual6verifiedWAVsforfinalnativeaudioembeds.
+Files: 历史工作记录.txt append-onlytimeline.
+Validation:HEAD2dbc1f094c904a04fcdbdb0792ecf5da0072dbf9 equalsoriginbranch, cleanworkspace beforethisappend; productionSwiftSources unchangedsinceb144e06.
+GitHub Timeline:62b0dfa/dce5d85/3c77e8e/7bb0265/c882fb3/2dbc1f0已push至experiment/ios-enumerated-ane-optimization；本条同步记录随后commit/push。
