@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_SHARDS2_BIT_IDENTICAL",
+  "risk": "LOW",
+  "auditFinding": "decode-embedding-copy",
+  "sourceCommit": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "publicAPI": "CosyVoice3Engine.synthesize()",
+  "changes": [
+    "Scoped immutable embedding row borrowing; original row API preserved",
+    "Exactly same1792-byte memcpy into preallocated FP16 x; public Data decode retained",
+    "Locks/state/masks/RoPE/prediction/error order remain unchanged"
+  ],
+  "algorithmUnchanged": true,
+  "weightsUnchanged": true,
+  "generationSemanticsUnchanged": true,
+  "KVStateBehaviorUnchanged": true,
+  "placementUnchanged": true,
+  "hostValidation": {
+    "tests": 24,
+    "failures": 0,
+    "all6761RowsOriginalDataVsBorrowedBytes": "BIT_IDENTICAL",
+    "realPreallocatedDecodeInputCopy": "BIT_IDENTICAL",
+    "invalidTokenAndWrongBytes": "FAIL_CLOSED"
+  },
+  "signedReleaseBuild": "PASS",
+  "codeLevelAllocationChange": {
+    "atFrozenN": 260,
+    "decodeCalls": 259,
+    "removedTemporaryDataCount": 259,
+    "removedExtraCopyBytes": 464128,
+    "notMeasuredAllocatorOrDRAMTraffic": true,
+    "latencyEstimate": "unknown; benchmark required"
+  },
+  "lastKnownGood": "ios/validation/evidence/listening_checkpoint_001/accepted_baseline.json",
+  "humanGate": "checkpoint001 explicitly PASS, retained sample06 prosody note; numerical candidates still require own human gate",
+  "noSixShardRerun": true,
+  "noLongThermalTest": true,
+  "noPromotion": true,
+  "outputClass": "BIT_IDENTICAL",
+  "frozenInputIdentity": {
+    "effectiveReferenceTranscriptSha256": "4e9bc07ab6e52e5d94a9f1af1e1b82903d98ceefe7b9f0cd86dd808a911537b2",
+    "instructionSha256": "f798a16e21fda49d5bc17b461a28f317506559983e8fbc9397c1c2c3317264d3",
+    "manifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "referenceTranscriptFileSha256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "referenceWavSha256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "runtimeRoot": "/var/mobile/Containers/Data/Application/9488DD0A-FCB7-4633-85D1-E53DF2187CFF/Documents/GeneratedAssets/Runtime",
+    "text": "This is a CosyVoice3 public API reference voice validation.",
+    "textSha256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed"
+  },
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "partitionPackageIdentity": {
+    "group0": {
+      "bytes": 365331932,
+      "files": [
+        {
+          "bytes": 1264499,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "0a8db6db9b17c840f6f8a13282b1fd28ade0eaf0f5ade88718a16b0a3f3e6b29"
+        },
+        {
+          "bytes": 128965248,
+          "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+          "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+          "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+          "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "4a6b770bca31a5a6cbe42bb211fb48a39dedae72d66508c87cc31ccefcbf90ab"
+        }
+      ],
+      "treeSha256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a"
+    },
+    "group1": {
+      "bytes": 299280530,
+      "files": [
+        {
+          "bytes": 1040201,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "fc716adf701b9590fe9d96f4fd8f61426eb06fd0fb0a485c6c4bc18e72274b54"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+          "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+          "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+        },
+        {
+          "bytes": 63138144,
+          "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+          "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "34f44bde36e27b2accfd001ce4c1bd18cdfe31c4b742903d4e606d911e1228c1"
+        }
+      ],
+      "treeSha256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c"
+    }
+  },
+  "requestedPlacement": {
+    "campPlus": "CPU_ONLY",
+    "conditions": "CPU_AND_GPU",
+    "flow0": "CPU_AND_GPU",
+    "flow1": "CPU_AND_GPU",
+    "flow2": "CPU_AND_GPU",
+    "flow3": "CPU_AND_GPU",
+    "flow4": "CPU_AND_GPU",
+    "flow5": "CPU_AND_GPU",
+    "hift": "CPU_AND_GPU",
+    "llmDecode": "CPU_AND_NE",
+    "llmPrefill": "CPU_AND_NE",
+    "speechTokenizer": "CPU_ONLY"
+  },
+  "sampleRate": 24000,
+  "samples": 249600,
+  "N": 260,
+  "function": "n257_384",
+  "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "workspaceCandidateWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/embedding-copy_001/candidate.wav",
+  "retainedKnownGoodWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample06_candidate.wav",
+  "firstSynthesisMs": 37850.952958999995,
+  "warmSynthesisMs": 4957.739208,
+  "warmRTF": 0.476705693076923,
+  "warmStages": {
+    "acousticModelLoadMilliseconds": 2.8138739999999998,
+    "acousticSynthesisMilliseconds": 1476.573793,
+    "flowSteps": 6,
+    "frontendMilliseconds": 0.897458,
+    "llmGenerationMilliseconds": 3285.513791,
+    "llmModelLoadMilliseconds": 175.73375,
+    "modelPreparationCacheHit": true,
+    "preparationMilliseconds": 3.653875,
+    "referenceCacheHit": true,
+    "totalMilliseconds": 4947.619875,
+    "warmedModelCount": 0
+  },
+  "selfProcessCPUMs": 423.8180000000011,
+  "sampledPhysicalFootprintBytes": 2318847136,
+  "thermalStart": "nominal",
+  "thermalEnd": "nominal",
+  "validationReceipt": "ios/validation/evidence/embedding-copy-20261006/candidate-benchmark-receipt.json",
+  "sameShardsSingleWarmComparison": {
+    "SHARDS": 2,
+    "beforeMs": 5026.133125,
+    "afterMs": 4957.739208,
+    "beforeRTF": 0.48328203125,
+    "afterRTF": 0.476705693076923,
+    "observedMsSaved": 68.39391700000033,
+    "statisticalSpeedupProven": false,
+    "thermalEnergyImprovementProven": false,
+    "coldComparison": "not strict; reinstall/container/CoreML readiness changed"
+  }
+}

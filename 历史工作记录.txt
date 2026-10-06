@@ -500,3 +500,10 @@ Actions: implement preauditedLOW embedding row borrowing; eliminates intermediat
 Files: TokenConditioner.swift, LLMRuntime.swift, FP16StatefulLLMSession.swift, newBorrowedEmbeddingTests.swift.
 Validation:24SwiftPASS includingall6761rows originalData/control andactualinputcopy exact, invalidbound/error guards. SignedRelease/physicalSHARDS2next; unexpectedPCMchangewillrevert.
 GitHub Timeline:fdffa40acceptance committednotpushed; runtimecandidatecommitnext.
+
+Time:2026-10-06 08:20 EDT America/New_York
+Prompt: resumeLOW afterexplicitlisteningPASS.
+Actions: accepted scopedembeddingcopyb65820d after24SwiftPASS/signedReleasePASS/physicalSHARDS2Flow6N260 sample249600PCM909/WAVa04f69 BIT_IDENTICAL tohuman-approvedbaseline. PreservecurrentcandidateWAVinlocalignoredartifacts; oldLGsixWAVsunchanged. Counter1 sincecheckpoint001; onlyinputcopy, noKV/statebehavior change orperiodiclisteningtrigger.
+Files: enumerated_embedding_copy_optimization.json, embedding-copy-20261006 receipts/console/install, quality_gate_state.json; production3files+newbyteparitytest.
+Validation: fixedtext/reference/transcript/instruction/seed/placement/p2packages/payloadidentityexact. Singlewarm before5026.133125ms RT F0.48328203125 vsnewvalueinJSON; no statisticalspeedup/thermalclaim, no6-shard orlongthermaltest. HumanPASSforcheckpoint001only, noautomaticcatalogpromotion.
+GitHub Timeline: acceptancefdffa40/runtimeb65820d committednotpushed; source+evidence pushnext.

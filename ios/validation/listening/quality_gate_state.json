@@ -9,7 +9,7 @@
     "manifest": "ios/validation/evidence/listening_checkpoint_001/accepted_baseline.json",
     "manifestSHA256": "276b8ca8d840d6326ba8ea980ebe712f68696c4ccfa79ad689f2f7effbd939b0"
   },
-  "acceptedLowRiskChangesSinceLastListening": 0,
+  "acceptedLowRiskChangesSinceLastListening": 1,
   "invasiveOptimizationAllowed": false,
   "promotionAllowed": false,
   "reason": "Human accepted all six samples, including explicit follow-up acceptance of sample06. Continue only authorized LOW-risk work; future numerical candidates need their own human gate.",
@@ -27,5 +27,9 @@
     "sample06": 249600
   },
   "humanReviewReceipt": "ios/validation/evidence/listening_checkpoint_001/human_review.json",
-  "lowRiskOptimizationAllowed": true
+  "lowRiskOptimizationAllowed": true,
+  "currentValidatedRuntimeCommit": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+  "currentValidationEvidence": "ios/validation/evidence/enumerated_embedding_copy_optimization.json",
+  "currentFrozenOutputClass": "BIT_IDENTICAL",
+  "nextPeriodicListeningCheckpoint": "after3-5 accepted LOW changes, or any specified immediate trigger"
 }
