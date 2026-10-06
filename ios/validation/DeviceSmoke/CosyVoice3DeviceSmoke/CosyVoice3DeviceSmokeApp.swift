@@ -1826,8 +1826,8 @@ extension CosyVoice3SmokeModel {
             receipt["weightProfileID"]=engine.weightProfile.rawValue
             receipt["experimentalProfileID"]=variant == "q4_hybrid" ? "q4_decode_hybrid_a" : engine.weightProfile.rawValue
             receipt["publicQ4Selectable"]=CosyVoice3WeightProfile.q4.metadata.isSelectableForInference
-            receipt["profileModelAssetIdentity"]=engine.profileMetadata.modelAssetIdentity
-            receipt["publicProfileAPI"]="CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
+            receipt["profileModelAssetIdentity"]=variant == "q4_hybrid" ? "q4_decode_hybrid_a:manifest=4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8:payload=3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9" : engine.profileMetadata.modelAssetIdentity
+            receipt["publicProfileAPI"]=variant == "q4_hybrid" ? "hash-bound Validation SPI constructor; same public CosyVoice3Engine.synthesize(); explicit SHARDS2 flag; normal .q4 remains unavailable" : "CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
             _ = try Self.write(receipt,to:Self.receiptURL(filename))
             // Plan inspection is after measured inference/idle, never included in resource timings.
             var planRows=[[String:Any]]()
