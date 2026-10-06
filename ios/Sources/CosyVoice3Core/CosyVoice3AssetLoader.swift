@@ -363,10 +363,14 @@ enum CosyVoice3AssetLoader {
         reshapeFrequencyInfrequent: Bool = false,
         preferFastPrediction: Bool = false,
         functionName: String? = nil,
-        allowValidationRetention: Bool = true
+        allowValidationRetention: Bool = true,
+        idlePreparation: Bool = false
     ) throws -> MLModel {
         CosyVoice3ConstructorGate.shared.lock.lock()
         defer { CosyVoice3ConstructorGate.shared.lock.unlock() }
+        if idlePreparation && CosyVoice3PersistentRuntimeStore.shared.hasActiveSynthesis {
+            throw CosyVoice3AssetError.compiledCache("idle construction paused for active synthesis")
+        }
         let role = CosyVoice3ValidationPlacement.role(for: path)
         let singleRoles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
         guard Set(singleRoles).count == singleRoles.count, singleRoles.allSatisfy({ ["conditions", "hift", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5"].contains($0) }) else {
@@ -472,6 +476,9 @@ enum CosyVoice3AssetLoader {
     }
 
     static func familyIdentity(root: URL, path: String, function: String) throws -> [String: String] {
+        guard !(CommandLine.arguments.contains("--validation-enumerated-cpu-only") && CommandLine.arguments.contains("--validation-enumerated-cpu-gpu")) else {
+            throw CosyVoice3AssetError.compiledCache("conflicting enumerated placement identity")
+        }
         let role = CosyVoice3ValidationPlacement.role(for: path)
         let single = role.map { CommandLine.arguments.contains("--validation-single-function=\($0)") } ?? false
         let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role!).mlpackage") : root.appendingPathComponent(path)

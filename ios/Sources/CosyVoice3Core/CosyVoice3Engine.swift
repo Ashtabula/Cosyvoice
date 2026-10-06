@@ -90,7 +90,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     private func acousticFamilyPaths() -> [String] {
         let option = CommandLine.arguments.first { $0.hasPrefix("--validation-flow-partition=") }
         let count = option.flatMap { Int($0.split(separator: "=").last ?? "6") } ?? 6
-        let paths = count == 6 ? manifest.flowShards : (0..<count).map { "../FlowPartitions/p\(count)/group-\($0).mlpackage" }
+        let folder = count == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(count)"
+        let paths = count == 6 ? manifest.flowShards : (0..<count).map { "../FlowPartitions/\(folder)/group-\($0).mlpackage" }
         return [manifest.flowConditions] + paths + [manifest.hift]
     }
 
@@ -98,7 +99,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         try acousticFamilyPaths().map { try CosyVoice3AssetLoader.familyIdentity(root: assetRoot, path: $0, function: function) }
     }
 
-    public func persistentRuntimeSnapshotJSON() throws -> Data {
+    public func persistentRuntimeSnapshotJSON() throws -> String {
         var result = try CosyVoice3PersistentRuntimeStore.shared.snapshot()
         result["idlePauseReason"] = idlePauseReason; result["idleEvents"] = idleEvents
         result["activeSynthesisCount"] = activeSynthesisCount
@@ -109,12 +110,15 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                     "ready":try CosyVoice3PersistentRuntimeStore.shared.familyReady(function:family.functionName,identities:identities)] as [String: Any]
             }
         }
-        return try JSONSerialization.data(withJSONObject: result, options: [.sortedKeys])
+        return String(decoding: try JSONSerialization.data(withJSONObject: result, options: [.sortedKeys]), as: UTF8.self)
     }
 
     // App hosts may resume on foreground/thermal-state notifications. Automatic
     // scheduling happens only after a successful request releases the actor.
     public func resumeIdleBucketPreparation() {
+        guard !CommandLine.arguments.contains(where: { $0.hasPrefix("--validation-single-function=") }) else {
+            idlePauseReason = "single-function diagnostic cannot prepare production buckets"; return
+        }
         guard idleTask == nil, manifest.isEnumeratedAcoustic else { return }
         idleTask = Task(priority: .background) { [weak self] in
             await Task.yield()
@@ -135,7 +139,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         defer { idleTask = nil }
         guard let contract = manifest.enumeratedAcoustic else { return }
         for family in contract.families {
-            if Task.isCancelled || activeSynthesisCount > 0 { idlePauseReason = "active request or cancelled"; return }
+            if Task.isCancelled || CosyVoice3PersistentRuntimeStore.shared.hasActiveSynthesis { idlePauseReason = "active request or cancelled"; return }
             guard ProcessInfo.processInfo.thermalState == .nominal else { idlePauseReason = "thermal gate: \(ProcessInfo.processInfo.thermalState.rawValue)"; return }
             #if canImport(UIKit)
             let foreground = await MainActor.run { UIApplication.shared.applicationState == .active }
@@ -152,14 +156,14 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 let identities = try familyIdentities(function)
                 if try CosyVoice3PersistentRuntimeStore.shared.familyReady(function: function, identities: identities) { continue }
                 for (index, path) in acousticFamilyPaths().enumerated() {
-                    if Task.isCancelled || activeSynthesisCount > 0 { idlePauseReason = "active request or cancelled"; return }
+                    if Task.isCancelled || CosyVoice3PersistentRuntimeStore.shared.hasActiveSynthesis { idlePauseReason = "active request or cancelled"; return }
                     guard ProcessInfo.processInfo.thermalState == .nominal else { idlePauseReason = "thermal gate after current model"; return }
                     if try CosyVoice3PersistentRuntimeStore.shared.isValidatedInProcess(identities[index]) { continue }
                     let root = assetRoot
                     let task = Task.detached(priority: .background) {
                         try autoreleasepool {
                             let model = try CosyVoice3AssetLoader.model(root: root, path: path,
-                                functionName: function, allowValidationRetention: false)
+                                functionName: function, allowValidationRetention: false, idlePreparation: true)
                             _ = model.modelDescription
                         }
                     }
@@ -349,11 +353,12 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
     public func synthesize(_ text: String, parameters: CosyVoice3Parameters = .init()) async throws -> CosyVoice3Audio {
         activeSynthesisCount += 1
+        CosyVoice3PersistentRuntimeStore.shared.beginSynthesis()
         idleTask?.cancel()
         // Native constructors cannot be interrupted safely. Finish the current
         // single constructor, then prioritize synthesis; never start another idle model.
         if let task = idleModelTask { _ = try? await task.value }
-        defer { activeSynthesisCount -= 1 }
+        defer { activeSynthesisCount -= 1; CosyVoice3PersistentRuntimeStore.shared.endSynthesis() }
         validationProgress("synthesis.begin")
         let totalStart = DispatchTime.now().uptimeNanoseconds
         let cleaned = text.trimmingCharacters(in: .whitespacesAndNewlines)

@@ -300,3 +300,9 @@ Actions: Application Support RuntimeDerived-v2 excluded from backup, actual-byte
 Files: AssetLoader/Engine/PersistentRuntimeStore, DeviceSmoke, device runner, persistent tests, protocol; previous physical partition/plan/raw PCM receipts preserved.
 Validation: 13 relevant tests PASS incl same-size/mtime changed-byte restart check, pending independent identity checks. Physical persistence/idle/kill-relaunch gates pending; no claim of system cache persistence yet.
 GitHub Timeline: through4fa112d pushed; new checkpoint to commit locally for signed source binding, no models/audio/HF/catalog/promotion.
+
+Time: 2026-10-05T21:49:42.424556-04:00
+Prompt: persistent-device build follow-up.
+Actions: iOS actor snapshot uses Sendable String instead of SDK Data crossing; global active-synthesis gate prevents idle constructors from another engine; materialized-te identity path corrected; diagnostic single-function never starts production idle buckets; conflicting placement identities fail closed.
+Validation: prior13tests PASS; iOS Data region-isolation failure preserved in persistent_build_failures.json; rebuild next.
+GitHub Timeline: 0540889 local checkpoint, through4fa112d pushed; repair checkpoint next, no assets modified.

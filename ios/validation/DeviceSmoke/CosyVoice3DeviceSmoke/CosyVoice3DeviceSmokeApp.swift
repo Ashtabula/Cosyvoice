@@ -101,7 +101,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             await engine.resumeIdleBucketPreparation()
             await engine.waitForIdleBucketPreparation()
             do {
-                let data = try await engine.persistentRuntimeSnapshotJSON()
+                let data = Data(try await engine.persistentRuntimeSnapshotJSON().utf8)
                 var result = try JSONSerialization.jsonObject(with: data) as! [String: Any]
                 let states = result["bucketStates"] as? [[String: Any]] ?? []
                 result["status"] = states.count == 4 && states.allSatisfy { $0["ready"] as? Bool == true } ? "PASS_ALL_FOUR_BUCKETS_LOAD_READY" : "RUNNING_IDLE_PAUSED_OR_PENDING"
@@ -555,7 +555,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             receipt["residencyEvidence"] = "requested placement only, residency not proven"
             receipt["processID"] = ProcessInfo.processInfo.processIdentifier
             receipt["coldLane"] = CommandLine.arguments.first { $0.hasPrefix("--validation-cold-lane=") }.map { String($0.split(separator:"=").last!) } ?? "UNSPECIFIED_LEGACY"
-            receipt["persistentRuntime"] = try JSONSerialization.jsonObject(with: await engine.persistentRuntimeSnapshotJSON())
+            receipt["persistentRuntime"] = try JSONSerialization.jsonObject(with: Data(await engine.persistentRuntimeSnapshotJSON().utf8))
             receipt["sameProcessWarmLane"] = "IN_PROCESS_WARM"
             let url = try Self.receiptURL("candidate-benchmark-receipt.json"); receiptJSON = try Self.write(receipt, to: url)
             if !automatedNoPlayback { try play(repeatAudio) }

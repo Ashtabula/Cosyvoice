@@ -11,9 +11,13 @@ final class CosyVoice3PersistentRuntimeStore: @unchecked Sendable {
     private var packages: [String: String] = [:]
     private var validatedInProcess = Set<String>()
     private var events: [[String: String]] = []
+    private var activeRequests = 0
     private let storageRootOverride: URL?
 
     init(storageRootOverride: URL? = nil) { self.storageRootOverride = storageRootOverride }
+    func beginSynthesis() { lock.lock(); defer { lock.unlock() }; activeRequests += 1 }
+    func endSynthesis() { lock.lock(); defer { lock.unlock() }; activeRequests -= 1 }
+    var hasActiveSynthesis: Bool { lock.lock(); defer { lock.unlock() }; return activeRequests > 0 }
 
     static var runtimeVersion: String {
         let bundle = Bundle(for: MLModel.self)
