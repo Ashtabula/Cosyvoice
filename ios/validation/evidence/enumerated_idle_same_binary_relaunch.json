@@ -1,0 +1,3236 @@
+{
+  "bootstrap": {
+    "backgroundModel": "foreground idle + finite beginBackgroundTask window; thermal nominal start only",
+    "cacheReset": false,
+    "firstRTF": 0.8396260096153845,
+    "firstSynthesisMilliseconds": 8732.110499999999,
+    "Float32PCMSHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+    "flowSteps": 6,
+    "PCMReturnedToHostBeforeIdle": true,
+    "persistentBeforeIdle": {
+      "activeSynthesisCount": 0,
+      "bucketStates": [
+        {
+          "functionName": "n001_128",
+          "modelIdentities": [
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "ready": true
+        },
+        {
+          "functionName": "n129_256",
+          "modelIdentities": [
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "ready": true
+        },
+        {
+          "functionName": "n257_384",
+          "modelIdentities": [
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "ready": true
+        },
+        {
+          "functionName": "n385_450",
+          "modelIdentities": [
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "ready": true
+        }
+      ],
+      "directory": "/var/mobile/Containers/Data/Application/CEBA3F14-43D5-4ABD-AE1A-1453E2611648/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2",
+      "excludedFromBackup": true,
+      "idleEvents": [],
+      "idlePauseReason": "not started",
+      "processID": 4796,
+      "processLoadEvents": [
+        {
+          "authoritativeLoadMilliseconds": "75.816667",
+          "compiledArtifactHit": "true",
+          "functionName": "<default:main>",
+          "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+          "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "60.716875",
+          "compiledArtifactHit": "true",
+          "functionName": "<default:main>",
+          "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+          "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "12.188166",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+          "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "207.411375",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+          "packageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "170.866875",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+          "packageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "181.116083",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+          "packageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "185.687333",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+          "packageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "175.776959",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+          "packageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "97.173209",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+          "packageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+          "persistentModelRecordHit": "true"
+        },
+        {
+          "authoritativeLoadMilliseconds": "161.7235",
+          "compiledArtifactHit": "true",
+          "functionName": "n257_384",
+          "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+          "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+          "persistentModelRecordHit": "true"
+        }
+      ],
+      "records": [
+        {
+          "firstCompletedAt": 1791253894.7132878,
+          "firstQueuedAt": 1791253872.3316731,
+          "identity": {
+            "functionName": "n385_450",
+            "models": "187d0aeae78bbad62f58f66ed080592ff692afa1d15c51de646efaf2e6f6c40a,20889513fab0db22770e20debdccb5d78967c5848fa52eaec5cfa4dc60d27c46,2b892ab7a2643e04b61c9075734cb7c913e4b21ad8252bdb14196723c20c183d,41765e2398e49064ff1b8cc3a0db4542eee99406ae0e42229fb6b85b065f7a72,520c9e12b99eacb0085d1dcf739dabfe401845705815edd25f5618a4694faa2c,bae6fdefd03ea53410db3003deb6a372ce2c573235aaf0ea8e6e1ec0b8109226,cabe0580a2cd2c8e17b17c729a7e16db01278b8abb06d92f51c9e4c85fb73610,eb97a4015364f1073a8ad3ef4ad551768eb48b28b802aa0154bcbf8a36a3ec6e",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+          },
+          "lastUpdatedAt": 1791253894.7132878,
+          "modelIdentities": [
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n385_450",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+          "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+        },
+        {
+          "firstCompletedAt": 1791253881.050877,
+          "firstQueuedAt": 1791253872.327508,
+          "identity": {
+            "functionName": "n001_128",
+            "models": "0706c2304b01967070be3ebb34ccaac76fd8551bee7613c59bc9504f96259c56,595f6a7a5a420a0fcec122d6874b5e631d15be52645d3164f38b3fcdb1929c9c,693499d035be0c2d1d87b90de052534a0b529847bf33e8458aaddbf0f9725026,7f8a36f124f99e6c6e03bbcc3c5b0dcc34bb35ca33cf1d15a718002d4ccab44b,86e7030b86d0c246c366f404e62eea3e38efbb7972e2c11ee5b5688c25a629e4,8c254bc1cbe78cabe8cb8cd1866ad38b6d891bfed9abb11c95146579c5f45ed4,bd74d3ff2a22fb5937c5ab44cd360f8ad97ee4ab15c17c3efc78f254ae0f3b83,c39b8bb57e44d631db5d73b365f186221aea89f53d06887066b091466085ca2d",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+          },
+          "lastUpdatedAt": 1791253881.050878,
+          "modelIdentities": [
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n001_128",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+          "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+        },
+        {
+          "firstCompletedAt": 1791253889.5743241,
+          "firstQueuedAt": 1791253872.329628,
+          "identity": {
+            "functionName": "n129_256",
+            "models": "10c00704218f61e52a1506ccc3e61b327e455f2f32c086c3ac32e18aefc84be3,3e6a402bc2d72b483044652d33a988e8176490460a4c1a3f69db13f175a510c7,7b2f71d90c93118a5685c79b203e8ea3d55eb4e7bb58048344f6d6af8690caa0,80c041c3dcdc4a8efe363422c8e7521c3e4bfaed90ee28fd054590d25b966e61,81f7b9a50bedd8097565712f2f26840273d77ca3472b8f7a24f93e9bf53dc135,a8b9eda32a94ea51c56cbcb60ea9585a5d74d20cf59f73cde225c48292d650e7,c62ede1385516b2b27f9abe944b54c190888f86195fcbc61f0f19e7d03af5578,c8cae5851fa7615bb4b3fc4df951dcf9b07ebcba4e6aecbf0e93314b799e90d9",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+          },
+          "lastUpdatedAt": 1791253889.5743241,
+          "modelIdentities": [
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n129_256",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+          "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+        },
+        {
+          "firstCompletedAt": 1791253872.325208,
+          "identity": {
+            "functionName": "n257_384",
+            "models": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232,132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a,3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40,3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17,3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2,7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91,b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7,d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+          },
+          "lastSuccessfulSpeechTokenCount": 260,
+          "lastUpdatedAt": 1791254538.398051,
+          "modelIdentities": [
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            },
+            {
+              "functionName": "n257_384",
+              "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+              "modelABI": "CoreML-MLProgram-source-content-v2",
+              "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+              "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+              "requestedPlacement": "1",
+              "reshapeInfrequent": "false",
+              "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+              "schema": "3"
+            }
+          ],
+          "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+          "status": "SUCCESSFUL_PUBLIC_SYNTHESIS"
+        },
+        {
+          "compiledArtifact": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 8646.157208,
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+          "lastAuthoritativeLoadMilliseconds": 60.716875,
+          "lastValidatedAt": 1791254531.968305,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1087.567208,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "80c041c3dcdc4a8efe363422c8e7521c3e4bfaed90ee28fd054590d25b966e61",
+          "lastAuthoritativeLoadMilliseconds": 1087.567208,
+          "lastValidatedAt": 1791253883.647424,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 716.448916,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "2b892ab7a2643e04b61c9075734cb7c913e4b21ad8252bdb14196723c20c183d",
+          "lastAuthoritativeLoadMilliseconds": 716.448916,
+          "lastValidatedAt": 1791253890.423305,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1063.710167,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "0706c2304b01967070be3ebb34ccaac76fd8551bee7613c59bc9504f96259c56",
+          "lastAuthoritativeLoadMilliseconds": 1063.710167,
+          "lastValidatedAt": 1791253878.231865,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1260.678791,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "eb97a4015364f1073a8ad3ef4ad551768eb48b28b802aa0154bcbf8a36a3ec6e",
+          "lastAuthoritativeLoadMilliseconds": 1260.678791,
+          "lastValidatedAt": 1791253894.7092881,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1259.145959,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "86e7030b86d0c246c366f404e62eea3e38efbb7972e2c11ee5b5688c25a629e4",
+          "lastAuthoritativeLoadMilliseconds": 1259.145959,
+          "lastValidatedAt": 1791253873.876536,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 244.263209,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "7f8a36f124f99e6c6e03bbcc3c5b0dcc34bb35ca33cf1d15a718002d4ccab44b",
+          "lastAuthoritativeLoadMilliseconds": 244.263209,
+          "lastValidatedAt": 1791253872.614534,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1111.420875,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+          "lastAuthoritativeLoadMilliseconds": 175.776959,
+          "lastValidatedAt": 1791254536.203995,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1301.774542,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+          "lastAuthoritativeLoadMilliseconds": 207.411375,
+          "lastValidatedAt": 1791254535.4832249,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1932.542833,
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+          "lastAuthoritativeLoadMilliseconds": 1.865333,
+          "lastValidatedAt": 1791254364.6265469,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1089.184833,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "693499d035be0c2d1d87b90de052534a0b529847bf33e8458aaddbf0f9725026",
+          "lastAuthoritativeLoadMilliseconds": 1089.184833,
+          "lastValidatedAt": 1791253877.163064,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1091.441,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "c39b8bb57e44d631db5d73b365f186221aea89f53d06887066b091466085ca2d",
+          "lastAuthoritativeLoadMilliseconds": 1091.441,
+          "lastValidatedAt": 1791253874.973465,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 783.583375,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+          "lastAuthoritativeLoadMilliseconds": 97.173209,
+          "lastValidatedAt": 1791254536.302875,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 2071.624208,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "bd74d3ff2a22fb5937c5ab44cd360f8ad97ee4ab15c17c3efc78f254ae0f3b83",
+          "lastAuthoritativeLoadMilliseconds": 2071.624208,
+          "lastValidatedAt": 1791253881.044739,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 248.717083,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "a8b9eda32a94ea51c56cbcb60ea9585a5d74d20cf59f73cde225c48292d650e7",
+          "lastAuthoritativeLoadMilliseconds": 248.717083,
+          "lastValidatedAt": 1791253881.3038611,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1090.535042,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "8c254bc1cbe78cabe8cb8cd1866ad38b6d891bfed9abb11c95146579c5f45ed4",
+          "lastAuthoritativeLoadMilliseconds": 1090.535042,
+          "lastValidatedAt": 1791253876.0687919,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1097.453791,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "3e6a402bc2d72b483044652d33a988e8176490460a4c1a3f69db13f175a510c7",
+          "lastAuthoritativeLoadMilliseconds": 1097.453791,
+          "lastValidatedAt": 1791253884.750272,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 648.28975,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "187d0aeae78bbad62f58f66ed080592ff692afa1d15c51de646efaf2e6f6c40a",
+          "lastAuthoritativeLoadMilliseconds": 648.28975,
+          "lastValidatedAt": 1791253891.0773,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 238.002542,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+          "lastAuthoritativeLoadMilliseconds": 12.188166,
+          "lastValidatedAt": 1791254535.2713342,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 624.921792,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "cabe0580a2cd2c8e17b17c729a7e16db01278b8abb06d92f51c9e4c85fb73610",
+          "lastAuthoritativeLoadMilliseconds": 624.921792,
+          "lastValidatedAt": 1791253892.347671,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 698.237375,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "7b2f71d90c93118a5685c79b203e8ea3d55eb4e7bb58048344f6d6af8690caa0",
+          "lastAuthoritativeLoadMilliseconds": 698.237375,
+          "lastValidatedAt": 1791253887.5207438,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 634.739458,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "20889513fab0db22770e20debdccb5d78967c5848fa52eaec5cfa4dc60d27c46",
+          "lastAuthoritativeLoadMilliseconds": 634.739458,
+          "lastValidatedAt": 1791253891.7173781,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 2044.855875,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "10c00704218f61e52a1506ccc3e61b327e455f2f32c086c3ac32e18aefc84be3",
+          "lastAuthoritativeLoadMilliseconds": 2044.855875,
+          "lastValidatedAt": 1791253889.5700831,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 2089.153708,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+          "lastAuthoritativeLoadMilliseconds": 161.7235,
+          "lastValidatedAt": 1791254537.790292,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1246.929541,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "c8cae5851fa7615bb4b3fc4df951dcf9b07ebcba4e6aecbf0e93314b799e90d9",
+          "lastAuthoritativeLoadMilliseconds": 1246.929541,
+          "lastValidatedAt": 1791253882.55376,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1105.856542,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+          "lastAuthoritativeLoadMilliseconds": 185.687333,
+          "lastValidatedAt": 1791254536.0264158,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1124.867459,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+          "lastAuthoritativeLoadMilliseconds": 181.116083,
+          "lastValidatedAt": 1791254535.838908,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 223.789916,
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "0",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+          "lastAuthoritativeLoadMilliseconds": 0.98675,
+          "lastValidatedAt": 1791254364.628611,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1042.770292,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "81f7b9a50bedd8097565712f2f26840273d77ca3472b8f7a24f93e9bf53dc135",
+          "lastAuthoritativeLoadMilliseconds": 1042.770292,
+          "lastValidatedAt": 1791253886.816827,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1013.390125,
+          "identity": {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "c62ede1385516b2b27f9abe944b54c190888f86195fcbc61f0f19e7d03af5578",
+          "lastAuthoritativeLoadMilliseconds": 1013.390125,
+          "lastValidatedAt": 1791253885.768882,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 732.667791,
+          "identity": {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "595f6a7a5a420a0fcec122d6874b5e631d15be52645d3164f38b3fcdb1929c9c",
+          "lastAuthoritativeLoadMilliseconds": 732.667791,
+          "lastValidatedAt": 1791253878.96904,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 1154.899791,
+          "identity": {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+          "lastAuthoritativeLoadMilliseconds": 170.866875,
+          "lastValidatedAt": 1791254535.656007,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 8910.337791,
+          "identity": {
+            "functionName": "<default:main>",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "3",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+          "lastAuthoritativeLoadMilliseconds": 75.816667,
+          "lastValidatedAt": 1791254531.9058208,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 665.919584,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "41765e2398e49064ff1b8cc3a0db4542eee99406ae0e42229fb6b85b065f7a72",
+          "lastAuthoritativeLoadMilliseconds": 665.919584,
+          "lastValidatedAt": 1791253893.0184112,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 420.763708,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "520c9e12b99eacb0085d1dcf739dabfe401845705815edd25f5618a4694faa2c",
+          "lastAuthoritativeLoadMilliseconds": 420.763708,
+          "lastValidatedAt": 1791253893.444535,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        },
+        {
+          "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+          "firstAuthoritativeLoadMilliseconds": 122.562542,
+          "identity": {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          "key": "bae6fdefd03ea53410db3003deb6a372ce2c573235aaf0ea8e6e1ec0b8109226",
+          "lastAuthoritativeLoadMilliseconds": 122.562542,
+          "lastValidatedAt": 1791253889.704216,
+          "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+          "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+        }
+      ],
+      "storageBytes": 3194715137,
+      "systemExecutionPlanPersistence": "not assumed; every process performs authoritative MLModel load when the model is used"
+    },
+    "processID": 4796,
+    "publicAPI": "CosyVoice3Engine.synthesize()",
+    "recordedAtUnix": 1791254538,
+    "sameProcessWarmRTF": null,
+    "sampleRate": 24000,
+    "samples": 249600,
+    "secondSynthesisPerformed": false,
+    "seed": 42,
+    "sourceCommit": "77e733474279f90d4c58bafa20c16db328e936e9",
+    "status": "PASS_PUBLIC_FIRST_SYNTHESIS_IDLE_QUEUED",
+    "text": "This is a CosyVoice3 public API reference voice validation.",
+    "thermalEnd": "nominal",
+    "thermalStart": "nominal"
+  },
+  "idle": {
+    "activeSynthesisCount": 0,
+    "bucketStates": [
+      {
+        "functionName": "n001_128",
+        "modelIdentities": [
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "ready": true
+      },
+      {
+        "functionName": "n129_256",
+        "modelIdentities": [
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "ready": true
+      },
+      {
+        "functionName": "n257_384",
+        "modelIdentities": [
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "ready": true
+      },
+      {
+        "functionName": "n385_450",
+        "modelIdentities": [
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "ready": true
+      }
+    ],
+    "directory": "/var/mobile/Containers/Data/Application/CEBA3F14-43D5-4ABD-AE1A-1453E2611648/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2",
+    "excludedFromBackup": true,
+    "idleEvents": [],
+    "idlePauseReason": "all identities prepared or already recorded",
+    "idleWindowElapsedMilliseconds": 43.69795322418213,
+    "meaning": "persistent identity/function load readiness; not proof all exact N system specializations persist",
+    "processID": 4796,
+    "processLoadEvents": [
+      {
+        "authoritativeLoadMilliseconds": "75.816667",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+        "packageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "60.716875",
+        "compiledArtifactHit": "true",
+        "functionName": "<default:main>",
+        "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+        "packageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "12.188166",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+        "packageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "207.411375",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+        "packageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "170.866875",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+        "packageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "181.116083",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+        "packageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "185.687333",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+        "packageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "175.776959",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+        "packageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "97.173209",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+        "packageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+        "persistentModelRecordHit": "true"
+      },
+      {
+        "authoritativeLoadMilliseconds": "161.7235",
+        "compiledArtifactHit": "true",
+        "functionName": "n257_384",
+        "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+        "packageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+        "persistentModelRecordHit": "true"
+      }
+    ],
+    "recordedAtUnix": 1791254538,
+    "records": [
+      {
+        "firstCompletedAt": 1791253894.7132878,
+        "firstQueuedAt": 1791253872.3316731,
+        "identity": {
+          "functionName": "n385_450",
+          "models": "187d0aeae78bbad62f58f66ed080592ff692afa1d15c51de646efaf2e6f6c40a,20889513fab0db22770e20debdccb5d78967c5848fa52eaec5cfa4dc60d27c46,2b892ab7a2643e04b61c9075734cb7c913e4b21ad8252bdb14196723c20c183d,41765e2398e49064ff1b8cc3a0db4542eee99406ae0e42229fb6b85b065f7a72,520c9e12b99eacb0085d1dcf739dabfe401845705815edd25f5618a4694faa2c,bae6fdefd03ea53410db3003deb6a372ce2c573235aaf0ea8e6e1ec0b8109226,cabe0580a2cd2c8e17b17c729a7e16db01278b8abb06d92f51c9e4c85fb73610,eb97a4015364f1073a8ad3ef4ad551768eb48b28b802aa0154bcbf8a36a3ec6e",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+        },
+        "lastUpdatedAt": 1791253894.7132878,
+        "modelIdentities": [
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n385_450",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+        "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+      },
+      {
+        "firstCompletedAt": 1791253881.050877,
+        "firstQueuedAt": 1791253872.327508,
+        "identity": {
+          "functionName": "n001_128",
+          "models": "0706c2304b01967070be3ebb34ccaac76fd8551bee7613c59bc9504f96259c56,595f6a7a5a420a0fcec122d6874b5e631d15be52645d3164f38b3fcdb1929c9c,693499d035be0c2d1d87b90de052534a0b529847bf33e8458aaddbf0f9725026,7f8a36f124f99e6c6e03bbcc3c5b0dcc34bb35ca33cf1d15a718002d4ccab44b,86e7030b86d0c246c366f404e62eea3e38efbb7972e2c11ee5b5688c25a629e4,8c254bc1cbe78cabe8cb8cd1866ad38b6d891bfed9abb11c95146579c5f45ed4,bd74d3ff2a22fb5937c5ab44cd360f8ad97ee4ab15c17c3efc78f254ae0f3b83,c39b8bb57e44d631db5d73b365f186221aea89f53d06887066b091466085ca2d",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+        },
+        "lastUpdatedAt": 1791253881.050878,
+        "modelIdentities": [
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n001_128",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+        "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+      },
+      {
+        "firstCompletedAt": 1791253889.5743241,
+        "firstQueuedAt": 1791253872.329628,
+        "identity": {
+          "functionName": "n129_256",
+          "models": "10c00704218f61e52a1506ccc3e61b327e455f2f32c086c3ac32e18aefc84be3,3e6a402bc2d72b483044652d33a988e8176490460a4c1a3f69db13f175a510c7,7b2f71d90c93118a5685c79b203e8ea3d55eb4e7bb58048344f6d6af8690caa0,80c041c3dcdc4a8efe363422c8e7521c3e4bfaed90ee28fd054590d25b966e61,81f7b9a50bedd8097565712f2f26840273d77ca3472b8f7a24f93e9bf53dc135,a8b9eda32a94ea51c56cbcb60ea9585a5d74d20cf59f73cde225c48292d650e7,c62ede1385516b2b27f9abe944b54c190888f86195fcbc61f0f19e7d03af5578,c8cae5851fa7615bb4b3fc4df951dcf9b07ebcba4e6aecbf0e93314b799e90d9",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+        },
+        "lastUpdatedAt": 1791253889.5743241,
+        "modelIdentities": [
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n129_256",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+        "status": "LOAD_READY_SYSTEM_STATE_NOT_ASSUMED"
+      },
+      {
+        "firstCompletedAt": 1791253872.325208,
+        "identity": {
+          "functionName": "n257_384",
+          "models": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232,132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a,3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40,3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17,3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2,7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91,b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7,d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2"
+        },
+        "lastSuccessfulSpeechTokenCount": 260,
+        "lastUpdatedAt": 1791254538.398051,
+        "modelIdentities": [
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          },
+          {
+            "functionName": "n257_384",
+            "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+            "modelABI": "CoreML-MLProgram-source-content-v2",
+            "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+            "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+            "requestedPlacement": "1",
+            "reshapeInfrequent": "false",
+            "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+            "schema": "3"
+          }
+        ],
+        "scope": "function load readiness; observed N predictions recorded separately; system exact-shape specialization is not guaranteed by this marker",
+        "status": "SUCCESSFUL_PUBLIC_SYNTHESIS"
+      },
+      {
+        "compiledArtifact": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 8646.157208,
+        "identity": {
+          "functionName": "<default:main>",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "3",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "2cc6d09d6b0ba93cf12c7d23b2ba06f78256ba36626419d3d9d1eaade0e01af6",
+        "lastAuthoritativeLoadMilliseconds": 60.716875,
+        "lastValidatedAt": 1791254531.968305,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1087.567208,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "80c041c3dcdc4a8efe363422c8e7521c3e4bfaed90ee28fd054590d25b966e61",
+        "lastAuthoritativeLoadMilliseconds": 1087.567208,
+        "lastValidatedAt": 1791253883.647424,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 716.448916,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "2b892ab7a2643e04b61c9075734cb7c913e4b21ad8252bdb14196723c20c183d",
+        "lastAuthoritativeLoadMilliseconds": 716.448916,
+        "lastValidatedAt": 1791253890.423305,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1063.710167,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "0706c2304b01967070be3ebb34ccaac76fd8551bee7613c59bc9504f96259c56",
+        "lastAuthoritativeLoadMilliseconds": 1063.710167,
+        "lastValidatedAt": 1791253878.231865,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1260.678791,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "eb97a4015364f1073a8ad3ef4ad551768eb48b28b802aa0154bcbf8a36a3ec6e",
+        "lastAuthoritativeLoadMilliseconds": 1260.678791,
+        "lastValidatedAt": 1791253894.7092881,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1259.145959,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "86e7030b86d0c246c366f404e62eea3e38efbb7972e2c11ee5b5688c25a629e4",
+        "lastAuthoritativeLoadMilliseconds": 1259.145959,
+        "lastValidatedAt": 1791253873.876536,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 244.263209,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "7f8a36f124f99e6c6e03bbcc3c5b0dcc34bb35ca33cf1d15a718002d4ccab44b",
+        "lastAuthoritativeLoadMilliseconds": 244.263209,
+        "lastValidatedAt": 1791253872.614534,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1111.420875,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "d0046f23546ccfe5054949db4b2829cb2ae4bff93610dcdd606ae2e250f3f244",
+        "lastAuthoritativeLoadMilliseconds": 175.776959,
+        "lastValidatedAt": 1791254536.203995,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1301.774542,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "027c06aace3c9f21b04cdae48ff2e3411c85e86923bf09826c7c45825a99a232",
+        "lastAuthoritativeLoadMilliseconds": 207.411375,
+        "lastValidatedAt": 1791254535.4832249,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "66486932db4f9ddae6bfcf44ae8fdd88435bfe672804454305d7198bc5d7b80b.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1932.542833,
+        "identity": {
+          "functionName": "<default:main>",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "ee07c99a5182a45ab7af38543dc733adcbba5fe5eff2980a10142bcce47c0b39",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "0",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "69435776c922959024b14d957a711b32f080f2620af04b977f32d1d1452e0061",
+        "lastAuthoritativeLoadMilliseconds": 1.865333,
+        "lastValidatedAt": 1791254364.6265469,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1089.184833,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "693499d035be0c2d1d87b90de052534a0b529847bf33e8458aaddbf0f9725026",
+        "lastAuthoritativeLoadMilliseconds": 1089.184833,
+        "lastValidatedAt": 1791253877.163064,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1091.441,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "c39b8bb57e44d631db5d73b365f186221aea89f53d06887066b091466085ca2d",
+        "lastAuthoritativeLoadMilliseconds": 1091.441,
+        "lastValidatedAt": 1791253874.973465,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 783.583375,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "7ed240115a9b773d56ba3367a9980f00df0e3305bc8cab583f32f2dfab7ddd91",
+        "lastAuthoritativeLoadMilliseconds": 97.173209,
+        "lastValidatedAt": 1791254536.302875,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 2071.624208,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "bd74d3ff2a22fb5937c5ab44cd360f8ad97ee4ab15c17c3efc78f254ae0f3b83",
+        "lastAuthoritativeLoadMilliseconds": 2071.624208,
+        "lastValidatedAt": 1791253881.044739,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 248.717083,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "a8b9eda32a94ea51c56cbcb60ea9585a5d74d20cf59f73cde225c48292d650e7",
+        "lastAuthoritativeLoadMilliseconds": 248.717083,
+        "lastValidatedAt": 1791253881.3038611,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1090.535042,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "8c254bc1cbe78cabe8cb8cd1866ad38b6d891bfed9abb11c95146579c5f45ed4",
+        "lastAuthoritativeLoadMilliseconds": 1090.535042,
+        "lastValidatedAt": 1791253876.0687919,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1097.453791,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "3e6a402bc2d72b483044652d33a988e8176490460a4c1a3f69db13f175a510c7",
+        "lastAuthoritativeLoadMilliseconds": 1097.453791,
+        "lastValidatedAt": 1791253884.750272,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 648.28975,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "187d0aeae78bbad62f58f66ed080592ff692afa1d15c51de646efaf2e6f6c40a",
+        "lastAuthoritativeLoadMilliseconds": 648.28975,
+        "lastValidatedAt": 1791253891.0773,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 238.002542,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+        "lastAuthoritativeLoadMilliseconds": 12.188166,
+        "lastValidatedAt": 1791254535.2713342,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 624.921792,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "cabe0580a2cd2c8e17b17c729a7e16db01278b8abb06d92f51c9e4c85fb73610",
+        "lastAuthoritativeLoadMilliseconds": 624.921792,
+        "lastValidatedAt": 1791253892.347671,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 698.237375,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "7b2f71d90c93118a5685c79b203e8ea3d55eb4e7bb58048344f6d6af8690caa0",
+        "lastAuthoritativeLoadMilliseconds": 698.237375,
+        "lastValidatedAt": 1791253887.5207438,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 634.739458,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "20889513fab0db22770e20debdccb5d78967c5848fa52eaec5cfa4dc60d27c46",
+        "lastAuthoritativeLoadMilliseconds": 634.739458,
+        "lastValidatedAt": 1791253891.7173781,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 2044.855875,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "10c00704218f61e52a1506ccc3e61b327e455f2f32c086c3ac32e18aefc84be3",
+        "lastAuthoritativeLoadMilliseconds": 2044.855875,
+        "lastValidatedAt": 1791253889.5700831,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 2089.153708,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "876d4e94be16c915b3ad6fcd63eb9317ef9d9c5c0fda218f0defa3d78bde59d6",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+        "lastAuthoritativeLoadMilliseconds": 161.7235,
+        "lastValidatedAt": 1791254537.790292,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b0835b29674584ac973e5279cc9dee4dd809a2973335e7e7853117c9ec28e41b.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1246.929541,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "a2324caf044f7ea8749d08bd17d7d5edbf250572f0a2058b78eea2c6e528de55",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "c8cae5851fa7615bb4b3fc4df951dcf9b07ebcba4e6aecbf0e93314b799e90d9",
+        "lastAuthoritativeLoadMilliseconds": 1246.929541,
+        "lastValidatedAt": 1791253882.55376,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1105.856542,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "3acad01431e372db254d857c964e3c393568b0f288759b3cfd3c54873a529a17",
+        "lastAuthoritativeLoadMilliseconds": 185.687333,
+        "lastValidatedAt": 1791254536.0264158,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b4e676339da2e174c79ecd6d7dec4d908c4c4ab89a6d84be282a2c8392f83550.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1124.867459,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "71d966b387321725e4cb9f313d65500dfb44a410286661b85299285239d467ea",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "b1b4c6542f7d8e561ae478507a5e91881ffbf094d55e1bc6065a9e4b2e679dd7",
+        "lastAuthoritativeLoadMilliseconds": 181.116083,
+        "lastValidatedAt": 1791254535.838908,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "4fe9614ecdc7992d0c25eb397a2c73cc3acc850b9a2f36bcd0723bec43848358.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 223.789916,
+        "identity": {
+          "functionName": "<default:main>",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "fa27c58aa572a3a4661f4a1b8342126f54a8477768f8e75325baf0611281855c",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "0",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "068d77067699476db43ac32f6a16296142b56d9fe082d2c10615c5682d86ad71",
+        "lastAuthoritativeLoadMilliseconds": 0.98675,
+        "lastValidatedAt": 1791254364.628611,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1042.770292,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "81f7b9a50bedd8097565712f2f26840273d77ca3472b8f7a24f93e9bf53dc135",
+        "lastAuthoritativeLoadMilliseconds": 1042.770292,
+        "lastValidatedAt": 1791253886.816827,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "853c3a7cba5f30bf78adb58102dc66aedd678ceddc806a2830205ad5b0f2b4d2.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1013.390125,
+        "identity": {
+          "functionName": "n129_256",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "4ca28d71707b7a579380306babba383ae8d53dfa2851de073df2f53b642f16af",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "c62ede1385516b2b27f9abe944b54c190888f86195fcbc61f0f19e7d03af5578",
+        "lastAuthoritativeLoadMilliseconds": 1013.390125,
+        "lastValidatedAt": 1791253885.768882,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 732.667791,
+        "identity": {
+          "functionName": "n001_128",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "595f6a7a5a420a0fcec122d6874b5e631d15be52645d3164f38b3fcdb1929c9c",
+        "lastAuthoritativeLoadMilliseconds": 732.667791,
+        "lastValidatedAt": 1791253878.96904,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "c9f0b511167a5b761d54e50c5135e8edce3ec5366987e1f4d288a327f168c93d.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 1154.899791,
+        "identity": {
+          "functionName": "n257_384",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d09cd9b73cf2dba83ba89752fd305447da496a822737a106ac7a10c82e8dd6aa",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "132283eacbfb2c1a004c54dc1f4c057ab7517905d49d10435ab5fe10fefe894a",
+        "lastAuthoritativeLoadMilliseconds": 170.866875,
+        "lastValidatedAt": 1791254535.656007,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 8910.337791,
+        "identity": {
+          "functionName": "<default:main>",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "3",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "4f62d14e7ed2158f5e280ede3cb6ca65aa454a98267ffbe3207615722a06585b",
+        "lastAuthoritativeLoadMilliseconds": 75.816667,
+        "lastValidatedAt": 1791254531.9058208,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "a76ab4d16671d0b90a1e807de5cd056f6f79ce5b5e23f06790556926a10a74b3.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 665.919584,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "9f10b1fc3fdb6be92b8e3bd03bb31bae3c49b812bfdd6d6c649e7c47dd889ec9",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "41765e2398e49064ff1b8cc3a0db4542eee99406ae0e42229fb6b85b065f7a72",
+        "lastAuthoritativeLoadMilliseconds": 665.919584,
+        "lastValidatedAt": 1791253893.0184112,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "fcdda79a86dc621585a630296c3725a34fe3880455d4e37ea0ad8e264eba2610.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 420.763708,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "d522125d34327956cf3353e2712f822a1851e1d930012afe144993cdf35f0a1a",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "520c9e12b99eacb0085d1dcf739dabfe401845705815edd25f5618a4694faa2c",
+        "lastAuthoritativeLoadMilliseconds": 420.763708,
+        "lastValidatedAt": 1791253893.444535,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      },
+      {
+        "compiledArtifact": "6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc",
+        "firstAuthoritativeLoadMilliseconds": 122.562542,
+        "identity": {
+          "functionName": "n385_450",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "modelABI": "CoreML-MLProgram-source-content-v2",
+          "modelPackageSHA256": "82ca6b4d15a00dd9f50acaaa4f0f1ebfa4a793d406ddee0f182005af6985e701",
+          "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+          "requestedPlacement": "1",
+          "reshapeInfrequent": "false",
+          "runtimeVersion": "Version 27.2 (Build 24B5089g)|CoreML=3600.25.2|SDKRuntimeABI=2",
+          "schema": "3"
+        },
+        "key": "bae6fdefd03ea53410db3003deb6a372ce2c573235aaf0ea8e6e1ec0b8109226",
+        "lastAuthoritativeLoadMilliseconds": 122.562542,
+        "lastValidatedAt": 1791253889.704216,
+        "status": "AUTHORITATIVE_MODEL_LOAD_VALIDATED",
+        "systemExecutionState": "CoreML-managed; marker is not proof of system-plan persistence"
+      }
+    ],
+    "sampledPeakPhysicalFootprintBytes": 1105382752,
+    "status": "PASS_ALL_FOUR_BUCKETS_LOAD_READY",
+    "storageBytes": 3194715137,
+    "systemExecutionPlanPersistence": "not assumed; every process performs authoritative MLModel load when the model is used",
+    "thermalPeak": "nominal",
+    "thermalStart": "nominal",
+    "thermalState": "nominal"
+  },
+  "allReady": true,
+  "idleConstructorCount": 0,
+  "scope": "same installed binary/root, actual process kill/relaunch without reset",
+  "priorInstalledMigrationEvidence": "enumerated_idle_all_ready_relaunch.json"
+}

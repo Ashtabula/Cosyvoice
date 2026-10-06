@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "status": "HARDWARE_ACTIVITY_OBSERVED_PER_MODEL_RESIDENCY_NOT_PROVEN",
+  "tracePath": "/private/tmp/cosy-equivalent-CoreAI-20261005.trace",
+  "device": "iPhone18,4/iOS27.2",
+  "sourceCommit": "77e733474279f90d4c58bafa20c16db328e936e9",
+  "processID": 4820,
+  "physicalPublicWorkload": {
+    "N": 260,
+    "function": "n257_384",
+    "flowSteps": 6,
+    "samples": 249600,
+    "noPlayback": true
+  },
+  "timingsExcludedFromComparison": true,
+  "hardwareIntervals": {
+    "ane": {
+      "rowCount": 294,
+      "summedIntervalNanoseconds": 3505588531,
+      "labels": {
+        "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d_main__Op0_AneInference Load: cached": 2,
+        "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99_main__Op0_AneInference Load: cached": 2,
+        "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d_main__Op0_AneInference Prediction": 2,
+        "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99_main__Op0_AneInference Prediction": 288
+      },
+      "firstRows": [
+        [
+          {
+            "tag": "start-time",
+            "value": "53515164791",
+            "formatted": "00:53.515.164"
+          },
+          {
+            "tag": "duration",
+            "value": "32828334",
+            "formatted": "32.83 ms"
+          },
+          {
+            "tag": "ane-event-name",
+            "value": "Apple Neural Engine",
+            "formatted": "Apple Neural Engine"
+          },
+          {
+            "tag": "metal-nesting-level",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d_main__Op0_AneInference Load: cached"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "53595250666",
+            "formatted": "00:53.595.250"
+          },
+          {
+            "tag": "duration",
+            "value": "11795667",
+            "formatted": "11.80 ms"
+          },
+          {
+            "tag": "ane-event-name",
+            "value": "Apple Neural Engine",
+            "formatted": "Apple Neural Engine"
+          },
+          {
+            "tag": "metal-nesting-level",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99_main__Op0_AneInference Load: cached"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "53613300000",
+            "formatted": "00:53.613.300"
+          },
+          {
+            "tag": "duration",
+            "value": "28559708",
+            "formatted": "28.56 ms"
+          },
+          {
+            "tag": "ane-event-name",
+            "value": "Apple Neural Engine",
+            "formatted": "Apple Neural Engine"
+          },
+          {
+            "tag": "metal-nesting-level",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "b615d444dfafee79afc0e746fe5df108e2aa039ac22b7469220f931419a2630d_main__Op0_AneInference Prediction"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "53643166958",
+            "formatted": "00:53.643.166"
+          },
+          {
+            "tag": "duration",
+            "value": "12285750",
+            "formatted": "12.29 ms"
+          },
+          {
+            "tag": "ane-event-name",
+            "value": "Apple Neural Engine",
+            "formatted": "Apple Neural Engine"
+          },
+          {
+            "tag": "metal-nesting-level",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "da6dcab6f4760aa601b64bce18c00ab76c9e05bf89c3328b1d27fb8a560d8c99_main__Op0_AneInference Prediction"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          }
+        ]
+      ],
+      "sha256": "faa4e23ba3d5f4cb5939cc93a51f3971d63fecab6542532b9852845350dd0682",
+      "path": "/private/tmp/cosy-equivalent-ane-hw-20261005.xml"
+    },
+    "gpu": {
+      "rowCount": 5104,
+      "summedIntervalNanoseconds": 56016108667,
+      "labels": {
+        "1 channels active": 2552,
+        "Idle": 1688,
+        "2 channels active": 863,
+        "3 channels active": 1
+      },
+      "firstRows": [
+        [
+          {
+            "tag": "start-time",
+            "value": "4163899166",
+            "formatted": "00:04.163.899"
+          },
+          {
+            "tag": "duration",
+            "value": "43667",
+            "formatted": "43.67 \u00b5s"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "1 channels active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          },
+          {
+            "tag": "uint32",
+            "value": "1",
+            "formatted": "1"
+          },
+          {
+            "tag": "metal-device-name",
+            "value": "A19 Pro",
+            "formatted": "A19 Pro"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "4163942833",
+            "formatted": "00:04.163.942"
+          },
+          {
+            "tag": "duration",
+            "value": "375",
+            "formatted": "375 ns"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Idle",
+            "formatted": "Idle"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "Idle"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "1000",
+            "formatted": "1000"
+          },
+          {
+            "tag": "uint32",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "metal-device-name",
+            "value": "A19 Pro",
+            "formatted": "A19 Pro"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "4163943208",
+            "formatted": "00:04.163.943"
+          },
+          {
+            "tag": "duration",
+            "value": "347417",
+            "formatted": "347.42 \u00b5s"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Active",
+            "formatted": "Active"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "1 channels active"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "3",
+            "formatted": "3"
+          },
+          {
+            "tag": "uint32",
+            "value": "1",
+            "formatted": "1"
+          },
+          {
+            "tag": "metal-device-name",
+            "value": "A19 Pro",
+            "formatted": "A19 Pro"
+          }
+        ],
+        [
+          {
+            "tag": "start-time",
+            "value": "4164290625",
+            "formatted": "00:04.164.290"
+          },
+          {
+            "tag": "duration",
+            "value": "47206948291",
+            "formatted": "47.21 s"
+          },
+          {
+            "tag": "gpu-state",
+            "value": "Idle",
+            "formatted": "Idle"
+          },
+          {
+            "tag": "formatted-label",
+            "value": "",
+            "formatted": "Idle"
+          },
+          {
+            "tag": "render-buffer-depth",
+            "value": "1000",
+            "formatted": "1000"
+          },
+          {
+            "tag": "uint32",
+            "value": "0",
+            "formatted": "0"
+          },
+          {
+            "tag": "metal-device-name",
+            "value": "A19 Pro",
+            "formatted": "A19 Pro"
+          }
+        ]
+      ],
+      "sha256": "f0fdb990bbb09ecb840b68bc036a1bb360d838508214cf68d7106426b49db950",
+      "path": "/private/tmp/cosy-equivalent-gpu-hw-20261005.xml"
+    }
+  },
+  "coreAIProfileRowCount": 0,
+  "limitation": "CoreAIProfile returned no per-model rows. ANE interval names show cached Load/Prediction for two main__Op0_AneInference hashes, but do not expose PID/model attribution. System GPU activity similarly is not per-op residency proof.",
+  "exportWarning": "Timeline modification failed: duplicate app dylib mappings overlap; XML exports succeeded",
+  "planEvidenceFile": "equivalent_final_plans.json",
+  "finalPlacementStatement": "requested placement plus preferred/supported plan evidence; actual per-model/op residency not proven"
+}
