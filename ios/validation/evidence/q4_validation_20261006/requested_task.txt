@@ -1,0 +1,812 @@
+You are working on:
+
+Ashtabula/Cosyvoice
+
+TASK
+
+Create and rigorously validate an experimental 4-bit LLM weight-quantized CosyVoice3 iOS profile.
+
+The scope ends after:
+
+Q4 conversion
+→ physical-device validation
+→ ANE execution-topology validation
+→ FP16/Q8/Q4 three-way Codex inline listening gate
+→ clean SDK/API profile interface
+
+Do NOT modify NPU_engines_Demo in this task.
+Do NOT build the final runner head-to-head benchmark in this task.
+Do NOT perform final whole-device sustained energy benchmarking in this task.
+
+The purpose is to finish the CosyVoice-side Q4 implementation and expose a clean API so NPU_engines_Demo can compare Current/Q8/Q4 later.
+
+PRODUCT GOALS
+
+1. Lower physical RAM for older/lower-memory iPhones.
+2. Lower potential energy/memory-bandwidth burden.
+3. Preserve acceptable English voice-cloning quality.
+4. Preserve the clean ANE-oriented execution topology.
+5. Keep RTF comfortably below real time; approximately <= 0.60 is acceptable.
+
+Speed alone does not determine success.
+
+==================================================
+1. READ CURRENT FP16 AND Q8 EVIDENCE FIRST
+==================================================
+
+Read the current repository and complete accepted evidence for:
+
+- current production baseline
+- Q8 conversion recipe
+- Q8 physical-device results
+- Q8 numerical/token divergence
+- Q8 listening artifacts/status
+- Q8 memory timeline
+- post-Q8 ANE execution-topology audit
+- accepted HiFT/F0 FP64 workspace optimization
+- current manifests and immutable asset identities
+- current public CosyVoice3Engine API
+
+Use repository evidence as authoritative.
+
+Expected prior neighborhood, to be verified:
+
+Current/FP16:
+- decode approximately 12.44 ms/token
+- warm RTF approximately 0.476
+- sampled peak approximately 2.328 GB
+
+Q8:
+- decode approximately 7.43 ms/token
+- warm RTF approximately 0.348
+- sampled peak approximately 1.594 GB
+- approximately 700 MiB lower sampled peak than current
+- one dominant ANE program interval per decode prediction
+- zero recorded internal fragmentation at exposed trace resolution
+
+Do not rely on these approximations if current evidence differs.
+
+==================================================
+2. PRESERVE CURRENT AND Q8
+==================================================
+
+Never overwrite:
+
+- current production model assets
+- Q8 assets
+- manifests
+- conversion receipts
+- physical receipts
+- listening artifacts
+- accepted source evidence
+- Hugging Face production revision
+- LAST_KNOWN_GOOD
+
+Q4 must be a third isolated model-weight profile.
+
+Conceptually:
+
+CosyVoice3
+├── current
+├── q8
+└── q4
+
+All three must share one engine implementation.
+
+==================================================
+3. CREATE Q4 WITH THE ACTUAL CORE ML TOOLCHAIN
+==================================================
+
+Inspect:
+
+- installed coremltools version
+- successful Q8 conversion implementation
+- current source model dtype
+- Core ML package structure
+- deployment target
+- stateful prefill/decode model requirements
+
+Create the most appropriate supported 4-bit LLM weight-compression candidate.
+
+Do not invent APIs.
+
+Record exactly:
+
+- quantization/compression API
+- coremltools version
+- granularity
+- block/group configuration
+- which weights were compressed
+- exclusions
+- source dtype
+- output representation
+- deployment target
+- specification version
+- compile result
+
+Do NOT claim 4-bit ANE arithmetic merely because weights use 4-bit storage/compression.
+
+==================================================
+4. CHANGE ONLY LLM WEIGHTS
+==================================================
+
+Freeze:
+
+- SHARDS = 2
+- flowSteps = 6
+- Flow models
+- HiFT/F0
+- tokenizer
+- CAMPPlus/reference encoder
+- RAS/sampling
+- EOS behavior
+- MLState/KV precision
+- MLState/KV semantics
+- attention mathematics
+- reference conditioning
+- acoustic pipeline
+- public synthesis semantics
+
+No retraining.
+No fine-tuning.
+No speculative decoding.
+No model-architecture change.
+
+==================================================
+5. Q4 ASSET ISOLATION
+==================================================
+
+Create separate Q4:
+
+- Core ML packages
+- manifest
+- asset-tree identity
+- package hashes
+- conversion receipt
+- evidence directory
+
+Do not publish/promote Q4 to the production release.
+
+==================================================
+6. THREE-WAY STATIC SIZE COMPARISON
+==================================================
+
+Produce:
+
+Metric | Current | Q8 | Q4
+
+Include:
+
+- source weight bytes
+- prefill package bytes
+- decode package bytes
+- total LLM package bytes
+- relevant total asset bytes
+- Q8 compression ratio vs current
+- Q4 compression ratio vs current
+- Q4 compression ratio vs Q8
+
+Do not infer physical RAM from package size.
+
+==================================================
+7. HOST NUMERICAL VALIDATION
+==================================================
+
+Compare Q4 against BOTH current and Q8 using controlled prefill/decode inputs.
+
+Report where useful:
+
+- max absolute error
+- mean absolute error
+- RMSE
+- cosine similarity
+- top-1 agreement
+- top-k overlap
+- hidden-output differences
+- observable state behavior
+
+This is characterization, not an automatic quality verdict.
+
+==================================================
+8. PHYSICAL-DEVICE VALIDATION
+==================================================
+
+Q4 must execute through the PUBLIC CosyVoice3Engine path on the same physical-device class used for current/Q8 evidence when available.
+
+Validate:
+
+- model loading
+- reference conditioning
+- public synthesize()
+- finite PCM
+- native sample rate
+- output duration
+- N
+- EOS behavior
+- no NaN/Inf
+- no severe repetition
+- no catastrophic truncation
+- no state corruption across repeated requests
+
+Use repeated warm requests.
+
+Do not fabricate PASS if hardware is unavailable.
+
+==================================================
+9. PHYSICAL TOKEN COMPARISON
+==================================================
+
+For Current/Q8/Q4 report:
+
+- N
+- token-sequence hash
+- EOS behavior
+- first Q4 divergence vs Current
+- first Q4 divergence vs Q8
+- divergence count/fraction where meaningful
+- MAX_LENGTH events
+- premature EOS
+- repetition
+- duration drift
+
+Token divergence is not automatically failure.
+
+==================================================
+10. PHYSICAL MEMORY
+==================================================
+
+Memory is a primary Q4 objective.
+
+Measure Q4 with the same methodology used for current/Q8:
+
+- before engine
+- after engine
+- after preparation
+- after LLM load
+- prefill
+- decode peak
+- post-LLM
+- acoustic peak
+- overall sampled process peak
+- request completion
+- idle/post-expiry
+
+Produce:
+
+Metric | Current | Q8 | Q4
+
+Calculate:
+
+- Q4 peak reduction vs Current
+- Q4 peak reduction vs Q8
+- Q4 steady/idle reduction where supported
+
+Do not infer RAM savings from disk size.
+
+==================================================
+11. PHYSICAL PERFORMANCE
+==================================================
+
+Measure:
+
+- LLM model load
+- prefill
+- decode ms/token
+- total LLM generation
+- acoustic synthesis
+- total synthesis
+- RTF
+
+Use repeated warm runs.
+
+Q4 does not need to be faster than Q8.
+
+RTF approximately <= 0.60 is acceptable if Q4 materially improves RAM/resource behavior and passes quality.
+
+==================================================
+12. DEVELOPMENT ENERGY SCREEN
+==================================================
+
+Record available:
+
+- CPU time
+- process-attributed energy
+- normalized process energy/playback-second
+- thermal start/end
+
+Do not call these whole-device energy.
+
+Do not make final battery/thermal claims from charging-connected tests.
+
+Final whole-device comparison belongs to NPU_engines_Demo later and is OUT OF SCOPE here.
+
+==================================================
+13. Q4 ANE EXECUTION-TOPOLOGY AUDIT
+==================================================
+
+After valid Q4 physical inference, use the SAME methodology as the completed FP16/Q8 post-quantization topology audit.
+
+Measure:
+
+- requested compute units
+- MLComputePlan ANE-preferred reported ops
+- physical ANE intervals per decode prediction
+- total ANE interval duration
+- longest contiguous ANE interval
+- internal gap count
+- internal gap milliseconds
+- pre-ANE boundary
+- post-ANE boundary
+- Core ML prediction wall time
+
+Compare:
+
+Current vs Q8 vs Q4.
+
+The desired topology is approximately:
+
+CPU preparation
+→ one dominant contiguous ANE program interval
+→ CPU output/token selection
+
+Do NOT require 100% ANE.
+
+Do NOT call ANE interval coverage "ANE utilization."
+
+==================================================
+14. Q4 TOPOLOGY CLASSIFICATION
+==================================================
+
+Classify Q4 as one:
+
+MOSTLY_CONTIGUOUS_ANE
+MEANINGFUL_INTERNAL_FRAGMENTATION
+SEVERE_INTERNAL_FRAGMENTATION
+INSUFFICIENT_TRACE_EVIDENCE
+
+If Q4 introduces new CPU islands or fragmentation, report them.
+
+Do not rewrite the graph in this task.
+
+==================================================
+15. SAME FIXED ENGLISH LISTENING CORPUS
+==================================================
+
+Use the exact listening corpus already used for Q8.
+
+Do not invent an easier Q4 corpus.
+
+At minimum retain three fixed English samples:
+
+Sample 01:
+ordinary natural English
+
+Sample 02:
+longer punctuation/prosody sentence
+
+Sample 03:
+stress case for pauses/repetition/ending/long-form stability
+
+Use identical:
+
+- reference voice
+- reference transcript
+- synthesis text
+- instruction
+- generation configuration
+
+for Current/Q8/Q4.
+
+==================================================
+16. GENERATE THREE-WAY PHYSICAL WAVS
+==================================================
+
+For every listening sample generate:
+
+- Current WAV
+- Q8 WAV
+- Q4 WAV
+
+using physical public inference evidence.
+
+Use stable descriptive names:
+
+checkpoint_001_sample01_current.wav
+checkpoint_001_sample01_q8.wav
+checkpoint_001_sample01_q4.wav
+
+and equivalent names for every sample.
+
+Preserve hashes and provenance.
+
+==================================================
+17. MANDATORY CODEX NATIVE INLINE AUDIO
+==================================================
+
+This is a hard requirement.
+
+Attach the ACTUAL WAV files to the Codex result so Codex renders native inline audio players.
+
+Required presentation:
+
+LISTENING GATE — SAMPLE 01
+
+Current
+[native Codex inline WAV player]
+
+Q8
+[native Codex inline WAV player]
+
+Q4
+[native Codex inline WAV player]
+
+Repeat for Samples 02/03/etc.
+
+Do NOT provide only:
+
+- /Volumes paths
+- workspace paths
+- evidence paths
+- device-container paths
+- download-only links
+
+If WAVs are generated elsewhere, copy them into the Codex task-visible artifact/output surface and attach them.
+
+Verify readable bytes before attaching.
+
+==================================================
+18. HUMAN LISTENING GATE
+==================================================
+
+The agent MUST NOT declare HUMAN_PASS.
+
+Present Current/Q8/Q4 inline audio first.
+
+Then report objective findings.
+
+Wait for explicit user judgment.
+
+The user should compare:
+
+- intelligibility
+- pronunciation
+- speaker similarity
+- naturalness
+- prosody
+- rhythm
+- pauses
+- repetition
+- ending behavior
+- long-sentence stability
+
+Do not promote Q4 in this task.
+
+==================================================
+19. Q4 OBJECTIVE CLASSIFICATION
+==================================================
+
+Before human judgment choose one objective status:
+
+Q4_STRONG_RESOURCE_WIN_AWAITING_HUMAN
+Q4_RESOURCE_WIN_AWAITING_HUMAN
+Q4_MEMORY_WIN_AWAITING_HUMAN
+Q4_NEUTRAL_AWAITING_HUMAN
+Q4_PERFORMANCE_REGRESSION
+Q4_ANE_TOPOLOGY_REGRESSION
+Q4_CATASTROPHIC_QUALITY_FAILURE
+Q4_UNSUPPORTED_OR_INCOMPATIBLE
+
+After explicit human judgment, record HUMAN_PASS or HUMAN_FAIL separately.
+
+==================================================
+20. BUILD A CLEAN SDK/API WEIGHT-PROFILE INTERFACE
+==================================================
+
+After Current/Q8/Q4 assets are validated enough to be selectable, refactor the CosyVoice SDK API so the SAME engine implementation can select a validated weight profile cleanly.
+
+Do NOT create three independent engines.
+
+Conceptually:
+
+CosyVoice3Engine
+    |
+    +-- current
+    +-- q8
+    +-- q4
+
+The profile owns:
+
+- model asset identity
+- manifest
+- validation requirements
+- model package mapping
+- quantization metadata
+
+The engine implementation remains shared.
+
+==================================================
+21. PUBLIC API DESIGN
+==================================================
+
+Provide a stable, user-meaningful profile abstraction.
+
+For example, conceptually:
+
+public enum CosyVoiceWeightProfile: Sendable {
+    case current
+    case q8
+    case q4
+}
+
+Use naming appropriate to the real codebase.
+
+Do NOT expose:
+
+- Core ML filenames
+- shard filenames
+- package-internal paths
+- conversion revision names
+- internal graph names
+
+The API should make future benchmark integration simple.
+
+==================================================
+22. DEFAULT BEHAVIOR
+==================================================
+
+Do NOT silently change the existing production default.
+
+Existing code such as:
+
+CosyVoice3Engine(...)
+
+must continue to resolve to the current accepted production profile unless the existing API architecture requires another backward-compatible mechanism.
+
+Explicit profile selection should be possible for engineering/benchmark use.
+
+Conceptually:
+
+CosyVoice3Engine(profile: .current)
+CosyVoice3Engine(profile: .q8)
+CosyVoice3Engine(profile: .q4)
+
+Adapt to the real existing initializer/API style.
+
+==================================================
+23. PROFILE METADATA
+==================================================
+
+Expose safe metadata needed by future benchmark integration without exposing model internals.
+
+Useful concepts may include:
+
+- stable profile ID
+- display name
+- quantization class
+- asset version/identity
+- whether profile is experimental
+
+Do not expose private filenames.
+
+==================================================
+24. ASSET VALIDATION
+==================================================
+
+Each profile must fail closed if given the wrong assets.
+
+Prevent:
+
+- Q4 profile loading Q8 assets
+- Q8 profile loading current assets
+- mixed package trees
+- stale manifest reuse
+- silent fallback to current
+
+Validate immutable identities/hashes using the existing asset contract.
+
+==================================================
+25. API CONCURRENCY / SWIFT 6
+==================================================
+
+Audit the new profile API for:
+
+- Sendable correctness
+- actor isolation
+- engine initialization races
+- shared mutable global profile state
+- cache-key collisions
+- model shelf/cache collisions between profiles
+
+Do not implement profile selection using unsafe mutable global state.
+
+Profile identity must participate in any cache key where model-family confusion is possible.
+
+==================================================
+26. BENCHMARK-HANDOFF CONTRACT
+==================================================
+
+Do NOT modify NPU_engines_Demo here.
+
+Instead document exactly how the future runner should instantiate:
+
+- Current
+- Q8
+- Q4
+
+through the public CosyVoice SDK API.
+
+Provide a small API usage example.
+
+The future benchmark should not need to know:
+
+- model filenames
+- package layout
+- conversion scripts
+- private asset paths
+
+==================================================
+27. TEST THE API
+==================================================
+
+Add/extend tests proving:
+
+- default remains current
+- explicit .current resolves current assets
+- explicit .q8 resolves Q8 assets
+- explicit .q4 resolves Q4 assets
+- wrong-profile assets fail closed
+- no silent fallback
+- profile metadata is stable
+- cache/model identity cannot collide across profiles
+- public synthesis path remains unchanged apart from selected assets
+
+Run relevant Swift tests and signed build where available.
+
+==================================================
+28. DO NOT DO THESE THINGS
+==================================================
+
+Do NOT:
+
+- modify NPU_engines_Demo
+- build head-to-head runner UI
+- run final 10-20 minute whole-device benchmark
+- publish/promote Q4
+- delete Current/Q8
+- change production default
+- quantize KV
+- quantize acoustic models
+- change Flow6
+- rewrite LLM graph
+- chase additional ANE placement optimization
+- begin mixed precision
+
+Stop after Q4 + API handoff.
+
+==================================================
+29. EVIDENCE
+==================================================
+
+Preserve separately:
+
+current/
+q8/
+q4/
+api_profile/
+
+Record:
+
+- source SHA
+- conversion SHA
+- quantization recipe
+- package hashes
+- manifest/tree identity
+- device/OS
+- physical receipts
+- token/PCM/WAV hashes
+- memory timeline
+- performance
+- process energy screen
+- ANE topology trace
+- Codex inline listening artifact identities
+- human status
+- API tests/build evidence
+
+Do not overwrite prior Q8 evidence.
+
+==================================================
+30. STOP CONDITIONS
+==================================================
+
+Stop Q4 work and report if:
+
+- Core ML cannot compile/run Q4
+- MLState/decode compatibility breaks
+- catastrophic audio behavior occurs
+- severe CPU fallback/fragmentation appears
+- Q4 gives negligible RAM benefit vs Q8 with no plausible resource benefit
+- RTF exceeds acceptable product range without compelling memory benefit
+- evidence becomes invalid/incomparable
+
+Do not manufacture a Q4 success.
+
+==================================================
+31. FINAL CODEX RESPONSE ORDER
+==================================================
+
+If Q4 reaches the listening gate, the final Codex response order must be:
+
+FIRST:
+Three-way native inline audio players for every sample.
+
+SECOND:
+Short objective Current/Q8/Q4 comparison.
+
+THIRD:
+Q4 objective classification and human-listening status.
+
+FOURTH:
+API/profile implementation summary.
+
+Do not bury listening artifacts under the technical report.
+
+==================================================
+32. FINAL COMPARISON TABLE
+==================================================
+
+Produce:
+
+Metric | Current | Q8 | Q4
+
+Include:
+
+- LLM asset size
+- relevant total asset size
+- model load ms
+- prefill ms
+- decode ms/token
+- total LLM ms
+- total synthesis ms
+- RTF
+- peak physical memory
+- completion/idle memory
+- process energy/playback-second
+- ANE intervals/prediction
+- longest contiguous ANE interval
+- internal gap ms
+- token divergence
+- human listening status
+
+Use N/A rather than estimates.
+
+==================================================
+33. FINAL QUESTIONS
+==================================================
+
+Answer explicitly:
+
+1. What exact Q4 compression mechanism was used?
+2. How much smaller is Q4 than Current?
+3. How much smaller is Q4 than Q8?
+4. What is Q4 physical peak memory?
+5. How much peak RAM does Q4 save vs Current?
+6. How much peak RAM does Q4 save vs Q8?
+7. What is Q4 decode ms/token?
+8. What is Q4 RTF?
+9. Does Q4 preserve the mostly-contiguous CPU→ANE→CPU topology?
+10. Does Q4 introduce meaningful CPU fallback?
+11. What is Q4 process-energy screening result?
+12. What is the human listening status for Current/Q8/Q4?
+13. What exact public API selects Current/Q8/Q4?
+14. Does the default remain Current?
+15. Do wrong-profile assets fail closed?
+16. Is Q4 ready to hand off to NPU_engines_Demo for future head-to-head benchmarking?
+17. What remains unresolved before any production promotion?
+
+CRITICAL:
+Do not auto-promote Q4.
+Do not change the default.
+Do not modify NPU_engines_Demo.
+Do not call process energy whole-device energy.
+Do not infer older-device compatibility from RAM alone.
+Attach actual WAVs as Codex native inline players when listening is required.

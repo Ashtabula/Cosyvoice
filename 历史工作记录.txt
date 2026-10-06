@@ -728,3 +728,17 @@ Actions:清理receipt/恢复mapping/冻结Q8P2听音SHA验证已发布，未修�
 Files:历史工作记录.txt append-only。
 Validation:82e8dad已成功push；WD观察增加39.2GiB、MacData6.6GiB；353duplicatefiles/25compiler-cachefolders清理完成，protectedhash全部PASS。
 GitHub Timeline:82e8dad已push至origin/experiment/ios-enumerated-ane-optimization；本条发布记录随后commit/push。
+
+Time:2026-10-06 15:02 EDT America/New_York
+Prompt: Start VoxCPM2 premium iPhone engine evaluation from zero, preserve SDK, official upstream before conversion.
+Actions: official discovery/isolated clone fixedf0c787f; freshPython3.11venv/minimaldeps; downloaded9officialassets pinned32279eff/locallyverifiedSHA256; reproducibleCLI/manifest/lock/reports. No trackedupstreampatch/noSDKchange.
+Files:tools/voxcpm2; reports/voxcpm2; .gitignore; 历史工作记录.txt append-only. Weights/venv inprivateTmp dueWD1.4GiBfree; checkoutignored.
+Validation:upstreamimportPASS; downloaded4.957GBweightsverified; externalMPSavailable/internalFalse; officialplainMPSnext. DNSrestrictions/pipcache/unquotedURL/CoreDeviceServicefailuredocumented. NoWAV/CoreML/iPhone/residency/qualityPASSyet.
+GitHub Timeline:未commit、未push；本任务未要求push。
+
+Time:2026-10-06 15:03 EDT America/New_York
+Prompt:用户明确授权Q4及clean共享Engine weight-profile API，不改Demo/no promotion。
+Actions:readacceptedQ8humanPASS/resource/topology/currentFP64evidence;ct9actualAPI支持INT4perblock32。复用导出器新增explicitbits4，169linearmatricesonly/fromoriginalFP16，state/IOABI保持。Q8default8及旧模型不改写，独立新目录/evidence。
+Files:quantize_llm_weights.py,prepare_llm_quantization_recipe.py,q4_validation_20261006/requested_task.txt。
+Validation:installedconfigconstructionPASS/PythonASTPASS;conversion/host/physical/APIpending。
+GitHub Timeline:c5de68e已push；Q4工具未commit，先sourcecheckpoint再执行转换。
