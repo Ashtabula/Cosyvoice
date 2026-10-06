@@ -169,6 +169,8 @@ def main() -> None:
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--capture-pcm", action="store_true")
+    parser.add_argument("--idle-readiness", action="store_true")
     parser.add_argument("--flow-partition", choices=(1,2,3,6), type=int, default=6)
     parser.add_argument("--sustained-count", type=int, default=0)
     parser.add_argument("--acoustic-cache", choices=("none","small","decoder","selected-family"), default="none")
@@ -227,7 +229,7 @@ def main() -> None:
         capture=True,
     ).splitlines()
     diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function) or args.acoustic_cache != "none" or args.flow_partition != 6
-    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift"}
+    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift"}
     if runtime_changed and not (
         diagnostic_compute
         and set(runtime_changed).issubset(diagnostic_allowed_runtime_files)
@@ -357,6 +359,8 @@ def main() -> None:
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":
                 candidate_args.append("--validation-enumerated-cpu-only")
+            if args.idle_readiness:
+                candidate_args.append("--validation-idle-readiness")
             candidate_args.append("--validation-flow-partition=" + str(args.flow_partition))
             candidate_args.append("--validation-sustained-count=" + str(args.sustained_count))
             candidate_args.append("--validation-acoustic-cache=" + args.acoustic_cache)
@@ -381,6 +385,9 @@ def main() -> None:
                 started=started,
                 timeout=args.timeout,
             )
+            if args.capture_pcm:
+                for name in ("candidate-warm.f32", "candidate-warm.wav"):
+                    copy_from(args.device, args.bundle, "Documents/" + name, output / name)
             evidence["runs"]["candidateBenchmark"] = {
                 "status": receipt["status"],
                 "receiptSha256": sha256(output / "candidate-benchmark-receipt.json"),

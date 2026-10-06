@@ -1,0 +1,205 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_HOST_VELOCITY_PARITY",
+  "algorithmUnchanged": "export structural gate plus numerical controls; physical gate pending",
+  "computeUnits": "CPU_ONLY",
+  "scope": "HOST_COMPLETE_VELOCITY_CONTROL_NO_SAMPLER_OR_ENDPOINT_AUDIO",
+  "tolerance": {
+    "atol": 0.0003,
+    "rtol": 0.0003
+  },
+  "cases": [
+    {
+      "N": 1,
+      "T": 304,
+      "function": "n001_128",
+      "partition": 6,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        304
+      ],
+      "elapsedSeconds": 28.239642749991617
+    },
+    {
+      "N": 1,
+      "T": 304,
+      "function": "n001_128",
+      "partition": 3,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        304
+      ],
+      "elapsedSeconds": 35.85636054199131
+    },
+    {
+      "N": 1,
+      "T": 304,
+      "function": "n001_128",
+      "partition": 2,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        304
+      ],
+      "elapsedSeconds": 42.79804991699348
+    },
+    {
+      "N": 1,
+      "T": 304,
+      "function": "n001_128",
+      "partition": 1,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        304
+      ],
+      "elapsedSeconds": 63.73211595900648
+    },
+    {
+      "N": 260,
+      "T": 822,
+      "function": "n257_384",
+      "partition": 6,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        822
+      ],
+      "elapsedSeconds": 40.92357483399974
+    },
+    {
+      "N": 260,
+      "T": 822,
+      "function": "n257_384",
+      "partition": 3,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        822
+      ],
+      "elapsedSeconds": 51.89349437499186
+    },
+    {
+      "N": 260,
+      "T": 822,
+      "function": "n257_384",
+      "partition": 2,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        822
+      ],
+      "elapsedSeconds": 61.17961233400274
+    },
+    {
+      "N": 260,
+      "T": 822,
+      "function": "n257_384",
+      "partition": 1,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        822
+      ],
+      "elapsedSeconds": 84.6076588750002
+    },
+    {
+      "N": 450,
+      "T": 1202,
+      "function": "n385_450",
+      "partition": 6,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        1202
+      ],
+      "elapsedSeconds": 25.836638958004187
+    },
+    {
+      "N": 450,
+      "T": 1202,
+      "function": "n385_450",
+      "partition": 3,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        1202
+      ],
+      "elapsedSeconds": 32.75494216699735
+    },
+    {
+      "N": 450,
+      "T": 1202,
+      "function": "n385_450",
+      "partition": 2,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        1202
+      ],
+      "elapsedSeconds": 37.014113875004114
+    },
+    {
+      "N": 450,
+      "T": 1202,
+      "function": "n385_450",
+      "partition": 1,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        1202
+      ],
+      "elapsedSeconds": 51.063240584000596
+    }
+  ]
+}

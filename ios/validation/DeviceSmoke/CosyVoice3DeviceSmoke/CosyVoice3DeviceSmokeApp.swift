@@ -394,9 +394,19 @@ final class CosyVoice3SmokeModel: ObservableObject {
                   capabilities.supportedFlowSteps.map(\.rawValue) == [6,8,10] else {
                 throw SmokeError("unexpected capabilities")
             }
+            var idlePreparationMilliseconds = 0.0
+            var idleFamilyReadinessMilliseconds = 0.0
+            if CommandLine.arguments.contains("--validation-idle-readiness") {
+                let idleStarted = clock.now
+                _ = try await engine.prepare(reference: fixture.reference)
+                idleFamilyReadinessMilliseconds = try await engine.prepareValidationAcousticFamily(speechTokenCount: 260)
+                idlePreparationMilliseconds = Self.seconds(idleStarted.duration(to: clock.now))*1000
+            }
             let firstStart = clock.now; let first = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let firstMilliseconds = Self.seconds(firstStart.duration(to: clock.now))*1000; try Self.validate(first)
             let firstStages = await engine.lastSynthesisReport()
+            let warmCPUStart = Self.processCPUMilliseconds()
             let repeatStart = clock.now; let repeatAudio = try await engine.synthesize(fixture.text, parameters: fixture.parameters); let repeatMilliseconds = Self.seconds(repeatStart.duration(to: clock.now))*1000; try Self.validate(repeatAudio)
+            let warmCPUMilliseconds = Self.processCPUMilliseconds()-warmCPUStart
             let repeatStages = await engine.lastSynthesisReport()
             let inputIdentity: [String: Any] = [
                 "text": fixture.text,
@@ -422,6 +432,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             guard (0...20).contains(sustainedCount) else { throw SmokeError("invalid sustained count") }
             for index in 0..<sustainedCount {
                 let thermalBefore = Self.thermalName(ProcessInfo.processInfo.thermalState)
+                let cpuStart = Self.processCPUMilliseconds()
                 let start = clock.now
                 let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
                 let ms = Self.seconds(start.duration(to: clock.now))*1000
@@ -430,11 +441,21 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 guard hash == repeatWAVSHA256 else { throw SmokeError("sustained deterministic output diverged") }
                 let stages = await engine.lastSynthesisReport()
                 var row: [String: Any] = ["index": index, "totalMilliseconds": ms, "RTF":ms/1000/Self.audioDuration(audio), "samples":audio.samples.count,"thermalStart":thermalBefore,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"wavSha256":hash,"physicalFootprintBytes":Self.processFootprint(),"interRequestDelay":false]
+                row["processCPUMilliseconds"] = Self.processCPUMilliseconds()-cpuStart
                 if let stages { row["stages"] = Self.reportDictionary(stages) }
                 sustained.append(row)
             }
             let thermalEnd = ProcessInfo.processInfo.thermalState
             var receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_CANDIDATE_BENCHMARK","benchmark":"public-api-candidate-v1","sourceCommit":fixture.sourceCommit,"recordedAtUnix":Int(Date().timeIntervalSince1970),"profile":activeProfile,"coldDefinition":"fresh process + fresh CosyVoice3Engine; automatic bounded model preparation is included; no validateReference prewarm","warmDefinition":"second identical public synthesize call on the same engine instance after automatic preparation","referenceValidationPrewarm":false,"engineInitMilliseconds":engineInitMilliseconds,"firstSynthesisMilliseconds":firstMilliseconds,"repeatSynthesisMilliseconds":repeatMilliseconds,"firstAudioSeconds":firstDuration,"repeatAudioSeconds":repeatDuration,"firstRTF":firstMilliseconds/1000/firstDuration,"repeatRTF":repeatMilliseconds/1000/repeatDuration,"firstSamples":first.samples.count,"repeatSamples":repeatAudio.samples.count,"sameSampleCount":first.samples.count == repeatAudio.samples.count,"sampleRate":first.sampleRate,"channels":first.channels,"finite":true,"firstPeakAbs":firstStats.peak,"firstRMS":firstStats.rms,"repeatPeakAbs":repeatStats.peak,"repeatRMS":repeatStats.rms,"referenceTranscriptCharacters":fixture.transcript.count,"flowSteps":fixture.parameters.flowSteps.rawValue,"hostReceiptSha256":fixture.hostReceiptSHA256,"device":UIDevice.current.model,"deviceModelIdentifier":Self.machineIdentifier(),"systemName":UIDevice.current.systemName,"systemVersion":UIDevice.current.systemVersion,"thermalStart":Self.thermalName(thermalStart),"thermalEnd":Self.thermalName(thermalEnd),"playbackDuringBenchmark":false,"validationCacheReset":validationCacheReset,"validationSamplerSeed":validationSamplerSeed,"matchedDeterministicSpeechLength":true,"matchedDeterministicWav":true,"firstWavSha256":firstWAVSHA256,"repeatWavSha256":repeatWAVSHA256]
+            receipt["warmProcessCPUMilliseconds"] = warmCPUMilliseconds
+            receipt["CPUTimeMeaning"] = "getrusage self user+system CPU; excludes driver/services outside process, no GPU/ANE power claim"
+            receipt["idlePreparationMilliseconds"] = idlePreparationMilliseconds
+            receipt["idleFamilyReadinessMilliseconds"] = idleFamilyReadinessMilliseconds
+            if CommandLine.arguments.contains("--validation-idle-readiness") {
+                receipt["coldDefinition"] = "idle-prepared first synthesis; preparation cost recorded separately; not a raw cold-start claim"
+                receipt["referenceValidationPrewarm"] = true
+                receipt["idleReadinessPredictions"] = false
+            }
             receipt["flowPartition"] = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }) ?? "6"
             receipt["sustainedRuns"] = sustained
             receipt["inputIdentity"] = inputIdentity
@@ -477,6 +498,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
             if let repeatStages { receipt["repeatStages"] = Self.reportDictionary(repeatStages) }
             try Self.wavData(first).write(to: Self.receiptURL("candidate-cold.wav"), options: .atomic)
             try Self.wavData(repeatAudio).write(to: Self.receiptURL("candidate-warm.wav"), options: .atomic)
+            try repeatAudio.samples.withUnsafeBytes { try Data($0).write(to: Self.receiptURL("candidate-warm.f32"), options: .atomic) }
             receipt["experimentalModelIdentity"] = experimentalIdentity
             receipt["experimentalSingleFunctionRoles"] = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }
             receipt["referenceConditioningCacheReset"] = CommandLine.arguments.contains("--reset-reference-conditioning")
@@ -946,6 +968,12 @@ final class CosyVoice3SmokeModel: ObservableObject {
             }
             try save("PASS_DIAGNOSTIC_COLLECTION"); status = "PASS diagnostic compute-plan collection"
         } catch { Self.recordFailure(error, filename: filename, into: self) }
+    }
+
+    private static func processCPUMilliseconds() -> Double {
+        var usage = rusage()
+        guard getrusage(RUSAGE_SELF, &usage) == 0 else { return -1 }
+        return Double(usage.ru_utime.tv_sec + usage.ru_stime.tv_sec)*1000 + Double(usage.ru_utime.tv_usec + usage.ru_stime.tv_usec)/1000
     }
 
     private static func processFootprint() -> UInt64 {

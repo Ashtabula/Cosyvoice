@@ -62,6 +62,17 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         self.referenceDiskCache = try? CosyVoice3ReferenceConditioningDiskCache()
     }
 
+    @_spi(Validation)
+    public func prepareValidationAcousticFamily(speechTokenCount: Int) async throws -> Double {
+        guard let contract = manifest.enumeratedAcoustic, manifest.isEnumeratedAcoustic else { throw CosyVoice3EngineError.developmentRuntimeIncomplete("family readiness requires schema3") }
+        let function = try contract.functionName(forSpeechTokenCount: speechTokenCount)
+        let paths = [manifest.flowConditions] + manifest.flowShards + [manifest.hift]
+        let specs = paths.map { CosyVoice3ModelWarmSpec($0, functionName: function) }
+        let started = DispatchTime.now().uptimeNanoseconds
+        _ = try await CosyVoice3AssetLoader.warmModels(root: assetRoot, specs: specs, maximumConcurrent: 1, progress: nil)
+        return Double(DispatchTime.now().uptimeNanoseconds-started)/1_000_000
+    }
+
     public func capabilities() async throws -> CosyVoice3Capabilities { capabilitiesValue }
     public func lastPreparationReport() -> CosyVoice3PreparationReport? { lastPreparationReportValue }
     public func lastSynthesisReport() -> CosyVoice3SynthesisReport? { lastSynthesisReportValue }
@@ -895,3 +906,5 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 // Changes 2026-10-05: exact-enumerated prepare(reference:) no longer guesses/warm-loads n129_256 acoustic functions before EOS is known. It prepares only LLM and reference encoders; after real N is generated, synthesis loads exactly one matching acoustic family. RangeDim/fixed paths retain prior preparation behavior.
 
 // Changes 2026-10-05: validation SPI can set an optional deterministic sampler seed; both public synthesis and Flow head-to-head LLM construction receive it. Normal SDK state remains nil and therefore uses SystemRandomNumberGenerator exactly as before.
+
+// Changes2026-10-05: validation SPI for idle selected-family constructor readiness; no prediction, sampling or state priming, bounded cache policy remains caller-controlled. Original public prepare/synthesize/defaults unchanged; upstream engine/AssetLoader; Swift6/iOS18+.

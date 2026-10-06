@@ -272,3 +272,10 @@ Actions: actual-input-bound f25a449 physical baseline warmRTF0.578356; small/dec
 Files: DynamicAcousticRuntime/AssetLoader/DeviceSmoke, diagnostic runners/export/parity JSON and protocol.
 Validation: schema3 four contract tests PASS; hostN1 partitions6/3 exact zero delta so far, rest running; physical partition gate pending. All Flow solver steps6, no math/weights/reference/sampling changes.
 GitHub Timeline: f25a449 committed locally, earlier0bc1402 pushed; new partition changes uncommitted until current cache matrix completed; next commit for exact signed source binding.
+
+Time: 2026-10-05T20:38:55.271855-04:00
+Prompt: unchanged math cold/steady-state and partition performance.
+Actions: host twelve N1/260/450 cases6/3/2/1 all bit-identical; p3/p2/p1 public iPhone endpoints match actual-input hashes and Float32 PCM exactly. Add idle prepare(reference)+family constructor readiness SPI (no extra prediction/sampler), cost separately recorded; getrusage app CPU metric and optional raw PCM readback.
+Files: Engine/DeviceSmoke/device runner and equivalent receipts.
+Validation: public contract6tests PASS; first physical partitions all PASS; no frozen bytes/default/algorithm change. CPU/idle/profiling and repeated candidate gates pending.
+GitHub Timeline: 5ad9a9c committed locally; prior0bc1402 pushed; commit/push incremental source/evidence next, no models/audio.
