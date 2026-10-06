@@ -27,12 +27,20 @@ final class WeightProfileTests: XCTestCase {
             XCTAssertEqual(engine.weightProfile, profile)
             XCTAssertEqual(engine.profileMetadata.id, profile.rawValue)
             XCTAssertEqual(engine.profileMetadata.modelAssetIdentity.count, 64)
+            XCTAssertEqual(engine.profileMetadata.manifestIdentity.count, 64)
+            XCTAssertEqual(engine.profileMetadata.prefillModelIdentity.count, 64)
+            XCTAssertEqual(engine.profileMetadata.decodeModelIdentity.count, 64)
+            XCTAssertEqual(engine.profileMetadata.acousticShards, 2)
+            XCTAssertEqual(engine.profileMetadata.flowSteps, 6)
             XCTAssertEqual(engine.profileMetadata.isExperimental, profile != .current)
         }
         XCTAssertEqual(CosyVoice3WeightProfile.allCases.map(\.rawValue), ["current", "q8", "q4"])
         XCTAssertEqual(CosyVoice3WeightProfile.current.metadata.displayName, "Current")
         XCTAssertEqual(CosyVoice3WeightProfile.q8.metadata.displayName, "Q8")
         XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.displayName, "Q4 Decode Hybrid")
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.prefillRepresentation, "Q8 prefill")
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.decodeRepresentation, "INT4 per-channel decode")
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.stateBridgeMode, "Q8-prefill→Q4-decode request-level FP16 state-copy bridge")
     }
 
     func testAllWrongProfileCombinationsFailDuringInitialization() throws {
