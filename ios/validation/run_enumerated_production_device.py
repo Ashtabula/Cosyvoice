@@ -169,6 +169,7 @@ def main() -> None:
     parser.add_argument("--diagnostic-enumerated-compute", choices=("production", "cpu-gpu", "cpu-only"), default="production")
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
+    parser.add_argument("--reuse-compiled-caches", action="store_true")
     parser.add_argument("--materialize-te", action="store_true")
     parser.add_argument("--capture-pcm", action="store_true")
     parser.add_argument("--idle-readiness", action="store_true")
@@ -355,7 +356,9 @@ def main() -> None:
     try:
         if not args.skip_candidate_benchmark:
             started = time.time()
-            candidate_args = ["--candidate-benchmark", "--no-playback", "--reset-cosy-cache"]
+            candidate_args = ["--candidate-benchmark", "--no-playback"]
+            if not args.reuse_compiled_caches:
+                candidate_args.append("--reset-cosy-cache")
             if args.diagnostic_enumerated_compute == "cpu-gpu":
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":

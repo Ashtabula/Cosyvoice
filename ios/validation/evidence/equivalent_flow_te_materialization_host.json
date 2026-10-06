@@ -1,0 +1,6 @@
+{
+  "status": "PASS_HOST_EXISTING_OUTPUT_PARITY",
+  "maxAbs": 0.0,
+  "bitIdentical": true,
+  "scope": "CPU host identical-input velocity, te exposed only, GPU endpoint still requires physical gate"
+}

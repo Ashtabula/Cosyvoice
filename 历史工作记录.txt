@@ -286,3 +286,10 @@ Actions: fullFlowCPU host exact but iPhoneGPU PCM hash differs; not accepted as 
 Files: runtime/DeviceSmoke/device runner/partition export receipt.
 Validation: public contract6tests PASS from prior idle/CPU change; fullFlow fail preserved.
 GitHub Timeline: ac6632f pushed; commit next for materialization diagnostic binding, no promotion.
+
+Time: 2026-10-05T20:54:29.684758-04:00
+Prompt: unchanged-math physical optimization; readiness identity and fullFlow diagnosis.
+Actions: readiness marker now binds validation placement/package switches and diagnostic receipt SHA; optional persistent compiled cache benchmark flag. Existing-te host velocity bit-identical, physical gate pending. Correction to 20:38 history: p1 physical PCM differs; only p3/p2 passed, p1 is rejected.
+Files: AssetLoader, runner, TE export and host receipts.
+Validation: host TE maxAbs0; further device and Swift gates next.
+GitHub Timeline: ac6632f pushed, f830b35 local; selective commit follows, no promotion/models/audio.

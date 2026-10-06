@@ -581,11 +581,26 @@ enum CosyVoice3AssetLoader {
             let function = spec.functionName ?? "<default>"
             return [spec.path, units, "reshapeInfrequent=" + reshape, "function=" + function].joined(separator: "|")
         }.sorted()
+        // Validation placement/package choices must not share readiness markers.
+        let validationArguments = ProcessInfo.processInfo.arguments.filter {
+            $0.hasPrefix("--validation-placement=") ||
+            $0.hasPrefix("--validation-enumerated-") ||
+            $0.hasPrefix("--validation-single-function=") ||
+            $0.hasPrefix("--validation-flow-partition=") ||
+            $0 == "--validation-materialize-te"
+        }.sorted()
+        let diagnosticReceipts = ["../FlowPartitions/partition-export-receipt.json", "../ANEExperimental/export-receipt.json"].map { path in
+            let url = root.appendingPathComponent(path).standardizedFileURL
+            guard let data = try? Data(contentsOf: url) else { return path + "|absent" }
+            return path + "|" + SHA256.hash(data: data).map { String(format: "%02x", $0) }.joined()
+        }
         let identity = [
             ProcessInfo.processInfo.operatingSystemVersionString,
             root.standardizedFileURL.path,
             manifestHash,
-            rows.joined(separator: "\n")
+            rows.joined(separator: "\n"),
+            validationArguments.joined(separator: "\n"),
+            diagnosticReceipts.joined(separator: "\n")
         ].joined(separator: "\n")
         let key = SHA256.hash(data: Data(identity.utf8)).map { String(format: "%02x", $0) }.joined()
         return markerRoot.appendingPathComponent(key + ".ready")
@@ -617,6 +632,10 @@ enum CosyVoice3AssetLoader {
         return rows.joined(separator: "|")
     }
 }
+// Changes 2026-10-05 20:54 EDT: readiness identity additionally binds validation placement,
+// package switches and staged diagnostic receipt bytes; no model/math changes.
+// Purpose: prevent cross-configuration readiness reuse. Upstream: AssetLoader warm markers.
+// Environment: Swift6/CoreML on iOS18+; generated in America/New_York.
 
 // Purpose: centralize immutable fixed225-or-dynamic assets, gate custom-reference enrollment on explicit device-parity promotion, and persist compiled Core ML artifacts outside each synthesis call.
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.
