@@ -11,12 +11,13 @@ def main():
     parser.add_argument('--output', type=Path, required=True)
     parser.add_argument('--mode', choices=['isolated','plan','full'], required=True)
     parser.add_argument('--stage', choices=['llm','flow','hift'])
-    parser.add_argument('--partition', type=int, choices=[1,2,3,6], default=6)
+    parser.add_argument('--partition', type=int, choices=[1,2,3,6], default=2)
     parser.add_argument('--placement', action='append', default=[])
     parser.add_argument('--single-function', action='append', default=[])
     parser.add_argument('--role', action='append', default=[])
     parser.add_argument('--plan-directory', choices=['ANEFlowP2','ANEFlowP3'])
     parser.add_argument('--profile', action='store_true')
+    parser.add_argument('--sustained-count', type=int, choices=range(21), default=0)
     parser.add_argument('--static-n260', action='store_true')
     parser.add_argument('--timeout', type=int, default=1200)
     args = parser.parse_args()
@@ -33,8 +34,8 @@ def main():
         if args.plan_directory: flags += [f'--validation-plan-directory={args.plan_directory}']
         files = ['ane-compute-plan-receipt.json']
     else:
-        flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD','--wait-thermal-nominal','--validation-sustained-count=12','--validation-sustained-nominal-gate']
-        files = ['candidate-benchmark-receipt.json','candidate-warm.f32']
+        flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD',f'--validation-sustained-count={args.sustained_count}']
+        files = ['candidate-benchmark-receipt.json','candidate-warm.f32','candidate-warm.wav']
     flags += [f'--validation-placement={value}' for value in args.placement]
     flags += [f'--validation-single-function={value}' for value in args.single_function]
     if args.static_n260:
@@ -56,7 +57,7 @@ def main():
         threading.Thread(target=trace_output,daemon=True).start()
         if not ready.wait(60): raise RuntimeError('trace did not report recording readiness; no performance run started')
     command = ['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing','--console',BUNDLE,'--',*flags]
-    print('[RESIDENCY-PROBE] launch',command,flush=True)
+    print(f'[RESIDENCY-PROBE] SHARDS={args.partition} launch',command,flush=True)
     process = subprocess.Popen(command,stdout=subprocess.PIPE,stderr=subprocess.STDOUT,text=True,bufsize=1)
     done = threading.Event()
     def console_output():
@@ -83,7 +84,7 @@ def main():
         result = subprocess.run(['xcrun','devicectl','device','copy','from','--device',DEVICE,'--domain-type','appDataContainer',
                                  '--domain-identifier',BUNDLE,'--source','Documents/'+name,'--destination',str(destination)])
         if result.returncode == 0:
-            if destination.suffix=='.f32':
+            if destination.suffix in {'.f32','.wav'}:
                 receipts[name]=dict(sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),bytes=destination.stat().st_size);continue
             value=json.loads(destination.read_text())
             if args.mode == 'isolated' and name != 'isolated-request-receipt.json':
@@ -91,7 +92,7 @@ def main():
                 if parent.get('status') != 'PASS_DIAGNOSTIC_REQUEST' or value.get('processID') != parent.get('processID'):
                     receipts[name]=dict(status='STALE_OR_FAILED_PARENT_EXCLUDED');continue
             receipts[name] = dict(sha256=hashlib.sha256(destination.read_bytes()).hexdigest(),receipt=value)
-    identity = dict(schemaVersion=1,command=command,receipts=receipts,profiled=args.profile,
+    identity = dict(schemaVersion=1,SHARDS=args.partition,command=command,receipts=receipts,profiled=args.profile,
                     noReadbackDuringTimedWork=True,actualResidency='UNKNOWN_RESIDENCY',
                     runnerSHA256=hashlib.sha256(Path(__file__).read_bytes()).hexdigest(),hostGitHEAD=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip())
     (args.output/'probe-receipt.json').write_text(json.dumps(identity,indent=2)+'\n')
@@ -104,3 +105,6 @@ def main():
 
 if __name__ == '__main__': main()
 # Purpose: physical diagnostic orchestration without readback interference. Upstream installed DeviceSmoke/native stage diagnostics; Python3/macOS/Xcode/iPhone18,4. Generated2026-10-05 America/New_York. New file; trace runs excluded from performance comparisons.
+
+# Change2026-10-06: primary SHARDS2/default no sustained sweep; export original device WAV too.
+# Upstream existing probe; Python3/macOS/Xcode; synthesis/math unchanged.

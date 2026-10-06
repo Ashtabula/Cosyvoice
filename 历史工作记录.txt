@@ -455,3 +455,9 @@ Prompt: push verification and preserved console evidence.
 Actions: source/3independentoptimizations/fullreport/result metadata9ef56baad0fdc778bc9c58babf3557abbbc3f523 pushed, gitls-remote exactmatch. Explicitly add6 audit console logs despite generic log ignore, preserving actual path/N/function/phase execution evidence; no raw PCM/models/traces.
 Validation:23SwiftPASS/3signedbuilds/6physicalfirstwarm ownbaselineBIT_IDENTICAL; fixed identity/package/seed/Flow6/samples checksPASS. Finalrtf0.47586007 p3 and0.58102865 default6, no measured speedup/thermal benefit.
 GitHub Timeline: already pushed9ef56ba andverified; console/timeline closingcommit next.
+
+Time:2026-10-06 07:49 EDT America/New_York
+Prompt: permanent SHARDS2 primary + mandatory periodic exported human listening.
+Actions: protocol/workflow fixed6-sample corpus and PENDING_HUMAN/nullLAST_KNOWN_GOOD; default optimization runners SHARDS2/no automatic sustained. Add validation-only physical public corpus lane and exact WAV pull/checksum runner; no production runtime/model changes. Generated WAV ignored bygit, local durable workspace required.
+Validation: PythonASTPASS; signed iOSbuild/SHARDS2 frozen run/listening corpus next. User alone can approve listening; no more invasive optimization or long thermal test.
+GitHub Timeline: b8367b4 pushed; currenttooling/docs未commit.

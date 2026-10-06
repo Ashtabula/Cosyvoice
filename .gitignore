@@ -86,3 +86,8 @@ ios/validation/ProductionCleanRoom/CosyVoice3ProductionCleanRoom.xcodeproj/proje
 # Independent dynamic acoustic device staging/build products
 ios/experiments/dynamic-acoustic/DeviceProbe/GeneratedAssets/
 ios/experiments/dynamic-acoustic/DeviceProbe/DynamicAcousticProbe.xcodeproj/project.xcworkspace/
+
+# Physical listening audio is local durable user-review material, never a Git payload.
+artifacts/listening/**/*.wav
+artifacts/listening/**/*.f32
+artifacts/listening/**/.private/

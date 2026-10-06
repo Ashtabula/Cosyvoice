@@ -160,6 +160,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
         do {
             let resources = try Self.generatedAssets()
             if ProcessInfo.processInfo.arguments.contains("--ane-llm-parity") { await runANEStatefulParity() }
+            else if CommandLine.arguments.contains("--validation-listening-checkpoint") { await runListeningCheckpoint() }
             else if CommandLine.arguments.contains("--validation-isolated-request") { await runIsolatedRequest() }
             else if CommandLine.arguments.contains("--validation-idle-bootstrap") { await runPersistentIdleBootstrap() }
             else if ProcessInfo.processInfo.arguments.contains("--ane-compute-plans") { await runANEComputePlans() }
@@ -393,6 +394,65 @@ final class CosyVoice3SmokeModel: ObservableObject {
         } catch {
             Self.recordFailure(error, filename:"variable-public-api-smoke-receipt.json", into:self)
         }
+    }
+
+    // Validation/export only: unchanged public synthesis, serial fixed corpus, exact device WAV.
+    func runListeningCheckpoint() async {
+        guard !running else { return }; running = true; defer { running = false }
+        let receiptName = "listening-checkpoint-receipt.json"
+        do {
+            guard CommandLine.arguments.contains("--validation-flow-partition=2"),
+                  !CommandLine.arguments.contains("--reset-cosy-cache"),
+                  !CommandLine.arguments.contains(where: { $0.hasPrefix("--validation-single-function=") || $0.hasPrefix("--validation-placement=") }) else { throw SmokeError("listening requires SHARDS2 frozen multifunction default placement, no reset") }
+            let fixture = try Self.fixture()
+            let corpusData = try Data(contentsOf: Self.receiptURL("listening-corpus.json"))
+            guard let corpus = try JSONSerialization.jsonObject(with: corpusData) as? [String: Any],
+                  corpus["shards"] as? Int == 2, corpus["flowSteps"] as? Int == 6,
+                  corpus["sampleRate"] as? Int == 24000, corpus["seed"] as? Int == 42,
+                  let entries = corpus["samples"] as? [[String: Any]], (4...6).contains(entries.count) else { throw SmokeError("invalid fixed listening corpus") }
+            func sha(_ data: Data) -> String { SHA256.hash(data:data).map { String(format:"%02x",$0) }.joined() }
+            guard sha(try Data(contentsOf: fixture.reference.audioURL)) == corpus["referenceWavSHA256"] as? String,
+                  sha(try Data(contentsOf: Self.generatedAssets().appendingPathComponent("reference.txt"))) == corpus["referenceTranscriptFileSHA256"] as? String,
+                  sha(try Data(contentsOf: fixture.runtime.appendingPathComponent("cosyvoice3_enumerated.json"))) == corpus["manifestSHA256"] as? String,
+                  fixture.payloadTreeSHA256 == corpus["payloadTreeSHA256"] as? String else { throw SmokeError("listening frozen identity mismatch") }
+            guard let buildURL = Bundle.main.url(forResource:"validation-build-source",withExtension:"json",subdirectory:"GeneratedAssets"),
+                  let build = try JSONSerialization.jsonObject(with:Data(contentsOf:buildURL)) as? [String:Any],
+                  build["sourceCommit"] as? String == fixture.sourceCommit else { throw SmokeError("listening signed source mismatch") }
+            let experimental = try Self.validateExperimentalModels(runtime:fixture.runtime)
+            let variable = try Self.variableManifestInfo(runtime:fixture.runtime)
+            let engine = try CosyVoice3Engine(assetRoot:fixture.runtime,idleBucketPreparation:false)
+            await engine.setValidationSamplerSeed(42)
+            await engine.setValidationProgressObserver { print("[COSY-LISTENING-STAGE] \($0)") }
+            var rows = [[String:Any]]()
+            var receipt: [String:Any] = ["schemaVersion":1,"status":"RUNNING","SHARDS":2,"flowSteps":6,"seed":42,"publicAPI":"CosyVoice3Engine.synthesize()","sourceCommit":fixture.sourceCommit,"processID":ProcessInfo.processInfo.processIdentifier,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"corpusSHA256":sha(corpusData),"runtimeRoot":fixture.runtime.path,"payloadTreeSHA256":fixture.payloadTreeSHA256 ?? "","manifestSHA256":corpus["manifestSHA256"] ?? "","experimentalModelIdentity":experimental,"humanListening":"PENDING_HUMAN","LAST_KNOWN_GOOD":NSNull(),"playback":false]
+            for entry in entries {
+                guard let id = entry["id"] as? String, id.range(of:"^sample0[1-6]$",options:.regularExpression) != nil,
+                      let text = entry["text"] as? String else { throw SmokeError("invalid corpus sample") }
+                print("[COSY-LISTENING] SHARDS=2 Flow=6 begin \(id)")
+                let cpu = Self.processCPUMilliseconds(), start = ContinuousClock.now
+                let thermal = Self.thermalName(ProcessInfo.processInfo.thermalState)
+                let audio = try await engine.synthesize(text,parameters:fixture.parameters)
+                let elapsed = Self.seconds(start.duration(to:ContinuousClock.now))*1000
+                let cpuMs = Self.processCPUMilliseconds()-cpu
+                try Self.validate(audio)
+                guard audio.samples.count % 960 == 0, let stages = await engine.lastSynthesisReport(), stages.flowSteps == 6 else { throw SmokeError("listening shape/Flow invariant") }
+                let n = audio.samples.count/960
+                if let expected = entry["expectedSamples"] as? Int, expected != audio.samples.count { throw SmokeError("listening expected sample count mismatch") }
+                let pcmSHA = audio.samples.withUnsafeBytes { sha(Data($0)) }
+                if let expected = entry["previousSamePlacementPCMSHA256"] as? String, expected != pcmSHA { throw SmokeError("listening frozen PCM changed") }
+                let filename = "checkpoint_001_" + id + "_candidate.wav"
+                let wav = Self.wavData(audio)
+                try wav.write(to:Self.receiptURL(filename),options:.atomic)
+                rows.append(["id":id,"text":text,"textSHA256":sha(Data(text.utf8)),"SHARDS":2,"flowSteps":6,"N":n,"functionName":variable.functionName(for:n) ?? "","samples":audio.samples.count,"sampleRate":audio.sampleRate,"audioSeconds":Self.audioDuration(audio),"totalMs":elapsed,"RTF":elapsed/1000/Self.audioDuration(audio),"processCPUMs":cpuMs,"stages":Self.reportDictionary(stages),"PCM_SHA256":pcmSHA,"WAV_SHA256":sha(wav),"WAV":filename,"outputClass":entry["previousSamePlacementPCMSHA256"].map { _ in "BIT_IDENTICAL" as Any } ?? NSNull(),"comparison":"FIRST_CORPUS_BASELINE_PENDING_HUMAN","thermalStart":thermal,"thermalEnd":Self.thermalName(ProcessInfo.processInfo.thermalState),"boundaryPhysicalFootprintBytes":Self.processFootprint()])
+                receipt["samples"] = rows
+                try Self.write(receipt,to:Self.receiptURL(receiptName))
+                print("[COSY-LISTENING] SHARDS=2 exported device WAV \(filename) N=\(n)")
+            }
+            receipt["status"] = "PASS_DEVICE_CORPUS_PENDING_HUMAN"
+            receipt["persistentRuntime"] = try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
+            try Self.write(receipt,to:Self.receiptURL(receiptName))
+            status = "PASS listening corpus SHARDS=2 PENDING_HUMAN; WAV export to Mac still required"
+        } catch { Self.recordFailure(error,filename:receiptName,into:self) }
     }
 
     func runCandidateBenchmark() async {
@@ -1311,3 +1371,7 @@ private extension Data {
 // Changes2026-10-05 thermal phase: noWAVhash during sustainedloop; retain12smallPCM buffers thenverifyaftergroup. Optionalnominalgate onlybeforegroup, nointeriterationwait. IsolatedrawPCM savedafterloopfornumericparity, no playback. Swift6/iPhone27.2; upstreamvalidationlane, changedlines gitdiff.
 
 // Changes2026-10-06: plan-only whitelistdirectoryANEFlowP2/P3 probesexactselectedsingle-functionpartition; public loader/benchmark paths unchanged. SourceSwift6/Xcode27.2; no operator/weight/algorithm change. Linesgitdiff.
+
+// Change2026-10-06: additive validation-only six-sample listening/export lane; public synthesize/math untouched.
+// Upstream existing DeviceSmoke fixture/WAV/report utilities; Swift6/iOS18+ physical device; generated07:48 EDT America/New_York.
+// Changed regions: runAutoMode dispatch and new runListeningCheckpoint before candidate benchmark.

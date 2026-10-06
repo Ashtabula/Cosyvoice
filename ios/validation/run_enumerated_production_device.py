@@ -177,7 +177,7 @@ def main() -> None:
     parser.add_argument("--materialize-te", action="store_true")
     parser.add_argument("--capture-pcm", action="store_true")
     parser.add_argument("--idle-readiness", action="store_true")
-    parser.add_argument("--flow-partition", choices=(1,2,3,6), type=int, default=6)
+    parser.add_argument("--flow-partition", choices=(1,2,3,6), type=int, default=2)
     parser.add_argument("--sustained-count", type=int, default=0)
     parser.add_argument("--acoustic-cache", choices=("none","small","decoder","selected-family"), default="none")
     parser.add_argument("--wait-thermal-nominal", action="store_true")
@@ -512,3 +512,5 @@ if __name__ == "__main__":
 # Frozen asset SHA gates remain exact; no asset rebuild/algorithm change. Upstream this validation runner; Python3/macOS/Xcode.
 
 # Change2026-10-06 07:32 EDT: narrowly allow audited immutable speech table storage sharing; frozen package/tree SHA gates unchanged.
+
+# Change2026-10-06: optimization workflow default SHARDS2; explicit6 is compatibility only.

@@ -1,0 +1,12 @@
+{
+  "schemaVersion": 1,
+  "primaryShards": 2,
+  "checkpoint": "checkpoint_001",
+  "corpusID": "cosyvoice3-2shard-listening-v1",
+  "humanListening": "PENDING_HUMAN",
+  "LAST_KNOWN_GOOD": null,
+  "acceptedLowRiskChangesSinceLastListening": 3,
+  "invasiveOptimizationAllowed": false,
+  "promotionAllowed": false,
+  "reason": "First exported complete corpus requires explicit human listening PASS."
+}

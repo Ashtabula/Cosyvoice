@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "corpusID": "cosyvoice3-2shard-listening-v1",
+  "shards": 2,
+  "flowSteps": 6,
+  "sampleRate": 24000,
+  "seed": 42,
+  "referenceWavSHA256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+  "referenceTranscriptFileSHA256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "placement": {
+    "llmPrefill": "CPU_AND_NE",
+    "llmDecode": "CPU_AND_NE",
+    "conditions": "CPU_AND_GPU",
+    "flow": "CPU_AND_GPU",
+    "hift": "CPU_AND_GPU"
+  },
+  "cacheStrategy": "selected-family",
+  "samples": [
+    {
+      "id": "sample01",
+      "category": "short-English",
+      "text": "The morning sun shines through the window."
+    },
+    {
+      "id": "sample02",
+      "category": "longer-English",
+      "text": "After the rain stopped, we walked through the quiet park, watched the birds by the lake, and returned home before sunset."
+    },
+    {
+      "id": "sample03",
+      "category": "punctuation-numbers",
+      "text": "At 9:30 a.m., bring 3 books, 12 pencils, and the report dated October 6, 2026."
+    },
+    {
+      "id": "sample04",
+      "category": "repetition-pauses-ending",
+      "text": "First, open the door. Then, close the door. Read each word once, pause at the commas, and finish this final sentence clearly."
+    },
+    {
+      "id": "sample05",
+      "category": "Chinese",
+      "text": "今天下午三点，我们在图书馆见面，请带上那本新书。"
+    },
+    {
+      "id": "sample06",
+      "category": "frozen-production",
+      "text": "This is a CosyVoice3 public API reference voice validation.",
+      "expectedSamples": 249600,
+      "previousSamePlacementPCMSHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694"
+    }
+  ]
+}
