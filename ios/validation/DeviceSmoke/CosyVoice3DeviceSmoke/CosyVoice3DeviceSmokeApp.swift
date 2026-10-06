@@ -1013,7 +1013,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
             let audio = try await engine.synthesize(fixture.text, parameters: fixture.parameters)
             try Self.validate(audio)
             let raw = audio.samples.withUnsafeBytes { Data($0) }
-            let receipt: [String: Any] = ["schemaVersion":1,"status":"PASS_DIAGNOSTIC_REQUEST","sourceCommit":fixture.sourceCommit,
+            let persistent = try JSONSerialization.jsonObject(with:Data((await engine.persistentRuntimeSnapshotJSON()).utf8))
+            let receipt: [String: Any] = ["persistentRuntime":persistent,"schemaVersion":1,"status":"PASS_DIAGNOSTIC_REQUEST","sourceCommit":fixture.sourceCommit,
                 "processID":ProcessInfo.processInfo.processIdentifier,"deviceModelIdentifier":Self.machineIdentifier(),"systemVersion":UIDevice.current.systemVersion,
                 "assetPayloadTreeSha256":fixture.payloadTreeSHA256 ?? "","manifestSha256":SHA256.hash(data:try Data(contentsOf:fixture.runtime.appendingPathComponent("cosyvoice3_enumerated.json"))).map { String(format:"%02x",$0) }.joined(),
                 "textSha256":SHA256.hash(data:Data(fixture.text.utf8)).map { String(format:"%02x",$0) }.joined(),
@@ -1078,7 +1079,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                                     counts[usage.preferred.description, default: 0] += 1
                                     let cost = plan.estimatedCost(of: op)?.weight ?? 0
                                     costs[usage.preferred.description, default: 0] += cost
-                                    operations.append(["operator": op.operatorName, "outputs":op.outputs.map { $0.name }, "inputs":op.inputs.mapValues { $0.bindings.map { binding in switch binding { case .name(let name): return name; case .value: return "<compile-time constant>" } } }, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
+                                    operations.append(["operator": op.operatorName, "outputs":op.outputs.map { $0.name }, "inputs":op.inputs.mapValues { $0.bindings.map { binding in switch binding { case .name(let name): return name; case .value: return "<compile-time constant>"; @unknown default: return "<unknown binding>" } } }, "estimatedCostWeight": cost, "preferred": usage.preferred.description, "supported": usage.supported.map { $0.description }])
                                 }
                                 for child in op.blocks { visit(child) }
                             }

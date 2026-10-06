@@ -52,7 +52,7 @@ enum CosyVoice3StageDiagnostics {
         }
     }
     static func row(_ iteration: Int, since started: UInt64, cpuBefore: Double, thermalBefore: String) -> [String: Any] {
-        ["iteration":iteration, "wallMilliseconds":Double(DispatchTime.now().uptimeNanoseconds-started)/1_000_000,
+        ["iteration":iteration,"startUptimeNanoseconds":started, "wallMilliseconds":Double(DispatchTime.now().uptimeNanoseconds-started)/1_000_000,
          "CPUTimeMilliseconds":cpu()-cpuBefore,"thermalStart":thermalBefore,"thermalEnd":thermal(),"physicalFootprintBytes":footprint(),
          "actualResidency":"UNKNOWN_RESIDENCY"]
     }
