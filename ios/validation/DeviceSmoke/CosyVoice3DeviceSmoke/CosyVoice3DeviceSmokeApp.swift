@@ -1686,6 +1686,13 @@ private final class ResourceEfficiencyTimeline:@unchecked Sendable {
 
 // LLMQuantization validation: isolated model assets, unchanged public generation/acoustic path.
 extension CosyVoice3SmokeModel {
+    private static func quantizationCompiledBytes(_ folder: URL) throws -> Int {
+        var bytes=0
+        if let enumerator=FileManager.default.enumerator(at:folder,includingPropertiesForKeys:[.fileSizeKey,.isRegularFileKey]) {
+            for case let file as URL in enumerator {let values=try file.resourceValues(forKeys:[.fileSizeKey,.isRegularFileKey]);if values.isRegularFile == true{bytes+=values.fileSize ?? 0}}
+        }
+        return bytes
+    }
     private static func quantizationRoot(base: URL) throws -> URL {
         let fm=FileManager.default
         let docs=try fm.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true)
@@ -1800,9 +1807,7 @@ extension CosyVoice3SmokeModel {
                     let config=MLModelConfiguration();config.computeUnits = .cpuAndNeuralEngine
                     let plan=try await MLComputePlan.load(contentsOf:compiled,configuration:config)
                     var operations=[[String:Any]](),counts=[String:Int](),bytes=0
-                    if let enumerator=FileManager.default.enumerator(at:compiled,includingPropertiesForKeys:[.fileSizeKey,.isRegularFileKey]) {
-                        for case let file as URL in enumerator {let values=try file.resourceValues(forKeys:[.fileSizeKey,.isRegularFileKey]);if values.isRegularFile == true{bytes+=values.fileSize ?? 0}}
-                    }
+                    bytes = try Self.quantizationCompiledBytes(compiled)
                     if case let .program(program)=plan.modelStructure {
                         func visit(_ block:MLModelStructure.Program.Block) {
                             for op in block.operations {

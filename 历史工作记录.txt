@@ -643,3 +643,10 @@ Actions: Q8twoisolatedpackages exported(365.38/365.29MB),169selectedmatriceseach
 Files: hostcomparison/recipe/collector/DeviceSmokequantextension; numerical/assetreceipts.
 Validation: conversionPASS/hostcontrolledcomparisoncomplete; PythonASTPASS; signedbuild/devicepending; objectivePASSnotHUMAN_PASS. Q4/mixednotstarted.
 GitHub Timeline:62b0dfa已commit未push；nativevalidationtooling未commit。
+
+Time:2026-10-06 13:25 EDT America/New_York
+Prompt: Q8 physicalvalidation build.
+Actions: signedbuildfailedSwift6DirectoryEnumerator.makeIterator unavailableinasynccontext atpostmeasurementcompiledsizeinspection; preservefailurelog, extractsynchronoussizehelper. No inference/model/placementchanges.
+Files: DeviceSmokequantcompiled-sizehelper.
+Validation: rebuildingnext; initialfailureevidencepreserved.
+GitHub Timeline:dce5d85已commit未push；buildfix未commit。
