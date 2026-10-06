@@ -1,0 +1,46 @@
+{
+  "status": "CLEANUP_COMPLETE",
+  "freeBefore": {
+    "/Volumes/WD/Codes/Cosyvoice": 4549017600,
+    "/private/tmp": 8840167424
+  },
+  "freeAfter": {
+    "/Volumes/WD/Codes/Cosyvoice": 35166220288,
+    "/private/tmp": 11750973440
+  },
+  "freedBytes": {
+    "/Volumes/WD/Codes/Cosyvoice": 30617202688,
+    "/private/tmp": 2910806016
+  },
+  "duplicateFilesDeduplicated": 242,
+  "logicalDuplicateBytesRemoved": 39530133490,
+  "obsoleteBuildCachesDeleted": [
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData",
+      "action": "removedobsoleteRebuildableDerivedData",
+      "currentBuildPreserved": true
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData",
+      "action": "removedobsoleteRebuildableDerivedData",
+      "currentBuildPreserved": true
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/DeviceSmokeDerivedData",
+      "action": "removedobsoleteRebuildableDerivedData",
+      "currentBuildPreserved": true
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData",
+      "action": "removedobsoleteRebuildableDerivedData",
+      "currentBuildPreserved": true
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData",
+      "action": "removedobsoleteRebuildableDerivedData",
+      "currentBuildPreserved": true
+    }
+  ],
+  "modelPackagesEvidenceAudioTracesPreserved": true,
+  "unrelatedVoxWorkUntouched": true
+}

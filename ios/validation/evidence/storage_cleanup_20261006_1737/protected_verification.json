@@ -1,0 +1,32 @@
+{
+  "packages": [
+    {
+      "package": "ios/.work/enumerated-n1-n450/generated-ac31e117938ed50132365973a103cc8425942700/models/llm-opt-perlayer-prefill.mlpackage",
+      "SHA256": "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
+      "status": "PASS"
+    },
+    {
+      "package": "/private/tmp/cosyvoice-llm-quantization-20261006/Q8/models/cosyvoice-llm-q8-prefill.mlpackage",
+      "SHA256": "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
+      "status": "PASS"
+    },
+    {
+      "package": "ios/.work/llm-q4-20261006/Q4/models/cosyvoice-llm-q4-prefill.mlpackage",
+      "SHA256": "a434a6d7ff3102ed5ba708a45f62677762acefceed53f6f8e9eb79dc5a509ce7",
+      "status": "PASS"
+    },
+    {
+      "package": "ios/.work/q4-rescue-20261006/A/models/cosyvoice-llm-q4-prefill.mlpackage",
+      "SHA256": "905f29f5ffa83161cf91d4d93db6fd28423f246b0e43acdbbe1ff646151eaee4",
+      "status": "PASS"
+    },
+    {
+      "package": "ios/.work/q4-rescue-20261006/A/models/cosyvoice-llm-q4-decode.mlpackage",
+      "SHA256": "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46",
+      "status": "PASS"
+    }
+  ],
+  "all9CurrentQ8HybridListeningWAVsPASS": true,
+  "historyModelFilesRetained": true,
+  "originalPrefillLength224Untouched": true
+}

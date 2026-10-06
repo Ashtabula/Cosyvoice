@@ -873,3 +873,10 @@ Actions:0cc21be(publicprofilebinding)+e79c403(humanPASS/public5runshandoff) succ
 Files:history append-only.
 Validation:24tests/signedpublicbuild/fivebitidenticalpublicrequestsPASS; actualuser3EnglishHUMAN_PASS; release/HF/catalog/Demo unchanged.
 GitHub Timeline:e79c403 alreadyPUSHED; thisappend-onlycompletionrecord committed/pushed next.
+
+Time:2026-10-06T17:44:25.212338-04:00
+Prompt:BeforecontinuingQ4prefillaudit,removeunusedhistorytoreleasespace.
+Actions:pausedlengthwork;SHAverified26groups,242unusedduplicateweightcopies replacedwithreadonlysamevolumehardlinks;allhistoricalpackagescomplete. Deleted5oldrebuildableDerivedDatacaches;currentbuild/frozenCurrent/Q8/originalfailedQ4/A/hybrid/receipts/WAVs/traces/VoxCPM2untouched.
+Files:storage_cleanup_20261006_1737tool/plan/242events/result/protectedverification;historyappend.
+Validation:protected5packageSHA+9WAVPASS;logicalduplicatebytes39530133490;actualWDfree+30617202688B/systemfree+2910806016B;remainingabout32.75/10.94GiB. APFS/backgrounddeltaexplicit;no model/evidence/audio deleted.
+GitHub Timeline:parentbb8e45cPUSHED;cleanupreceiptcommit/pushnext;unfinishedQ4lengthtool/protobuf-staticfailureskeptuncommittedforcontinuation.

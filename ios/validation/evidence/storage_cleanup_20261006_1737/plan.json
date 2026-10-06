@@ -1,0 +1,480 @@
+{
+  "status": "HASH_VERIFIED_PLAN",
+  "freeBefore": {
+    "/Volumes/WD/Codes/Cosyvoice": 4549087232,
+    "/private/tmp": 8839499776
+  },
+  "eligibleHistoryRoots": [
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted",
+    "/private/tmp/cosy-ane-single-v9-20261005",
+    "/private/tmp/cosy-ane-single-20261005",
+    "/private/tmp/cosy-ane-single-enumerated-n260-20261005",
+    "/private/tmp/cosy-ane-static-program-n260-20261005",
+    "/private/tmp/cosy-ane-static-n260-20261005",
+    "/private/tmp/cosy-flow-partition-single-20261006"
+  ],
+  "protected": "allCurrent/Q8/originalQ4/rescueA/hybrid/LLMsource/reference/receipts/WAVs/traces/currentlengthwork/activebuild/VoxCPM2 excluded",
+  "groups": [
+    {
+      "device": 16777244,
+      "bytes": 117550784,
+      "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-04/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-4-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-4-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-4-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-4-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-4-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-4-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-4-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-4-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117550784,
+      "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-02/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-2-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-2-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-2-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-2-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-2-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-2-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-2-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-2-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117550784,
+      "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-03/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-3-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-3-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-3-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-3-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-3-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-3-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-3-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-3-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117550784,
+      "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-01/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-1-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-1-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-1-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-1-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-1-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-1-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-1-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-1-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 63138144,
+      "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-05/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-5-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-5-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-5-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-5-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-5-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-5-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-5-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-5-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 70087168,
+      "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/hift/hift-dynamic-body-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/hift/hift-dynamic-body-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase3-dynamic-hift-v7/hift-dynamic-body-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/hift/hift-dynamic-body-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/hift-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/hift-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/hift-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/hift-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/hift-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/hift-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/hift-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/hift-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 128965248,
+      "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/preserved-device-staging-original-v2/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v4/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/staging-first-probe/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v3/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v2/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/shard0-attempt1/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/dynamic-acoustic/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/dynamic-acoustic/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/dynamic-acoustic/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/observed-text-family-v1/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/dynamic-acoustic/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lower-bound-family-n1-v1/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase2-dynamic-flow-v1/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_symbolic_fp16/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/shard0-final/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/dynamic-acoustic/flow-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/full-range-family-v1/packages/shard-00/flow-shard.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-0-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-0-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-0-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/.family-build/flow-shard-0-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-108651803461ed76c4f5f226f87349754a3150c9/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-0-n001_128.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-0-n385_450.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-0-n129_256.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/.family-build/flow-shard-0-n257_384.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/enumerated-n1-n450/generated-ec5630ecac20ca51416f542fb3ab43374eb8e422/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117743296,
+      "sha256": "87b9744c04f9d5e16475e4f5fbcf6e50a3d2fe87fa133b05e50bd4b5b8d2e1e9",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-02-blocks-08-11.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117743296,
+      "sha256": "d509976eeb7e1d8f3dcebd0919dc244c58fa8a68018be13c191f3792f6d3f106",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-04-blocks-16-19.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117743296,
+      "sha256": "7e6987af84d2017220bb8d3079bae62132057b528520089fe46af374842be45b",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-03-blocks-12-15.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 117743296,
+      "sha256": "24854bb5f0db00255fa32b1a92722d4111b28b86419ab2aa732f7ea1ffa6cf3c",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-01-blocks-04-07.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 78727296,
+      "sha256": "dd92f0ce21b35e7b8f4d685a4867315bc8556590149c8eb95ca0558b322a7a0e",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/full-pipeline/hift-portable-phase-host-fp32.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 63330656,
+      "sha256": "24048bb6196fd3a744c8a7a76ed0eceeabe4b6ab9b7abf9db44a28bc4c333457",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-05-blocks-20-21.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 129157760,
+      "sha256": "38294e55a113e5c867e7adfd9b6651131979e05133c62ef584dac651dff8ddce",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/lowering-control/static-export-control.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_static_fp16/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/jit_static_fp16/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/device-probes/flow-fp16-shard-00-blocks-00-03.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 727955794,
+      "sha256": "3310540b0f6ae95eb0319fe953cb51a74d01a6f279d3322b1a8dfb4ffb76e9a5",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-decode-maskwrite449.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-decode-fixed449.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 727955794,
+      "sha256": "957378ee364c6bd72436efd2100dc53a80ece28e503f87c78cf1bb8fc0b52e0d",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-decode-stateful-gqa-fp16.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-ane-full24-prefill-split4d.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-decode.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-ane-full24-decode-split4d.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/rebuild/ios-fixed225-reference/source/iOS/converted/llm_fp16/llm-prefill-stateful-gqa-fp16.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 27876800,
+      "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 968134912,
+      "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v4/runtime/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v3/runtime/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v2/runtime/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-v1/runtime/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/integration-candidate-n1-v1/runtime/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777244,
+      "bytes": 257926080,
+      "sha256": "f866b4386b7520453861ef473b920a0122238c3c4a422aeaf257579adfff1333",
+      "canonical": "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/shard0-fp32-control/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/Volumes/WD/Codes/Cosyvoice/ios/.work/dynamic-acoustic/phase1-attribution-v1/shard0-attribution/variants/export_symbolic_fp32/shard0.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 128965248,
+      "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow0.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 117550784,
+      "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow1.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 117550784,
+      "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow2.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 117550784,
+      "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow4.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 117550784,
+      "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow3.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 70087168,
+      "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    },
+    {
+      "device": 16777234,
+      "bytes": 63138144,
+      "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e",
+      "canonical": "/private/tmp/cosy-ane-single-v9-20261005/flow5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+      "replaceWithReadOnlyHardlink": [
+        "/private/tmp/cosy-ane-single-20261005/flow5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-single-enumerated-n260-20261005/flow5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-program-n260-20261005/flow5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+        "/private/tmp/cosy-ane-static-n260-20261005/flow5.mlpackage/Data/com.apple.CoreML/weights/weight.bin"
+      ]
+    }
+  ],
+  "reclaimableLogicalBytes": 39530133490,
+  "obsoleteBuildCaches": [
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/RuntimePerformanceDerivedData",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/FlowStepsHeadToHeadDerivedData",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/DeviceSmokeDerivedData",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/CandidateBenchmarkDerivedData",
+    "/Volumes/WD/Codes/Cosyvoice/ios/.work/ProductionCleanRoomDerivedData"
+  ]
+}
