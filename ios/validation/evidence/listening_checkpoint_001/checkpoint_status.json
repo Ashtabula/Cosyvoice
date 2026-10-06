@@ -3,12 +3,12 @@
   "primaryShards": 2,
   "checkpoint": "checkpoint_001",
   "corpusID": "cosyvoice3-2shard-listening-v1",
-  "humanListening": "PENDING_HUMAN",
+  "humanListening": "REVIEWED_WITH_RESERVATION_PENDING_ACCEPTANCE",
   "LAST_KNOWN_GOOD": null,
   "acceptedLowRiskChangesSinceLastListening": 3,
   "invasiveOptimizationAllowed": false,
   "promotionAllowed": false,
-  "reason": "First exported complete corpus requires explicit human listening PASS.",
+  "reason": "User generally approved content but raised sample06 prosody concern; overall baseline acceptance not explicit.",
   "automatedValidation": "PASS_SHARDS2_FLOW6_FROZEN_BIT_IDENTICAL",
   "exportStatus": "PASS_ALL_WAVS_ON_MAC_SHA_VERIFIED",
   "workspaceArtifacts": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001",
@@ -21,5 +21,6 @@
     "sample04": 374400,
     "sample05": 232320,
     "sample06": 249600
-  }
+  },
+  "humanReviewReceipt": "ios/validation/evidence/listening_checkpoint_001/human_review.json"
 }

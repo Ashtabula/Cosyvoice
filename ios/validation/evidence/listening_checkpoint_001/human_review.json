@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": "checkpoint_001",
+  "recordedAt": "2026-10-06 08:10 EDT America/New_York",
+  "listener": "human user",
+  "feedbackVerbatim": "基本都对， 6的语气有些奇怪， 其他好一些",
+  "humanReviewStatus": "REVIEWED_WITH_SAMPLE06_PROSODY_RESERVATION",
+  "explicitOverallPASS": false,
+  "explicitOverallFAIL": false,
+  "sample01to05": "generally favorable feedback; individual PASS not explicitly stated",
+  "sample06": "prosody/intonation sounds somewhat strange",
+  "sample06Provenance": {
+    "SHARDS": 2,
+    "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+    "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+    "identicalToPreviouslyRetainedFrozenOutput": true,
+    "previousReceipt": "ios/validation/evidence/low-risk-runtime-20261006/shared-production-p6/candidate-benchmark-receipt.json",
+    "meaning": "Existing identical waveform, not introduced by current runtime optimization. Does not establish cause or human acceptance."
+  },
+  "LAST_KNOWN_GOOD": null,
+  "pendingDecision": "Does user accept this as listening baseline with known sample06 prosody issue, or reject it?",
+  "noRuntimeOrModelChange": true
+}
