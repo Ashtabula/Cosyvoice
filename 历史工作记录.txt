@@ -601,3 +601,10 @@ Actions: baseline5PASS/nominal. Candidate2launches refusedbeforeinference becaus
 Files: DeviceSmoke initialforegroundreadinessgate.
 Validation: nextsignedbuild/physicalretry; no candidatepromotionyet.
 GitHub Timeline:f23988e已commit未push；readinessfix未commit。
+
+Time:2026-10-06 11:45 EDT America/New_York
+Prompt: freezeFlow singlecandidate result beforeHiFT/F0.
+Actions:25completedchargingpublicrequests allBIT_IDENTICAL,2foregroundfailures preserved. Candidateh reuse removes5allocations/33.669MBlogicalallocatedbytes but0copybytes; nopeakmemorywin. Nominal FlowCPU124-129ms vsbaseline112-118ms confirmedreverseoldpath, conservativeBIT_IDENTICAL_BUT_REGRESSION. RestoreexactpreexperimentDynamicAcousticRuntime; archiveprototype/tests. No secondFlowcandidate. FreezeJSON/raw/REPORT beforeFP64audit.
+Files: flowevidence/analysis/fullreceipts/logs/sourcecommitrefs, runtime restoration, collectorflagremoval; exportedcandidateWAV ignoredlocalartifacts.
+Validation:16hosttestsPASS/buildPASS; token5227/PCM909/WAVa04 all25PASS; nowholedeviceenergy/thermalimprovementclaim, mixedfairrows excludedcomparison.
+GitHub Timeline:f23988e/55499bc已commit未push；Flowrejectionevidence未commit。

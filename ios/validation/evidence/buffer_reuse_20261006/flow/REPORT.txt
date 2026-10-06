@@ -1,0 +1,18 @@
+Flow intermediate buffer experiment — PHASE1 FROZEN,2026-10-06 11:45EDT
+A Ownership/lifetime: DynamicAcousticRuntime.synthesize flow scope/predictFlowShard/ownedFloat32Output. TwoCFG branches batch2,2partitions*6=12synchronous predictions. Group0h+te ownedcopies escape autoreleasepool then group1 consumesreadonly; velocityownedcopy Eulerreads thenstepends. No produceroutputborrow. Models held6steps thenstageends.
+B Inventory T822: x263040bytes once/request; batchX526080once and6duplicateprefixfills; h6733824 perstep6allocs; te8192perstep; velocity526080perstep. Conditionsownedcopies once, untouched.
+C Copy bytes: h40402944/request, velocity3156480, batchX3156480, te49152 unchanged. h copy is explicitownership snapshot, not SwiftCOW. xmutatesEulerinplace; autoreleasepooltemporaryproviders/resultslifetimeendsperprediction.
+D Candidate: one request-localh scratch for2shard only;6->1h allocations,33669120logicalallocatedbytes removed. No copiedbyte reduction, no pingpong necessary.
+E Exact change: f23988e DynamicAcousticRuntime flowlocals/predictFlowShard/ownedFloat32Output; hosttestsurface staticcopy helper; validationflagoldpath for samebinaryA/B. Full diff retainedgitcommit. Prototype revertedafterdecision, testsarchived.
+F Safety: owned independentFloat32 destination, no CoreMLoutputalias; same memcpy/stridefallback. Shape/dtype/errororder retained; refillafterpreviousgroup1synchronousprediction+Euler andstepends. Perrequest scratchlocal acrossactor yields, noengineglobalmutablememory/pointerescapes. Noasyncprediction ornewSendable assumption.
+G Identity:25completedpublicrequestsPASS,2startupforegroundfailuresbeforeinference retained. T/N/function/SHARDS2/Flow6/rate/count allfrozen; no numericalchange.
+H Exact token/PCM/WAV hashes andexportedWAV in final_summary; acceptedcheckpoint001humanPASS unchanged.
+I Overall sampledpeak: no meaningfulreduction; exact nominalmedians rawfiles/final_summary. PrivateCoreML residency/LLM peakdominate; do notattribute exactmodelbytes.
+J Flowstage100ms+exactboundaryfootprint: peak often atmodelsready duepreviousCoreML residency, not temporaryhbytes; no reductionproven. Samples maymissshorttransients.
+K CPU: candidateFlow nominalrows124.0..129.2ms vsbaseline111.6..117.9ms; reverseoldpathconfirm~117ms. Treat as observedadverse signal, no formalpvalue orcausalinternalCoreML explanation. OverallCPU medians inJSON, noCPUwin.
+L ProcessCPU-onlyenergy: recorddeltas butcontextswitch/accounting/DVFS/charging confound; nowholedeviceenergyorthermalgain.
+M Timing: Flowwall~928ms both, acoustic/total withinintergroupvariation; noRTFgainclaim.
+N RTF: nominal comparison~.48, SHARDS2only, preserveinnerreportvsouterpublicwrapperdefinitions.
+O Thermal: chargingonly, pretestnominalgate; excludeanywarmrowswithfairstart/end. Mixedgroups retainednotpassedoffasmatched.
+P BIT_IDENTICAL_BUT_REGRESSION: allocationreductiondoesnotjustify CPUadversesignal/no meaningfulphysicalmemoryorcopybenefit. Conservative reject; not proofofgeneralCoreMLbufferreuseimpossibility.
+Q ProductionchangeNOTaccepted, source restoredbeforeFP64phase. NootherFlowcandidate attempted.

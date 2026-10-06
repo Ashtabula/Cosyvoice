@@ -1,0 +1,62 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 422]
+[Planning deferred tasks]
+[7 / 29] CosyVoice3Core
+[9 / 31] CosyVoice3Core
+[13 / 31] CosyVoice3Core
+[14 / 32] CosyVoice3Core
+[19 / 30] CosyVoice3CoreTests-product
+[23 / 34] CosyVoice3CoreTests-product
+[29 / 33] CosyVoice3CoreTests-product
+Build complete! (2.90 sec)
+Test Suite 'Selected tests' started at 2026-10-06 11:33:19.184.
+Test Suite 'CosyVoice3CoreTests.xctest' started at 2026-10-06 11:33:19.184.
+Test Suite 'EnumeratedAcousticContractTests' started at 2026-10-06 11:33:19.184.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' passed (0.000 seconds).
+Test Suite 'EnumeratedAcousticContractTests' passed at 2026-10-06 11:33:19.186.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'FlowOwnedBufferTests' started at 2026-10-06 11:33:19.186.
+Test Case '-[CosyVoice3CoreTests.FlowOwnedBufferTests testSixRefillsReuseIdentityAndPreserveEveryFloatBit]' started.
+Test Case '-[CosyVoice3CoreTests.FlowOwnedBufferTests testSixRefillsReuseIdentityAndPreserveEveryFloatBit]' passed (0.007 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowOwnedBufferTests testStridedFallbackAndIncompatibleScratch]' started.
+Test Case '-[CosyVoice3CoreTests.FlowOwnedBufferTests testStridedFallbackAndIncompatibleScratch]' passed (0.000 seconds).
+Test Suite 'FlowOwnedBufferTests' passed at 2026-10-06 11:33:19.193.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.007 (0.007) seconds
+Test Suite 'FlowSchedulerTests' started at 2026-10-06 11:33:19.193.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testHeadToHeadSchedulesAreMonotonicAndEndAtOne]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testHeadToHeadSchedulesAreMonotonicAndEndAtOne]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testRuntimeValidatedStepsMatchPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testRuntimeValidatedStepsMatchPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testUnsupportedFlowStepCountFailsClosed]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testUnsupportedFlowStepCountFailsClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testValidatedTenStepScheduleMatchesPreviousFormula]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testValidatedTenStepScheduleMatchesPreviousFormula]' passed (0.000 seconds).
+Test Suite 'FlowSchedulerTests' passed at 2026-10-06 11:33:19.193.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'PublicContractTests' started at 2026-10-06 11:33:19.193.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' passed (0.000 seconds).
+Test Suite 'PublicContractTests' passed at 2026-10-06 11:33:19.194.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'CosyVoice3CoreTests.xctest' passed at 2026-10-06 11:33:19.194.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.009 (0.010) seconds
+Test Suite 'Selected tests' passed at 2026-10-06 11:33:19.194.
+	 Executed 16 tests, with 0 failures (0 unexpected) in 0.009 (0.011) seconds

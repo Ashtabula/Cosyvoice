@@ -1,0 +1,425 @@
+{
+  "status": "PHASE1_FROZEN",
+  "classification": "BIT_IDENTICAL_BUT_REGRESSION",
+  "productionChangeAccepted": false,
+  "baselineSourceSHA": "3e74158a6cef926b02e16ae04b9a2fb0ec2eabb3",
+  "candidateSourceSHA": "f23988e84b3a3639101659c53d057b41f7ecccb1",
+  "physicalComparisonSourceSHA": "55499bc",
+  "reason": "Remove5largeallocations but no meaningful memory/copybenefit, repeatable observed Flow CPUtimeincrease outsidebaseline rowrange; conservative rejection, not causal/statisticalenergyproof. Copy/prediction/scheduler math unchanged.",
+  "comparisonCondition": "CHARGING batteryfull foreground brightness0.2 lowPowerfalse ambientunknown; source55499bc samebinary paths; nominalwarmstartandendonly",
+  "baseline": {
+    "count": 5,
+    "totalMs": 5001.233708,
+    "RTF": 0.4808878565384615,
+    "CPUms": 464.2039999999997,
+    "CPUOnlyEnergyMJ": 890.461933,
+    "peakBytes": 2320731272,
+    "acousticMs": 1488.835124,
+    "flow": {
+      "wallMs": 926.16475,
+      "CPUms": 116.33600000000024,
+      "CPUOnlyEnergyMJ": 139.419026,
+      "beforeBytes": 1471827056,
+      "peakBytes": 1471827056,
+      "afterBytes": 748424328
+    }
+  },
+  "candidate": {
+    "count": 3,
+    "totalMs": 4986.651083,
+    "RTF": 0.4794856810576923,
+    "CPUms": 470.1399999999994,
+    "CPUOnlyEnergyMJ": 888.471754,
+    "peakBytes": 2332494984,
+    "acousticMs": 1483.784666,
+    "flow": {
+      "wallMs": 928.178459,
+      "CPUms": 127.40400000000045,
+      "CPUOnlyEnergyMJ": 132.261308,
+      "beforeBytes": 1539296368,
+      "peakBytes": 1539296368,
+      "afterBytes": 750177392
+    }
+  },
+  "rawNominalBaselineRows": [
+    {
+      "request": 3,
+      "peakBytes": 2329808008,
+      "CPUms": 470.058,
+      "CPUOnlyEnergyMJ": 886.146037,
+      "publicReportMs": 5018.762042,
+      "publicWrapperMs": 5029.976334,
+      "LLMms": 3357.482375,
+      "acousticMs": 1511.681625,
+      "RTF": 0.4825732732692308,
+      "stages": {
+        "flow": {
+          "wallMs": 945.106875,
+          "beforeBytes": 1471794312,
+          "peakBytes": 1471794312,
+          "afterBytes": 748227720,
+          "CPUms": 117.90500000000065,
+          "CPUOnlyEnergyMJ": 139.419026,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 35.908834,
+          "beforeBytes": 748227720,
+          "peakBytes": 757943432,
+          "afterBytes": 757943432,
+          "CPUms": 44.90799999999945,
+          "CPUOnlyEnergyMJ": 48.04739,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 519.425833,
+          "beforeBytes": 758942856,
+          "peakBytes": 885296264,
+          "afterBytes": 885296264,
+          "CPUms": 37.248999999999796,
+          "CPUOnlyEnergyMJ": 53.555164,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 4,
+      "peakBytes": 2320731272,
+      "CPUms": 464.2039999999997,
+      "CPUOnlyEnergyMJ": 877.184184,
+      "publicReportMs": 4993.684416,
+      "publicWrapperMs": 5005.930875,
+      "LLMms": 3378.791041,
+      "acousticMs": 1469.6477909999999,
+      "RTF": 0.4801619630769231,
+      "stages": {
+        "flow": {
+          "wallMs": 907.681333,
+          "beforeBytes": 1454607496,
+          "peakBytes": 1454607496,
+          "afterBytes": 748424328,
+          "CPUms": 111.59299999999985,
+          "CPUOnlyEnergyMJ": 136.33317,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.992125,
+          "beforeBytes": 748424328,
+          "peakBytes": 756616328,
+          "afterBytes": 756616328,
+          "CPUms": 32.324000000000524,
+          "CPUOnlyEnergyMJ": 46.209016,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 526.626,
+          "beforeBytes": 756616328,
+          "peakBytes": 865160328,
+          "afterBytes": 861850760,
+          "CPUms": 55.068999999999505,
+          "CPUOnlyEnergyMJ": 35.767899,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 5,
+      "peakBytes": 2315046024,
+      "CPUms": 452.7600000000002,
+      "CPUOnlyEnergyMJ": 896.942022,
+      "publicReportMs": 5001.233708,
+      "publicWrapperMs": 5012.954959,
+      "LLMms": 3363.9435,
+      "acousticMs": 1491.4442490000001,
+      "RTF": 0.4808878565384615,
+      "stages": {
+        "flow": {
+          "wallMs": 926.16475,
+          "beforeBytes": 1588235352,
+          "peakBytes": 1588235352,
+          "afterBytes": 743132248,
+          "CPUms": 116.33600000000024,
+          "CPUOnlyEnergyMJ": 140.426379,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.105625,
+          "beforeBytes": 743132248,
+          "peakBytes": 752225368,
+          "afterBytes": 752225368,
+          "CPUms": 32.17200000000048,
+          "CPUOnlyEnergyMJ": 46.600534,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 529.652625,
+          "beforeBytes": 762268808,
+          "peakBytes": 886492296,
+          "afterBytes": 867519624,
+          "CPUms": 37.67500000000018,
+          "CPUOnlyEnergyMJ": 41.929533,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 3,
+      "peakBytes": 2326563976,
+      "CPUms": 464.3109999999997,
+      "CPUOnlyEnergyMJ": 890.461933,
+      "publicReportMs": 4981.452125,
+      "publicWrapperMs": 4992.850708,
+      "LLMms": 3366.502542,
+      "acousticMs": 1467.863959,
+      "RTF": 0.47898578124999996,
+      "stages": {
+        "flow": {
+          "wallMs": 907.252417,
+          "beforeBytes": 1471827056,
+          "peakBytes": 1471827056,
+          "afterBytes": 752471152,
+          "CPUms": 109.85199999999986,
+          "CPUOnlyEnergyMJ": 140.336882,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.926209,
+          "beforeBytes": 752471152,
+          "peakBytes": 762170480,
+          "afterBytes": 762170480,
+          "CPUms": 32.28399999999965,
+          "CPUOnlyEnergyMJ": 45.759379,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 525.944584,
+          "beforeBytes": 763169904,
+          "peakBytes": 865668208,
+          "afterBytes": 862456968,
+          "CPUms": 52.375,
+          "CPUOnlyEnergyMJ": 38.947791,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 4,
+      "peakBytes": 2319830152,
+      "CPUms": 459.8769999999995,
+      "CPUOnlyEnergyMJ": 890.763448,
+      "publicReportMs": 5014.999,
+      "publicWrapperMs": 5026.8132080000005,
+      "LLMms": 3381.458833,
+      "acousticMs": 1488.835124,
+      "RTF": 0.4822114423076923,
+      "stages": {
+        "flow": {
+          "wallMs": 930.107167,
+          "beforeBytes": 1659112560,
+          "peakBytes": 1659112560,
+          "afterBytes": 749489264,
+          "CPUms": 123.57600000000002,
+          "CPUOnlyEnergyMJ": 137.383516,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.182416,
+          "beforeBytes": 749489264,
+          "peakBytes": 757697648,
+          "afterBytes": 757697648,
+          "CPUms": 32.47099999999955,
+          "CPUOnlyEnergyMJ": 46.858456,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 522.48775,
+          "beforeBytes": 766708848,
+          "peakBytes": 867667056,
+          "afterBytes": 864373896,
+          "CPUms": 38.034999999999854,
+          "CPUOnlyEnergyMJ": 43.758315,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    }
+  ],
+  "rawNominalCandidateRows": [
+    {
+      "request": 3,
+      "peakBytes": 2332494984,
+      "CPUms": 481.72299999999996,
+      "CPUOnlyEnergyMJ": 880.541167,
+      "publicReportMs": 4986.651083,
+      "publicWrapperMs": 4999.6785,
+      "LLMms": 3351.9715,
+      "acousticMs": 1483.784666,
+      "RTF": 0.4794856810576923,
+      "stages": {
+        "flow": {
+          "wallMs": 928.178459,
+          "beforeBytes": 1539296368,
+          "peakBytes": 1539296368,
+          "afterBytes": 750914672,
+          "CPUms": 127.40400000000045,
+          "CPUOnlyEnergyMJ": 132.261308,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.255833,
+          "beforeBytes": 750914672,
+          "peakBytes": 760630384,
+          "afterBytes": 760630384,
+          "CPUms": 32.57999999999993,
+          "CPUOnlyEnergyMJ": 46.186247,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 520.937333,
+          "beforeBytes": 770641008,
+          "peakBytes": 879201392,
+          "afterBytes": 875990152,
+          "CPUms": 46.35100000000057,
+          "CPUOnlyEnergyMJ": 35.618621,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 4,
+      "peakBytes": 2332904584,
+      "CPUms": 465.9549999999999,
+      "CPUOnlyEnergyMJ": 888.471754,
+      "publicReportMs": 4985.380792,
+      "publicWrapperMs": 4996.888,
+      "LLMms": 3358.840667,
+      "acousticMs": 1478.3438330000001,
+      "RTF": 0.47936353769230766,
+      "stages": {
+        "flow": {
+          "wallMs": 922.7045,
+          "beforeBytes": 1454476400,
+          "peakBytes": 1454476400,
+          "afterBytes": 750177392,
+          "CPUms": 124.03499999999985,
+          "CPUOnlyEnergyMJ": 136.285587,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 24.024375,
+          "beforeBytes": 750177392,
+          "peakBytes": 758369392,
+          "afterBytes": 758369392,
+          "CPUms": 32.33399999999983,
+          "CPUOnlyEnergyMJ": 46.015351,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 521.426583,
+          "beforeBytes": 758369392,
+          "peakBytes": 865373296,
+          "afterBytes": 862063728,
+          "CPUms": 41.1190000000006,
+          "CPUOnlyEnergyMJ": 38.23432,
+          "samples": 11,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    },
+    {
+      "request": 5,
+      "peakBytes": 2319305840,
+      "CPUms": 470.1399999999994,
+      "CPUOnlyEnergyMJ": 901.044729,
+      "publicReportMs": 5003.938416,
+      "publicWrapperMs": 5015.886125,
+      "LLMms": 3353.988959,
+      "acousticMs": 1500.565417,
+      "RTF": 0.48114792461538464,
+      "stages": {
+        "flow": {
+          "wallMs": 936.84175,
+          "beforeBytes": 1655950448,
+          "peakBytes": 1655950448,
+          "afterBytes": 749718640,
+          "CPUms": 129.21700000000055,
+          "CPUOnlyEnergyMJ": 130.4565,
+          "samples": 46,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "f0": {
+          "wallMs": 23.880042,
+          "beforeBytes": 749718640,
+          "peakBytes": 758828144,
+          "afterBytes": 758828144,
+          "CPUms": 32.17100000000028,
+          "CPUOnlyEnergyMJ": 46.468461,
+          "samples": 2,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        },
+        "hift": {
+          "wallMs": 528.358791,
+          "beforeBytes": 768822384,
+          "peakBytes": 914099336,
+          "afterBytes": 895126664,
+          "CPUms": 38.266999999999825,
+          "CPUOnlyEnergyMJ": 46.427413,
+          "samples": 12,
+          "precision": "100msperiodic+exactboundaries; F0~20mspeakmaybemissed"
+        }
+      }
+    }
+  ],
+  "excluded": "candidate-c mixednominal/fair; baseline-c request5nominal->fair; initialbaseline-a sourcef239 contextonly; twoforeground failures beforeinference retained",
+  "physicalRequestsIdentityPASS": 25,
+  "algorithmUnchanged": true,
+  "weightsUnchanged": true,
+  "precisionUnchanged": true,
+  "KVStateBehaviorUnchanged": true,
+  "generationSemanticsUnchanged": true,
+  "placementUnchanged": true,
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "N": 260,
+  "function": "n257_384",
+  "sampleRate": 24000,
+  "samples": 249600,
+  "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+  "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+  "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+  "candidateAccounting": {
+    "allocationsRemoved": 5,
+    "logicalAllocatedBytesRemoved": 33669120,
+    "copiedBytesRemoved": 0,
+    "hCopyBytesBeforeAndAfter": 40402944
+  },
+  "acceptedAccounting": {
+    "allocationsRemoved": 0,
+    "copiedBytesRemoved": 0
+  },
+  "totalEnergy": "N/A CPU-onlyRecount notANE/GPUwholedevice",
+  "SwiftSafety": "request-localownedscratch; synchronousproducer/consumer andEuler completebeforerefill; no CoreMLoutputborrow/mutation, noescapingpointer/newsharedstate",
+  "hostValidation": "16testsPASS includingcopybits/refills/stridedfallback/shape mismatch; signedbuildPASS",
+  "finalDecision": "REJECT_FLOW; restorepreexperimentDynamicAcousticRuntime beforePhase2; preservedprototypecommit andtestsarchive",
+  "listening": "allPCMidenticaltoacceptedcheckpoint001, no newlisteningPASS orgate required",
+  "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/buffer_reuse_20261006/flow-candidate.wav"
+}

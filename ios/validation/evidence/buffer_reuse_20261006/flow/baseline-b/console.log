@@ -1,0 +1,150 @@
+Launched application with com.actacomes.cosyvoice3.candidatebenchmark bundle identifier.
+Waiting for the application to terminate…
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=15.214167
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=851.141291
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=648.03325
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] MISS key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=183.452292
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":8.0323330000000013,"decoder":624.8525830000001,"f0":25.692665999999999,"flow":1294.4305830000003,"flow.shard.0":734.55087499999991,"flow.shard.1":559.89579400000014},"firstCallMs":{"conditions":8.0323330000000013,"decoder":624.8525830000001,"f0":25.692665999999999,"flow":332.10620799999998,"flow.shard.0":332.10787499999998,"flow.shard.1":223.998209},"modelLoadMs":1697.8409999999999,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-PHASE] summary totalMs=10055.695041 referencePrepareMs=2172.679167 frontendMs=296.405916 llmLoadMs=555.277041 llmMs=3362.081791 acousticLoadMs=1697.841 acousticExecuteMs=1968.0827920000002 samples=249600 steps=6
+[COSY-RESOURCE] RESOURCE selected-family 1/5 RTF=0.9682 thermal=nominal
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.75325
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.9775
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.851375
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.731375
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":1.588333,"decoder":518.01083300000005,"f0":24.066541999999998,"flow":924.30499799999984,"flow.shard.0":518.60737399999994,"flow.shard.1":405.71829200000002},"firstCallMs":{"conditions":1.588333,"decoder":518.01083300000005,"f0":24.066541999999998,"flow":112.33458299999999,"flow.shard.0":112.336208,"flow.shard.1":66.580375000000004},"modelLoadMs":3.3134999999999999,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-PHASE] summary totalMs=4998.327667 referencePrepareMs=3.609375 frontendMs=0.600458 llmLoadMs=150.284291 llmMs=3366.271541 acousticLoadMs=3.3135 acousticExecuteMs=1471.439125 samples=249600 steps=6
+[COSY-RESOURCE] RESOURCE selected-family 2/5 RTF=0.4817 thermal=nominal
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.756292
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.995458
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.845292
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.811542
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":9.4717909999999996,"decoder":518.58633299999997,"f0":35.884709000000001,"flow":944.14887199999998,"flow.shard.0":515.67183199999999,"flow.shard.1":428.50483400000002},"firstCallMs":{"conditions":9.4717909999999996,"decoder":518.58633299999997,"f0":35.884709000000001,"flow":109.213041,"flow.shard.0":109.223,"flow.shard.1":90.969499999999996},"modelLoadMs":3.4085840000000003,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-PHASE] summary totalMs=5018.762625 referencePrepareMs=3.393209 frontendMs=0.919 llmLoadMs=139.065042 llmMs=3357.482375 acousticLoadMs=3.4085840000000003 acousticExecuteMs=1511.681625 samples=249600 steps=6
+[COSY-RESOURCE] RESOURCE selected-family 3/5 RTF=0.4837 thermal=nominal
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.725167
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=0.943792
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.850333
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.732709
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":9.9624999999999986,"decoder":525.86341600000003,"f0":23.984667000000002,"flow":906.98908299999994,"flow.shard.0":500.71895800000004,"flow.shard.1":406.28975099999997},"firstCallMs":{"conditions":9.9624999999999986,"decoder":525.86341600000003,"f0":23.984667000000002,"flow":93.455832999999998,"flow.shard.0":93.457207999999994,"flow.shard.1":66.053749999999994},"modelLoadMs":3.2520009999999999,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-PHASE] summary totalMs=4993.685291 referencePrepareMs=3.453625 frontendMs=0.554875 llmLoadMs=135.172083 llmMs=3378.791041 acousticLoadMs=3.252001 acousticExecuteMs=1469.6477909999999 samples=249600 steps=6
+[COSY-RESOURCE] RESOURCE selected-family 4/5 RTF=0.4813 thermal=nominal
+[COSY-ROLE-PLACEMENT] role=llmPrefill path=models/llm-opt-perlayer-prefill.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-prefill.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ROLE-PLACEMENT] role=llmDecode path=models/llm-opt-perlayer-decode-maskwrite512.mlpackage requested=MLComputeUnits(rawValue: 3) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/models/llm-opt-perlayer-decode-maskwrite512.mlpackage selectedFunctionName=<nil:main> variant=FROZEN_PACKAGE multifunction=false extractedSingleFunction=false
+[COSY-ENUMERATED] N=260 T=822 G=520 function=n257_384
+[COSY-ROLE-PLACEMENT] role=conditions path=enumerated-acoustic/conditions.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/conditions.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2
+[COSY-SPECIALIZATION] stage=acoustic.conditions.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.conditions.model ms=0.718459
+[COSY-ROLE-PLACEMENT] role=flow0 path=../FlowPartitions/p2/group-0.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-0.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/a416ffd6747dc08ca17d4db83e4f99561aec890e555743d1e023b6f8c2b29503.mlmodelc|82bbbd72f94d468d668440f46d0e80ac63f24fbcd37e11e4e51d7569c08132f4
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.1.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.1.2.model ms=1.000125
+[COSY-ROLE-PLACEMENT] role=flow1 path=../FlowPartitions/p2/group-1.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/FlowPartitions/p2/group-1.mlpackage selectedFunctionName=n257_384 variant=EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/8177f58a82b23ffdee2d1737cde5a17a3411405c6c3656b0ef05b31685c69add.mlmodelc|4307224664855b9036de7418d48a7eb2dd2bae9b6c12d437972021502a3f65d2
+[COSY-SPECIALIZATION] stage=acoustic.flow.shard.2.2.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=NO diagnosticVariant=LOSSLESS_MULTIFUNCTION_PARTITION
+[COSY-MODEL-LOAD] stage=acoustic.flow.shard.2.2.model ms=0.849542
+[COSY-FLOW-LIFECYCLE] constructors=2 steps=6 function=n257_384
+[COSY-ROLE-PLACEMENT] role=hift path=enumerated-acoustic/hift.mlpackage requested=MLComputeUnits(rawValue: 1) evidence=requested-only
+[COSY-ACTUAL-PACKAGE] sourcePath=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Documents/GeneratedAssets/Runtime/enumerated-acoustic/hift.mlpackage selectedFunctionName=n257_384 variant=FROZEN_PACKAGE multifunction=true extractedSingleFunction=false
+[COSY-REUSE] HIT key=/var/mobile/Containers/Data/Application/6DE8146C-30B9-4172-80A2-110D1E1B0707/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40
+[COSY-SPECIALIZATION] stage=acoustic.hift.model strategy=ENUMERATED_EXACT function=n257_384 productionPath=YES diagnosticVariant=FROZEN_MULTIFUNCTION
+[COSY-MODEL-LOAD] stage=acoustic.hift.model ms=0.738292
+[COSY-ACOUSTIC-PHASE] {"calls":{"conditions":1,"decoder":1,"f0":1,"flow":12,"flow.shard.0":6,"flow.shard.1":6},"executeMsExcludingLoad":{"conditions":9.5881660000000011,"decoder":528.88162399999999,"f0":24.098917,"flow":925.449749,"flow.shard.0":516.19579299999998,"flow.shard.1":409.273459},"firstCallMs":{"conditions":9.5881660000000011,"decoder":528.88162399999999,"f0":24.098917,"flow":108.03545800000001,"flow.shard.0":108.037125,"flow.shard.1":66.533292000000003},"modelLoadMs":3.3064179999999999,"opaqueSpecializationIncludedInPrediction":true}
+[COSY-PHASE] summary totalMs=5001.234291 referencePrepareMs=3.258667 frontendMs=0.552209 llmLoadMs=135.926125 llmMs=3363.9435 acousticLoadMs=3.306418 acousticExecuteMs=1491.4442490000001 samples=249600 steps=6
+[COSY-RESOURCE] RESOURCE selected-family 5/5 RTF=0.4820 thermal=nominal
+[COSY-AUTO-DONE] status=PASS resource screen policy=selected-family SHARDS2 Flow6

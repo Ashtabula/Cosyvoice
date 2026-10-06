@@ -1,0 +1,69 @@
+{
+  "device" : "iPhone",
+  "deviceModelIdentifier" : "iPhone18,4",
+  "environment" : {
+    "ambientTemperatureC" : null,
+    "batteryLevel" : 1,
+    "batteryStateRaw" : 3,
+    "chargingConnected" : true,
+    "foreground" : false,
+    "idleTimerDisabled" : true,
+    "lowPowerMode" : false,
+    "screenBrightness" : 0.20000000298023224,
+    "thermalState" : "nominal"
+  },
+  "error" : "SmokeError(message: \"foreground screen-on required\")",
+  "partialRows" : [
+
+  ],
+  "partialTimeline" : [
+    {
+      "boundary" : false,
+      "cpuMilliseconds" : 72.909000000000006,
+      "CPUOnlyEnergyNanojoules" : 55827113,
+      "physicalFootprintBytes" : 10454688,
+      "stage" : "setup",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 253412784075708
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 380.71800000000002,
+      "CPUOnlyEnergyNanojoules" : 499750521,
+      "physicalFootprintBytes" : 12043936,
+      "stage" : "engine_created",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 253413089509208
+    },
+    {
+      "boundary" : true,
+      "cpuMilliseconds" : 380.78699999999998,
+      "CPUOnlyEnergyNanojoules" : 499750521,
+      "physicalFootprintBytes" : 12043936,
+      "stage" : "sampler_stop",
+      "thermalStateRaw" : 0,
+      "uptimeNanoseconds" : 253413089563708
+    }
+  ],
+  "recordedAtUnix" : 1791301021,
+  "requestedAcousticPlacement" : "CPU_AND_GPU",
+  "requestedComputePlacementByRole" : {
+    "campPlus" : "CPU_ONLY",
+    "conditions" : "CPU_AND_GPU",
+    "flow0" : "CPU_AND_GPU",
+    "flow1" : "CPU_AND_GPU",
+    "flow2" : "CPU_AND_GPU",
+    "flow3" : "CPU_AND_GPU",
+    "flow4" : "CPU_AND_GPU",
+    "flow5" : "CPU_AND_GPU",
+    "hift" : "CPU_AND_GPU",
+    "llmDecode" : "CPU_AND_NE",
+    "llmPrefill" : "CPU_AND_NE",
+    "speechTokenizer" : "CPU_ONLY"
+  },
+  "residencyEvidence" : "requested placement only, residency not proven",
+  "schemaVersion" : 1,
+  "sourceCommit" : "f23988e84b3a3639101659c53d057b41f7ecccb1",
+  "status" : "FAIL",
+  "systemVersion" : "27.2"
+}

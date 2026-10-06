@@ -1,0 +1,16 @@
+from pathlib import Path
+import json,statistics,sys
+root=Path('/Volumes/WD/Codes/Cosyvoice')
+def analyze(folder):
+ r=json.loads((folder/'resource-efficiency-receipt.json').read_text());t=r['memoryThermalCPUCounterTimeline'];result={'sourceCommit':r['sourceCommit'],'processID':r['processID'],'condition':r['environmentStart'],'status':r['status'],'rawRows':r['rows'],'sampleCount':len(t),'requestedPolicy':r['cachePolicy'],'SHARDS':r['SHARDS'],'flowSteps':r['flowSteps'],'totalEnergy':'N/A; CPU-onlyRecount available','identity':{k:r[k] for k in ['PCM_SHA256','WAV_SHA256','payloadTreeSHA256']},'perRequest':[]}
+ for row in r['rows']:
+  n=row['request'];start=next(x['uptimeNanoseconds'] for x in t if x['stage']==f'request_{n}_begin');end=next(x['uptimeNanoseconds'] for x in t if x['stage']==f'request_{n}_completion');samples=[x for x in t if start<=x['uptimeNanoseconds']<=end];entry={'request':n,'peakBytes':max(x['physicalFootprintBytes'] for x in samples),'CPUms':row['cpuMilliseconds'],'CPUOnlyEnergyMJ':row['CPUOnlyAttributedEnergyNanojoules']/1e6,'publicReportMs':row['stageTimings']['totalMilliseconds'],'publicWrapperMs':row['totalMilliseconds'],'LLMms':row['stageTimings']['llmGenerationMilliseconds'],'acousticMs':row['stageTimings']['acousticSynthesisMilliseconds'],'RTF':row['stageTimings']['totalMilliseconds']/10400,'stages':{}}
+  for name,a,b in [('flow','acoustic.flow.models.ready','acoustic.flow.step.6.6.end'),('f0','acoustic.f0.begin','acoustic.f0.end'),('hift','acoustic.hift.begin','acoustic.hift.end')]:
+   begins=[x for x in samples if x['boundary'] and x['stage'].startswith(a)];ends=[x for x in samples if x['boundary'] and x['stage'].startswith(b)]
+   if begins and ends:
+    first,last=begins[0],ends[-1];interval=[x for x in samples if first['uptimeNanoseconds']<=x['uptimeNanoseconds']<=last['uptimeNanoseconds']];entry['stages'][name]={'wallMs':(last['uptimeNanoseconds']-first['uptimeNanoseconds'])/1e6,'beforeBytes':first['physicalFootprintBytes'],'peakBytes':max(x['physicalFootprintBytes'] for x in interval),'afterBytes':last['physicalFootprintBytes'],'CPUms':last['cpuMilliseconds']-first['cpuMilliseconds'],'CPUOnlyEnergyMJ':(last['CPUOnlyEnergyNanojoules']-first['CPUOnlyEnergyNanojoules'])/1e6,'samples':len(interval),'precision':'100msperiodic+exactboundaries; F0~20mspeakmaybemissed'}
+  result['perRequest'].append(entry)
+ warm=result['perRequest'][2:];result['warmSelection']='requests3-5 identicalprimingselection';result['median']={k:statistics.median(x[k] for x in warm) for k in ['peakBytes','CPUms','CPUOnlyEnergyMJ','publicReportMs','publicWrapperMs','LLMms','acousticMs','RTF']};result['ranges']={k:[min(x[k] for x in warm),max(x[k] for x in warm)] for k in result['median']};result['stageMedian']={name:{k:statistics.median(x['stages'][name][k] for x in warm) for k in ['wallMs','beforeBytes','peakBytes','afterBytes','CPUms','CPUOnlyEnergyMJ']} for name in ['flow','f0','hift'] if all(name in x['stages'] for x in warm)};result['allThermalStates']=sorted(set(x['thermalStateRaw'] for x in t));return result
+if __name__=='__main__':
+ for arg in sys.argv[1:]:
+  p=Path(arg);r=analyze(p);(p/'analysis.json').write_text(json.dumps(r,indent=2)+'\n');print(p,json.dumps({'median':r['median'],'stages':r['stageMedian'],'thermal':r['allThermalStates']}))
