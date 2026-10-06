@@ -31025,25 +31025,26 @@
   "productionPromotion": false,
   "publicAPI": "CosyVoice3Engine.synthesize()",
   "recommendedRuntimeArchitecture": {
-    "acousticRequested": "CPU_AND_GPU",
-    "asset": "unchanged frozen schema3 multifunction four families",
-    "flowPartition": 6,
-    "idle": "serial nominal-only foreground/finite background window; persistent strict pending/ready per function",
-    "lifetime": "bounded30s selected-family reuse; no LLM/KV-state reuse; idle other models released immediately",
+    "status": "CURRENT_PRIMARY_OPTIMIZATION_AND_VALIDATION_NOT_RELEASE_PROMOTION",
+    "SHARDS": 2,
+    "flowPartition": 2,
+    "flowSteps": 6,
+    "publicAPI": "CosyVoice3Engine.synthesize()",
     "llmRequested": "CPU_AND_NE",
-    "peakMiBRange": [
-      2473.878288269043,
-      2433.7531967163086
-    ],
-    "persistent": "backup-excluded Application Support generic artifacts + model/function identities; authoritative native load at use",
-    "reason": "new cohort six has fastest relaunch and essentially tied warm; p2 is lower-memory alternative with fastest historical single point; no promotion",
-    "referenceRequested": "CPU_ONLY",
-    "relaunchColdMilliseconds": 8229.991375000001,
-    "sustainedThermal": "not solved; serious observed in continuous12 synthesis",
-    "warmRTFRange": [
-      0.4719565063461538,
-      0.47443946711538454
-    ]
+    "acousticRequested": "CPU_AND_GPU",
+    "asset": "frozen schema3 four multifunction families plus existing lossless p2 packages; frozen Runtime untouched",
+    "cacheStrategy": "selected-family validation configuration",
+    "latestPhysicalSource": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+    "warmRTF": 0.476705693076923,
+    "warmTotalMilliseconds": 4957.739208,
+    "timingEvidence": "ios/validation/evidence/enumerated_embedding_copy_optimization.json",
+    "reason": "Permanent user instruction makes2-shard the primary target;6-shard compatibility only. Singlewarm values do not prove speedup/energy/thermal benefit.",
+    "productionPromotion": false,
+    "shippingDefaultChanged": false,
+    "humanListeningBaseline": "checkpoint_001 PASS; retainedsample06prosodynote",
+    "persistentMechanism": "ApplicationSupport compiled artifacts/strict per-function readiness + serial nominal-only idle preparation",
+    "remainingColdLimitation": "relaunch not warm-equivalent; CoreML private/exact-shape specialization retention not guaranteed",
+    "sustainedThermal": "not solved"
   },
   "recordedAt": "2026-10-05T23:03:34.788566-04:00",
   "relaunchCostBreakdown": {
@@ -122437,5 +122438,33 @@
     "sustained12End": "serious",
     "sustainedCoolAchieved": false,
     "shippingPromotion": false
-  }
+  },
+  "historicalRuntimeRecommendations": [
+    {
+      "supersededAt": "2026-10-06 user permanent2-shard instruction",
+      "recommendation": {
+        "acousticRequested": "CPU_AND_GPU",
+        "asset": "unchanged frozen schema3 multifunction four families",
+        "flowPartition": 6,
+        "idle": "serial nominal-only foreground/finite background window; persistent strict pending/ready per function",
+        "lifetime": "bounded30s selected-family reuse; no LLM/KV-state reuse; idle other models released immediately",
+        "llmRequested": "CPU_AND_NE",
+        "peakMiBRange": [
+          2473.878288269043,
+          2433.7531967163086
+        ],
+        "persistent": "backup-excluded Application Support generic artifacts + model/function identities; authoritative native load at use",
+        "reason": "new cohort six has fastest relaunch and essentially tied warm; p2 is lower-memory alternative with fastest historical single point; no promotion",
+        "referenceRequested": "CPU_ONLY",
+        "relaunchColdMilliseconds": 8229.991375000001,
+        "sustainedThermal": "not solved; serious observed in continuous12 synthesis",
+        "warmRTFRange": [
+          0.4719565063461538,
+          0.47443946711538454
+        ]
+      },
+      "scope": "Historical measured cohort retained; not current production optimization target."
+    }
+  ],
+  "completionStatusReference": "ios/validation/evidence/workflow_completion_status.json"
 }

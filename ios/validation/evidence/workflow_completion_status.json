@@ -1,0 +1,97 @@
+{
+  "schemaVersion": 1,
+  "auditedAt": "2026-10-06 08:28 EDT America/New_York",
+  "auditGitHEAD": "28b23afcd294df2fc75a429733c3124a64803975",
+  "overall": "NOT_ALL_PROMPT_GOALS_ACHIEVED",
+  "primaryShards": 2,
+  "flowSteps": 6,
+  "items": [
+    {
+      "prompt": "Historic0.5866 device path/asset/workload audit",
+      "status": "AUDIT_COMPLETE_STRICT_COMPARISON_INVALID",
+      "evidence": "enumerated_multibucket_rtf_audit.json",
+      "done": "Frozen schema3 multifunction/source/payload/path/N260n257 proved; no extracted acoustic contamination",
+      "notAchieved": "Cannot certify direct0.91386 comparison because historical exact text/reference per-run hashes missing"
+    },
+    {
+      "prompt": "Algorithm-equivalent partition/runtime/cache experimentation",
+      "status": "EXPERIMENTS_COMPLETED_NO_RELEASE_PROMOTION",
+      "evidence": "enumerated_acoustic_equivalent_optimization.json",
+      "done": "6/3/2/1 partitions investigated, host+physical parity/failures preserved; current primary2",
+      "notAchieved": "1fullFlow did not become recommended equivalent candidate; lowest sustained thermal not solved"
+    },
+    {
+      "prompt": "Persistent cold start/four-bucket idle",
+      "status": "MECHANISM_AND_PHYSICAL_REUSE_PASS_GOAL_PARTIAL",
+      "evidence": "enumerated_persistent_cold_start.json",
+      "done": "Per-bucket identity, persistent compiled/load readiness, samebinary processrestart and idle4bucket load-ready verified",
+      "notAchieved": "Only-first-ever-slow/warm-equivalent relaunch not achieved;6-12s historical relaunch; all exactN one-use specialization/privateCoreML cache retention not guaranteed",
+      "historicalN260RelaunchMs": 8229.991375,
+      "historicalN260RelaunchRTF": 0.7913453245192308,
+      "measurementScope": "historical configuration, not current2-shard latest before/after comparator"
+    },
+    {
+      "prompt": "ActualANE residency/fullANE rewrite",
+      "status": "ACTIVITY_AND_DIAGNOSTICS_DONE_FULL_ANE_NOT_PROVEN",
+      "evidence": "enumerated_ane_residency.json",
+      "done": "LLM actualANEactivity, FlowCPU/GPUactivity, testedHiFTCPU scoped proof; failedrewrites preserved",
+      "notAchieved": "No full per-op residency or exact causal fallback-op latency map; no acceptedFULL_ANE rewrite"
+    },
+    {
+      "prompt": "Sustained thermal attribution/lowestthermal",
+      "status": "HISTORICAL_TESTS_DONE_THERMAL_GOAL_UNSOLVED",
+      "evidence": "enumerated_ane_thermal_attribution.json",
+      "done": "Isolated/full12 historical cohorts recorded",
+      "notAchieved": "Allfull12 endedserious; no provenenergy/sustainedthermal reduction; no newlongthermaltest per currentinstruction"
+    },
+    {
+      "prompt": "Low-risk static audit and automatic safe implementations",
+      "status": "AUDIT_AND_FOUR_SELECTED_LOW_IMPLEMENTATIONS_PASS",
+      "evidence": "enumerated_low_risk_runtime_audit.json + enumerated_embedding_copy_optimization.json",
+      "done": "12ranked findings; logitsbuffer/normdirect/sharedspeech/borrowedembedding independent commits, builds/tests/physicalBITidentity",
+      "notAchieved": "Flowowned-buffer/provider/F0/cachebounded/concurrency items remain deferred MEDIUM/HIGH; overallenergy orstatspeedup not proven"
+    },
+    {
+      "prompt": "Permanent2-shard primary and exportedhuman listening",
+      "status": "COMPLETED_AND_HUMAN_PASS",
+      "evidence": "listening_checkpoint_001/accepted_baseline.json",
+      "done": "Workflow defaults2, frozenFlow6, fixedsixcorpus/physicalWAVpull/workspaceSHA/userPASS/LAST_KNOWN_GOOD, periodiccounter1",
+      "notAchieved": "No shippingSDK default/catalog promotion; no such release action performed"
+    },
+    {
+      "prompt": "GitHub publication",
+      "status": "CODE_EVIDENCE_PUSHED",
+      "verifiedPriorHEAD": "28b23afcd294df2fc75a429733c3124a64803975",
+      "done": "Allprevious source/evidence pushed; WAVs retainedlocalignored, noHF/catalog/promotion"
+    }
+  ],
+  "currentRecommendation": {
+    "status": "CURRENT_PRIMARY_OPTIMIZATION_AND_VALIDATION_NOT_RELEASE_PROMOTION",
+    "SHARDS": 2,
+    "flowPartition": 2,
+    "flowSteps": 6,
+    "publicAPI": "CosyVoice3Engine.synthesize()",
+    "llmRequested": "CPU_AND_NE",
+    "acousticRequested": "CPU_AND_GPU",
+    "asset": "frozen schema3 four multifunction families plus existing lossless p2 packages; frozen Runtime untouched",
+    "cacheStrategy": "selected-family validation configuration",
+    "latestPhysicalSource": "b65820d08e8ff64db41614dcf6512f08ad166cae",
+    "warmRTF": 0.476705693076923,
+    "warmTotalMilliseconds": 4957.739208,
+    "timingEvidence": "ios/validation/evidence/enumerated_embedding_copy_optimization.json",
+    "reason": "Permanent user instruction makes2-shard the primary target;6-shard compatibility only. Singlewarm values do not prove speedup/energy/thermal benefit.",
+    "productionPromotion": false,
+    "shippingDefaultChanged": false,
+    "humanListeningBaseline": "checkpoint_001 PASS; retainedsample06prosodynote",
+    "persistentMechanism": "ApplicationSupport compiled artifacts/strict per-function readiness + serial nominal-only idle preparation",
+    "remainingColdLimitation": "relaunch not warm-equivalent; CoreML private/exact-shape specialization retention not guaranteed",
+    "sustainedThermal": "not solved"
+  },
+  "nextUnfinishedTargets": [
+    "Current2-shard samebinary process-kill/relaunch characterization and reducing mandatory relaunch work without weakening identity",
+    "Flow tensor owned-buffer/copy lifetime investigation remainsMEDIUM, do notautoimplement",
+    "Actualper-op fallback mapping if tool evidence can obtain it; noFULL_ANE inference",
+    "Sustainedenergy/thermal evidence whenuserauthorizeslongtestingagain"
+  ],
+  "noNewModelOrBenchmarkOrDeviceRun": true
+}
