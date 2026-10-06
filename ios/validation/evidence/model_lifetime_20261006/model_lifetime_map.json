@@ -1,0 +1,80 @@
+{
+  "rows": [
+    {
+      "family": "speechTokenizer / CAMPPlus",
+      "load": "AssetLoader.warmModels or Engine.makeReferenceEncoder",
+      "owners": "warm autoreleasepool local; reference encoder strong properties across awaited predictions",
+      "shelf": "excluded roles",
+      "lastUse": "reference enrollment returns owned conditioning",
+      "intendedLifetime": "one preparation/enrollment only, absent on fixed-reference cache hit",
+      "release": "local encoder/task completion; no engine MLModel property",
+      "nextRequestReuse": "engine-owned conditioning tensors + disk reference cache, not MLModel",
+      "physicalLifetime": "weak probe; CoreML private resources unknown"
+    },
+    {
+      "family": "LLM prefill / decode",
+      "load": "Engine.synthesize immediate closure -> AssetLoader.llmModel",
+      "owners": "local prefill/decode + LLMRuntime properties + FP16Session properties; one model object each, multiple Swift references",
+      "shelf": "excluded",
+      "lastUse": "prefill once; decode259; same MLState persistent within generation",
+      "intendedLifetime": "stage-scoped synchronous generation; closure returns tokens before acoustic stage",
+      "release": "Session function return then LLM closure return; no old state/cache retained",
+      "nextRequestReuse": "new models + new state each request; compiled identity/disk artifacts persist",
+      "physicalLifetime": "weak probe; destruction != private CoreML resource reclamation"
+    },
+    {
+      "family": "Conditions",
+      "load": "DynamicAcousticRuntime.conditions inside autoreleasepool",
+      "owners": "local MLModel; optional global shelf owner",
+      "shelf": "selected-family/small/decoder",
+      "lastUse": "one synchronous prediction before Flow",
+      "intendedLifetime": "stage local, plus optional30s validation shelf",
+      "release": "pool/local then expiry/family switch if shelf enabled",
+      "nextRequestReuse": "one model constructor avoided if shelf hit"
+    },
+    {
+      "family": "Flow partitions group0/group1",
+      "load": "DynamicAcousticRuntime flow do-scope constructs both models once",
+      "owners": "local flowModels array + optional shelf; repeated6Eulersteps",
+      "shelf": "selected-family only",
+      "lastUse": "step6 prediction; models scope ends before F0/HiFT",
+      "intendedLifetime": "whole6stepFlow + optional30s shelf",
+      "release": "Flow do-scope then expiry/family switch if shelf enabled",
+      "nextRequestReuse": "two constructors avoided; strongest overlap candidate"
+    },
+    {
+      "family": "HiFT",
+      "load": "DynamicAcousticRuntime.hift inside autoreleasepool after F0",
+      "owners": "local MLModel + optional shelf",
+      "shelf": "selected-family/decoder",
+      "lastUse": "one synchronous waveform prediction",
+      "intendedLifetime": "stage local plus optional30s shelf",
+      "release": "autoreleasepool then expiry/family switch",
+      "nextRequestReuse": "one constructor avoided"
+    },
+    {
+      "family": "F0",
+      "load": "Engine.reusableF0 -> native CosyVoice3HiFTDoubleF0",
+      "owners": "engine persistent FP64 weights/arrays; temporary BLAS/input arrays request-scoped",
+      "shelf": "not a MLModel",
+      "lastUse": "native F0 before HiFT",
+      "intendedLifetime": "engine lifetime for native constants",
+      "release": "engine deinit; temporary method returns",
+      "nextRequestReuse": "same native data, unchanged math"
+    },
+    {
+      "family": "Idle four-bucket / diagnostic",
+      "load": "preparePendingBuckets detached background task -> AssetLoader.model(allowValidationRetention:false)",
+      "owners": "task autoreleasepool; task handle until awaited completion",
+      "shelf": "explicitly bypassed",
+      "lastUse": "authoritative model load/modelDescription only, not predictions",
+      "intendedLifetime": "one serialized constructor",
+      "release": "autoreleasepool/task completion; deferred model task flag cleared",
+      "thisExperiment": "idleBucketPreparation:false; no stage diagnostic repeat/single-function; no extra models"
+    }
+  ],
+  "concurrency": "shelf NSLock; constructor recursive gate serialized; timers only remove dictionary refs, active callers retain models; Engine actor can yield across async boundaries so globalpurge would require cross-engine policy proof",
+  "pressureHandling": "no MLModel shelf memory warning handler in ios/Sources; useful future bounded purge only removes unused shelf owner under lock; do not destroy prediction-in-flight object",
+  "shelfCardinality": "one selected function family but no exact entry limit for multiple same-family roots/placements; current frozen path fourentries",
+  "deallocationMeaning": "Swift weak nil, not accelerator/private cache residency proof"
+}

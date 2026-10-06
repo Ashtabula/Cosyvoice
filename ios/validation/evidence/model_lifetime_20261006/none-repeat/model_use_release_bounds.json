@@ -1,0 +1,636 @@
+{
+  "useBounds": [
+    {
+      "id": "CDC8763F-F585-42BF-9649-B846785BA6FE",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.prefill.begin",
+        "uptimeNanoseconds": 246451755061791
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.prefill.end",
+        "uptimeNanoseconds": 246451788750541
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "78B9265C-3BD7-44C3-9291-72CA2B652C0F",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.decode.progress:N=1:maxN=260",
+        "uptimeNanoseconds": 246451788873250
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.max_length:N=260",
+        "uptimeNanoseconds": 246455002680166
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "7E63E3FC-8383-4C4A-9F5B-3A9EA23899F2",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.conditions.prediction.begin:T=822",
+        "uptimeNanoseconds": 246455032399958
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.conditions.prediction.end:T=822",
+        "uptimeNanoseconds": 246455035374833
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "1A69E8DD-A75B-4F8C-BE3E-8CC8CC7E6E66",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246456347167625
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246457525481583
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "EC957F42-E9EB-4E86-98E8-527996392CD2",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246456643088583
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246457593748291
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "307676B2-7913-4558-A37E-01F97EE8D4D2",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.hift.prediction.begin:samples=249600",
+        "uptimeNanoseconds": 246457778874583
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.hift.prediction.end:samples=249600",
+        "uptimeNanoseconds": 246458401637958
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "11A57726-0371-4235-AE78-8992036800F6",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.prefill.begin",
+        "uptimeNanoseconds": 246458558989416
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.prefill.end",
+        "uptimeNanoseconds": 246458590391125
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "80BD9C3E-428E-4FF4-BDAE-C7772E2D5639",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.decode.progress:N=1:maxN=260",
+        "uptimeNanoseconds": 246458590514333
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.max_length:N=260",
+        "uptimeNanoseconds": 246461834563000
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "51729A38-6E95-4A7A-A1A7-56FE91237D91",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.conditions.prediction.begin:T=822",
+        "uptimeNanoseconds": 246461849337375
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.conditions.prediction.end:T=822",
+        "uptimeNanoseconds": 246461851424833
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "8F9C97B5-4F73-4132-9441-95FDDF7FC29C",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246462308798791
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246463553166333
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "6B0DB176-00EE-4B55-A5D8-B27CAC1321D8",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246462626923958
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246463621660083
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "AFF826C2-D512-45B2-A625-6CF8007600A8",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.hift.prediction.begin:samples=249600",
+        "uptimeNanoseconds": 246463778300416
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.hift.prediction.end:samples=249600",
+        "uptimeNanoseconds": 246464401766541
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "6D0DD0F6-951B-4BAB-96B7-BCB6DCB616E5",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.prefill.begin",
+        "uptimeNanoseconds": 246464567194666
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.prefill.end",
+        "uptimeNanoseconds": 246464602460041
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "237E4654-51CB-4623-8E72-1F44D85B26F8",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.decode.progress:N=1:maxN=260",
+        "uptimeNanoseconds": 246464602597833
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.max_length:N=260",
+        "uptimeNanoseconds": 246467953356958
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "0D2EF83E-94DE-4A73-BCD8-686E9FEAE2B7",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.conditions.prediction.begin:T=822",
+        "uptimeNanoseconds": 246467972337625
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.conditions.prediction.end:T=822",
+        "uptimeNanoseconds": 246467979424291
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "02493DC4-94C6-4199-B918-3711731B0A87",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246468762008125
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246469950725625
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "35F87CB6-5F99-433A-9AC0-A64DE6FA3E77",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246469043895791
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246470018539458
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "C7D50021-0286-4FC4-B573-2B70859BB6FE",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.hift.prediction.begin:samples=249600",
+        "uptimeNanoseconds": 246470213032541
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.hift.prediction.end:samples=249600",
+        "uptimeNanoseconds": 246470838418875
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "DF9C45A4-5E6D-4F49-8532-DEB228CB4D9E",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.prefill.begin",
+        "uptimeNanoseconds": 246471010041833
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.prefill.end",
+        "uptimeNanoseconds": 246471038878333
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "DEB05875-413A-4AD4-9FA9-FDE0E3F13355",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.decode.progress:N=1:maxN=260",
+        "uptimeNanoseconds": 246471039008541
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.max_length:N=260",
+        "uptimeNanoseconds": 246474372586375
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "2FC12487-8E96-4B22-92A0-082ED1AEEEF2",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.conditions.prediction.begin:T=822",
+        "uptimeNanoseconds": 246474390317041
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.conditions.prediction.end:T=822",
+        "uptimeNanoseconds": 246474397096000
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "8291DBAA-ABDD-472A-ACC9-AAD6F56E14FD",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246475150625458
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246476345107041
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "F82D8FDE-4B67-4ED1-B757-A734E89F6E41",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246475439092541
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246476414307708
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "7DCE442F-07D4-4851-92D6-8746865E7EBC",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.hift.prediction.begin:samples=249600",
+        "uptimeNanoseconds": 246476574489500
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.hift.prediction.end:samples=249600",
+        "uptimeNanoseconds": 246477199921416
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "7697A854-9EEB-45B5-9AB0-5B12D24D273B",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.prefill.begin",
+        "uptimeNanoseconds": 246477364156291
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.prefill.end",
+        "uptimeNanoseconds": 246477395539000
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "941C06D6-18FD-417A-9FAC-F463D8B8AA52",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "llm.decode.progress:N=1:maxN=260",
+        "uptimeNanoseconds": 246477395669208
+      },
+      "MODEL_LAST_USE": {
+        "phase": "llm.max_length:N=260",
+        "uptimeNanoseconds": 246480712565958
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "F19B2131-42D3-43B7-B3EC-DE75ED50F616",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.conditions.prediction.begin:T=822",
+        "uptimeNanoseconds": 246480726486166
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.conditions.prediction.end:T=822",
+        "uptimeNanoseconds": 246480727924166
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "F718B1D6-D92C-45E3-96F4-E96E9744D208",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246481068120875
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246482247353666
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "16C50343-9573-42A6-8A28-EC7F51FC9A88",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "uptimeNanoseconds": 246481345531958
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "uptimeNanoseconds": 246482317503833
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    },
+    {
+      "id": "45E81ECF-D97B-4299-88DC-86313459EECA",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "MODEL_FIRST_USE": {
+        "phase": "acoustic.hift.prediction.begin:samples=249600",
+        "uptimeNanoseconds": 246482476943041
+      },
+      "MODEL_LAST_USE": {
+        "phase": "acoustic.hift.prediction.end:samples=249600",
+        "uptimeNanoseconds": 246483105041041
+      },
+      "meaning": "source progress intervalbounds, not exact compiler operation/use timestamps; decode progress beforefirstdecode/maxlength afterlastdecode"
+    }
+  ],
+  "SwiftReleaseObservations": [
+    {
+      "id": "CDC8763F-F585-42BF-9649-B846785BA6FE",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246455005086541,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "78B9265C-3BD7-44C3-9291-72CA2B652C0F",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246455005086541,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "7E63E3FC-8383-4C4A-9F5B-3A9EA23899F2",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.conditions.end:N=260:T=822",
+      "uptimeNanoseconds": 246455036186166,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "1A69E8DD-A75B-4F8C-BE3E-8CC8CC7E6E66",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246457604669916,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "EC957F42-E9EB-4E86-98E8-527996392CD2",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246457604669916,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "307676B2-7913-4558-A37E-01F97EE8D4D2",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.hift.end:G=520:samples=249600",
+      "uptimeNanoseconds": 246458406767625,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "11A57726-0371-4235-AE78-8992036800F6",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246461837322291,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "80BD9C3E-428E-4FF4-BDAE-C7772E2D5639",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246461837322291,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "51729A38-6E95-4A7A-A1A7-56FE91237D91",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.conditions.end:N=260:T=822",
+      "uptimeNanoseconds": 246461851889500,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "6B0DB176-00EE-4B55-A5D8-B27CAC1321D8",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246463633753666,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "8F9C97B5-4F73-4132-9441-95FDDF7FC29C",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246463633753666,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "AFF826C2-D512-45B2-A625-6CF8007600A8",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.hift.end:G=520:samples=249600",
+      "uptimeNanoseconds": 246464408056916,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "6D0DD0F6-951B-4BAB-96B7-BCB6DCB616E5",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246467956350375,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "237E4654-51CB-4623-8E72-1F44D85B26F8",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246467956350375,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "0D2EF83E-94DE-4A73-BCD8-686E9FEAE2B7",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.conditions.end:N=260:T=822",
+      "uptimeNanoseconds": 246467982619666,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "35F87CB6-5F99-433A-9AC0-A64DE6FA3E77",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246470031557041,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "02493DC4-94C6-4199-B918-3711731B0A87",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246470031557041,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "C7D50021-0286-4FC4-B573-2B70859BB6FE",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.hift.end:G=520:samples=249600",
+      "uptimeNanoseconds": 246470844308083,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "DF9C45A4-5E6D-4F49-8532-DEB228CB4D9E",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246474375342833,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "DEB05875-413A-4AD4-9FA9-FDE0E3F13355",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246474375342833,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "2FC12487-8E96-4B22-92A0-082ED1AEEEF2",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.conditions.end:N=260:T=822",
+      "uptimeNanoseconds": 246474397572875,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "F82D8FDE-4B67-4ED1-B757-A734E89F6E41",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246476426197208,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "8291DBAA-ABDD-472A-ACC9-AAD6F56E14FD",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246476426197208,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "7DCE442F-07D4-4851-92D6-8746865E7EBC",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.hift.end:G=520:samples=249600",
+      "uptimeNanoseconds": 246477205707791,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "7697A854-9EEB-45B5-9AB0-5B12D24D273B",
+      "path": "models/llm-opt-perlayer-prefill.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246480715352666,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "941C06D6-18FD-417A-9FAC-F463D8B8AA52",
+      "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+      "uptimeNanoseconds": 246480715352666,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "F19B2131-42D3-43B7-B3EC-DE75ED50F616",
+      "path": "enumerated-acoustic/conditions.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.conditions.end:N=260:T=822",
+      "uptimeNanoseconds": 246480736214333,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "F718B1D6-D92C-45E3-96F4-E96E9744D208",
+      "path": "../FlowPartitions/p2/group-0.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246482330196875,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "16C50343-9573-42A6-8A28-EC7F51FC9A88",
+      "path": "../FlowPartitions/p2/group-1.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.f0.begin:G=520",
+      "uptimeNanoseconds": 246482330196875,
+      "notCoreMLDeallocationProof": true
+    },
+    {
+      "id": "45E81ECF-D97B-4299-88DC-86313459EECA",
+      "path": "enumerated-acoustic/hift.mlpackage",
+      "event": "SWIFT_REFERENCE_RELEASE_OBSERVED_BY_WEAK_NIL",
+      "phase": "acoustic.hift.end:G=520:samples=249600",
+      "uptimeNanoseconds": 246483110684000,
+      "notCoreMLDeallocationProof": true
+    }
+  ]
+}

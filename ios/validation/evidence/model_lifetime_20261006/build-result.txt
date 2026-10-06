@@ -1,0 +1,2 @@
+Source0ee8b5f; signed Release build PASS; full local log /private/tmp/cosy-lifetime-build-retry.log
+** BUILD SUCCEEDED **

@@ -1,0 +1,125 @@
+Command line invocation:
+    /Applications/Xcode-beta.app/Contents/Developer/usr/bin/xcodebuild -project ios/validation/DeviceSmoke/CosyVoice3DeviceSmoke.xcodeproj -scheme CosyVoice3DeviceSmoke -configuration Release -destination id=00008150-000A05CA1440401C -derivedDataPath ios/.work/EnumeratedProductionDeviceDerivedData DEVELOPMENT_TEAM=H5R282PV62 PRODUCT_BUNDLE_IDENTIFIER=com.actacomes.cosyvoice3.candidatebenchmark -allowProvisioningUpdates -allowProvisioningDeviceRegistration build
+
+Build settings from command line:
+    DEVELOPMENT_TEAM = H5R282PV62
+    PRODUCT_BUNDLE_IDENTIFIER = com.actacomes.cosyvoice3.candidatebenchmark
+
+Resolve Package Graph
+
+
+Resolved source packages:
+  Jinja: https://github.com/huggingface/swift-jinja.git @ 2.5.1
+  CosyVoice3iOS: /Volumes/WD/Codes/Cosyvoice/ios @ local
+  swift-collections: https://github.com/apple/swift-collections.git @ 1.7.1
+  swift-huggingface: https://github.com/huggingface/swift-huggingface.git @ 0.12.0
+  swift-transformers: https://github.com/huggingface/swift-transformers.git @ 1.3.4
+  swift-asn1: https://github.com/apple/swift-asn1.git @ 1.7.3
+  EventSource: https://github.com/mattt/EventSource.git @ 1.5.1
+  yyjson: https://github.com/ibireme/yyjson.git @ 0.12.0
+  swift-crypto: https://github.com/apple/swift-crypto.git @ 4.5.2
+
+2026-10-06 09:35:03.465 xcodebuild[77629:1177317] [MT] IDERunDestination: Supported platforms for the buildables in the current scheme is empty.
+ComputePackagePrebuildTargetDependencyGraph
+
+Prepare packages
+
+CreateBuildRequest
+
+SendProjectDescription
+
+CreateBuildOperation
+
+ComputeTargetDependencyGraph
+note: Building targets in dependency order
+note: Target dependency graph (21 targets)
+    Target 'CosyVoice3DeviceSmoke' in project 'CosyVoice3DeviceSmoke'
+        ➜ Explicit dependency on target 'CosyVoice3Core-product' in project 'CosyVoice3iOS'
+    Target 'CosyVoice3Core-product' in project 'CosyVoice3iOS'
+        ➜ Explicit dependency on target 'CosyVoice3Core' in project 'CosyVoice3iOS'
+        ➜ Explicit dependency on target 'Tokenizers-product' in project 'swift-transformers'
+    Target 'CosyVoice3Core' in project 'CosyVoice3iOS'
+        ➜ Explicit dependency on target 'Tokenizers-product' in project 'swift-transformers'
+    Target 'Tokenizers-product' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Tokenizers' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Hub' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Jinja-product' in project 'Jinja'
+        ➜ Explicit dependency on target 'HuggingFace-product' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'OrderedCollections-product' in project 'swift-collections'
+        ➜ Explicit dependency on target 'Crypto-product' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'yyjson-product' in project 'yyjson'
+    Target 'Tokenizers' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Hub' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Jinja-product' in project 'Jinja'
+        ➜ Explicit dependency on target 'HuggingFace-product' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'OrderedCollections-product' in project 'swift-collections'
+        ➜ Explicit dependency on target 'Crypto-product' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'yyjson-product' in project 'yyjson'
+    Target 'Hub' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'swift-transformers_Hub' in project 'swift-transformers'
+        ➜ Explicit dependency on target 'Jinja-product' in project 'Jinja'
+        ➜ Explicit dependency on target 'HuggingFace-product' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'OrderedCollections-product' in project 'swift-collections'
+        ➜ Explicit dependency on target 'Crypto-product' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'yyjson-product' in project 'yyjson'
+    Target 'yyjson-product' in project 'yyjson'
+        ➜ Explicit dependency on target 'yyjson' in project 'yyjson'
+    Target 'yyjson' in project 'yyjson' (no dependencies)
+    Target 'HuggingFace-product' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'HuggingFace' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'EventSource-product' in project 'EventSource'
+        ➜ Explicit dependency on target 'Crypto-product' in project 'swift-crypto'
+    Target 'HuggingFace' in project 'swift-huggingface'
+        ➜ Explicit dependency on target 'EventSource-product' in project 'EventSource'
+        ➜ Explicit dependency on target 'Crypto-product' in project 'swift-crypto'
+    Target 'Crypto-product' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'swift-crypto_Crypto' in project 'swift-crypto'
+    Target 'Crypto' in project 'swift-crypto'
+        ➜ Explicit dependency on target 'swift-crypto_Crypto' in project 'swift-crypto'
+    Target 'swift-crypto_Crypto' in project 'swift-crypto' (no dependencies)
+    Target 'EventSource-product' in project 'EventSource'
+        ➜ Explicit dependency on target 'EventSource' in project 'EventSource'
+    Target 'EventSource' in project 'EventSource' (no dependencies)
+    Target 'Jinja-product' in project 'Jinja'
+        ➜ Explicit dependency on target 'Jinja' in project 'Jinja'
+        ➜ Explicit dependency on target 'OrderedCollections-product' in project 'swift-collections'
+    Target 'Jinja' in project 'Jinja'
+        ➜ Explicit dependency on target 'OrderedCollections-product' in project 'swift-collections'
+    Target 'OrderedCollections-product' in project 'swift-collections'
+        ➜ Explicit dependency on target 'OrderedCollections' in project 'swift-collections'
+        ➜ Explicit dependency on target 'InternalCollectionsUtilities' in project 'swift-collections'
+    Target 'OrderedCollections' in project 'swift-collections'
+        ➜ Explicit dependency on target 'InternalCollectionsUtilities' in project 'swift-collections'
+    Target 'InternalCollectionsUtilities' in project 'swift-collections' (no dependencies)
+    Target 'swift-transformers_Hub' in project 'swift-transformers' (no dependencies)
+
+GatherProvisioningInputs
+
+CreateBuildDescription
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc --version
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -arch arm64 -isysroot /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/clang -v -E -dM -isysroot /Applications/Xcode-beta.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS27.2.sdk -x c -c /dev/null
+
+ExecuteExternalTool /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ld -version_details
+
+ReadFileContents /Applications/Xcode-beta.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/share/docc/features.json
+
+Build description signature: 41f8772383e6a0cec0502b79c1c994da
+Build description path: /Volumes/WD/Xcode/DerivedData/Build/Intermediates.noindex/XCBuildData/41f8772383e6a0cec0502b79c1c994da.xcbuilddata
+error: unable to attach DB: error: accessing build database "/Volumes/WD/Xcode/DerivedData/Build/Intermediates.noindex/XCBuildData/build.db": database disk image is malformed
+PruneExplicitPrecompiledModules /Volumes/WD/Codes/Cosyvoice/ios/.work/EnumeratedProductionDeviceDerivedData/SDKExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Volumes/WD/Xcode/DerivedData/Build/Intermediates.noindex/ExplicitPrecompiledModules
+
+PruneExplicitPrecompiledModules /Volumes/WD/Xcode/DerivedData/Build/Intermediates.noindex/SwiftExplicitPrecompiledModules
+
+** BUILD FAILED **
+
+
+The following build commands failed:
+	Building project CosyVoice3DeviceSmoke with scheme CosyVoice3DeviceSmoke and configuration Release
+(1 failure)

@@ -1,0 +1,1547 @@
+{
+  "current-repeat-2": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5548,
+    "cachePolicy": "selected-family",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 876711000,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.9178158213461538,
+        "selfProcessCPUMilliseconds": 4238.313999999999,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1517.4223339999999,
+          "acousticSynthesisMilliseconds": 1957.1108320000003,
+          "flowSteps": 6,
+          "frontendMilliseconds": 306.814458,
+          "llmGenerationMilliseconds": 3389.02575,
+          "llmModelLoadMilliseconds": 168.927416,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2187.204834,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 9529.653,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 9545.284542,
+        "sampledPeakBytes": 1844676544,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1844676544,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 93.955
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 70.398708
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 9.748333
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 534.593375
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 455.327917
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 191.8515
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 870009968,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.4840866826923077,
+        "selfProcessCPUMilliseconds": 480.70600000000013,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.71275,
+          "acousticSynthesisMilliseconds": 1498.541958,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.581625,
+          "llmGenerationMilliseconds": 3362.08675,
+          "llmModelLoadMilliseconds": 151.634667,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.218875,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5023.045958,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5034.5015,
+        "sampledPeakBytes": 2353187928,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2353187928,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 71.924583
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 76.115417
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 893914200,
+        "callerRetainedPCMBytes": 2995200,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 3,
+        "RTF": 0.4833191306730769,
+        "selfProcessCPUMilliseconds": 471.3020000000006,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.512458,
+          "acousticSynthesisMilliseconds": 1494.707542,
+          "flowSteps": 6,
+          "frontendMilliseconds": 1.01375,
+          "llmGenerationMilliseconds": 3367.828291,
+          "llmModelLoadMilliseconds": 140.626333,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.259333,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5014.286583,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "fair",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5026.518959,
+        "sampledPeakBytes": 2326449264,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2326449264,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 68.755416
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 67.801334
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 1
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 889687152,
+        "callerRetainedPCMBytes": 3993600,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 4,
+        "RTF": 0.4837333093269231,
+        "selfProcessCPUMilliseconds": 461.826,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.76875,
+          "acousticSynthesisMilliseconds": 1504.67075,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.560708,
+          "llmGenerationMilliseconds": 3362.89425,
+          "llmModelLoadMilliseconds": 139.708667,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.390708,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5018.309333,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "fair",
+        "thermalStart": "fair",
+        "totalMilliseconds": 5030.826417,
+        "sampledPeakBytes": 2329070680,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2329070680,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 68.026583
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 67.777792
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 1
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 848661616,
+        "callerRetainedPCMBytes": 4992000,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 5,
+        "RTF": 0.4855242427884615,
+        "selfProcessCPUMilliseconds": 466.3829999999998,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.528251,
+          "acousticSynthesisMilliseconds": 1523.197457,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.565417,
+          "llmGenerationMilliseconds": 3362.196583,
+          "llmModelLoadMilliseconds": 141.430042,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.249875,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5037.294083,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "fair",
+        "thermalStart": "fair",
+        "totalMilliseconds": 5049.452125,
+        "sampledPeakBytes": 2325089392,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2325089392,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 69.707042
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 68.069959
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 1
+      }
+    ],
+    "sampledPeakBytes": 2353187928,
+    "postExpiryBoundary": [],
+    "warmMedians": {
+      "totalMilliseconds": 5030.826417,
+      "RTF": 0.4837333093269231,
+      "sampledPeakBytes": 2326449264,
+      "sampledLLMPeakBytes": 2326449264
+    },
+    "warmStageMedians": {
+      "llmGenerationMilliseconds": 3362.89425,
+      "llmModelLoadMilliseconds": 140.626333,
+      "acousticModelLoadMilliseconds": 3.528251,
+      "acousticSynthesisMilliseconds": 1504.67075
+    },
+    "warmRangeMs": 22.9331659999998
+  },
+  "current-memory": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5533,
+    "cachePolicy": "selected-family",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 877153392,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 3.775116798846154,
+        "selfProcessCPUMilliseconds": 14025.425000000001,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 8653.851292,
+          "acousticSynthesisMilliseconds": 1957.1743330000008,
+          "flowSteps": 6,
+          "frontendMilliseconds": 408.233458,
+          "llmGenerationMilliseconds": 3317.862958,
+          "llmModelLoadMilliseconds": 225.190709,
+          "modelPreparationCacheHit": false,
+          "preparationMilliseconds": 24682.151958,
+          "referenceCacheHit": false,
+          "totalMilliseconds": 39249.205083,
+          "warmedModelCount": 4
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 39261.214708,
+        "sampledPeakBytes": 1842137072,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1842137072,
+        "modelConstructionCount": 12,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 9201.635167
+          },
+          {
+            "path": "reference/speech-tokenizer-fixed605.mlpackage",
+            "milliseconds": 1773.459791
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 11184.269625
+          },
+          {
+            "path": "reference/campplus-fixed604.mlpackage",
+            "milliseconds": 363.938708
+          },
+          {
+            "path": "reference/speech-tokenizer-fixed605.mlpackage",
+            "milliseconds": 2.188167
+          },
+          {
+            "path": "reference/campplus-fixed604.mlpackage",
+            "milliseconds": 0.896833
+          },
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 164.767209
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 55.333417
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 224.83125
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 3282.12075
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 2723.691042
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 2018.70725
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 874728560,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.47729252807692313,
+        "selfProcessCPUMilliseconds": 460.6200000000008,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.247917,
+          "acousticSynthesisMilliseconds": 1469.8605,
+          "flowSteps": 6,
+          "frontendMilliseconds": 3.06875,
+          "llmGenerationMilliseconds": 3269.896583,
+          "llmModelLoadMilliseconds": 186.015458,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 19.088834,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 4954.417792,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 4963.842292,
+        "sampledPeakBytes": 2230144136,
+        "sampledPeakStage": "llm.decode.progress:N=176:maxN=260",
+        "sampledLLMPeakBytes": 2230144136,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 117.716458
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 64.042833
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      }
+    ],
+    "sampledPeakBytes": 2230144136,
+    "postExpiryBoundary": [
+      {
+        "stage": "request_2_idle_35s",
+        "physicalFootprintBytes": 405571712,
+        "uptimeNanoseconds": 246278376381083
+      }
+    ],
+    "warmMedians": null,
+    "warmStageMedians": null,
+    "warmRangeMs": null
+  },
+  "none-memory": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5535,
+    "cachePolicy": "none",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 546850968,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.9505261218269232,
+        "selfProcessCPUMilliseconds": 3499.598,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1416.638293,
+          "acousticSynthesisMilliseconds": 1887.400291,
+          "flowSteps": 6,
+          "frontendMilliseconds": 239.762791,
+          "llmGenerationMilliseconds": 3245.000625,
+          "llmModelLoadMilliseconds": 1121.90925,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 1959.473334,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 9872.708875,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 9885.471667000002,
+        "sampledPeakBytes": 1844758488,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1844758488,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 674.305416
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 443.791083
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 10.256583
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 511.662708
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 442.90425
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 137.1145
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 504678528,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.5584999278846153,
+        "selfProcessCPUMilliseconds": 1342.2750000000005,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 505.47174900000005,
+          "acousticSynthesisMilliseconds": 1845.9937929999999,
+          "flowSteps": 6,
+          "frontendMilliseconds": 1.928042,
+          "llmGenerationMilliseconds": 3247.674709,
+          "llmModelLoadMilliseconds": 179.159625,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 15.935708,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5799.123709,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5808.3992499999995,
+        "sampledPeakBytes": 1921599640,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 1921599640,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 109.601833
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 65.321209
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 7.68775
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 235.909167
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 149.118584
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 103.882667
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      }
+    ],
+    "sampledPeakBytes": 1921599640,
+    "postExpiryBoundary": [
+      {
+        "stage": "request_2_idle_35s",
+        "physicalFootprintBytes": 416155752,
+        "uptimeNanoseconds": 246341543426750
+      }
+    ],
+    "warmMedians": null,
+    "warmStageMedians": null,
+    "warmRangeMs": null
+  },
+  "current-repeat-1": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5537,
+    "cachePolicy": "selected-family",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 890915904,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.9639356250000001,
+        "selfProcessCPUMilliseconds": 3625.179,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1664.313333,
+          "acousticSynthesisMilliseconds": 1897.4961250000001,
+          "flowSteps": 6,
+          "frontendMilliseconds": 313.257791,
+          "llmGenerationMilliseconds": 3252.7585,
+          "llmModelLoadMilliseconds": 958.494834,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 1922.63325,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 10011.594166,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 10024.9305,
+        "sampledPeakBytes": 1844807616,
+        "sampledPeakStage": "llm.decode.progress:N=256:maxN=260",
+        "sampledLLMPeakBytes": 1844807616,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 503.11625
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 451.646292
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 11.958625
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 553.733708
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 543.18775
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 162.911625
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 892685376,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.5579959014423077,
+        "selfProcessCPUMilliseconds": 412.57400000000007,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.126457,
+          "acousticSynthesisMilliseconds": 1465.135751,
+          "flowSteps": 6,
+          "frontendMilliseconds": 1.774458,
+          "llmGenerationMilliseconds": 3275.395125,
+          "llmModelLoadMilliseconds": 1042.006542,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.689125,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5793.922792,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5803.157375,
+        "sampledPeakBytes": 2258242624,
+        "sampledPeakStage": "llm.decode.progress:N=64:maxN=260",
+        "sampledLLMPeakBytes": 2258242624,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 422.13675
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 616.551417
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 881560664,
+        "callerRetainedPCMBytes": 2995200,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 3,
+        "RTF": 0.4711529727884615,
+        "selfProcessCPUMilliseconds": 412.8810000000003,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.03596,
+          "acousticSynthesisMilliseconds": 1475.0175820000002,
+          "flowSteps": 6,
+          "frontendMilliseconds": 1.627458,
+          "llmGenerationMilliseconds": 3272.462875,
+          "llmModelLoadMilliseconds": 133.267291,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.664833,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 4890.712667,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 4899.990917,
+        "sampledPeakBytes": 2349927488,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 2349927488,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 66.623916
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 63.857291
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 881019968,
+        "callerRetainedPCMBytes": 3993600,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 4,
+        "RTF": 0.4680646875,
+        "selfProcessCPUMilliseconds": 402.2669999999998,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 3.0653750000000004,
+          "acousticSynthesisMilliseconds": 1470.83175,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.835375,
+          "llmGenerationMilliseconds": 3245.677541,
+          "llmModelLoadMilliseconds": 131.434834,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.573417,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 4857.214333,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 4867.87275,
+        "sampledPeakBytes": 2338901080,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 2338901080,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 63.589583
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 64.355792
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 876317760,
+        "callerRetainedPCMBytes": 4992000,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 5,
+        "RTF": 0.4799879166346154,
+        "selfProcessCPUMilliseconds": 431.9450000000006,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 5.657417000000001,
+          "acousticSynthesisMilliseconds": 1504.4607910000002,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.503875,
+          "llmGenerationMilliseconds": 3325.388084,
+          "llmModelLoadMilliseconds": 139.188833,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.765,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 4980.798,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 4991.874333,
+        "sampledPeakBytes": 2338016320,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 2338016320,
+        "modelConstructionCount": 2,
+        "acousticConstructorCount": 0,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 66.789
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 68.774417
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      }
+    ],
+    "sampledPeakBytes": 2349927488,
+    "postExpiryBoundary": [],
+    "warmMedians": {
+      "totalMilliseconds": 4899.990917,
+      "RTF": 0.4711529727884615,
+      "sampledPeakBytes": 2338901080,
+      "sampledLLMPeakBytes": 2338901080
+    },
+    "warmStageMedians": {
+      "llmGenerationMilliseconds": 3272.462875,
+      "llmModelLoadMilliseconds": 133.267291,
+      "acousticModelLoadMilliseconds": 3.0653750000000004,
+      "acousticSynthesisMilliseconds": 1475.0175820000002
+    },
+    "warmRangeMs": 124.0015829999993
+  },
+  "decoder-repeat-nominal": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5547,
+    "cachePolicy": "decoder",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 735775040,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.8933136498076923,
+        "selfProcessCPUMilliseconds": 3512.4660000000003,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1449.085166,
+          "acousticSynthesisMilliseconds": 1897.266375,
+          "flowSteps": 6,
+          "frontendMilliseconds": 239.743583,
+          "llmGenerationMilliseconds": 3244.781084,
+          "llmModelLoadMilliseconds": 491.107875,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 1951.681542,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 9276.210584,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 9290.461958,
+        "sampledPeakBytes": 1844725744,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1844725744,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 97.58175
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 389.684167
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 9.072834
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 516.495
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 479.872833
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 137.159709
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 722143552,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.5374835096153847,
+        "selfProcessCPUMilliseconds": 1111.8360000000002,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 404.82545799999997,
+          "acousticSynthesisMilliseconds": 1752.535834,
+          "flowSteps": 6,
+          "frontendMilliseconds": 1.128541,
+          "llmGenerationMilliseconds": 3271.116584,
+          "llmModelLoadMilliseconds": 142.502542,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 4.4825,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5580.565291,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5589.8285000000005,
+        "sampledPeakBytes": 2210040128,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2210040128,
+        "modelConstructionCount": 4,
+        "acousticConstructorCount": 2,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 75.181833
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 63.508292
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 229.652334
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 168.841542
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 719391040,
+        "callerRetainedPCMBytes": 2995200,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 3,
+        "RTF": 0.53875986375,
+        "selfProcessCPUMilliseconds": 1140.335,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 416.39979300000005,
+          "acousticSynthesisMilliseconds": 1791.86254,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.479708,
+          "llmGenerationMilliseconds": 3253.367875,
+          "llmModelLoadMilliseconds": 126.015833,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.625625,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5593.279083,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5603.102583,
+        "sampledPeakBytes": 2188020032,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2188020032,
+        "modelConstructionCount": 4,
+        "acousticConstructorCount": 2,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 58.630667
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 64.010666
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 245.296583
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 165.212542
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 702810432,
+        "callerRetainedPCMBytes": 3993600,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 4,
+        "RTF": 0.5517376522115385,
+        "selfProcessCPUMilliseconds": 1303.6059999999998,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 464.606,
+          "acousticSynthesisMilliseconds": 1888.312959,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.481292,
+          "llmGenerationMilliseconds": 3232.904917,
+          "llmModelLoadMilliseconds": 135.553958,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.733459,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5727.092417,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5738.071583,
+        "sampledPeakBytes": 2178533696,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 2178533696,
+        "modelConstructionCount": 4,
+        "acousticConstructorCount": 2,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 66.743416
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 65.12925
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 261.083375
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 193.903292
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 701794624,
+        "callerRetainedPCMBytes": 4992000,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 5,
+        "RTF": 0.5564969110576923,
+        "selfProcessCPUMilliseconds": 1270.5220000000008,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 481.79383200000007,
+          "acousticSynthesisMilliseconds": 1891.0018349999998,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.507542,
+          "llmGenerationMilliseconds": 3260.935709,
+          "llmModelLoadMilliseconds": 134.36575,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.839084,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5774.261833,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5787.567875,
+        "sampledPeakBytes": 2174060864,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 2174060864,
+        "modelConstructionCount": 4,
+        "acousticConstructorCount": 2,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 67.17225
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 63.667333
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 267.13525
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 207.067667
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      }
+    ],
+    "sampledPeakBytes": 2210040128,
+    "postExpiryBoundary": [],
+    "warmMedians": {
+      "totalMilliseconds": 5738.071583,
+      "RTF": 0.5517376522115385,
+      "sampledPeakBytes": 2178533696,
+      "sampledLLMPeakBytes": 2178533696
+    },
+    "warmStageMedians": {
+      "llmGenerationMilliseconds": 3253.367875,
+      "llmModelLoadMilliseconds": 134.36575,
+      "acousticModelLoadMilliseconds": 464.606,
+      "acousticSynthesisMilliseconds": 1888.312959
+    },
+    "warmRangeMs": 184.46529199999986
+  },
+  "none-repeat": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5538,
+    "cachePolicy": "none",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 546949272,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.8832529607692309,
+        "selfProcessCPUMilliseconds": 3616.607,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1472.364876,
+          "acousticSynthesisMilliseconds": 1929.4461649999998,
+          "flowSteps": 6,
+          "frontendMilliseconds": 272.864042,
+          "llmGenerationMilliseconds": 3251.201125,
+          "llmModelLoadMilliseconds": 304.70125,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 1939.429542,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 9172.61275,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 9185.830792,
+        "sampledPeakBytes": 1844725720,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1844725720,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 82.765792
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 217.947041
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 8.9945
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 533.434458
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 468.1095
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 145.708834
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 503400576,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.5768783092307693,
+        "selfProcessCPUMilliseconds": 1520.6160000000004,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 586.730917,
+          "acousticSynthesisMilliseconds": 1984.0932500000004,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.918625,
+          "llmGenerationMilliseconds": 3278.159833,
+          "llmModelLoadMilliseconds": 132.80275,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 2.597083,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5988.220834,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5999.534416,
+        "sampledPeakBytes": 2020247704,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 2020247704,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 61.631792
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 67.589875
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 9.712791
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 266.388833
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 185.123084
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 116.566625
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 503629952,
+        "callerRetainedPCMBytes": 2995200,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 3,
+        "RTF": 0.6190526923076923,
+        "selfProcessCPUMilliseconds": 1527.4849999999997,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 950.231667,
+          "acousticSynthesisMilliseconds": 1937.8063750000001,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.576792,
+          "llmGenerationMilliseconds": 3388.908541,
+          "llmModelLoadMilliseconds": 140.951375,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.186334,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 6424.806708,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 6438.148,
+        "sampledPeakBytes": 1974487168,
+        "sampledPeakStage": "llm.decode.progress:N=32:maxN=260",
+        "sampledLLMPeakBytes": 1974487168,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 66.679792
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 70.743875
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 13.700042
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 433.114333
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 336.882083
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 151.454167
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 504629376,
+        "callerRetainedPCMBytes": 3993600,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 4,
+        "RTF": 0.6114648276923077,
+        "selfProcessCPUMilliseconds": 1490.2269999999999,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 889.690249,
+          "acousticSynthesisMilliseconds": 1940.748792,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.560875,
+          "llmGenerationMilliseconds": 3365.362209,
+          "llmModelLoadMilliseconds": 144.052,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 4.59475,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 6347.952917,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "fair",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 6359.234208,
+        "sampledPeakBytes": 1976109184,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 1976109184,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 69.626542
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 70.924417
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 13.089875
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 410.1345
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 337.204834
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 120.258917
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 1
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 505251968,
+        "callerRetainedPCMBytes": 4992000,
+        "flowSteps": 6,
+        "label": "measured_warm",
+        "request": 5,
+        "RTF": 0.5677716506730769,
+        "selfProcessCPUMilliseconds": 1355.246000000001,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 463.266167,
+          "acousticSynthesisMilliseconds": 1932.136666,
+          "flowSteps": 6,
+          "frontendMilliseconds": 0.556166,
+          "llmGenerationMilliseconds": 3351.171667,
+          "llmModelLoadMilliseconds": 140.300458,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 3.207042,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5893.589416,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "fair",
+        "thermalStart": "fair",
+        "totalMilliseconds": 5904.825167,
+        "sampledPeakBytes": 1977452672,
+        "sampledPeakStage": "llm.decode.progress:N=48:maxN=260",
+        "sampledLLMPeakBytes": 1977452672,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 67.091
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 69.283708
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 9.077458
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 181.273375
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 145.655167
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 118.475
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 1
+      }
+    ],
+    "sampledPeakBytes": 2020247704,
+    "postExpiryBoundary": [],
+    "warmMedians": {
+      "totalMilliseconds": 6359.234208,
+      "RTF": 0.6114648276923077,
+      "sampledPeakBytes": 1976109184,
+      "sampledLLMPeakBytes": 1976109184
+    },
+    "warmStageMedians": {
+      "llmGenerationMilliseconds": 3365.362209,
+      "llmModelLoadMilliseconds": 140.951375,
+      "acousticModelLoadMilliseconds": 889.690249,
+      "acousticSynthesisMilliseconds": 1937.8063750000001
+    },
+    "warmRangeMs": 533.3228330000002
+  },
+  "decoder-repeat": {
+    "status": "FAILED_START_GATE_NO_PREDICTIONS",
+    "receipt": {
+      "device": "iPhone",
+      "deviceModelIdentifier": "iPhone18,4",
+      "error": "SmokeError(message: \"warm pass requires SHARDS2/unchanged placement/noreset/nominal start\")",
+      "recordedAtUnix": 1791294146,
+      "requestedAcousticPlacement": "CPU_AND_GPU",
+      "requestedComputePlacementByRole": {
+        "campPlus": "CPU_ONLY",
+        "conditions": "CPU_AND_GPU",
+        "flow0": "CPU_AND_GPU",
+        "flow1": "CPU_AND_GPU",
+        "flow2": "CPU_AND_GPU",
+        "flow3": "CPU_AND_GPU",
+        "flow4": "CPU_AND_GPU",
+        "flow5": "CPU_AND_GPU",
+        "hift": "CPU_AND_GPU",
+        "llmDecode": "CPU_AND_NE",
+        "llmPrefill": "CPU_AND_NE",
+        "speechTokenizer": "CPU_ONLY"
+      },
+      "residencyEvidence": "requested placement only, residency not proven",
+      "schemaVersion": 1,
+      "sourceCommit": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+      "status": "FAIL",
+      "systemVersion": "27.2"
+    }
+  },
+  "decoder-memory": {
+    "sourceSHA": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+    "processID": 5545,
+    "cachePolicy": "decoder",
+    "requests": [
+      {
+        "boundaryPhysicalFootprintBytes": 745163048,
+        "callerRetainedPCMBytes": 998400,
+        "flowSteps": 6,
+        "label": "first",
+        "request": 1,
+        "RTF": 0.9447828805769232,
+        "selfProcessCPUMilliseconds": 3576.8860000000004,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 1504.761084,
+          "acousticSynthesisMilliseconds": 1926.509166,
+          "flowSteps": 6,
+          "frontendMilliseconds": 307.942,
+          "llmGenerationMilliseconds": 3244.746583,
+          "llmModelLoadMilliseconds": 897.95975,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 1918.000084,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 9814.648666,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 9825.741958,
+        "sampledPeakBytes": 1845135272,
+        "sampledPeakStage": "llm.max_length:N=260",
+        "sampledLLMPeakBytes": 1845135272,
+        "modelConstructionCount": 6,
+        "acousticConstructorCount": 4,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 455.852625
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 437.996375
+          },
+          {
+            "path": "enumerated-acoustic/conditions.mlpackage",
+            "milliseconds": 13.989583
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 527.603417
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 517.896
+          },
+          {
+            "path": "enumerated-acoustic/hift.mlpackage",
+            "milliseconds": 136.205
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      },
+      {
+        "boundaryPhysicalFootprintBytes": 729073936,
+        "callerRetainedPCMBytes": 1996800,
+        "flowSteps": 6,
+        "label": "warm_priming",
+        "request": 2,
+        "RTF": 0.5496230048076923,
+        "selfProcessCPUMilliseconds": 1158.6450000000004,
+        "SHARDS": 2,
+        "stages": {
+          "acousticModelLoadMilliseconds": 408.96270799999996,
+          "acousticSynthesisMilliseconds": 1772.139542,
+          "flowSteps": 6,
+          "frontendMilliseconds": 2.217542,
+          "llmGenerationMilliseconds": 3296.160792,
+          "llmModelLoadMilliseconds": 208.54475,
+          "modelPreparationCacheHit": true,
+          "preparationMilliseconds": 15.658125,
+          "referenceCacheHit": true,
+          "totalMilliseconds": 5706.551375,
+          "warmedModelCount": 0
+        },
+        "thermalEnd": "nominal",
+        "thermalStart": "nominal",
+        "totalMilliseconds": 5716.07925,
+        "sampledPeakBytes": 2048428304,
+        "sampledPeakStage": "llm.decode.progress:N=128:maxN=260",
+        "sampledLLMPeakBytes": 2048428304,
+        "modelConstructionCount": 4,
+        "acousticConstructorCount": 2,
+        "constructorTimes": [
+          {
+            "path": "models/llm-opt-perlayer-prefill.mlpackage",
+            "milliseconds": 140.286875
+          },
+          {
+            "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+            "milliseconds": 64.1805
+          },
+          {
+            "path": "../FlowPartitions/p2/group-0.mlpackage",
+            "milliseconds": 212.953958
+          },
+          {
+            "path": "../FlowPartitions/p2/group-1.mlpackage",
+            "milliseconds": 190.77475
+          }
+        ],
+        "tokenSequenceSHA256": "5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d",
+        "thermalPeakRaw": 0
+      }
+    ],
+    "sampledPeakBytes": 2048428304,
+    "postExpiryBoundary": [
+      {
+        "stage": "request_2_idle_35s",
+        "physicalFootprintBytes": 391907408,
+        "uptimeNanoseconds": 246684969973208
+      }
+    ],
+    "warmMedians": null,
+    "warmStageMedians": null,
+    "warmRangeMs": null
+  }
+}

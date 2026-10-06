@@ -1,0 +1,14 @@
+{
+  "activeManifest": "cosyvoice3_enumerated.json",
+  "activeProfile": "ios18-enumerated-n1-n450",
+  "assetExportSourceCommit": "ac31e117938ed50132365973a103cc8425942700",
+  "benchmark": "variable-public-api-default-and-reference-v1",
+  "exportReceiptSha256": "0eccfc865857e7240916d433e9e777ab04ff52848191c92a35faa052add8c49a",
+  "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106",
+  "payloadBytes": 3530215890,
+  "payloadTreeSha256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "runtimeManifestSha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "schemaVersion": 1,
+  "sourceCommit": "0ee8b5f7089985dd792314d88f9be459e1e2912b",
+  "lifetimeMeasurementOnly": true
+}

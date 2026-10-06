@@ -1,0 +1,32 @@
+from pathlib import Path
+import json,statistics,hashlib
+ROOT=Path('/Volumes/WD/Codes/Cosyvoice');BASE=ROOT/'ios/.work/model-lifetime-20261006';OUT=ROOT/'ios/validation/evidence/model_lifetime_20261006'
+summary={}
+for directory in BASE.iterdir():
+ p=directory/'warm-decode-pass-receipt.json'
+ if not p.exists():continue
+ r=json.loads(p.read_text());case=directory.name;dest=OUT/case;dest.mkdir(parents=True,exist_ok=True)
+ if r.get('status')!='PASS_BIT_IDENTICAL_WARM_PASS':
+  (dest/'failure-receipt.json').write_bytes(p.read_bytes());(dest/'console.log').write_bytes((directory/'console.log').read_bytes());summary[case]={'status':'FAILED_START_GATE_NO_PREDICTIONS','receipt':r};continue
+ events=[]
+ for line in (directory/'console.log').read_text().splitlines():
+  if '[COSY-MODEL-LIFETIME] ' in line:events.append(json.loads(line.split('[COSY-MODEL-LIFETIME] ',1)[1]))
+ requests=[];timeline=r['memoryTimeline']
+ for row in r['rows']:
+  n=row['request'];begin=next(x['uptimeNanoseconds'] for x in timeline if x['stage']==('before_second_warm_request' if n==2 else f'before_request_{n}') and x['boundary'])
+  end=next(x['uptimeNanoseconds'] for x in timeline if x['stage']==f'request_{n}_completion' and x['boundary'])
+  samples=[x for x in timeline if begin<=x['uptimeNanoseconds']<=end];ev=[x for x in events if begin<=x['uptimeNanoseconds']<=end]
+  loads=[x for x in ev if x['event']=='MODEL_LOAD_END'];starts={};costs=[]
+  for x in ev:
+   if x['event']=='MODEL_LOAD_BEGIN':starts[x['detail']]=x['uptimeNanoseconds']
+   if x['event']=='MODEL_LOAD_END':costs.append({'path':x['path'],'milliseconds':(x['uptimeNanoseconds']-starts[x['path']])/1e6})
+  peak=max(samples,key=lambda x:x['physicalFootprintBytes']);llm=[x for x in samples if x['stage'].startswith('llm.')];llmpeak=max(llm,key=lambda x:x['physicalFootprintBytes'])
+  tokens=r['persistentRuntime']['validationWarmPassRecords'][n-1]['tokens'];sha=hashlib.sha256(json.dumps(tokens,separators=(',',':')).encode()).hexdigest()
+  assert sha=='5227af1bfe2461b352e1d8747f63df8d54fd7b4c7640e001b81152a8b455a64d'
+  requests.append({**row,'sampledPeakBytes':peak['physicalFootprintBytes'],'sampledPeakStage':peak['stage'],'sampledLLMPeakBytes':llmpeak['physicalFootprintBytes'],'modelConstructionCount':len(loads),'acousticConstructorCount':sum('llm-' not in x['path'] and 'reference/' not in x['path'] for x in loads),'constructorTimes':costs,'tokenSequenceSHA256':sha,'thermalPeakRaw':max(x['thermalState'] for x in samples)})
+ medrows=requests[2:]
+ summary[case]={'sourceSHA':r['sourceCommit'],'processID':r['processID'],'cachePolicy':next(x.split('=',1)[1] for x in json.loads((directory/'host-collection.json').read_text())['command'] if x.startswith('--validation-acoustic-cache=')),'requests':requests,'sampledPeakBytes':max(x['physicalFootprintBytes'] for x in timeline),'postExpiryBoundary':[{k:x[k] for k in ['stage','physicalFootprintBytes','uptimeNanoseconds']} for x in timeline if x['boundary'] and 'idle_35s' in x['stage']],'warmMedians':{key:statistics.median(x[key] for x in medrows) for key in ['totalMilliseconds','RTF','sampledPeakBytes','sampledLLMPeakBytes']} if medrows else None,'warmStageMedians':{key:statistics.median(x['stages'][key] for x in medrows) for key in ['llmGenerationMilliseconds','llmModelLoadMilliseconds','acousticModelLoadMilliseconds','acousticSynthesisMilliseconds']} if medrows else None,'warmRangeMs':max(x['totalMilliseconds'] for x in medrows)-min(x['totalMilliseconds'] for x in medrows) if medrows else None}
+ (dest/'model_lifecycle_events.json').write_text(json.dumps(events,indent=2)+'\n')
+ (dest/'receipt.json').write_bytes(p.read_bytes());(dest/'host-collection.json').write_bytes((directory/'host-collection.json').read_bytes());(dest/'console.log').write_bytes((directory/'console.log').read_bytes())
+(OUT/'measurement_summary.json').write_text(json.dumps(summary,indent=2)+'\n')
+for case,x in summary.items():print(case,x.get('warmMedians'),x.get('warmStageMedians'))

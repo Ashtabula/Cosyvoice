@@ -1,0 +1,16 @@
+Building for debugging...
+[Computing dependencies]
+[Pre-planning 1 / 422]
+[Planning deferred tasks]
+[2 / 44] swift-transformers_Hub
+[7 / 21] CosyVoice3Core
+[11 / 25] CosyVoice3Core
+[12 / 25] CosyVoice3Core
+[15 / 27] CosyVoice3Core
+[20 / 25] CosyVoice3Core-product
+[20 / 25] CosyVoice3CoreTests-product
+[31 / 36] CosyVoice3CoreTests-product
+[33 / 36] CosyVoice3CoreTests-product
+[35 / 39] CosyVoice3CoreTests-product
+Build complete! (2.90 sec)
+warning: No matching test cases were run

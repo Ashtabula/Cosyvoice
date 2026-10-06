@@ -1,0 +1,2670 @@
+[
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.begin",
+    "uptimeNanoseconds": 246287623813416
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.begin",
+    "uptimeNanoseconds": 246287623976125
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.end:warmed=0",
+    "uptimeNanoseconds": 246289583463291
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.begin",
+    "uptimeNanoseconds": 246289583492958
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+    "uptimeNanoseconds": 246289823270375
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.begin",
+    "uptimeNanoseconds": 246289823325125
+  },
+  {
+    "detail": "models/llm-opt-perlayer-prefill.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246289824018000
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+    "path": "models/llm-opt-perlayer-prefill.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246290498323416
+  },
+  {
+    "detail": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246290500231333
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+    "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246290944022416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.end",
+    "uptimeNanoseconds": 246290945253125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.begin:maxN=260",
+    "uptimeNanoseconds": 246290945283125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+    "uptimeNanoseconds": 246290945302041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.begin",
+    "uptimeNanoseconds": 246290948146541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.end",
+    "uptimeNanoseconds": 246290981012541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=1:maxN=260",
+    "uptimeNanoseconds": 246290981132250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=16:maxN=260",
+    "uptimeNanoseconds": 246291172108166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=32:maxN=260",
+    "uptimeNanoseconds": 246291372188458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=48:maxN=260",
+    "uptimeNanoseconds": 246291569313916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=64:maxN=260",
+    "uptimeNanoseconds": 246291765056291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=80:maxN=260",
+    "uptimeNanoseconds": 246291964280208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=96:maxN=260",
+    "uptimeNanoseconds": 246292162643791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=112:maxN=260",
+    "uptimeNanoseconds": 246292360750625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=128:maxN=260",
+    "uptimeNanoseconds": 246292560891541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=144:maxN=260",
+    "uptimeNanoseconds": 246292758457333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=160:maxN=260",
+    "uptimeNanoseconds": 246292953713000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=176:maxN=260",
+    "uptimeNanoseconds": 246293150096875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=192:maxN=260",
+    "uptimeNanoseconds": 246293349487250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=208:maxN=260",
+    "uptimeNanoseconds": 246293550039416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=224:maxN=260",
+    "uptimeNanoseconds": 246293745859708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=240:maxN=260",
+    "uptimeNanoseconds": 246293943285541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=256:maxN=260",
+    "uptimeNanoseconds": 246294140394000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.max_length:N=260",
+    "uptimeNanoseconds": 246294190276291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.end:N=260",
+    "uptimeNanoseconds": 246294190303333
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "635B39F5-D70F-4226-B144-BA783144C54E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "CAD1B054-EB6E-43D3-97F5-2FE03BBC19B5",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246294192605166
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246294208517166
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.begin:N=260",
+    "uptimeNanoseconds": 246294208633791
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.begin:N=260:T=822",
+    "uptimeNanoseconds": 246294208658458
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246294208667750
+  },
+  {
+    "detail": "enumerated-acoustic/conditions.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246294209721583
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "7B0973B1-CED7-4225-83D5-5FBC2D970FC9",
+    "path": "enumerated-acoustic/conditions.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246294219978166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "7B0973B1-CED7-4225-83D5-5FBC2D970FC9",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=12.558",
+    "uptimeNanoseconds": 246294221313666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "7B0973B1-CED7-4225-83D5-5FBC2D970FC9",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.begin:T=822",
+    "uptimeNanoseconds": 246294221331750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "7B0973B1-CED7-4225-83D5-5FBC2D970FC9",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.end:T=822",
+    "uptimeNanoseconds": 246294228012500
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "7B0973B1-CED7-4225-83D5-5FBC2D970FC9",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "phase": "acoustic.conditions.end:N=260:T=822",
+    "uptimeNanoseconds": 246294228578333
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246294228779875
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-0.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246294415125000
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+    "path": "../FlowPartitions/p2/group-0.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246294926787708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=699.093",
+    "uptimeNanoseconds": 246294927891083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246294927909166
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-1.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246295044735500
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+    "path": "../FlowPartitions/p2/group-1.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246295487639750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=563.884",
+    "uptimeNanoseconds": 246295491811958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.models.ready:count=2:function=n257_384",
+    "uptimeNanoseconds": 246295491834083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246295491911375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246295492003500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246295773744833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246295773803291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246295970979458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246295971063833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246295971076916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246295971145541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296050993208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296051091375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296116964833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246296117028041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246296117038875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296117057583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296197382958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296197647208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296263759208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246296263830583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246296263842250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296263861375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296344074666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296344316375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296413640625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246296413700041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246296413712208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296413730000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296493960458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296494191375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296561968333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246296562028000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246296562040000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296562057416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296642501416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246296642750083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246296709119708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246296709188750
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "C446718B-29BD-4FA6-8D28-E31CAE5C8594",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "6401CE4E-7C0E-4CF2-8AB8-4BA7C81B1A6D",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "phase": "acoustic.f0.begin:G=520",
+    "uptimeNanoseconds": 246296719393416
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.f0.end:G=520",
+    "uptimeNanoseconds": 246296741386000
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.begin:G=520:samples=249600",
+    "uptimeNanoseconds": 246296743805500
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246296743824916
+  },
+  {
+    "detail": "enumerated-acoustic/hift.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246296744611250
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "8C4D4020-1783-4579-8AE8-29C8CE30468C",
+    "path": "enumerated-acoustic/hift.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246296881725750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8C4D4020-1783-4579-8AE8-29C8CE30468C",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=141.104",
+    "uptimeNanoseconds": 246296884943583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8C4D4020-1783-4579-8AE8-29C8CE30468C",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.begin:samples=249600",
+    "uptimeNanoseconds": 246296884959708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8C4D4020-1783-4579-8AE8-29C8CE30468C",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.end:samples=249600",
+    "uptimeNanoseconds": 246297491539333
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "8C4D4020-1783-4579-8AE8-29C8CE30468C",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "phase": "acoustic.hift.end:G=520:samples=249600",
+    "uptimeNanoseconds": 246297496515666
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246297496628583
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246297496665666
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.begin",
+    "uptimeNanoseconds": 246300532264166
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.begin",
+    "uptimeNanoseconds": 246300532854166
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.end:warmed=0",
+    "uptimeNanoseconds": 246300548872250
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.begin",
+    "uptimeNanoseconds": 246300548930583
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+    "uptimeNanoseconds": 246300550888791
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.begin",
+    "uptimeNanoseconds": 246300550932333
+  },
+  {
+    "detail": "models/llm-opt-perlayer-prefill.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246300552706208
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+    "path": "models/llm-opt-perlayer-prefill.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246300662308041
+  },
+  {
+    "detail": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246300663922791
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+    "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246300729244000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.end",
+    "uptimeNanoseconds": 246300730120458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.begin:maxN=260",
+    "uptimeNanoseconds": 246300730142375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+    "uptimeNanoseconds": 246300730159416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.begin",
+    "uptimeNanoseconds": 246300732498666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.end",
+    "uptimeNanoseconds": 246300764506500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=1:maxN=260",
+    "uptimeNanoseconds": 246300764610833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=16:maxN=260",
+    "uptimeNanoseconds": 246300953435916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=32:maxN=260",
+    "uptimeNanoseconds": 246301152743541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=48:maxN=260",
+    "uptimeNanoseconds": 246301349971208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=64:maxN=260",
+    "uptimeNanoseconds": 246301548007000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=80:maxN=260",
+    "uptimeNanoseconds": 246301745414583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=96:maxN=260",
+    "uptimeNanoseconds": 246301941433666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=112:maxN=260",
+    "uptimeNanoseconds": 246302138525625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=128:maxN=260",
+    "uptimeNanoseconds": 246302336380666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=144:maxN=260",
+    "uptimeNanoseconds": 246302536005125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=160:maxN=260",
+    "uptimeNanoseconds": 246302736539500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=176:maxN=260",
+    "uptimeNanoseconds": 246302936496958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=192:maxN=260",
+    "uptimeNanoseconds": 246303134666583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=208:maxN=260",
+    "uptimeNanoseconds": 246303333617333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=224:maxN=260",
+    "uptimeNanoseconds": 246303530461916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=240:maxN=260",
+    "uptimeNanoseconds": 246303729347833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=256:maxN=260",
+    "uptimeNanoseconds": 246303927583041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.max_length:N=260",
+    "uptimeNanoseconds": 246303977812708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.end:N=260",
+    "uptimeNanoseconds": 246303977832041
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "E35D840E-FCE0-46C4-B1E6-61A847B5041E",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "343B3C4C-4DED-49C6-AB04-15C9746CB972",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246303980009625
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246303980036666
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.begin:N=260",
+    "uptimeNanoseconds": 246303980045375
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.begin:N=260:T=822",
+    "uptimeNanoseconds": 246303980140208
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246303980147666
+  },
+  {
+    "detail": "enumerated-acoustic/conditions.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246303980682958
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "E96E01C2-AF70-4656-9947-FB128112CABF",
+    "path": "enumerated-acoustic/conditions.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246303988370708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E96E01C2-AF70-4656-9947-FB128112CABF",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=9.598",
+    "uptimeNanoseconds": 246303989758333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E96E01C2-AF70-4656-9947-FB128112CABF",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.begin:T=822",
+    "uptimeNanoseconds": 246303989770708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "E96E01C2-AF70-4656-9947-FB128112CABF",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.end:T=822",
+    "uptimeNanoseconds": 246303991728250
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "E96E01C2-AF70-4656-9947-FB128112CABF",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "phase": "acoustic.conditions.end:N=260:T=822",
+    "uptimeNanoseconds": 246303992116791
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246303992248500
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-0.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246303993074041
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+    "path": "../FlowPartitions/p2/group-0.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246304228983208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=238.600",
+    "uptimeNanoseconds": 246304230872000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246304230904625
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-1.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246304231747041
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+    "path": "../FlowPartitions/p2/group-1.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246304380865625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=151.466",
+    "uptimeNanoseconds": 246304382437125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.models.ready:count=2:function=n257_384",
+    "uptimeNanoseconds": 246304382458875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246304382550875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246304382623250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246304635707708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246304635766916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246304836971500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246304837053291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246304837065916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246304837130333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246304917878083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246304918032416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246304983956125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246304984017708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246304984030875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246304984051125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305064589666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305064860541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305132312208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246305132375000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246305132384583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305132402333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305212917666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305213178208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305281904000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246305281964083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246305281974000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305281991583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305362304625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305362548000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305429640541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246305429710458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246305429721791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305429740541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305510550666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246305510805250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246305580750791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246305580809166
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "32044712-53C8-41F1-AD2B-1DAA2D0E82E5",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "6E201FA9-54E9-4F9A-B492-695DCA8B0226",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "phase": "acoustic.f0.begin:G=520",
+    "uptimeNanoseconds": 246305590909333
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.f0.end:G=520",
+    "uptimeNanoseconds": 246305611155708
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.begin:G=520:samples=249600",
+    "uptimeNanoseconds": 246305613185458
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246305613205666
+  },
+  {
+    "detail": "enumerated-acoustic/hift.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246305613801916
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "BEE9B9A9-114B-4025-B591-3E88F48E5700",
+    "path": "enumerated-acoustic/hift.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246305717684583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "BEE9B9A9-114B-4025-B591-3E88F48E5700",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=105.807",
+    "uptimeNanoseconds": 246305719028750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "BEE9B9A9-114B-4025-B591-3E88F48E5700",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.begin:samples=249600",
+    "uptimeNanoseconds": 246305719046000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "BEE9B9A9-114B-4025-B591-3E88F48E5700",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.end:samples=249600",
+    "uptimeNanoseconds": 246306326683500
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "BEE9B9A9-114B-4025-B591-3E88F48E5700",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "phase": "acoustic.hift.end:G=520:samples=249600",
+    "uptimeNanoseconds": 246306331395875
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246306331470583
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246306331537833
+  }
+]

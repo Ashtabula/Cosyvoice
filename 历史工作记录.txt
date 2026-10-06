@@ -552,3 +552,10 @@ Actions: final unsupported-mode guard signed iOS Release build PASS; preserve ac
 Files: append-only 历史工作记录.txt; all detailed evidence in ios/validation/evidence/warm_decode_pass_20261006.
 Validation: final xcodebuild BUILD SUCCEEDED in /private/tmp/cosy-warm-pass-final-compile.log; prior 20 relevant Swift tests and 7 physical identical requests retained.
 GitHub Timeline: bd848f3 已push并核对; e4956be 已commit未push; this closing log and guard push next.
+
+Time:2026-10-06 09:50 EDT America/New_York
+Prompt: narrowly investigate model residency/lifetime memory overlap; frozen SHARDS2/Flow6/token/PCM/placement.
+Actions: read accepted b65820d and warm50677fb evidence/source/listening checkpoint. Measurement-only weak MLModel registry source0ee8b5f; confirmed secondLLM holds2LLM+4previousacoustic models. Compare existing selected-family/none/decoder policies, no productionpolicy change. Nominal3warm CURRENT median4899.990917ms vsDECODER5738.071583ms; peakmedian saves152.938MiB/6.857percent but reload+461.541ms and total+838.081ms/17.104percent. NONE nominalmemorypair saves294.251MiB but+844.557ms total. Rejectboth. Four-model expiry/drop correlation; exactper-model/CoreMLprivate bytesunknown; noleakclaim.
+Files: model_lifetime_20261006 static/lifecyclemaps/receipts/events/memorytimeline/summary/report/testbuildlogs; opt-in AssetLoader/Engine weakmeasurement hooks + DeviceSmoke/runner lane. Generated3identicalWAV localignored artifacts/listening/2shard/model-lifetime_20261006.
+Validation:19relevantexistingSwiftPASS; signedReleasePASS aftersharedXcodebuild.db malformed, fixedexplicitrepoOBJROOT/SYMROOT (initialfailurelogretained);26publicphysicalrequests allfrozen token5227/PCM909/WAVa04 BIT_IDENTICAL. FirstattemptDECODER refusednominalstart; NONE andlastCURRENT groupsfair rows retainedbut excludedstrictnominalcomparison. No artificialcooldown/endurance/6shard/HF/catalog/promotion. STOP: no acceptable safe memory/latency tradeoff.
+GitHub Timeline:be16f4d已push; measurement0ee8b5f已commit未push; evidence/logcommit与pushnext.

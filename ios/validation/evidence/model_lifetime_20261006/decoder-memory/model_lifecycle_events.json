@@ -1,0 +1,3638 @@
+[
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.begin",
+    "uptimeNanoseconds": 246631200524333
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.begin",
+    "uptimeNanoseconds": 246631200751208
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.end:warmed=0",
+    "uptimeNanoseconds": 246633118765375
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.begin",
+    "uptimeNanoseconds": 246633118804916
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+    "uptimeNanoseconds": 246633426762125
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.begin",
+    "uptimeNanoseconds": 246633426822500
+  },
+  {
+    "detail": "models/llm-opt-perlayer-prefill.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246633427609500
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+    "path": "models/llm-opt-perlayer-prefill.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246633883462125
+  },
+  {
+    "detail": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246633885459041
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+    "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246634323455416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.end",
+    "uptimeNanoseconds": 246634324803333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.begin:maxN=260",
+    "uptimeNanoseconds": 246634324958125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+    "uptimeNanoseconds": 246634324988208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.begin",
+    "uptimeNanoseconds": 246634328513375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.end",
+    "uptimeNanoseconds": 246634354469708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=1:maxN=260",
+    "uptimeNanoseconds": 246634354588125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=16:maxN=260",
+    "uptimeNanoseconds": 246634549699500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=32:maxN=260",
+    "uptimeNanoseconds": 246634751486625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=48:maxN=260",
+    "uptimeNanoseconds": 246634950289541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=64:maxN=260",
+    "uptimeNanoseconds": 246635149247625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=80:maxN=260",
+    "uptimeNanoseconds": 246635350760583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=96:maxN=260",
+    "uptimeNanoseconds": 246635545428125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=112:maxN=260",
+    "uptimeNanoseconds": 246635744245541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=128:maxN=260",
+    "uptimeNanoseconds": 246635942882750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=144:maxN=260",
+    "uptimeNanoseconds": 246636141690041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=160:maxN=260",
+    "uptimeNanoseconds": 246636336096708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=176:maxN=260",
+    "uptimeNanoseconds": 246636533996791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=192:maxN=260",
+    "uptimeNanoseconds": 246636731398291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=208:maxN=260",
+    "uptimeNanoseconds": 246636926684333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=224:maxN=260",
+    "uptimeNanoseconds": 246637127627875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=240:maxN=260",
+    "uptimeNanoseconds": 246637324848333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=256:maxN=260",
+    "uptimeNanoseconds": 246637520184791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.max_length:N=260",
+    "uptimeNanoseconds": 246637569704000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.end:N=260",
+    "uptimeNanoseconds": 246637569733958
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "2DBEDE63-D46C-461F-8F09-B4B07BDF1CC4",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "45D8D759-81B3-442E-BDD8-D647D5653A28",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      }
+    ],
+    "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246637584014791
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246637608450000
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.begin:N=260",
+    "uptimeNanoseconds": 246637608611041
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.begin:N=260:T=822",
+    "uptimeNanoseconds": 246637608653583
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246637608676583
+  },
+  {
+    "detail": "enumerated-acoustic/conditions.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246637609910458
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+    "path": "enumerated-acoustic/conditions.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246637623900041
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+    "event": "SHELF_INSERT",
+    "uptimeNanoseconds": 246637625358875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=16.709",
+    "uptimeNanoseconds": 246637625449333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.begin:T=822",
+    "uptimeNanoseconds": 246637625467958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.end:T=822",
+    "uptimeNanoseconds": 246637633765750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.end:N=260:T=822",
+    "uptimeNanoseconds": 246637633828666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246637633995416
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-0.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246637816055666
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+    "path": "../FlowPartitions/p2/group-0.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246638343659083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=710.797",
+    "uptimeNanoseconds": 246638344818500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246638344839375
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-1.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246638463585041
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+    "path": "../FlowPartitions/p2/group-1.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246638981481041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=638.422",
+    "uptimeNanoseconds": 246638983286583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.models.ready:count=2:function=n257_384",
+    "uptimeNanoseconds": 246638983322333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246638983532958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246638983573416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639288289583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639288345666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639491644250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246639491731333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246639491799791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639491828916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639571929250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639572024666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639637356416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246639637418583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246639637483958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639637505833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639717524666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639717800958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639783600500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246639783668125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246639783680625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639783789375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639864050083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639864284500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246639932403958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246639932464125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246639932487541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246639932506666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246640012689208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246640012931916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246640080769833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246640080830708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246640080858416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246640080877208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246640161467125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246640161770333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246640226426250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246640226485833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "9A074C31-D5F7-4F43-94A2-FB3C44196BCA",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "EBAB4121-CD27-40AF-B7B3-3CFA37C39894",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      }
+    ],
+    "phase": "acoustic.f0.begin:G=520",
+    "uptimeNanoseconds": 246640236826208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.f0.end:G=520",
+    "uptimeNanoseconds": 246640261416833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.begin:G=520:samples=249600",
+    "uptimeNanoseconds": 246640264672166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246640264695541
+  },
+  {
+    "detail": "enumerated-acoustic/hift.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246640265533291
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+    "path": "enumerated-acoustic/hift.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246640401738291
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+    "event": "SHELF_INSERT",
+    "uptimeNanoseconds": 246640403476000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=138.833",
+    "uptimeNanoseconds": 246640403544166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.begin:samples=249600",
+    "uptimeNanoseconds": 246640403576833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.end:samples=249600",
+    "uptimeNanoseconds": 246641015035416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.end:G=520:samples=249600",
+    "uptimeNanoseconds": 246641015145000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246641015267291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246641015350583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.begin",
+    "uptimeNanoseconds": 246644070112333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.begin",
+    "uptimeNanoseconds": 246644070760291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "prepare.end:warmed=0",
+    "uptimeNanoseconds": 246644086503833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.begin",
+    "uptimeNanoseconds": 246644086566958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+    "uptimeNanoseconds": 246644088823666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.begin",
+    "uptimeNanoseconds": 246644088883458
+  },
+  {
+    "detail": "models/llm-opt-perlayer-prefill.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246644090512791
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+    "path": "models/llm-opt-perlayer-prefill.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246644230799666
+  },
+  {
+    "detail": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246644232267000
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "default",
+    "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+    "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 3)",
+    "uptimeNanoseconds": 246644296447500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.load.end",
+    "uptimeNanoseconds": 246644297465208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.begin:maxN=260",
+    "uptimeNanoseconds": 246644297487750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+    "uptimeNanoseconds": 246644297533541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.begin",
+    "uptimeNanoseconds": 246644299726125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.prefill.end",
+    "uptimeNanoseconds": 246644331851083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=1:maxN=260",
+    "uptimeNanoseconds": 246644331961666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=16:maxN=260",
+    "uptimeNanoseconds": 246644519643541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=32:maxN=260",
+    "uptimeNanoseconds": 246644716487208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=48:maxN=260",
+    "uptimeNanoseconds": 246644911985833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=64:maxN=260",
+    "uptimeNanoseconds": 246645110077875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=80:maxN=260",
+    "uptimeNanoseconds": 246645310071291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=96:maxN=260",
+    "uptimeNanoseconds": 246645509856833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=112:maxN=260",
+    "uptimeNanoseconds": 246645708298958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=128:maxN=260",
+    "uptimeNanoseconds": 246645908190541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=144:maxN=260",
+    "uptimeNanoseconds": 246646107995000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=160:maxN=260",
+    "uptimeNanoseconds": 246646310386250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=176:maxN=260",
+    "uptimeNanoseconds": 246646513508875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=192:maxN=260",
+    "uptimeNanoseconds": 246646715927458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=208:maxN=260",
+    "uptimeNanoseconds": 246646917884083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=224:maxN=260",
+    "uptimeNanoseconds": 246647131257125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=240:maxN=260",
+    "uptimeNanoseconds": 246647340264833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.decode.progress:N=256:maxN=260",
+    "uptimeNanoseconds": 246647545564500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.max_length:N=260",
+    "uptimeNanoseconds": 246647593669458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "llm.generate.end:N=260",
+    "uptimeNanoseconds": 246647593691708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "8AED4B4F-6C26-4D1E-985F-532FC9CAF086",
+        "path": "models/llm-opt-perlayer-prefill.mlpackage"
+      },
+      {
+        "id": "4042F495-AF52-4E58-97A1-D2016D3F718A",
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage"
+      }
+    ],
+    "phase": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246647595747000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+    "uptimeNanoseconds": 246647595770333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.begin:N=260",
+    "uptimeNanoseconds": 246647595870666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.begin:N=260:T=822",
+    "uptimeNanoseconds": 246647595885875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246647595897958
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+    "event": "SHELF_HIT",
+    "uptimeNanoseconds": 246647596469750
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+    "event": "SHELF_INSERT",
+    "uptimeNanoseconds": 246647596479500
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.732",
+    "uptimeNanoseconds": 246647596644458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.begin:T=822",
+    "uptimeNanoseconds": 246647596654208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.prediction.end:T=822",
+    "uptimeNanoseconds": 246647598199708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.conditions.end:N=260:T=822",
+    "uptimeNanoseconds": 246647598234625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246647598289083
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-0.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246647598977833
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+    "path": "../FlowPartitions/p2/group-0.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246647811931791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=214.831",
+    "uptimeNanoseconds": 246647813137083
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246647813156500
+  },
+  {
+    "detail": "../FlowPartitions/p2/group-1.mlpackage",
+    "event": "MODEL_LOAD_BEGIN",
+    "uptimeNanoseconds": 246647813936583
+  },
+  {
+    "event": "MODEL_LOAD_END",
+    "function": "n257_384",
+    "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+    "path": "../FlowPartitions/p2/group-1.mlpackage",
+    "requestedUnits": "MLComputeUnits(rawValue: 1)",
+    "uptimeNanoseconds": 246648004711333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=192.701",
+    "uptimeNanoseconds": 246648005918333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.models.ready:count=2:function=n257_384",
+    "uptimeNanoseconds": 246648005945541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246648006035291
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648006122000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648270838166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648270902583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648485452416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.1.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246648485541041
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246648485590333
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648485615125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648566278416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648566410541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648632183375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.2.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246648632253666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246648632267208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648632346750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648712740916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648713026166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648779202000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.3.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246648779272166
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246648779284458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648779379791
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648859904875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648860164208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246648928764666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.4.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246648928826750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246648928889416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246648928909666
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246649009570125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246649009837458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246649078154208
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.5.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246649078214583
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.begin:N=260:T=822",
+    "uptimeNanoseconds": 246649078241958
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246649078261000
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246649159017625
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+    "uptimeNanoseconds": 246649159304125
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+    "uptimeNanoseconds": 246649228495458
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.flow.step.6.6.end:N=260:T=822",
+    "uptimeNanoseconds": 246649228554916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "692CA4CA-26B6-4369-A18D-6949082A8D2E",
+        "path": "../FlowPartitions/p2/group-0.mlpackage"
+      },
+      {
+        "id": "46841814-3A43-4C99-A71A-2EBD5B34595F",
+        "path": "../FlowPartitions/p2/group-1.mlpackage"
+      }
+    ],
+    "phase": "acoustic.f0.begin:G=520",
+    "uptimeNanoseconds": 246649238759375
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.f0.end:G=520",
+    "uptimeNanoseconds": 246649260238916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.begin:G=520:samples=249600",
+    "uptimeNanoseconds": 246649262595541
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+    "uptimeNanoseconds": 246649262616708
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+    "event": "SHELF_HIT",
+    "uptimeNanoseconds": 246649263225083
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+    "event": "SHELF_INSERT",
+    "uptimeNanoseconds": 246649263244708
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.699",
+    "uptimeNanoseconds": 246649263330250
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.begin:samples=249600",
+    "uptimeNanoseconds": 246649263340750
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.prediction.end:samples=249600",
+    "uptimeNanoseconds": 246649776696416
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.hift.end:G=520:samples=249600",
+    "uptimeNanoseconds": 246649776748916
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "acoustic.synthesize.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246649776847833
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      },
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [],
+    "phase": "synthesis.end:N=260:samples=249600",
+    "uptimeNanoseconds": 246649776967875
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/6755148a206bbcf53bc57b2386af97eb7019eba56b8029854e06140743d0427f.mlmodelc|3c0044497e2777b4fda61661ca51af507deb7d55d30a733237a5d9ac1a1bcda2",
+    "event": "SHELF_EVICT",
+    "uptimeNanoseconds": 246677609875875
+  },
+  {
+    "aliveSwiftModels": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "9E6E881F-BC08-4A4C-AAA5-2B8956DF2B7D",
+        "path": "enumerated-acoustic/conditions.mlpackage"
+      }
+    ],
+    "phase": "shelf_expiry",
+    "uptimeNanoseconds": 246677610031041
+  },
+  {
+    "detail": "/var/mobile/Containers/Data/Application/B6B71D19-6DA6-4389-ABDD-7E299E4BCC9E/Library/Application Support/CosyVoice3Core/RuntimeDerived-v2/CompiledModels/2a5c1bd23f3bf855ab74518d33d6984c1a6d94ff8f716aab5bbd409bdc6870c1.mlmodelc|3612c7385baf89640a04a536aa16293d07c9d02de46defaadf7f01d0a1a5ec40",
+    "event": "SHELF_EVICT",
+    "uptimeNanoseconds": 246679294777250
+  },
+  {
+    "aliveSwiftModels": [],
+    "event": "MODEL_STAGE_OBSERVATION",
+    "newlyObservedSwiftOwnerReleased": [
+      {
+        "id": "C137A4C7-5969-4E94-ACE8-2FDA68E9968E",
+        "path": "enumerated-acoustic/hift.mlpackage"
+      }
+    ],
+    "phase": "shelf_expiry",
+    "uptimeNanoseconds": 246679294858125
+  }
+]
