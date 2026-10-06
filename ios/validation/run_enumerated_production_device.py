@@ -170,6 +170,8 @@ def main() -> None:
     parser.add_argument("--placement", action="append", default=[], help="role:CPU_ONLY|CPU_AND_GPU|CPU_AND_NE; validation only")
     parser.add_argument("--single-function", action="append", default=[])
     parser.add_argument("--reuse-compiled-caches", action="store_true")
+    parser.add_argument("--workload-text")
+    parser.add_argument("--persistent-idle", action="store_true")
     parser.add_argument("--materialize-te", action="store_true")
     parser.add_argument("--capture-pcm", action="store_true")
     parser.add_argument("--idle-readiness", action="store_true")
@@ -231,7 +233,7 @@ def main() -> None:
         capture=True,
     ).splitlines()
     diagnostic_compute = args.diagnostic_enumerated_compute != "production" or bool(args.placement) or bool(args.single_function) or args.acoustic_cache != "none" or args.flow_partition != 6
-    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift"}
+    diagnostic_allowed_runtime_files = {"ios/Sources/CosyVoice3Core/CosyVoice3AssetLoader.swift", "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift", "ios/Sources/CosyVoice3Core/CosyVoice3Engine.swift", "ios/Sources/CosyVoice3Core/CosyVoice3PersistentRuntimeStore.swift"}
     if runtime_changed and not (
         diagnostic_compute
         and set(runtime_changed).issubset(diagnostic_allowed_runtime_files)
@@ -358,7 +360,13 @@ def main() -> None:
             started = time.time()
             candidate_args = ["--candidate-benchmark", "--no-playback"]
             if not args.reuse_compiled_caches:
-                candidate_args.append("--reset-cosy-cache")
+                candidate_args += ["--reset-cosy-cache", "--validation-cold-lane=FIRST_EVER_COLD"]
+            else:
+                candidate_args.append("--validation-cold-lane=PROCESS_RELAUNCH_COLD")
+            if args.workload_text:
+                candidate_args.append("--validation-workload-text=" + args.workload_text)
+            if args.persistent_idle:
+                candidate_args.append("--validation-persistent-idle")
             if args.diagnostic_enumerated_compute == "cpu-gpu":
                 candidate_args.append("--validation-enumerated-cpu-gpu")
             elif args.diagnostic_enumerated_compute == "cpu-only":

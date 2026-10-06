@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS_HOST_VELOCITY_PARITY",
+  "algorithmUnchanged": "export structural gate plus numerical controls; physical gate pending",
+  "computeUnits": "CPU_ONLY",
+  "scope": "HOST_COMPLETE_VELOCITY_CONTROL_NO_SAMPLER_OR_ENDPOINT_AUDIO",
+  "tolerance": {
+    "atol": 0.0003,
+    "rtol": 0.0003
+  },
+  "cases": [
+    {
+      "N": 129,
+      "T": 560,
+      "function": "n129_256",
+      "partition": 6,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        560
+      ],
+      "elapsedSeconds": 34.881094707991
+    },
+    {
+      "N": 129,
+      "T": 560,
+      "function": "n129_256",
+      "partition": 3,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        560
+      ],
+      "elapsedSeconds": 44.00346249999711
+    },
+    {
+      "N": 129,
+      "T": 560,
+      "function": "n129_256",
+      "partition": 2,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        560
+      ],
+      "elapsedSeconds": 55.28779245799524
+    },
+    {
+      "N": 129,
+      "T": 560,
+      "function": "n129_256",
+      "partition": 1,
+      "status": "PASS",
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true,
+      "shape": [
+        2,
+        80,
+        560
+      ],
+      "elapsedSeconds": 72.99468295800034
+    }
+  ]
+}

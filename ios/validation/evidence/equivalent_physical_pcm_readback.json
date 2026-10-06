@@ -1,0 +1,34 @@
+{
+  "status": "PASS_FLOAT32_BIT_IDENTICAL",
+  "baseline": "control-6-none actual device raw Float32 bytes; performance of this control excluded due to I/O overlap",
+  "models": [
+    {
+      "name": "partition2-selected",
+      "samples": 249600,
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true
+    },
+    {
+      "name": "partition3-selected",
+      "samples": 249600,
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true
+    },
+    {
+      "name": "partition1-te",
+      "samples": 249600,
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true
+    },
+    {
+      "name": "idle-6-selected",
+      "samples": 249600,
+      "maxAbs": 0.0,
+      "relativeL2": 0.0,
+      "bitIdentical": true
+    }
+  ]
+}

@@ -9,10 +9,10 @@ enum CosyVoice3AssetError: Error, Equatable { case missing(String); case invalid
 enum CosyVoice3ModelComputePlacement {
     // Physical iPhone validation: stateful LLM prefill/decode must remain CPU_ONLY.
     // CPU_AND_NE previously failed execution-plan construction with Core ML error -14.
-    static let llm: MLComputeUnits = .cpuOnly
+    static let llm: MLComputeUnits = .cpuAndNeuralEngine
     // Dynamic/fixed acoustic Core ML graphs use the accepted CPU_AND_NE request policy.
     // This is a requested compute-unit policy, not a residency claim.
-    static let acoustic: MLComputeUnits = .cpuAndNeuralEngine
+    static let acoustic: MLComputeUnits = .cpuAndGPU
     static let referenceEncoder: MLComputeUnits = .cpuOnly
 }
 
@@ -85,6 +85,11 @@ private final class CosyVoice3ValidationModelShelf: @unchecked Sendable {
             }
         }
     }
+}
+
+private final class CosyVoice3ConstructorGate: @unchecked Sendable {
+    static let shared = CosyVoice3ConstructorGate()
+    let lock = NSRecursiveLock()
 }
 
 struct CosyVoice3ModelWarmSpec: @unchecked Sendable {
@@ -357,8 +362,11 @@ enum CosyVoice3AssetLoader {
         computeUnits: MLComputeUnits = CosyVoice3ModelComputePlacement.acoustic,
         reshapeFrequencyInfrequent: Bool = false,
         preferFastPrediction: Bool = false,
-        functionName: String? = nil
+        functionName: String? = nil,
+        allowValidationRetention: Bool = true
     ) throws -> MLModel {
+        CosyVoice3ConstructorGate.shared.lock.lock()
+        defer { CosyVoice3ConstructorGate.shared.lock.unlock() }
         let role = CosyVoice3ValidationPlacement.role(for: path)
         let singleRoles = CommandLine.arguments.filter { $0.hasPrefix("--validation-single-function=") }.map { String($0.dropFirst("--validation-single-function=".count)) }
         guard Set(singleRoles).count == singleRoles.count, singleRoles.allSatisfy({ ["conditions", "hift", "flow0", "flow1", "flow2", "flow3", "flow4", "flow5"].contains($0) }) else {
@@ -367,7 +375,6 @@ enum CosyVoice3AssetLoader {
         let single = role.map { singleRoles.contains($0) } ?? false
         let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental").appendingPathComponent(role! + ".mlpackage") : root.appendingPathComponent(path)
         guard FileManager.default.fileExists(atPath: source.path) else { throw CosyVoice3AssetError.missing(source.path) }
-        let compiled = try compiledModelURL(source: source)
         let config = MLModelConfiguration()
         let gpuKey: String? = path.hasPrefix("dynamic-acoustic/") ? "COSYVOICE3_VALIDATION_ACOUSTIC_GPU" : nil
         let enumeratedGPU = (path.hasPrefix("enumerated-acoustic/") || path.hasPrefix("../FlowPartitions/")) && CommandLine.arguments.contains("--validation-enumerated-cpu-gpu")
@@ -390,25 +397,48 @@ enum CosyVoice3AssetLoader {
             print("[COSY-ROLE-PLACEMENT] role=\(role) path=\(path) requested=\(effectiveUnits) evidence=requested-only")
         }
         config.functionName = single ? nil : functionName
+        let packageVariant = single ? "EXTRACTED_SINGLE_FUNCTION_DIAGNOSTIC" : (path.hasPrefix("../FlowPartitions/") ? "EXPERIMENTAL_LOSSLESS_MULTIFUNCTION_PARTITION" : "FROZEN_PACKAGE")
+        print("[COSY-ACTUAL-PACKAGE] sourcePath=\(source.standardizedFileURL.path) selectedFunctionName=\(config.functionName ?? "<nil:main>") variant=\(packageVariant) multifunction=\(!single && functionName != nil) extractedSingleFunction=\(single)")
         if effectiveUnits != computeUnits || single { print("[COSY-PLACEMENT-PROBE] path=\(path) requested=\(computeUnits) effective=\(effectiveUnits) singleFunction=\(single) validationOnly=YES") }
         if preferFastPrediction { config.optimizationHints.specializationStrategy = .fastPrediction }
         if reshapeFrequencyInfrequent {
             config.optimizationHints.reshapeFrequency = .infrequent
+        }
+        let persistent = CosyVoice3PersistentRuntimeStore.shared
+        let identity = try persistent.identity(root: root, source: source, function: config.functionName, units: effectiveUnits, reshape: reshapeFrequencyInfrequent)
+        let expectedCompiled = try persistent.directory("CompiledModels").appendingPathComponent(try persistent.artifactKey(source: source) + ".mlmodelc")
+        let compiledHit = source.pathExtension == "mlmodelc" || FileManager.default.fileExists(atPath: expectedCompiled.path)
+        let compiled = try compiledModelURL(source: source)
+        func construct() throws -> MLModel {
+            let started = DispatchTime.now().uptimeNanoseconds
+            let result: MLModel
+            do { result = try MLModel(contentsOf: compiled, configuration: config) }
+            catch {
+                try persistent.invalidate(identity, reason: "authoritative load failed: \(error)")
+                // A stale/corrupt app-owned artifact is rebuilt once, with identical
+                // model bytes, configuration and placement; there is no policy fallback.
+                if compiled.path != source.path, FileManager.default.fileExists(atPath: compiled.path) { try FileManager.default.removeItem(at: compiled) }
+                let rebuilt = try compiledModelURL(source: source)
+                result = try MLModel(contentsOf: rebuilt, configuration: config)
+            }
+            try persistent.validatedLoad(identity: identity, compiled: compiled,
+                milliseconds: Double(DispatchTime.now().uptimeNanoseconds-started)/1_000_000, compiledHit: compiledHit)
+            return result
         }
         let cacheArguments = CommandLine.arguments.filter { $0.hasPrefix("--validation-acoustic-cache=") }
         guard cacheArguments.count <= 1 else { throw CosyVoice3AssetError.compiledCache("duplicate acoustic cache strategy") }
         let strategy = cacheArguments.first.map { String($0.dropFirst("--validation-acoustic-cache=".count)) } ?? "none"
         guard ["none", "small", "decoder", "selected-family"].contains(strategy) else { throw CosyVoice3AssetError.compiledCache("invalid acoustic cache strategy \(strategy)") }
         let acousticRole = role.map { $0 == "conditions" || $0 == "hift" || $0.hasPrefix("flow") } ?? false
-        let retain = acousticRole && (strategy == "selected-family" || (strategy == "small" && role == "conditions") || (strategy == "decoder" && ["conditions", "hift"].contains(role ?? "")))
+        let retain = allowValidationRetention && acousticRole && (strategy == "selected-family" || (strategy == "small" && role == "conditions") || (strategy == "decoder" && ["conditions", "hift"].contains(role ?? "")))
         do {
             if retain {
                 let key = compiled.path + "|" + String(describing: effectiveUnits) + "|" + (config.functionName ?? "main")
                 return try CosyVoice3ValidationModelShelf.shared.model(key: key, family: functionName ?? "default") {
-                    try MLModel(contentsOf: compiled, configuration: config)
+                    try construct()
                 }
             }
-            return try MLModel(contentsOf: compiled, configuration: config)
+            return try construct()
         } catch {
             throw CosyVoice3AssetError.compiledCache(
                 "MLModel load failed path=\(path) function=\(functionName ?? "<default>") computeUnits=\(String(describing: effectiveUnits)) reshapeFrequencyInfrequent=\(reshapeFrequencyInfrequent) compiled=\(compiled.lastPathComponent) source=\(source.path) error=\(String(describing: error))"
@@ -439,6 +469,16 @@ enum CosyVoice3AssetLoader {
             preferFastPrediction: false,
             functionName: functionName
         )
+    }
+
+    static func familyIdentity(root: URL, path: String, function: String) throws -> [String: String] {
+        let role = CosyVoice3ValidationPlacement.role(for: path)
+        let single = role.map { CommandLine.arguments.contains("--validation-single-function=\($0)") } ?? false
+        let source = single ? root.deletingLastPathComponent().appendingPathComponent("ANEExperimental/\(role!).mlpackage") : root.appendingPathComponent(path)
+        let base: MLComputeUnits = CommandLine.arguments.contains("--validation-enumerated-cpu-only") ? .cpuOnly : .cpuAndGPU
+        let overrides = try CosyVoice3ValidationPlacement.overrides()
+        let units = role.flatMap { overrides[$0] } ?? base
+        return try CosyVoice3PersistentRuntimeStore.shared.identity(root: root, source: source, function: single ? nil : function, units: units, reshape: false)
     }
 
     static func warmModels(
@@ -522,8 +562,7 @@ enum CosyVoice3AssetLoader {
         }
 
         let cacheRoot = try compiledModelCacheRoot(fileManager: fileManager)
-        let fingerprint = try sourceFingerprint(source, fileManager: fileManager)
-        let digest = SHA256.hash(data: Data(fingerprint.utf8)).map { String(format: "%02x", $0) }.joined()
+        let digest = try CosyVoice3PersistentRuntimeStore.shared.artifactKey(source: source)
         let destination = cacheRoot.appendingPathComponent(digest + ".mlmodelc", isDirectory: true)
 
         if fileManager.fileExists(atPath: destination.path, isDirectory: &isDirectory), isDirectory.boolValue {
@@ -552,29 +591,17 @@ enum CosyVoice3AssetLoader {
     }
 
     private static func compiledModelCacheRoot(fileManager: FileManager) throws -> URL {
-        guard let caches = fileManager.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            throw CosyVoice3AssetError.compiledCache("Caches directory unavailable")
-        }
-        let root = caches
-            .appendingPathComponent("CosyVoice3Core", isDirectory: true)
-            .appendingPathComponent("CompiledModels-" + compiledCacheVersion, isDirectory: true)
-        try fileManager.createDirectory(at: root, withIntermediateDirectories: true)
-        return root
+        try CosyVoice3PersistentRuntimeStore.shared.directory("CompiledModels")
     }
 
     private static func warmMarkerURL(root: URL, specs: [CosyVoice3ModelWarmSpec]) throws -> URL {
-        guard let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first else {
-            throw CosyVoice3AssetError.compiledCache("Caches directory unavailable")
-        }
-        let markerRoot = caches
-            .appendingPathComponent("CosyVoice3Core", isDirectory: true)
-            .appendingPathComponent("PreparedModelPlans-v1", isDirectory: true)
-        try FileManager.default.createDirectory(at: markerRoot, withIntermediateDirectories: true)
+        let markerRoot = try CosyVoice3PersistentRuntimeStore.shared.directory("PreparedModelPlans")
 
         let loadedManifest = try loadManifest(root: root)
         let manifest = root.appendingPathComponent(loadedManifest.manifestFileName)
         let manifestData = try Data(contentsOf: manifest)
         let manifestHash = SHA256.hash(data: manifestData).map { String(format: "%02x", $0) }.joined()
+        let contentIdentity = try CosyVoice3PersistentRuntimeStore.shared.rootIdentity(root)
         let rows = specs.map { spec -> String in
             let units = String(describing: spec.computeUnits)
             let reshape = String(spec.reshapeFrequencyInfrequent)
@@ -598,6 +625,8 @@ enum CosyVoice3AssetLoader {
             ProcessInfo.processInfo.operatingSystemVersionString,
             root.standardizedFileURL.path,
             manifestHash,
+            contentIdentity.payload,
+            CosyVoice3PersistentRuntimeStore.runtimeVersion,
             rows.joined(separator: "\n"),
             validationArguments.joined(separator: "\n"),
             diagnosticReceipts.joined(separator: "\n")
@@ -636,6 +665,8 @@ enum CosyVoice3AssetLoader {
 // package switches and staged diagnostic receipt bytes; no model/math changes.
 // Purpose: prevent cross-configuration readiness reuse. Upstream: AssetLoader warm markers.
 // Environment: Swift6/CoreML on iOS18+; generated in America/New_York.
+// Changes 2026-10-05 21:18 EDT: emit actual resolved package/configuration identity;
+// diagnostic partitions and extracted main are explicit. Logging only, model/math unchanged.
 
 // Purpose: centralize immutable fixed225-or-dynamic assets, gate custom-reference enrollment on explicit device-parity promotion, and persist compiled Core ML artifacts outside each synthesis call.
 // Upstream: CosyVoice3_NPU@8789402; stable compiled-artifact lifecycle follows the accepted StatefulLLMBench full-pipeline strategy.

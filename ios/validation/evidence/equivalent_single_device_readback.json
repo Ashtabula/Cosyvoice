@@ -1,0 +1,200 @@
+{
+  "status": "PASS",
+  "readbackRoot": "/private/tmp/cosy-ane-v9-device-readback-20261005",
+  "models": [
+    {
+      "role": "conditions",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "f229995d1866adcbbf024cd975ca925ab0d2c9c043585115963ca3ba672d65e2",
+          "bytes": 15145,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae",
+          "bytes": 4459968,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "033dfa5757ebe93dad7688bc92125b80a139f8d73537bc2203b437c4b0c56a89",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow0",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "375baa02db2e0dae4b95322a18cdcbf66b4fcfbf644e81f252cfc9e9af2549f3",
+          "bytes": 110672,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3",
+          "bytes": 128965248,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "d8bba11879e37b5e09f89382d26b8ef5aeb71cc1d376a5765105a5155b54e342",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow1",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "83d15443da4d143334e673c65d4f15fade232f805f5f754971fea66a8a0dbed3",
+          "bytes": 95903,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f",
+          "bytes": 117550784,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "180b6f9bc090e5edc36da620b4efe541177e3b9a11ca6524b19c8edbb52fe633",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow2",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "83d15443da4d143334e673c65d4f15fade232f805f5f754971fea66a8a0dbed3",
+          "bytes": 95903,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a",
+          "bytes": 117550784,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "f6ba08c31bc5b972efa4c9ffd9c76b3507546a63eba21c78fe7daf045587f57c",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow3",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "83d15443da4d143334e673c65d4f15fade232f805f5f754971fea66a8a0dbed3",
+          "bytes": 95903,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c",
+          "bytes": 117550784,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "c29915627a6fd0dfbd5ece9ab27d50a46fe738977054d5767aa9dacb6bfbab6e",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow4",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "83d15443da4d143334e673c65d4f15fade232f805f5f754971fea66a8a0dbed3",
+          "bytes": 95903,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328",
+          "bytes": 117550784,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "96f72f3d7e8b69212a6db0c53463df2b9e218cc2d681efbcd5e37bac74756d66",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "flow5",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "0f2c132ef1df2f44dd38e27356f633a18eaa21b41f4f5a424b267a7bb0b1c5f8",
+          "bytes": 57641,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e",
+          "bytes": 63138144,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "592dab9bb8644cc3fc3446245572df3ff50d78b45dbd52fa6ef4eade4ae144b0",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    },
+    {
+      "role": "hift",
+      "status": "PASS_DEVICE_READBACK_BYTE_IDENTITY",
+      "files": [
+        {
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "be2c029222b8c8d97f14e28772221a81df6a01dfdf9b73f96d2f0a484b8f0f9d",
+          "bytes": 237849,
+          "matches": true
+        },
+        {
+          "path": "Data/com.apple.CoreML/weights/weight.bin",
+          "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2",
+          "bytes": 70087168,
+          "matches": true
+        },
+        {
+          "path": "Manifest.json",
+          "sha256": "c7235b76927f734afdf4513370c34c1ea57727975460b910e6f292e76d25ec7f",
+          "bytes": 617,
+          "matches": true
+        }
+      ]
+    }
+  ],
+  "scope": "diagnostic single-function device bytes; not shipping and not execution proof",
+  "timingConfound": "copy overlapped first final-matrix control; exclude that control performance, repeat separately without device I/O"
+}

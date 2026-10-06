@@ -358,7 +358,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         let model: MLModel
         if let functionName {
             model = try CosyVoice3AssetLoader.enumeratedAcousticModel(root: assetRoot, path: path, functionName: functionName)
-            print("[COSY-SPECIALIZATION] stage=\(stage) strategy=ENUMERATED_EXACT function=\(functionName) productionPath=YES")
+            let role = CosyVoice3ValidationPlacement.role(for: path) ?? ""
+            let single = CommandLine.arguments.contains("--validation-single-function=\(role)")
+            let experimental = path.hasPrefix("../FlowPartitions/") || single
+            print("[COSY-SPECIALIZATION] stage=\(stage) strategy=ENUMERATED_EXACT function=\(functionName) productionPath=\(experimental ? "NO" : "YES") diagnosticVariant=\(single ? "EXTRACTED_SINGLE_FUNCTION" : (experimental ? "LOSSLESS_MULTIFUNCTION_PARTITION" : "FROZEN_MULTIFUNCTION"))")
         } else {
             let fast = stage.contains(".shard.") && ProcessInfo.processInfo.environment["COSYVOICE3_VALIDATION_FLOW_FAST_PREDICTION"] == "1"
             model = try CosyVoice3AssetLoader.dynamicAcousticModel(root: assetRoot, path: path, preferFastPrediction: fast)
@@ -558,6 +561,9 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         return (0..<array.count).map { array[$0].floatValue }
     }
 }
+// Changes 2026-10-05 21:18 EDT: correct specialization log productionPath for
+// experimental partitions/extracted packages. Purpose accurate provenance only;
+// upstream dynamic acoustic loader, Swift6/CoreML/iOS18+, mathematics unchanged.
 
 // Code purpose: production-candidate exact-shape dynamic acoustic runtime for the full manifest-declared speech-token envelope.
 // Upstream source: validated CosyVoice3 fixed225 acoustic math plus experiment/ios-dynamic-acoustic symbolic Conditions/Flow/HiFT execution contract.

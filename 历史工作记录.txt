@@ -293,3 +293,10 @@ Actions: readiness marker now binds validation placement/package switches and di
 Files: AssetLoader, runner, TE export and host receipts.
 Validation: host TE maxAbs0; further device and Swift gates next.
 GitHub Timeline: ac6632f pushed, f830b35 local; selective commit follows, no promotion/models/audio.
+
+Time: 2026-10-05T21:42:43.153969-04:00
+Prompt: persistent cross-process cold start and independent four-bucket idle preparation, algorithm unchanged.
+Actions: Application Support RuntimeDerived-v2 excluded from backup, actual-byte SHA + runtime/placement/function/ABI identity, authoritative native load and same-policy artifact rebuild; persistent pending/ready distinction, serial idle model release, foreground/background window and thermal gates. Current production requests LLM NE/acoustic GPU, retains original six-shard frozen package routing. Explicit A/B/C lane + PID + persistent snapshots; no reset on relaunch/production.
+Files: AssetLoader/Engine/PersistentRuntimeStore, DeviceSmoke, device runner, persistent tests, protocol; previous physical partition/plan/raw PCM receipts preserved.
+Validation: 13 relevant tests PASS incl same-size/mtime changed-byte restart check, pending independent identity checks. Physical persistence/idle/kill-relaunch gates pending; no claim of system cache persistence yet.
+GitHub Timeline: through4fa112d pushed; new checkpoint to commit locally for signed source binding, no models/audio/HF/catalog/promotion.

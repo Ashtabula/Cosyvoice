@@ -94,3 +94,7 @@
 2: 正式架构保持 schema-3 N1...450 四 family multifunction。single-function 仅用于诊断；partition 必须保留原始边界 casts，完成 host parity 和 physical correctness 后才纳入候选。
 3: 比较保存实际 text/reference WAV/transcript SHA、asset tree SHA、Git HEAD、N/function、timings、thermal、memory 与 requested/observed placement。不补造旧 run 输入证据；不上传 HF、不改 release catalog、不 promotion。
 4: 不以 sleep/throttle 伪造低温；steady-state 请求间不人为停顿。启动前 nominal 门禁属于测量准备，不能称为 thermal 优化。不使用 shell exit、set -e/set -euo pipefail 或主动终止用户 Terminal/session；单项失败记录后继续其他 variant。
+
+## 11. Persistent four-bucket readiness
+
+Production must preserve app-owned compiled artifacts/identity records across kill/relaunch. Bind actual model, manifest, payload, function, placement, OS/CoreML and ABI; disk marker alone never proves system execution-plan retention. Use backup-excluded Application Support for derived artifacts. After PCM return queue missing buckets for serial best-effort foreground idle/system-permitted background preparation, start only at thermal nominal, pause after current model when fair; no new work at serious/critical. Keep FIRST_EVER_COLD (explicit reset), PROCESS_RELAUNCH_COLD (no reset), IN_PROCESS_WARM distinct. Preserve frozen assets and algorithm; record physical process IDs, actual N/function, PCM hashes, thermal/memory/storage and failures.
