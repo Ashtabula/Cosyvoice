@@ -5,10 +5,11 @@ import argparse,base64,hashlib,json,subprocess,threading,time
 DEVICE='00008150-000A05CA1440401C';BUNDLE='com.actacomes.cosyvoice3.candidatebenchmark'
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat'],required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--lifetime',action='store_true');p.add_argument('--cache',choices=['none','small','decoder','selected-family'],default='selected-family');a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--mode',choices=['memory','repeat'],required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--lifetime',action='store_true');p.add_argument('--execution-audit',action='store_true');p.add_argument('--cache',choices=['none','small','decoder','selected-family'],default='selected-family');a=p.parse_args()
     out=a.output;out.mkdir(parents=True,exist_ok=True)
     flags=['--no-playback','--validation-warm-pass',f'--validation-warm-pass-mode={a.mode}','--validation-flow-partition=2',f'--validation-acoustic-cache={a.cache}']
-    if a.lifetime:flags+=['--validation-model-lifetime']
+    if a.execution_audit:flags+=['--validation-execution-audit']
+    elif a.lifetime:flags+=['--validation-model-lifetime']
     elif a.mode=='memory':flags+=['--validation-decode-audit']
     cmd=['xcrun','devicectl','device','process','launch','--device',DEVICE,'--terminate-existing','--console',BUNDLE,'--',*flags]
     print('[WARM-DECODE-PASS] SHARDS=2',cmd,flush=True)
@@ -43,3 +44,5 @@ if __name__=='__main__':main()
 
 # Measurement2026-10-06: existing cache policies for causal lifetime comparisons; rawlogits disabled in lifetime lane.
 # Upstream warm runner; Python3/macOS; validates frozen token identity, no timed readback or cache reset.
+
+# Measurement2026-10-06: execution audit flag records259predictionrows separately from control; model assets unchanged.

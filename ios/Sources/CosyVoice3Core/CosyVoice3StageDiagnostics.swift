@@ -101,35 +101,84 @@ final class CosyVoice3StageSampler: @unchecked Sendable {
 // Validation-only synchronous observer; never active in an ordinary production request.
 @available(iOS 18.0, macOS 15.0, *)
 final class CosyVoice3WarmDecodeAudit {
-    static let enabled = CommandLine.arguments.contains("--validation-decode-audit")
+    static let executionEnabled = CommandLine.arguments.contains("--validation-execution-audit")
+    static let enabled = CommandLine.arguments.contains("--validation-decode-audit") || executionEnabled
+    private let rawCapture = CommandLine.arguments.contains("--validation-decode-audit")
     private var starts = [String: UInt64]()
     private var totals = [String: UInt64]()
     private var calls = [String: Int]()
     private var logits = Data()
-    init(maximumDraws: Int) { logits.reserveCapacity(maximumDraws * 6761 * 2) }
+    private var cpuStarts=[String:Double](), cpuTotals=[String:Double]()
+    private var energyStarts=[String:UInt64](), energyTotals=[String:UInt64]()
+    private var predictions=[[String:Any]]()
+    init(maximumDraws: Int) { if rawCapture {logits.reserveCapacity(maximumDraws * 6761 * 2)}; predictions.reserveCapacity(maximumDraws) }
     func observe(_ name: String, _ begin: Bool) {
-        if begin { starts[name] = DispatchTime.now().uptimeNanoseconds }
-        else if let started = starts.removeValue(forKey:name) {
-            totals[name,default:0] += DispatchTime.now().uptimeNanoseconds-started
-            calls[name,default:0] += 1
+        if begin {
+            if Self.executionEnabled { cpuStarts[name]=CosyVoice3StageDiagnostics.cpu(); if let energy=CosyVoice3ExecutionTelemetry.cpuEnergyNanojoules() {energyStarts[name]=energy} }
+            starts[name] = DispatchTime.now().uptimeNanoseconds
+        } else if let started = starts.removeValue(forKey:name) {
+            let elapsed=DispatchTime.now().uptimeNanoseconds-started
+            totals[name,default:0] += elapsed; calls[name,default:0] += 1
+            if Self.executionEnabled {
+                let cpu=CosyVoice3StageDiagnostics.cpu()-(cpuStarts.removeValue(forKey:name) ?? 0)
+                cpuTotals[name,default:0]+=cpu
+                var energyDelta:UInt64?
+                if let first=energyStarts.removeValue(forKey:name),let last=CosyVoice3ExecutionTelemetry.cpuEnergyNanojoules(),last>=first {energyDelta=last-first;energyTotals[name,default:0]+=last-first}
+                if name.hasSuffix(".prediction") {
+                    predictions.append(["kind":name,"index":calls[name]!,"wallMilliseconds":Double(elapsed)/1_000_000,"cpuMilliseconds":cpu,"CPUOnlyEnergyNanojoules":energyDelta.map{ $0 as Any } ?? NSNull(),"thermalEnd":CosyVoice3StageDiagnostics.thermal(),"startUptimeNanoseconds":started])
+                }
+            }
         }
     }
     func measure<T>(_ name: String, _ body: () throws -> T) rethrows -> T {
         observe(name,true); defer { observe(name,false) }; return try body()
     }
     func capture(_ provider: MLFeatureProvider) {
-        guard let a=provider.featureValue(for:"logits")?.multiArrayValue,a.dataType == .float16,a.count == 6761 else { return }
+        guard rawCapture, let a=provider.featureValue(for:"logits")?.multiArrayValue,a.dataType == .float16,a.count == 6761 else { return }
         logits.append(contentsOf:UnsafeBufferPointer(start:a.dataPointer.assumingMemoryBound(to:UInt8.self),count:a.count*2))
     }
-    func snapshot(tokens:[Int], minimum:Int, maximum:Int) -> [String:Any] {
-        ["scope":"validation timing/raw logits adds overhead; not an unprofiled performance result",
+    func snapshot(tokens:[Int], minimum:Int, maximum:Int, logicalPrefix:Int) -> [String:Any] {
+        let rows=predictions.map { original in
+            var row=original
+            if original["kind"] as? String == "llm.decode.prediction",let index=original["index"] as? Int {
+                row["validContextBefore"]=logicalPrefix+index-1; row["validContextAfter"]=logicalPrefix+index
+                row["inputSpeechToken"]=tokens[index-1]; if index<tokens.count {row["selectedTokenFromOutput"]=tokens[index]}
+            }
+            return row
+        }
+        return ["scope":"validation timing/raw logits adds overhead; not an unprofiled performance result",
          "milliseconds":totals.mapValues { Double($0)/1_000_000 },"calls":calls,"tokens":tokens,
          "minimumSpeechTokens":minimum,"maximumSpeechTokens":maximum,
          "termination":tokens.count == maximum ? "MAX_LENGTH" : "STOP_TOKEN",
          "logitsFP16Base64":logits.base64EncodedString(),"logitsBytes":logits.count,
-         "diagnosticRetentionBytes":logits.count + tokens.count*MemoryLayout<Int>.size]
+         "diagnosticRetentionBytes":logits.count + tokens.count*MemoryLayout<Int>.size,
+         "predictionRows":rows,"CPUOnlyEnergyNanojoules":energyTotals,"cpuMilliseconds":cpuTotals,
+         "energyMeaning":"OS CPU-energy counter only; ANE/GPU/total pipeline energy N/A, not inferred from CPU; zero/unsupported counters unavailable",
+         "logicalPrefix":logicalPrefix]
     }
 }
 // Purpose: measurement-only decode breakdown/raw-logits identity fixture. Upstream native loop/session observer.
 // Swift6/CoreML/iOS18+/macOS15+; generated2026-10-06 America/New_York. Owner one synchronous generation;
 // no timer/actor sharing or escaping pointers; snapshot diagnostics explicitly account for retained fixture bytes.
+
+// Measurement-only public libproc ABI: SDK libproc.h declares proc_pid_rusage available iOS7+.
+// iPhone SDK sys/resource.h supplies rusage_info_v6 but omits libproc.h; bind symbol only for this opt-in audit.
+// Apple XNU fill_task_rusage assigns ri_energy_nj from CPU recount energy; NOT total ANE/GPU energy.
+enum CosyVoice3ExecutionTelemetry {
+    private typealias Reader = @convention(c) (Int32,Int32,UnsafeMutableRawPointer)->Int32
+    private static let reader:Reader? = {
+        guard CommandLine.arguments.contains("--validation-execution-audit"),let handle=dlopen("/usr/lib/libproc.dylib",RTLD_LAZY),let pointer=dlsym(handle,"proc_pid_rusage") else {return nil}
+        return unsafeBitCast(pointer,to:Reader.self)
+    }()
+    static func cpuEnergyNanojoules()->UInt64? {
+        guard let reader else{return nil}
+        var info=rusage_info_v6()
+        let code=withUnsafeMutablePointer(to:&info) { reader(getpid(),Int32(RUSAGE_INFO_V6),UnsafeMutableRawPointer($0)) }
+        guard code==0, info.ri_energy_nj>0 else{return nil}
+        return info.ri_energy_nj
+    }
+}
+// Purpose: optional259-call execution timing/CPU counter audit, no rawlogits or graph/state mutation.
+// Owner one synchronous generation; unsafe telemetry pointer scoped to OS call, no escape or shared tensors.
+// Upstream existing Session observer and Apple libproc/XNU; Swift6/iOS18+/macOS15+; generated2026-10-06 America/New_York.
+// Changed regions WarmDecodeAudit init/observe/snapshot/capture only; production no-audit path unchanged.

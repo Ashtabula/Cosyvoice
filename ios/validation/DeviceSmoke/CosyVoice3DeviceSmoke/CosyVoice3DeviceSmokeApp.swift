@@ -409,7 +409,7 @@ final class CosyVoice3SmokeModel: ObservableObject {
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
                   Self.thermalName(ProcessInfo.processInfo.thermalState)=="nominal" else {throw SmokeError("warm pass requires SHARDS2/unchanged placement/noreset/nominal start")}
-            let memory:WarmPassMemoryTimeline?=(mode=="memory" || CommandLine.arguments.contains("--validation-model-lifetime")) ? WarmPassMemoryTimeline():nil
+            let memory:WarmPassMemoryTimeline?=(mode=="memory" || CommandLine.arguments.contains("--validation-model-lifetime") || CommandLine.arguments.contains("--validation-execution-audit")) ? WarmPassMemoryTimeline():nil
             defer{_ = memory?.stop()}
             memory?.record("before_fixture_and_package_checks")
             let fixture=try Self.fixture(),experimental=try Self.validateExperimentalModels(runtime:fixture.runtime)
@@ -1461,7 +1461,9 @@ private final class WarmPassMemoryTimeline: @unchecked Sendable {
         let result=withUnsafeMutablePointer(to:&info) { p in p.withMemoryRebound(to:integer_t.self,capacity:Int(count)) { task_info(mach_task_self_,task_flavor_t(TASK_VM_INFO),$0,&count) } }
         lock.lock();defer { lock.unlock() };guard !closed,rows.count<5000 else{return}
         if let boundary { stage=boundary }
-        rows.append(["uptimeNanoseconds":DispatchTime.now().uptimeNanoseconds,"stage":stage,"boundary":boundary != nil,"physicalFootprintBytes":result==KERN_SUCCESS ? info.phys_footprint:0,"thermalState":ProcessInfo.processInfo.thermalState.rawValue])
+        var row:[String:Any]=["uptimeNanoseconds":DispatchTime.now().uptimeNanoseconds,"stage":stage,"boundary":boundary != nil,"physicalFootprintBytes":result==KERN_SUCCESS ? info.phys_footprint:0,"thermalState":ProcessInfo.processInfo.thermalState.rawValue]
+        if CommandLine.arguments.contains("--validation-execution-audit") { row["cpuMilliseconds"]=CosyVoice3Engine.validationExecutionCPUTime(); row["CPUOnlyEnergyNanojoules"]=CosyVoice3Engine.validationExecutionCPUEnergy().map{ $0 as Any } ?? NSNull() }
+        rows.append(row)
     }
     func stop()->[[String:Any]] { timer?.cancel();timer=nil;record("sampler_stop");lock.lock();defer{lock.unlock()};closed=true;return rows }
     deinit { timer?.cancel() }
@@ -1474,3 +1476,5 @@ private final class WarmPassMemoryTimeline: @unchecked Sendable {
 
 // Measurement2026-10-06: all stage boundaries,100ms lifetime mode,1/3/10/35s idle probes onlymemory lane.
 // Upstream DeviceSmoke warm lane; Swift6/physical iPhone; no inter-request performance delay or synthesis change.
+
+// Measurement2026-10-06: execution-audit timeline adds CPU-only OSenergy/CPU counters tostage boundaries; no synthesis mutation.

@@ -1074,3 +1074,11 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
 
 // Measurement2026-10-06: opt-in weak-model stage observer; no production cache/API/numerical change.
 // Upstream Engine; Swift6/iOS18+; changed setValidationProgressObserver wrapper only.
+
+// Diagnostic-only OS counters, no model/engine state access or mutation.
+extension CosyVoice3Engine {
+    @_spi(Validation) public nonisolated static func validationExecutionCPUTime()->Double {CosyVoice3StageDiagnostics.cpu()}
+    @_spi(Validation) public nonisolated static func validationExecutionCPUEnergy()->UInt64? {CosyVoice3ExecutionTelemetry.cpuEnergyNanojoules()}
+}
+// Purpose: expose measurement-only counter snapshots toDeviceSmoke; existing public synthesis/API semantics untouched.
+// Upstream StageDiagnostics/Apple libproc; Swift6/iOS18+; generated2026-10-06 America/New_York. No production model/cache policy change.

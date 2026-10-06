@@ -40,7 +40,7 @@ final class CosyVoice3LLMRuntime: @unchecked Sendable {
         progress?("llm.session.begin:logicalPrefix=\(prepared.logicalPrefixLength):maxN=\(prepared.maximumSpeechTokenCount):validationSeed=\(validationSeed.map { String($0) } ?? "<system>")")
         let audit=CosyVoice3WarmDecodeAudit.enabled ? CosyVoice3WarmDecodeAudit(maximumDraws:prepared.maximumSpeechTokenCount) : nil
         var decoded=[Int]()
-        defer { if let audit { validationDecodeAudit=audit.snapshot(tokens:decoded,minimum:prepared.minimumSpeechTokenCount,maximum:prepared.maximumSpeechTokenCount) } }
+        defer { if let audit { validationDecodeAudit=audit.snapshot(tokens:decoded,minimum:prepared.minimumSpeechTokenCount,maximum:prepared.maximumSpeechTokenCount,logicalPrefix:prepared.logicalPrefixLength) } }
         let session=try CosyVoice3FP16StatefulLLMSession(prefillModel:prefillModel,decodeModel:decodeModel,prefixLength:224,activityObserver:audit.map { observer in { name,begin in observer.observe(name,begin) } },diagnosticHostWriteMask:true,logicalPrefixLength:prepared.logicalPrefixLength)
         progress?("llm.prefill.begin")
         var output=try session.prefill(prepared.prefillInput)
@@ -144,3 +144,5 @@ private struct CosyVoice3ValidationRNG: RandomNumberGenerator {
 
 // Change2026-10-06 PhaseA: opt-in validation-only substage timing/raw-logits snapshot; original math/default storage unchanged.
 // Owner synchronous generation, no escaping input/output pointer; exact line map git diff.
+
+// Measurement2026-10-06: snapshot logicalprefix for context-indexed prediction rows only; no generation/state/input change.
