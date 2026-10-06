@@ -1,0 +1,76 @@
+{
+  "dynamicAcoustic": null,
+  "enumeratedAcoustic": {
+    "defaultPromptFeat": "dynamic-acoustic/default-prompt-feat.bin",
+    "defaultPromptTokens": "dynamic-acoustic/default-prompt-tokens.bin",
+    "defaultSpeaker": "dynamic-acoustic/default-speaker.bin",
+    "families": [
+      {
+        "functionName": "n001_128",
+        "speechTokenMaximum": 128,
+        "speechTokenMinimum": 1
+      },
+      {
+        "functionName": "n129_256",
+        "speechTokenMaximum": 256,
+        "speechTokenMinimum": 129
+      },
+      {
+        "functionName": "n257_384",
+        "speechTokenMaximum": 384,
+        "speechTokenMinimum": 257
+      },
+      {
+        "functionName": "n385_450",
+        "speechTokenMaximum": 450,
+        "speechTokenMinimum": 385
+      }
+    ],
+    "flowNoiseMaximum": "enumerated-acoustic/buffers/flow-noise-max.f32",
+    "hiftExcitationMaximum": "enumerated-acoustic/buffers/hift-excitation-max.f32",
+    "logicalPrefixMaximumForFullSpeechWindow": 62,
+    "promptFrameCount": 302,
+    "speechTokenMaximum": 450,
+    "speechTokenMinimum": 1,
+    "status": "CANDIDATE"
+  },
+  "f0Folder": "f0-double",
+  "flowConditions": "enumerated-acoustic/conditions.mlpackage",
+  "flowMask": null,
+  "flowNoise": null,
+  "flowShards": [
+    "enumerated-acoustic/flow-shard-0.mlpackage",
+    "enumerated-acoustic/flow-shard-1.mlpackage",
+    "enumerated-acoustic/flow-shard-2.mlpackage",
+    "enumerated-acoustic/flow-shard-3.mlpackage",
+    "enumerated-acoustic/flow-shard-4.mlpackage",
+    "enumerated-acoustic/flow-shard-5.mlpackage"
+  ],
+  "hift": "enumerated-acoustic/hift.mlpackage",
+  "llmDecode": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+  "llmPrefill": "models/llm-opt-perlayer-prefill.mlpackage",
+  "profile": "ios18-enumerated-n1-n450",
+  "referenceEnrollment": {
+    "campPlus": "reference/campplus-fixed604.mlpackage",
+    "flowConditionsDynamic": "enumerated-acoustic/conditions.mlpackage",
+    "kaldiMel80": "reference/kaldi_mel_80.f32",
+    "matchaMel80": "reference/matcha_mel_80.f32",
+    "promotionEvidence": {
+      "deviceReceipt": "reference-smoke-receipt.json",
+      "deviceReceiptSha256": "8fdc0309c94811fda6645809a327f5afe3bcffb7e672c466187d755a076da114",
+      "hostReceipt": "reference_host_parity_receipt.json",
+      "hostReceiptSha256": "c83033eb66dc0e6825a94bd17ebbd91b010eb7966e6e1f054c28061d6815b106"
+    },
+    "promptFrameCount": 302,
+    "promptTokenCount": 151,
+    "speechTokenizer": "reference/speech-tokenizer-fixed605.mlpackage",
+    "status": "PASS_DEVICE_PARITY",
+    "whisperMel128": "reference/whisper_mel_128.f32"
+  },
+  "ropeTheta": 1000000.0,
+  "schemaVersion": 3,
+  "speechEmbedding": "embeddings/speech_embedding_fp16.bin",
+  "textEmbedding": "embeddings/text_embedding_fp16.bin",
+  "textEmbeddingRows": 151936,
+  "tokenizerFolder": "tokenizer"
+}

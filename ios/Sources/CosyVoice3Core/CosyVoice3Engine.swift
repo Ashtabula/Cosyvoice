@@ -10,6 +10,10 @@ import UIKit
 
 public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public let assetRoot: URL
+    public nonisolated let weightProfile: CosyVoice3WeightProfile
+    public nonisolated var profileMetadata: CosyVoice3WeightProfileMetadata { weightProfile.metadata }
+    private let usesValidatedWeightProfileAssets: Bool
+    private var weightProfileAssetsValidated = false
     private let manifest: CosyVoice3AssetManifest
     private let capabilitiesValue: CosyVoice3Capabilities
     private let rope: CosyVoice3RoPEConfiguration
@@ -52,12 +56,25 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     public init(assetRoot: URL, idleBucketPreparation: Bool = true) throws {
+        try self.init(assetRoot: assetRoot, profile: .current, validatedProfile: false,
+                      idleBucketPreparation: idleBucketPreparation)
+    }
+
+    public init(assetRoot: URL, profile: CosyVoice3WeightProfile, idleBucketPreparation: Bool = true) throws {
+        try self.init(assetRoot: profile.resolveAssets(in: assetRoot), profile: profile, validatedProfile: true,
+                      idleBucketPreparation: idleBucketPreparation)
+    }
+
+    private init(assetRoot: URL, profile: CosyVoice3WeightProfile, validatedProfile: Bool, idleBucketPreparation: Bool) throws {
         var isDirectory: ObjCBool = false
         guard FileManager.default.fileExists(atPath: assetRoot.path, isDirectory: &isDirectory), isDirectory.boolValue else {
             throw CosyVoice3EngineError.assetRootMissing(assetRoot.path)
         }
         let manifest = try CosyVoice3AssetLoader.loadManifest(root: assetRoot)
+        try profile.validateManifest(root: assetRoot, manifest: manifest, requireValidatedRuntime: validatedProfile)
         self.assetRoot = assetRoot
+        self.weightProfile = profile
+        self.usesValidatedWeightProfileAssets = validatedProfile
         self.idleBucketPreparationEnabled = idleBucketPreparation
         self.manifest = manifest
         self.capabilitiesValue = CosyVoice3Capabilities(
@@ -77,7 +94,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public func prepareValidationAcousticFamily(speechTokenCount: Int) async throws -> Double {
         guard let contract = manifest.enumeratedAcoustic, manifest.isEnumeratedAcoustic else { throw CosyVoice3EngineError.developmentRuntimeIncomplete("family readiness requires schema3") }
         let function = try contract.functionName(forSpeechTokenCount: speechTokenCount)
-        let paths = [manifest.flowConditions] + manifest.flowShards + [manifest.hift]
+        let paths = acousticFamilyPaths()
         let specs = paths.map { CosyVoice3ModelWarmSpec($0, functionName: function) }
         let started = DispatchTime.now().uptimeNanoseconds
         _ = try await CosyVoice3AssetLoader.warmModels(root: assetRoot, specs: specs, maximumConcurrent: 1, progress: nil)
@@ -89,6 +106,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     public func lastSynthesisReport() -> CosyVoice3SynthesisReport? { lastSynthesisReportValue }
 
     private func acousticFamilyPaths() -> [String] {
+        if usesValidatedWeightProfileAssets {
+            return [manifest.flowConditions] + CosyVoice3WeightProfile.validatedFlowPaths + [manifest.hift]
+        }
         let option = CommandLine.arguments.first { $0.hasPrefix("--validation-flow-partition=") }
         let count = option.flatMap { Int($0.split(separator: "=").last ?? "6") } ?? 6
         let folder = count == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(count)"
@@ -230,6 +250,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         // Main synthesis preparation and reference-enrollment preparation have separate
         // persistent markers. The reference tensors may already be cached on a later process
         // launch, but that must not change the identity of the main LLM/Flow/HiFT marker.
+        if usesValidatedWeightProfileAssets && !weightProfileAssetsValidated {
+            try weightProfile.validateAssets(root: assetRoot)
+            weightProfileAssetsValidated = true
+        }
         func acousticWarmSpec(_ path: String) -> CosyVoice3ModelWarmSpec {
             manifest.isDynamicAcoustic ? .dynamicAcoustic(path) : .init(path)
         }
@@ -481,7 +505,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let acoustic = try CosyVoice3DynamicAcousticRuntime(
                 assetRoot: assetRoot,
                 conditionsPath: manifest.flowConditions,
-                flowShardPaths: manifest.flowShards,
+                flowShardPaths: usesValidatedWeightProfileAssets ? CosyVoice3WeightProfile.validatedFlowPaths : manifest.flowShards,
                 hiftPath: manifest.hift,
                 f0: try reusableF0(),
                 contract: enumerated,
@@ -1022,6 +1046,10 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
         Double(DispatchTime.now().uptimeNanoseconds - start) / 1_000_000
     }
 }
+// Q4/profile update2026-10-06: immutable profile property + explicit initializer and pinned pre-load validation.
+// Explicit profiles use accepted P2 paths through unchanged acoustic runtime; old initializer retains Current/default legacy routing.
+// Owner Engine actor; validation synchronous before predictions, per-engine readiness Bool; no shared mutable profile selection.
+// Upstream frozen schema3/Q8/Q4 contracts; Swift6/iOS18+. Changed initializer/prepare/familyPaths/enumerated model-path argument only; Git diff exact line map.
 
 // Purpose: frozen fixed225 oracle and manifest-selected exact-shape dynamic acoustic candidate share one public text->PCM API with bounded first-use preparation and no all-model persistent residency.
 // Upstream: CosyVoice3_NPU@8789402; request-scoped large-model lifetime follows the accepted StatefulLLMBench full-pipeline memory behavior.

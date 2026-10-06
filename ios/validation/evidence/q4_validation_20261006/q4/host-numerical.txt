@@ -1,0 +1,11 @@
+[Q8-HOST] load baseline
+/Volumes/WD/Codes/CosyVoice3/.venv-coreml/lib/python3.10/site-packages/coremltools/models/model.py:628: RuntimeWarning: You will not be able to run predict() on this Core ML model. Underlying exception message was: Error compiling model: "Failed to create a working directory appropriate for URL: file:///var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/".
+  _warnings.warn(
+Traceback (most recent call last):
+  File "/Volumes/WD/Codes/Cosyvoice/ios/validation/compare_llm_quantized_host.py", line 46, in <module>
+    if __name__=='__main__':main()
+  File "/Volumes/WD/Codes/Cosyvoice/ios/validation/compare_llm_quantized_host.py", line 25, in main
+    print('[Q8-HOST] load',variant,flush=True);prefill=ct.models.MLModel(str(paths[0]),compute_units=ct.ComputeUnit.CPU_ONLY);decode=ct.models.MLModel(str(paths[1]),compute_units=ct.ComputeUnit.CPU_ONLY);state=prefill.make_state();c,s=rope(range(224));mask=np.full((1,1,224,224),-65504,dtype=np.float16)
+  File "/Volumes/WD/Codes/CosyVoice3/.venv-coreml/lib/python3.10/site-packages/coremltools/models/model.py", line 952, in make_state
+    raise Exception("This model was not loaded with the Core ML Framework. Cannot get state.")
+Exception: This model was not loaded with the Core ML Framework. Cannot get state.

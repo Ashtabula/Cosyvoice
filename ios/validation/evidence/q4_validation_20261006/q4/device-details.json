@@ -1,0 +1,11 @@
+{
+  "device": "iPhone18,4",
+  "iOS": "27.2",
+  "build": "24B5089g",
+  "UDID": "00008150-000A05CA1440401C",
+  "reality": "physical",
+  "state": "connected",
+  "transport": "wired",
+  "developerMode": "enabled",
+  "chargingTestOnly": true
+}

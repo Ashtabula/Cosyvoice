@@ -742,3 +742,42 @@ Actions:readacceptedQ8humanPASS/resource/topology/currentFP64evidence;ct9actualA
 Files:quantize_llm_weights.py,prepare_llm_quantization_recipe.py,q4_validation_20261006/requested_task.txt。
 Validation:installedconfigconstructionPASS/PythonASTPASS;conversion/host/physical/APIpending。
 GitHub Timeline:c5de68e已push；Q4工具未commit，先sourcecheckpoint再执行转换。
+
+Time:2026-10-06 15:07 EDT America/New_York
+Prompt: continue VoxCPM2 official upstream validation; WAV interface not shown.
+Actions: officialMPSFP32plaincompleted; producedactualWAVtoolaudioattachmentafterfilelinkdidnotrenderplayer; startedlong/clone/design/controlledbatch. NoqualityPASS/noCoreMLyet. Fixedreferenceofficialexample.wav+app_old.pytranscript. Addedfrozenidentityguards+reproductionnotes; archivedreconstructedexecutedscriptwithSHAcheck.
+Files:tools/voxcpm2; reports/voxcpm2; artifacts/voxcpm2 ignored; 历史工作记录.txt append-only.
+Validation:plain215040finitePCM/48kHz/4.48s/load102.154s/infer28.454s/MacRTF6.351; pipcheckPASS. ListeningPENDING_HUMAN. OtherCosyVoiceworktreechangesleftuntouched. Earliermanuallyentered15:09metadatawasfuturetimestamp, correctedreporttoactual15:07; oldhistoryretained.
+GitHub Timeline:未commit、未push；本任务未要求push。
+
+Time:2026-10-06 15:09 EDT America/New_York
+Prompt: continue VoxCPM2 clean reproducible upstream baseline.
+Actions: persistentworkspacemodelmirror/copied9files/rehashed; GitbundleofficialHEAD preserved; temporaryoriginalkept. LongTTScomplete22.24s, cloningrunning; noarchitecture/conversionbeforeupstreamcorrectness.
+Files:reports/voxcpm2/model_manifest_persistent.json; ignoredartifacts/voxcpm2/models+Gitbundle+WAV; reports setup/reproduction appended.
+Validation:9persistentassetSHA/sizePASS; long48kHzfinite1067520PCM/infer101.374s/RTF4.5582/Mac-only; PENDING_HUMAN.
+GitHub Timeline:未commit、未push；本任务未要求push。
+
+Time:2026-10-06 15:15 EDT America/New_York
+Prompt:Q4conversion/publicprofileAPI/physical validation。
+Actions:Q4perblock32export205558862+205469334B,state/IO descriptionsidentical; separatepayloadbca74138.../manifest092d9fbe.... Hostinitialbaselinecompile failedsandboxtemp-working-directory, preserved; escalatedsameinputs3wayretryPASSfinite/64teachersteps/top1Q4vsCurrent/Q8=.984375. Addimmutableprofilecontracts/currentQ8Q4 sameactor;oldinitializerCurrentdefault+legacyroutingunchanged, explicitprofilepinsmanifest/payload/LLM/P2 andhidesaccepted2shardroutingwithoutCLI. NoDynamicAcousticmath/codechanged. Newprofiletests/cachedidentitycontract/sourcepackagefixtures onlymetadata.
+Files:hostcomparison/nativecollector/profileAPI/Engine/profiletests/fixtures/evidence。
+Validation:hostnumericalcomplete,physicalconnectedwirediPhone18,4/iOS27.2; Swift6tests/buildpending. Q4listenPENDING/no promotion/noDemochange。
+GitHub Timeline:4a9366f已commit未push；profile/tooling未commit，测试完成后checkpointforbuild。
+
+Time:2026-10-06 15:14:10 EDT America/New_York
+Prompt: continue zero-start officialVoxCPM2baseline and fixWAVinterface.
+Actions: all5upstreamcapabilitiesgenerated; native48kHzPCM16listeningattachmentscreated/emitted, FLOATgoldenspreserved; requestedactualhumanfeedback. Updated6requiredreports withknown/pendingstatuses; stoppedbeforearchitecture/CoreMLuntilupstreamcorrectnessconfirmed.
+Files:tools/voxcpm2;reports/voxcpm2;ignoredartifacts/voxcpm2/reference+models+Gitbundle;历史工作记录.txtappend-only.
+Validation:plain4.48s,long22.24s,clone5.12s,design5.92s,controlled4.96s;all48kHzfinite/rangedurations;bothprocessesexit0;cleantrackedupstream;assets9SHAchecks/pipcheck/ASTPASS. PENDING_HUMAN; noCoreML/iPhone/residency/qualityPASSorGREEN/YELLOW/REDclaim.
+GitHub Timeline:未commit、未push；本任务未要求push；其他并行CosyVoice修改保留。
+
+Time:2026-10-06 15:18 EDT America/New_York
+Prompt:Q4共享profile API validation。
+Actions:Swift6源码build通过；初次profiletest唯一失败是expectedURL缺少directorytrailingflag，修正fixtureisDirectorytrue，未放宽wrongprofile/cache/payload验证。纯profilemanifest数据fixtures不含weights；显式profiles自动选择原acceptedP2，通过未改动DynamicAcousticRuntime，旧initializer不改默认/legacy路由。
+Files:WeightProfile/Engine/tests/resources/nativecollector/APIevidence。
+Validation:初次21tests1fixturefailure保留；retry结果随后record；LLM/session/Flow/FP64源码与c5de68e字节相同。
+GitHub Timeline:4a9366f已commit未push；新的API/tools待sourcecheckpointbeforephysicalbuild。
+
+Time:2026-10-06 15:16 EDT America/New_York
+Validation follow-up:21selectedSwift testsPASS/0skip，含7profiletests与真实FP64fixture。前一条15:18为手写时间笔误，实际测试时间以日志15:14:52–15:14:58为准；本条使用系统America/New_York时钟。随后sourcecheckpoint用于signedphysicalbuild。
+GitHub Timeline:profileAPI/evidence已stage未commit；旧Q8/currentassets未改写。

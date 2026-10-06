@@ -1260,8 +1260,8 @@ final class CosyVoice3SmokeModel: ObservableObject {
         return status == KERN_SUCCESS ? info.phys_footprint : 0
     }
 
-    private static func validateExperimentalModels(runtime: URL) throws -> [String: Any] {
-        let partition = CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }).flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
+    private static func validateExperimentalModels(runtime: URL, partitionOverride: Int? = nil) throws -> [String: Any] {
+        let partition = partitionOverride ?? CommandLine.arguments.first(where: { $0.hasPrefix("--validation-flow-partition=") }).flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
         var partitionIdentity = [String: Any]()
         if partition != 6 {
             let folder = runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions")
@@ -1694,10 +1694,11 @@ extension CosyVoice3SmokeModel {
         }
         return bytes
     }
-    private static func quantizationRoot(base: URL) throws -> URL {
+    private static func quantizationRoot(base: URL, variant: String) throws -> URL {
+        guard ["q8","q4"].contains(variant) else {throw SmokeError("unknown weight variant")}
         let fm=FileManager.default
         let docs=try fm.url(for:.documentDirectory,in:.userDomainMask,appropriateFor:nil,create:true)
-        let candidate=docs.appendingPathComponent("LLMQuantization/Q8/Runtime")
+        let candidate=docs.appendingPathComponent("LLMQuantization/\(variant.uppercased())/Runtime")
         let recipeURL=candidate.deletingLastPathComponent().appendingPathComponent("quantization-recipe.json")
         let recipe=try JSONSerialization.jsonObject(with:Data(contentsOf:recipeURL)) as? [String:Any]
         guard recipe?["parentPayloadTreeSHA256"] as? String == "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
@@ -1739,18 +1740,20 @@ extension CosyVoice3SmokeModel {
         let oldBrightness=UIScreen.main.brightness;UIScreen.main.brightness=0.2
         UIDevice.current.isBatteryMonitoringEnabled=true;defer{UIScreen.main.brightness=oldBrightness}
         do {
-            guard ["baseline","q8"].contains(variant),CommandLine.arguments.contains("--validation-flow-partition=2"),
+            guard ["baseline","q8","q4"].contains(variant),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   CommandLine.arguments.contains("--validation-warm-pass"),CommandLine.arguments.contains("--validation-execution-audit"),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
                   !CommandLine.arguments.contains("--validation-f0-workspace-baseline") else{throw SmokeError("LLM quantization frozen runtime flags required")}
             let fixture=try Self.fixture()
-            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime)
-            let partition=try Self.validateExperimentalModels(runtime:root)
+            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime,variant:variant)
+            let partition=try Self.validateExperimentalModels(runtime:root,partitionOverride:2)
             let manifestURL=root.appendingPathComponent("cosyvoice3_enumerated.json")
             let manifest=try JSONSerialization.jsonObject(with:Data(contentsOf:manifestURL)) as! [String:Any]
             monitor.record("before_engine_creation")
-            let engine=try CosyVoice3Engine(assetRoot:root,idleBucketPreparation:false)
+            let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
+            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false)
             monitor.record("after_engine_creation")
             await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in monitor.record(phase)}
@@ -1793,7 +1796,7 @@ extension CosyVoice3SmokeModel {
                 try await Task.sleep(for:.seconds(seconds-elapsed));elapsed=seconds;monitor.record("post_completion_idle_\(seconds)s")
             }
             let timeline=monitor.stop()
-            let wavName=variant=="baseline" ? "cosyvoice_baseline_fp16.wav":"cosyvoice_llm_q8.wav"
+            let wavName=variant=="baseline" ? "cosyvoice_baseline_fp16.wav":"cosyvoice_llm_\(variant).wav"
             let wav=Self.wavData(outputs.last!),wavSHA=SHA256.hash(data:wav).map{String(format:"%02x",$0)}.joined()
             try wav.write(to:Self.receiptURL(wavName))
             let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8))
@@ -1801,6 +1804,9 @@ extension CosyVoice3SmokeModel {
             var receipt:[String:Any]=["schemaVersion":1,"status":"PASS_OBJECTIVE_SCREEN_PENDING_HUMAN","variant":variant,"sourceCommit":fixture.sourceCommit,"device":Self.machineIdentifier(),"iOS":UIDevice.current.systemVersion,"processID":ProcessInfo.processInfo.processIdentifier,"RuntimeRoot":root.path,"manifestSHA256":SHA256.hash(data:try Data(contentsOf:manifestURL)).map{String(format:"%02x",$0)}.joined(),"environmentStart":environment,"environmentEnd":Self.resourceEnvironment(),"chargingConditions":"SCREENING_ONLY_CHARGING_CONNECTED","SHARDS":2,"flowSteps":6,"publicAPI":"CosyVoice3Engine.synthesize()","frozenText":fixture.text,"frozenTextSHA256":SHA256.hash(data:Data(fixture.text.utf8)).map{String(format:"%02x",$0)}.joined(),"referenceWAVSHA256":SHA256.hash(data:try Data(contentsOf:fixture.reference.audioURL)).map{String(format:"%02x",$0)}.joined(),"referenceTranscriptSHA256":SHA256.hash(data:Data(fixture.transcript.utf8)).map{String(format:"%02x",$0)}.joined(),"rows":rows,"memoryThermalCPUCounterTimeline":timeline,"persistentRuntime":snapshot,"terminationEvents":phases,"WAV_SHA256":wavSHA,"WAVFilename":wavName,"experimentalAcousticIdentity":partition,"requestedComputeUnits":"LLM CPU_AND_NE, acoustic CPU_AND_GPU unchanged","totalDeviceEnergy":NSNull(),"energyScope":"CPU-onlyRecount, notANE/GPUorwholedevice","humanListening":"PENDING_HUMAN","productionPromotion":false,"callerPCMRetention":"all5outputs bothgroups; actualbytesrecorded; nobenchmarkoptics"]
             let export=try JSONSerialization.jsonObject(with:Data(contentsOf:root.appendingPathComponent("enumerated-production-export-receipt.json"))) as! [String:Any]
             receipt["payloadTreeSHA256"]=export["payloadTreeSha256"]
+            receipt["weightProfileID"]=engine.weightProfile.rawValue
+            receipt["profileModelAssetIdentity"]=engine.profileMetadata.modelAssetIdentity
+            receipt["publicProfileAPI"]="CosyVoice3Engine(assetRoot:profile:), no shard CLI required"
             _ = try Self.write(receipt,to:Self.receiptURL(filename))
             // Plan inspection is after measured inference/idle, never included in resource timings.
             var planRows=[[String:Any]]()
@@ -1844,7 +1850,8 @@ extension CosyVoice3SmokeModel {
         let filename="llm-quantization-listening-\(variant)-receipt.json"
         var rows=[[String:Any]]()
         do {
-            guard ["baseline","q8"].contains(variant),CommandLine.arguments.contains("--validation-flow-partition=2"),
+            guard ["baseline","q8","q4"].contains(variant),
+                  !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-flow-partition=") && $0 != "--validation-flow-partition=2"}),
                   !CommandLine.arguments.contains("--reset-cosy-cache"),
                   !CommandLine.arguments.contains(where:{$0.hasPrefix("--validation-placement=") || $0.hasPrefix("--validation-single-function=")}),
                   !CommandLine.arguments.contains("--validation-f0-workspace-baseline") else{throw SmokeError("isolated listening flags require frozen runtime")}
@@ -1855,9 +1862,10 @@ extension CosyVoice3SmokeModel {
             func sha(_ data:Data)->String{SHA256.hash(data:data).map{String(format:"%02x",$0)}.joined()}
             guard sha(try Data(contentsOf:fixture.reference.audioURL))==corpus["referenceWavSHA256"] as? String,
                   sha(try Data(contentsOf:Self.generatedAssets().appendingPathComponent("reference.txt")))==corpus["referenceTranscriptFileSHA256"] as? String else{throw SmokeError("listening reference changed")}
-            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime)
-            let packages=try Self.validateExperimentalModels(runtime:root),info=try Self.variableManifestInfo(runtime:root)
-            let engine=try CosyVoice3Engine(assetRoot:root,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
+            let root=variant=="baseline" ? fixture.runtime:try Self.quantizationRoot(base:fixture.runtime,variant:variant)
+            let packages=try Self.validateExperimentalModels(runtime:root,partitionOverride:2),info=try Self.variableManifestInfo(runtime:root)
+            let profile:CosyVoice3WeightProfile = variant=="baseline" ? .current:(variant=="q8" ? .q8:.q4)
+            let engine=try CosyVoice3Engine(assetRoot:root,profile:profile,idleBucketPreparation:false);await engine.setValidationSamplerSeed(42)
             await engine.setValidationProgressObserver{phase in print("[COSY-Q8-LISTENING-STAGE] \(phase)")}
             let start=ContinuousClock.now
             while UIApplication.shared.applicationState != .active || ProcessInfo.processInfo.thermalState != .nominal {
@@ -1873,7 +1881,7 @@ extension CosyVoice3SmokeModel {
                 let snapshot=try JSONSerialization.jsonObject(with:Data(await engine.persistentRuntimeSnapshotJSON().utf8)) as! [String:Any]
                 let records=snapshot["validationWarmPassRecords"] as? [[String:Any]] ?? []
                 guard let tokens=records.last?["tokens"] as? [Int],tokens.count*960==audio.samples.count else{throw SmokeError("listening token identity unavailable")}
-                let suffix=variant=="baseline" ? "fp16":"q8",name=String(format:"checkpoint_001_sample%02d_%@.wav",index+1,suffix)
+                let suffix=variant=="baseline" ? "current":variant,name=String(format:"checkpoint_001_sample%02d_%@.wav",index+1,suffix)
                 let wav=Self.wavData(audio);try wav.write(to:Self.receiptURL(name),options:.atomic)
                 let pcm=audio.samples.withUnsafeBytes{sha(Data($0))}
                 var peak:Float=0,clipped=0

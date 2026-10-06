@@ -1,0 +1,22 @@
+[
+  {
+    "path": "ios/Sources/CosyVoice3Core/CosyVoice3LLMRuntime.swift",
+    "sha256": "9893c0cc37e53fbf34a3d28293c85f5be52b616486f81b2fa0218c50005a52b9",
+    "unchanged": true
+  },
+  {
+    "path": "ios/Sources/CosyVoice3Core/CosyVoice3FP16StatefulLLMSession.swift",
+    "sha256": "699df164db7ef9fca6c9158f729ba6d67adbd6e1ffdd3114fab1b4c8698044f0",
+    "unchanged": true
+  },
+  {
+    "path": "ios/Sources/CosyVoice3Core/CosyVoice3DynamicAcousticRuntime.swift",
+    "sha256": "732916a0aca63d442c9cb111ad8653f5b351593504af00ae02bed9552df026cd",
+    "unchanged": true
+  },
+  {
+    "path": "ios/Sources/CosyVoice3Core/CosyVoice3HiFTDoubleF0.swift",
+    "sha256": "cd47ad736d9481781dcddef6032a10de92b39d6373edc44cc39ba2c7b9ee9899",
+    "unchanged": true
+  }
+]
