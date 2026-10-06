@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "checkpoint": "checkpoint_001",
+  "acceptedAt": "2026-10-06 08:12 EDT America/New_York",
+  "humanListening": "PASS",
+  "humanEvidence": [
+    "基本都对， 6的语气有些奇怪， 其他好一些",
+    "6也通过"
+  ],
+  "retainedQualityNote": "sample06 prosody initially described as somewhat strange; user subsequently explicitly accepted sample06.",
+  "signedSourceCommit": "4281cdcb8e4b5bf6c5ab51a96391bbe476ff7cc6",
+  "corpusSHA256": "5825cceeefe50f38ea88b38fa29190eb6a70707833440a894b7db22f0c90ba54",
+  "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+  "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+  "partitionPackageIdentity": {
+    "group0": {
+      "bytes": 365331932,
+      "files": [
+        {
+          "bytes": 1264499,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "0a8db6db9b17c840f6f8a13282b1fd28ade0eaf0f5ade88718a16b0a3f3e6b29"
+        },
+        {
+          "bytes": 128965248,
+          "path": "Data/com.apple.CoreML/weights/weight-s0.bin",
+          "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s1.bin",
+          "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s2.bin",
+          "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "4a6b770bca31a5a6cbe42bb211fb48a39dedae72d66508c87cc31ccefcbf90ab"
+        }
+      ],
+      "treeSha256": "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a"
+    },
+    "group1": {
+      "bytes": 299280530,
+      "files": [
+        {
+          "bytes": 1040201,
+          "path": "Data/com.apple.CoreML/model.mlmodel",
+          "sha256": "fc716adf701b9590fe9d96f4fd8f61426eb06fd0fb0a485c6c4bc18e72274b54"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s3.bin",
+          "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+        },
+        {
+          "bytes": 117550784,
+          "path": "Data/com.apple.CoreML/weights/weight-s4.bin",
+          "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+        },
+        {
+          "bytes": 63138144,
+          "path": "Data/com.apple.CoreML/weights/weight-s5.bin",
+          "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+        },
+        {
+          "bytes": 617,
+          "path": "Manifest.json",
+          "sha256": "34f44bde36e27b2accfd001ce4c1bd18cdfe31c4b742903d4e606d911e1228c1"
+        }
+      ],
+      "treeSha256": "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c"
+    }
+  },
+  "SHARDS": 2,
+  "flowSteps": 6,
+  "seed": 42,
+  "publicAPI": "CosyVoice3Engine.synthesize()",
+  "referenceIdentity": {
+    "schemaVersion": 1,
+    "corpusID": "cosyvoice3-2shard-listening-v1",
+    "shards": 2,
+    "flowSteps": 6,
+    "sampleRate": 24000,
+    "seed": 42,
+    "referenceWavSHA256": "72e25f11b3fffc402cc9021736e49e7aa7ae97b1edbf514ae1a3ce994013c10d",
+    "referenceTranscriptFileSHA256": "e5b504f102c58b4cc31a3312728f091facdfb06d8f2fe31b6129d07af43ae7c7",
+    "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+    "payloadTreeSHA256": "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
+    "placement": {
+      "llmPrefill": "CPU_AND_NE",
+      "llmDecode": "CPU_AND_NE",
+      "conditions": "CPU_AND_GPU",
+      "flow": "CPU_AND_GPU",
+      "hift": "CPU_AND_GPU"
+    },
+    "cacheStrategy": "selected-family",
+    "samples": [
+      {
+        "id": "sample01",
+        "category": "short-English",
+        "text": "The morning sun shines through the window."
+      },
+      {
+        "id": "sample02",
+        "category": "longer-English",
+        "text": "After the rain stopped, we walked through the quiet park, watched the birds by the lake, and returned home before sunset."
+      },
+      {
+        "id": "sample03",
+        "category": "punctuation-numbers",
+        "text": "At 9:30 a.m., bring 3 books, 12 pencils, and the report dated October 6, 2026."
+      },
+      {
+        "id": "sample04",
+        "category": "repetition-pauses-ending",
+        "text": "First, open the door. Then, close the door. Read each word once, pause at the commas, and finish this final sentence clearly."
+      },
+      {
+        "id": "sample05",
+        "category": "Chinese",
+        "text": "今天下午三点，我们在图书馆见面，请带上那本新书。"
+      },
+      {
+        "id": "sample06",
+        "category": "frozen-production",
+        "text": "This is a CosyVoice3 public API reference voice validation.",
+        "expectedSamples": 249600,
+        "previousSamePlacementPCMSHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694"
+      }
+    ]
+  },
+  "exportedManifestPath": "ios/validation/evidence/listening_checkpoint_001/exported_corpus_manifest.json",
+  "exportedManifestSHA256": "081c5a00b1ee83a6f5ab97f6ebdd54b2e11cf8c10c5d62da85a8880df286f311",
+  "samples": [
+    {
+      "id": "sample01",
+      "text": "The morning sun shines through the window.",
+      "textSHA256": "022c44b01f89e590187705404a30d53b68573cdb323970a0a5ebebaa58b62964",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 160,
+      "functionName": "n129_256",
+      "samples": 153600,
+      "sampleRate": 24000,
+      "PCM_SHA256": "4079994ea4d72e5642fecd197141ebbd6ea1ce4d9f9cbe5c3df06afa945fefbf",
+      "WAV_SHA256": "e15c64f515f6a119b778454f9b61eccd543a5b4241536370839fea60740cae9b",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample01_candidate.wav"
+    },
+    {
+      "id": "sample02",
+      "text": "After the rain stopped, we walked through the quiet park, watched the birds by the lake, and returned home before sunset.",
+      "textSHA256": "b1ea2cb3191faa67468a065fdb4d84b45c0f070b18aab677e5917d9b584f73d8",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 394,
+      "functionName": "n385_450",
+      "samples": 378240,
+      "sampleRate": 24000,
+      "PCM_SHA256": "94d686cab76b76e8939575a3ce6ab18096c4d5eff8369007bf1cfd1021d0dff7",
+      "WAV_SHA256": "3a184272eb69d47b574741af0496535561c67d67a391e2b62f4bf8d43c8ef644",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample02_candidate.wav"
+    },
+    {
+      "id": "sample03",
+      "text": "At 9:30 a.m., bring 3 books, 12 pencils, and the report dated October 6, 2026.",
+      "textSHA256": "b957fccf6dddd693e98ff9358c7c5b00d39dbc6a5c3c03c54a95fb0c090344a1",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 438,
+      "functionName": "n385_450",
+      "samples": 420480,
+      "sampleRate": 24000,
+      "PCM_SHA256": "527d189a9e39931d8d21dc806b16d746c0d0687b8ed72c15d68eaf2a0b5cf8c0",
+      "WAV_SHA256": "1049c208b89633de76489eada18dd7b52a7ee68baf5f1f14bc8fd201a8337ed1",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample03_candidate.wav"
+    },
+    {
+      "id": "sample04",
+      "text": "First, open the door. Then, close the door. Read each word once, pause at the commas, and finish this final sentence clearly.",
+      "textSHA256": "97b59ae4c1eb7f3730df606701f5eff8fa12b27939b892d78b8721abfb73ec53",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 390,
+      "functionName": "n385_450",
+      "samples": 374400,
+      "sampleRate": 24000,
+      "PCM_SHA256": "3fbaf86a9c9433f25f49085bf5e788dbcbcbc02d8f76a3ef069973d2004e414f",
+      "WAV_SHA256": "6ed74cd6abc310a1860235d62fbbdac27a56a4d8e723371b6a31684893cac9e6",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample04_candidate.wav"
+    },
+    {
+      "id": "sample05",
+      "text": "今天下午三点，我们在图书馆见面，请带上那本新书。",
+      "textSHA256": "50f4ff6208d10c7f2bb7f077b173c5ef05e3c9728299af1551977c09ce936d3c",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 242,
+      "functionName": "n129_256",
+      "samples": 232320,
+      "sampleRate": 24000,
+      "PCM_SHA256": "3d90766ff878aea318d993c0ddaa61d6fbfd02fba7cabf97065c0b5aafc13172",
+      "WAV_SHA256": "8a1079905f908ecddcb3de70a2b1a2e6726a26626a6e3ac12605eba4c5d6a620",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample05_candidate.wav"
+    },
+    {
+      "id": "sample06",
+      "text": "This is a CosyVoice3 public API reference voice validation.",
+      "textSHA256": "851a031da5d00bcea5518ed62898304acca65a9f2478bddb88454e3cb6825fed",
+      "SHARDS": 2,
+      "flowSteps": 6,
+      "N": 260,
+      "functionName": "n257_384",
+      "samples": 249600,
+      "sampleRate": 24000,
+      "PCM_SHA256": "909a1b85650b172604fb2d39b6a35f8f3b5cbf80bd97beb76e775b73ee4cd694",
+      "WAV_SHA256": "a04f69c7d01e08bc779c8a49dafa6fd7723397cf3da6864060f17f8d68277888",
+      "workspaceWAV": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001/checkpoint_001_sample06_candidate.wav"
+    }
+  ],
+  "promotionToCatalogPerformed": false
+}

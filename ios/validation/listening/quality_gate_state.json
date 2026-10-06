@@ -3,12 +3,16 @@
   "primaryShards": 2,
   "checkpoint": "checkpoint_001",
   "corpusID": "cosyvoice3-2shard-listening-v1",
-  "humanListening": "REVIEWED_WITH_RESERVATION_PENDING_ACCEPTANCE",
-  "LAST_KNOWN_GOOD": null,
-  "acceptedLowRiskChangesSinceLastListening": 3,
+  "humanListening": "PASS",
+  "LAST_KNOWN_GOOD": {
+    "checkpoint": "checkpoint_001",
+    "manifest": "ios/validation/evidence/listening_checkpoint_001/accepted_baseline.json",
+    "manifestSHA256": "276b8ca8d840d6326ba8ea980ebe712f68696c4ccfa79ad689f2f7effbd939b0"
+  },
+  "acceptedLowRiskChangesSinceLastListening": 0,
   "invasiveOptimizationAllowed": false,
   "promotionAllowed": false,
-  "reason": "User generally approved content but raised sample06 prosody concern; overall baseline acceptance not explicit.",
+  "reason": "Human accepted all six samples, including explicit follow-up acceptance of sample06. Continue only authorized LOW-risk work; future numerical candidates need their own human gate.",
   "automatedValidation": "PASS_SHARDS2_FLOW6_FROZEN_BIT_IDENTICAL",
   "exportStatus": "PASS_ALL_WAVS_ON_MAC_SHA_VERIFIED",
   "workspaceArtifacts": "/Volumes/WD/Codes/Cosyvoice/artifacts/listening/2shard/checkpoint_001",
@@ -22,5 +26,6 @@
     "sample05": 232320,
     "sample06": 249600
   },
-  "humanReviewReceipt": "ios/validation/evidence/listening_checkpoint_001/human_review.json"
+  "humanReviewReceipt": "ios/validation/evidence/listening_checkpoint_001/human_review.json",
+  "lowRiskOptimizationAllowed": true
 }

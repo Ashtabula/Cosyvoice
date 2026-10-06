@@ -4,8 +4,8 @@
   "recordedAt": "2026-10-06 08:10 EDT America/New_York",
   "listener": "human user",
   "feedbackVerbatim": "基本都对， 6的语气有些奇怪， 其他好一些",
-  "humanReviewStatus": "REVIEWED_WITH_SAMPLE06_PROSODY_RESERVATION",
-  "explicitOverallPASS": false,
+  "humanReviewStatus": "PASS_WITH_RETAINED_SAMPLE06_PROSODY_NOTE",
+  "explicitOverallPASS": true,
   "explicitOverallFAIL": false,
   "sample01to05": "generally favorable feedback; individual PASS not explicitly stated",
   "sample06": "prosody/intonation sounds somewhat strange",
@@ -17,7 +17,13 @@
     "previousReceipt": "ios/validation/evidence/low-risk-runtime-20261006/shared-production-p6/candidate-benchmark-receipt.json",
     "meaning": "Existing identical waveform, not introduced by current runtime optimization. Does not establish cause or human acceptance."
   },
-  "LAST_KNOWN_GOOD": null,
-  "pendingDecision": "Does user accept this as listening baseline with known sample06 prosody issue, or reject it?",
-  "noRuntimeOrModelChange": true
+  "LAST_KNOWN_GOOD": {
+    "checkpoint": "checkpoint_001",
+    "manifest": "ios/validation/evidence/listening_checkpoint_001/accepted_baseline.json",
+    "manifestSHA256": "276b8ca8d840d6326ba8ea980ebe712f68696c4ccfa79ad689f2f7effbd939b0"
+  },
+  "pendingDecision": null,
+  "noRuntimeOrModelChange": true,
+  "followUpFeedbackVerbatim": "6也通过",
+  "followUpAt": "2026-10-06 08:12 EDT America/New_York"
 }
