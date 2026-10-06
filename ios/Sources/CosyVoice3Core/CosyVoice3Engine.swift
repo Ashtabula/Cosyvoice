@@ -505,7 +505,7 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
             let acoustic = try CosyVoice3DynamicAcousticRuntime(
                 assetRoot: assetRoot,
                 conditionsPath: manifest.flowConditions,
-                flowShardPaths: usesValidatedWeightProfileAssets ? CosyVoice3WeightProfile.validatedFlowPaths : manifest.flowShards,
+                flowShardPaths: manifest.flowShards,
                 hiftPath: manifest.hift,
                 f0: try reusableF0(),
                 contract: enumerated,
@@ -515,7 +515,8 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
                 flowNoiseMaximum: try reusableEnumeratedFlowNoiseMaximum(enumerated),
                 hiftExcitationMaximum: try reusableEnumeratedHiFTExcitationMaximum(enumerated),
                 flowStepCount: parameters.flowSteps.rawValue,
-                progress: validationProgressObserver
+                progress: validationProgressObserver,
+                validatedProfileFlowPaths: usesValidatedWeightProfileAssets ? CosyVoice3WeightProfile.validatedFlowPaths : nil
             )
             validationProgress("acoustic.runtime.end:N=\(speechTokens.count):mode=enumerated:function=\(functionName):lifetime=sequential")
             validationProgress("acoustic.synthesize.begin:N=\(speechTokens.count)")

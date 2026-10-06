@@ -1,0 +1,7 @@
+{
+  "mathAndPredictionBodiesByteIdentical": true,
+  "sourceSHA256": "63d7f695fd8efe5bf1951f24478a6a96a33b289e3d6ebddf8bb356b86d7c19f6",
+  "change": "constructor accepts immutable validated P2 override separately from unchanged six-source manifest validation; no solver/dtype/copy/precision/prediction changes",
+  "unchangedBodySHA256": "722ae4e5fdde0dfa24375e705ce7454b7e61193aa46e85acaebd1cd4c4d453f8",
+  "oldSignedSourcef7ab8ed": "build PASS, staticpreflight caught invalidtwo-path constructor argument before device execution; not used for measurements"
+}

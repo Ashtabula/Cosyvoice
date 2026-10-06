@@ -107,7 +107,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         flowNoiseMaximum: MLMultiArray,
         hiftExcitationMaximum: MLMultiArray,
         flowStepCount: Int = CosyVoice3FlowSteps.productionDefault.rawValue,
-        progress: (@Sendable (String) -> Void)? = nil
+        progress: (@Sendable (String) -> Void)? = nil,
+        validatedProfileFlowPaths: [String]? = nil
     ) throws {
         try self.init(
             assetRoot: assetRoot,
@@ -122,7 +123,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
             flowNoiseMaximum: flowNoiseMaximum,
             hiftExcitationMaximum: hiftExcitationMaximum,
             flowStepCount: flowStepCount,
-            progress: progress
+            progress: progress,
+            validatedProfileFlowPaths: validatedProfileFlowPaths
         )
     }
 
@@ -139,7 +141,8 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         flowNoiseMaximum: MLMultiArray,
         hiftExcitationMaximum: MLMultiArray,
         flowStepCount: Int,
-        progress: (@Sendable (String) -> Void)?
+        progress: (@Sendable (String) -> Void)?,
+        validatedProfileFlowPaths: [String]? = nil
     ) throws {
         try contract.validate()
         guard flowShardPaths.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [flowShardPaths.count]) }
@@ -159,19 +162,10 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 
         self.assetRoot = assetRoot
         self.conditionsPath = conditionsPath
-        let partitionArgs = CommandLine.arguments.filter { $0.hasPrefix("--validation-flow-partition=") }
-        guard partitionArgs.count <= 1 else { throw CosyVoice3AcousticError.invalidShape("duplicate_flow_partition", []) }
-        let count: Int
-        if let argument = partitionArgs.first {
-            guard let value = Int(argument.dropFirst("--validation-flow-partition=".count)) else { throw CosyVoice3AcousticError.invalidShape("invalid_flow_partition", []) }
-            count = value
-        } else { count = 6 }
-        guard [1,2,3,6].contains(count) else { throw CosyVoice3AcousticError.invalidShape("flow_partition", [count]) }
-        if count != 6 {
-            guard case .enumerated = contract else { throw CosyVoice3AcousticError.invalidShape("partition_requires_schema3", []) }
-            let folder = count == 1 && CommandLine.arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(count)"
-            self.flowShardPaths = (0..<count).map { "../FlowPartitions/\(folder)/group-\($0).mlpackage" }
-        } else { self.flowShardPaths = flowShardPaths }
+        let isEnumerated: Bool
+        if case .enumerated = contract { isEnumerated = true } else { isEnumerated = false }
+        self.flowShardPaths = try Self.selectedFlowPaths(manifestPaths: flowShardPaths,
+            validatedProfilePaths: validatedProfileFlowPaths, isEnumerated: isEnumerated)
         self.hiftPath = hiftPath
         self.f0 = f0
         self.contract = contract
@@ -182,6 +176,29 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
         self.hiftExcitationMaximum = hiftExcitationMaximum
         self.flowStepCount = flowStepCount
         self.progress = progress
+    }
+
+    static func selectedFlowPaths(manifestPaths: [String], validatedProfilePaths: [String]?,
+                                  isEnumerated: Bool, arguments: [String] = CommandLine.arguments) throws -> [String] {
+        guard manifestPaths.count == 6 else { throw CosyVoice3AcousticError.invalidShape("flow_shards", [manifestPaths.count]) }
+        let partitionArgs = arguments.filter { $0.hasPrefix("--validation-flow-partition=") }
+        guard partitionArgs.count <= 1 else { throw CosyVoice3AcousticError.invalidShape("duplicate_flow_partition", []) }
+        let count: Int
+        if let argument = partitionArgs.first {
+            guard let value = Int(argument.dropFirst("--validation-flow-partition=".count)) else { throw CosyVoice3AcousticError.invalidShape("invalid_flow_partition", []) }
+            count = value
+        } else { count = 6 }
+        guard [1,2,3,6].contains(count) else { throw CosyVoice3AcousticError.invalidShape("flow_partition", [count]) }
+        if let validatedProfilePaths {
+            guard isEnumerated, validatedProfilePaths == CosyVoice3WeightProfile.validatedFlowPaths,
+                  partitionArgs.isEmpty || count == 2 else { throw CosyVoice3AcousticError.invalidShape("profile_flow_partition", [count]) }
+            return validatedProfilePaths
+        }
+        if count != 6 {
+            guard isEnumerated else { throw CosyVoice3AcousticError.invalidShape("partition_requires_schema3", []) }
+            let folder = count == 1 && arguments.contains("--validation-materialize-te") ? "p1-te" : "p\(count)"
+            return (0..<count).map { "../FlowPartitions/\(folder)/group-\($0).mlpackage" }
+        } else { return manifestPaths }
     }
 
     func synthesize(speechTokens: [Int], prepared: CosyVoice3PreparedRequest) async throws -> CosyVoice3Audio {
@@ -614,3 +631,7 @@ final class CosyVoice3DynamicAcousticRuntime: CosyVoice3AcousticRuntime, @unchec
 // Upstream: original overlapAddNorm loop; window/summation/index order unchanged.
 // Environment: Swift6/iOS18+/macOS15+ CoreML; generated2026-10-06 07:27 EDT America/New_York.
 // Changed regions: synthesis norm call349 and overlapAddNorm538-563; exact line map in git diff.
+
+// Q4/profile update2026-10-06: separate immutable validatedProfileFlowPaths constructor override preserves the original six-source manifest guard.
+// Same P2 packages and prediction/solver/dtype/FP64 bodies; only package routing adapter changes. Owner request/runtime, no global mutable selection.
+// Upstream accepted P2 validation route; Swift6/iOS18+. Changed enumerated/private initializer and extracted selectedFlowPaths helper; Git diff exact line map.

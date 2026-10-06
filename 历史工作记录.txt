@@ -781,3 +781,10 @@ GitHub Timeline:4a9366f已commit未push；新的API/tools待sourcecheckpointbefo
 Time:2026-10-06 15:16 EDT America/New_York
 Validation follow-up:21selectedSwift testsPASS/0skip，含7profiletests与真实FP64fixture。前一条15:18为手写时间笔误，实际测试时间以日志15:14:52–15:14:58为准；本条使用系统America/New_York时钟。随后sourcecheckpoint用于signedphysicalbuild。
 GitHub Timeline:profileAPI/evidence已stage未commit；旧Q8/currentassets未改写。
+
+Time:2026-10-06 15:20 EDT America/New_York
+Prompt:Q4 API routing preflight。
+Actions:initialsignedf7ab8edbuildPASS; beforedevice foundexistingruntimeconstructor guardsixmanifestmodels. AddseparateimmutablevalidatedP2argument, preservemanifest6guard/olddefault routing; solver/predictionbodybytesidentical. Noinvalidf7physicalrunperformed.
+Files:Engine/DynamicRuntime constructor routingadapter,2newroutingtests,mathidentity/preflight/logs。
+Validation:23testsPASS including9profiletests/actualFP64weights; no math/LLM/state/placement change. Q4hostallfinite/top1.984375;newsourcecheckpointrequiredbeforefinalbuild。
+GitHub Timeline:f7ab8ed已commit未push；routingadapter修正随后commit/build。

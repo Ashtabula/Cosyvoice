@@ -89,6 +89,20 @@ final class WeightProfileTests: XCTestCase {
         let acoustic = identities.map { $0.merging(["modelPackageSHA256": "identical acoustic"], uniquingKeysWith: { _, b in b }) }
         XCTAssertEqual(Set(try acoustic.map { try store.key($0) }).count, 3)
     }
+
+    func testProfileRoutingNeedsNoShardCLIAndKeepsLegacyDefault() throws {
+        let source = (0..<6).map { "manifest-stage-\($0)" }
+        XCTAssertEqual(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: nil, isEnumerated: true, arguments: []), source)
+        XCTAssertEqual(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: true, arguments: []), CosyVoice3WeightProfile.validatedFlowPaths)
+        XCTAssertEqual(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: nil, isEnumerated: true, arguments: ["--validation-flow-partition=2"]), CosyVoice3WeightProfile.validatedFlowPaths)
+    }
+
+    func testInvalidProfileRoutingNeverSilentlyFallsBack() {
+        let source = (0..<6).map { "manifest-stage-\($0)" }
+        XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: ["wrong"], isEnumerated: true, arguments: []))
+        XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: false, arguments: []))
+        XCTAssertThrowsError(try CosyVoice3DynamicAcousticRuntime.selectedFlowPaths(manifestPaths: source, validatedProfilePaths: CosyVoice3WeightProfile.validatedFlowPaths, isEnumerated: true, arguments: ["--validation-flow-partition=3"]))
+    }
 }
 // Purpose: profile/asset/cache contracts, not neural execution or human quality proof.
 // Upstream actual immutable manifest fixtures and shared Engine/PersistentRuntimeStore; Swift6/XCTest/macOS15+, generated2026-10-06 America/New_York.
