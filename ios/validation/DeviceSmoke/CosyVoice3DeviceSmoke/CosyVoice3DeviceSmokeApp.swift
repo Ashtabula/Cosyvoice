@@ -1058,8 +1058,11 @@ final class CosyVoice3SmokeModel: ObservableObject {
                 guard !relative.isEmpty else { throw SmokeError("unknown plan role \(role)") }
                 let single = CommandLine.arguments.contains("--validation-single-function=\(role)")
                 let partition = CommandLine.arguments.first { $0.hasPrefix("--validation-flow-partition=") }.flatMap { Int($0.dropFirst("--validation-flow-partition=".count)) } ?? 6
+                let planFolderOption = CommandLine.arguments.first { $0.hasPrefix("--validation-plan-directory=") }.map { String($0.dropFirst("--validation-plan-directory=".count)) }
+                if let option = planFolderOption { guard single && ["ANEFlowP2","ANEFlowP3"].contains(option) else { throw SmokeError("invalid isolated plan directory") } }
                 let source: URL
-                if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role).mlpackage") }
+                if single, let option = planFolderOption { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(option)/\(role).mlpackage") }
+                else if single { source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("\(CommandLine.arguments.contains("--validation-static-n260") ? "ANEStaticN260" : "ANEExperimental")/\(role).mlpackage") }
                 else if role.hasPrefix("flow"), partition != 6, let index = Int(role.dropFirst(4)), index < partition {
                     source = fixture.runtime.deletingLastPathComponent().appendingPathComponent("FlowPartitions/p\(partition)/group-\(index).mlpackage")
                 } else { source = fixture.runtime.appendingPathComponent(relative) }
@@ -1306,3 +1309,5 @@ private extension Data {
 // Changes 2026-10-05 residency phase: real public-request isolated12stage diagnostic, signed input bindings and no production RTF claim; plan op SSA names and lossless partition paths. No model math changes. Swift6/iPhone27.2, upstream DeviceSmoke; line mapping via git diff.
 
 // Changes2026-10-05 thermal phase: noWAVhash during sustainedloop; retain12smallPCM buffers thenverifyaftergroup. Optionalnominalgate onlybeforegroup, nointeriterationwait. IsolatedrawPCM savedafterloopfornumericparity, no playback. Swift6/iPhone27.2; upstreamvalidationlane, changedlines gitdiff.
+
+// Changes2026-10-06: plan-only whitelistdirectoryANEFlowP2/P3 probesexactselectedsingle-functionpartition; public loader/benchmark paths unchanged. SourceSwift6/Xcode27.2; no operator/weight/algorithm change. Linesgitdiff.

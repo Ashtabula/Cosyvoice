@@ -389,3 +389,9 @@ Actions: Source655eb88 physicalCPU/GPU/NE diagnosticmatrix preserved; noextra de
 Validation: CPUFlow2 signal9 beforesecondctorend/notprediction; Jetsamreasonunproven. NEFlowloadfailures andtimeouts preserved; staticFlowhostparity/oneenumfailuresrejected. Exact model/PID trace joins12prefill+3108decodeANEcalls; noactualperopmap, FULL_ANEclaimsnone. SignatureJSONsource-only tensor shapesdistinguishedfromruntime.
 Files: residency/thermalJSON RUNNINGcohort, trace/signatures/parity/helpers.
 GitHub Timeline: througha2aed4f pushed; through655eb88 localcommits未push; currentresultsnextcheckpoint; noHF/catalog/promotion.
+
+Time: 2026-10-06 00:56 EDT America/New_York
+Prompt: exactp2/p3singlefunctiondiagnosis.
+Actions: independentCoreAI/CoreML/PointsOfInterest tracesp2/p3GPU andfrozenMFHiFTNEsaved; unprofiled6full12 configurationscomplete. Addplan-only whitelistforseparatestagedp2/p3exactfunctionpackages, publicloaderunchanged.
+Validation: singlepartitionstructuralGraph/weightsbyteidentical; hostnumericalgatenearingcompletion. Freshsignedhostplan-onlybuildnext; physicalbenchmarksource655 unchanged.
+GitHub Timeline:22122fb localcommittednotpushed; sourcecheckpointnext, noFrozen/HF/catalog/promotion.

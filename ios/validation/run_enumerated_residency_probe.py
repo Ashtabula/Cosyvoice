@@ -15,6 +15,7 @@ def main():
     parser.add_argument('--placement', action='append', default=[])
     parser.add_argument('--single-function', action='append', default=[])
     parser.add_argument('--role', action='append', default=[])
+    parser.add_argument('--plan-directory', choices=['ANEFlowP2','ANEFlowP3'])
     parser.add_argument('--profile', action='store_true')
     parser.add_argument('--static-n260', action='store_true')
     parser.add_argument('--timeout', type=int, default=1200)
@@ -29,6 +30,7 @@ def main():
         files = ['isolated-request-receipt.json',f'isolated-{args.stage}-receipt.json','isolated-output.f32']
     elif args.mode == 'plan':
         flags += ['--ane-compute-plans'] + [f'--validation-plan-role={role}' for role in args.role]
+        if args.plan_directory: flags += [f'--validation-plan-directory={args.plan_directory}']
         files = ['ane-compute-plan-receipt.json']
     else:
         flags += ['--candidate-benchmark','--validation-cold-lane=PROCESS_RELAUNCH_COLD','--wait-thermal-nominal','--validation-sustained-count=12','--validation-sustained-nominal-gate']
