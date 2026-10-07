@@ -1,0 +1,53 @@
+{
+  "sourceGitBase": "053e0efa04f46bb7083f0b8063caa5e97ebcd72b",
+  "physicalSourceCommits": [
+    "be0e613dfdf09208573d5626579050ed81fe6fcc",
+    "5d3371b022865ab255195ab9f624caed94aa9c31"
+  ],
+  "files": [
+    {
+      "path": "ios/tools/quantize_llm_weights.py",
+      "sha256": "13de29529eef259adcfe87c27caae9bd494f301f3b2c73d7a4e4dbe260be574f"
+    },
+    {
+      "path": "ios/tools/publish_rebuilt_profiles.py",
+      "sha256": "c5121bab75626f68b6a0eaba476e084a5191a6a1fa877548cd76b166708f0737"
+    },
+    {
+      "path": "ios/validation/repack_equivalent_flow_partitions.py",
+      "sha256": "8f3cb95f6440a4eba4d42f77c4b29ef4741c829154428b2a0610060cca7f3961"
+    },
+    {
+      "path": "ios/validation/validate_equivalent_flow_partitions.py",
+      "sha256": "2ed82edf511dc48d1d8d059d0aa33d76d23288da3a85486a64761d54efd092f7"
+    },
+    {
+      "path": "ios/validation/compare_llm_quantized_host.py",
+      "sha256": "f8d97f9569e282474d2b2bf8709b34f3157a35a420330e43370599d4f8757733"
+    },
+    {
+      "path": "ios/validation/compare_rebuilt_current_llm_host.py",
+      "sha256": "40f731ae927c3ea539fa8f7e412243ca0f41ed368d15b470b14a1f1c0674d235"
+    },
+    {
+      "path": "ios/validation/assemble_rebuilt_weight_profile.py",
+      "sha256": "4aea2487eacf39527de7e428c1a96214362d6ffda48e5a3a5643d4654791b8df"
+    },
+    {
+      "path": "ios/validation/analyze_quantized_llm_trace.py",
+      "sha256": "35ca3254b24b7e8807f8379dd8aee3f13bf5ad73a666bc2b72ecbefc343f8f12"
+    },
+    {
+      "path": "ios/validation/profile_rebuilt_llm.py",
+      "sha256": "a28c7b0b6cdd48fb2e2f198e0575e3d1669875bd467c59ab17ddc9de5810bcd1"
+    },
+    {
+      "path": "ios/validation/validate_rebuilt_topology.py",
+      "sha256": "10e1c80d48861562283bc424d5af6837aa11d12dc73d71cdaf855664a5d7c721"
+    },
+    {
+      "path": "ios/validation/run_rebuilt_current_corpus.py",
+      "sha256": "8974dfe4c54328ea16bb7c21bb51fbaa5b909a664123da799ae6737a880ef1f4"
+    }
+  ]
+}

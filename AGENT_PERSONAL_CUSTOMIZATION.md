@@ -117,3 +117,7 @@ Static production code-path audit and reviewable findings precede runtime change
 ## 15. Resource-efficiency lane (2026-10-06)
 
 本 lane 固定 SHARDS=2/Flow6/weights/语义/接受音频，以 sustained thermal、energyPerPlaybackSecond、memory 和 RTF<=0.60 的 Pareto 折中为目标，不以最快 RTF 或单调降低能耗为唯一门禁。先 attribution/短筛选，再 baseline+最好1-2候选的10-20min physical测试。真实消费时钟的 generate-ahead idle 是产品调度，不是人工 throttle；maximum-throughput lane 仍无请求间人为停顿。CPU-only Recount 不是 ANE/GPU/total energy，缺失总能耗必须 N/A。正式 thermal 条件须记录 charging、battery、screen/brightness、thermal 与 order；默认 unplugged+nominal，只有用户明确允许才测 charging 并标明。允许测试间适当 cooldown；不覆盖 LG/assets/listening/historical evidence，不自动新增公开 Eco/Performance modes。
+
+## 2026-10-06 本次资产重建授权（仅限当前任务）
+
+用户已明确确认“包括”重建、物理重验证及通过门槛后的 HF 上传。原 validated collection 误删除；上一轮缺失资产报告不改写。允许按 frozen provenance/recipes 分环境重建 Current/Q8/Hybrid Q4，禁止 Full-Q4 prefill。Current host gate 通过前不执行 Q8/Hybrid 转换；新 bytes 记录实际新 hashes，历史物理/ANE/HUMAN_PASS 不自动继承。必须新物理验证；输出无法证明与批准语音精确等价时提供实际 WAV 并等待用户 HUMAN_PASS；所有必需门槛通过后才创建新 immutable HF revision，再 clean re-download核验；之后才更新正式 SDK/Runner 身份。Current 默认不变，不运行最终长 benchmark。此前阶段“禁止量化/HF”等规则在本次明确授权范围内由用户指令取代，其他约束保持。

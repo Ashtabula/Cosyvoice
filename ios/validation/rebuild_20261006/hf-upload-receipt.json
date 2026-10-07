@@ -1,0 +1,11 @@
+{
+  "status": "PASS_UPLOADED_IMMUTABLE_CLEAN_REDOWNLOAD_HASH_VERIFIED",
+  "repoId": "actacomes/CosyVoice-assets",
+  "revision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+  "pathInRepo": "ios-weight-profiles-current-q8-q4hybrid/0.3.1-rc1",
+  "version": "0.3.1-rc1",
+  "collectionTreeSha256": "47958326989cca9ad26fe3001b03d858c205cdfa19bd5f60d19b40e16f6e54a1",
+  "tag": "ios-weight-profiles-current-q8-q4hybrid-v0.3.1-rc1",
+  "remoteRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hf-publication/clean-redownload/ios-weight-profiles-current-q8-q4hybrid/0.3.1-rc1",
+  "verifiedFiles": 204
+}

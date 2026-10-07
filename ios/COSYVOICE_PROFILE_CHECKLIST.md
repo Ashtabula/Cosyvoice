@@ -1,3 +1,7 @@
+> 2026-10-06 exact-byte recovery audit: BLOCKED_EXACT_VALIDATED_ASSET_MISSING for Current, Q8, Hybrid Q4. Historical acceptance below does not establish that any runtime payload exists in this fresh checkout. No models were regenerated. See exact_validated_asset_inventory.json.
+>
+> Runner machine IDs: current / q8 / hybrid_q4. SDK compatibility selector .q4 denotes only q4_decode_hybrid_a. Current remains default. Full-Q4-prefill, block32 and rebuilt candidates are excluded.
+
 # CosyVoice iOS Three-Profile Benchmark Checklist
 
 Authoritative benchmark source branch: `experiment/ios-enumerated-ane-optimization`.
@@ -79,3 +83,8 @@ The historical INT4 block32 prefill candidate failed physical Core ML execution-
 ## Remaining formal comparison gate
 
 Runner integration should use one provider/profile per fresh process. Final product comparison still requires Release, unplugged/not charging, fixed screen policy, comparable nominal start, wireless host control where needed, Sustained Playback, and supported whole-device Power Profiler correlation.
+
+
+## Rebuild authorized task update2026-10-06
+
+New authoritative HF revision c16f38383fa261bfed317fbec2fad2c4115d690c (0.3.1-rc1), collection/tree/package/P2 identities in validation/rebuild_20261006/NEW_ASSET_INVENTORY.json. Current/Q8/Hybrid rebuilt host/physical/topology/exact-approved human-equivalence gates PASS; clean remote204 hashes PASS. New public metadata/default selection and Swift6 tests PASS. See validation/rebuild_20261006/BENCHMARK_HANDOFF.md for current handoff. Earlier missing-byte audit above is historical and retained; final Runner smoke is still pending.

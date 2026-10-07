@@ -1,0 +1,31 @@
+{
+  "status": "PASS_REBUILT_Q8_APPROVED_CORPUS_EXACT_EQUIVALENCE",
+  "humanGate": "PASS_INHERITED_BY_EXACT_APPROVED_OUTPUT_EQUIVALENCE",
+  "rows": [
+    {
+      "id": "sample01",
+      "WAV_SHA256": "642fe9ea1b32b3f3064a6c75159fdec58dc79d68c60508125aeaa38f9d9c8241",
+      "PCM_SHA256": "96db27335c19e24a7009064e2601ac376a9295828eefefb892e3efd36e41f97f",
+      "exactEquivalent": true
+    },
+    {
+      "id": "sample02",
+      "WAV_SHA256": "0193b7c2be71fa315e6bc20a95cbdfd72688023b370f1326a6f74a92f01fc7bd",
+      "PCM_SHA256": "ab37d3c9f020880901501a9900daf1b7210f3716a20ae3559a325ea1994b14ed",
+      "exactEquivalent": true
+    },
+    {
+      "id": "sample04",
+      "WAV_SHA256": "f5e002d545d4eb586636b56bce00adf221f0ca48bce17c8a5da1164406bf9e6a",
+      "PCM_SHA256": "bc3185ba1f53b0da05a2b217df8b62890ea6b5a0d71375ef2babf1ad0c3c3257",
+      "exactEquivalent": true
+    }
+  ],
+  "newReceipt": "rebuild-20261006/listening/q8-three/llm-quantization-listening-q8-receipt.json",
+  "historicalReceipt": "Cosyvoice/ios/validation/evidence/llm_quantization_20261006/q8/listening/llm-quantization-listening-q8-receipt.json",
+  "humanReview": "Cosyvoice/ios/validation/evidence/llm_quantization_20261006/q8/human_review.json",
+  "limits": "Only exact three approved corpus outputs; historical model/physical identities not inherited.",
+  "newReceiptSHA256": "47e024c12bfa5a25f3d7b12fdbbbbe3f4feeb8bbfd41b60b6c70f5ff4503e72b",
+  "historicalReceiptSHA256": "82a12d2658274a70163a25965dedc3f994057cb1d68e9d17e46f7f97fc59c5d8",
+  "humanReviewSHA256": "64fad6ac3e6d4254f4879e15ddc3426d0e6671c38e5f63ba80ad3efe4594bebb"
+}

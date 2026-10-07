@@ -1,0 +1,28 @@
+{
+  "authorizedAtAmericaNewYork": "2026-10-06T21:53:59-04:00",
+  "userConfirmation": "包括",
+  "scope": [
+    "rebuild Current Q8 Hybrid Q4",
+    "physical revalidation",
+    "HF publication after validation gates",
+    "clean immutable remote verification",
+    "Runner integration after freeze"
+  ],
+  "originalBytesReason": "user-authorized recovery instruction states accidentally deleted before preservation",
+  "priorAuditFiles": [
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Demo/FINAL_REPORT.md",
+      "sha256": "4c73d2e48d5638f1b6b49bb2693e2a035aa9c03c43f8b55bcc0495a8c6866000"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/FINAL_REPORT.md",
+      "sha256": "4c73d2e48d5638f1b6b49bb2693e2a035aa9c03c43f8b55bcc0495a8c6866000"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/exact_validated_asset_inventory.json",
+      "sha256": "8faba519ba6373abf93a545975f5d8f4a7517d89c6c2e43cb682dcbc8a928fab"
+    }
+  ],
+  "fullQ4Excluded": true,
+  "newHumanGateRequiredUnlessExactApprovedOutputEquivalenceProven": true
+}

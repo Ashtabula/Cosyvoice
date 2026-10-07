@@ -1,7 +1,7 @@
 {
   "default": {
-    "profile": "ios-dynamic-n1-n479-reference",
-    "version": "0.2.0-rc1"
+    "profile": "ios-weight-profiles-current-q8-q4hybrid",
+    "version": "0.3.1-rc1"
   },
   "engine": "CosyVoice3",
   "platform": "iOS",
@@ -47,6 +47,63 @@
       "candidateTechnicalDistributionReady": true,
       "assetTechnicalStatus": "READY_PRIVATE_RC",
       "sdkIntegrationReady": true
+    },
+    {
+      "profile": "ios-weight-profiles-current-q8-q4hybrid",
+      "version": "0.3.1-rc1",
+      "repoId": "actacomes/CosyVoice-assets",
+      "repoType": "model",
+      "revision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+      "pathInRepo": "ios-weight-profiles-current-q8-q4hybrid/0.3.1-rc1",
+      "collectionTreeSha256": "47958326989cca9ad26fe3001b03d858c205cdfa19bd5f60d19b40e16f6e54a1",
+      "distributionStatus": "PRIVATE_RC",
+      "requiresAuthentication": true,
+      "publicRedistributionApproved": false,
+      "minimumIOS": "18.0",
+      "profiles": [
+        {
+          "profileID": "current",
+          "displayName": "Current",
+          "compression": "FP16",
+          "stateBridgeMode": "shared model-owned FP16 MLState; no cross-model state copy",
+          "manifestSHA256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
+          "payloadTreeSHA256": "dbea074bfc8dc49514c32d99f38f378d6ed030cd60b25d82f807b2dd69b40677",
+          "prefillSHA256": "62f5a760f1a23dcf8540627fa2e7f52c9d0dd912e0094b90fec642b6b5801ece",
+          "decodeSHA256": "c466ebefec84a4e05da001675bd4e4901c23459964064c9819dca6ccb5eb1c37",
+          "P2": {
+            "group-0.mlpackage": "70dd09f89694af1774832cd451cdbce8585f16128e9762fc5bb82d653fa54287",
+            "group-1.mlpackage": "24c3039d6d59a7b88e5cc9d4334e99ef8b7a0cd7ba13ec493e70781dcf24b408"
+          }
+        },
+        {
+          "profileID": "q8",
+          "displayName": "Q8",
+          "compression": "INT8 per-channel weight compression",
+          "stateBridgeMode": "shared model-owned FP16 MLState; no cross-model state copy",
+          "manifestSHA256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
+          "payloadTreeSHA256": "14fbec1f7765e1f5569200a67cb5d14b4f9758c9b56bc1c9e5363e10c5019c05",
+          "prefillSHA256": "3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18",
+          "decodeSHA256": "46c52f10b28f947509e6c35bad05c4c942076b39d8b62d791cb4c0d8e093076d",
+          "P2": {
+            "group-0.mlpackage": "70dd09f89694af1774832cd451cdbce8585f16128e9762fc5bb82d653fa54287",
+            "group-1.mlpackage": "24c3039d6d59a7b88e5cc9d4334e99ef8b7a0cd7ba13ec493e70781dcf24b408"
+          }
+        },
+        {
+          "profileID": "hybrid_q4",
+          "displayName": "Hybrid Q4 \u2014 Q8 Prefill + Q4 Decode",
+          "compression": "Q8 prefill + INT4 per-channel decode",
+          "stateBridgeMode": "Q8-prefill -> Q4-decode request-level FP16 state-copy bridge",
+          "manifestSHA256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
+          "payloadTreeSHA256": "0cd48a4704f12485cfa8f863ae9996ed5f8908e19dbbdd3540fe91e711a81fbe",
+          "prefillSHA256": "3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18",
+          "decodeSHA256": "d3e7135201e0e8c7a3f5a6282ba8d42abab95504c8c819a3441aa20c113963e1",
+          "P2": {
+            "group-0.mlpackage": "70dd09f89694af1774832cd451cdbce8585f16128e9762fc5bb82d653fa54287",
+            "group-1.mlpackage": "24c3039d6d59a7b88e5cc9d4334e99ef8b7a0cd7ba13ec493e70781dcf24b408"
+          }
+        }
+      ]
     }
   ],
   "schemaVersion": 1

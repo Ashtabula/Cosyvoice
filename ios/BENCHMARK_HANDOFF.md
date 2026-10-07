@@ -43,3 +43,14 @@ Interactive Run All remains diagnostic; the host supervisor is the strongest com
 ## Full-Q4
 
 Full-Q4-prefill is validation history only. Do not expose a provider, asset key, CLI alias, UI label, or comparison column for it.
+
+## Exact-byte recovery audit — 2026-10-06
+
+Current source pin is 053e0efa04f46bb7083f0b8063caa5e97ebcd72b (the later publisher-only source commit); historical physical-tested source SHAs remain in the inventory. Validated local collection and preserved temporary Q8 location are absent. Release catalog has no three-profile revision; authenticated HF metadata at 53e99a0529554ded273ab2f281bcaf67534198bf has no weight-profile collection files. Each profile is EXACT_VALIDATED_ASSET_MISSING. Do not stage, expose new runtime availability, reconvert checkpoints, regenerate P2, or claim a new smoke PASS.
+
+Canonical automation accepts engine=cosyvoice, profile=current|q8|hybrid_q4; missing profile is Current and unknown profile is rejected. Legacy cosyvoice3 and existing endpoint IDs remain compatible. Receipts emit hybrid_q4 while the unchanged SDK selector remains .q4. Formal automation terminates the existing app before each selected profile; separate configurations/runs provide the three-way comparison. Interactive Run All remains diagnostic.
+
+
+## Rebuild authorized task update2026-10-06
+
+New authoritative HF revision c16f38383fa261bfed317fbec2fad2c4115d690c (0.3.1-rc1), collection/tree/package/P2 identities in validation/rebuild_20261006/NEW_ASSET_INVENTORY.json. Current/Q8/Hybrid rebuilt host/physical/topology/exact-approved human-equivalence gates PASS; clean remote204 hashes PASS. New public metadata/default selection and Swift6 tests PASS. See validation/rebuild_20261006/BENCHMARK_HANDOFF.md for current handoff. Earlier missing-byte audit above is historical and retained; final Runner smoke is still pending.

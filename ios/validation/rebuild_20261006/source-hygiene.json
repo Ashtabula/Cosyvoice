@@ -1,0 +1,62 @@
+{
+  "acousticConfig": "cosyvoice3.acoustic.yaml",
+  "acousticConfigRedirected": true,
+  "acousticQwenOverridePreserved": true,
+  "changes": [
+    "disable one developer-local Python 3.10 site-packages append",
+    "redirect acoustic exporter from the full checkpoint YAML to a byte-exact seed->LLM->Flow->HiFT runtime prefix",
+    "preserve qwen_pretrain_path override so LLM construction advances RNG exactly as in the accepted upstream YAML before HiFT creates non-checkpointed excitation buffers",
+    "stop Matcha utils package from eagerly importing training/CLI utilities",
+    "replace Matcha distributed-training logger decoration with standard-library logging for conversion-only rebuild",
+    "replace protobuf-version-specific FieldDescriptor.is_repeated access with a compatibility helper that falls back to LABEL_REPEATED"
+  ],
+  "maskwrite512OriginalGitBlob": "26be8d181bf0886282a372ea8627ac37e0c15a65",
+  "maskwrite512SanitizedSha256": "b09d8d81c53ff427e929b9a2ef093af6581245c9092b5b18f819083607cfd034",
+  "maskwrite512Target": "iOS/tools/export_llm_mask_write512.py",
+  "matchaPyloggerOriginalGitBlob": "61600678029362e110f655edb91d5f3bc5b1cd1c",
+  "matchaPyloggerSanitizedSha256": "50e6e164ce41e9676c68e93ddecdca64999f8c6c9670bc27743d72e00dec3ffd",
+  "matchaPyloggerTarget": "matcha/utils/pylogger.py",
+  "matchaSubmoduleCommit": "dd9105b34bf2be2230f4aa1e4769fb586a3c824e",
+  "matchaUtilsOriginalGitBlob": "074db6461184e8cbb86d977cb41d9ebd918e958a",
+  "matchaUtilsSanitizedSha256": "d913559d0d6b28a7c6240a665d7df3a6861e6faab207b6b155e98e74dfe7633b",
+  "matchaUtilsTarget": "matcha/utils/__init__.py",
+  "originalGitBlob": "2e0eb4dc5d9216db07207e5564f13a38c4ad2e74",
+  "originalSha256": "2546da303eb8d6e705123630b6a43f76e9ca73c6715871f324c993d6f6e3974f",
+  "patches": [
+    {
+      "name": "acoustic-exporter-hermetic-config",
+      "originalGitBlob": "2e0eb4dc5d9216db07207e5564f13a38c4ad2e74",
+      "originalSha256": "2546da303eb8d6e705123630b6a43f76e9ca73c6715871f324c993d6f6e3974f",
+      "sanitizedSha256": "7d188080ad2232e216e5b863a0776aa8cc005faa053dce70f1fdcba6fd01acf8",
+      "target": "iOS/tools/export_pipeline_acoustics.py"
+    },
+    {
+      "name": "matcha-utils-init-training-imports",
+      "originalGitBlob": "074db6461184e8cbb86d977cb41d9ebd918e958a",
+      "originalSha256": "60db3dd6b8f37947154acdda663bfdb6199ae3623cd4992ccbd445de7aaebcea",
+      "sanitizedSha256": "d913559d0d6b28a7c6240a665d7df3a6861e6faab207b6b155e98e74dfe7633b",
+      "target": "matcha/utils/__init__.py"
+    },
+    {
+      "name": "matcha-pylogger-lightning-import",
+      "originalGitBlob": "61600678029362e110f655edb91d5f3bc5b1cd1c",
+      "originalSha256": "61b0bc626e4766b25c0c122c40eea34a7bb263908b650475dc4fe8012f526194",
+      "sanitizedSha256": "50e6e164ce41e9676c68e93ddecdca64999f8c6c9670bc27743d72e00dec3ffd",
+      "target": "matcha/utils/pylogger.py"
+    },
+    {
+      "name": "maskwrite512-protobuf-repeated-field-compat",
+      "originalGitBlob": "26be8d181bf0886282a372ea8627ac37e0c15a65",
+      "originalSha256": "90ac3efe4ff030a305d34288bf90356b74582e294f60e40f9391e08197407810",
+      "sanitizedSha256": "b09d8d81c53ff427e929b9a2ef093af6581245c9092b5b18f819083607cfd034",
+      "target": "iOS/tools/export_llm_mask_write512.py"
+    }
+  ],
+  "runtimeMathChanged": false,
+  "runtimePrefixRngConstructionExpected": true,
+  "sanitizedSha256": "7d188080ad2232e216e5b863a0776aa8cc005faa053dce70f1fdcba6fd01acf8",
+  "schemaVersion": 6,
+  "sourceCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "status": "PASS_SOURCE_HYGIENE",
+  "target": "iOS/tools/export_pipeline_acoustics.py"
+}

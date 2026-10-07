@@ -9,25 +9,26 @@ from audit_enumerated_ane_graphs import fingerprint
 def transform(message,names,weight):
  for field,value in message.ListFields():
   if field.type==field.TYPE_MESSAGE:
-   if field.is_repeated:
+   if getattr(field,'is_repeated',field.label==field.LABEL_REPEATED):
     children=value.values() if field.message_type.GetOptions().map_entry else value
     for child in children:
      if hasattr(child,'ListFields'):transform(child,names,weight)
    else:transform(value,names,weight)
   elif field.type==field.TYPE_STRING:
-   if field.name=='name' and not field.is_repeated and value in names:setattr(message,field.name,names[value])
-   elif field.name=='fileName' and not field.is_repeated and value=='@model_path/weights/weight.bin':setattr(message,field.name,'@model_path/weights/'+weight)
-   elif field.name=='outputs' and field.is_repeated:
+   if field.name=='name' and not getattr(field,'is_repeated',field.label==field.LABEL_REPEATED) and value in names:setattr(message,field.name,names[value])
+   elif field.name=='fileName' and not getattr(field,'is_repeated',field.label==field.LABEL_REPEATED) and value=='@model_path/weights/weight.bin':setattr(message,field.name,'@model_path/weights/'+weight)
+   elif field.name=='outputs' and getattr(field,'is_repeated',field.label==field.LABEL_REPEATED):
     for i,v in enumerate(value):
      if v in names:value[i]=names[v]
 
 def main():
- p=argparse.ArgumentParser();p.add_argument('--asset-root',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+ p=argparse.ArgumentParser();p.add_argument('--asset-root',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--counts',nargs='+',type=int,choices=[1,2,3],default=[3,2,1]);a=p.parse_args()
  a.output.mkdir(parents=True,exist_ok=True)
  models=[ct.models.MLModel(str(a.asset_root/f'enumerated-acoustic/flow-shard-{i}.mlpackage'),skip_model_load=True) for i in range(6)]
  specs=[m.get_spec() for m in models];functions=sorted(specs[0].mlProgram.functions)
  receipt=dict(schemaVersion=1,sourceCommit=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip(),algorithmUnchanged=True,scope='serialized MIL concatenation only; all boundary casts preserved; original weight files kept byte identical; no conversion/reprecision',families=functions,variants={},sourcePackages={f'flow{i}':fingerprint(a.asset_root/f'enumerated-acoustic/flow-shard-{i}.mlpackage') for i in range(6)},productionPromotion=False)
  for count,groups in [(3,[[0,1],[2,3],[4,5]]),(2,[[0,1,2],[3,4,5]]),(1,[list(range(6))])]:
+  if count not in a.counts:continue
   folder=a.output/f'p{count}';folder.mkdir(exist_ok=True);variant=dict(groups=groups,packages=[],status='EXPORTING')
   receipt['variants'][str(count)]=variant
   for index,group in enumerate(groups):
@@ -86,3 +87,8 @@ def main():
 if __name__=='__main__':main()
 # Purpose: lossless graph partition experiments 6->3/2/1 with four original multifunction families and exact weights.
 # Upstream: frozen schema-3 Flow shards; runtime Python3.11/coremltools9/macOS. Generated2026-10-05 America/New_York; new file.
+
+# Rebuild recovery: --counts 2 emits only accepted SHARDS2/P2; default historical sweep preserved.
+# Protobuf compatibility uses LABEL_REPEATED when is_repeated is absent, matching existing sanitizer semantics; all operation/weight/cast equality checks retained.
+# Purpose: avoid unrelated partition exports and support pinned protobuf4.25; upstream existing lossless MIL repacker.
+# Environment: Python3.11/coremltools9/macOS; generated2026-10-06 America/New_York; changed reflection/argument/count-filter regions.

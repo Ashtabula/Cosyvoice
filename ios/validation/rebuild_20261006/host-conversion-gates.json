@@ -1,0 +1,55 @@
+{
+  "status": "PASS_PROVENANCE_CONVERSION_HOST_WITH_SEPARATE_HUMAN_GATE",
+  "evidence": [
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-static-host-gate.json",
+      "sha256": "4be264f647d3fc4a93a26e95faa49bfbbe1fb856142becbc4ada7d4b948f8ce4",
+      "status": "PASS_CURRENT_STATIC_HOST_GATE"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-base-receipt.json",
+      "sha256": "dfcfeb67a3b095937a19793f43bf5f7c8d2699cb828630a44dfa8b707ee23b16",
+      "status": "PASS_SUPPORTED_FULL_RUNTIME_REBUILD"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/q8-conversion/conversion_receipt.json",
+      "sha256": "4b33499d37a8cb9e6e6562e9a5d5e21e940c0c4e0e36fe690e827f37a060def8",
+      "status": "EXPORTED_NOT_VALIDATED"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hybrid-decode-conversion/conversion_receipt.json",
+      "sha256": "679b015b059566793d273eaed5c4f1419b412e42bbaef30fc152ae466d2940af",
+      "status": "EXPORTED_NOT_VALIDATED"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/q8-host-control/numerical_summary.json",
+      "sha256": "7974c37f989304cbd1910fac3fe00802036ba413193578fc5f08354f8c65e137",
+      "status": "HOST_NUMERICAL_COMPLETE_NOT_QUALITY_PASS"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hybrid-host-control-routed/numerical_summary.json",
+      "sha256": "e69f508a8208fee0209065b2b61df04feee89c7dd81dd36396f7378d11142c6a",
+      "status": "HOST_NUMERICAL_COMPLETE_NOT_QUALITY_PASS"
+    }
+  ],
+  "FullQ4PrefillBuilt": false,
+  "limits": "Conversion receipts intentionally EXPORTED_NOT_VALIDATED; physical/human gates are independent new receipts.",
+  "environmentAndSourceBindings": [
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/current-base-environment.freeze.txt",
+      "sha256": "eb3998fd79948ab6957d8f1021f85a692d746a61e41d98408399826ae63567c0"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/dynamic-environment.freeze.txt",
+      "sha256": "4f24aadfe75950170081469e8bd5efa91064061d0e8455373288421678786e3b"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/rebuild_tool_source_binding.json",
+      "sha256": "fcf45fe086ab1d13f573d1ee6528435605c6baad30c0371d51651ed11cc3ee14"
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/source-hygiene.json",
+      "sha256": "d53c3adbed082c63128daf38de0152838bd6d1cdc0b92b2a80c8521c7474ffdb"
+    }
+  ]
+}

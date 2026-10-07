@@ -1,0 +1,43 @@
+{
+  "recordCommand": [
+    "xcrun",
+    "xctrace",
+    "record",
+    "--template",
+    "Time Profiler",
+    "--instrument",
+    "Core ML",
+    "--instrument",
+    "Points of Interest",
+    "--instrument",
+    "Neural Engine",
+    "--device",
+    "00008150-000A05CA1440401C",
+    "--time-limit",
+    "180s",
+    "--output",
+    "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/new-models.trace",
+    "--all-processes",
+    "--notify-tracing-started",
+    "com.actacomes.cosy-rebuild-trace.a9dd4202-7951-4e39-9ac0-c2e973ef3cbe"
+  ],
+  "requestCommand": [
+    "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-base/venv/bin/python",
+    "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/run_llm_quantization_screen.py",
+    "--variant",
+    "q4_hybrid",
+    "--output",
+    "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/request",
+    "--artifacts",
+    "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/audio/hybrid-profile-complete",
+    "--profile-trace",
+    "--sdk-profile-only"
+  ],
+  "traceReturnCode": 0,
+  "requestReturnCode": 0,
+  "tracePath": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/new-models.trace",
+  "collectorSHA256": "af9c9d2b98341ec20a0f59ee5dac31ab34810a36039f48df474d66233716eab2",
+  "sourceScriptSHA256": "a28c7b0b6cdd48fb2e2f198e0575e3d1669875bd467c59ab17ddc9de5810bcd1",
+  "scope": "new asset physical profiling, excluded from performance comparison",
+  "historicalTraceUsed": false
+}

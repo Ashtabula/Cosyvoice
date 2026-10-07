@@ -22,6 +22,7 @@ def main():
   for variant in (['baseline','q8'] if a.bits==8 else ['baseline','q8','q4']):
    root=a.q8 if variant=='q8' and a.bits==4 else a.candidate
    paths=(a.baseline/'models/llm-opt-perlayer-prefill.mlpackage',a.baseline/'models/llm-opt-perlayer-decode-maskwrite512.mlpackage') if variant=='baseline' else (root/f'cosyvoice-llm-{variant}-prefill.mlpackage',root/f'cosyvoice-llm-{variant}-decode.mlpackage')
+   if a.hybrid_state_copy and variant=='q4':paths=(a.q8/'cosyvoice-llm-q8-prefill.mlpackage',paths[1])
    print('[Q8-HOST] load',variant,flush=True);prefill=ct.models.MLModel(str(paths[0]),compute_units=ct.ComputeUnit.CPU_ONLY);decode=ct.models.MLModel(str(paths[1]),compute_units=ct.ComputeUnit.CPU_ONLY);state=prefill.make_state();c,s=rope(range(224));mask=np.full((1,1,224,224),-65504,dtype=np.float16)
    for i in range(224):mask[0,0,i,:i+1]=0
    result=prefill.predict({'x':np.asarray(emb[fixture['tokens'][:224]]).reshape(1,224,896),'cos':c,'sin':s,'mask':mask},state=state);logits=[result['logits'].copy()];hidden=[result['hidden'].copy()]
@@ -55,3 +56,7 @@ if __name__=='__main__':main()
 # Q4 update2026-10-06: optional bits4/q8 runs all three samefixture64teachersteps and characterizes Q4vsCurrent/Q8, default8 preserved. Git diff line map.
 
 # Hybrid rescue A opt-in: same common inputs; decode-owned state initialized via public supported Python state access. PureQ4/default fixtures unchanged; diagnostic only, notproductionquality.
+
+# Rebuild recovery2026-10-06: hybrid mode explicitly takes accepted Q8 prefill from --q8, never expects or generates a Q4 prefill.
+# Purpose: correct Hybrid input routing only; original64step/state-copy/finite/numerical characterization unchanged.
+# Upstream: existing host comparison; runtime Python3.11/coremltools9 CPU_ONLY; changed hybrid model-path selection line.

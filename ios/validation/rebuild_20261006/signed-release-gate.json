@@ -1,0 +1,23 @@
+{
+  "status": "PASS_SIGNED_RELEASE_PHYSICAL_RUNNER",
+  "command": [
+    "codesign",
+    "--verify",
+    "--deep",
+    "--strict",
+    "--verbose=2",
+    ".build-cosy-revalidation/Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app"
+  ],
+  "returnCode": 0,
+  "output": ".build-cosy-revalidation/Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app: valid on disk\n.build-cosy-revalidation/Build/Products/Release-iphoneos/CosyVoice3DeviceSmoke.app: satisfies its Designated Requirement\n",
+  "buildSourceBinding": {
+    "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+    "scope": "REBUILT_CANDIDATE_REVALIDATION_NOT_SHIPPING",
+    "SHARDS": 2,
+    "flowSteps": 6
+  },
+  "binarySHA256": "4159e55ebbb152427e8a2f2a0907564150de06557e251b455100243d2536153e",
+  "buildLog": "logs/revalidation-build-binding-resource.log",
+  "signingTeam": "K8RA6HJ54K",
+  "bundleID": "com.actacomes.cosyvoice3.candidatebenchmark"
+}

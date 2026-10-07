@@ -1,0 +1,208 @@
+{
+  "schemaVersion": 1,
+  "physicalSourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+  "profiles": {
+    "current": {
+      "provenance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "environment": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "conversion": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "host": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "failClosed": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "swiftTests": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "signedRelease": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/signed-release-gate.json",
+        "sha256": "71c06280d5ee3501b578d46dbc218fb3273147c042375c433c5d1664565bedad"
+      },
+      "humanEquivalence": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-human-equivalence.json",
+        "sha256": "3bd5cf4f14ff1830abcd971099ce84055f63020583162b6975a18005854a4c8c"
+      },
+      "physical": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/current-retry/llm-quantization-baseline-receipt.json",
+        "sha256": "94223ad752a1b900688ed5bcd5d8c2186f2fb98ab59029848c7428f2cdc8b85b"
+      },
+      "deterministic": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/current-retry/llm-quantization-baseline-receipt.json",
+        "sha256": "94223ad752a1b900688ed5bcd5d8c2186f2fb98ab59029848c7428f2cdc8b85b"
+      },
+      "memory": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/current-retry/llm-quantization-baseline-receipt.json",
+        "sha256": "94223ad752a1b900688ed5bcd5d8c2186f2fb98ab59029848c7428f2cdc8b85b"
+      },
+      "performance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical-summary-all-profiles.json",
+        "sha256": "561c216449ff1f388ae9ca68cee86f632953e1c3bce2df0c31d067d8d215e26c"
+      },
+      "aneTopology": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/current-complete/topology-gate.json",
+        "sha256": "2c0c82d0a64f2c3a9ed947eebd2bdec55d2aee58d4757554a613a7e27b078276"
+      }
+    },
+    "q8": {
+      "provenance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "environment": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "conversion": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "host": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "failClosed": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "swiftTests": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "signedRelease": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/signed-release-gate.json",
+        "sha256": "71c06280d5ee3501b578d46dbc218fb3273147c042375c433c5d1664565bedad"
+      },
+      "humanEquivalence": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/q8-human-equivalence.json",
+        "sha256": "ce7d8ac7a96cf1dcf001c06f8ad0fa1f65975665627931f4f3857b042d8aae3c"
+      },
+      "physical": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/q8-unprofiled-retry/llm-quantization-q8-receipt.json",
+        "sha256": "4dc8d6608d5a64caac23a52a11af6b43fc8864bdcc81968f7585962f8d72be04"
+      },
+      "deterministic": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/q8-unprofiled-retry/llm-quantization-q8-receipt.json",
+        "sha256": "4dc8d6608d5a64caac23a52a11af6b43fc8864bdcc81968f7585962f8d72be04"
+      },
+      "memory": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/q8-unprofiled-retry/llm-quantization-q8-receipt.json",
+        "sha256": "4dc8d6608d5a64caac23a52a11af6b43fc8864bdcc81968f7585962f8d72be04"
+      },
+      "performance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical-summary-all-profiles.json",
+        "sha256": "561c216449ff1f388ae9ca68cee86f632953e1c3bce2df0c31d067d8d215e26c"
+      },
+      "aneTopology": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/q8-complete-retry/topology-gate.json",
+        "sha256": "ba5fc9cac959078deb2ba7b097b90983d8d91a1d5047a51a5f9a4d3a797336c0"
+      }
+    },
+    "hybrid_q4": {
+      "provenance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "environment": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "conversion": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "host": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/validation/rebuild_20261006/host-conversion-gates.json",
+        "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+      },
+      "failClosed": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "swiftTests": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-swift-gate.json",
+        "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+      },
+      "signedRelease": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/signed-release-gate.json",
+        "sha256": "71c06280d5ee3501b578d46dbc218fb3273147c042375c433c5d1664565bedad"
+      },
+      "humanEquivalence": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hybrid-human-equivalence.json",
+        "sha256": "98606b1df099012adcc00d1b357744a3797def3adff8751c67659de13f4b2f01"
+      },
+      "physical": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/hybrid/llm-quantization-q4_hybrid-receipt.json",
+        "sha256": "ef70aae0e8fe9f17f51cc2becfcee9f446856c2dabd9c85033249eb0dc3fb797"
+      },
+      "deterministic": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/hybrid/llm-quantization-q4_hybrid-receipt.json",
+        "sha256": "ef70aae0e8fe9f17f51cc2becfcee9f446856c2dabd9c85033249eb0dc3fb797"
+      },
+      "memory": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/hybrid/llm-quantization-q4_hybrid-receipt.json",
+        "sha256": "ef70aae0e8fe9f17f51cc2becfcee9f446856c2dabd9c85033249eb0dc3fb797"
+      },
+      "performance": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical-summary-all-profiles.json",
+        "sha256": "561c216449ff1f388ae9ca68cee86f632953e1c3bce2df0c31d067d8d215e26c"
+      },
+      "aneTopology": {
+        "status": "PASS",
+        "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/topology-gate.json",
+        "sha256": "648f3a316accbf8e9ea2ece67fde8525a03258c53435c1d7ee33f92337f219b1"
+      }
+    }
+  },
+  "status": "PASS_ALL_REQUIRED_REBUILD_PUBLICATION_GATES"
+}

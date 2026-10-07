@@ -8,7 +8,7 @@ final class WeightProfileTests: XCTestCase {
     private func fixture(_ profile: CosyVoice3WeightProfile) throws -> URL {
         let root = FileManager.default.temporaryDirectory.appendingPathComponent("CosyWeightProfile-" + UUID().uuidString)
         try FileManager.default.createDirectory(at: root, withIntermediateDirectories: true)
-        let source = Bundle.module.url(forResource: profile.rawValue, withExtension: "json", subdirectory: "Fixtures")!
+        let source = Bundle.module.url(forResource: (profile == .q4 ? "q4" : profile.rawValue), withExtension: "json", subdirectory: "Fixtures")!
         try FileManager.default.copyItem(at: source, to: root.appendingPathComponent("cosyvoice3_enumerated.json"))
         addTeardownBlock { try FileManager.default.removeItem(at: root) }
         return root
@@ -19,6 +19,21 @@ final class WeightProfileTests: XCTestCase {
         XCTAssertEqual(engine.weightProfile, .current)
         XCTAssertEqual(CosyVoice3WeightProfile.productionDefault, .current)
         XCTAssertFalse(engine.profileMetadata.isExperimental)
+    }
+
+    func testDefaultInitializerResolvesCanonicalCollectionWithoutFallback() throws {
+        let source = try fixture(.current)
+        let collection = source.appendingPathComponent("collection")
+        let current = collection.appendingPathComponent("current")
+        try FileManager.default.createDirectory(at: current, withIntermediateDirectories: true)
+        try FileManager.default.copyItem(at: source.appendingPathComponent("cosyvoice3_enumerated.json"),
+                                        to: current.appendingPathComponent("cosyvoice3_enumerated.json"))
+        let engine = try CosyVoice3Engine(assetRoot: collection, idleBucketPreparation: false)
+        XCTAssertEqual(engine.weightProfile, .current)
+        XCTAssertEqual(engine.profileMetadata.acousticShards, 2)
+        XCTAssertEqual(engine.profileMetadata.runtimeAssetTreeIdentity, CosyVoice3WeightProfile.current.contract.payloadSHA)
+        try FileManager.default.removeItem(at: current)
+        XCTAssertThrowsError(try CosyVoice3Engine(assetRoot: collection, idleBucketPreparation: false))
     }
 
     func testExplicitProfilesUseSameEngineAndStableMetadata() throws {
@@ -33,12 +48,15 @@ final class WeightProfileTests: XCTestCase {
             XCTAssertEqual(engine.profileMetadata.acousticShards, 2)
             XCTAssertEqual(engine.profileMetadata.flowSteps, 6)
             XCTAssertEqual(engine.profileMetadata.requestedLLMPlacement, "CPU_AND_NE")
+            XCTAssertEqual(engine.profileMetadata.immutableAssetRevision, "c16f38383fa261bfed317fbec2fad2c4115d690c")
+            XCTAssertEqual(engine.profileMetadata.runtimeAssetTreeIdentity, profile.contract.payloadSHA)
+            XCTAssertEqual(engine.profileMetadata.acousticPartitionIdentities.count, 2)
             XCTAssertEqual(engine.profileMetadata.isExperimental, profile != .current)
         }
-        XCTAssertEqual(CosyVoice3WeightProfile.allCases.map(\.rawValue), ["current", "q8", "q4"])
+        XCTAssertEqual(CosyVoice3WeightProfile.allCases.map(\.rawValue), ["current", "q8", "hybrid_q4"])
         XCTAssertEqual(CosyVoice3WeightProfile.current.metadata.displayName, "Current")
         XCTAssertEqual(CosyVoice3WeightProfile.q8.metadata.displayName, "Q8")
-        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.displayName, "Q4 Decode Hybrid")
+        XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.displayName, "Hybrid Q4 — Q8 Prefill + Q4 Decode")
         XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.prefillRepresentation, "Q8 prefill")
         XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.decodeRepresentation, "INT4 per-channel decode")
         XCTAssertEqual(CosyVoice3WeightProfile.q4.metadata.stateBridgeMode, "Q8-prefill→Q4-decode request-level FP16 state-copy bridge")
@@ -57,7 +75,7 @@ final class WeightProfileTests: XCTestCase {
     func testCollectionResolutionHasNoSilentFallback() throws {
         let child = try fixture(.q4), collection = child.appendingPathComponent("profiles")
         try FileManager.default.createDirectory(at: collection, withIntermediateDirectories: true)
-        let installed = collection.appendingPathComponent("q4", isDirectory: true)
+        let installed = collection.appendingPathComponent("hybrid_q4", isDirectory: true)
         try FileManager.default.createDirectory(at: installed, withIntermediateDirectories: true)
         try FileManager.default.copyItem(at: child.appendingPathComponent("cosyvoice3_enumerated.json"), to: installed.appendingPathComponent("cosyvoice3_enumerated.json"))
         XCTAssertEqual(try CosyVoice3WeightProfile.q4.resolveAssets(in: collection), installed)
@@ -124,9 +142,11 @@ final class WeightProfileTests: XCTestCase {
         old["llmDecode"] = "models/cosyvoice-llm-q4-decode.mlpackage"
         try JSONSerialization.data(withJSONObject: old).write(to: root.appendingPathComponent("cosyvoice3_enumerated.json"))
         XCTAssertThrowsError(try CosyVoice3Engine(assetRoot: root, profile: .q4)) { error in
-            XCTAssertEqual(error as? CosyVoice3WeightProfileError, .assetIdentityMismatch(profileID: "q4"))
+            XCTAssertEqual(error as? CosyVoice3WeightProfileError, .assetIdentityMismatch(profileID: "hybrid_q4"))
         }
     }
 }
 // Purpose: profile/asset/cache contracts, not neural execution or human quality proof.
 // Upstream actual immutable manifest fixtures and shared Engine/PersistentRuntimeStore; Swift6/XCTest/macOS15+, generated2026-10-06 America/New_York.
+
+// Rebuild2026-10-06: tests bind canonical hybrid_q4 identity/new public HF metadata; immutable manifest fixtures remain unchanged.

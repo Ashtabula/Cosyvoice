@@ -1,0 +1,102 @@
+{
+  "files": {
+    "estimator_00.pt": {
+      "bytes": 1934523,
+      "sha256": "e74ac06b2b3eb3934f267e2192f18a7f1c215d3b1ec65110516b87ee69efd05c"
+    },
+    "flow_input.pt": {
+      "bytes": 100904,
+      "sha256": "c4ea1c46452a1e81e05cba79737a0713fdc7a0ec0fd6a484403ba479213487a1"
+    },
+    "generated_speech_tokens.pt": {
+      "bytes": 2220,
+      "sha256": "fb6ee5bdc8683fea48b4878b90370877393e7ffb7cdd582b88cbf0f0d26615c6"
+    },
+    "hift_input.pt": {
+      "bytes": 145259,
+      "sha256": "b3acfcb08235210706c2db98b86f72e434932cfc99b60c7adf1bdd98f3e541d4"
+    },
+    "llm_step_000_input.pt": {
+      "bytes": 804115,
+      "sha256": "1428e831d7437818f95fae44691b122622bdadd73055d144c233b744f71d1307"
+    },
+    "llm_step_000_output.pt": {
+      "bytes": 6336944,
+      "sha256": "66f0688c0f6d5d5c1b365513e973d8e4207c6de35dc70619eddad19539d09131"
+    },
+    "llm_step_001_input.pt": {
+      "bytes": 5523146,
+      "sha256": "2a232ee816315bcdf4309d3c8e7714fb4b787c94d77c0da667bf274b23c08773"
+    }
+  },
+  "flowScheduler": {
+    "cfgRate": 0.7,
+    "generatedMelSha256": "4fd8fa07643c1936a8a36a0c715e495cf18d780f0253bee08bf5a43480a31dca",
+    "generatedMelSource": "official 10-step CFG Euler target crop after 302 prompt frames",
+    "generatedMelStats": {
+      "max": 2.7764194011688232,
+      "mean": -2.5723397731781006,
+      "min": -5.566339015960693,
+      "std": 1.381292462348938
+    },
+    "initialNoiseSha256": "13d4f6c92ba8cc2e30099cf0b7a51b4fc376c0eb9ece34ee95dae326831cc9b3",
+    "initialNoiseSource": "CausalConditionalCFM.rand_noise(seed=0)",
+    "productionDefaultFlowSteps": 6,
+    "role": "upstream-reference-parity-fixture",
+    "scheduler": "cosine",
+    "steps": 10,
+    "validatedPublicFlowSteps": [
+      6,
+      8,
+      10
+    ]
+  },
+  "schemaVersion": 2,
+  "scope": "conversion/parity fixture only; not a bundled voice/reference and not product audio",
+  "seed": 20261002,
+  "shapes": {
+    "flowCond": [
+      2,
+      80,
+      752
+    ],
+    "flowMu": [
+      2,
+      80,
+      752
+    ],
+    "flowSpks": [
+      2,
+      80
+    ],
+    "flowT": [
+      2
+    ],
+    "flowTSharedScalar": true,
+    "flowX": [
+      2,
+      80,
+      752
+    ],
+    "hiftMel": [
+      1,
+      80,
+      450
+    ],
+    "llmDecode": [
+      1,
+      1,
+      896
+    ],
+    "llmPrefill": [
+      1,
+      224,
+      896
+    ],
+    "speechTokens": [
+      225
+    ]
+  },
+  "sourceCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "status": "PASS_DETERMINISTIC_REBUILD_FIXTURE"
+}

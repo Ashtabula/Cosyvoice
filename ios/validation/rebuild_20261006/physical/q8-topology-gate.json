@@ -1,0 +1,34 @@
+{
+  "status": "PASS_FRESH_HASH_PID_STAGE_BOUND_ANE_TOPOLOGY",
+  "profile": "q8",
+  "processID": 6430,
+  "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+  "rows": [
+    {
+      "role": "llmPrefill",
+      "packageSHA256": "3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18",
+      "compiledArtifact": "0d36e4ea3402d7a83da785948306bf2a1091ae356471b035efd633b4447f4078.mlmodelc",
+      "predictions": 5,
+      "exactANEContainment": 5,
+      "cpuActivityEvents": 0,
+      "topologyEquivalentToAccepted": true,
+      "loadActivityCount": 5,
+      "historicalLoadActivityCount": 5
+    },
+    {
+      "role": "llmDecode",
+      "packageSHA256": "46c52f10b28f947509e6c35bad05c4c942076b39d8b62d791cb4c0d8e093076d",
+      "compiledArtifact": "fdf206967e36ab5cd43689c577d570494d37c1de1cef4c5247ea332a11a51e62.mlmodelc",
+      "predictions": 1295,
+      "exactANEContainment": 1295,
+      "cpuActivityEvents": 0,
+      "topologyEquivalentToAccepted": true,
+      "loadActivityCount": 5,
+      "historicalLoadActivityCount": 5
+    }
+  ],
+  "historicalTraceReused": false,
+  "attributionSHA256": "88386c1307f4ff3cbeb38e92bdad21ec95a46445a7fef7350e34af4bf43f835d",
+  "actualPerOperationResidency": "UNKNOWN_RESIDENCY",
+  "scope": "No introduced coarse Core ML CPU activity/fragmentation; one hash-bound ANE hardware prediction per LLM prediction under native stage containment. Not 100% ANE or per-operation placement proof."
+}

@@ -1,0 +1,35 @@
+{
+  "status": "PASS_REBUILT_HYBRID_APPROVED_CORPUS_EXACT_EQUIVALENCE",
+  "humanGate": "PASS_INHERITED_BY_EXACT_APPROVED_OUTPUT_EQUIVALENCE",
+  "rows": [
+    {
+      "id": "sample01",
+      "N": 160,
+      "WAV_SHA256": "6fb93920792fd18bac16ef471fd4f33e1781a8b2609a36d3807d0f3ee24b397e",
+      "PCM_SHA256": "49c89e916e3958a115de2efb2dee66cd0d97761671dee78a9fe42b0df78974c1",
+      "exactEquivalent": true
+    },
+    {
+      "id": "sample02",
+      "N": 446,
+      "WAV_SHA256": "160b0cf110ad037c995de625ee9b06325cce5c6c9dfbc625582df245009a7e98",
+      "PCM_SHA256": "323de02daad16eb222feb38cac62479bdf10d276a38e34c7894843ed19653fa8",
+      "exactEquivalent": true
+    },
+    {
+      "id": "sample04",
+      "N": 363,
+      "WAV_SHA256": "1693065ae3f50ae80bf3ec61a10c6d1a93cb66dc319cf152c3d321cc18b7d427",
+      "PCM_SHA256": "0c0a28b5e7781ebe0389a6f67346e4f3c8fd4488f0a21cd27b642f6c2e8208eb",
+      "exactEquivalent": true
+    }
+  ],
+  "newReceipt": "rebuild-20261006/listening/hybrid-three/llm-quantization-listening-q4_hybrid-receipt.json",
+  "historicalReceipt": "Cosyvoice/ios/validation/evidence/q4_compatibility_rescue_20261006/q4_hybrid/listening/llm-quantization-listening-q4_hybrid-receipt.json",
+  "humanReview": "Cosyvoice/ios/validation/evidence/q4_human_acceptance_20261006/human_review.json",
+  "collectorFinalization": "Git cwd failure after all receipt/WAV pulls; native PASS and SHA checks intact, no inferred host collector success",
+  "limits": "Exact approved three outputs only, including accepted MAX_LENGTH446.",
+  "newReceiptSHA256": "b60c5704668a648a89bd93e74ef2d5bb2c36bd92996ce444b8e2eaa8c04fde91",
+  "historicalReceiptSHA256": "292cbd731b753ae7dc6ea6610fa8870b678c7b233bd61aff4801a5cf5a7b5eac",
+  "humanReviewSHA256": "74e5bd779a163cd0c8adc8c89d749fe058ef2b59faf348859d9340c7efe38463"
+}

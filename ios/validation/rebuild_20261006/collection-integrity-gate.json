@@ -1,0 +1,21 @@
+{
+  "status": "PASS_EXACT_THREE_PROFILE_FILE_PACKAGE_P2_INVENTORY",
+  "profiles": {
+    "current": {
+      "treeSha256": "dbea074bfc8dc49514c32d99f38f378d6ed030cd60b25d82f807b2dd69b40677",
+      "files": 64,
+      "bytes": 3530215890
+    },
+    "q8": {
+      "treeSha256": "14fbec1f7765e1f5569200a67cb5d14b4f9758c9b56bc1c9e5363e10c5019c05",
+      "files": 64,
+      "bytes": 2803735289
+    },
+    "hybrid_q4": {
+      "treeSha256": "0cd48a4704f12485cfa8f863ae9996ed5f8908e19dbbdd3540fe91e711a81fbe",
+      "files": 64,
+      "bytes": 2621792999
+    }
+  },
+  "FullQ4Included": false
+}

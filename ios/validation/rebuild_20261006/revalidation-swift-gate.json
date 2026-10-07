@@ -1,0 +1,11 @@
+{
+  "status": "PASS_SWIFT6_PROFILE_AND_FAIL_CLOSED_TESTS",
+  "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+  "testCount": 73,
+  "skipped": 5,
+  "failures": 0,
+  "profileTests": 10,
+  "log": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/logs/revalidation-swift-tests-all-profiles.log",
+  "logSHA256": "78ffb36ba1b7ca8630896b32052e84676918a3057a648e6e32d3eedf19f66176",
+  "scope": "host Swift6 default/explicit profile metadata, wrong/mixed manifest/hash and cache identity tests; unsupported device fixtures skipped, physical receipts separate"
+}

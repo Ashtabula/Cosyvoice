@@ -21,11 +21,11 @@ class Table:
         start=self.number(row.find('start-time'));return start,start+self.number(row.find('duration'))
 
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--prefix',type=Path,required=True);p.add_argument('--request',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--additional-model-identities',type=Path)
+    p=argparse.ArgumentParser();p.add_argument('--prefix',type=Path,required=True);p.add_argument('--request',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--additional-model-identities',type=Path);p.add_argument('--engine-ios',type=Path,default=Path(__file__).resolve().parents[1])
     a=p.parse_args();receipt=json.loads(a.request.read_text());pid=str(receipt['processID'])
-    graphs=json.loads((Path('/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/enumerated_ane_graph_audit.json')).read_text())['models']
+    graphs=json.loads((a.engine_ios/'validation/evidence/enumerated_ane_graph_audit.json').read_text())['models']
     role_by_sha={v['identity']['treeSha256']:role for role,v in graphs.items()}
-    quant=json.loads(Path('/Volumes/WD/Codes/Cosyvoice/ios/validation/evidence/llm_quantization_20261006/q8/conversion_receipt.json').read_text())
+    quant=json.loads((a.engine_ios/'validation/evidence/llm_quantization_20261006/q8/conversion_receipt.json').read_text())
     role_by_sha.update({v['outputIdentity']['treeSha256']:'llm'+role.capitalize() for role,v in quant['models'].items()})
     if a.additional_model_identities:
         additional=json.loads(a.additional_model_identities.read_text())
@@ -88,3 +88,7 @@ if __name__=='__main__':main()
 # Purpose: reproducible physical profiling attribution without source-only claims. Upstream Instruments XML and signed app receipts; Python3.11/macOS, generated2026-10-05 America/New_York. New file; UNKNOWN retained when per-op actual devices absent.
 
 # Rescue2026-10-06: optional explicit model-role identity receipt; retains exact actualprocessload/hash/nativePID gates, no hardcodedalias or fallback.
+
+# Rebuild recovery2026-10-06: --engine-ios relocates historical role labels without trusting a deleted developer directory.
+# Fresh exact package hashes are passed through existing --additional-model-identities; native PID/load/hash/containment gates and UNKNOWN limits unchanged.
+# Purpose: analyze new candidate traces; upstream original attribution parser, Python3.11/macOS; changed metadata paths only.

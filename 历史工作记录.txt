@@ -924,3 +924,32 @@ Actions:all6 source/evidence checkpoints throughbb3bcac successfullyPUSHED toori
 Files:github_push_receipt.json;historyappend-only.
 Validation:10fullrequests same tokensPCM/WAV;matched187.484MiBpeakreduction;12actualworkspaceWAVsready;24tests/signedbuildPASS;hardware5pref/1295decode partialmodelmatch withperopUNKNOWN. No model/WAV/traceuploaded.
 GitHub Timeline:bb3bcacalreadyPUSHED confirmedlocalremoteSHA;completionrecordnextcommit/push. Unrelated.gitignore/Vox/reportsuntouched.
+
+
+时间：2026-10-06T21:46:19.472165-04:00 America/New_York
+用户 Prompt 摘要：read and run cosyvoice_runner_exact_validated_assets_instructions.txt；仅冻结 Current/Q8/Hybrid Q4 已验证原始资产并集成 Runner，禁止 reconversion/Full-Q4/长 benchmark。
+具体动作：恢复源码仓库；读取规则及权威证据；核对 HUMAN_PASS/expected hashes，原始collection/cache/临时资产与 HF 未恢复原始字节，按 stop gate 标记 EXACT_VALIDATED_ASSET_MISSING。Demo 补 cosyvoice alias、unknown-profile fail closed、hybrid_q4 receipt ID、共享 provenance、source pin/显示；修复 Release 揭示的既有 Swift 日志引号转义错误。生成 checklist/handoff/inventory/final report。
+修改文件：checklist、BENCHMARK_HANDOFF.md、exact_validated_asset_inventory.json、FINAL_REPORT.md、validation/exact_assets_20261006 证据及历史记录；Demo 另改 BenchmarkAutomation.swift、BenchmarkModels.swift、VoiceCloneBackend.swift、run_ios_benchmark.py、check_six_way_cosy_benchmark_contract.py，新增 test_cosy_profile_automation.py。Cosy SDK runtime 未修改。
+测试或验证结果：Swift 73 tests / 5 skipped / 0 failures，10 profile tests 全过；真实 Swift JSON config 与 Python routing 全过；四项 contract checks/Swift parse/diff check 通过；Demo/Cosy signed Release 和 codesign strict verify 均 PASS。没有真实资产 hash 验证、device inference/PCM/ANE/smoke/长 comparison。
+平台/路径/触发阶段/最终状态：本地 /Volumes/WD/Codes/Demo/Clean；sandbox DNS/cache/signing 限制授权解决；HF observed revision 53e99a0529554ded273ab2f281bcaf67534198bf 无 profile files；不使用旧资产代替，不运行 Colab/Drive。Team K8RA6HJ54K 及缓存 wildcard profile 完成签名。完整日志在 /Volumes/WD/Codes/Demo/Clean/validation/exact_assets_20261006/。
+GitHub Timeline：未 commit，未 push；用户本次未要求 push，本地修改可 review。
+
+
+时间：2026-10-06 21:56 America/New_York
+Prompt：用户确认“包括”授权重建、物理验证、HF 上传。
+动作：保持上一轮报告不变；创建独立冻结 converter/upstream clone 与两个 pinned 环境；按原 Current 配方启动基础重建；下载 exact checkpoint 与 historical shared source；Q8/Hybrid 转换未启动。
+文件：Cosyvoice/ios/validation/rebuild_20261006/{REBUILD_PROVENANCE.md,authorization_and_prior_audit.json}；本历史记录。
+验证：source pins/原 exporter无diff已核对；设备available(paired)，未认定CoreML连接；重建运行中，新模型未验证/发布。
+平台：本地 macOS 独立 rebuild-20261006；无 Colab/Drive。
+GitHub Timeline：未 commit，未 push。
+
+时间：2026-10-06 22:04 America/New_York
+Prompt：本次重建授权持续执行。
+动作：AGENT_PERSONAL_CUSTOMIZATION.md 增加仅当前任务授权边界；quantize_llm_weights.py 增加 --roles，支持 decode-only INT4，不构建 Full-Q4 prefill；保存 pinned env/source-hygiene/frozen reference receipts，创建未发布占位记录。
+文件：AGENT_PERSONAL_CUSTOMIZATION.md、ios/tools/quantize_llm_weights.py、ios/validation/rebuild_20261006/*、历史记录。
+验证：Python3.11 py_compile PASS；基础/枚举 Current 转换运行中；新 Q8/Hybrid 未生成。CoreML DeviceState.CONNECTED已确认；旧参考SHA一致。
+GitHub Timeline：未 commit、未 push。
+
+2026-10-06 23:05 EDT | Prompt: read and run，后续“包括”授权重建/物理/HF/Runner；用户设备已连接。动作: 单独冻结环境重建 Current/Q8/Hybrid decode-only，新包哈希与历史区分；物理5次 + Current6/Q8三/Hybrid三实际 WAV 精确等价于人工认可输出；Current/Q8 新 PID-stage-hash-bound ANE topology PASS，Hybrid完整trace采集中；73 Swift tests/5 skip/0fail，Release签名PASS。修改: ios/tools和validation下独立rebuild工具与 ios/validation/rebuild_20261006 证据。验证: 旧 EXACT_VALIDATED_ASSET_MISSING 报告SHA保持；Full-Q4 prefill未生成；HF尚未发布，Runner未更新新身份。平台: 本地Mac和USB iPhone Air，非Colab/Drive。GitHub Timeline: Cosyvoice/Demo主工作区未commit未push；独立revalidation-runtime已有be0e613/5d3371b本地commit未push。
+
+2026-10-06 23:13 EDT | Prompt: 包括权威重建、物理重验证、HF发布、Runner新资产集成。动作: 三profile新physical/topology/human-equivalence gate全PASS；私有HF新0.3.1-rc1 revision c16f38383fa261bfed317fbec2fad2c4115d690c/tag发布；204文件clean远端重下载SHA验证PASS。新SDKmetadata绑定newLLM/P2/profile/collection/HF身份，canonical hybrid_q4保留.q4调用兼容；默认schema3 Current自动严格P2/collection解析，legacy schema1/2保留。修改: CosyVoice3WeightProfile.swift、CosyVoice3Engine.swift、WeightProfileTests.swift、assets/releases.json、rebuild工具和新证据文档。验证: 74 Swift6 tests，5 skip，0fail（新default collection测试）；物理新trace每profile5prefill+1295decode，LLM coarse CPU0，per-opUNKNOWN；Current6/Q8三/Hybrid三新WAV精确复现已人工认可输出。GitHub Timeline: 即将为Demo remote-cleanhouse可复现依赖创建并push独立SDK分支；不会改写main/历史。

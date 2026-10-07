@@ -1,0 +1,5739 @@
+{
+  "current": {
+    "status": "PASS_BOUNDED_PUBLIC_SYNTHESIS_DETERMINISM_MEMORY_TIMING_RECEIPTS",
+    "sourceCommit": "be0e613dfdf09208573d5626579050ed81fe6fcc",
+    "receipt": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/current-retry/llm-quantization-baseline-receipt.json",
+    "RTFCold": 4.3441050680769235,
+    "warmRTF": [
+      0.4959476882692308,
+      0.49086455134615387,
+      0.49151008413461544,
+      0.49162618586538454
+    ],
+    "median": 0.49156813499999996,
+    "mean": 0.49248712740384615,
+    "min": 0.49086455134615387,
+    "max": 0.4959476882692308,
+    "sampledPeakBytes": 2326596768,
+    "boundaryMemory": [
+      {
+        "stage": "before_engine_creation",
+        "physicalFootprintBytes": 10405560
+      },
+      {
+        "stage": "after_engine_creation",
+        "physicalFootprintBytes": 10421944
+      },
+      {
+        "stage": "request_1_begin",
+        "physicalFootprintBytes": 11765432
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 11765432
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 11765432
+      },
+      {
+        "stage": "prepare.model.1.4.begin:models/llm-opt-perlayer-prefill.mlpackage",
+        "physicalFootprintBytes": 16320184
+      },
+      {
+        "stage": "prepare.model.1.4.end:models/llm-opt-perlayer-prefill.mlpackage",
+        "physicalFootprintBytes": 754615992
+      },
+      {
+        "stage": "prepare.model.2.4.begin:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 754615992
+      },
+      {
+        "stage": "prepare.model.2.4.end:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 26298088
+      },
+      {
+        "stage": "prepare.model.3.4.begin:models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+        "physicalFootprintBytes": 26298088
+      },
+      {
+        "stage": "prepare.model.3.4.end:models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+        "physicalFootprintBytes": 760514280
+      },
+      {
+        "stage": "prepare.model.4.4.begin:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 760514280
+      },
+      {
+        "stage": "prepare.model.4.4.end:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 44123880
+      },
+      {
+        "stage": "prepare.end:warmed=4",
+        "physicalFootprintBytes": 49809200
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 49809200
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 402688056
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 402688056
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1865107512
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1865107512
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1865107512
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1871464504
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1874397240
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1874397240
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1876281400
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1878149176
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1880000568
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1861601336
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1863469112
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1865320504
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1867188280
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1869056056
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1870907448
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1846544440
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1848444984
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1850296376
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1852180560
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1854048336
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1824671824
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1826523216
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1826998352
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1826998352
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1624918096
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 429394048
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 429394048
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 429394048
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 429394048
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=342.524",
+        "physicalFootprintBytes": 430819480
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 430819480
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 431917208
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 431802520
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 431343768
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=4148.006",
+        "physicalFootprintBytes": 445483616
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 445483616
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=3372.459",
+        "physicalFootprintBytes": 536775672
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 536775672
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 536775672
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 536841208
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 586042360
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 586042360
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 583027680
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 583044064
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 583044064
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 583044064
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590269432
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 590253048
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 594054136
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 594070520
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 594070520
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=2524.467",
+        "physicalFootprintBytes": 736218248
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 736218248
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 901893256
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 901893256
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 901893256
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 901893256
+      },
+      {
+        "stage": "request_1_completion",
+        "physicalFootprintBytes": 902024328
+      },
+      {
+        "stage": "request_2_begin",
+        "physicalFootprintBytes": 902139016
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 902139016
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 902139016
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 902450312
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 902450312
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 881233032
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 881233032
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 2307263648
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 2307263648
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 2307263648
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 2313604256
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 2316520608
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 2316520608
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 2318437536
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 2309835936
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 2288651424
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 2217381024
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 2192166048
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 2194050208
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 2195934368
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 2197802144
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 2199702688
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 2201586848
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 2180975776
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 2182859936
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 2184744096
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 2186628256
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 2188496032
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 2190396576
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 2190855328
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 2191084704
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2190298248
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2190298248
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 2190298248
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 2190298248
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2190298248
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.820",
+        "physicalFootprintBytes": 2190314632
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 2190314632
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.929",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.833",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 2191412360
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740019336
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 733711496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 733678728
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 740248712
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 749243528
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 749243528
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.757",
+        "physicalFootprintBytes": 749243528
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 749243528
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 888589472
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 888589472
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 888589472
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 888589472
+      },
+      {
+        "stage": "request_2_completion",
+        "physicalFootprintBytes": 888605856
+      },
+      {
+        "stage": "request_3_begin",
+        "physicalFootprintBytes": 852593824
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 852593824
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 852593824
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 852675744
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 852675744
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 852675744
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 852675744
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 2310622368
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 2310622368
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 2310622368
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 2316930208
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 2319830176
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 2319830176
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 2321681568
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 2323270816
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 2314620064
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 2247249056
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 2248035488
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 2249870496
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 2245151904
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 2246986912
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 2248838304
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 2218593416
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 2222296200
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 2224147592
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 2226015368
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 2227866760
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 2229718152
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 2230176904
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 2220362888
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2152516744
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2085407880
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 2085407880
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 2085407880
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2085407880
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.883",
+        "physicalFootprintBytes": 1951190152
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1951190152
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1615645832
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1615416456
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1614040200
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.796",
+        "physicalFootprintBytes": 1473793160
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1473793160
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.839",
+        "physicalFootprintBytes": 1259981960
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1259867272
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1259867272
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1259523208
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752241800
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 745933960
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 752503944
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 761498760
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 761498760
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.742",
+        "physicalFootprintBytes": 761498760
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 761498760
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 851922080
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 851922080
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 851922080
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 851922080
+      },
+      {
+        "stage": "request_3_completion",
+        "physicalFootprintBytes": 851922080
+      },
+      {
+        "stage": "request_4_begin",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 852561056
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 2310048928
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 2310048928
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 2310048928
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 2316340384
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 2319240352
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 2319240352
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 2321091744
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 2322680992
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 2314030240
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 2245610656
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 2247445664
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 2249280672
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 2244562080
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 2246397088
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 2217233544
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 2219084936
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 2220952712
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 2222804104
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 2224671880
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 2226523272
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 2218642568
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 2220493960
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 2220952712
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 2221214856
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.761",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 2220444808
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 2153352328
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 2153237640
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2152320136
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.966",
+        "physicalFootprintBytes": 2076036232
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2075921544
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.816",
+        "physicalFootprintBytes": 2001013896
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 2001013896
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 2000899208
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 2000211080
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752979080
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 746671240
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 752946312
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 761941128
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 761941128
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.738",
+        "physicalFootprintBytes": 761941128
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 761941128
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 854101152
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 854101152
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 854101152
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 854101152
+      },
+      {
+        "stage": "request_4_completion",
+        "physicalFootprintBytes": 854101152
+      },
+      {
+        "stage": "request_5_begin",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 854969504
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 2312490144
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 2312490144
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 2312490144
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 2318781600
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 2321681568
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 2321681568
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 2323532960
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 2325122208
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 2317159584
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 2261683360
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 2248477856
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 2250312864
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 2245594272
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 2247429280
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 2249313440
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 2251164832
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 2253016224
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 2254867616
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 2256751776
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 2258603168
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 2260454560
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 2262305952
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 2262781088
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 2263010464
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.816",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 2262240416
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 2195147936
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 2194918560
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2194115744
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=0.966",
+        "physicalFootprintBytes": 2117029024
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 2117029024
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=0.829",
+        "physicalFootprintBytes": 2042121376
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 2042121376
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 2042006688
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 2041777312
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 790400160
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 784092320
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 784256160
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 784256160
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 784256160
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=0.725",
+        "physicalFootprintBytes": 784256160
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 784256160
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 856427680
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 856427680
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 856427680
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 856427680
+      },
+      {
+        "stage": "request_5_completion",
+        "physicalFootprintBytes": 856427680
+      },
+      {
+        "stage": "post_completion_idle_1s",
+        "physicalFootprintBytes": 774327432
+      },
+      {
+        "stage": "post_completion_idle_3s",
+        "physicalFootprintBytes": 734219400
+      },
+      {
+        "stage": "post_completion_idle_10s",
+        "physicalFootprintBytes": 734055560
+      },
+      {
+        "stage": "post_completion_idle_35s",
+        "physicalFootprintBytes": 424773928
+      },
+      {
+        "stage": "sampler_stop",
+        "physicalFootprintBytes": 424773928
+      }
+    ],
+    "energyScope": "CPU-onlyRecount, notANE/GPUorwholedevice",
+    "thermalStart": "nominal",
+    "thermalEnd": "serious",
+    "scope": "USB/charging bounded revalidation, no formal thermal or whole-device ranking"
+  },
+  "q8": {
+    "status": "PASS_BOUNDED_PUBLIC_SYNTHESIS_DETERMINISM_MEMORY_TIMING_RECEIPTS",
+    "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+    "receipt": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/q8-unprofiled-retry/llm-quantization-q8-receipt.json",
+    "RTFCold": 0.8336743228846154,
+    "warmRTF": [
+      0.3910744751923077,
+      0.38598571711538465,
+      0.3875774278846154,
+      0.386887744326923
+    ],
+    "median": 0.3872325861057692,
+    "mean": 0.3878813411298077,
+    "min": 0.38598571711538465,
+    "max": 0.3910744751923077,
+    "sampledPeakBytes": 1610189936,
+    "boundaryMemory": [
+      {
+        "stage": "before_engine_creation",
+        "physicalFootprintBytes": 10520176
+      },
+      {
+        "stage": "after_engine_creation",
+        "physicalFootprintBytes": 10520176
+      },
+      {
+        "stage": "request_1_begin",
+        "physicalFootprintBytes": 11830896
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 11830896
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 11830896
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 18663048
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 18663048
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 334530424
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 334530424
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1078331256
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1078331256
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1078331256
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1084802936
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1087735672
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1087735672
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1089668984
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1091536760
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1093453712
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1095337872
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1097222032
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1099138960
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1101023120
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1102890896
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1104709520
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1106577296
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1108527016
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1110427560
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1112311720
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1114179496
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1116014504
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1117833128
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1118291880
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1118537640
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1117783976
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 812926936
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 812926936
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 812926936
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 812926936
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=15.552",
+        "physicalFootprintBytes": 448382960
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 448382960
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 449497072
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 449497072
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 449153008
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=679.270",
+        "physicalFootprintBytes": 465914344
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 465914344
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=610.276",
+        "physicalFootprintBytes": 533695312
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 533695312
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 533695312
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 533695312
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 579161008
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 579161008
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 582290376
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 582290376
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 582290376
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 582290376
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589532104
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589499336
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 589499336
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 589499336
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 595446728
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 596085704
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 596085704
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=194.215",
+        "physicalFootprintBytes": 747801688
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 747801688
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 858688624
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 858688624
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 858688624
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 858688624
+      },
+      {
+        "stage": "request_1_completion",
+        "physicalFootprintBytes": 858819696
+      },
+      {
+        "stage": "request_2_begin",
+        "physicalFootprintBytes": 859311216
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 859311216
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 859311216
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 859425904
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 859425904
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 859425904
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 859425904
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1595313264
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1595313264
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1595313264
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1601670256
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1604602992
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1604602992
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1606503536
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1608338544
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1610189936
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1598393456
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1600244848
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1550404720
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1504316528
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1506184304
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1508052080
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1509919856
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1511771248
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1513639024
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1515506800
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1479249008
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1481100400
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1482984560
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1483443312
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1483689072
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.108",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1482935408
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1484033136
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1484033136
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1484033136
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.248",
+        "physicalFootprintBytes": 1481280624
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1481280624
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.183",
+        "physicalFootprintBytes": 1480363120
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1480363120
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1480363120
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1480363120
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 752749680
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 746441840
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 746441840
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 734268528
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 740838512
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 749816944
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 749816944
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=2.441",
+        "physicalFootprintBytes": 749816944
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 749816944
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 887065736
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 887065736
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 887065736
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 887065736
+      },
+      {
+        "stage": "request_2_completion",
+        "physicalFootprintBytes": 887065736
+      },
+      {
+        "stage": "request_3_begin",
+        "physicalFootprintBytes": 850955400
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 850955400
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 850955400
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 851004552
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 851004552
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 851004552
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 851004552
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1581780104
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1581780104
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1581780104
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1588071560
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1590971528
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1590971528
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1592822920
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1594657928
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1593101448
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1561382024
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1563233416
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1518931080
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1520766088
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1522601096
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1524452488
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1519750280
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1521601672
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1523453064
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1525304456
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1495731312
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1483951216
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1485802608
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1486261360
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1486507120
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1284426864
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1284426864
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1284426864
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1284426864
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1284426864
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=2.180",
+        "physicalFootprintBytes": 1120242800
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1120242800
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 782535792
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 782306416
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 752143472
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.792",
+        "physicalFootprintBytes": 735513712
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 735513712
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.512",
+        "physicalFootprintBytes": 723127408
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 723127408
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 723127408
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 723668080
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 754650224
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 748342384
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 748342384
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 747129968
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 753699952
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 754699376
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 754699376
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.080",
+        "physicalFootprintBytes": 754699376
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 754699376
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 860048520
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 860048520
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 860048520
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 860048520
+      },
+      {
+        "stage": "request_3_completion",
+        "physicalFootprintBytes": 860048520
+      },
+      {
+        "stage": "request_4_begin",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 860851336
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1576455304
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1576455304
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1576455304
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1582746760
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1585646728
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1585646728
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1587498120
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1589333128
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1591135368
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1592970376
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1561267336
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1516965000
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1518800008
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1520635016
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1522470024
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1517767816
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1519619208
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1521470600
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1499171952
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1501023344
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1502874736
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1504726128
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1505184880
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1505430640
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1169132656
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1139231856
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1139231856
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1139166320
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1139166320
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=2.330",
+        "physicalFootprintBytes": 1136987248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1136987248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 771869808
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 771640432
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 770149488
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=2.359",
+        "physicalFootprintBytes": 760286320
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 760286320
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.994",
+        "physicalFootprintBytes": 751570032
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 751570032
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 751455344
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 751225968
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756288624
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756288624
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 756321392
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 750013552
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 756518000
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 756518000
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 756518000
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.066",
+        "physicalFootprintBytes": 756518000
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 756518000
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 861637768
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 861637768
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 860097672
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 860097672
+      },
+      {
+        "stage": "request_4_completion",
+        "physicalFootprintBytes": 860097672
+      },
+      {
+        "stage": "request_5_begin",
+        "physicalFootprintBytes": 861113480
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 861113480
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 861113480
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 861113480
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 861113480
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 861129864
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 861129864
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1576848520
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1576848520
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1576848520
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1583139976
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1586039944
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1586039944
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1587891336
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1589726344
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1591561352
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1593396360
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1560448136
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1516162184
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1517997192
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1519832200
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1521667208
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1518210184
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1520061576
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1521912968
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1515080840
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1516932232
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1518783624
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1520667784
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1521126536
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1521372296
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.063",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1520602248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1453509768
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1453395080
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1452362888
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.391",
+        "physicalFootprintBytes": 1305414792
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1305414792
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.190",
+        "physicalFootprintBytes": 1225231496
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1225116808
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1225002120
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1224199304
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775326856
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 775572616
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 769264776
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 773147784
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 774147208
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 774147208
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.057",
+        "physicalFootprintBytes": 774147208
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 774147208
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 846007432
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 846007432
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 846007432
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 846007432
+      },
+      {
+        "stage": "request_5_completion",
+        "physicalFootprintBytes": 846007432
+      },
+      {
+        "stage": "post_completion_idle_1s",
+        "physicalFootprintBytes": 766037128
+      },
+      {
+        "stage": "post_completion_idle_3s",
+        "physicalFootprintBytes": 760958088
+      },
+      {
+        "stage": "post_completion_idle_10s",
+        "physicalFootprintBytes": 744131720
+      },
+      {
+        "stage": "post_completion_idle_35s",
+        "physicalFootprintBytes": 404375752
+      },
+      {
+        "stage": "sampler_stop",
+        "physicalFootprintBytes": 404375752
+      }
+    ],
+    "energyScope": "CPU-onlyRecount, notANE/GPUorwholedevice",
+    "thermalStart": "nominal",
+    "thermalEnd": "fair",
+    "scope": "USB/charging bounded revalidation, no formal thermal or whole-device ranking"
+  },
+  "hybrid_q4": {
+    "status": "PASS_BOUNDED_PUBLIC_SYNTHESIS_DETERMINISM_MEMORY_TIMING_RECEIPTS",
+    "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+    "receipt": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/hybrid/llm-quantization-q4_hybrid-receipt.json",
+    "RTFCold": 1.5371329647115386,
+    "warmRTF": [
+      0.28468908653846153,
+      0.28163050076923074,
+      0.2858124599038462,
+      0.2854860817307693
+    ],
+    "median": 0.28508758413461543,
+    "mean": 0.28440453223557693,
+    "min": 0.28163050076923074,
+    "max": 0.2858124599038462,
+    "sampledPeakBytes": 1424116920,
+    "boundaryMemory": [
+      {
+        "stage": "before_engine_creation",
+        "physicalFootprintBytes": 10438256
+      },
+      {
+        "stage": "after_engine_creation",
+        "physicalFootprintBytes": 10454640
+      },
+      {
+        "stage": "request_1_begin",
+        "physicalFootprintBytes": 11355760
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 11372144
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 11372144
+      },
+      {
+        "stage": "prepare.model.1.4.begin:models/cosyvoice-llm-q8-prefill.mlpackage",
+        "physicalFootprintBytes": 16139912
+      },
+      {
+        "stage": "prepare.model.1.4.end:models/cosyvoice-llm-q8-prefill.mlpackage",
+        "physicalFootprintBytes": 394577544
+      },
+      {
+        "stage": "prepare.model.2.4.begin:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 394577544
+      },
+      {
+        "stage": "prepare.model.2.4.end:reference/speech-tokenizer-fixed605.mlpackage",
+        "physicalFootprintBytes": 29099656
+      },
+      {
+        "stage": "prepare.model.3.4.begin:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 29099656
+      },
+      {
+        "stage": "prepare.model.3.4.end:models/cosyvoice-llm-q4-rescue-a-decode.mlpackage",
+        "physicalFootprintBytes": 197691064
+      },
+      {
+        "stage": "prepare.model.4.4.begin:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 197691064
+      },
+      {
+        "stage": "prepare.model.4.4.end:reference/campplus-fixed604.mlpackage",
+        "physicalFootprintBytes": 14354104
+      },
+      {
+        "stage": "prepare.end:warmed=4",
+        "physicalFootprintBytes": 20072168
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 20072168
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 368953304
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 368953304
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 921159640
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 921159640
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 921159640
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 927516632
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 936839128
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 936839128
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 938739672
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 940591064
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 942442456
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 944310232
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 946178008
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 948045784
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 949913560
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 941475800
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 943359960
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 945211352
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 947079128
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 948930520
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 950831088
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 952682480
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 954566640
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 956434416
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 956893168
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 950601712
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 584337392
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 455280648
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 455280648
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 455280648
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 455280648
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=14.568",
+        "physicalFootprintBytes": 455690248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 455690248
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 456755208
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 456755208
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 456411144
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=460.033",
+        "physicalFootprintBytes": 469961216
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 469961216
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=354.407",
+        "physicalFootprintBytes": 537578392
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 537578392
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 537578392
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 537578392
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 589122504
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 589122504
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 563252216
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 563252216
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 563252216
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 563252216
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 570133496
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 570100728
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 570100728
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 570100728
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 576064504
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 585681912
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 585681912
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=158.103",
+        "physicalFootprintBytes": 736087176
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 736087176
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 883084472
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 883084472
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 883084472
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 883084472
+      },
+      {
+        "stage": "request_1_completion",
+        "physicalFootprintBytes": 846761144
+      },
+      {
+        "stage": "request_2_begin",
+        "physicalFootprintBytes": 847088824
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 847088824
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 847088824
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 847219896
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 847219896
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 847219896
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 847219896
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1397460152
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1397460152
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1397460152
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1403784376
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1413057720
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1413057720
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1414909112
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1416744120
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1418579128
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1420414136
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1422265528
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1424116920
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1398361272
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1400196280
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1402064056
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1403915448
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1309559992
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1304874168
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1306709176
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1308576952
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1310428344
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1312312504
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1312787640
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1306741944
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1305971896
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1305971896
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1305971896
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1305971896
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1305971896
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.124",
+        "physicalFootprintBytes": 1305988280
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1305988280
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1307086008
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1306971320
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1306627256
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.310",
+        "physicalFootprintBytes": 1159351480
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1159236792
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.194",
+        "physicalFootprintBytes": 1079626936
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 1079626936
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 1079512248
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 1078824120
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 757566648
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 736824504
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 730516664
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 730500280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 730500280
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 730500280
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 737053880
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 746048696
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 746048696
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.126",
+        "physicalFootprintBytes": 746048696
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 746048696
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 861539512
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 861539512
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 861539512
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 861539512
+      },
+      {
+        "stage": "request_2_completion",
+        "physicalFootprintBytes": 861555896
+      },
+      {
+        "stage": "request_3_begin",
+        "physicalFootprintBytes": 846810296
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 846810296
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 846810296
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 846843064
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 846843064
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 846843064
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 846843064
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1395756216
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1395756216
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1395756216
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1402047672
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1411239096
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1411239096
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1413090488
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1414925496
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1416760504
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1418595512
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1420430520
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1422265528
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1424100536
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1374948536
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1376799928
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1378651320
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1380502712
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1336216760
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1338068152
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1339919544
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1341770936
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1343638712
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1344097464
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1338051768
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.305",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1337281720
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1270189240
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1270074552
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1202277560
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.348",
+        "physicalFootprintBytes": 1050971320
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1050971320
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.202",
+        "physicalFootprintBytes": 942197944
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 942197944
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 942197944
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 942509240
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 767446200
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 765807800
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 747048120
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 740740280
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 747310264
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 748309688
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 748309688
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.079",
+        "physicalFootprintBytes": 748309688
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 748309688
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 838847672
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 838847672
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 838847672
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 838847672
+      },
+      {
+        "stage": "request_3_completion",
+        "physicalFootprintBytes": 838864056
+      },
+      {
+        "stage": "request_4_begin",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 839781560
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1388776632
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1388776632
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1388776632
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1395068088
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1404259512
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1404259512
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1406110904
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1407945912
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1409780920
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1411615928
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1413467320
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1415056568
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1416891576
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1406782648
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1408617656
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1410452664
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1343098040
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1344949432
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1346800824
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1348652216
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1350503608
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1328254136
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1328729272
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1322667192
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1321897144
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1321897144
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1321897144
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1321897144
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1321897144
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=0.986",
+        "physicalFootprintBytes": 1254804664
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1254804664
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1120586936
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1120357560
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1052789944
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.363",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.196",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 939543736
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 751586488
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 751586488
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 750439608
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 744131768
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 744148152
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 749604024
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 749604024
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 749604024
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.077",
+        "physicalFootprintBytes": 749604024
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 749604024
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 837995704
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 837995704
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 837995704
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 837995704
+      },
+      {
+        "stage": "request_4_completion",
+        "physicalFootprintBytes": 837995704
+      },
+      {
+        "stage": "request_5_begin",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "synthesis.begin",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "prepare.begin",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "prepare.end:warmed=0",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "frontend.begin",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "frontend.end:logicalPrefix=54:minN=26:maxN=260",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "llm.load.begin",
+        "physicalFootprintBytes": 838929592
+      },
+      {
+        "stage": "llm.load.end",
+        "physicalFootprintBytes": 1387842744
+      },
+      {
+        "stage": "llm.generate.begin:maxN=260",
+        "physicalFootprintBytes": 1387842744
+      },
+      {
+        "stage": "llm.session.begin:logicalPrefix=54:maxN=260:validationSeed=42",
+        "physicalFootprintBytes": 1387842744
+      },
+      {
+        "stage": "llm.prefill.begin",
+        "physicalFootprintBytes": 1394134200
+      },
+      {
+        "stage": "llm.prefill.end",
+        "physicalFootprintBytes": 1403325624
+      },
+      {
+        "stage": "llm.decode.progress:N=1:maxN=260",
+        "physicalFootprintBytes": 1403325624
+      },
+      {
+        "stage": "llm.decode.progress:N=16:maxN=260",
+        "physicalFootprintBytes": 1405177016
+      },
+      {
+        "stage": "llm.decode.progress:N=32:maxN=260",
+        "physicalFootprintBytes": 1407012024
+      },
+      {
+        "stage": "llm.decode.progress:N=48:maxN=260",
+        "physicalFootprintBytes": 1408847032
+      },
+      {
+        "stage": "llm.decode.progress:N=64:maxN=260",
+        "physicalFootprintBytes": 1410682040
+      },
+      {
+        "stage": "llm.decode.progress:N=80:maxN=260",
+        "physicalFootprintBytes": 1412517048
+      },
+      {
+        "stage": "llm.decode.progress:N=96:maxN=260",
+        "physicalFootprintBytes": 1414352056
+      },
+      {
+        "stage": "llm.decode.progress:N=112:maxN=260",
+        "physicalFootprintBytes": 1416187064
+      },
+      {
+        "stage": "llm.decode.progress:N=128:maxN=260",
+        "physicalFootprintBytes": 1406061752
+      },
+      {
+        "stage": "llm.decode.progress:N=144:maxN=260",
+        "physicalFootprintBytes": 1407896760
+      },
+      {
+        "stage": "llm.decode.progress:N=160:maxN=260",
+        "physicalFootprintBytes": 1409748152
+      },
+      {
+        "stage": "llm.decode.progress:N=176:maxN=260",
+        "physicalFootprintBytes": 1375947960
+      },
+      {
+        "stage": "llm.decode.progress:N=192:maxN=260",
+        "physicalFootprintBytes": 1377799352
+      },
+      {
+        "stage": "llm.decode.progress:N=208:maxN=260",
+        "physicalFootprintBytes": 1379667128
+      },
+      {
+        "stage": "llm.decode.progress:N=224:maxN=260",
+        "physicalFootprintBytes": 1344834744
+      },
+      {
+        "stage": "llm.decode.progress:N=240:maxN=260",
+        "physicalFootprintBytes": 1346686136
+      },
+      {
+        "stage": "llm.decode.progress:N=256:maxN=260",
+        "physicalFootprintBytes": 1348537528
+      },
+      {
+        "stage": "llm.max_length:N=260",
+        "physicalFootprintBytes": 1348996280
+      },
+      {
+        "stage": "llm.generate.end:N=260",
+        "physicalFootprintBytes": 1342934200
+      },
+      {
+        "stage": "acoustic.runtime.begin:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.runtime.end:N=260:mode=enumerated:function=n257_384:lifetime=sequential",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.synthesize.begin:N=260",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.conditions.begin:N=260:T=822",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.conditions.model.load.begin:enumerated-acoustic/conditions.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.conditions.model.load.end:enumerated-acoustic/conditions.mlpackage:ms=1.131",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.conditions.prediction.begin:T=822",
+        "physicalFootprintBytes": 1342164152
+      },
+      {
+        "stage": "acoustic.conditions.prediction.end:T=822",
+        "physicalFootprintBytes": 1116474552
+      },
+      {
+        "stage": "acoustic.conditions.end:N=260:T=822",
+        "physicalFootprintBytes": 1116359864
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.begin:../FlowPartitions/p2/group-0.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 1115327672
+      },
+      {
+        "stage": "acoustic.flow.shard.1.2.model.load.end:../FlowPartitions/p2/group-0.mlpackage:ms=1.393",
+        "physicalFootprintBytes": 935201976
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.begin:../FlowPartitions/p2/group-1.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 935201976
+      },
+      {
+        "stage": "acoustic.flow.shard.2.2.model.load.end:../FlowPartitions/p2/group-1.mlpackage:ms=1.194",
+        "physicalFootprintBytes": 931187896
+      },
+      {
+        "stage": "acoustic.flow.models.ready:count=2:function=n257_384",
+        "physicalFootprintBytes": 931187896
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 931187896
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 931728568
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.1.6.end:N=260:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 751111352
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.2.6.end:N=260:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.3.6.end:N=260:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 749718712
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.4.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.5.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.begin:N=260:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.1.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.begin:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.shard.2.2.prediction.end:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.flow.step.6.6.end:N=260:T=822",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.f0.begin:G=520",
+        "physicalFootprintBytes": 743410872
+      },
+      {
+        "stage": "acoustic.f0.end:G=520",
+        "physicalFootprintBytes": 749456568
+      },
+      {
+        "stage": "acoustic.hift.begin:G=520:samples=249600",
+        "physicalFootprintBytes": 750455992
+      },
+      {
+        "stage": "acoustic.hift.model.load.begin:enumerated-acoustic/hift.mlpackage:function=n257_384",
+        "physicalFootprintBytes": 750455992
+      },
+      {
+        "stage": "acoustic.hift.model.load.end:enumerated-acoustic/hift.mlpackage:ms=1.042",
+        "physicalFootprintBytes": 750455992
+      },
+      {
+        "stage": "acoustic.hift.prediction.begin:samples=249600",
+        "physicalFootprintBytes": 750455992
+      },
+      {
+        "stage": "acoustic.hift.prediction.end:samples=249600",
+        "physicalFootprintBytes": 840584376
+      },
+      {
+        "stage": "acoustic.hift.end:G=520:samples=249600",
+        "physicalFootprintBytes": 840584376
+      },
+      {
+        "stage": "acoustic.synthesize.end:N=260:samples=249600",
+        "physicalFootprintBytes": 840584376
+      },
+      {
+        "stage": "synthesis.end:N=260:samples=249600",
+        "physicalFootprintBytes": 840584376
+      },
+      {
+        "stage": "request_5_completion",
+        "physicalFootprintBytes": 840584376
+      },
+      {
+        "stage": "post_completion_idle_1s",
+        "physicalFootprintBytes": 794070200
+      },
+      {
+        "stage": "post_completion_idle_3s",
+        "physicalFootprintBytes": 747670712
+      },
+      {
+        "stage": "post_completion_idle_10s",
+        "physicalFootprintBytes": 718425272
+      },
+      {
+        "stage": "post_completion_idle_35s",
+        "physicalFootprintBytes": 398821552
+      },
+      {
+        "stage": "sampler_stop",
+        "physicalFootprintBytes": 398821552
+      }
+    ],
+    "energyScope": "CPU-onlyRecount, notANE/GPUorwholedevice",
+    "thermalStart": "nominal",
+    "thermalEnd": "fair",
+    "scope": "USB/charging bounded revalidation, no formal thermal or whole-device ranking"
+  }
+}

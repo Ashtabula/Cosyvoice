@@ -1,0 +1,83 @@
+{
+  "status": "PASS_FRESH_PHYSICAL_HUMAN_AND_ANE_GATES",
+  "files": [
+    {
+      "file": "physical/current-public-synthesis.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/current-retry/llm-quantization-baseline-receipt.json",
+      "sha256": "94223ad752a1b900688ed5bcd5d8c2186f2fb98ab59029848c7428f2cdc8b85b"
+    },
+    {
+      "file": "physical/current-human-equivalence.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-human-equivalence.json",
+      "sha256": "3bd5cf4f14ff1830abcd971099ce84055f63020583162b6975a18005854a4c8c"
+    },
+    {
+      "file": "physical/current-topology-gate.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/current-complete/topology-gate.json",
+      "sha256": "2c0c82d0a64f2c3a9ed947eebd2bdec55d2aee58d4757554a613a7e27b078276"
+    },
+    {
+      "file": "physical/current-trace-attribution.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/current-complete/attribution.json",
+      "sha256": "eb3d5d27d91c6a1185ca98c9c619b1a343ac7f86461935fa62372ed9e9df4281"
+    },
+    {
+      "file": "physical/current-trace-binding.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/current-complete/trace-binding.json",
+      "sha256": "73cec59c37502e695c8911d241c197bf41a5253a0f173ecb8f3709121e2a8c9b"
+    },
+    {
+      "file": "physical/q8-public-synthesis.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/q8-unprofiled-retry/llm-quantization-q8-receipt.json",
+      "sha256": "4dc8d6608d5a64caac23a52a11af6b43fc8864bdcc81968f7585962f8d72be04"
+    },
+    {
+      "file": "physical/q8-human-equivalence.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/q8-human-equivalence.json",
+      "sha256": "ce7d8ac7a96cf1dcf001c06f8ad0fa1f65975665627931f4f3857b042d8aae3c"
+    },
+    {
+      "file": "physical/q8-topology-gate.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/q8-complete-retry/topology-gate.json",
+      "sha256": "ba5fc9cac959078deb2ba7b097b90983d8d91a1d5047a51a5f9a4d3a797336c0"
+    },
+    {
+      "file": "physical/q8-trace-attribution.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/q8-complete-retry/attribution.json",
+      "sha256": "88386c1307f4ff3cbeb38e92bdad21ec95a46445a7fef7350e34af4bf43f835d"
+    },
+    {
+      "file": "physical/q8-trace-binding.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/q8-complete-retry/trace-binding.json",
+      "sha256": "298d5217848f35ce5f7c67fe8237994f65140d8bf0ac51c1018a1290821c5d01"
+    },
+    {
+      "file": "physical/hybrid_q4-public-synthesis.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/physical/hybrid/llm-quantization-q4_hybrid-receipt.json",
+      "sha256": "ef70aae0e8fe9f17f51cc2becfcee9f446856c2dabd9c85033249eb0dc3fb797"
+    },
+    {
+      "file": "physical/hybrid_q4-human-equivalence.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hybrid-human-equivalence.json",
+      "sha256": "98606b1df099012adcc00d1b357744a3797def3adff8751c67659de13f4b2f01"
+    },
+    {
+      "file": "physical/hybrid_q4-topology-gate.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/topology-gate.json",
+      "sha256": "648f3a316accbf8e9ea2ece67fde8525a03258c53435c1d7ee33f92337f219b1"
+    },
+    {
+      "file": "physical/hybrid_q4-trace-attribution.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/attribution.json",
+      "sha256": "6c39a0cfac5a2844eaa85f38e9abfcf6a07ddbae053ce5b37c08de848dbff173"
+    },
+    {
+      "file": "physical/hybrid_q4-trace-binding.json",
+      "original": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling/hybrid-complete/trace-binding.json",
+      "sha256": "5ca846d5a39585c854e91110a60dbe8f57fd684101256f46c5f133fdb185b7cf"
+    }
+  ],
+  "rawTracesRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/profiling",
+  "actualWAVRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/audio",
+  "historicalEvidenceReusedAsNewPhysical": false
+}

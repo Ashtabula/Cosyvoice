@@ -17,6 +17,11 @@ public struct CosyVoice3WeightProfileMetadata: Sendable, Equatable {
     public let acousticShards: Int
     public let flowSteps: Int
     public let requestedLLMPlacement: String
+    public let assetRepository: String
+    public let immutableAssetRevision: String
+    public let assetCollectionIdentity: String
+    public let runtimeAssetTreeIdentity: String
+    public let acousticPartitionIdentities: [String]
     public let isExperimental: Bool
     public let isSelectableForInference: Bool
 }
@@ -29,7 +34,9 @@ public enum CosyVoice3WeightProfileError: Error, Equatable, Sendable {
 }
 
 public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
-    case current, q8, q4
+    case current, q8
+    case q4 = "hybrid_q4"
+    public static let hybridQ4: Self = .q4
     public static let productionDefault: Self = .current
 
     public var metadata: CosyVoice3WeightProfileMetadata {
@@ -37,7 +44,7 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
         switch self {
         case .current: name = "Current"; compression = "FP16"
         case .q8: name = "Q8"; compression = "INT8 weight compression, per channel"
-        case .q4: name = "Q4 Decode Hybrid"; compression = "Q8 prefill + INT4 per-channel decode (hybrid)"
+        case .q4: name = "Hybrid Q4 — Q8 Prefill + Q4 Decode"; compression = "Q8 prefill + INT4 per-channel decode (hybrid)"
         }
         let prefillRepresentation: String
         let decodeRepresentation: String
@@ -72,6 +79,11 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
             acousticShards: 2,
             flowSteps: 6,
             requestedLLMPlacement: "CPU_AND_NE",
+            assetRepository: "actacomes/CosyVoice-assets",
+            immutableAssetRevision: "c16f38383fa261bfed317fbec2fad2c4115d690c",
+            assetCollectionIdentity: "47958326989cca9ad26fe3001b03d858c205cdfa19bd5f60d19b40e16f6e54a1",
+            runtimeAssetTreeIdentity: contract.payloadSHA,
+            acousticPartitionIdentities: Self.validatedFlowPackages.map { $0.1 },
             isExperimental: self != .current,
             isSelectableForInference: true
         )
@@ -133,8 +145,8 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
     }
 
     static let validatedFlowPackages = [
-        ("../FlowPartitions/p2/group-0.mlpackage", "1b6f04d1b8da6437f2a0da24dba3355050f489ae83a1102e9e40da3ec8334b7a"),
-        ("../FlowPartitions/p2/group-1.mlpackage", "f7c4064e32c19410818034c206b204f8a84c2b6c2a22f664b7d710a3805a017c")
+        ("../FlowPartitions/p2/group-0.mlpackage", "70dd09f89694af1774832cd451cdbce8585f16128e9762fc5bb82d653fa54287"),
+        ("../FlowPartitions/p2/group-1.mlpackage", "24c3039d6d59a7b88e5cc9d4334e99ef8b7a0cd7ba13ec493e70781dcf24b408")
     ]
     static var validatedFlowPaths: [String] { validatedFlowPackages.map { $0.0 } }
 
@@ -152,25 +164,25 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
         case .current:
             return .init(marker: nil,
                          manifestSHA: "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee",
-                         payloadSHA: "4750dba5e727276d22b71399b702a33597aaaf36d61edf8cc3dd8bd3897e6efa",
-                         prefillSHA: "3fe257e2d8659abc7cc6de6c7b17d72510d55ef691f4323410e6bc9a44351c59",
-                         decodeSHA: "c5207c467c19808f14174b239c2a81099970b5c2ba01277720ef985416710d0d",
+                         payloadSHA: "dbea074bfc8dc49514c32d99f38f378d6ed030cd60b25d82f807b2dd69b40677",
+                         prefillSHA: "62f5a760f1a23dcf8540627fa2e7f52c9d0dd912e0094b90fec642b6b5801ece",
+                         decodeSHA: "c466ebefec84a4e05da001675bd4e4901c23459964064c9819dca6ccb5eb1c37",
                          prefillPath: "models/llm-opt-perlayer-prefill.mlpackage",
                          decodePath: "models/llm-opt-perlayer-decode-maskwrite512.mlpackage")
         case .q8:
             return .init(marker: "Q8_WEIGHT_ONLY_UNPROMOTED",
                          manifestSHA: "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5",
-                         payloadSHA: "150c0d45d6133818c782f0dfb4dcb2508f097fc42bc81e12e916aca051954f98",
-                         prefillSHA: "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
-                         decodeSHA: "ce2beac8170a210f3c4d24e4a15b487f5135df69f6a32fdac516183b4ed7c7f5",
+                         payloadSHA: "14fbec1f7765e1f5569200a67cb5d14b4f9758c9b56bc1c9e5363e10c5019c05",
+                         prefillSHA: "3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18",
+                         decodeSHA: "46c52f10b28f947509e6c35bad05c4c942076b39d8b62d791cb4c0d8e093076d",
                          prefillPath: "models/cosyvoice-llm-q8-prefill.mlpackage",
                          decodePath: "models/cosyvoice-llm-q8-decode.mlpackage")
         case .q4:
             return .init(marker: "Q4_DECODE_HYBRID_A_Q8_PREFILL_INT4_PER_CHANNEL_DECODE",
                          manifestSHA: "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8",
-                         payloadSHA: "3b57dab13798145f0f4d258c2d0e3903340594ebea85a3775f643e664b83dfd9",
-                         prefillSHA: "f0b183e1b22a4ffccfc2c95926a0bee921d740543b4b89e40b0894a407b4a280",
-                         decodeSHA: "4685dcbfe07df1e06ece018f9e0cd5184405ea29440c2d3ed85e4116bcb9ca46",
+                         payloadSHA: "0cd48a4704f12485cfa8f863ae9996ed5f8908e19dbbdd3540fe91e711a81fbe",
+                         prefillSHA: "3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18",
+                         decodeSHA: "d3e7135201e0e8c7a3f5a6282ba8d42abab95504c8c819a3441aa20c113963e1",
                          prefillPath: "models/cosyvoice-llm-q8-prefill.mlpackage",
                          decodePath: "models/cosyvoice-llm-q4-rescue-a-decode.mlpackage")
         }
@@ -185,3 +197,14 @@ public enum CosyVoice3WeightProfile: String, Sendable, CaseIterable {
 // Human acceptance2026-10-06: all3hybridEnglishWAVs userPASS; q4 now selects exact Q8prefill+INT4perchanneldecode hybrid. Originalblock32 failure/assets preserved; Currentdefault unchanged; notrelease/HFpromotion. Changedmetadata/contractonly.
 
 // Benchmark identity 2026-10-06: expose only stable public content hashes/representations/SHARDS2/Flow6/state-bridge metadata. Core ML filenames and conversion internals remain private.
+
+// Rebuild validation harness2026-10-06: candidate-only source binding to actual rebuilt Current/P2 bytes.
+// Purpose: signed public synthesis revalidation; prior shipping source and old receipts remain unchanged.
+// Upstream: frozen053e0ef SDK/harness; environment Swift6 physical iOS27.2.
+// Changed regions: exact content hash constants only; no algorithm, state, sampling, placement or tolerance changes.
+
+// Rebuild candidate-only binding2026-10-06: exact new Q8/Hybrid hashes; no old human/physical inheritance or shipping promotion.
+// Purpose: isolated public synthesis revalidation; upstream frozen053e0ef, Swift6/iOS27.2.
+// Changed hash constants only; Current default, source math, sampling, state bridge and placement remain unchanged.
+
+// Rebuild2026-10-06: new revalidated Current/Q8/Hybrid model/P2 identities and immutable HF revision. q4 enum source spelling remains compatible; canonical raw ID/directory is hybrid_q4. Added public high-level asset identities, no private mapping exposure.

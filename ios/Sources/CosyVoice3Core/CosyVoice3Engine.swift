@@ -57,7 +57,9 @@ public actor CosyVoice3Engine: CosyVoice3SynthesisEngine {
     }
 
     public init(assetRoot: URL, idleBucketPreparation: Bool = true) throws {
-        try self.init(assetRoot: assetRoot, profile: .current, validatedProfile: false,
+        let root = try CosyVoice3WeightProfile.current.resolveAssets(in: assetRoot)
+        let manifest = try CosyVoice3AssetLoader.loadManifest(root: root)
+        try self.init(assetRoot: root, profile: .current, validatedProfile: manifest.isEnumeratedAcoustic,
                       idleBucketPreparation: idleBucketPreparation)
     }
 
@@ -1173,3 +1175,5 @@ extension CosyVoice3Engine {
 // Human-approved publicq4 profile automatically uses the identical validated one-time model-owned state copy; no CLI needed. Current/Q8 flags remainfalse; weights/sampler/Flow/placement unchanged.2026-10-06.
 
 // Q4 prefill length audit2026-10-06: opt-in Validation SPI pins independent full-A manifest/payload/P2; same supported one-time state bridge. Ordinary Current/Q8/accepted hybrid profile/API remain unchanged.
+
+// Rebuild2026-10-06: default Current resolves the canonical collection and selects strict new schema3/P2 without shard CLI; legacy schema1/2 retains its original route. No synthesis math/precision/sampling changes.
