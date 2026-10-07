@@ -1,0 +1,2318 @@
+{
+  "assetPackageBytes": 740068071,
+  "compiled": [
+    {
+      "compiledBytes": 4605786,
+      "compiledSha256": "bc0dafe1dfdc5f9aa87f762e3f13fe0fb0084ed7066c7c005d1c4b6188dde97c",
+      "package": "conditions.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 129576743,
+      "compiledSha256": "563dbc37da3371ff8dcba429dd2b158bb52b936186cb7581704f57d94533f56d",
+      "package": "flow-shard-0.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 118034319,
+      "compiledSha256": "15d945bfdb00b6fd838b5e5828f643c935233957497221ae8665bc4cbb3d8035",
+      "package": "flow-shard-1.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 118034319,
+      "compiledSha256": "3ea8b03716b53cb9157c0a499a7df97dd2131c6f67b4eb772c9e6fb4ef3da2bd",
+      "package": "flow-shard-2.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 118034319,
+      "compiledSha256": "1fd0e2bac4f86efb566e2aaed56c4f05e8ffaf9e1d689b6a9f8f5497a3780409",
+      "package": "flow-shard-3.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 118034319,
+      "compiledSha256": "6974a15261d529207eafb96fcd794c6358b9ef112000b51b25848d8b1b0edf14",
+      "package": "flow-shard-4.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 63463527,
+      "compiledSha256": "75400ab9981cbb06d3a60e06684ef620d97c5cf5e7e9071c0551c5ae8f9dd03b",
+      "package": "flow-shard-5.mlpackage",
+      "transientCompileValidation": true
+    },
+    {
+      "compiledBytes": 71256687,
+      "compiledSha256": "9f347800af81e64a7294d11b67343480a9e050979c5a82a3d467b10660262f14",
+      "package": "hift.mlpackage",
+      "transientCompileValidation": true
+    }
+  ],
+  "conditions": {
+    "deduplicatedBytes": 13448740,
+    "defaultFunction": "n129_256",
+    "functions": [
+      "n001_128",
+      "n129_256",
+      "n257_384",
+      "n385_450"
+    ],
+    "individualFamilyBytes": 17969394,
+    "mergedBytes": 4520654,
+    "mergedOverIndividualRatio": 0.25157520615330714,
+    "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/conditions.mlpackage",
+    "sha256": "52b21a87a85cc9eef4de2f62aedcb1d86833c7577fd897ce1cfb074ae07039be",
+    "sourcePt2Sha256": "e636b802b27f91816db90ac79fa585f6a77bcdd2e6605d1bed031945914b74e6"
+  },
+  "conversionEnvironment": {
+    "dependencies": {
+      "HyperPyYAML": "1.2.3",
+      "conformer": "0.3.2",
+      "coremltools": "9.0",
+      "diffusers": "0.29.0",
+      "numpy": "1.26.4",
+      "omegaconf": "2.3.0",
+      "onnxruntime": "1.18.0",
+      "scipy": "1.13.1",
+      "torch": "2.7.0",
+      "transformers": "4.51.3"
+    },
+    "python": "3.11.17 (main, Oct  1 2026, 00:48:48) [Clang 21.0.0 (clang-2100.3.34.2)]",
+    "pythonExecutable": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/dynamic-venv/bin/python",
+    "xcode": "Xcode 27.2\nBuild version 27B5019j"
+  },
+  "crop": false,
+  "exactShapeCount": 450,
+  "families": [
+    {
+      "count": 128,
+      "functionName": "n001_128",
+      "speechTokenMaximum": 128,
+      "speechTokenMinimum": 1
+    },
+    {
+      "count": 128,
+      "functionName": "n129_256",
+      "speechTokenMaximum": 256,
+      "speechTokenMinimum": 129
+    },
+    {
+      "count": 128,
+      "functionName": "n257_384",
+      "speechTokenMaximum": 384,
+      "speechTokenMinimum": 257
+    },
+    {
+      "count": 66,
+      "functionName": "n385_450",
+      "speechTokenMaximum": 450,
+      "speechTokenMinimum": 385
+    }
+  ],
+  "flowShards": [
+    {
+      "blocks": [
+        0,
+        4
+      ],
+      "deduplicatedBytes": 387337456,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              96160,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              96160,
+              1202,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              80,
+              1202
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              96160,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              96160,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              80,
+              1202
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1
+            ],
+            "position": 3,
+            "shape": [
+              2
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              80,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              80,
+              1
+            ],
+            "position": 4,
+            "shape": [
+              2,
+              80
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              96160,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              96160,
+              1202,
+              1
+            ],
+            "position": 5,
+            "shape": [
+              2,
+              80,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998638,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ]
+          },
+          {
+            "cosineSimilarity": 1.0,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 1,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 0,
+      "individualFamilyBytes": 516744072,
+      "mergedBytes": 129406616,
+      "mergedOverIndividualRatio": 0.2504268999141997,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-0.mlpackage",
+      "sha256": "033f1d9a34e6120e11109918d1419ccc89bbbef94eb4974ab4e67c11e5d8a09f",
+      "sourcePt2Sha256": "1be622afe0970e96ad25df1791f71e5df00940ab061c2c30bf61f0366f5d2f00"
+    },
+    {
+      "blocks": [
+        4,
+        8
+      ],
+      "deduplicatedBytes": 353040172,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998733,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 1,
+      "individualFamilyBytes": 470974178,
+      "mergedBytes": 117934006,
+      "mergedOverIndividualRatio": 0.25040439902843253,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-1.mlpackage",
+      "sha256": "6a8e89a2ff031b19c3665ac1275424f2da16c32a858b199f2a96a826ece72ece",
+      "sourcePt2Sha256": "f7cfc7dacda12eb29bf39d31cb418066f5a729a9ef98b62b141529038a03eef1"
+    },
+    {
+      "blocks": [
+        8,
+        12
+      ],
+      "deduplicatedBytes": 353040172,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999998697,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 2,
+      "individualFamilyBytes": 470974178,
+      "mergedBytes": 117934006,
+      "mergedOverIndividualRatio": 0.25040439902843253,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-2.mlpackage",
+      "sha256": "55ac623efca5b672af8ac02d82929b19d0578c4dbc590e2db6511481ad5f85ac",
+      "sourcePt2Sha256": "7855bb036aa762a4f53be81e377029ad7906b2d447f37d06a1219b6b3b149d20"
+    },
+    {
+      "blocks": [
+        12,
+        16
+      ],
+      "deduplicatedBytes": 353040172,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.999999999999893,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 3,
+      "individualFamilyBytes": 470974178,
+      "mergedBytes": 117934006,
+      "mergedOverIndividualRatio": 0.25040439902843253,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-3.mlpackage",
+      "sha256": "f53f4ed7d236eb7bd57c161a5906b93b408b4f554b737af804632a066a8b4442",
+      "sourcePt2Sha256": "2382a5206d0772a8afa473eaaa7348b40de071d9729d8fb442ce73b87711b6a0"
+    },
+    {
+      "blocks": [
+        16,
+        20
+      ],
+      "deduplicatedBytes": 353040172,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.999999999999699,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 4,
+      "individualFamilyBytes": 470974178,
+      "mergedBytes": 117934006,
+      "mergedOverIndividualRatio": 0.25040439902843253,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-4.mlpackage",
+      "sha256": "26d67173e885f41841adbd9280128c1c577a0e1d3c4271e689c4bf1ba043191b",
+      "sourcePt2Sha256": "c7dbf70774c111027b87d31a53fe2ba90e58af7ea6030316dd96663e9d2a3aa3"
+    },
+    {
+      "blocks": [
+        20,
+        22
+      ],
+      "deduplicatedBytes": 189647964,
+      "defaultFunction": "n129_256",
+      "exportBoundaryLayout": {
+        "inputLayout": [
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1230848,
+              1024,
+              1
+            ],
+            "position": 0,
+            "shape": [
+              2,
+              1202,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1024,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1024,
+              1
+            ],
+            "position": 1,
+            "shape": [
+              2,
+              1024
+            ],
+            "valuesExact": true
+          },
+          {
+            "afterContiguous": true,
+            "afterStride": [
+              1202,
+              1202,
+              1
+            ],
+            "beforeContiguous": true,
+            "beforeStride": [
+              1202,
+              1202,
+              1
+            ],
+            "position": 2,
+            "shape": [
+              2,
+              1,
+              1202
+            ],
+            "valuesExact": true
+          }
+        ],
+        "outputExactBeforeVsAfter": [
+          {
+            "cosineSimilarity": 0.9999999999999399,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "position": 0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              1202
+            ]
+          }
+        ],
+        "reason": "Core ML EXIR requires canonical contiguous external input dim order",
+        "semanticChange": false
+      },
+      "functions": [
+        "n001_128",
+        "n129_256",
+        "n257_384",
+        "n385_450"
+      ],
+      "index": 5,
+      "individualFamilyBytes": 253016282,
+      "mergedBytes": 63368318,
+      "mergedOverIndividualRatio": 0.2504515420869239,
+      "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/flow-shard-5.mlpackage",
+      "sha256": "67cfaf2b59ff6296f9760b770a571d067d381547085513de420cfa2c0f79c062",
+      "sourcePt2Sha256": "aba9fb8ede478356b6bd903ae09eca35105cbabf2d4d9d94b1e6b268acd98bf8"
+    }
+  ],
+  "flowStepsUnchanged": true,
+  "hift": {
+    "deduplicatedBytes": 211285587,
+    "defaultFunction": "n129_256",
+    "exportInputCanonicalization": [
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          72000,
+          900,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          72000,
+          900,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 0,
+        "shape": [
+          1,
+          80,
+          900
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          900,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          900,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 1,
+        "shape": [
+          1,
+          900
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          8100,
+          9,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          8100,
+          9,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 2,
+        "shape": [
+          1,
+          900,
+          9
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          3888000,
+          9,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          3888000,
+          9,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 3,
+        "shape": [
+          1,
+          432000,
+          9
+        ],
+        "valuesExact": true
+      },
+      {
+        "afterInferenceTensor": false,
+        "afterStride": [
+          432000,
+          432000,
+          1
+        ],
+        "beforeInferenceTensor": false,
+        "beforeStride": [
+          432016,
+          432016,
+          1
+        ],
+        "dtype": "torch.float32",
+        "index": 4,
+        "shape": [
+          1,
+          1,
+          432000
+        ],
+        "valuesExact": true
+      }
+    ],
+    "functions": [
+      "n001_128",
+      "n129_256",
+      "n257_384",
+      "n385_450"
+    ],
+    "individualFamilyBytes": 282322046,
+    "mergedBytes": 71036459,
+    "mergedOverIndividualRatio": 0.25161499077546357,
+    "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/hift.mlpackage",
+    "sha256": "5a28b6a5d1d1abb9ac0a13714d88a17bd93e6938bc53127066c83243395be094",
+    "sourcePt2Sha256": "a53e32d639444939fb0d044a80720f4398ddd8cb41f4333653b2b73c1a1db74b"
+  },
+  "hiftConfigReceipt": {
+    "constructionPrefixByteExact": true,
+    "excluded": [
+      "gan wrapper/discriminators",
+      "dataset processors",
+      "training config"
+    ],
+    "output": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/enumerated-acoustic/.family-build/cosyvoice3.acoustic.yaml",
+    "outputSha256": "6f0288840c227d4241dcc11579803c0a905e27f1ad6bd5157e8430e16bb58f43",
+    "qwenPretrainPathPresent": true,
+    "reason": "CausalHiFTGenerator.SineGen2 creates rand_ini and sine_waves during construction; preserving the original YAML prefix preserves their RNG trajectory without instantiating post-HiFT training objects.",
+    "rngConstructionOrder": [
+      "seed",
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "rngSeed": 1986,
+    "runtimeMathChanged": false,
+    "schemaVersion": 2,
+    "sections": [
+      "llm",
+      "flow",
+      "hift"
+    ],
+    "source": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-base/model-cache/Fun-CosyVoice3-0.5B-2512/cosyvoice3.yaml",
+    "sourceSha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965",
+    "status": "PASS_RUNTIME_PREFIX_CONFIG_DERIVATION"
+  },
+  "hostMultifunctionLoad": {
+    "functions": [
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "prompt_feat",
+          "prompt_tokens",
+          "speaker",
+          "tokens"
+        ],
+        "outputNames": [
+          "cond",
+          "mu",
+          "spks"
+        ],
+        "package": "conditions.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "prompt_feat",
+          "prompt_tokens",
+          "speaker",
+          "tokens"
+        ],
+        "outputNames": [
+          "cond",
+          "mu",
+          "spks"
+        ],
+        "package": "conditions.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "prompt_feat",
+          "prompt_tokens",
+          "speaker",
+          "tokens"
+        ],
+        "outputNames": [
+          "cond",
+          "mu",
+          "spks"
+        ],
+        "package": "conditions.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "prompt_feat",
+          "prompt_tokens",
+          "speaker",
+          "tokens"
+        ],
+        "outputNames": [
+          "cond",
+          "mu",
+          "spks"
+        ],
+        "package": "conditions.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "cond",
+          "mask",
+          "mu",
+          "spks",
+          "t",
+          "x"
+        ],
+        "outputNames": [
+          "h",
+          "te"
+        ],
+        "package": "flow-shard-0.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "cond",
+          "mask",
+          "mu",
+          "spks",
+          "t",
+          "x"
+        ],
+        "outputNames": [
+          "h",
+          "te"
+        ],
+        "package": "flow-shard-0.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "cond",
+          "mask",
+          "mu",
+          "spks",
+          "t",
+          "x"
+        ],
+        "outputNames": [
+          "h",
+          "te"
+        ],
+        "package": "flow-shard-0.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "cond",
+          "mask",
+          "mu",
+          "spks",
+          "t",
+          "x"
+        ],
+        "outputNames": [
+          "h",
+          "te"
+        ],
+        "package": "flow-shard-0.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-1.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-1.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-1.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-1.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-2.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-2.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-2.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-2.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-3.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-3.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-3.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-3.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-4.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-4.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-4.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "h_out"
+        ],
+        "package": "flow-shard-4.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "velocity"
+        ],
+        "package": "flow-shard-5.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "velocity"
+        ],
+        "package": "flow-shard-5.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "velocity"
+        ],
+        "package": "flow-shard-5.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "h",
+          "mask",
+          "te"
+        ],
+        "outputNames": [
+          "velocity"
+        ],
+        "package": "flow-shard-5.mlpackage"
+      },
+      {
+        "function": "n001_128",
+        "inputNames": [
+          "f0",
+          "mel",
+          "noise",
+          "norm",
+          "phase"
+        ],
+        "outputNames": [
+          "pcm"
+        ],
+        "package": "hift.mlpackage"
+      },
+      {
+        "function": "n129_256",
+        "inputNames": [
+          "f0",
+          "mel",
+          "noise",
+          "norm",
+          "phase"
+        ],
+        "outputNames": [
+          "pcm"
+        ],
+        "package": "hift.mlpackage"
+      },
+      {
+        "function": "n257_384",
+        "inputNames": [
+          "f0",
+          "mel",
+          "noise",
+          "norm",
+          "phase"
+        ],
+        "outputNames": [
+          "pcm"
+        ],
+        "package": "hift.mlpackage"
+      },
+      {
+        "function": "n385_450",
+        "inputNames": [
+          "f0",
+          "mel",
+          "noise",
+          "norm",
+          "phase"
+        ],
+        "outputNames": [
+          "pcm"
+        ],
+        "package": "hift.mlpackage"
+      }
+    ],
+    "status": "PASS_FUNCTION_LOAD_AND_ABI"
+  },
+  "immutableDynamicHiFTOracle": {
+    "N": 225,
+    "enumeratedPackageSha256": "5a28b6a5d1d1abb9ac0a13714d88a17bd93e6938bc53127066c83243395be094",
+    "functionName": "n129_256",
+    "immutablePackageSha256": "4034f1b295f2f6c9ae2116bd0d5e3aa8ca2a3d6b982f6b4d30a70e4d6b91a5f5",
+    "metrics": {
+      "cosineSimilarity": 0.9999999999999007,
+      "finite": true,
+      "maxAbsError": 0.0,
+      "meanAbsError": 0.0,
+      "relativeL2": 0.0,
+      "rmse": 0.0,
+      "shape": [
+        1,
+        216000
+      ]
+    },
+    "sameInputRelativeL2Maximum": 0.02,
+    "status": "PASS"
+  },
+  "intermediatesRetained": false,
+  "logicalPrefixMaximumForFullSpeechWindow": 62,
+  "manifest": {
+    "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-enumerated/cosyvoice3_enumerated.json",
+    "sha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee"
+  },
+  "padding": false,
+  "payloadBytes": 3530215890,
+  "payloadFileCount": 64,
+  "payloadTreeSha256": "fdbf232b3f18d203103c25ac64eb76016bab0e87a3ab0ee90f84c2aeb6c3c0bd",
+  "phase": "complete",
+  "pinnedUpstream": "878940245562bcd1dd0231d78157ba78d70b39f6",
+  "productionPromotion": false,
+  "profile": "ios18-enumerated-n1-n450",
+  "rebuildInputs": {
+    "acousticConfigSha256": "f5a6b2c6f05139d0f18861a1fe506f751e787026b77c05f7e8fef9f8a4405965",
+    "flowCheckpointSha256": "a6fab32a7825e5b0bc855ddd948f8db9370b0a786fbc249caa4595e95b608e4b",
+    "flowFixtureSha256": "c4ea1c46452a1e81e05cba79737a0713fdc7a0ec0fd6a484403ba479213487a1",
+    "hiftCheckpointSha256": "b279d7641eb97ae55b3b540cfba4f953c26492a2df758328a89a4d007ab87a65",
+    "rebuildRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/current-base",
+    "sourceHygieneReceiptSha256": "d53c3adbed082c63128daf38de0152838bd6d1cdc0b92b2a80c8521c7474ffdb",
+    "sourceHygieneStatus": "PASS_SOURCE_HYGIENE",
+    "upstreamSourceCommit": "878940245562bcd1dd0231d78157ba78d70b39f6",
+    "upstreamSubmoduleStatus": [
+      " dd9105b34bf2be2230f4aa1e4769fb586a3c824e third_party/Matcha-TTS (v0.0.5-2-gdd9105b)"
+    ],
+    "upstreamTrackedDirtyPaths": [
+      "iOS/tools/export_llm_mask_write512.py",
+      "iOS/tools/export_pipeline_acoustics.py",
+      "iOS/validation/llm_fp16/phase2-stateful-prefill-export.json",
+      "iOS/validation/provenance/checkpoint-lock.json",
+      "third_party/Matcha-TTS"
+    ],
+    "upstreamTrackedTreeAcceptedByHygiene": true,
+    "upstreamTrackedTreeClean": false,
+    "verifiedSanitizedFiles": [
+      {
+        "path": "iOS/tools/export_pipeline_acoustics.py",
+        "sha256": "7d188080ad2232e216e5b863a0776aa8cc005faa053dce70f1fdcba6fd01acf8"
+      },
+      {
+        "path": "iOS/tools/export_llm_mask_write512.py",
+        "sha256": "b09d8d81c53ff427e929b9a2ef093af6581245c9092b5b18f819083607cfd034"
+      },
+      {
+        "path": "third_party/Matcha-TTS/matcha/utils/__init__.py",
+        "sha256": "d913559d0d6b28a7c6240a665d7df3a6861e6faab207b6b155e98e74dfe7633b"
+      },
+      {
+        "path": "third_party/Matcha-TTS/matcha/utils/pylogger.py",
+        "sha256": "50e6e164ce41e9676c68e93ddecdca64999f8c6c9670bc27743d72e00dec3ffd"
+      }
+    ]
+  },
+  "representativeExactShapeValidation": {
+    "Ns": [
+      1,
+      128,
+      129,
+      167,
+      225,
+      256,
+      257,
+      384,
+      385,
+      450
+    ],
+    "conditionsRelativeL2Maximum": 0.0001,
+    "flowPolicy": "finite exact output shape; numerical error recorded without inventing a new FP16 Flow promotion threshold",
+    "hiftRelativeL2Maximum": 0.02,
+    "status": "PASS_HOST_EXECUTION",
+    "tests": [
+      {
+        "G": 2,
+        "N": 1,
+        "T": 304,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999803,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              304
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996515,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 2.295065649760593e-07,
+            "relativeL2": 8.163406267904604e-07,
+            "rmse": 4.358014284841551e-07,
+            "shape": [
+              2,
+              80,
+              304
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9998665477274548,
+          "finite": true,
+          "maxAbsError": 0.7394695281982422,
+          "meanAbsError": 0.05549424356481483,
+          "relativeL2": 0.0163995209711052,
+          "rmse": 0.08081110556860474,
+          "shape": [
+            2,
+            80,
+            304
+          ]
+        },
+        "functionName": "n001_128",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999278915700981,
+          "finite": true,
+          "maxAbsError": 0.02105116844177246,
+          "meanAbsError": 0.0024841030863664553,
+          "relativeL2": 0.013157419504579005,
+          "rmse": 0.003404498315911618,
+          "shape": [
+            1,
+            960
+          ]
+        },
+        "samples": 960
+      },
+      {
+        "G": 256,
+        "N": 128,
+        "T": 558,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              558
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996502,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.9182420192172878e-07,
+            "relativeL2": 8.378957983144416e-07,
+            "rmse": 3.6363756054943404e-07,
+            "shape": [
+              2,
+              80,
+              558
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9998207128572069,
+          "finite": true,
+          "maxAbsError": 0.95220947265625,
+          "meanAbsError": 0.07946962059230238,
+          "relativeL2": 0.021501537525492404,
+          "rmse": 0.11767690913563104,
+          "shape": [
+            2,
+            80,
+            558
+          ]
+        },
+        "functionName": "n001_128",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999404785063456,
+          "finite": true,
+          "maxAbsError": 0.026400715112686157,
+          "meanAbsError": 0.0009197369037416673,
+          "relativeL2": 0.011409067259027829,
+          "rmse": 0.0012641191494556342,
+          "shape": [
+            1,
+            122880
+          ]
+        },
+        "samples": 122880
+      },
+      {
+        "G": 258,
+        "N": 129,
+        "T": 560,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              560
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996502,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.9166385754942895e-07,
+            "relativeL2": 8.380338297469268e-07,
+            "rmse": 3.632978531360342e-07,
+            "shape": [
+              2,
+              80,
+              560
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9998162692246931,
+          "finite": true,
+          "maxAbsError": 1.2256360054016113,
+          "meanAbsError": 0.07374329770709924,
+          "relativeL2": 0.020169672056338767,
+          "rmse": 0.11046893702365582,
+          "shape": [
+            2,
+            80,
+            560
+          ]
+        },
+        "functionName": "n129_256",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999403945263107,
+          "finite": true,
+          "maxAbsError": 0.02640494704246521,
+          "meanAbsError": 0.0009193471432500457,
+          "relativeL2": 0.011416884423111761,
+          "rmse": 0.0012633291387181013,
+          "shape": [
+            1,
+            123840
+          ]
+        },
+        "samples": 123840
+      },
+      {
+        "G": 334,
+        "N": 167,
+        "T": 636,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999803,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              636
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996598,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.863180366842627e-07,
+            "relativeL2": 8.42996030997899e-07,
+            "rmse": 3.517844017881605e-07,
+            "shape": [
+              2,
+              80,
+              636
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9999019378634971,
+          "finite": true,
+          "maxAbsError": 0.9371261596679688,
+          "meanAbsError": 0.05321966545309365,
+          "relativeL2": 0.014311330348852786,
+          "rmse": 0.08137696739542229,
+          "shape": [
+            2,
+            80,
+            636
+          ]
+        },
+        "functionName": "n129_256",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999377225665289,
+          "finite": true,
+          "maxAbsError": 0.026398658752441406,
+          "meanAbsError": 0.0009082179092756663,
+          "relativeL2": 0.01166077431982289,
+          "rmse": 0.0012400375572849387,
+          "shape": [
+            1,
+            160320
+          ]
+        },
+        "samples": 160320
+      },
+      {
+        "G": 450,
+        "N": 225,
+        "T": 752,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              752
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996649,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.8024187970985757e-07,
+            "relativeL2": 8.496390844192652e-07,
+            "rmse": 3.382224335961929e-07,
+            "shape": [
+              2,
+              80,
+              752
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9998978472074238,
+          "finite": true,
+          "maxAbsError": 0.8322324752807617,
+          "meanAbsError": 0.06193252968324738,
+          "relativeL2": 0.015449490009385317,
+          "rmse": 0.08989087885901845,
+          "shape": [
+            2,
+            80,
+            752
+          ]
+        },
+        "functionName": "n129_256",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999349983731918,
+          "finite": true,
+          "maxAbsError": 0.02640405297279358,
+          "meanAbsError": 0.0008984764026180764,
+          "relativeL2": 0.011904551591200255,
+          "rmse": 0.0012192824805571914,
+          "shape": [
+            1,
+            216000
+          ]
+        },
+        "samples": 216000
+      },
+      {
+        "G": 512,
+        "N": 256,
+        "T": 814,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              814
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996769,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.7770444196294215e-07,
+            "relativeL2": 8.528007334389187e-07,
+            "rmse": 3.323951305815939e-07,
+            "shape": [
+              2,
+              80,
+              814
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9998272305110291,
+          "finite": true,
+          "maxAbsError": 0.8612508773803711,
+          "meanAbsError": 0.07925399926875475,
+          "relativeL2": 0.021182630036126627,
+          "rmse": 0.1248990668790857,
+          "shape": [
+            2,
+            80,
+            814
+          ]
+        },
+        "functionName": "n129_256",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.999933944990865,
+          "finite": true,
+          "maxAbsError": 0.02641928195953369,
+          "meanAbsError": 0.0008950824420713192,
+          "relativeL2": 0.011997395548411591,
+          "rmse": 0.0012119624650155348,
+          "shape": [
+            1,
+            245760
+          ]
+        },
+        "samples": 245760
+      },
+      {
+        "G": 514,
+        "N": 257,
+        "T": 816,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              816
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999996771,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.776290089622432e-07,
+            "relativeL2": 8.528987111435871e-07,
+            "rmse": 3.322203319323087e-07,
+            "shape": [
+              2,
+              80,
+              816
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9997942741569763,
+          "finite": true,
+          "maxAbsError": 0.8329463005065918,
+          "meanAbsError": 0.08807113862638503,
+          "relativeL2": 0.023648955768791342,
+          "rmse": 0.13933923098986203,
+          "shape": [
+            2,
+            80,
+            816
+          ]
+        },
+        "functionName": "n257_384",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999339152948342,
+          "finite": true,
+          "maxAbsError": 0.02641916275024414,
+          "meanAbsError": 0.000894978845560361,
+          "relativeL2": 0.011999993876792623,
+          "rmse": 0.0012117461914323174,
+          "shape": [
+            1,
+            246720
+          ]
+        },
+        "samples": 246720
+      },
+      {
+        "G": 768,
+        "N": 384,
+        "T": 1070,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.99999999999998,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              1070
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999997012,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.7034105312462164e-07,
+            "relativeL2": 8.636492696924153e-07,
+            "rmse": 3.148749187613317e-07,
+            "shape": [
+              2,
+              80,
+              1070
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9997859496226974,
+          "finite": true,
+          "maxAbsError": 1.2262296676635742,
+          "meanAbsError": 0.10896902178962786,
+          "relativeL2": 0.026725731250196384,
+          "rmse": 0.16006766859405663,
+          "shape": [
+            2,
+            80,
+            1070
+          ]
+        },
+        "functionName": "n257_384",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999311448500355,
+          "finite": true,
+          "maxAbsError": 0.026391834020614624,
+          "meanAbsError": 0.0008868237831035605,
+          "relativeL2": 0.012241112635974147,
+          "rmse": 0.0011940241778517515,
+          "shape": [
+            1,
+            368640
+          ]
+        },
+        "samples": 368640
+      },
+      {
+        "G": 770,
+        "N": 385,
+        "T": 1072,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              1072
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999997021,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.7029737164057902e-07,
+            "relativeL2": 8.637224202028218e-07,
+            "rmse": 3.147680747612358e-07,
+            "shape": [
+              2,
+              80,
+              1072
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9997186703213454,
+          "finite": true,
+          "maxAbsError": 1.281461238861084,
+          "meanAbsError": 0.12174782724022094,
+          "relativeL2": 0.030639291554600972,
+          "rmse": 0.18370792996179935,
+          "shape": [
+            2,
+            80,
+            1072
+          ]
+        },
+        "functionName": "n385_450",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999311288742286,
+          "finite": true,
+          "maxAbsError": 0.026400208473205566,
+          "meanAbsError": 0.0008867869761203746,
+          "relativeL2": 0.012242464294345825,
+          "rmse": 0.0011939309676944458,
+          "shape": [
+            1,
+            369600
+          ]
+        },
+        "samples": 369600
+      },
+      {
+        "G": 900,
+        "N": 450,
+        "T": 1202,
+        "conditionsVsSource": {
+          "cond": {
+            "cosineSimilarity": 0.9999999999999802,
+            "finite": true,
+            "maxAbsError": 0.0,
+            "meanAbsError": 0.0,
+            "relativeL2": 0.0,
+            "rmse": 0.0,
+            "shape": [
+              2,
+              80,
+              1202
+            ]
+          },
+          "mu": {
+            "cosineSimilarity": 0.9999999999997066,
+            "finite": true,
+            "maxAbsError": 4.172325134277344e-06,
+            "meanAbsError": 1.6776987811714758e-07,
+            "relativeL2": 8.681657428392411e-07,
+            "rmse": 3.0852287463157334e-07,
+            "shape": [
+              2,
+              80,
+              1202
+            ]
+          },
+          "spks": {
+            "cosineSimilarity": 0.9999999999999659,
+            "finite": true,
+            "maxAbsError": 1.4901161193847656e-07,
+            "meanAbsError": 1.5308614820241928e-08,
+            "relativeL2": 2.792930971309976e-07,
+            "rmse": 3.0262610183170014e-08,
+            "shape": [
+              2,
+              80
+            ]
+          }
+        },
+        "flowFirstCallVsSourceSharded": {
+          "cosineSimilarity": 0.9996330551032065,
+          "finite": true,
+          "maxAbsError": 0.804412841796875,
+          "meanAbsError": 0.1276603578767155,
+          "relativeL2": 0.03335510828030796,
+          "rmse": 0.20038135551994946,
+          "shape": [
+            2,
+            80,
+            1202
+          ]
+        },
+        "functionName": "n385_450",
+        "hiftSameInputVsSourceBody": {
+          "cosineSimilarity": 0.9999302436704024,
+          "finite": true,
+          "maxAbsError": 0.026404738426208496,
+          "meanAbsError": 0.0008844153043208162,
+          "relativeL2": 0.01231851022613591,
+          "rmse": 0.0011887197971252484,
+          "shape": [
+            1,
+            432000
+          ]
+        },
+        "samples": 432000
+      }
+    ]
+  },
+  "schemaVersion": 1,
+  "sharedAssets": {
+    "copied": [
+      {
+        "bytes": 8714814,
+        "path": "tokenizer",
+        "sha256": "908b260e4a9bc80fd5128bda0fd4391e56b3f8d0e8aab531a850828a66689d57"
+      },
+      {
+        "bytes": 272269312,
+        "path": "embeddings/text_embedding_fp16.bin",
+        "sha256": "a25aa22be223a26845be0e4c6309d159264263c922f9238b856d81391338323b"
+      },
+      {
+        "bytes": 12115712,
+        "path": "embeddings/speech_embedding_fp16.bin",
+        "sha256": "bba6211cae2c3d500b2bcd9ded49403cc5dcf7f7415758e949f8140ffe4e034a"
+      },
+      {
+        "bytes": 728609297,
+        "path": "models/llm-opt-perlayer-prefill.mlpackage",
+        "sha256": "f4e9d75214f10d2b5556c0f8b3f106793cc6d6c3c9fc8c69a10f997630238ed7"
+      },
+      {
+        "bytes": 728542251,
+        "path": "models/llm-opt-perlayer-decode-maskwrite512.mlpackage",
+        "sha256": "599069f23c692d228cbf0012d34ad68dcf2517be9754b752386ad1af8daed987"
+      },
+      {
+        "bytes": 26501128,
+        "path": "f0-double",
+        "sha256": "2ea5f2a1b7b131a29ca46c26ff7c4908a098acc2362e5aaccb5de034d77439e8"
+      },
+      {
+        "bytes": 968386856,
+        "path": "reference/speech-tokenizer-fixed605.mlpackage",
+        "sha256": "8056b4ce7ead5b6a876162177fa6e8b37bd78e68bbc65a079b7a7a76196353f7"
+      },
+      {
+        "bytes": 28478621,
+        "path": "reference/campplus-fixed604.mlpackage",
+        "sha256": "541fe53c8c1f667745cda20b3f31f1ede6b6f18132d8eda7aa08acd5bba7385d"
+      },
+      {
+        "bytes": 102912,
+        "path": "reference/whisper_mel_128.f32",
+        "sha256": "2a5f9822897750e047c85dea37cc268d3be0ecfd23c28a5f10da129d99d05afe"
+      },
+      {
+        "bytes": 81920,
+        "path": "reference/kaldi_mel_80.f32",
+        "sha256": "93362b4a8f1179b6f78dde8644c1df8bbdbfe344db5d0d045f36a4c0194a0b0d"
+      },
+      {
+        "bytes": 307520,
+        "path": "reference/matcha_mel_80.f32",
+        "sha256": "d39ccbb8b0f93630070f570c301857bcdfda261ba95834ab82e0e43262b10a58"
+      },
+      {
+        "bytes": 604,
+        "path": "dynamic-acoustic/default-prompt-tokens.bin",
+        "sha256": "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365"
+      },
+      {
+        "bytes": 96640,
+        "path": "dynamic-acoustic/default-prompt-feat.bin",
+        "sha256": "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2"
+      },
+      {
+        "bytes": 768,
+        "path": "dynamic-acoustic/default-speaker.bin",
+        "sha256": "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c"
+      }
+    ],
+    "flowNoiseMaximum": {
+      "bytes": 384640,
+      "path": "enumerated-acoustic/buffers/flow-noise-max.f32",
+      "sha256": "a6af002bea580407dd769872146e6cae8df122fc5cfa788837426a270514e244",
+      "sourceMaximumN": 479,
+      "targetMaximumN": 450
+    },
+    "hiftExcitationMaximum": {
+      "bytes": 15552000,
+      "path": "enumerated-acoustic/buffers/hift-excitation-max.f32",
+      "sha256": "faf69ec2eebcb9f9272b7371458670b65a2e28224bc0c442af3a81ec70cf16aa",
+      "sourceMaximumN": 479,
+      "targetMaximumN": 450
+    },
+    "sourceRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/shared-immutable-source/ios-dynamic-n1-n479-reference/0.2.0-rc1"
+  },
+  "sharedImmutableSource": {
+    "assetManifestSha256": "d1f6f5cf5b70cbf6a6c05e2f5d6296163b1497981ceadde99266bc560bb384de",
+    "fileCount": 103,
+    "payloadBytes": 4277674424,
+    "payloadTreeSha256": "3f7b9239af32ba5644f1c607aa8a4eb0aa2651454c1b1be7db86ef811c41ab68",
+    "profile": "ios-dynamic-n1-n479-reference",
+    "runtimeManifestProfile": "ios18-dynamic-n1-n479-candidate",
+    "runtimeProfile": "ios18-dynamic-n1-n479",
+    "version": "0.2.0-rc1"
+  },
+  "sourceCommit": "053e0efa04f46bb7083f0b8063caa5e97ebcd72b",
+  "sourceSixShardVsFullAtN225": {
+    "cosineSimilarity": 0.9999999999999438,
+    "finite": true,
+    "maxAbsError": 0.0,
+    "meanAbsError": 0.0,
+    "relativeL2": 0.0,
+    "rmse": 0.0,
+    "shape": [
+      2,
+      80,
+      752
+    ]
+  },
+  "speechTokenBounds": [
+    1,
+    450
+  ],
+  "standaloneRootBytes": 3530276382,
+  "status": "PASS_ENUMERATED_N1_N450_EXPORT_NOT_PROMOTED"
+}

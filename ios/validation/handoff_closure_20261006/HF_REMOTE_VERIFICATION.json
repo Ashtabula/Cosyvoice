@@ -1,0 +1,21 @@
+{
+  "status": "PASS_NEW_EMPTY_DIRECTORY_EXACT_REVISION_FULL_FILE_PACKAGE_PROFILE_P2_HASH_VERIFICATION",
+  "repoId": "actacomes/CosyVoice-assets",
+  "revision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+  "remoteRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/handoff-clean-redownload-20261006T2337/ios-weight-profiles-current-q8-q4hybrid/0.3.1-rc1",
+  "verificationDirectoryWasNew": true,
+  "forceDownload": true,
+  "localBuildOutputUsed": false,
+  "verifiedFiles": 204,
+  "packageCount": 38,
+  "profiles": [
+    "current",
+    "q8",
+    "hybrid_q4"
+  ],
+  "collectionTreeSha256": "47958326989cca9ad26fe3001b03d858c205cdfa19bd5f60d19b40e16f6e54a1",
+  "fullQ4Included": false,
+  "sourceScriptSHA256": "239a72f5cedf1d514d9ee9a61410bb855b3d5f4f4518f6ff582defb6290be6dc",
+  "python": "3.11.17",
+  "coremltools": "9.0"
+}

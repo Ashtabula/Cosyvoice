@@ -1,0 +1,1022 @@
+[
+  {
+    "path": "FlowPartitions/p2/group-0.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 1264499,
+    "sha256": "7c2bb9af5cecd2f09f3a2413279b47efd987528862508431fb5b258ccded977d"
+  },
+  {
+    "path": "FlowPartitions/p2/group-0.mlpackage/Data/com.apple.CoreML/weights/weight-s0.bin",
+    "bytes": 128965248,
+    "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+  },
+  {
+    "path": "FlowPartitions/p2/group-0.mlpackage/Data/com.apple.CoreML/weights/weight-s1.bin",
+    "bytes": 117550784,
+    "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+  },
+  {
+    "path": "FlowPartitions/p2/group-0.mlpackage/Data/com.apple.CoreML/weights/weight-s2.bin",
+    "bytes": 117550784,
+    "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+  },
+  {
+    "path": "FlowPartitions/p2/group-0.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "6e5d5b7468b4890a7f7b5bbb347ab73db5ea5a58f861fd2a590f0a0fb99c6244"
+  },
+  {
+    "path": "FlowPartitions/p2/group-1.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 1040201,
+    "sha256": "a3d6379dc91af87b19790dea163cad5a9e390272b38ae3e2179fb6ed831cf484"
+  },
+  {
+    "path": "FlowPartitions/p2/group-1.mlpackage/Data/com.apple.CoreML/weights/weight-s3.bin",
+    "bytes": 117550784,
+    "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+  },
+  {
+    "path": "FlowPartitions/p2/group-1.mlpackage/Data/com.apple.CoreML/weights/weight-s4.bin",
+    "bytes": 117550784,
+    "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+  },
+  {
+    "path": "FlowPartitions/p2/group-1.mlpackage/Data/com.apple.CoreML/weights/weight-s5.bin",
+    "bytes": 63138144,
+    "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+  },
+  {
+    "path": "FlowPartitions/p2/group-1.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "53eca351499fbe235b43a7220e1caf699f0016de6684c7cedb05292f956b4aa4"
+  },
+  {
+    "path": "FlowPartitions/partition-export-receipt.json",
+    "bytes": 26969,
+    "sha256": "0cf03aa4975b0986116e8a7e5f243157cba98c48d17010be52eed2ab557e2f8f"
+  },
+  {
+    "path": "current/cosyvoice3_enumerated.json",
+    "bytes": 2824,
+    "sha256": "2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee"
+  },
+  {
+    "path": "current/dynamic-acoustic/default-prompt-feat.bin",
+    "bytes": 96640,
+    "sha256": "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2"
+  },
+  {
+    "path": "current/dynamic-acoustic/default-prompt-tokens.bin",
+    "bytes": 604,
+    "sha256": "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365"
+  },
+  {
+    "path": "current/dynamic-acoustic/default-speaker.bin",
+    "bytes": 768,
+    "sha256": "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c"
+  },
+  {
+    "path": "current/embeddings/speech_embedding_fp16.bin",
+    "bytes": 12115712,
+    "sha256": "bba6211cae2c3d500b2bcd9ded49403cc5dcf7f7415758e949f8140ffe4e034a"
+  },
+  {
+    "path": "current/embeddings/text_embedding_fp16.bin",
+    "bytes": 272269312,
+    "sha256": "a25aa22be223a26845be0e4c6309d159264263c922f9238b856d81391338323b"
+  },
+  {
+    "path": "current/enumerated-acoustic/buffers/flow-noise-max.f32",
+    "bytes": 384640,
+    "sha256": "a6af002bea580407dd769872146e6cae8df122fc5cfa788837426a270514e244"
+  },
+  {
+    "path": "current/enumerated-acoustic/buffers/hift-excitation-max.f32",
+    "bytes": 15552000,
+    "sha256": "faf69ec2eebcb9f9272b7371458670b65a2e28224bc0c442af3a81ec70cf16aa"
+  },
+  {
+    "path": "current/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 60069,
+    "sha256": "09df3fd827779a3c434d18fb642c6a439a01343737da11126066e4107b9a9df3"
+  },
+  {
+    "path": "current/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 4459968,
+    "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae"
+  },
+  {
+    "path": "current/enumerated-acoustic/conditions.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d3990d8ce9966a91cb01daa9500c801deb85f1860f5a0c13852b7937b30ecfd2"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 440751,
+    "sha256": "91879a1840e27c3691a201fee66d983d7b5a6aa8293efaec6a243f8cb742d3aa"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 128965248,
+    "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-0.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "23cf1d94d0a59b6b8cd1a213f031d41ec4c3400dcbbde1c5df91a270d3d96ccf"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-1.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "63e15fac347e963a15dac53e1f8871ddced3340b366356f2f7d372cce9245212"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-2.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f37e9fae52c8b2cdf12c764f2474aed46b6afc7799f342158a909a5be1a56c39"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-3.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d1d2424a23c8911f323d91a5085f1aa2c98819aa66b200acc0211b0a41b306ea"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-4.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "b7bf3ee3e7bc5c5c26e0dc3051bc22ffa4a59b21a3cea52e8ab43cbfbaf0b952"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 229557,
+    "sha256": "6798f6b24e7d9c6990d4ec4190834acef8cc052e9fd00312bcfc81228e89d4a7"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 63138144,
+    "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+  },
+  {
+    "path": "current/enumerated-acoustic/flow-shard-5.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "60b016490d6f314c9431b7441df4ee2fb12584fe07ef7c76c1fe545a8c848106"
+  },
+  {
+    "path": "current/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 948674,
+    "sha256": "58aea20a073c563be09ff50c5e6cad392396474905b23b9db2bfee7e5beecf4b"
+  },
+  {
+    "path": "current/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 70087168,
+    "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2"
+  },
+  {
+    "path": "current/enumerated-acoustic/hift.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f311a74b05d56ff8983beaf3a332d986a79b8c8d5d10d053b76b77c5a6aff9c8"
+  },
+  {
+    "path": "current/f0-double/f0-0-bias.bin",
+    "bytes": 4096,
+    "sha256": "f2f04948183ffd666bd0cdae06e288889b97f3711a48556f4568886241fa6398"
+  },
+  {
+    "path": "current/f0-double/f0-0-weight.bin",
+    "bytes": 1310720,
+    "sha256": "c79c050c686aed35b78418ba5276b301e5fc06595cde70b4c7684fa934b2b3d4"
+  },
+  {
+    "path": "current/f0-double/f0-1-bias.bin",
+    "bytes": 4096,
+    "sha256": "193d259f0e60b7b34365059dacda00825c4c2e4f8dfa2e1a6e3bc77b5b4165ab"
+  },
+  {
+    "path": "current/f0-double/f0-1-weight.bin",
+    "bytes": 6291456,
+    "sha256": "fc486b2a4148ed151d3e552bb3860046a51849acabc17c28fed31d93db9fdea0"
+  },
+  {
+    "path": "current/f0-double/f0-2-bias.bin",
+    "bytes": 4096,
+    "sha256": "0304426c4427a9954aabdc03691f9741a95c7379b14cfc57282bb08fb3c6782e"
+  },
+  {
+    "path": "current/f0-double/f0-2-weight.bin",
+    "bytes": 6291456,
+    "sha256": "730c540cdb0423cda4a484e4c475563876e904f1b854f37fbd14ec1cc304ce57"
+  },
+  {
+    "path": "current/f0-double/f0-3-bias.bin",
+    "bytes": 4096,
+    "sha256": "1d4a00044f3c1c3605b2e870aabef6c7707b9bfc7fba14f6dbb28cc094bb4e29"
+  },
+  {
+    "path": "current/f0-double/f0-3-weight.bin",
+    "bytes": 6291456,
+    "sha256": "2fb0e654d632b8f9625c1cd1a588f8612814679055b72c4796b17b7b12fe2e14"
+  },
+  {
+    "path": "current/f0-double/f0-4-bias.bin",
+    "bytes": 4096,
+    "sha256": "ec884970bf7560e95028b7228ce27cb6b55b4375a7278db9cc54997846a053f0"
+  },
+  {
+    "path": "current/f0-double/f0-4-weight.bin",
+    "bytes": 6291456,
+    "sha256": "be97e7d547f6b8d8925c5c97daca4280da08033acbe78f01374513ce4aabcfb4"
+  },
+  {
+    "path": "current/f0-double/f0-classifier-bias.bin",
+    "bytes": 8,
+    "sha256": "6f02405f7bfee38ac0c84044d5a4423e67517e14235f5fa472e2c7f2a312c177"
+  },
+  {
+    "path": "current/f0-double/f0-classifier-weight.bin",
+    "bytes": 4096,
+    "sha256": "56fb75b37a0f03cde2479442498ef32b726a2d85d9ab07ed1404b4a3ebafa104"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 585840,
+    "sha256": "8988ded448fb04804442d6420d86845c56b2e9d983db08a51e09bbd7fdf104b1"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 727955794,
+    "sha256": "3310540b0f6ae95eb0319fe953cb51a74d01a6f279d3322b1a8dfb4ffb76e9a5"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-decode-maskwrite512.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "cf6cd1edda0b1d6472a73f91179a231660a0368a7a765fddb0719426230d2220"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 652886,
+    "sha256": "b5b1ca6f4f2cbc561a0686c4cd4b3fc0ba6bfe8a446f859c918b7e9068bbfe67"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 727955794,
+    "sha256": "957378ee364c6bd72436efd2100dc53a80ece28e503f87c78cf1bb8fc0b52e0d"
+  },
+  {
+    "path": "current/models/llm-opt-perlayer-prefill.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "b5bbf714579f6564388951d7adee8d2b7c98d7e48768b88f2cd5a53aaad8a9f0"
+  },
+  {
+    "path": "current/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 601204,
+    "sha256": "e3a106397744597f38bfa786a31c39f8cf4cd9955344c678b3dfa73a1c2ed6e7"
+  },
+  {
+    "path": "current/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 27876800,
+    "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0"
+  },
+  {
+    "path": "current/reference/campplus-fixed604.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "4dbe911b2a70eff9d7b20c04305583020535198658962f05fd13e15192529cd2"
+  },
+  {
+    "path": "current/reference/kaldi_mel_80.f32",
+    "bytes": 81920,
+    "sha256": "93362b4a8f1179b6f78dde8644c1df8bbdbfe344db5d0d045f36a4c0194a0b0d"
+  },
+  {
+    "path": "current/reference/matcha_mel_80.f32",
+    "bytes": 307520,
+    "sha256": "d39ccbb8b0f93630070f570c301857bcdfda261ba95834ab82e0e43262b10a58"
+  },
+  {
+    "path": "current/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 251327,
+    "sha256": "915e7aff03b7bd1002db405adacac308580ea59c62d87ce72e04f8b65b62d9d1"
+  },
+  {
+    "path": "current/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 968134912,
+    "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b"
+  },
+  {
+    "path": "current/reference/speech-tokenizer-fixed605.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "7bb46dc3ae254d2bffa662bed9baf0b79cbeca1966478f49d1a97b104e51c2f5"
+  },
+  {
+    "path": "current/reference/whisper_mel_128.f32",
+    "bytes": 102912,
+    "sha256": "2a5f9822897750e047c85dea37cc268d3be0ecfd23c28a5f10da129d99d05afe"
+  },
+  {
+    "path": "current/tokenizer/config.json",
+    "bytes": 659,
+    "sha256": "168aa1bd401abc3bc262ba15ba4e499627a8b4e006e9d050b47c22de20660185"
+  },
+  {
+    "path": "current/tokenizer/merges.txt",
+    "bytes": 1402109,
+    "sha256": "ac8ff86a72bee70828fbc1119bc4398c6f3a9a6e490d7b0dbe917be025478bd0"
+  },
+  {
+    "path": "current/tokenizer/tokenizer.json",
+    "bytes": 4482475,
+    "sha256": "606341ffc3871e8440d1474135b1dc468d1621fa9d291aab7818682a05aed43c"
+  },
+  {
+    "path": "current/tokenizer/tokenizer_config.json",
+    "bytes": 52738,
+    "sha256": "19dc99180dd436cbd5f26a937e858fb107da4ed9d4796df74b439b56049cf691"
+  },
+  {
+    "path": "current/tokenizer/vocab.json",
+    "bytes": 2776833,
+    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  {
+    "path": "hf-profile-collection-manifest.json",
+    "bytes": 43518,
+    "sha256": "ca0ccb320d97bdba3043226eaa9cd9e97d052fb46e1bd4739db0a15ce566c7e2"
+  },
+  {
+    "path": "hybrid_q4/cosyvoice3_enumerated.json",
+    "bytes": 2905,
+    "sha256": "4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8"
+  },
+  {
+    "path": "hybrid_q4/dynamic-acoustic/default-prompt-feat.bin",
+    "bytes": 96640,
+    "sha256": "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2"
+  },
+  {
+    "path": "hybrid_q4/dynamic-acoustic/default-prompt-tokens.bin",
+    "bytes": 604,
+    "sha256": "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365"
+  },
+  {
+    "path": "hybrid_q4/dynamic-acoustic/default-speaker.bin",
+    "bytes": 768,
+    "sha256": "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c"
+  },
+  {
+    "path": "hybrid_q4/embeddings/speech_embedding_fp16.bin",
+    "bytes": 12115712,
+    "sha256": "bba6211cae2c3d500b2bcd9ded49403cc5dcf7f7415758e949f8140ffe4e034a"
+  },
+  {
+    "path": "hybrid_q4/embeddings/text_embedding_fp16.bin",
+    "bytes": 272269312,
+    "sha256": "a25aa22be223a26845be0e4c6309d159264263c922f9238b856d81391338323b"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/buffers/flow-noise-max.f32",
+    "bytes": 384640,
+    "sha256": "a6af002bea580407dd769872146e6cae8df122fc5cfa788837426a270514e244"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/buffers/hift-excitation-max.f32",
+    "bytes": 15552000,
+    "sha256": "faf69ec2eebcb9f9272b7371458670b65a2e28224bc0c442af3a81ec70cf16aa"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 60069,
+    "sha256": "09df3fd827779a3c434d18fb642c6a439a01343737da11126066e4107b9a9df3"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 4459968,
+    "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/conditions.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d3990d8ce9966a91cb01daa9500c801deb85f1860f5a0c13852b7937b30ecfd2"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 440751,
+    "sha256": "91879a1840e27c3691a201fee66d983d7b5a6aa8293efaec6a243f8cb742d3aa"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 128965248,
+    "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-0.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "23cf1d94d0a59b6b8cd1a213f031d41ec4c3400dcbbde1c5df91a270d3d96ccf"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-1.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "63e15fac347e963a15dac53e1f8871ddced3340b366356f2f7d372cce9245212"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-2.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f37e9fae52c8b2cdf12c764f2474aed46b6afc7799f342158a909a5be1a56c39"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-3.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d1d2424a23c8911f323d91a5085f1aa2c98819aa66b200acc0211b0a41b306ea"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-4.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "b7bf3ee3e7bc5c5c26e0dc3051bc22ffa4a59b21a3cea52e8ab43cbfbaf0b952"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 229557,
+    "sha256": "6798f6b24e7d9c6990d4ec4190834acef8cc052e9fd00312bcfc81228e89d4a7"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 63138144,
+    "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/flow-shard-5.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "60b016490d6f314c9431b7441df4ee2fb12584fe07ef7c76c1fe545a8c848106"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 948674,
+    "sha256": "58aea20a073c563be09ff50c5e6cad392396474905b23b9db2bfee7e5beecf4b"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 70087168,
+    "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2"
+  },
+  {
+    "path": "hybrid_q4/enumerated-acoustic/hift.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f311a74b05d56ff8983beaf3a332d986a79b8c8d5d10d053b76b77c5a6aff9c8"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-0-bias.bin",
+    "bytes": 4096,
+    "sha256": "f2f04948183ffd666bd0cdae06e288889b97f3711a48556f4568886241fa6398"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-0-weight.bin",
+    "bytes": 1310720,
+    "sha256": "c79c050c686aed35b78418ba5276b301e5fc06595cde70b4c7684fa934b2b3d4"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-1-bias.bin",
+    "bytes": 4096,
+    "sha256": "193d259f0e60b7b34365059dacda00825c4c2e4f8dfa2e1a6e3bc77b5b4165ab"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-1-weight.bin",
+    "bytes": 6291456,
+    "sha256": "fc486b2a4148ed151d3e552bb3860046a51849acabc17c28fed31d93db9fdea0"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-2-bias.bin",
+    "bytes": 4096,
+    "sha256": "0304426c4427a9954aabdc03691f9741a95c7379b14cfc57282bb08fb3c6782e"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-2-weight.bin",
+    "bytes": 6291456,
+    "sha256": "730c540cdb0423cda4a484e4c475563876e904f1b854f37fbd14ec1cc304ce57"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-3-bias.bin",
+    "bytes": 4096,
+    "sha256": "1d4a00044f3c1c3605b2e870aabef6c7707b9bfc7fba14f6dbb28cc094bb4e29"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-3-weight.bin",
+    "bytes": 6291456,
+    "sha256": "2fb0e654d632b8f9625c1cd1a588f8612814679055b72c4796b17b7b12fe2e14"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-4-bias.bin",
+    "bytes": 4096,
+    "sha256": "ec884970bf7560e95028b7228ce27cb6b55b4375a7278db9cc54997846a053f0"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-4-weight.bin",
+    "bytes": 6291456,
+    "sha256": "be97e7d547f6b8d8925c5c97daca4280da08033acbe78f01374513ce4aabcfb4"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-classifier-bias.bin",
+    "bytes": 8,
+    "sha256": "6f02405f7bfee38ac0c84044d5a4423e67517e14235f5fa472e2c7f2a312c177"
+  },
+  {
+    "path": "hybrid_q4/f0-double/f0-classifier-weight.bin",
+    "bytes": 4096,
+    "sha256": "56fb75b37a0f03cde2479442498ef32b726a2d85d9ab07ed1404b4a3ebafa104"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q4-rescue-a-decode.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 585923,
+    "sha256": "435e2334b7f73911d6a355ab1915382dfab9b09c571267cf00da03f05ab23fce"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q4-rescue-a-decode.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 182761810,
+    "sha256": "9bfe54ae6936b86a80f620abf1e95b8a23b489b5ee51f7dcb2b805989472051d"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q4-rescue-a-decode.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "8db61996d8da95bba89d6943371b2008f934e002a1737a8c34b4c906f5188e53"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q8-prefill.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 675591,
+    "sha256": "83458c9760347ecd8e38ffd59f40c2b6ec888a815898099051065c993e493cfc"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q8-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 364704018,
+    "sha256": "88dbf1e7a4e4271be4f3a1e1ca886ef12c530f2f3f944094af4d60b8045d3f8c"
+  },
+  {
+    "path": "hybrid_q4/models/cosyvoice-llm-q8-prefill.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "28a994b984456ad90a04b4c4c982e4c53930131bd06acf3a0c7c1a903fa95b37"
+  },
+  {
+    "path": "hybrid_q4/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 601204,
+    "sha256": "e3a106397744597f38bfa786a31c39f8cf4cd9955344c678b3dfa73a1c2ed6e7"
+  },
+  {
+    "path": "hybrid_q4/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 27876800,
+    "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0"
+  },
+  {
+    "path": "hybrid_q4/reference/campplus-fixed604.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "4dbe911b2a70eff9d7b20c04305583020535198658962f05fd13e15192529cd2"
+  },
+  {
+    "path": "hybrid_q4/reference/kaldi_mel_80.f32",
+    "bytes": 81920,
+    "sha256": "93362b4a8f1179b6f78dde8644c1df8bbdbfe344db5d0d045f36a4c0194a0b0d"
+  },
+  {
+    "path": "hybrid_q4/reference/matcha_mel_80.f32",
+    "bytes": 307520,
+    "sha256": "d39ccbb8b0f93630070f570c301857bcdfda261ba95834ab82e0e43262b10a58"
+  },
+  {
+    "path": "hybrid_q4/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 251327,
+    "sha256": "915e7aff03b7bd1002db405adacac308580ea59c62d87ce72e04f8b65b62d9d1"
+  },
+  {
+    "path": "hybrid_q4/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 968134912,
+    "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b"
+  },
+  {
+    "path": "hybrid_q4/reference/speech-tokenizer-fixed605.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "7bb46dc3ae254d2bffa662bed9baf0b79cbeca1966478f49d1a97b104e51c2f5"
+  },
+  {
+    "path": "hybrid_q4/reference/whisper_mel_128.f32",
+    "bytes": 102912,
+    "sha256": "2a5f9822897750e047c85dea37cc268d3be0ecfd23c28a5f10da129d99d05afe"
+  },
+  {
+    "path": "hybrid_q4/tokenizer/config.json",
+    "bytes": 659,
+    "sha256": "168aa1bd401abc3bc262ba15ba4e499627a8b4e006e9d050b47c22de20660185"
+  },
+  {
+    "path": "hybrid_q4/tokenizer/merges.txt",
+    "bytes": 1402109,
+    "sha256": "ac8ff86a72bee70828fbc1119bc4398c6f3a9a6e490d7b0dbe917be025478bd0"
+  },
+  {
+    "path": "hybrid_q4/tokenizer/tokenizer.json",
+    "bytes": 4482475,
+    "sha256": "606341ffc3871e8440d1474135b1dc468d1621fa9d291aab7818682a05aed43c"
+  },
+  {
+    "path": "hybrid_q4/tokenizer/tokenizer_config.json",
+    "bytes": 52738,
+    "sha256": "19dc99180dd436cbd5f26a937e858fb107da4ed9d4796df74b439b56049cf691"
+  },
+  {
+    "path": "hybrid_q4/tokenizer/vocab.json",
+    "bytes": 2776833,
+    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  },
+  {
+    "path": "q8/cosyvoice3_enumerated.json",
+    "bytes": 2868,
+    "sha256": "a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5"
+  },
+  {
+    "path": "q8/dynamic-acoustic/default-prompt-feat.bin",
+    "bytes": 96640,
+    "sha256": "d3331b5312ddc45a5ae80ed77ba59a2e77c60138749d5ef0dae14be4ae49ffe2"
+  },
+  {
+    "path": "q8/dynamic-acoustic/default-prompt-tokens.bin",
+    "bytes": 604,
+    "sha256": "2c7eee659ccaadbd87f1ba3c6b5517b997e254c290b26be644aed585a29d1365"
+  },
+  {
+    "path": "q8/dynamic-acoustic/default-speaker.bin",
+    "bytes": 768,
+    "sha256": "0f03184d84a0d0c5edef5cd46f549d7bfe771bdca28fa59958c15bac05c8361c"
+  },
+  {
+    "path": "q8/embeddings/speech_embedding_fp16.bin",
+    "bytes": 12115712,
+    "sha256": "bba6211cae2c3d500b2bcd9ded49403cc5dcf7f7415758e949f8140ffe4e034a"
+  },
+  {
+    "path": "q8/embeddings/text_embedding_fp16.bin",
+    "bytes": 272269312,
+    "sha256": "a25aa22be223a26845be0e4c6309d159264263c922f9238b856d81391338323b"
+  },
+  {
+    "path": "q8/enumerated-acoustic/buffers/flow-noise-max.f32",
+    "bytes": 384640,
+    "sha256": "a6af002bea580407dd769872146e6cae8df122fc5cfa788837426a270514e244"
+  },
+  {
+    "path": "q8/enumerated-acoustic/buffers/hift-excitation-max.f32",
+    "bytes": 15552000,
+    "sha256": "faf69ec2eebcb9f9272b7371458670b65a2e28224bc0c442af3a81ec70cf16aa"
+  },
+  {
+    "path": "q8/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 60069,
+    "sha256": "09df3fd827779a3c434d18fb642c6a439a01343737da11126066e4107b9a9df3"
+  },
+  {
+    "path": "q8/enumerated-acoustic/conditions.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 4459968,
+    "sha256": "5a1658e82750e833d60bcec68d3d4fe5c34b2ac084b35d18f7c6a96faa3307ae"
+  },
+  {
+    "path": "q8/enumerated-acoustic/conditions.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d3990d8ce9966a91cb01daa9500c801deb85f1860f5a0c13852b7937b30ecfd2"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 440751,
+    "sha256": "91879a1840e27c3691a201fee66d983d7b5a6aa8293efaec6a243f8cb742d3aa"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-0.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 128965248,
+    "sha256": "b4e2f8d62a52876884b86dcd725e60b3039c69f6e319aef77402eb04a757d8b3"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-0.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "23cf1d94d0a59b6b8cd1a213f031d41ec4c3400dcbbde1c5df91a270d3d96ccf"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-1.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "b89228db4ad6df13e915341e1afbce08376a2987e743b7e475f28f0f6f30db9f"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-1.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "63e15fac347e963a15dac53e1f8871ddced3340b366356f2f7d372cce9245212"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-2.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "ce37d202f35d48cc08fb1e3c66495a2a5977697edcadee901fbb76c405d0644a"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-2.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f37e9fae52c8b2cdf12c764f2474aed46b6afc7799f342158a909a5be1a56c39"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-3.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "19cfc6bfc7e5ca9b332777ea5ec281846b9aa0dca20b0fa05b6b779b6d73800c"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-3.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "d1d2424a23c8911f323d91a5085f1aa2c98819aa66b200acc0211b0a41b306ea"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 382605,
+    "sha256": "509b925195054a044127051bbdc39e6b8a1ab00bd58325ffd90518a2822b0a85"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-4.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 117550784,
+    "sha256": "bc50cf2de9989aceac693451c37bf81b4cdc0a3a1e8cd2e69fcf17250c24d328"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-4.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "b7bf3ee3e7bc5c5c26e0dc3051bc22ffa4a59b21a3cea52e8ab43cbfbaf0b952"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 229557,
+    "sha256": "6798f6b24e7d9c6990d4ec4190834acef8cc052e9fd00312bcfc81228e89d4a7"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-5.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 63138144,
+    "sha256": "29aa3570017a8bcff096844a970db9ec3484c9136dbe0d508382e7e2a94b2d9e"
+  },
+  {
+    "path": "q8/enumerated-acoustic/flow-shard-5.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "60b016490d6f314c9431b7441df4ee2fb12584fe07ef7c76c1fe545a8c848106"
+  },
+  {
+    "path": "q8/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 948674,
+    "sha256": "58aea20a073c563be09ff50c5e6cad392396474905b23b9db2bfee7e5beecf4b"
+  },
+  {
+    "path": "q8/enumerated-acoustic/hift.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 70087168,
+    "sha256": "05594c2459de4367aefe924117c111d786fb334e1683dcea183587cd1bef35d2"
+  },
+  {
+    "path": "q8/enumerated-acoustic/hift.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "f311a74b05d56ff8983beaf3a332d986a79b8c8d5d10d053b76b77c5a6aff9c8"
+  },
+  {
+    "path": "q8/f0-double/f0-0-bias.bin",
+    "bytes": 4096,
+    "sha256": "f2f04948183ffd666bd0cdae06e288889b97f3711a48556f4568886241fa6398"
+  },
+  {
+    "path": "q8/f0-double/f0-0-weight.bin",
+    "bytes": 1310720,
+    "sha256": "c79c050c686aed35b78418ba5276b301e5fc06595cde70b4c7684fa934b2b3d4"
+  },
+  {
+    "path": "q8/f0-double/f0-1-bias.bin",
+    "bytes": 4096,
+    "sha256": "193d259f0e60b7b34365059dacda00825c4c2e4f8dfa2e1a6e3bc77b5b4165ab"
+  },
+  {
+    "path": "q8/f0-double/f0-1-weight.bin",
+    "bytes": 6291456,
+    "sha256": "fc486b2a4148ed151d3e552bb3860046a51849acabc17c28fed31d93db9fdea0"
+  },
+  {
+    "path": "q8/f0-double/f0-2-bias.bin",
+    "bytes": 4096,
+    "sha256": "0304426c4427a9954aabdc03691f9741a95c7379b14cfc57282bb08fb3c6782e"
+  },
+  {
+    "path": "q8/f0-double/f0-2-weight.bin",
+    "bytes": 6291456,
+    "sha256": "730c540cdb0423cda4a484e4c475563876e904f1b854f37fbd14ec1cc304ce57"
+  },
+  {
+    "path": "q8/f0-double/f0-3-bias.bin",
+    "bytes": 4096,
+    "sha256": "1d4a00044f3c1c3605b2e870aabef6c7707b9bfc7fba14f6dbb28cc094bb4e29"
+  },
+  {
+    "path": "q8/f0-double/f0-3-weight.bin",
+    "bytes": 6291456,
+    "sha256": "2fb0e654d632b8f9625c1cd1a588f8612814679055b72c4796b17b7b12fe2e14"
+  },
+  {
+    "path": "q8/f0-double/f0-4-bias.bin",
+    "bytes": 4096,
+    "sha256": "ec884970bf7560e95028b7228ce27cb6b55b4375a7278db9cc54997846a053f0"
+  },
+  {
+    "path": "q8/f0-double/f0-4-weight.bin",
+    "bytes": 6291456,
+    "sha256": "be97e7d547f6b8d8925c5c97daca4280da08033acbe78f01374513ce4aabcfb4"
+  },
+  {
+    "path": "q8/f0-double/f0-classifier-bias.bin",
+    "bytes": 8,
+    "sha256": "6f02405f7bfee38ac0c84044d5a4423e67517e14235f5fa472e2c7f2a312c177"
+  },
+  {
+    "path": "q8/f0-double/f0-classifier-weight.bin",
+    "bytes": 4096,
+    "sha256": "56fb75b37a0f03cde2479442498ef32b726a2d85d9ab07ed1404b4a3ebafa104"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-decode.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 586042,
+    "sha256": "464aca1b65d56f9581ec93a8d346166de72e370b10c389c24f343a9ccca5681a"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-decode.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 364704018,
+    "sha256": "e311949a868a7a9544c20c220d01be4e6d1473b0fd704e248847d3c83dcb0c29"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-decode.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "0c80cdf84a8cc3449f7baa118d45c1a2119219c30f6ab5150304b3dd563282d6"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-prefill.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 675591,
+    "sha256": "83458c9760347ecd8e38ffd59f40c2b6ec888a815898099051065c993e493cfc"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-prefill.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 364704018,
+    "sha256": "88dbf1e7a4e4271be4f3a1e1ca886ef12c530f2f3f944094af4d60b8045d3f8c"
+  },
+  {
+    "path": "q8/models/cosyvoice-llm-q8-prefill.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "28a994b984456ad90a04b4c4c982e4c53930131bd06acf3a0c7c1a903fa95b37"
+  },
+  {
+    "path": "q8/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 601204,
+    "sha256": "e3a106397744597f38bfa786a31c39f8cf4cd9955344c678b3dfa73a1c2ed6e7"
+  },
+  {
+    "path": "q8/reference/campplus-fixed604.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 27876800,
+    "sha256": "0412e71084fe34fd2ef008e7ca7f3245294c354056b81214cb53bfe51220e8b0"
+  },
+  {
+    "path": "q8/reference/campplus-fixed604.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "4dbe911b2a70eff9d7b20c04305583020535198658962f05fd13e15192529cd2"
+  },
+  {
+    "path": "q8/reference/kaldi_mel_80.f32",
+    "bytes": 81920,
+    "sha256": "93362b4a8f1179b6f78dde8644c1df8bbdbfe344db5d0d045f36a4c0194a0b0d"
+  },
+  {
+    "path": "q8/reference/matcha_mel_80.f32",
+    "bytes": 307520,
+    "sha256": "d39ccbb8b0f93630070f570c301857bcdfda261ba95834ab82e0e43262b10a58"
+  },
+  {
+    "path": "q8/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/model.mlmodel",
+    "bytes": 251327,
+    "sha256": "915e7aff03b7bd1002db405adacac308580ea59c62d87ce72e04f8b65b62d9d1"
+  },
+  {
+    "path": "q8/reference/speech-tokenizer-fixed605.mlpackage/Data/com.apple.CoreML/weights/weight.bin",
+    "bytes": 968134912,
+    "sha256": "2040f99e88f61543060235a023155a314414faad2911f0c917951fa87247fa7b"
+  },
+  {
+    "path": "q8/reference/speech-tokenizer-fixed605.mlpackage/Manifest.json",
+    "bytes": 617,
+    "sha256": "7bb46dc3ae254d2bffa662bed9baf0b79cbeca1966478f49d1a97b104e51c2f5"
+  },
+  {
+    "path": "q8/reference/whisper_mel_128.f32",
+    "bytes": 102912,
+    "sha256": "2a5f9822897750e047c85dea37cc268d3be0ecfd23c28a5f10da129d99d05afe"
+  },
+  {
+    "path": "q8/tokenizer/config.json",
+    "bytes": 659,
+    "sha256": "168aa1bd401abc3bc262ba15ba4e499627a8b4e006e9d050b47c22de20660185"
+  },
+  {
+    "path": "q8/tokenizer/merges.txt",
+    "bytes": 1402109,
+    "sha256": "ac8ff86a72bee70828fbc1119bc4398c6f3a9a6e490d7b0dbe917be025478bd0"
+  },
+  {
+    "path": "q8/tokenizer/tokenizer.json",
+    "bytes": 4482475,
+    "sha256": "606341ffc3871e8440d1474135b1dc468d1621fa9d291aab7818682a05aed43c"
+  },
+  {
+    "path": "q8/tokenizer/tokenizer_config.json",
+    "bytes": 52738,
+    "sha256": "19dc99180dd436cbd5f26a937e858fb107da4ed9d4796df74b439b56049cf691"
+  },
+  {
+    "path": "q8/tokenizer/vocab.json",
+    "bytes": 2776833,
+    "sha256": "ca10d7e9fb3ed18575dd1e277a2579c16d108e32f27439684afa0e10b1440910"
+  }
+]

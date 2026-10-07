@@ -1,0 +1,229 @@
+{
+  "scope": "All previous rebuild evidence frozen and not overwritten",
+  "files": [
+    {
+      "path": "ios/validation/rebuild_20261006/frozen_reference_recovery.json",
+      "sha256": "1128483b9637ca633673955de594a868712014b5f58000b221faa4be1374e599"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical-summary-all-profiles.json",
+      "sha256": "561c216449ff1f388ae9ca68cee86f632953e1c3bce2df0c31d067d8d215e26c"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/FINAL_REPORT.md",
+      "sha256": "6eff74c54403c6a046b357c4fc834128407bf732eb7e27f2b82fe583492d52b8"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/COSYVOICE_PROFILE_CHECKLIST.md",
+      "sha256": "554ecc561632e12dc812828d34988eb54139d8d030c568c46851b91178997784"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/source-hygiene.json",
+      "sha256": "d53c3adbed082c63128daf38de0152838bd6d1cdc0b92b2a80c8521c7474ffdb"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/current-base-environment.freeze.txt",
+      "sha256": "eb3998fd79948ab6957d8f1021f85a692d746a61e41d98408399826ae63567c0"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/BENCHMARK_HANDOFF.md",
+      "sha256": "4d54beeb62f80edb4ed29aa34f92e6363f1a7ead4e6de0dd981bf18e35582ff9"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/dynamic-environment.freeze.txt",
+      "sha256": "4f24aadfe75950170081469e8bd5efa91064061d0e8455373288421678786e3b"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/NEW_ASSET_INVENTORY.json",
+      "sha256": "9205bdb88763e28550fff4a24342ce5cc180bd536c3620f8669fe2697a992be7"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/publication-gates.json",
+      "sha256": "7621a345b4fdd1fe9569c9a4b636805e4dde1f14e3f933bef33887159671a8f7"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/signed-release-gate.json",
+      "sha256": "71c06280d5ee3501b578d46dbc218fb3273147c042375c433c5d1664565bedad"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/authorization_and_prior_audit.json",
+      "sha256": "294ad81c7169f7cc2c56d8ac1f9a901e66806968495e97d3cf912d9f01107ce8"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/HF_REMOTE_VERIFICATION.json",
+      "sha256": "900024c924c58ef0eed24ec61b67eac9d77240e2c2c6a9fc7cbefb931cd89a74"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/demo-collection-integrity-test.log",
+      "sha256": "39f21177d1b55308cd56f8e6d98572e4543debaf3fc9eef301d8bc538ad7d84c"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/demo-build-input-binding.json",
+      "sha256": "0c71530f02529d64a86fe2d93db10cc0d6a07f4167db3a00e4981508691eeba9"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-fetch-receipt.json",
+      "sha256": "de3b2ce22a6395ca487286f6c276718f186fa04de5b9cccd2680645a399e0365"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/HF_PUBLICATION_RECEIPT.md",
+      "sha256": "a27e9c8dfbd9c40c76f129e7ed324894394b55d020b76f43f1a2be6fc4675ddc"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/host-conversion-gates.json",
+      "sha256": "77e898ea40409889bc7cf639ab9a774e6d2f3790e345327f0e52118f83ff146c"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/demo-signed-build-receipt.json",
+      "sha256": "cc932eb7640eacd976971e7771b24b1aa29a962f78836a130548d5bc278adaf3"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke-validation.log",
+      "sha256": "898403c3fedc51f2155932aa690fac6840143d47af79b25b26cb8aed4ce655be"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/REBUILD_PROVENANCE.md",
+      "sha256": "824d2ba5479fc4b01c702173b23e9bb5c475a2a0f45654fb09b9e13a0ed4550f"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/hf-upload-receipt.json",
+      "sha256": "900024c924c58ef0eed24ec61b67eac9d77240e2c2c6a9fc7cbefb931cd89a74"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/rebuild_fixture_receipt.json",
+      "sha256": "ec92b500b3fa9ead2a38687580ec9d726c322eba070636ecc3844a9540a6510b"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/demo-automation-tests.log",
+      "sha256": "d4eb11bc255bd2097575d8652ebf91f0082728ba12d873e71befa97fa09f3546"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/GIT_TIMELINE.json",
+      "sha256": "940b58dd236cabeb62905b07359b0b526bc3e85cc64776579a118ae3ad47ac6b"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/collection-integrity-gate.json",
+      "sha256": "b67682e941843bcc6d8d73bd9bb81254b8a0ad9732ee4cad6841aacc881624b0"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/revalidation-swift-gate.json",
+      "sha256": "ca704fea9846b54efb02ed6951ca86d632e4040c5a16763082b5e72bad717cf8"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/uploaded-file-inventory.json",
+      "sha256": "f2d586ae101eb4250555cf8175fd3945b92372e60a997f95ff62ab5dac40d3ec"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/rebuild_tool_source_binding.json",
+      "sha256": "fcf45fe086ab1d13f573d1ee6528435605c6baad30c0371d51651ed11cc3ee14"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/sdk-published-swift-tests-final.log",
+      "sha256": "8a50ad1c8331ab5ca40720b96aa9c55df8cdf9b3b3bd2de6039571fb8e9d5412"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical-evidence-index.json",
+      "sha256": "b6023649d3e3999aa03616c805040f28ba96575e922e5102b60ef490eb589038"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/hybrid_q4-aggregate.json",
+      "sha256": "fa318d0f5e5dbe3fc630a4fcdd2c8ebda24d668b048c3f5fedb5459227027b70"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/q8-aggregate.json",
+      "sha256": "b22d993856ad73af40476bf9e16c37df584142eab4f15c4755f6d7f90a265544"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/q8-config.json",
+      "sha256": "105fc1cfc31c2e97b23a406dc78cb0ca820530ad9cda19b4cdcb0b93a9946fb8"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/current-smoke-gate.json",
+      "sha256": "a86582b43c74cb364358f497e128341a296cad8d785315d571f012c9896877ab"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/current-config.json",
+      "sha256": "5f780cac5a8e107f2f9643be80e0dd5fad9146dc9b05d6fd5517da9cd4d0e002"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/current-aggregate.json",
+      "sha256": "a3ba4f756cf1c1de52b1d3438d0420175c1682603f4dfe99ae414da47d8844e1"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/three-profile-smoke-gate.json",
+      "sha256": "57cae68fe2dd6ecfc69ea99a2ca9ae14635394f975be9125cbb702808f848063"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/q8-smoke-gate.json",
+      "sha256": "486e7f12a95ff3e2256e27b3f4c5082ecd2c3f7286762945ccb54ef028e7b8b9"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/hybrid_q4-config.json",
+      "sha256": "a7d27e67ea1d8ef0e883c4e3422951d26359e3601f560c69588727d3ffd89970"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/runner-smoke/hybrid_q4-smoke-gate.json",
+      "sha256": "0bb9ebca9f68e4526864d31bf61dbfdd0c4763dcf971ff8dd1faeaddbe84a51a"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/q8-trace-attribution.json",
+      "sha256": "88386c1307f4ff3cbeb38e92bdad21ec95a46445a7fef7350e34af4bf43f835d"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/q8-trace-binding.json",
+      "sha256": "298d5217848f35ce5f7c67fe8237994f65140d8bf0ac51c1018a1290821c5d01"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/hybrid_q4-human-equivalence.json",
+      "sha256": "98606b1df099012adcc00d1b357744a3797def3adff8751c67659de13f4b2f01"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/current-trace-attribution.json",
+      "sha256": "eb3d5d27d91c6a1185ca98c9c619b1a343ac7f86461935fa62372ed9e9df4281"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/q8-topology-gate.json",
+      "sha256": "ba5fc9cac959078deb2ba7b097b90983d8d91a1d5047a51a5f9a4d3a797336c0"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/hybrid_q4-public-synthesis.json",
+      "sha256": "ef70aae0e8fe9f17f51cc2becfcee9f446856c2dabd9c85033249eb0dc3fb797"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/current-public-synthesis.json",
+      "sha256": "94223ad752a1b900688ed5bcd5d8c2186f2fb98ab59029848c7428f2cdc8b85b"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/hybrid_q4-topology-gate.json",
+      "sha256": "648f3a316accbf8e9ea2ece67fde8525a03258c53435c1d7ee33f92337f219b1"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/hybrid_q4-trace-attribution.json",
+      "sha256": "6c39a0cfac5a2844eaa85f38e9abfcf6a07ddbae053ce5b37c08de848dbff173"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/q8-public-synthesis.json",
+      "sha256": "4dc8d6608d5a64caac23a52a11af6b43fc8864bdcc81968f7585962f8d72be04"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/q8-human-equivalence.json",
+      "sha256": "ce7d8ac7a96cf1dcf001c06f8ad0fa1f65975665627931f4f3857b042d8aae3c"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/current-topology-gate.json",
+      "sha256": "2c0c82d0a64f2c3a9ed947eebd2bdec55d2aee58d4757554a613a7e27b078276"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/current-trace-binding.json",
+      "sha256": "73cec59c37502e695c8911d241c197bf41a5253a0f173ecb8f3709121e2a8c9b"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/current-human-equivalence.json",
+      "sha256": "3bd5cf4f14ff1830abcd971099ce84055f63020583162b6975a18005854a4c8c"
+    },
+    {
+      "path": "ios/validation/rebuild_20261006/physical/hybrid_q4-trace-binding.json",
+      "sha256": "5ca846d5a39585c854e91110a60dbe8f57fd684101256f46c5f133fdb185b7cf"
+    }
+  ]
+}

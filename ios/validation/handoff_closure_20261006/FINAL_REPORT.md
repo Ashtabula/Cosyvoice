@@ -1,0 +1,39 @@
+# Cosyvoice-only closure FINAL_REPORT
+
+2026-10-06 23:42 EDT. 本轮核对确认上一轮已完成的三profile重建、新物理/ANE/fixed audio-equivalence、新immutableHF发布，并独立再做一遍新空目录force-download/全hash/metadata验证。没有改写上轮报告、重新生成新模型身份或再次上传，不继续multi-engine工作。
+
+1: Current/Q8/Hybrid从权威checkpoint/source/recipe重建：是。Current先host/staticPASS再Q8/Hybrid；共享已有组件按精确冻结字节复用。source/environment/逐componentmetadata见REBUILD_PROVENANCE.md和COMPONENT_METADATA.json。
+
+2: Current复现历史语义：是。LLMhost224+64步exact0，P2six-vs-two多长度exact0；新五次frozen token序列/hash/PCM直接逐项相等。六段accepted corpus的N/PCM/WAV精确相等；六段receipt不含token列表，明确不把其当直接token-list证明。
+
+3: Q8复现历史approved输出：是。三accepted English corpus token列表/hash/PCM/WAV精确相等，无需新的human listening请求；原人工决定仍是历史决定，继承根据新输出equivalence proof。
+
+4: Hybrid复现历史approved输出：是。三accepted corpus含446-token/MAX_LENGTH长句，完整token/PCM/WAV等价，无新human请求。不是Full-Q4。
+
+5: 新immutable hashes如下（所有文件/包尺寸及P2见NEW_ASSET_INVENTORY.json，逐component38package实读元数据见COMPONENT_METADATA.json）：
+
+current: manifest=2ddc7fa084fb0e458b34f61af7fcc927773fb3697496a17f8ae1593ba33b56ee; tree=dbea074bfc8dc49514c32d99f38f378d6ed030cd60b25d82f807b2dd69b40677; prefill=62f5a760f1a23dcf8540627fa2e7f52c9d0dd912e0094b90fec642b6b5801ece; decode=c466ebefec84a4e05da001675bd4e4901c23459964064c9819dca6ccb5eb1c37; bytes=3530215890。
+
+q8: manifest=a276c672e178b4e87d44be96dcb24453bb45b76366270299b5977eca732dc2b5; tree=14fbec1f7765e1f5569200a67cb5d14b4f9758c9b56bc1c9e5363e10c5019c05; prefill=3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18; decode=46c52f10b28f947509e6c35bad05c4c942076b39d8b62d791cb4c0d8e093076d; bytes=2803735289。
+
+hybrid_q4: manifest=4f8e3aec18152c07a0e31814c2fa9ac92c3555fc4345f22f378cc07c6aa495d8; tree=0cd48a4704f12485cfa8f863ae9996ed5f8908e19dbbdd3540fe91e711a81fbe; prefill=3cea2eae34b390a14e3bb79f5f4c97353ea22ec8a723ab01e9767156bd528a18; decode=d3e7135201e0e8c7a3f5a6282ba8d42abab95504c8c819a3441aa20c113963e1; bytes=2621792999。
+
+P2: group-0.mlpackage=70dd09f89694af1774832cd451cdbce8585f16128e9762fc5bb82d653fa54287; group-1.mlpackage=24c3039d6d59a7b88e5cc9d4334e99ef8b7a0cd7ba13ec493e70781dcf24b408。Manifest没变化处是实际字节相同，并非冒称新包为被删除的旧包。
+
+6: 三profile均已新物理验证：是。signedRelease/iPhone18,4/iOS27.2，各五次冻结public synthesize确定性、新model/hash/P2/RTF/memory/thermal/CPU-onlyscope与独立trace。引用本任务新资产的receipt，不把旧physical evidence重贴新模型。本轮没有重复device任务。
+
+7: 必需human gates PASS：是，限原批准fixed corpus经过新实际PCM/WAV精确等价验证后的合法继承；不宣称任意文本质量。Current六、Q8三、Hybrid三实际WAV本地保存，SHA已对原approval。
+
+8: 新immutableHF已发布：是，actacomes/CosyVoice-assets@c16f38383fa261bfed317fbec2fad2c4115d690c，0.3.1-rc1/newtag；原historicalrevision未覆盖。本轮不再创建重复revision。
+
+9: clean重下载hash验证：是。本轮新空目录force-download全部204文件，38package、profile manifest/tree、P2、collectiontree逐项PASS；source不是本地build。HF_REMOTE_VERIFICATION.json记录完整。
+
+10: Current仍default：是，publicSDK source6eb42045a61015b000e40b88d6a9da0a126efce8及此前default短物理smoke证明，SDK74tests/5skip/0fail。该source分支未前移。
+
+11: Full-Q4排除：是，未build/publish/expose。Collection只有current/q8/hybrid_q4三logical profiles，外加SDK-owned共享P2目录；没有failedblock32/rawcheckpoint/cache/trace/临时WAV。
+
+12: BENCHMARK_HANDOFF已可用于NPU_engines_Demo：是。公共SDK selector和immutable root/revision/hash即可，所有必需artifacts齐全；本轮只Cosyvoiceclosure，不启动后续multi-engine工作。
+
+Timing/ANE限制：PHASE_TIMING_SCOPE.json提供真实nativePID trace的5prefill/1295decode单独时长，明确instrumented，不混入无profilerRTF。无profilerreceipt只有aggregateLLM time，split写N/A。CoreML/ANE topology以新hash+actualload+PID/native containment证明无major coarse LLM CPU/fragmentation regression；per-operation residency UNKNOWN，不宣称100%ANE。CPU-only Recount不是整机energy。Shared/legacy components和历史未单独冻结的依赖版本如实记录，不补造历史设置。此前所有失败receipt/report均按PRIOR_REPORT_BINDING.json冻结保留。
+
+GitHub Timeline: 新closure/audit脚本与append-onlyhistory提交到当前独立evidence分支codex/cosyvoice-rebuild-evidence-20261006，push结果见最终工具/branch状态；固定SDK source6eb4204和HF release均不改变。执行位置本地Mac/HF，非Colab/Drive。

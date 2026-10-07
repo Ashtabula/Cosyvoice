@@ -1,0 +1,13 @@
+# Cosyvoice-only handoff closure provenance
+
+2026-10-06 23:42 EDT. 本轮依据新paste任务仅核对Cosyvoice handoff，不再次重建已完成的模型、不再次上传同一collection、不继续多engine Runner。原资产误删除、重建明确授权、新包身份与旧验证身份分离；所有上轮报告/receipts SHA冻结在PRIOR_REPORT_BINDING.json，未覆盖。
+
+权威checkpoint FunAudioLLM/Fun-CosyVoice3-0.5B-2512@29e01c4e8d000f4bcd70751be16fa94bf3d85a18；upstream CosyVoice3_NPU@878940245562bcd1dd0231d78157ba78d70b39f6；converter Cosyvoice@053e0efa04f46bb7083f0b8063caa5e97ebcd72b，原enumerated exporter与ac31e117938ed50132365973a103cc8425942700一致。当前已新重建Current先通过static/host再生成169-matrix int8 Q8和decode-only rescue-A int4/per_channel Hybrid；Full-Q4 prefill排除。共享既存reference/F0/tokenizer/buffers按冻结HF8a1f25460a157f35fe79c42a79946c40a59da08e实际原字节复用，不虚称重复转换。
+
+两独立Python3.11.17环境：base torch2.3.1/numpy1.26.4/coremltools9，resolved scipy1.17.1（旧base requirements未单独固定scipy，不推断其旧版本）；enumerated/quant torch2.7.0/numpy1.26.4/scipy1.13.1/coremltools9。原环境freeze及source receipt在../rebuild_20261006，逐组件source/env/compression/storage/requested placement/IO/state/function/size/SHA实际metadata在COMPONENT_METADATA.json。
+
+这次新空目录force-download c16f38383fa261bfed317fbec2fad2c4115d690c的204文件，无本地build输入。38包均直接读取spec9/MLProgram1/CoreML8 opset；LLM48个FP16 state、实际ABI；四families自然N1...450，P2 group0/1默认SHARDS2/Flow6。Minimum iOS18来自冻结converter target，不捏造protobuf里的minimumOS字段。CurrentFP16/quantizedINT8或INT4为storage/config描述，不宣称actual accelerator arithmetic。Hybrid物理source5d3371b与publicSDK6eb4204的LLMRuntime源码逐字节相同，bridge fileSHA和6291456 bytes/request记录在metadata。
+
+物理signedRelease、新hash绑定ANE trace、fixed approved listening corpus和host数值gate均引用上一轮本任务新模型的独立receipt，历史receipt仅作明确的对照。Current五次冻结workload完整token列表/hash/N/PCM再次比较PASS；Current六段对应的receipt只直接记录N/PCM/WAV，不冒称六段token列表已记录。Q8/Hybrid三段receipt含完整token/hash与PCM/WAV精确等价。各human PASS限于已认可corpus的已证明等价输出。prefill/decode独立时间来自新native PID/stage trace，必须标instrumented，不能混入无profiler RTF；其完整数列在PHASE_TIMING_SCOPE.json。
+
+执行位置：本地macOS和HF HTTP下载；新验证目录见HF_REMOTE_VERIFICATION.json，未运行Colab/Drive/新physical/multi-engine/长thermal benchmark。本轮保持固定SDK6eb4204源码分支与模型release不动，新增独立closure文件。
