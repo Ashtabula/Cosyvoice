@@ -1,0 +1,32 @@
+{
+  "status": "PUSHED_SOURCE_AND_PHYSICAL_EVIDENCE_CONFIRMED",
+  "sdkSource": {
+    "repository": "Ashtabula/Cosyvoice",
+    "branch": "codex/cosyvoice-rebuilt-profiles-20261006",
+    "commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+    "timeline": "PUSHED; immutable Demo expectedCommit unchanged"
+  },
+  "sdkFinalEvidence": {
+    "repository": "Ashtabula/Cosyvoice",
+    "branch": "codex/cosyvoice-rebuild-evidence-20261006",
+    "commit": "e975e6d3581240ee6a1789b9ea691b3359ff51b7",
+    "timeline": "PUSHED; later changes documentation only"
+  },
+  "demoIntegration": {
+    "repository": "Ashtabula/NPU_engines_Demo",
+    "branch": "codex/cosyvoice-rebuilt-profiles-20261006",
+    "commit": "ed4ed85de43bb68b6b9e5877e13e6a537371f124",
+    "timeline": "PUSHED; compiled source bound by before-build input SHA; later changes documentation only"
+  },
+  "revalidationSource": {
+    "sourceCommit": "5d3371b022865ab255195ab9f624caed94aa9c31",
+    "path": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/revalidation-runtime",
+    "timeline": "COMMITTED_NOT_PUSHED; independent physical validation checkout preserved"
+  },
+  "hf": {
+    "revision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+    "timeline": "PUBLISHED_NEW_TAG_CLEAN204_HASH_PASS"
+  },
+  "mainBranches": "UNCHANGED_NOT_MERGED",
+  "scope": "Confirmed code/evidence commits before final documentation-only timeline commit; no self-referential commit SHA."
+}

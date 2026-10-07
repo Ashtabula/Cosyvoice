@@ -62,4 +62,4 @@ hybrid_q4: warmRTF=[0.28468908653846153, 0.28163050076923074, 0.2858124599038462
 14: 三个short Runner smoke均PASS，真实WAV有限、完整身份正确。
 15: 后续whole-device head-to-head仍需明确开启长测试、Release/unplugged/not charging/wireless host control、匹配battery/nominal thermal/cache、fixed screen policy、Power Profiler和完整播放drain/实际played-audio分母。process CPU-only不是整机能耗。当前scope不执行该比较；per-op residency仍UNKNOWN。若后续需要deterministic Runner seed，必须另验证public SDK实际seed应用，当前只把通用VOICE_BENCHMARK_SEED记作requested，短smoke没有设定它。
 
-GitHub Timeline: SDK source6eb4204分支已push，main未改写。Demo本次源码/最终证据将在独立分支commit/push，最终hash补入GIT_TIMELINE.json。物理revalidation源码5d3371b独立local checkout保存。原失败报告保持原hash。
+GitHub Timeline: SDK source6eb42045a61015b000e40b88d6a9da0a126efce8 PUSHED on frozen source branch; SDK evidencee975e6d3581240ee6a1789b9ea691b3359ff51b7 and Demo integrationed4ed85de43bb68b6b9e5877e13e6a537371f124 PUSHED on independent branches. Main unchanged/unmerged. Final timeline-only commit does not change tested runtime/model bytes. Physical source5d3371b remains COMMITTED_NOT_PUSHED in preserved independent checkout. See GIT_TIMELINE.json. Original missing-byte audit hashes unchanged.
