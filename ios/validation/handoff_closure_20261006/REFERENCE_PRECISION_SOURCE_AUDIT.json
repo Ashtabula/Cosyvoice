@@ -1,0 +1,16 @@
+{
+  "status": "PASS_FROZEN_REFERENCE_CONVERTER_PRECISION_SOURCE_CONFIRMED",
+  "sourceCommit": "053e0efa04f46bb7083f0b8063caa5e97ebcd72b",
+  "sourceFile": "ios/tools/convert_reference_onnx_to_coreml.py",
+  "sourceFileSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+  "sourceLines": [
+    265,
+    266,
+    274,
+    275
+  ],
+  "minimumDeploymentTarget": "ct.target.iOS18",
+  "computePrecision": "ct.precision.FLOAT32",
+  "scope": "speech tokenizer and CAM++; exact shared bytes reused, no new conversion",
+  "correction": "Metadata-only correction to this closure component description; runtime bytes/identities/remote validation/prior reports unchanged"
+}

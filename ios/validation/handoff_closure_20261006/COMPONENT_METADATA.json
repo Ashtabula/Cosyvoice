@@ -4357,7 +4357,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     },
@@ -4422,7 +4432,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     },
@@ -8136,7 +8156,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     },
@@ -8201,7 +8231,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     },
@@ -11915,7 +11955,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     },
@@ -11980,7 +12030,17 @@
       "FlowSteps": 6,
       "environment": "REUSED_EXACT_SHARED_BYTES_NO_NEW_CONVERSION_ENV",
       "precision": {
-        "conversionPrecision": "Frozen original FP16 CoreML path with preserved casts/IO; no uniform actual hardware arithmetic assertion"
+        "conversionPrecision": "FLOAT32 explicitly declared in frozen ONNX-reference CoreML converter",
+        "sourceScript": "ios/tools/convert_reference_onnx_to_coreml.py",
+        "sourceScriptSHA256": "cb2af9c5b4a0d30ab7e64235d35e7cf1eaf2e8ee4838686c2169976829dd8f17",
+        "sourceLines": [
+          265,
+          266,
+          274,
+          275
+        ],
+        "runtimeArithmetic": "CPU_ONLY request, actual per-operation arithmetic not inferred from storage/config",
+        "actualIO": "Feature dtypes/shapes recorded in rootABI"
       },
       "requestedPlacement": "CPU_ONLY"
     }
