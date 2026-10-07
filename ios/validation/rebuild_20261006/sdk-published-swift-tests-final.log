@@ -1,0 +1,241 @@
+Test Suite 'All tests' started at 2026-10-06 23:13:15.346.
+Test Suite 'CosyVoice3CoreTests.xctest' started at 2026-10-06 23:13:15.347.
+Test Suite 'BorrowedEmbeddingTests' started at 2026-10-06 23:13:15.347.
+Test Case '-[CosyVoice3CoreTests.BorrowedEmbeddingTests testAllRowsMatchOriginalAndCopyExactBytes]' started.
+Test Case '-[CosyVoice3CoreTests.BorrowedEmbeddingTests testAllRowsMatchOriginalAndCopyExactBytes]' passed (0.833 seconds).
+Test Suite 'BorrowedEmbeddingTests' passed at 2026-10-06 23:13:16.180.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.833 (0.833) seconds
+Test Suite 'ComputePlacementTests' started at 2026-10-06 23:13:16.180.
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testAcousticDefaultRequestsCPUAndGPU]' started.
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testAcousticDefaultRequestsCPUAndGPU]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testDynamicAcousticProfilePinsInfrequentReshapeHint]' started.
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testDynamicAcousticProfilePinsInfrequentReshapeHint]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testReferenceEncoderPlacementRemainsCPUOnly]' started.
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testReferenceEncoderPlacementRemainsCPUOnly]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testStatefulLLMRequestsCPUAndNE]' started.
+Test Case '-[CosyVoice3CoreTests.ComputePlacementTests testStatefulLLMRequestsCPUAndNE]' passed (0.000 seconds).
+Test Suite 'ComputePlacementTests' passed at 2026-10-06 23:13:16.180.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'DecodeProviderParityTests' started at 2026-10-06 23:13:16.180.
+Test Case '-[CosyVoice3CoreTests.DecodeProviderParityTests testFrozenStatefulLogitsMatchOriginalProviders]' started.
+/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/Tests/CosyVoice3CoreTests/DecodeProviderParityTests.swift:10: -[CosyVoice3CoreTests.DecodeProviderParityTests testFrozenStatefulLogitsMatchOriginalProviders] : Test skipped - Set frozen asset root for host stateful numerical comparison
+Test Case '-[CosyVoice3CoreTests.DecodeProviderParityTests testFrozenStatefulLogitsMatchOriginalProviders]' skipped (0.001 seconds).
+Test Suite 'DecodeProviderParityTests' passed at 2026-10-06 23:13:16.181.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'DynamicAcousticContractTests' started at 2026-10-06 23:13:16.181.
+Test Case '-[CosyVoice3CoreTests.DynamicAcousticContractTests testCurrentN3ToN479CandidateGeometry]' started.
+Test Case '-[CosyVoice3CoreTests.DynamicAcousticContractTests testCurrentN3ToN479CandidateGeometry]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.DynamicAcousticContractTests testN1LowerBoundGeometryIsArchitecturallySupported]' started.
+Test Case '-[CosyVoice3CoreTests.DynamicAcousticContractTests testN1LowerBoundGeometryIsArchitecturallySupported]' passed (0.000 seconds).
+Test Suite 'DynamicAcousticContractTests' passed at 2026-10-06 23:13:16.181.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'EmbeddingTableTests' started at 2026-10-06 23:13:16.181.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableReadsExactRow]' started.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableReadsExactRow]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableValidatesByteCount]' started.
+Test Case '-[CosyVoice3CoreTests.EmbeddingTableTests testEmbeddingTableValidatesByteCount]' passed (0.000 seconds).
+Test Suite 'EmbeddingTableTests' passed at 2026-10-06 23:13:16.182.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'EnumeratedAcousticContractTests' started at 2026-10-06 23:13:16.182.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testEverySupportedNMapsToExactlyOneFunction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testObservedEarlyEOSLengthsRemainExact]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testOutOfRangeNFailClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' started.
+Test Case '-[CosyVoice3CoreTests.EnumeratedAcousticContractTests testProductionContractAndGeometry]' passed (0.000 seconds).
+Test Suite 'EnumeratedAcousticContractTests' passed at 2026-10-06 23:13:16.183.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'F0WorkspaceParityTests' started at 2026-10-06 23:13:16.183.
+Test Case '-[CosyVoice3CoreTests.F0WorkspaceParityTests testFrozenWeightsAcrossPaddingAndProductionLengths]' started.
+/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/Tests/CosyVoice3CoreTests/F0WorkspaceParityTests.swift:13: -[CosyVoice3CoreTests.F0WorkspaceParityTests testFrozenWeightsAcrossPaddingAndProductionLengths] : Test skipped - Frozen FP64 F0 fixture absent; this is not physical-device evidence
+Test Case '-[CosyVoice3CoreTests.F0WorkspaceParityTests testFrozenWeightsAcrossPaddingAndProductionLengths]' skipped (0.000 seconds).
+Test Suite 'F0WorkspaceParityTests' passed at 2026-10-06 23:13:16.183.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'FixedDecodeMaskTests' started at 2026-10-06 23:13:16.183.
+Test Case '-[CosyVoice3CoreTests.FixedDecodeMaskTests testAllPrefixesMatchIndependentOriginalMasks]' started.
+Test Case '-[CosyVoice3CoreTests.FixedDecodeMaskTests testAllPrefixesMatchIndependentOriginalMasks]' passed (0.232 seconds).
+Test Suite 'FixedDecodeMaskTests' passed at 2026-10-06 23:13:16.415.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.232 (0.232) seconds
+Test Suite 'FlowSchedulerTests' started at 2026-10-06 23:13:16.415.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testHeadToHeadSchedulesAreMonotonicAndEndAtOne]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testHeadToHeadSchedulesAreMonotonicAndEndAtOne]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testRuntimeValidatedStepsMatchPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testRuntimeValidatedStepsMatchPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testUnsupportedFlowStepCountFailsClosed]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testUnsupportedFlowStepCountFailsClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testValidatedTenStepScheduleMatchesPreviousFormula]' started.
+Test Case '-[CosyVoice3CoreTests.FlowSchedulerTests testValidatedTenStepScheduleMatchesPreviousFormula]' passed (0.000 seconds).
+Test Suite 'FlowSchedulerTests' passed at 2026-10-06 23:13:16.416.
+	 Executed 4 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'FlowSpecializationParityTests' started at 2026-10-06 23:13:16.416.
+Test Case '-[CosyVoice3CoreTests.FlowSpecializationParityTests testFrozenAcousticHintParity]' started.
+/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/Tests/CosyVoice3CoreTests/FlowSpecializationParityTests.swift:11: -[CosyVoice3CoreTests.FlowSpecializationParityTests testFrozenAcousticHintParity] : Test skipped - Set frozen asset root for isolated host component comparison
+Test Case '-[CosyVoice3CoreTests.FlowSpecializationParityTests testFrozenAcousticHintParity]' skipped (0.000 seconds).
+Test Suite 'FlowSpecializationParityTests' passed at 2026-10-06 23:13:16.416.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'GenerationPolicyTests' started at 2026-10-06 23:13:16.416.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testContextCapacityRemainsFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testContextCapacityRemainsFailClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testOldN479CapacityIsIntentionallyCappedAt450]' started.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testOldN479CapacityIsIntentionallyCappedAt450]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testPrefixAbove62ReducesSpeechWindowInsteadOfOverflowingState]' started.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testPrefixAbove62ReducesSpeechWindowInsteadOfOverflowingState]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testProductionN450CapWinsWhenContextAllowsIt]' started.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testProductionN450CapWinsWhenContextAllowsIt]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testTwentyTimesRuleWinsForShortTarget]' started.
+Test Case '-[CosyVoice3CoreTests.GenerationPolicyTests testTwentyTimesRuleWinsForShortTarget]' passed (0.000 seconds).
+Test Suite 'GenerationPolicyTests' passed at 2026-10-06 23:13:16.417.
+	 Executed 5 tests, with 0 failures (0 unexpected) in 0.000 (0.001) seconds
+Test Suite 'LogitsBufferTests' started at 2026-10-06 23:13:16.417.
+Test Case '-[CosyVoice3CoreTests.LogitsBufferTests testBothDtypesMatchOriginalConversionAndReuseStorage]' started.
+Test Case '-[CosyVoice3CoreTests.LogitsBufferTests testBothDtypesMatchOriginalConversionAndReuseStorage]' passed (0.521 seconds).
+Test Case '-[CosyVoice3CoreTests.LogitsBufferTests testInvalidOutputFailsClosed]' started.
+Test Case '-[CosyVoice3CoreTests.LogitsBufferTests testInvalidOutputFailsClosed]' passed (0.000 seconds).
+Test Suite 'LogitsBufferTests' passed at 2026-10-06 23:13:16.939.
+	 Executed 2 tests, with 0 failures (0 unexpected) in 0.522 (0.522) seconds
+Test Suite 'OverlapAddNormTests' started at 2026-10-06 23:13:16.939.
+Test Case '-[CosyVoice3CoreTests.OverlapAddNormTests testOriginalWindowSummationBitsAtAllBucketBoundaries]' started.
+Test Case '-[CosyVoice3CoreTests.OverlapAddNormTests testOriginalWindowSummationBitsAtAllBucketBoundaries]' passed (2.933 seconds).
+Test Suite 'OverlapAddNormTests' passed at 2026-10-06 23:13:19.872.
+	 Executed 1 test, with 0 failures (0 unexpected) in 2.933 (2.933) seconds
+Test Suite 'PersistentRuntimeStoreTests' started at 2026-10-06 23:13:19.872.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testCanonicalAndAliasPathsHaveTheSameContentIdentity]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testCanonicalAndAliasPathsHaveTheSameContentIdentity]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testFamilyPendingPersistenceAndIndependentIdentity]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testFamilyPendingPersistenceAndIndependentIdentity]' passed (0.010 seconds).
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testRestartHashesActualBytesEvenWithPreservedTimestampAndSize]' started.
+Test Case '-[CosyVoice3CoreTests.PersistentRuntimeStoreTests testRestartHashesActualBytesEvenWithPreservedTimestampAndSize]' passed (0.002 seconds).
+Test Suite 'PersistentRuntimeStoreTests' passed at 2026-10-06 23:13:19.885.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.013 (0.013) seconds
+Test Suite 'PublicContractTests' started at 2026-10-06 23:13:19.885.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testAudioDefaults]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testCapabilitiesExposeFlowStepContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testFlowStepPublicContract]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testParametersPreserveInstruction]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testSynthesisReportInitializerDefaultsToProductionFlowSteps]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' started.
+Test Case '-[CosyVoice3CoreTests.PublicContractTests testTokenSemantics]' passed (0.000 seconds).
+Test Suite 'PublicContractTests' passed at 2026-10-06 23:13:19.886.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'RASamplerTests' started at 2026-10-06 23:13:19.886.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testInvalidLogitCountFailsClosed]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testInvalidLogitCountFailsClosed]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testOptimizedRepetitionResampleMatchesFormerFullSortPath]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testOptimizedRepetitionResampleMatchesFormerFullSortPath]' passed (0.372 seconds).
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testOptimizedTopKPathMatchesFormerFullSortForDeterministicDraws]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testOptimizedTopKPathMatchesFormerFullSortForDeterministicDraws]' passed (0.658 seconds).
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testRepeatedTopTokenIsMaskedAndResampled]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testRepeatedTopTokenIsMaskedAndResampled]' passed (0.003 seconds).
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testSOSSuppressionUses6561NotActualEOS6562]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testSOSSuppressionUses6561NotActualEOS6562]' passed (0.017 seconds).
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testSpeechTokenCanBeSelected]' started.
+Test Case '-[CosyVoice3CoreTests.RASamplerTests testSpeechTokenCanBeSelected]' passed (0.018 seconds).
+Test Suite 'RASamplerTests' passed at 2026-10-06 23:13:20.954.
+	 Executed 6 tests, with 0 failures (0 unexpected) in 1.067 (1.068) seconds
+Test Suite 'ReferenceDSPExternalParityTests' started at 2026-10-06 23:13:20.954.
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPExternalParityTests testExternalUpstreamReferenceParityWhenFixtureIsProvided]' started.
+/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/Tests/CosyVoice3CoreTests/ReferenceDSPExternalParityTests.swift:10: -[CosyVoice3CoreTests.ReferenceDSPExternalParityTests testExternalUpstreamReferenceParityWhenFixtureIsProvided] : Test skipped - COSYVOICE3_REFERENCE_PARITY_FIXTURE is not set
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPExternalParityTests testExternalUpstreamReferenceParityWhenFixtureIsProvided]' skipped (0.000 seconds).
+Test Suite 'ReferenceDSPExternalParityTests' passed at 2026-10-06 23:13:20.954.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'ReferenceDSPTests' started at 2026-10-06 23:13:20.954.
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testFixedReferenceProfileFrameArithmetic]' started.
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testFixedReferenceProfileFrameArithmetic]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testWhisper400PointDFTFallbackPreservesExactLength]' started.
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testWhisper400PointDFTFallbackPreservesExactLength]' passed (0.009 seconds).
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testWindowsHaveExpectedEndpoints]' started.
+Test Case '-[CosyVoice3CoreTests.ReferenceDSPTests testWindowsHaveExpectedEndpoints]' passed (0.000 seconds).
+Test Suite 'ReferenceDSPTests' passed at 2026-10-06 23:13:20.963.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.009 (0.009) seconds
+Test Suite 'ReferenceTokenizerExternalParityTests' started at 2026-10-06 23:13:20.963.
+Test Case '-[CosyVoice3CoreTests.ReferenceTokenizerExternalParityTests testPinnedCosyVoice3TokenizerParityWhenFolderIsProvided]' started.
+/Volumes/WD/Codes/Demo/Clean/Cosyvoice/ios/Tests/CosyVoice3CoreTests/ReferenceTokenizerExternalParityTests.swift:12: -[CosyVoice3CoreTests.ReferenceTokenizerExternalParityTests testPinnedCosyVoice3TokenizerParityWhenFolderIsProvided] : Test skipped - COSYVOICE3_TOKENIZER_PARITY_FOLDER not provided
+Test Case '-[CosyVoice3CoreTests.ReferenceTokenizerExternalParityTests testPinnedCosyVoice3TokenizerParityWhenFolderIsProvided]' skipped (0.000 seconds).
+Test Suite 'ReferenceTokenizerExternalParityTests' passed at 2026-10-06 23:13:20.964.
+	 Executed 1 test, with 1 test skipped and 0 failures (0 unexpected) in 0.000 (0.000) seconds
+Test Suite 'SharedSpeechEmbeddingTests' started at 2026-10-06 23:13:20.964.
+Test Case '-[CosyVoice3CoreTests.SharedSpeechEmbeddingTests testSharedRowsAndRoPEMatchStandaloneURL]' started.
+Test Case '-[CosyVoice3CoreTests.SharedSpeechEmbeddingTests testSharedRowsAndRoPEMatchStandaloneURL]' passed (0.012 seconds).
+Test Suite 'SharedSpeechEmbeddingTests' passed at 2026-10-06 23:13:20.975.
+	 Executed 1 test, with 0 failures (0 unexpected) in 0.012 (0.012) seconds
+Test Suite 'Stage1RuntimeTests' started at 2026-10-06 23:13:20.975.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testDefaultDecodePolicyUsesTightSixteenTokenBucket]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testDefaultDecodePolicyUsesTightSixteenTokenBucket]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testDefaultFlowPolicyUsesTightThirtyTwoFrameBucket]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testDefaultFlowPolicyUsesTightThirtyTwoFrameBucket]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testExactPolicyHasZeroPadding]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testExactPolicyHasZeroPadding]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testMultifunctionSpecsHaveDifferentCacheKeys]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testMultifunctionSpecsHaveDifferentCacheKeys]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testOverflowFails]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testOverflowFails]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testStaticFallbackChoosesSmallestBucket]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testStaticFallbackChoosesSmallestBucket]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testTensorPoolReusesArray]' started.
+Test Case '-[CosyVoice3CoreTests.Stage1RuntimeTests testTensorPoolReusesArray]' passed (0.000 seconds).
+Test Suite 'Stage1RuntimeTests' passed at 2026-10-06 23:13:20.977.
+	 Executed 7 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'TorchAudioResamplerTests' started at 2026-10-06 23:13:20.977.
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testFixedReferenceLengthsMatchUpstreamContract]' started.
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testFixedReferenceLengthsMatchUpstreamContract]' passed (0.190 seconds).
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testIdentityReturnsOriginalSamples]' started.
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testIdentityReturnsOriginalSamples]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testImpulseResampleIsFiniteAndNonzero]' started.
+Test Case '-[CosyVoice3CoreTests.TorchAudioResamplerTests testImpulseResampleIsFiniteAndNonzero]' passed (0.004 seconds).
+Test Suite 'TorchAudioResamplerTests' passed at 2026-10-06 23:13:21.170.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.193 (0.194) seconds
+Test Suite 'ValidationPlacementTests' started at 2026-10-06 23:13:21.170.
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testAllRolesAndPolicies]' started.
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testAllRolesAndPolicies]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testExactFrozenPathsMapToRoles]' started.
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testExactFrozenPathsMapToRoles]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testMalformedAndDuplicateFailClosed]' started.
+Test Case '-[CosyVoice3CoreTests.ValidationPlacementTests testMalformedAndDuplicateFailClosed]' passed (0.000 seconds).
+Test Suite 'ValidationPlacementTests' passed at 2026-10-06 23:13:21.171.
+	 Executed 3 tests, with 0 failures (0 unexpected) in 0.001 (0.001) seconds
+Test Suite 'WeightProfileTests' started at 2026-10-06 23:13:21.171.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAcceptedQ4HybridRejectsOriginalFailedBlock32Assets]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAcceptedQ4HybridRejectsOriginalFailedBlock32Assets]' passed (0.005 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAllWrongProfileCombinationsFailDuringInitialization]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testAllWrongProfileCombinationsFailDuringInitialization]' passed (0.012 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testCollectionResolutionHasNoSilentFallback]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testCollectionResolutionHasNoSilentFallback]' passed (0.002 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testDefaultInitializerResolvesCanonicalCollectionWithoutFallback]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testDefaultInitializerResolvesCanonicalCollectionWithoutFallback]' passed (0.003 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExistingInitializerRemainsCurrent]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExistingInitializerRemainsCurrent]' passed (0.001 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExplicitProfilesUseSameEngineAndStableMetadata]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testExplicitProfilesUseSameEngineAndStableMetadata]' passed (0.005 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testInvalidProfileRoutingNeverSilentlyFallsBack]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testInvalidProfileRoutingNeverSilentlyFallsBack]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMetadataOnlyRootCannotReachPrediction]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMetadataOnlyRootCannotReachPrediction]' passed (0.005 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMixedPackagePayloadAndStaleManifestRejected]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testMixedPackagePayloadAndStaleManifestRejected]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testPersistentPlanAndShelfKeysDisjointAcrossProfiles]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testPersistentPlanAndShelfKeysDisjointAcrossProfiles]' passed (0.000 seconds).
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testProfileRoutingNeedsNoShardCLIAndKeepsLegacyDefault]' started.
+Test Case '-[CosyVoice3CoreTests.WeightProfileTests testProfileRoutingNeedsNoShardCLIAndKeepsLegacyDefault]' passed (0.000 seconds).
+Test Suite 'WeightProfileTests' passed at 2026-10-06 23:13:21.206.
+	 Executed 11 tests, with 0 failures (0 unexpected) in 0.034 (0.035) seconds
+Test Suite 'CosyVoice3CoreTests.xctest' passed at 2026-10-06 23:13:21.206.
+	 Executed 74 tests, with 5 tests skipped and 0 failures (0 unexpected) in 5.855 (5.860) seconds
+Test Suite 'All tests' passed at 2026-10-06 23:13:21.206.
+	 Executed 74 tests, with 5 tests skipped and 0 failures (0 unexpected) in 5.855 (5.860) seconds
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/CosyWeightProfile-08A38112-BD63-4DC6-970D-8FEFA3CA7939
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=392714f9e41327c52019d207afd6f7aa96ea60a9ac4ccdd180727c8e43dbe5a0
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/CosyWeightProfile-6355C04F-5E40-4405-AE94-2AEE26A852B9
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=b0a79d4ac418e55246755837e3bca82f361ee1db5dd3faab83835c7f30f757d9
+[COSY-PERSISTENT-IDENTITY] begin actual-byte payload verification root=/var/folders/ln/wndplfxn3gj_0z468hd8vf6m0000gn/T/CosyWeightProfile-98190064-8199-46F4-AFDD-1A6E394C855B
+[COSY-PERSISTENT-IDENTITY] completed payloadSHA256=b260d3e4dd69b1207f588d7085d8dcf28977083ea138a43241a3cce4b0431229
+◇ Test run started.
+↳ Testing Library Version: 2401
+↳ Target Platform: arm64e-apple-macos14.0
+✔ Test run with 0 tests in 0 suites passed after 0.001 seconds.

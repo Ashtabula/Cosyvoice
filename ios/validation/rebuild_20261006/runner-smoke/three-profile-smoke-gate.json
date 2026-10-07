@@ -1,0 +1,58 @@
+{
+  "status": "PASS_THREE_PROFILE_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+  "assetRevision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+  "sdkSourceCommit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+  "profiles": [
+    {
+      "status": "PASS_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+      "profile": "current",
+      "receiptSHA256": "a3ba4f756cf1c1de52b1d3438d0420175c1682603f4dfe99ae414da47d8844e1",
+      "WAV": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/runner-smoke/current/audio/cosyfull/E2C4B193-E9D5-4AB7-B070-BB926EA99CD7-r1-s1.wav",
+      "WAV_SHA256": "28c7f136135afae1f69b8ea356ea458398b4d95e9eae3e9806469653ea87c12e",
+      "floatPCM_SHA256": "e0bdc94d7d5f13fd56a530367ae450cf719e2a2cd6cb3af6b6b9b2b2cb2237e9",
+      "samples": 153600,
+      "deviceWAVFormat": "IEEE Float32 mono 24000Hz",
+      "seedScope": "normal unseeded public synthesis; deterministic/human equivalence proven by separate revalidation receipts",
+      "longBenchmark": false,
+      "noConversion": true,
+      "freshProcessCommand": "--terminate-existing --cleanroom-benchmark --benchmark-engine cosyvoice",
+      "requestedPlacement": "CPU_AND_NE"
+    },
+    {
+      "status": "PASS_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+      "profile": "q8",
+      "receiptSHA256": "b22d993856ad73af40476bf9e16c37df584142eab4f15c4755f6d7f90a265544",
+      "WAV": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/runner-smoke/q8/audio/cosy8bit/A9D58BA9-8962-4967-A59F-CCD9542910E8-r1-s1.wav",
+      "WAV_SHA256": "9b4be8fbd7fd07b93b73e8df2885541c19e63fc52af8b3264fbd00c6c792f023",
+      "floatPCM_SHA256": "3e2884c4742d4d15e6a68b6791006a36fdcecd72f3dccf2f0643a0f5a6d58843",
+      "samples": 153600,
+      "deviceWAVFormat": "IEEE Float32 mono 24000Hz",
+      "seedScope": "normal unseeded public synthesis; deterministic/human equivalence proven by separate revalidation receipts",
+      "longBenchmark": false,
+      "noConversion": true,
+      "freshProcessCommand": "--terminate-existing --cleanroom-benchmark --benchmark-engine cosyvoice",
+      "requestedPlacement": "CPU_AND_NE",
+      "observedDevicePID": 6465
+    },
+    {
+      "status": "PASS_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+      "profile": "hybrid_q4",
+      "receiptSHA256": "fa318d0f5e5dbe3fc630a4fcdd2c8ebda24d668b048c3f5fedb5459227027b70",
+      "WAV": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/runner-smoke/hybrid_q4/audio/cosyhybrid4/ED11333E-ED04-4E02-9057-BC427E9580AC-r1-s1.wav",
+      "WAV_SHA256": "f7e44174da2219fd39e141b3da4d020c4eaaf88b955560ea464d9bdee34c91b7",
+      "floatPCM_SHA256": "aae9a4776cc5979020e811c731034751c1b5149f06976c9525bc914fd9ea8212",
+      "samples": 153600,
+      "deviceWAVFormat": "IEEE Float32 mono 24000Hz",
+      "seedScope": "normal unseeded public synthesis; deterministic/human equivalence proven by separate revalidation receipts",
+      "longBenchmark": false,
+      "noConversion": true,
+      "freshProcessCommand": "--terminate-existing --cleanroom-benchmark --benchmark-engine cosyvoice",
+      "requestedPlacement": "CPU_AND_NE",
+      "observedDevicePID": 6468
+    }
+  ],
+  "currentDefaultVerified": true,
+  "noFallbackObserved": true,
+  "noLongBenchmark": true,
+  "performanceRanking": false
+}

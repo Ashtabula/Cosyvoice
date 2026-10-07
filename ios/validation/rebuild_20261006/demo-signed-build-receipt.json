@@ -1,0 +1,18 @@
+{
+  "status": "PASS_SIGNED_RELEASE_FOUR_SDK_BUILD",
+  "bundleID": "com.actacomes.VoiceBenchmark",
+  "binarySHA256": "32bab24067df6c80580a5efb7e881354e01d0e322e89eef486a3cba0f8e81909",
+  "inputBindingSHA256": "0c71530f02529d64a86fe2d93db10cc0d6a07f4167db3a00e4981508691eeba9",
+  "verifyCommand": [
+    "codesign",
+    "--verify",
+    "--deep",
+    "--strict",
+    "--verbose=2",
+    ".build-demo-rebuilt/Build/Products/Release-iphoneos/VoiceBenchmark.app"
+  ],
+  "verifyReturnCode": 0,
+  "verifyOutput": ".build-demo-rebuilt/Build/Products/Release-iphoneos/VoiceBenchmark.app: valid on disk\n.build-demo-rebuilt/Build/Products/Release-iphoneos/VoiceBenchmark.app: satisfies its Designated Requirement\n",
+  "linkedSDKs": 4,
+  "cosySourceCommit": "6eb42045a61015b000e40b88d6a9da0a126efce8"
+}

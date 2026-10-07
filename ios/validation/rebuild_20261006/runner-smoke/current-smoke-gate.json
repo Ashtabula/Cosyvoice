@@ -1,0 +1,15 @@
+{
+  "status": "PASS_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+  "profile": "current",
+  "receiptSHA256": "a3ba4f756cf1c1de52b1d3438d0420175c1682603f4dfe99ae414da47d8844e1",
+  "WAV": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/runner-smoke/current/audio/cosyfull/E2C4B193-E9D5-4AB7-B070-BB926EA99CD7-r1-s1.wav",
+  "WAV_SHA256": "28c7f136135afae1f69b8ea356ea458398b4d95e9eae3e9806469653ea87c12e",
+  "floatPCM_SHA256": "e0bdc94d7d5f13fd56a530367ae450cf719e2a2cd6cb3af6b6b9b2b2cb2237e9",
+  "samples": 153600,
+  "deviceWAVFormat": "IEEE Float32 mono 24000Hz",
+  "seedScope": "normal unseeded public synthesis; deterministic/human equivalence proven by separate revalidation receipts",
+  "longBenchmark": false,
+  "noConversion": true,
+  "freshProcessCommand": "--terminate-existing --cleanroom-benchmark --benchmark-engine cosyvoice",
+  "requestedPlacement": "CPU_AND_NE"
+}

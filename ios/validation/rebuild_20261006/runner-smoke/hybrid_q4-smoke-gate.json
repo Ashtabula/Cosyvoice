@@ -1,0 +1,16 @@
+{
+  "status": "PASS_EXACT_REMOTE_ASSET_PUBLIC_RUNNER_SMOKE",
+  "profile": "hybrid_q4",
+  "receiptSHA256": "fa318d0f5e5dbe3fc630a4fcdd2c8ebda24d668b048c3f5fedb5459227027b70",
+  "WAV": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/runner-smoke/hybrid_q4/audio/cosyhybrid4/ED11333E-ED04-4E02-9057-BC427E9580AC-r1-s1.wav",
+  "WAV_SHA256": "f7e44174da2219fd39e141b3da4d020c4eaaf88b955560ea464d9bdee34c91b7",
+  "floatPCM_SHA256": "aae9a4776cc5979020e811c731034751c1b5149f06976c9525bc914fd9ea8212",
+  "samples": 153600,
+  "deviceWAVFormat": "IEEE Float32 mono 24000Hz",
+  "seedScope": "normal unseeded public synthesis; deterministic/human equivalence proven by separate revalidation receipts",
+  "longBenchmark": false,
+  "noConversion": true,
+  "freshProcessCommand": "--terminate-existing --cleanroom-benchmark --benchmark-engine cosyvoice",
+  "requestedPlacement": "CPU_AND_NE",
+  "observedDevicePID": 6468
+}

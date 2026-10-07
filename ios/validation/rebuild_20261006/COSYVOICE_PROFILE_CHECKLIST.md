@@ -107,3 +107,5 @@
 ANE PASS means exact new model hash/actual load + PID/native stage containment + prediction-event topology with no coarse LLM CPU activity; actual per-operation residency remains UNKNOWN. Acoustic pipeline retains CPU/GPU mixed activity. Historical HUMAN_PASS is inherited only through new actual WAV/PCM/token exact equivalence receipts.
 
 SDK final metadata/default changes: 74 Swift6 tests,5 skipped,0fail. Signed integrated Demo Release and short Runner smoke still pending; keep them distinct from source5d3371b revalidation app.
+
+Final integration gate2026-10-06 23:29 EDT: signed four-SDK Demo Release PASS, exactnewHF fetch/stage PASS, allthree shortphysical Runner smokes PASS. Long unplugged thermal/whole-device test N/A excluded. SDK74/5skip/0fail, productionSwift config guard/default/aliases and real mixed-byte verifier PASS.

@@ -11,3 +11,5 @@ Runner fetches the exact pin from COSYVOICE_ASSETS.json and verifies the generic
 Synthesis benchmark metric definitions remain unchanged. Existing Sustained Playback lane uses the same registered public profile backend, without final long benchmark in this task. Later whole-device comparison requires Release, unplugged/not charging, wireless host control, matched battery and nominal thermal, fixed screen policy, Power Profiler. Current CPU-only process counters are not whole-device energy.
 
 Source pin and signed Runner smoke receipts will be added after Demo remote-cleanhouse rebuild. Original EXACT_VALIDATED_ASSET_MISSING report remains unchanged.
+
+Final2026-10-06 23:29 EDT: source6eb4204 remote cleanhouse and four-SDK signed Release PASS. Runner exactremote204 fetch/stage +Current(default)/Q8/Hybrid shortphysical smoke PASS; see runner-smoke/three-profile-smoke-gate.json. Normal unseeded one-utterance routing smoke only, no long test.

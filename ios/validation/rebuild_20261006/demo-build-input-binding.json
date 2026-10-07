@@ -1,0 +1,85 @@
+{
+  "sourceGitBase": "c01e268a310ddee06607440e553c18aa5a9fd193",
+  "worktreeDirty": true,
+  "files": [
+    {
+      "path": "ENGINE_SOURCES.json",
+      "sha256": "f40cf6982163702cc21b694f59ac817992aa6ea235e25b0e43659cca52a58014"
+    },
+    {
+      "path": "COSYVOICE_ASSETS.json",
+      "sha256": "9d744cb19f9e0ae89a14d1bafbafb09e6e39800ba16c7d6ddf2b11c2c727f94c"
+    },
+    {
+      "path": "Sources/Voice/VoiceCloneBackend.swift",
+      "sha256": "d5f61a1d91e4e33fd552538d2c4ecd9fb727d200e10f56ff75c5f5b27fb55149"
+    },
+    {
+      "path": "Sources/Benchmark/BenchmarkAutomation.swift",
+      "sha256": "d719aab375bbe4672f6652aeb4dcb470b6366b264a1ba1d20db14905b3c2878c"
+    },
+    {
+      "path": "Sources/Benchmark/BenchmarkModels.swift",
+      "sha256": "c9d964f12d9e9ff2e012cda61562549cabffb74578baeb576bfa64c539f2777b"
+    },
+    {
+      "path": "Sources/Benchmark/BenchmarkView.swift",
+      "sha256": "938245794dc0d08f7bb4a9e62942074f56a4ac08f97bc35e5c728571cb71ec89"
+    },
+    {
+      "path": "scripts/run_ios_benchmark.py",
+      "sha256": "e4fcf0d01d2f44ae57019a21cf04603fc542ad0ef243778109ab5e8ac64e0d56"
+    },
+    {
+      "path": "scripts/fetch_cosyvoice_profiles.py",
+      "sha256": "f99a1fe684f9688e16a9c7123282afdd603bd84456de663fa450df1897cdd9ce"
+    }
+  ],
+  "remoteSDKCleanhouse": {
+    "engines": [
+      {
+        "commit": "e06bad40f8288338313868acb1d34f5002a8e45f",
+        "id": "zipvoice",
+        "packageAlias": "ZipVoiceEngineIOS",
+        "path": ".work/engine-cleanhouse/ZipVoiceEngineIOS",
+        "product": "ZipVoiceEngineIOS",
+        "ref": "main",
+        "repository": "Ashtabula/ZipVoice",
+        "status": "PASS"
+      },
+      {
+        "commit": "1c7e1902e29528ca7508bc5dc73aff972436a0e2",
+        "id": "omnivoice",
+        "packageAlias": "OmniVoiceEngineIOS",
+        "path": ".work/engine-cleanhouse/OmniVoiceEngineIOS",
+        "product": "OmniVoiceEngineIOS",
+        "ref": "main",
+        "repository": "Ashtabula/OmniVoice",
+        "status": "PASS"
+      },
+      {
+        "commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+        "id": "cosyvoice3",
+        "packageAlias": "CosyVoice3iOS",
+        "path": ".work/engine-cleanhouse/CosyVoice3iOS",
+        "product": "CosyVoice3Core",
+        "ref": "codex/cosyvoice-rebuilt-profiles-20261006",
+        "repository": "Ashtabula/Cosyvoice",
+        "status": "PASS"
+      },
+      {
+        "commit": "1e8ee9b2761bee09320beef382d4912200aa4887",
+        "id": "voxcpm15",
+        "packageAlias": "VoxCPM15EngineIOS",
+        "path": ".work/engine-cleanhouse/VoxCPM15EngineIOS",
+        "product": "VoxCPM15EngineIOS",
+        "ref": "experiment/ctx512-final-prefill",
+        "repository": "Ashtabula/VoxCPM_NPU",
+        "status": "PASS"
+      }
+    ],
+    "recordedAtUTC": "2026-10-07T03:15:31.648293+00:00",
+    "schemaVersion": 1
+  },
+  "scope": "captured before final signed Release build, exact dirty Demo inputs; not reconstructed after physical run"
+}

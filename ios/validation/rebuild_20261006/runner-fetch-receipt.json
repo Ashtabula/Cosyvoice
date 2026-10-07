@@ -1,0 +1,15 @@
+{
+  "status": "PASS_IMMUTABLE_REMOTE_COLLECTION_BYTES",
+  "engineID": "cosyvoice",
+  "revision": "c16f38383fa261bfed317fbec2fad2c4115d690c",
+  "collectionTreeSha256": "47958326989cca9ad26fe3001b03d858c205cdfa19bd5f60d19b40e16f6e54a1",
+  "profiles": [
+    "current",
+    "q8",
+    "hybrid_q4"
+  ],
+  "runtimeRoot": "/Volumes/WD/Codes/Demo/Clean/rebuild-20261006/hf-publication/clean-redownload/ios-weight-profiles-current-q8-q4hybrid/0.3.1-rc1",
+  "verifiedFiles": 204,
+  "conversionPerformed": false,
+  "scope": "HF snapshot_download at exact immutable revision"
+}
