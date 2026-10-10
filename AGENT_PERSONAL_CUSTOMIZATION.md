@@ -121,3 +121,8 @@ Static production code-path audit and reviewable findings precede runtime change
 ## 2026-10-06 本次资产重建授权（仅限当前任务）
 
 用户已明确确认“包括”重建、物理重验证及通过门槛后的 HF 上传。原 validated collection 误删除；上一轮缺失资产报告不改写。允许按 frozen provenance/recipes 分环境重建 Current/Q8/Hybrid Q4，禁止 Full-Q4 prefill。Current host gate 通过前不执行 Q8/Hybrid 转换；新 bytes 记录实际新 hashes，历史物理/ANE/HUMAN_PASS 不自动继承。必须新物理验证；输出无法证明与批准语音精确等价时提供实际 WAV 并等待用户 HUMAN_PASS；所有必需门槛通过后才创建新 immutable HF revision，再 clean re-download核验；之后才更新正式 SDK/Runner 身份。Current 默认不变，不运行最终长 benchmark。此前阶段“禁止量化/HF”等规则在本次明确授权范围内由用户指令取代，其他约束保持。
+
+
+## ChatGPT–Codex development executor workflow
+
+使用全局 `~/.agents/skills/development-executor/SKILL.md`，仅执行明确调用或已经审核批准的 handoff。不同项目保持各自目录，任务、实验分支、资产及报告不得跨仓库混用。具体目录映射与调用方式见本项目 `AGENTS.md`。本地 Mac 执行和验证；不得激活 GitHub CI、自动合并 main、force-push、删除分支、覆盖未提交工作、伪造结果或代替人工接受听音。只执行批准范围，push 需明确授权及 CI suppression 核查，生成 Markdown/JSON 报告后交回 ChatGPT review。安装验证不得执行 NEXT_STEP 或昂贵 benchmark。

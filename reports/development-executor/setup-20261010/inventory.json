@@ -1,0 +1,200 @@
+{
+  "scope": "bounded depth 5 in /Volumes/WD/Code and /Volumes/WD/Codes; not a full-disk inventory",
+  "repositories": [
+    {
+      "path": "/Volumes/WD/Code/NPU_bookreader",
+      "remote": "https://github.com/Ashtabula/NPU_bookreader.git",
+      "branch": "feat/ios-4way-distilled-benchmark-20260920",
+      "head": "122141d3492ee931ee6188d9d7ee59cf22529d1c",
+      "tracked_changes": 81,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Code/video_player",
+      "remote": "https://github.com/Ashtabula/video_player.git",
+      "branch": "main",
+      "head": "e93b3e520a82d7da2545ac275ef7a204de22137f",
+      "tracked_changes": 68,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md",
+        "REQUIREMENTS.md",
+        "npu-bookreader/AGENT_PERSONAL_CUSTOMIZATION.md",
+        "npu-bookreader/REQUIREMENTS.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Code/LabNote",
+      "remote": "https://github.com/Ashtabula/LabNote.git",
+      "branch": "ios/asr-three-engine-benchmark-20261008",
+      "head": "b4ef7c7b09dcd8f349f524e00816d53b32e3b915",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Code/NPU_bookreader-g6.incoming-20260926-092806",
+      "remote": "https://github.com/Ashtabula/NPU_bookreader.git",
+      "branch": "feat/g6-bulk-txt-local-20260925",
+      "head": "4f986fc7367bb2c35be8bc62fb1e5a478b6937e9",
+      "tracked_changes": 70,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/Demo",
+      "remote": "https://github.com/Ashtabula/NPU_engines_Demo.git",
+      "branch": "codex/e2e-reading-six-way-repair-20261007",
+      "head": "bda077e65845bca431a69c394690a41b085baac9",
+      "tracked_changes": 32,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/VoxCPM15-native-repair-20261007",
+      "remote": "https://github.com/Ashtabula/VoxCPM_NPU.git",
+      "branch": "codex/vox15-prefill-input-capture-20261007",
+      "head": "ed347d2fba9ef98ad6946664c23e9797b49caf31",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/vox-e2e-diagnostics-20261007",
+      "remote": "https://github.com/Ashtabula/VoxCPM_NPU.git",
+      "branch": "experiment/ctx512-final-prefill",
+      "head": "6d4615723b30fd25c3e8899836148487ad642480",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/vox15-reliability-sdk-20261007",
+      "remote": "https://github.com/Ashtabula/VoxCPM_NPU.git",
+      "branch": "codex/vox15-native-reliability-20261007",
+      "head": "562983f7752120368d3b9ddfacb3216c0c0021d5",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/vox15-prefill-shape-sdk-20261007",
+      "remote": "https://github.com/Ashtabula/VoxCPM_NPU.git",
+      "branch": "codex/vox15-prefill-shape-reproducer-20261007",
+      "head": "8b889da83d1cf3eca3db18c64943179d686759ea",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Demo/Clean/vox15-reliability-demo-20261007",
+      "remote": "https://github.com/Ashtabula/NPU_engines_Demo.git",
+      "branch": "codex/vox15-native-reliability-20261007",
+      "head": "d93bec427569582320ecaa1f1ac4ceb98d661f2a",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/.work/development-executor-setup-20261010",
+      "remote": "https://github.com/Ashtabula/Cosyvoice.git",
+      "branch": "setup/development-executor-20261010",
+      "head": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice/.work/vox2-publish",
+      "remote": "https://github.com/Ashtabula/VOX2.git",
+      "branch": "main",
+      "head": "e6ce2190c972e9a50e0d139c7bc075531dd71195",
+      "tracked_changes": 0,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/Cosyvoice",
+      "remote": "https://github.com/Ashtabula/Cosyvoice.git",
+      "branch": "experiment/voxcpm2-rebuild-20261007",
+      "head": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+      "tracked_changes": 1146,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/VoxCPM_NPU",
+      "remote": "https://github.com/Ashtabula/VoxCPM_NPU.git",
+      "branch": "experiment/ctx512-final-prefill",
+      "head": "da777b28db95396445393f64d765989c15ca9f8e",
+      "tracked_changes": 63,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [
+        "AGENT_PERSONAL_CUSTOMIZATION.md"
+      ],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/dub/dub_ios/NPU_engines",
+      "remote": "https://github.com/Ashtabula/NPU_engines.git",
+      "branch": "main",
+      "head": "33a7fbe0d96e5a09d37618ee2a973bba0148658d",
+      "tracked_changes": 146,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/dub/dub_ios",
+      "remote": "https://github.com/Ashtabula/dub.git",
+      "branch": "dub_ios",
+      "head": "ba34c28884fdc0816f6ee661cce1196aea57bd16",
+      "tracked_changes": 4,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    },
+    {
+      "path": "/Volumes/WD/Codes/NPU_engines",
+      "remote": "https://github.com/Ashtabula/NPU_engines.git",
+      "branch": "main",
+      "head": "13f9e8bdd3229f0d3817f293ad6cf6120569096a",
+      "tracked_changes": 155,
+      "status_scope": "tracked only; untracked outputs not enumerated",
+      "instructions": [],
+      "handoff_paths": []
+    }
+  ]
+}

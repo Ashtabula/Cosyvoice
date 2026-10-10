@@ -1,0 +1,17 @@
+{
+  "method": "skills/list",
+  "forceReload": true,
+  "codex_version": "0.160.0",
+  "new_engineering_session_started": false,
+  "matches": [
+    {
+      "name": "development-executor",
+      "description": "Execute ChatGPT-approved GitHub engineering handoffs on the local Mac, validate changes, and return evidence reports for ChatGPT review. Use only when explicitly requested or when a clearly approved handoff requires local execution; never choose a new engineering direction.",
+      "path": "/Users/ziqizhu/.agents/skills/development-executor/SKILL.md",
+      "scope": "user",
+      "enabled": true,
+      "pluginId": null
+    }
+  ],
+  "status": "PASS"
+}

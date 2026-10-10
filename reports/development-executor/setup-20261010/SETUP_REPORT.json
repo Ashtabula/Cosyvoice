@@ -1,0 +1,266 @@
+{
+  "schema_version": 1,
+  "task_id": "DEVELOPMENT-EXECUTOR-SETUP-20261010",
+  "time": "2026-10-10T14:25:22.572958-04:00",
+  "repository": {
+    "path": "/Volumes/WD/Codes/Cosyvoice/.work/development-executor-setup-20261010",
+    "remote": "https://github.com/Ashtabula/Cosyvoice.git",
+    "branch": "setup/development-executor-20261010",
+    "base_commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+    "tested_commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
+    "submitted_commit": null
+  },
+  "instructions": {
+    "source": "APPROVED_SETUP_REQUEST.md",
+    "ref": "user message in this local session",
+    "sha256": "12e16c38d9d90b761660827d74d9acf3ecc10c0a21de03d90d0c603110612d6d",
+    "exact_text_or_snapshot": "APPROVED_SETUP_REQUEST.md",
+    "approval_evidence": "User explicitly requested setup; explicitly excluded executing NEXT_STEP, expensive benchmarks and unauthorized push",
+    "acceptance_criteria": [
+      "Global skill installed and actually discovered",
+      "Original instructions/configuration/worktree preserved",
+      "Per-project handoffs and report contract available",
+      "Local iOS tools detectable",
+      "No CI activated by setup"
+    ]
+  },
+  "execution_location": "local Mac and read-only GitHub API inspection",
+  "changed_source_files": [],
+  "changed_other_files": [
+    "AGENTS.md",
+    "AGENT_PERSONAL_CUSTOMIZATION.md",
+    "历史工作记录.txt",
+    "workflow/NEXT_STEP.md",
+    "workflow/FINAL_REPORT.md",
+    "workflow/REVIEW.md",
+    "reports/development-executor/setup-20261010/"
+  ],
+  "implementation_summary": "Installed reusable local executor skill/report contract; appended global and project instructions; created project-isolated draft/review/report handoffs on dedicated setup branch. No application changes.",
+  "commands": [
+    {
+      "command": "sw_vers; uname -m; codex --version",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    },
+    {
+      "command": "xcode-select -p; xcodebuild -version; xcodebuild -showsdks",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    },
+    {
+      "command": "xcrun devicectl list devices; security find-identity -v -p codesigning (read-only outside sandbox retry)",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    },
+    {
+      "command": "xcrun devicectl device info details --device 00008150-000A05CA1440401C",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    },
+    {
+      "command": "ios/.work/voxcpm2/coreml-env/bin/python /Users/ziqizhu/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/ziqizhu/.agents/skills/development-executor",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "VALIDATION.json"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3.12 /private/tmp/development-executor-setup/check_discovery.py (outside sandbox)",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "discovery.json"
+    },
+    {
+      "command": "gh api repos/Ashtabula/Cosyvoice/contents --jq .[].name; gh api repos/Ashtabula/VOX2/contents --jq .[].name (outside sandbox)",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    },
+    {
+      "command": "gh api repos/Ashtabula/Cosyvoice/actions/workflows (read-only)",
+      "cwd": "/Volumes/WD/Codes/Cosyvoice",
+      "exit_code": 0,
+      "status": "PASS",
+      "log_path": "SETUP_REPORT.md"
+    }
+  ],
+  "tests": [
+    {
+      "name": "original_status_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_head_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_branch_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_index_preserved",
+      "status": "PASS",
+      "evidence": "380f31562f3258b8077d3315127a386ffdaaef8ac122394e426b8516bbeadf88",
+      "reason": null
+    },
+    {
+      "name": "config_toml_byte_preservation",
+      "status": "PASS",
+      "evidence": "b119570ae2b9f39ebc830850e65ce145f21f03f85954ed8872a40dea04a2fee2",
+      "reason": null
+    },
+    {
+      "name": "global_instructions_original_prefix_preserved",
+      "status": "PASS",
+      "evidence": "c1114676c96035bec91ae641c75cce67091db6626e7eafbce7e1d9a3a262c3da",
+      "reason": null
+    },
+    {
+      "name": "skill_frontmatter",
+      "status": "PASS",
+      "evidence": "Bundled quick_validate.py executed successfully on installed skill; Skill is valid!",
+      "reason": null
+    },
+    {
+      "name": "codex_skill_discovery",
+      "status": "PASS",
+      "evidence": "discovery.json: actual local app-server skills/list forceReload=true, user scope, enabled=true",
+      "reason": null
+    },
+    {
+      "name": "repository_remote",
+      "status": "PASS",
+      "evidence": "https://github.com/Ashtabula/Cosyvoice.git",
+      "reason": "Remote configuration and read-only GitHub API access confirmed; push not attempted"
+    },
+    {
+      "name": "instructions_and_handoff_readable",
+      "status": "PASS",
+      "evidence": "All 5 project instruction/handoff files read successfully; global AGENTS readable",
+      "reason": null
+    },
+    {
+      "name": "ci_definitions_unchanged",
+      "status": "PASS",
+      "evidence": {
+        ".github/workflows/cosyvoice-ios-sdk.yml": "0cea9c066f3d630a5181f86104c3a77737fc9c0052ae37896aa63e83d9ec443e",
+        ".github/workflows/lint.yml": "5848d8af61fbea383d1b1f6d3b1b46de0d9fc48e6b17907c6c5cc0c5cc6f51e5",
+        ".github/workflows/stale-issues.yml": "6dabd5089d955e13705af7463234418a8d01c09da66da372784a50e0ac18aaff"
+      },
+      "reason": "No push, PR, dispatch or CI settings mutation. Three existing remote workflows are already active; retained."
+    },
+    {
+      "name": "application_build_and_tests",
+      "status": "SKIPPED",
+      "evidence": null,
+      "reason": "Installation-only; no application source changed"
+    },
+    {
+      "name": "physical_iphone_build_install_launch_inference",
+      "status": "NOT_TESTED",
+      "evidence": null,
+      "reason": "Only device/tools/signing detected; no device workload executed"
+    },
+    {
+      "name": "existing_next_step_and_expensive_benchmarks",
+      "status": "SKIPPED",
+      "evidence": null,
+      "reason": "Explicit installation boundary"
+    },
+    {
+      "name": "github_write_access",
+      "status": "NOT_TESTED",
+      "evidence": null,
+      "reason": "No push authorization; read access does not prove write access"
+    }
+  ],
+  "device": {
+    "execution_status": "NOT_TESTED",
+    "detection_status": "PASS",
+    "model": "iPhone Air (iPhone18,4)",
+    "identifier": "00008150-000A05CA1440401C",
+    "os": "iOS 27.2 (24B5099f)",
+    "xcode": "27.2 (27B5019j)",
+    "sdk": "iOS 27.2",
+    "signing": "Four valid identities detected, two Apple Development; app/profile compatibility NOT_TESTED",
+    "binary_asset_identities": null,
+    "developer_mode": "Enabled",
+    "transport": "wired",
+    "pairing": "paired"
+  },
+  "performance": {
+    "status": "NOT_APPLICABLE",
+    "baseline": null,
+    "candidate": null,
+    "per_run": [],
+    "aggregate": null,
+    "comparison_binding": null
+  },
+  "memory": {
+    "status": "NOT_TESTED",
+    "metric": null,
+    "units": null,
+    "peak": null,
+    "evidence": null
+  },
+  "ane": {
+    "requested_placement": null,
+    "observed_residency": "UNKNOWN",
+    "evidence": null
+  },
+  "audio": {
+    "numerical_parity": "NOT_TESTED",
+    "pcm_identity": "NOT_TESTED",
+    "playback": "NOT_TESTED",
+    "human_listening": "NOT_APPLICABLE",
+    "human_evidence": null
+  },
+  "known_regressions": [],
+  "remaining_issues": [
+    "No engineering handoff approved; NEXT_STEP remains DRAFT",
+    "Setup not published; no push authorized",
+    "Current local experiment branch name is absent on GitHub; its fixed HEAD is accessible by GitHub API",
+    "Physical app signing/build/install and subjective listening remain task-specific untested gates",
+    "Other projects retain their independent existing instructions; repository-specific setup added only to current Cosyvoice project"
+  ],
+  "github": {
+    "status": "NOT_COMMITTED",
+    "push_authorized": false,
+    "branch": "setup/development-executor-20261010",
+    "local_commit": null,
+    "remote_commit": null,
+    "report_urls": [],
+    "ci_activated": false,
+    "existing_active_workflows": [
+      "CosyVoice iOS SDK",
+      "Lint",
+      "Close inactive issues"
+    ]
+  },
+  "handoff": {
+    "status": "READY_FOR_CHATGPT_REVIEW",
+    "reviewer": "ChatGPT/human",
+    "required_actions": [
+      "Review setup report",
+      "Supply an approved task with exact repository, experiment branch, acceptance criteria and instruction identity",
+      "Authorize any future GitHub push separately"
+    ],
+    "next_direction_authorized": false
+  }
+}

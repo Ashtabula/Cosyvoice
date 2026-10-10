@@ -1,0 +1,75 @@
+{
+  "time": "2026-10-10T14:25:22.572958-04:00",
+  "checks": [
+    {
+      "name": "original_status_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_head_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_branch_preserved",
+      "status": "PASS",
+      "evidence": "SHA-256 of read-only Git output matched pre-install snapshot",
+      "reason": null
+    },
+    {
+      "name": "original_index_preserved",
+      "status": "PASS",
+      "evidence": "380f31562f3258b8077d3315127a386ffdaaef8ac122394e426b8516bbeadf88",
+      "reason": null
+    },
+    {
+      "name": "config_toml_byte_preservation",
+      "status": "PASS",
+      "evidence": "b119570ae2b9f39ebc830850e65ce145f21f03f85954ed8872a40dea04a2fee2",
+      "reason": null
+    },
+    {
+      "name": "global_instructions_original_prefix_preserved",
+      "status": "PASS",
+      "evidence": "c1114676c96035bec91ae641c75cce67091db6626e7eafbce7e1d9a3a262c3da",
+      "reason": null
+    },
+    {
+      "name": "skill_frontmatter",
+      "status": "PASS",
+      "evidence": "Bundled quick_validate.py executed successfully on installed skill; Skill is valid!",
+      "reason": null
+    },
+    {
+      "name": "codex_skill_discovery",
+      "status": "PASS",
+      "evidence": "discovery.json: actual local app-server skills/list forceReload=true, user scope, enabled=true",
+      "reason": null
+    },
+    {
+      "name": "repository_remote",
+      "status": "PASS",
+      "evidence": "https://github.com/Ashtabula/Cosyvoice.git",
+      "reason": "Remote configuration and read-only GitHub API access confirmed; push not attempted"
+    },
+    {
+      "name": "instructions_and_handoff_readable",
+      "status": "PASS",
+      "evidence": "All 5 project instruction/handoff files read successfully; global AGENTS readable",
+      "reason": null
+    },
+    {
+      "name": "ci_definitions_unchanged",
+      "status": "PASS",
+      "evidence": {
+        ".github/workflows/cosyvoice-ios-sdk.yml": "0cea9c066f3d630a5181f86104c3a77737fc9c0052ae37896aa63e83d9ec443e",
+        ".github/workflows/lint.yml": "5848d8af61fbea383d1b1f6d3b1b46de0d9fc48e6b17907c6c5cc0c5cc6f51e5",
+        ".github/workflows/stale-issues.yml": "6dabd5089d955e13705af7463234418a8d01c09da66da372784a50e0ac18aaff"
+      },
+      "reason": "No push, PR, dispatch or CI settings mutation. Three existing remote workflows are already active; retained."
+    }
+  ]
+}
