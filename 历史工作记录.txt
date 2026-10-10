@@ -976,3 +976,10 @@ Actions: Add non-destructive loop migration instructions; prepare existing devel
 Files: AGENTS.md, AGENT_PERSONAL_CUSTOMIZATION.md, append-only history.
 Validation: existing setup source/report commits preserved; no application/CI changes; commits include [skip ci].
 GitHub Timeline: prior commits local only; new commit/push preparing with explicit authorization.
+
+Time: 2026-10-10T19:29:14.573414Z UTC.
+Prompt: Push all setup changes/results.
+Actions: Committed and pushed dedicated setup branch; verified remote SHA and all changed blob identities; preserve source/default/experiment refs and unrelated work.
+Files: PUBLICATION_RECEIPT.json and append-only history; no application code changed.
+Validation: 14 changed files ALL_MATCH; zero Actions runs for setup commit; workflow trigger/suppression check PASS.
+GitHub Timeline: PUSHED_VERIFIED 4ec2658d82a9c6cbac1167b03d38605d7aee7979 on setup/development-executor-20261010; this receipt/history follow-up pending commit/push.

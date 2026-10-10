@@ -1,0 +1,26 @@
+{
+  "status": "PUSHED_VERIFIED",
+  "repository": "Ashtabula/Cosyvoice",
+  "branch": "setup/development-executor-20261010",
+  "commit": "4ec2658d82a9c6cbac1167b03d38605d7aee7979",
+  "verified_changed_files": 14,
+  "remote_blob_identity": "ALL_MATCH",
+  "ci_runs_for_setup_commit": 0,
+  "existing_workflow_events": {
+    ".github/workflows/cosyvoice-ios-sdk.yml": [
+      "push",
+      "pull_request"
+    ],
+    ".github/workflows/lint.yml": [
+      "pull_request",
+      "push"
+    ],
+    ".github/workflows/stale-issues.yml": [
+      "schedule"
+    ]
+  },
+  "url": "https://github.com/Ashtabula/Cosyvoice/tree/setup/development-executor-20261010",
+  "main_merge": false,
+  "force_push": false,
+  "time": "2026-10-10T19:29:14.572601Z"
+}
