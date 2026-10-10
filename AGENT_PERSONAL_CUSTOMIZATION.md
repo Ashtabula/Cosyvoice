@@ -126,3 +126,8 @@ Static production code-path audit and reviewable findings precede runtime change
 ## ChatGPT–Codex development executor workflow
 
 使用全局 `~/.agents/skills/development-executor/SKILL.md`，仅执行明确调用或已经审核批准的 handoff。不同项目保持各自目录，任务、实验分支、资产及报告不得跨仓库混用。具体目录映射与调用方式见本项目 `AGENTS.md`。本地 Mac 执行和验证；不得激活 GitHub CI、自动合并 main、force-push、删除分支、覆盖未提交工作、伪造结果或代替人工接受听音。只执行批准范围，push 需明确授权及 CI suppression 核查，生成 Markdown/JSON 报告后交回 ChatGPT review。安装验证不得执行 NEXT_STEP 或昂贵 benchmark。
+
+
+## loop migration
+
+The installed Mac executor entrypoint is now `$loop` at ~/.agents/skills/loop/SKILL.md; legacy development-executor is preserved but disabled. All starts/restarts route through ~/.local/bin/loop and its shared per-task gate. Technical backend files are English; interactive messages are Simplified Chinese. Full loop installation source and results are published separately in Ashtabula/VOX2 on setup/loop-mac-v0.1.3-20261010 under workflow/loop/setup/v0.1.3/. Existing project tasks/reports remain local to their own repository.

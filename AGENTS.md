@@ -21,3 +21,8 @@ Run builds/tests on the local Mac. Never activate GitHub Actions/CI, merge main 
 Use both Markdown and JSON reports as defined in the global Skill's `references/report-contract.md`. Record exact task/instruction identity, source/tested/submitted commits, changed files, commands and actual test dispositions, physical device/environment if tested, performance/memory/ANE/audio evidence when relevant, issues, and exact GitHub submission state. Build/host/simulator/device detection/MLComputePlan are separate evidence levels. Human listening remains pending until supplied by a human.
 
 Invoke from this project's checkout: `Use $development-executor. Execute only task <ID> from <approved path/URL and pinned revision/hash> on <experiment branch>. Push authorization: no. Stop after reports for ChatGPT review.`
+
+
+## loop migration
+
+The installed Mac executor entrypoint is now `$loop` at ~/.agents/skills/loop/SKILL.md; legacy development-executor is preserved but disabled. All starts/restarts route through ~/.local/bin/loop and its shared per-task gate. Technical backend files are English; interactive messages are Simplified Chinese. Full loop installation source and results are published separately in Ashtabula/VOX2 on setup/loop-mac-v0.1.3-20261010 under workflow/loop/setup/v0.1.3/. Existing project tasks/reports remain local to their own repository.
