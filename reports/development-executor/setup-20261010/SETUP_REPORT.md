@@ -32,7 +32,7 @@ Sandbox device query initially timed out waiting for CoreDeviceService; sandbox 
 
 Three remote workflows were already active: CosyVoice iOS SDK, Lint, Close inactive issues. They are unchanged. Setup did not enable/disable/dispatch Actions or activate CI by push/PR. Existing CI activation is not claimed absent. Future authorized publication must verify suppression of existing push/PR triggers; the Skill requires [skip ci] where supported and stops if suppression cannot be established.
 
-GitHub Timeline: NOT_COMMITTED at report generation; setup commit is the next installation step. No push authorization, no push attempt, no PR, no main merge. Read access is confirmed; write credentials/permissions NOT_TESTED. Final local commit SHA/status will be recorded in LOCAL_COMMIT_RECEIPT.json and the final response after actual commit. Reports are currently local; no GitHub report URL is claimed.
+GitHub Timeline: COMMITTED_NOT_PUSHED. Actual setup implementation commit: `4c5bcd4d791774aaa768a3fb39907eb5b243148e`. No push authorization, no push attempt, no PR, no main merge. Read access is confirmed; write credentials/permissions NOT_TESTED. LOCAL_COMMIT_RECEIPT.json binds this implementation commit; the final response gives the subsequent report/receipt commit SHA (a file cannot embed its own commit hash). Reports are currently local; no GitHub report URL is claimed.
 
 ## Handoff and first execution
 

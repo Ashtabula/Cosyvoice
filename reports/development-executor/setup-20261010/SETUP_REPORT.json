@@ -8,7 +8,8 @@
     "branch": "setup/development-executor-20261010",
     "base_commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
     "tested_commit": "6eb42045a61015b000e40b88d6a9da0a126efce8",
-    "submitted_commit": null
+    "submitted_commit": null,
+    "setup_implementation_commit": "4c5bcd4d791774aaa768a3fb39907eb5b243148e"
   },
   "instructions": {
     "source": "APPROVED_SETUP_REQUEST.md",
@@ -240,10 +241,10 @@
     "Other projects retain their independent existing instructions; repository-specific setup added only to current Cosyvoice project"
   ],
   "github": {
-    "status": "NOT_COMMITTED",
+    "status": "COMMITTED_NOT_PUSHED",
     "push_authorized": false,
     "branch": "setup/development-executor-20261010",
-    "local_commit": null,
+    "local_commit": "4c5bcd4d791774aaa768a3fb39907eb5b243148e",
     "remote_commit": null,
     "report_urls": [],
     "ci_activated": false,
@@ -251,7 +252,8 @@
       "CosyVoice iOS SDK",
       "Lint",
       "Close inactive issues"
-    ]
+    ],
+    "commit_note": "Implementation commit; report/receipt follow-up commit hash is provided in final response to avoid self-referential hash."
   },
   "handoff": {
     "status": "READY_FOR_CHATGPT_REVIEW",
